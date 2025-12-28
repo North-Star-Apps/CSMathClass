@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arithmetic Fluency — Fractions, Negatives, Exponents/Roots, Scientific Notation</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#111826;
+      --panel2:#0f1623;
+      --text:#e8eefc;
+      --muted:#b7c3dd;
+      --accent:#7aa2ff;
+      --accent2:#67e8f9;
+      --danger:#fb7185;
+      --ok:#34d399;
+      --border:#263247;
+      --code:#0b1220;
+      --shadow: 0 12px 24px rgba(0,0,0,.35);
+      --radius: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(122,162,255,.16), transparent 55%),
+                  radial-gradient(1000px 650px at 85% 15%, rgba(103,232,249,.12), transparent 55%),
+                  linear-gradient(180deg, var(--bg), #070a0f 45%, #06080c);
+      color:var(--text);
+      line-height:1.55;
+    }
+    header{
+      padding: 42px 18px 18px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border:1px solid var(--border);
+      background: rgba(17,24,38,.65);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 18px rgba(122,162,255,.5);
+    }
+    h1{
+      margin: 16px 0 10px;
+      font-size: clamp(26px, 3.2vw, 40px);
+      letter-spacing: -0.02em;
+    }
+    .sub{
+      color: var(--muted);
+      max-width: 95ch;
+      margin: 0 0 14px;
+    }
+
+    .wrap{
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 18px 60px;
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 1000px){
+      .wrap{ grid-template-columns: 1fr; }
+      .side{ position:static; }
+    }
+    .side{
+      position: sticky;
+      top: 16px;
+      align-self: start;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(17,24,38,.88), rgba(15,22,35,.88));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .card + .card{ margin-top: 12px; }
+
+    .toc a{
+      display:block;
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: var(--muted);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    .toc a:hover{
+      color: var(--text);
+      border-color: rgba(122,162,255,.35);
+      background: rgba(122,162,255,.08);
+    }
+    .small{
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .pillrow{ display:flex; gap:8px; flex-wrap:wrap; }
+    .pill{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--border);
+      background: rgba(11,18,32,.6);
+      padding: 6px 10px;
+      border-radius: 999px;
+      user-select:none;
+    }
+
+    main .section{
+      background: linear-gradient(180deg, rgba(17,24,38,.88), rgba(15,22,35,.88));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    h2{
+      margin: 0 0 8px;
+      font-size: 20px;
+      letter-spacing:-0.01em;
+    }
+    h3{
+      margin: 14px 0 6px;
+      font-size: 16px;
+      color: var(--text);
+    }
+    ul{ margin: 8px 0 8px 22px; }
+    .rule{
+      border-left: 3px solid rgba(103,232,249,.7);
+      background: rgba(103,232,249,.06);
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin: 10px 0;
+      color: var(--muted);
+    }
+    .math{
+      font-family: var(--mono);
+      background: rgba(11,18,32,.72);
+      border: 1px solid rgba(38,50,71,.85);
+      border-radius: 12px;
+      padding: 8px 10px;
+      display:inline-block;
+      margin: 4px 0;
+      color: #dbe7ff;
+      max-width: 100%;
+      overflow:auto;
+      white-space: nowrap;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    button{
+      cursor:pointer;
+      border-radius: 12px;
+      border:1px solid rgba(122,162,255,.35);
+      background: rgba(122,162,255,.12);
+      color: var(--text);
+      padding: 10px 12px;
+      font-weight: 600;
+    }
+    button:hover{ background: rgba(122,162,255,.18); }
+    button.secondary{
+      border-color: rgba(38,50,71,.9);
+      background: rgba(11,18,32,.55);
+      color: var(--muted);
+    }
+    button.secondary:hover{ background: rgba(11,18,32,.7); color: var(--text); }
+    button.danger{
+      border-color: rgba(251,113,133,.35);
+      background: rgba(251,113,133,.12);
+    }
+    .muted{ color: var(--muted); }
+    .divider{
+      height:1px;
+      background: rgba(38,50,71,.9);
+      margin: 12px 0;
+    }
+
+    /* Video area */
+    .videoWrap{
+      display:grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .videoWrap{ grid-template-columns: 1fr; }
+    }
+    .player{
+      border:1px solid rgba(38,50,71,.9);
+      background: rgba(11,18,32,.55);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .playerHeader{
+      padding: 10px 12px;
+      border-bottom:1px solid rgba(38,50,71,.9);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .playerTitle{
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .playerMeta{ font-size: 12px; color: var(--muted); }
+    iframe{
+      width:100%;
+      aspect-ratio: 16 / 9;
+      border:0;
+      display:block;
+      background:#000;
+    }
+    .vlist{
+      border:1px solid rgba(38,50,71,.9);
+      background: rgba(11,18,32,.55);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .vgroup{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(38,50,71,.9);
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .vgroup h4{
+      margin:0;
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: .01em;
+    }
+    .vitems{ padding: 8px; }
+    .vitem{
+      width:100%;
+      text-align:left;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border:1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .vitem:hover{
+      color: var(--text);
+      border-color: rgba(122,162,255,.35);
+      background: rgba(122,162,255,.08);
+    }
+    .vitem.active{
+      color: var(--text);
+      border-color: rgba(103,232,249,.45);
+      background: rgba(103,232,249,.08);
+    }
+    .vnum{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(103,232,249,.95);
+      margin-top: 2px;
+      min-width: 20px;
+    }
+    .vtxt{ min-width:0; }
+    .vname{
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 2px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .vdesc{
+      font-size: 12px;
+      color: var(--muted);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    /* Quiz */
+    .quizTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .statline{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .stat{
+      font-size: 12px;
+      color: var(--muted);
+      border:1px solid rgba(38,50,71,.9);
+      background: rgba(11,18,32,.55);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+    .qgrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .q{
+      border:1px solid rgba(38,50,71,.9);
+      background: rgba(11,18,32,.45);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .qhead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .qtitle{
+      font-weight: 800;
+      font-size: 14px;
+      margin:0;
+    }
+    .qtopic{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .qprompt{
+      margin: 8px 0 10px;
+      font-family: var(--mono);
+      color: #dbe7ff;
+      background: rgba(11,18,32,.7);
+      border:1px solid rgba(38,50,71,.85);
+      border-radius: 12px;
+      padding: 10px;
+      overflow:auto;
+      white-space: nowrap;
+    }
+    .qactions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    input[type="text"]{
+      width: min(520px, 100%);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(38,50,71,.95);
+      background: rgba(6,10,15,.9);
+      color: var(--text);
+      font-family: var(--mono);
+      outline:none;
+    }
+    input[type="text"]:focus{
+      border-color: rgba(103,232,249,.55);
+      box-shadow: 0 0 0 4px rgba(103,232,249,.12);
+    }
+    .result{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .result.ok{ color: var(--ok); }
+    .result.bad{ color: var(--danger); }
+    .reveal{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #dbe7ff;
+      background: rgba(103,232,249,.08);
+      border:1px solid rgba(103,232,249,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      display:inline-block;
+      margin-top: 8px;
+    }
+    footer{
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 18px 40px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    a.link{
+      color: rgba(103,232,249,.95);
+      text-decoration: none;
+    }
+    a.link:hover{ text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="badge"><span class="dot"></span> Arithmetic Fluency (Full Mini-Course + Videos + Auto-Checked Practice)</div>
+    <h1>Fractions • Negatives • Exponents/Roots • Scientific Notation</h1>
+    <p class="sub">
+      This page teaches the rules, the common traps, and then drills you with a 20-question practice set that checks your answers.
+      It also includes a curated YouTube video playlist inside the page (click any video to play).
+    </p>
+    <div class="pillrow">
+      <span class="pill">No sign mistakes</span>
+      <span class="pill">No fraction mistakes</span>
+      <span class="pill">Exponent rules locked in</span>
+      <span class="pill">Scientific notation fluent</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <aside class="side">
+      <div class="card toc">
+        <div class="small" style="margin-bottom:8px;font-weight:700;color:var(--text)">Contents</div>
+        <a href="#habits">0) Core habits</a>
+        <a href="#fractions">1) Fractions</a>
+        <a href="#negatives">2) Negatives</a>
+        <a href="#exponents">3) Exponents & roots</a>
+        <a href="#scientific">4) Scientific notation</a>
+        <a href="#gotchas">5) Gotcha checklist</a>
+        <a href="#videos">6) Video lessons</a>
+        <a href="#practice">7) Practice set (auto-check)</a>
+      </div>
+
+      <div class="card">
+        <div class="small" style="font-weight:700;color:var(--text);margin-bottom:8px">Practice controls</div>
+        <div class="btnrow">
+          <button class="secondary" id="btnCheckAll" type="button">Check All</button>
+          <button class="secondary" id="btnRevealAll" type="button">Reveal All</button>
+          <button class="secondary" id="btnClear" type="button">Clear Inputs</button>
+          <button class="danger" id="btnResetStats" type="button">Reset Stats</button>
+        </div>
+        <div class="divider"></div>
+        <div class="small">
+          Tip: For answers, you can type <span class="math">5/6</span>, <span class="math">1 7/8</span>,
+          <span class="math">1.2e8</span>, or <span class="math">1.2*10^8</span>.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="small" style="font-weight:700;color:var(--text);margin-bottom:8px">Saved stats (this browser)</div>
+        <div class="statline">
+          <span class="stat" id="statAttempted">Attempted: 0</span>
+          <span class="stat" id="statCorrect">Correct: 0</span>
+          <span class="stat" id="statAccuracy">Accuracy: 0%</span>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="section" id="habits">
+        <h2>0) Core habits of fluency</h2>
+        <ul>
+          <li><b>Rewrite</b> the expression into a clear form (especially signs, fractions, powers).</li>
+          <li><b>Use rules</b> (identities) instead of “figuring it out” each time.</li>
+          <li><b>Sanity-check</b>: sign (+/−), rough magnitude (big/small), and whether it’s even possible (e.g., √(negative)).</li>
+        </ul>
+        <div class="rule">
+          If you consistently miss problems, it’s usually one of these:
+          (1) sign handling, (2) common denominator, (3) exponent rules, (4) scientific notation alignment.
+        </div>
+      </section>
+
+      <section class="section" id="fractions">
+        <h2>1) Fractions</h2>
+
+        <h3>1.1 Meaning</h3>
+        <div class="math">a/b means a ÷ b (b ≠ 0)</div>
+
+        <h3>1.2 Equivalent fractions</h3>
+        <div class="math">a/b = (ka)/(kb) (k ≠ 0)</div>
+
+        <h3>1.3 Simplify (reduce)</h3>
+        <div class="rule">Divide numerator and denominator by the greatest common factor (GCF).</div>
+        <div class="math">24/36 = (24÷12)/(36÷12) = 2/3</div>
+
+        <h3>1.4 Compare fractions</h3>
+        <div class="rule">Cross-multiply (for positive denominators): compare <span class="math">ad</span> vs <span class="math">bc</span>.</div>
+        <div class="math">5/8 ? 2/3 → 5·3=15, 2·8=16 → 5/8 &lt; 2/3</div>
+
+        <h3>1.5 Add/subtract</h3>
+        <div class="rule">You need a common denominator.</div>
+        <div class="math">a/b + c/d = (ad+bc)/(bd)</div>
+        <div class="math">2/3 + 1/6 = 4/6 + 1/6 = 5/6</div>
+
+        <h3>1.6 Multiply</h3>
+        <div class="rule">Multiply tops and bottoms; cancel before multiplying when possible.</div>
+        <div class="math">(a/b)(c/d) = (ac)/(bd)</div>
+
+        <h3>1.7 Divide</h3>
+        <div class="rule">Divide by a fraction = multiply by its reciprocal.</div>
+        <div class="math">(a/b) ÷ (c/d) = (a/b)(d/c)</div>
+
+        <h3>1.8 Mixed numbers</h3>
+        <div class="math">m p/q = (mq+p)/q</div>
+        <div class="math">2 3/5 = (2·5+3)/5 = 13/5</div>
+      </section>
+
+      <section class="section" id="negatives">
+        <h2>2) Negatives (signed numbers)</h2>
+
+        <h3>2.1 Subtraction is “add the opposite”</h3>
+        <div class="math">a − b = a + (−b)</div>
+
+        <h3>2.2 Add/subtract rules</h3>
+        <ul>
+          <li><b>Same sign</b>: add magnitudes, keep sign → <span class="math">(-7)+(-5)=-12</span></li>
+          <li><b>Different signs</b>: subtract magnitudes, keep sign of bigger magnitude → <span class="math">(-9)+4=-5</span></li>
+          <li>Subtracting a negative flips to plus → <span class="math">5 − (−3)=8</span></li>
+        </ul>
+
+        <h3>2.3 Multiply/divide signs</h3>
+        <div class="rule">Same signs → positive. Different signs → negative.</div>
+        <div class="math">(-)(-)=(+), (+)(-) = (-)</div>
+
+        <h3>2.4 Absolute value</h3>
+        <div class="math">|x| = distance from 0</div>
+
+        <h3>2.5 Classic trap</h3>
+        <div class="rule"><span class="math">-3^2 = -(3^2) = -9</span> but <span class="math">(-3)^2 = 9</span></div>
+      </section>
+
+      <section class="section" id="exponents">
+        <h2>3) Exponents and roots</h2>
+
+        <h3>3.1 Meaning</h3>
+        <div class="math">a^n = a·a·...·a (n times)</div>
+
+        <h3>3.2 Exponent rules (memorize)</h3>
+        <div class="grid2">
+          <div>
+            <div class="math">a^m · a^n = a^(m+n)</div><br/>
+            <div class="math">a^m / a^n = a^(m−n)</div><br/>
+            <div class="math">(a^m)^n = a^(mn)</div>
+          </div>
+          <div>
+            <div class="math">(ab)^n = a^n b^n</div><br/>
+            <div class="math">(a/b)^n = a^n / b^n</div><br/>
+            <div class="math">a^0=1, a^(−n)=1/a^n</div>
+          </div>
+        </div>
+
+        <h3>3.3 Fractional exponents (roots)</h3>
+        <div class="math">a^(1/n) = ⁿ√a</div><br/>
+        <div class="math">a^(m/n) = ⁿ√(a^m) = (ⁿ√a)^m</div>
+
+        <h3>3.4 Even vs odd roots with negatives (real numbers)</h3>
+        <ul>
+          <li><b>Even root</b> of negative is not real: <span class="math">√(-9)</span> (not real)</li>
+          <li><b>Odd root</b> of negative is real: <span class="math">∛(-8)=-2</span></li>
+        </ul>
+      </section>
+
+      <section class="section" id="scientific">
+        <h2>4) Scientific notation</h2>
+
+        <h3>4.1 Format</h3>
+        <div class="math">a × 10^n, where 1 ≤ |a| &lt; 10 and n is an integer</div>
+
+        <h3>4.2 Convert (decimal moves)</h3>
+        <ul>
+          <li>Move decimal <b>left</b> → <b>n positive</b> (number gets bigger)</li>
+          <li>Move decimal <b>right</b> → <b>n negative</b> (number gets smaller)</li>
+        </ul>
+        <div class="math">12300 = 1.23 × 10^4</div><br/>
+        <div class="math">0.0051 = 5.1 × 10^(-3)</div>
+
+        <h3>4.3 Multiply/divide</h3>
+        <div class="math">(a×10^m)(b×10^n) = (ab)×10^(m+n)</div><br/>
+        <div class="math">(a×10^m)/(b×10^n) = (a/b)×10^(m−n)</div>
+
+        <h3>4.4 Add/subtract</h3>
+        <div class="rule">You must match the exponent first.</div>
+        <div class="math">3.2×10^5 + 4.5×10^4 = 3.2×10^5 + 0.45×10^5 = 3.65×10^5</div>
+      </section>
+
+      <section class="section" id="gotchas">
+        <h2>5) Gotcha checklist (the top mistakes)</h2>
+        <ul>
+          <li><b>Exponent + negative sign:</b> <span class="math">-3^2=-9</span> vs <span class="math">(-3)^2=9</span></li>
+          <li><b>Subtracting a negative:</b> <span class="math">a-(-b)=a+b</span></li>
+          <li><b>Adding fractions:</b> must use common denominators (never add tops & bottoms directly)</li>
+          <li><b>Negative exponent:</b> means reciprocal: <span class="math">2^-3=1/8</span></li>
+          <li><b>Scientific notation addition:</b> exponents must match first</li>
+        </ul>
+      </section>
+
+      <section class="section" id="videos">
+        <h2>6) Really good YouTube lessons (click to play)</h2>
+        <p class="muted" style="margin-top:0">
+          The left side is the player. The right side is a curated list by topic (concept-first + practice-heavy).
+        </p>
+
+        <div class="videoWrap">
+          <div class="player">
+            <div class="playerHeader">
+              <div style="min-width:0">
+                <div class="playerTitle" id="playerTitle">Loading…</div>
+                <div class="playerMeta" id="playerMeta"></div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+                <a class="link" id="openOnYouTube" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube</a>
+              </div>
+            </div>
+            <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+
+          <div class="vlist" id="videoList"></div>
+        </div>
+      </section>
+
+      <section class="section" id="practice">
+        <h2>7) Practice set (auto-check)</h2>
+        <div class="quizTop">
+          <div class="muted">Type answers and press <b>Check</b>. Your accuracy saves to your browser.</div>
+          <div class="statline">
+            <span class="stat" id="statSession">This session: 0/0</span>
+          </div>
+        </div>
+
+        <div class="rule">
+          Input formats accepted: <span class="math">5/6</span>, <span class="math">1 7/8</span>, <span class="math">1.2e8</span>,
+          <span class="math">1.2*10^8</span>, <span class="math">0.00506</span>.
+        </div>
+
+        <div class="qgrid" id="quiz"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    Built as a single-file HTML. Save as <span class="math">arithmetic-fluency.html</span> and open in your browser.
+  </footer>
+
+  <script>
+    // -----------------------------
+    // Utility: gcd / fraction reduce
+    // -----------------------------
+    function gcd(a, b){
+      a = Math.abs(a); b = Math.abs(b);
+      while(b !== 0){ const t = a % b; a = b; b = t; }
+      return a;
+    }
+    function reduceFrac(n, d){
+      if (d === 0) return {n: NaN, d: NaN};
+      if (d < 0){ n = -n; d = -d; }
+      const g = gcd(n, d);
+      return { n: n / g, d: d / g };
+    }
+
+    // -----------------------------
+    // Parsing: supports
+    //  - integer/decimal
+    //  - fraction "a/b"
+    //  - mixed "m a/b"
+    //  - scientific "1.2e8" or "1.2*10^8" or "1.2×10^8"
+    // Returns { kind: 'number'|'fraction', value: number, frac?: {n,d} }
+    // -----------------------------
+    function normalizeInput(s){
+      if (!s) return "";
+      return s
+        .trim()
+        .replace(/\u2212/g, "-")     // unicode minus
+        .replace(/\s+/g, " ")
+        .replace(/×/g, "*")
+        .replace(/X/g, "*")
+        .replace(/,/g, "");
+    }
+
+    function parseFrac(str){
+      // expects "a/b" with optional leading sign
+      const m = str.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
+      if (!m) return null;
+      const n = parseInt(m[1], 10);
+      const d = parseInt(m[2], 10);
+      if (d === 0) return null;
+      return reduceFrac(n, d);
+    }
+
+    function parseMixed(str){
+      // "m a/b" where m integer (can be negative), a/b positive-ish
+      const m = str.match(/^([+-]?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+      if (!m) return null;
+      const whole = parseInt(m[1], 10);
+      const n = parseInt(m[2], 10);
+      const d = parseInt(m[3], 10);
+      if (d === 0) return null;
+      const sign = whole < 0 ? -1 : 1;
+      const absWhole = Math.abs(whole);
+      const totalN = sign * (absWhole * d + n);
+      return reduceFrac(totalN, d);
+    }
+
+    function parseScientific(str){
+      // "a e n"
+      const e = str.match(/^([+-]?\d+(?:\.\d+)?)\s*e\s*([+-]?\d+)$/i);
+      if (e){
+        return parseFloat(e[1]) * Math.pow(10, parseInt(e[2],10));
+      }
+      // "a*10^n" variants
+      const t = str.match(/^([+-]?\d+(?:\.\d+)?)\s*\*\s*10\s*\^\s*([+-]?\d+)$/i);
+      if (t){
+        return parseFloat(t[1]) * Math.pow(10, parseInt(t[2],10));
+      }
+      return null;
+    }
+
+    function parseNumber(str){
+      const s = normalizeInput(str).toLowerCase();
+      if (!s) return null;
+
+      // Mixed number first
+      const mixed = parseMixed(s);
+      if (mixed) return { kind: "fraction", frac: mixed, value: mixed.n / mixed.d };
+
+      // Fraction
+      const frac = parseFrac(s);
+      if (frac) return { kind: "fraction", frac: frac, value: frac.n / frac.d };
+
+      // Scientific
+      const sci = parseScientific(s);
+      if (sci !== null && !Number.isNaN(sci)) return { kind: "number", value: sci };
+
+      // Plain number
+      const num = Number(s);
+      if (!Number.isFinite(num)) return null;
+      return { kind: "number", value: num };
+    }
+
+    function nearlyEqual(a, b, eps = 1e-10){
+      // scale eps by magnitude (helps with large scientific notation values)
+      const scale = Math.max(1, Math.abs(a), Math.abs(b));
+      return Math.abs(a - b) <= eps * scale;
+    }
+
+    // -----------------------------
+    // Quiz data (20 questions + answers)
+    // Each question accepts:
+    //  - exactFraction: {n,d}  OR
+    //  - exactNumber: number
+    //  - also acceptedStrings: array of normalized strings (optional)
+    // -----------------------------
+    const QUESTIONS = [
+      // Fractions
+      { id:1,  topic:"Fractions", prompt:"Simplify: 42/56", exactFraction:{n:3,d:4}, acceptedStrings:["3/4"] },
+      { id:2,  topic:"Fractions", prompt:"3/4 + 5/6", exactFraction:{n:19,d:12}, acceptedStrings:["19/12","1 7/12"] },
+      { id:3,  topic:"Fractions", prompt:"7/9 − 1/6", exactFraction:{n:11,d:18}, acceptedStrings:["11/18"] },
+      { id:4,  topic:"Fractions", prompt:"(5/12) · (18/25)", exactFraction:{n:3,d:10}, acceptedStrings:["3/10"] },
+      { id:5,  topic:"Fractions", prompt:"(3/5) ÷ (9/10)", exactFraction:{n:2,d:3}, acceptedStrings:["2/3"] },
+
+      // Negatives
+      { id:6,  topic:"Negatives", prompt:"−7 + 12", exactNumber:5, acceptedStrings:["5"] },
+      { id:7,  topic:"Negatives", prompt:"5 − (−13)", exactNumber:18, acceptedStrings:["18"] },
+      { id:8,  topic:"Negatives", prompt:"−4 − 9", exactNumber:-13, acceptedStrings:["-13"] },
+      { id:9,  topic:"Negatives", prompt:"(−6)(7)", exactNumber:-42, acceptedStrings:["-42"] },
+      { id:10, topic:"Negatives", prompt:"(−48)/(−6)", exactNumber:8, acceptedStrings:["8"] },
+
+      // Exponents / roots
+      { id:11, topic:"Exponents/Roots", prompt:"2^6", exactNumber:64, acceptedStrings:["64"] },
+      { id:12, topic:"Exponents/Roots", prompt:"5^7 / 5^3", exactNumber:625, acceptedStrings:["625","5^4"] },
+      { id:13, topic:"Exponents/Roots", prompt:"(3^2)^4", exactNumber:6561, acceptedStrings:["6561","3^8"] },
+      { id:14, topic:"Exponents/Roots", prompt:"16^(3/4)", exactNumber:8, acceptedStrings:["8"] },
+      { id:15, topic:"Exponents/Roots", prompt:"∛(−125)", exactNumber:-5, acceptedStrings:["-5"] },
+
+      // Scientific notation
+      { id:16, topic:"Scientific Notation", prompt:"Write 0.000091 in scientific notation", acceptedStrings:["9.1*10^-5","9.1×10^-5","9.1e-5","9.1*10^(-5)"] , exactNumber:0.000091 },
+      { id:17, topic:"Scientific Notation", prompt:"(6×10^4)(3×10^−2)", acceptedStrings:["1.8*10^3","1.8e3","1800"], exactNumber:1800 },
+      { id:18, topic:"Scientific Notation", prompt:"(9×10^7)/(3×10^3)", acceptedStrings:["3*10^4","3e4","30000"], exactNumber:30000 },
+      { id:19, topic:"Scientific Notation", prompt:"4.2×10^5 + 7.9×10^4", acceptedStrings:["4.99*10^5","4.99e5","499000"], exactNumber:499000 },
+      { id:20, topic:"Scientific Notation", prompt:"Write 5.06×10^−3 as a standard decimal", acceptedStrings:["0.00506"], exactNumber:0.00506 },
+    ];
+
+    function expectedText(q){
+      if (q.exactFraction){
+        const f = reduceFrac(q.exactFraction.n, q.exactFraction.d);
+        return `${f.n}/${f.d}`;
+      }
+      if (typeof q.exactNumber === "number"){
+        return String(q.exactNumber);
+      }
+      // else fallback to first accepted string
+      return q.acceptedStrings?.[0] ?? "";
+    }
+
+    function isCorrect(q, userStr){
+      const uNorm = normalizeInput(userStr).toLowerCase();
+      if (!uNorm) return { ok:false, reason:"empty" };
+
+      // Quick string accept
+      if (q.acceptedStrings && q.acceptedStrings.some(s => normalizeInput(s).toLowerCase() === uNorm)){
+        return { ok:true, reason:"string" };
+      }
+
+      const parsed = parseNumber(uNorm);
+      if (!parsed) return { ok:false, reason:"parse" };
+
+      // Fraction expected
+      if (q.exactFraction){
+        const ex = reduceFrac(q.exactFraction.n, q.exactFraction.d);
+        if (parsed.kind === "fraction"){
+          return { ok: (parsed.frac.n === ex.n && parsed.frac.d === ex.d), reason:"fraction" };
+        }
+        // allow numeric equivalence
+        return { ok: nearlyEqual(parsed.value, ex.n / ex.d), reason:"numeric" };
+      }
+
+      // Numeric expected
+      if (typeof q.exactNumber === "number"){
+        return { ok: nearlyEqual(parsed.value, q.exactNumber), reason:"numeric" };
+      }
+
+      // Otherwise, evaluate by numeric against value if present
+      if (typeof q.exactNumber === "number"){
+        return { ok: nearlyEqual(parsed.value, q.exactNumber), reason:"numeric2" };
+      }
+
+      return { ok:false, reason:"unknown" };
+    }
+
+    // -----------------------------
+    // Stats (persisted)
+    // -----------------------------
+    const LS_KEY = "arith_fluency_stats_v1";
+    function loadStats(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return { attempted:0, correct:0 };
+        const obj = JSON.parse(raw);
+        if (typeof obj.attempted !== "number" || typeof obj.correct !== "number") return { attempted:0, correct:0 };
+        return obj;
+      }catch{
+        return { attempted:0, correct:0 };
+      }
+    }
+    function saveStats(stats){
+      localStorage.setItem(LS_KEY, JSON.stringify(stats));
+    }
+    function renderStats(stats){
+      const acc = stats.attempted ? Math.round((stats.correct / stats.attempted) * 100) : 0;
+      document.getElementById("statAttempted").textContent = `Attempted: ${stats.attempted}`;
+      document.getElementById("statCorrect").textContent = `Correct: ${stats.correct}`;
+      document.getElementById("statAccuracy").textContent = `Accuracy: ${acc}%`;
+    }
+
+    // -----------------------------
+    // Render quiz UI
+    // -----------------------------
+    let sessionAttempted = 0;
+    let sessionCorrect = 0;
+
+    function renderSession(){
+      document.getElementById("statSession").textContent = `This session: ${sessionCorrect}/${sessionAttempted}`;
+    }
+
+    function makeQuestionEl(q){
+      const el = document.createElement("div");
+      el.className = "q";
+      el.dataset.qid = q.id;
+
+      el.innerHTML = `
+        <div class="qhead">
+          <div>
+            <div class="qtitle">Q${q.id}</div>
+            <div class="qtopic">${q.topic}</div>
+          </div>
+          <div class="pill" title="Topic">${q.topic}</div>
+        </div>
+
+        <div class="qprompt">${escapeHtml(q.prompt)}</div>
+
+        <div class="qactions">
+          <input type="text" placeholder="Type your answer…" aria-label="Answer input for question ${q.id}" />
+          <button type="button" class="secondary btnCheck">Check</button>
+          <button type="button" class="secondary btnShow">Show answer</button>
+        </div>
+
+        <div class="result" aria-live="polite"></div>
+        <div class="reveal" style="display:none"></div>
+      `;
+
+      const input = el.querySelector("input");
+      const res = el.querySelector(".result");
+      const rev = el.querySelector(".reveal");
+
+      el.querySelector(".btnCheck").addEventListener("click", () => {
+        const stats = loadStats();
+        const answer = input.value;
+
+        const verdict = isCorrect(q, answer);
+        sessionAttempted += 1;
+        stats.attempted += 1;
+
+        if (verdict.ok){
+          sessionCorrect += 1;
+          stats.correct += 1;
+          res.className = "result ok";
+          res.textContent = "✅ Correct";
+        }else{
+          res.className = "result bad";
+          const why =
+            verdict.reason === "empty" ? "Type an answer first." :
+            verdict.reason === "parse" ? "Couldn’t parse that format. Try 5/6 or 1.2e8 etc." :
+            "Not quite.";
+          res.textContent = `❌ Incorrect — ${why}`;
+        }
+
+        saveStats(stats);
+        renderStats(stats);
+        renderSession();
+      });
+
+      el.querySelector(".btnShow").addEventListener("click", () => {
+        rev.style.display = "inline-block";
+        rev.textContent = `Answer: ${expectedText(q)}`;
+      });
+
+      // Enter key triggers check
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter"){
+          el.querySelector(".btnCheck").click();
+        }
+      });
+
+      return el;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function renderQuiz(){
+      const quiz = document.getElementById("quiz");
+      quiz.innerHTML = "";
+      QUESTIONS.forEach(q => quiz.appendChild(makeQuestionEl(q)));
+    }
+
+    // Controls
+    document.getElementById("btnCheckAll").addEventListener("click", () => {
+      document.querySelectorAll(".q").forEach(qEl => {
+        qEl.querySelector(".btnCheck").click();
+      });
+    });
+
+    document.getElementById("btnRevealAll").addEventListener("click", () => {
+      document.querySelectorAll(".q").forEach(qEl => {
+        qEl.querySelector(".btnShow").click();
+      });
+    });
+
+    document.getElementById("btnClear").addEventListener("click", () => {
+      document.querySelectorAll(".q input").forEach(inp => inp.value = "");
+      document.querySelectorAll(".q .result").forEach(r => { r.className="result"; r.textContent=""; });
+      document.querySelectorAll(".q .reveal").forEach(rv => { rv.style.display="none"; rv.textContent=""; });
+      sessionAttempted = 0;
+      sessionCorrect = 0;
+      renderSession();
+    });
+
+    document.getElementById("btnResetStats").addEventListener("click", () => {
+      if (!confirm("Reset saved stats for this browser?")) return;
+      localStorage.removeItem(LS_KEY);
+      renderStats(loadStats());
+      sessionAttempted = 0;
+      sessionCorrect = 0;
+      renderSession();
+    });
+
+    // -----------------------------
+    // Video library (click-to-play)
+    // -----------------------------
+    const VIDEO_GROUPS = [
+      {
+        title: "Fractions (concept + operations)",
+        items: [
+          { title:"Khan Academy — Fraction basics (intro)", channel:"Khan Academy", vid:"kZzoVCmUyKg", why:"Conceptual intro (what a fraction is)." },
+          { title:"Math Antics — Fractions Are Parts", channel:"Math Antics", vid:"CA9XLJpQp3c", why:"Very clear visual intuition." },
+          { title:"Math Antics — Adding & Subtracting Fractions", channel:"Math Antics", vid:"5juto2ze8Lg", why:"Operations with good pacing." },
+        ]
+      },
+      {
+        title: "Negatives (integers + absolute value)",
+        items: [
+          { title:"Khan Academy — Negative numbers introduction", channel:"Khan Academy", vid:"u8UKdNdpkh4", why:"Number line intuition + basics." },
+          { title:"Khan Academy — Adding/subtracting negative examples", channel:"Khan Academy", vid:"Hlal9ME2Aig", why:"Clean worked examples." },
+          { title:"Organic Chemistry Tutor — Negatives: add/subtract/multiply/divide", channel:"The Organic Chemistry Tutor", vid:"CF7CPU8Ieyo", why:"Practice-heavy mastery session." },
+        ]
+      },
+      {
+        title: "Exponents & roots (rules + radicals)",
+        items: [
+          { title:"Khan Academy — Exponent rules (part 1)", channel:"Khan Academy", vid:"kITJ6qH7jS0", why:"Core exponent identities." },
+          { title:"PatrickJMT — Applying exponent rules (examples)", channel:"PatrickJMT", vid:"wsaH5CARIHI", why:"Fast, focused worked problems." },
+          { title:"Khan Academy — Simplifying radicals", channel:"Khan Academy", vid:"6QJtWfIiyZo", why:"Radical simplification patterns." },
+        ]
+      },
+      {
+        title: "Scientific notation (convert + operations)",
+        items: [
+          { title:"Khan Academy — Scientific notation examples", channel:"Khan Academy", vid:"i6lfVUp5RW8", why:"How/why it works + examples." },
+          { title:"Organic Chemistry Tutor — Scientific notation (intro + ops)", channel:"The Organic Chemistry Tutor", vid:"_BtzXojuM1o", why:"A lot of practice problems." },
+          { title:"Khan Academy — Multiply/divide in scientific notation", channel:"Khan Academy", vid:"mWj4nV9sHqY", why:"Operations with powers of 10." },
+        ]
+      }
+    ];
+
+    // Note: Some Khan Academy videos have multiple uploads; if a specific ID ever breaks,
+    // replace it with a current YouTube ID for the same lesson title.
+
+    function renderVideoList(){
+      const container = document.getElementById("videoList");
+      container.innerHTML = "";
+
+      let globalIndex = 0;
+      VIDEO_GROUPS.forEach((group, gi) => {
+        const g = document.createElement("div");
+        g.innerHTML = `
+          <div class="vgroup">
+            <h4>${escapeHtml(group.title)}</h4>
+            <span class="pill">${group.items.length} videos</span>
+          </div>
+          <div class="vitems"></div>
+        `;
+        const itemsEl = g.querySelector(".vitems");
+
+        group.items.forEach((item) => {
+          globalIndex += 1;
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "vitem";
+          b.dataset.vid = item.vid;
+          b.dataset.title = item.title;
+          b.dataset.channel = item.channel;
+          b.dataset.why = item.why;
+
+          b.innerHTML = `
+            <div class="vnum">${globalIndex}</div>
+            <div class="vtxt">
+              <div class="vname">${escapeHtml(item.title)}</div>
+              <div class="vdesc">${escapeHtml(item.channel)} — ${escapeHtml(item.why)}</div>
+            </div>
+          `;
+          b.addEventListener("click", () => setVideo(item.vid, item.title, item.channel, item.why, b));
+          itemsEl.appendChild(b);
+        });
+
+        container.appendChild(g);
+      });
+
+      // Auto-load first video
+      const first = VIDEO_GROUPS[0].items[0];
+      const firstBtn = container.querySelector(".vitem");
+      setVideo(first.vid, first.title, first.channel, first.why, firstBtn);
+    }
+
+    function setVideo(vid, title, channel, why, btnEl){
+      // Mark active
+      document.querySelectorAll(".vitem").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+
+      const embed = `https://www.youtube.com/embed/${encodeURIComponent(vid)}?rel=0&modestbranding=1`;
+      const watch = `https://www.youtube.com/watch?v=${encodeURIComponent(vid)}`;
+
+      document.getElementById("ytPlayer").src = embed;
+      document.getElementById("playerTitle").textContent = title;
+      document.getElementById("playerMeta").textContent = `${channel} — ${why}`;
+      const link = document.getElementById("openOnYouTube");
+      link.href = watch;
+    }
+
+    // -----------------------------
+    // Init
+    // -----------------------------
+    renderQuiz();
+    renderVideoList();
+
+    const stats = loadStats();
+    renderStats(stats);
+    renderSession();
+  </script>
+</body>
+</html>
