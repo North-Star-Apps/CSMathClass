@@ -222,8 +222,6 @@ document.getElementById('currentDay').textContent=cur;
 document.getElementById('search').addEventListener('input',render);
 document.getElementById('expandAll').addEventListener('click',()=>{document.querySelectorAll('.section-card').forEach(d=>d.open=true);state.openSections=curriculum.map((_,i)=>i);saveState();});
 document.getElementById('collapseAll').addEventListener('click',()=>{document.querySelectorAll('.section-card').forEach(d=>d.open=false);state.openSections=[];saveState();});
-document.getElementById('exportBtn').addEventListener('click',()=>{const b=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='math_cs_progress.json';a.click();URL.revokeObjectURL(u);});
-document.getElementById('importFile').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const t=await f.text();const p=JSON.parse(t);state={checked:p.checked||{},openSections:p.openSections||[]};saveState();render();}catch{alert('Import failed.');}e.target.value='';});
 document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('Reset all progress?'))return;state={checked:{},openSections:[0]};saveState();render();});
 document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='/')e.preventDefault(),document.getElementById('search').focus();else if(e.key==='e'||e.key==='E')document.getElementById('expandAll').click();else if(e.key==='c'||e.key==='C')document.getElementById('collapseAll').click();});
 render();
