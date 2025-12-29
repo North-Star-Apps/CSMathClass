@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 47: Randomized Algorithms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -124,10 +126,146 @@
             max-width: 640px
         }
 
-        .main {
-            max-width: 1000px;
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border)
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted)
+        }
+
+        .main-layout {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px 80px
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 48px
+        }
+
+        @media(max-width:900px) {
+            .main-layout {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                display: none
+            }
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start
+        }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px
+        }
+
+        .toc-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px
+        }
+
+        .toc-list {
+            list-style: none
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: all 0.15s
+        }
+
+        .toc-link:hover {
+            color: var(--text);
+            background: var(--surface-alt)
+        }
+
+        .toc-link.active {
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            border-left-color: var(--accent)
+        }
+
+        [data-theme="dark"] .toc-link.active {
+            color: var(--accent)
+        }
+
+        .stats-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-top: 16px
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 13px
+        }
+
+        .stats-label {
+            color: var(--text-muted)
+        }
+
+        .stats-value {
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--text)
+        }
+
+        .content {
+            min-width: 0
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted)
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease
         }
 
         .section {
@@ -324,41 +462,62 @@
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
-                id="themeToggle">🌙</button></div>
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">← Back</a>
+            <div class="nav-progress"><span id="progressText">0 / 0 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
     </nav>
     <header class="hero">
         <div class="hero-label">Day 47 · Algorithmic Math</div>
         <h1>Randomized Algorithms</h1>
         <p class="hero-desc">Use randomness to achieve simpler, faster, or more robust algorithms.</p>
     </header>
-    <main class="main">
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">01</div>
-                <h2 class="section-title">Types of Randomized Algorithms</h2>
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <div id="toc-container"></div>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
             </div>
-            <div class="section-body">
-                <div class="math-block">LAS VEGAS:
-                    • Always correct
-                    • Runtime is random (expected bounds)
-                    • Example: Randomized QuickSort
+        </aside>
+        <main class="content">
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <h2 class="section-title">Types of Randomized Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">LAS VEGAS:
+                        • Always correct
+                        • Runtime is random (expected bounds)
+                        • Example: Randomized QuickSort
 
-                    MONTE CARLO:
-                    • May be incorrect with small probability
-                    • Runtime is deterministic
-                    • Example: Miller-Rabin primality test</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">02</div>
-                <h2 class="section-title">Randomized QuickSort</h2>
-            </div>
-            <div class="section-body">
-                <div class="rule"><strong>Key insight:</strong> Random pivot selection avoids worst-case O(n²) on
-                    adversarial inputs.</div>
-                <pre>function quickSort(arr, lo = 0, hi = arr.length - 1) {
+                        MONTE CARLO:
+                        • May be incorrect with small probability
+                        • Runtime is deterministic
+                        • Example: Miller-Rabin primality test</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <h2 class="section-title">Randomized QuickSort</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule"><strong>Key insight:</strong> Random pivot selection avoids worst-case O(n²) on
+                        adversarial inputs.</div>
+                    <pre>function quickSort(arr, lo = 0, hi = arr.length - 1) {
     if (lo >= hi) return arr;
     
     // Random pivot selection
@@ -379,93 +538,94 @@
     quickSort(arr, i + 1, hi);
     return arr;
 }</pre>
-                <div class="math-block">Expected time: O(n log n)
-                    Worst case: O(n²) but extremely unlikely
-                    With random pivot: any input behaves like average input</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">03</div>
-                <h2 class="section-title">Probability Tools</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">LINEARITY OF EXPECTATION:
-                    E[X + Y] = E[X] + E[Y]
-                    (Even if X and Y are dependent!)
+                    <div class="math-block">Expected time: O(n log n)
+                        Worst case: O(n²) but extremely unlikely
+                        With random pivot: any input behaves like average input</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2 class="section-title">Probability Tools</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">LINEARITY OF EXPECTATION:
+                        E[X + Y] = E[X] + E[Y]
+                        (Even if X and Y are dependent!)
 
-                    INDICATOR RANDOM VARIABLES:
-                    Xᵢ = 1 if event i occurs, 0 otherwise
-                    E[Xᵢ] = P[event i occurs]
+                        INDICATOR RANDOM VARIABLES:
+                        Xᵢ = 1 if event i occurs, 0 otherwise
+                        E[Xᵢ] = P[event i occurs]
 
-                    Example: Expected comparisons in QuickSort
-                    E[total] = Σ E[Xᵢⱼ] where Xᵢⱼ = 1 if i,j compared</div>
-                <div class="math-block">UNION BOUND:
-                    P[A ∪ B] ≤ P[A] + P[B]
-                    P[any of n bad events] ≤ Σ P[bad event i]
+                        Example: Expected comparisons in QuickSort
+                        E[total] = Σ E[Xᵢⱼ] where Xᵢⱼ = 1 if i,j compared</div>
+                    <div class="math-block">UNION BOUND:
+                        P[A ∪ B] ≤ P[A] + P[B]
+                        P[any of n bad events] ≤ Σ P[bad event i]
 
-                    CHERNOFF BOUND:
-                    For sum of independent [0,1] RVs:
-                    P[X > (1+δ)μ] ≤ e^(-δ²μ/3)
-                    Probability of large deviation decays exponentially</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">04</div>
-                <h2 class="section-title">Classic Randomized Algorithms</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">RANDOMIZED SELECT (find k-th smallest):
-                    • Random pivot like QuickSort
-                    • Only recurse on one side
-                    • Expected: O(n)
+                        CHERNOFF BOUND:
+                        For sum of independent [0,1] RVs:
+                        P[X > (1+δ)μ] ≤ e^(-δ²μ/3)
+                        Probability of large deviation decays exponentially</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <h2 class="section-title">Classic Randomized Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">RANDOMIZED SELECT (find k-th smallest):
+                        • Random pivot like QuickSort
+                        • Only recurse on one side
+                        • Expected: O(n)
 
-                    MILLER-RABIN PRIMALITY:
-                    • Monte Carlo: may say composite is prime
-                    • k rounds → error ≤ (1/4)^k
-                    • Fast: O(k log³ n)
+                        MILLER-RABIN PRIMALITY:
+                        • Monte Carlo: may say composite is prime
+                        • k rounds → error ≤ (1/4)^k
+                        • Fast: O(k log³ n)
 
-                    BLOOM FILTER:
-                    • Set membership with false positives
-                    • No false negatives
-                    • Space efficient
+                        BLOOM FILTER:
+                        • Set membership with false positives
+                        • No false negatives
+                        • Space efficient
 
-                    RESERVOIR SAMPLING:
-                    • Sample k items from stream of unknown size
-                    • Each item has equal probability k/n
-                    • O(1) space (just k items)</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">05</div>
-                <h2 class="section-title">Hash Functions</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">UNIVERSAL HASHING:
-                    Family H is universal if:
-                    ∀ x ≠ y: P[h(x) = h(y)] ≤ 1/m
-                    (random h from H, m = table size)
+                        RESERVOIR SAMPLING:
+                        • Sample k items from stream of unknown size
+                        • Each item has equal probability k/n
+                        • O(1) space (just k items)</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <h2 class="section-title">Hash Functions</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">UNIVERSAL HASHING:
+                        Family H is universal if:
+                        ∀ x ≠ y: P[h(x) = h(y)] ≤ 1/m
+                        (random h from H, m = table size)
 
-                    Benefits:
-                    • No adversarial worst case
-                    • Expected O(1) operations
-                    • Simple to implement</div>
-            </div>
-        </section>
-        <section class="section" id="practice">
-            <div class="section-header">
-                <div class="section-number">06</div>
-                <h2 class="section-title">Practice</h2>
-            </div>
-            <div class="section-body">
-                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                        class="btn" id="showAll">Show All</button></div>
-                <div id="quiz"></div>
-            </div>
-        </section>
-    </main>
+                        Benefits:
+                        • No adversarial worst case
+                        • Expected O(1) operations
+                        • Simple to implement</div>
+                </div>
+            </section>
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <h2 class="section-title">Practice</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                            class="btn" id="showAll">Show All</button></div>
+                    <div id="quiz"></div>
+                </div>
+            </section>
+        </main>
+    </div>
     <script>
         const Q = [
             { id: 1, t: "Type", q: "___ Vegas: always correct, random time", a: ["las"], d: "Las Vegas" },
@@ -481,24 +641,71 @@
         ];
         const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
         const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
-        function render() {
+        let correct = 0;
+        let attempted = 0;
+
+        function updateUI() {
+            document.getElementById("statCorrect").textContent = correct;
+            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : "—";
+            document.getElementById("progressText").textContent = `${correct} / ${Q.length} complete`;
+            document.getElementById("progressFill").style.width = `${Math.round((correct / Q.length) * 100)}%`;
+        }
+
+        function renderQuiz() {
             const c = document.getElementById("quiz"); c.innerHTML = "";
             Q.forEach(q => {
                 const d = document.createElement("div"); d.className = "question";
                 d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
                 const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
-                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                d.querySelector(".bc").onclick = () => {
+                    attempted++;
+                    if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
+                    updateUI();
+                };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
                 inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
                 c.appendChild(d);
             });
+            updateUI();
         }
+
         document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
         document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+
+        // TOC Generation
+        const tocContainer = document.getElementById("toc-container");
+        const list = document.createElement("ul"); list.className = "toc-list";
+        document.querySelectorAll(".section").forEach(s => {
+            const h2 = s.querySelector(".section-title");
+            if (h2) {
+                if (!s.id) {
+                    s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                }
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = "#" + s.id;
+                a.className = "toc-link";
+                a.textContent = h2.textContent;
+                li.appendChild(a);
+                list.appendChild(li);
+            }
+        });
+        tocContainer.appendChild(list);
+
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
+        function updateToc() {
+            let current = "";
+            sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
+            tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
+        }
+        window.addEventListener("scroll", updateToc);
+
         const tt = document.getElementById("themeToggle");
         tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
         tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-        render();
+
+        renderQuiz();
     </script>
 </body>
 

@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 42: Sorting, Searching, Greedy, Divide & Conquer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -124,10 +126,146 @@
             max-width: 640px
         }
 
-        .main {
-            max-width: 1000px;
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border)
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted)
+        }
+
+        .main-layout {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px 80px
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 48px
+        }
+
+        @media(max-width:900px) {
+            .main-layout {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                display: none
+            }
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start
+        }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px
+        }
+
+        .toc-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px
+        }
+
+        .toc-list {
+            list-style: none
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: all 0.15s
+        }
+
+        .toc-link:hover {
+            color: var(--text);
+            background: var(--surface-alt)
+        }
+
+        .toc-link.active {
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            border-left-color: var(--accent)
+        }
+
+        [data-theme="dark"] .toc-link.active {
+            color: var(--accent)
+        }
+
+        .stats-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-top: 16px
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 13px
+        }
+
+        .stats-label {
+            color: var(--text-muted)
+        }
+
+        .stats-value {
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--text)
+        }
+
+        .content {
+            min-width: 0
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted)
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease
         }
 
         .section {
@@ -337,28 +475,49 @@
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
-                id="themeToggle">🌙</button></div>
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">← Back</a>
+            <div class="nav-progress"><span id="progressText">0 / 0 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
     </nav>
     <header class="hero">
         <div class="hero-label">Day 42 · Algorithms</div>
         <h1>Sorting, Searching, Greedy, Divide & Conquer</h1>
         <p class="hero-desc">Core algorithmic paradigms that form the foundation of efficient problem solving.</p>
     </header>
-    <main class="main">
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">01</div>
-                <h2 class="section-title">Searching</h2>
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <div id="toc-container"></div>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
             </div>
-            <div class="section-body">
-                <div class="math-block">LINEAR SEARCH: O(n)
-                    Check each element sequentially
+        </aside>
+        <main class="content">
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <h2 class="section-title">Searching</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">LINEAR SEARCH: O(n)
+                        Check each element sequentially
 
-                    BINARY SEARCH: O(log n)
-                    Requires sorted array
-                    Repeatedly halve search space</div>
-                <pre>function binarySearch(arr, target) {
+                        BINARY SEARCH: O(log n)
+                        Requires sorted array
+                        Repeatedly halve search space</div>
+                    <pre>function binarySearch(arr, target) {
     let lo = 0, hi = arr.length - 1;
     while (lo <= hi) {
         const mid = Math.floor((lo + hi) / 2);
@@ -368,46 +527,47 @@
     }
     return -1;
 }</pre>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">02</div>
-                <h2 class="section-title">Sorting Algorithms</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">COMPARISON SORTS:
-                    Algorithm Best Average Worst Space Stable
-                    ─────────────────────────────────────────────────────────
-                    Bubble O(n) O(n²) O(n²) O(1) Yes
-                    Selection O(n²) O(n²) O(n²) O(1) No
-                    Insertion O(n) O(n²) O(n²) O(1) Yes
-                    Merge O(n lg n) O(n lg n) O(n lg n) O(n) Yes
-                    Quick O(n lg n) O(n lg n) O(n²) O(lg n) No
-                    Heap O(n lg n) O(n lg n) O(n lg n) O(1) No
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <h2 class="section-title">Sorting Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">COMPARISON SORTS:
+                        Algorithm Best Average Worst Space Stable
+                        ─────────────────────────────────────────────────────────
+                        Bubble O(n) O(n²) O(n²) O(1) Yes
+                        Selection O(n²) O(n²) O(n²) O(1) No
+                        Insertion O(n) O(n²) O(n²) O(1) Yes
+                        Merge O(n lg n) O(n lg n) O(n lg n) O(n) Yes
+                        Quick O(n lg n) O(n lg n) O(n²) O(lg n) No
+                        Heap O(n lg n) O(n lg n) O(n lg n) O(1) No
 
-                    NON-COMPARISON (specialized):
-                    Counting Sort O(n + k) for integers in range [0,k]
-                    Radix Sort O(d(n+k)) for d digits, k values per digit
-                    Bucket Sort O(n + k) for uniformly distributed data</div>
-                <div class="rule"><strong>Lower bound:</strong> Comparison-based sorting cannot beat O(n log n) in the
-                    worst case.</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">03</div>
-                <h2 class="section-title">Divide & Conquer</h2>
-            </div>
-            <div class="section-body">
-                <div class="rule"><strong>Pattern:</strong> 1. DIVIDE into subproblems → 2. CONQUER recursively → 3.
-                    COMBINE solutions</div>
-                <div class="math-block">EXAMPLES:
-                    Merge Sort: Split → Sort halves → Merge
-                    Quick Sort: Partition → Sort parts
-                    Binary Search: Check mid → Search half
-                    Karatsuba: Multiply large numbers faster</div>
-                <pre>// Merge Sort
+                        NON-COMPARISON (specialized):
+                        Counting Sort O(n + k) for integers in range [0,k]
+                        Radix Sort O(d(n+k)) for d digits, k values per digit
+                        Bucket Sort O(n + k) for uniformly distributed data</div>
+                    <div class="rule"><strong>Lower bound:</strong> Comparison-based sorting cannot beat O(n log n) in
+                        the
+                        worst case.</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2 class="section-title">Divide & Conquer</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule"><strong>Pattern:</strong> 1. DIVIDE into subproblems → 2. CONQUER recursively → 3.
+                        COMBINE solutions</div>
+                    <div class="math-block">EXAMPLES:
+                        Merge Sort: Split → Sort halves → Merge
+                        Quick Sort: Partition → Sort parts
+                        Binary Search: Check mid → Search half
+                        Karatsuba: Multiply large numbers faster</div>
+                    <pre>// Merge Sort
 function mergeSort(arr) {
     if (arr.length <= 1) return arr;
     const mid = Math.floor(arr.length / 2);
@@ -423,26 +583,27 @@ function merge(l, r) {
     }
     return [...result, ...l, ...r];
 }</pre>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">04</div>
-                <h2 class="section-title">Greedy Algorithms</h2>
-            </div>
-            <div class="section-body">
-                <div class="rule"><strong>Greedy:</strong> Make locally optimal choice at each step, hoping for global
-                    optimum.</div>
-                <div class="math-block">WHEN GREEDY WORKS:
-                    1. Greedy choice property: local optimum leads to global
-                    2. Optimal substructure: optimal solution contains optimal sub-solutions
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <h2 class="section-title">Greedy Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule"><strong>Greedy:</strong> Make locally optimal choice at each step, hoping for
+                        global
+                        optimum.</div>
+                    <div class="math-block">WHEN GREEDY WORKS:
+                        1. Greedy choice property: local optimum leads to global
+                        2. Optimal substructure: optimal solution contains optimal sub-solutions
 
-                    CLASSIC PROBLEMS:
-                    • Activity Selection: Pick non-overlapping activities
-                    • Huffman Coding: Build optimal prefix-free codes
-                    • Fractional Knapsack: Take items by value/weight ratio
-                    • Coin Change (some denominations): Minimum coins</div>
-                <pre>// Activity Selection (greedy by end time)
+                        CLASSIC PROBLEMS:
+                        • Activity Selection: Pick non-overlapping activities
+                        • Huffman Coding: Build optimal prefix-free codes
+                        • Fractional Knapsack: Take items by value/weight ratio
+                        • Coin Change (some denominations): Minimum coins</div>
+                    <pre>// Activity Selection (greedy by end time)
 function activitySelection(activities) {
     activities.sort((a, b) => a.end - b.end);
     const selected = [activities[0]];
@@ -455,20 +616,21 @@ function activitySelection(activities) {
     }
     return selected;
 }</pre>
-            </div>
-        </section>
-        <section class="section" id="practice">
-            <div class="section-header">
-                <div class="section-number">05</div>
-                <h2 class="section-title">Practice</h2>
-            </div>
-            <div class="section-body">
-                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                        class="btn" id="showAll">Show All</button></div>
-                <div id="quiz"></div>
-            </div>
-        </section>
-    </main>
+                </div>
+            </section>
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <h2 class="section-title">Practice</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                            class="btn" id="showAll">Show All</button></div>
+                    <div id="quiz"></div>
+                </div>
+            </section>
+        </main>
+    </div>
     <script>
         const Q = [
             { id: 1, t: "Search", q: "Binary search: O(___ n)", a: ["log"], d: "O(log n)" },
@@ -484,24 +646,71 @@ function activitySelection(activities) {
         ];
         const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
         const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
-        function render() {
+        let correct = 0;
+        let attempted = 0;
+
+        function updateUI() {
+            document.getElementById("statCorrect").textContent = correct;
+            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : "—";
+            document.getElementById("progressText").textContent = `${correct} / ${Q.length} complete`;
+            document.getElementById("progressFill").style.width = `${Math.round((correct / Q.length) * 100)}%`;
+        }
+
+        function renderQuiz() {
             const c = document.getElementById("quiz"); c.innerHTML = "";
             Q.forEach(q => {
                 const d = document.createElement("div"); d.className = "question";
                 d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
                 const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
-                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                d.querySelector(".bc").onclick = () => {
+                    attempted++;
+                    if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
+                    updateUI();
+                };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
                 inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
                 c.appendChild(d);
             });
+            updateUI();
         }
+
         document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
         document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+
+        // TOC Generation
+        const tocContainer = document.getElementById("toc-container");
+        const list = document.createElement("ul"); list.className = "toc-list";
+        document.querySelectorAll(".section").forEach(s => {
+            const h2 = s.querySelector(".section-title");
+            if (h2) {
+                if (!s.id) {
+                    s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                }
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = "#" + s.id;
+                a.className = "toc-link";
+                a.textContent = h2.textContent;
+                li.appendChild(a);
+                list.appendChild(li);
+            }
+        });
+        tocContainer.appendChild(list);
+
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
+        function updateToc() {
+            let current = "";
+            sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
+            tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
+        }
+        window.addEventListener("scroll", updateToc);
+
         const tt = document.getElementById("themeToggle");
         tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
         tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-        render();
+
+        renderQuiz();
     </script>
 </body>
 

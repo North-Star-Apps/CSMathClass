@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 48: Reductions and Hardness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -124,10 +126,146 @@
             max-width: 640px
         }
 
-        .main {
-            max-width: 1000px;
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border)
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted)
+        }
+
+        .main-layout {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px 80px
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 48px
+        }
+
+        @media(max-width:900px) {
+            .main-layout {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                display: none
+            }
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start
+        }
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px
+        }
+
+        .toc-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px
+        }
+
+        .toc-list {
+            list-style: none
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: all 0.15s
+        }
+
+        .toc-link:hover {
+            color: var(--text);
+            background: var(--surface-alt)
+        }
+
+        .toc-link.active {
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            border-left-color: var(--accent)
+        }
+
+        [data-theme="dark"] .toc-link.active {
+            color: var(--accent)
+        }
+
+        .stats-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-top: 16px
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 13px
+        }
+
+        .stats-label {
+            color: var(--text-muted)
+        }
+
+        .stats-value {
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--text)
+        }
+
+        .content {
+            min-width: 0
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted)
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease
         }
 
         .section {
@@ -326,142 +464,167 @@
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
-                id="themeToggle">🌙</button></div>
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">← Back</a>
+            <div class="nav-progress"><span id="progressText">0 / 0 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
     </nav>
     <header class="hero">
         <div class="hero-label">Day 48 · Algorithmic Math</div>
         <h1>Reductions and Hardness</h1>
         <p class="hero-desc">Prove problems are hard by showing they're at least as hard as known hard problems.</p>
     </header>
-    <main class="main">
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">01</div>
-                <h2 class="section-title">Reductions</h2>
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <div id="toc-container"></div>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
             </div>
-            <div class="section-body">
-                <div class="rule"><strong>Reduction:</strong> Problem A reduces to B if solving B lets us solve A.</div>
-                <div class="math-block">A ≤ B means:
-                    "A is no harder than B"
-                    "If we can solve B, we can solve A"
-                    "If A is hard, then B is at least as hard"
+        </aside>
+        <main class="content">
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <h2 class="section-title">Reductions</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule"><strong>Reduction:</strong> Problem A reduces to B if solving B lets us solve A.
+                    </div>
+                    <div class="math-block">A ≤ B means:
+                        "A is no harder than B"
+                        "If we can solve B, we can solve A"
+                        "If A is hard, then B is at least as hard"
 
-                    POLYNOMIAL-TIME REDUCTION (≤ₚ):
-                    Transform A's input to B's input in poly-time
-                    Use B's answer to get A's answer</div>
-                <p><strong>Direction matters!</strong> A ≤ B proves B is hard (if A is hard), not that A is hard.</p>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">02</div>
-                <h2 class="section-title">Complexity Classes</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">P (Polynomial Time):
-                    Problems solvable in O(n^k) time
-                    Example: Sorting, shortest path, primality
+                        POLYNOMIAL-TIME REDUCTION (≤ₚ):
+                        Transform A's input to B's input in poly-time
+                        Use B's answer to get A's answer</div>
+                    <p><strong>Direction matters!</strong> A ≤ B proves B is hard (if A is hard), not that A is hard.
+                    </p>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <h2 class="section-title">Complexity Classes</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">P (Polynomial Time):
+                        Problems solvable in O(n^k) time
+                        Example: Sorting, shortest path, primality
 
-                    NP (Nondeterministic Polynomial):
-                    Problems verifiable in polynomial time
-                    Given a "certificate", can check if correct quickly
-                    Example: SAT, Hamiltonian Path, Subset Sum
+                        NP (Nondeterministic Polynomial):
+                        Problems verifiable in polynomial time
+                        Given a "certificate", can check if correct quickly
+                        Example: SAT, Hamiltonian Path, Subset Sum
 
-                    P ⊆ NP (obvious)
-                    P = NP? (the million-dollar question)</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">03</div>
-                <h2 class="section-title">NP-Completeness</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">NP-HARD:
-                    At least as hard as every problem in NP
-                    Every NP problem reduces to it
+                        P ⊆ NP (obvious)
+                        P = NP? (the million-dollar question)</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2 class="section-title">NP-Completeness</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">NP-HARD:
+                        At least as hard as every problem in NP
+                        Every NP problem reduces to it
 
-                    NP-COMPLETE:
-                    NP-hard AND in NP
-                    The "hardest" problems in NP
+                        NP-COMPLETE:
+                        NP-hard AND in NP
+                        The "hardest" problems in NP
 
-                    IF any NP-complete problem has poly-time solution,
-                    THEN P = NP (all NP-complete problems become easy)</div>
-                <div class="rule"><strong>Cook-Levin Theorem:</strong> SAT is NP-complete. (The first one proven!)</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">04</div>
-                <h2 class="section-title">Classic NP-Complete Problems</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">SAT (Boolean Satisfiability):
-                    Is there an assignment making formula true?
+                        IF any NP-complete problem has poly-time solution,
+                        THEN P = NP (all NP-complete problems become easy)</div>
+                    <div class="rule"><strong>Cook-Levin Theorem:</strong> SAT is NP-complete. (The first one proven!)
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <h2 class="section-title">Classic NP-Complete Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">SAT (Boolean Satisfiability):
+                        Is there an assignment making formula true?
 
-                    3-SAT:
-                    SAT with exactly 3 literals per clause
+                        3-SAT:
+                        SAT with exactly 3 literals per clause
 
-                    CLIQUE:
-                    Does graph have a complete subgraph of size k?
+                        CLIQUE:
+                        Does graph have a complete subgraph of size k?
 
-                    VERTEX COVER:
-                    Can we cover all edges with ≤k vertices?
+                        VERTEX COVER:
+                        Can we cover all edges with ≤k vertices?
 
-                    HAMILTONIAN PATH/CYCLE:
-                    Path/cycle visiting every vertex exactly once?
+                        HAMILTONIAN PATH/CYCLE:
+                        Path/cycle visiting every vertex exactly once?
 
-                    SUBSET SUM:
-                    Subset of numbers summing to target?
+                        SUBSET SUM:
+                        Subset of numbers summing to target?
 
-                    TRAVELING SALESMAN (decision):
-                    Tour of length ≤ k visiting all cities?</div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">05</div>
-                <h2 class="section-title">Proving NP-Completeness</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">TO PROVE X IS NP-COMPLETE:
-                    1. Show X ∈ NP (give poly-time verifier)
-                    2. Show X is NP-hard:
-                    - Pick known NP-complete problem Y
-                    - Show Y ≤ₚ X (reduce Y to X)
-                    - Transform Y instance to X instance
-                    - Prove: Y is YES ⟺ X is YES</div>
-                <p><strong>Chain of reductions:</strong> SAT → 3-SAT → CLIQUE → VERTEX COVER → ...</p>
-            </div>
-        </section>
-        <section class="section">
-            <div class="section-header">
-                <div class="section-number">06</div>
-                <h2 class="section-title">Coping with NP-Hardness</h2>
-            </div>
-            <div class="section-body">
-                <div class="math-block">IF PROBLEM IS NP-HARD:
-                    1. Approximation algorithms (get close to optimal)
-                    2. Heuristics (work well in practice)
-                    3. Parameterized complexity (fast if parameter is small)
-                    4. Special cases (maybe P on restricted inputs)
-                    5. Randomization (Monte Carlo algorithms)
-                    6. Exponential but practical (branch and bound)</div>
-            </div>
-        </section>
-        <section class="section" id="practice">
-            <div class="section-header">
-                <div class="section-number">07</div>
-                <h2 class="section-title">Practice</h2>
-            </div>
-            <div class="section-body">
-                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                        class="btn" id="showAll">Show All</button></div>
-                <div id="quiz"></div>
-            </div>
-        </section>
-    </main>
+                        TRAVELING SALESMAN (decision):
+                        Tour of length ≤ k visiting all cities?</div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <h2 class="section-title">Proving NP-Completeness</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">TO PROVE X IS NP-COMPLETE:
+                        1. Show X ∈ NP (give poly-time verifier)
+                        2. Show X is NP-hard:
+                        - Pick known NP-complete problem Y
+                        - Show Y ≤ₚ X (reduce Y to X)
+                        - Transform Y instance to X instance
+                        - Prove: Y is YES ⟺ X is YES</div>
+                    <p><strong>Chain of reductions:</strong> SAT → 3-SAT → CLIQUE → VERTEX COVER → ...</p>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <h2 class="section-title">Coping with NP-Hardness</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">IF PROBLEM IS NP-HARD:
+                        1. Approximation algorithms (get close to optimal)
+                        2. Heuristics (work well in practice)
+                        3. Parameterized complexity (fast if parameter is small)
+                        4. Special cases (maybe P on restricted inputs)
+                        5. Randomization (Monte Carlo algorithms)
+                        6. Exponential but practical (branch and bound)</div>
+                </div>
+            </section>
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">07</div>
+                    <h2 class="section-title">Practice</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                            class="btn" id="showAll">Show All</button></div>
+                    <div id="quiz"></div>
+                </div>
+            </section>
+        </main>
+    </div>
     <script>
         const Q = [
             { id: 1, t: "Reduce", q: "A ≤ B means A is no ___ than B", a: ["harder"], d: "harder" },
@@ -477,24 +640,71 @@
         ];
         const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
         const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
-        function render() {
+        let correct = 0;
+        let attempted = 0;
+
+        function updateUI() {
+            document.getElementById("statCorrect").textContent = correct;
+            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : "—";
+            document.getElementById("progressText").textContent = `${correct} / ${Q.length} complete`;
+            document.getElementById("progressFill").style.width = `${Math.round((correct / Q.length) * 100)}%`;
+        }
+
+        function renderQuiz() {
             const c = document.getElementById("quiz"); c.innerHTML = "";
             Q.forEach(q => {
                 const d = document.createElement("div"); d.className = "question";
                 d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
                 const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
-                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                d.querySelector(".bc").onclick = () => {
+                    attempted++;
+                    if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
+                    updateUI();
+                };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
                 inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
                 c.appendChild(d);
             });
+            updateUI();
         }
+
         document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
         document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+
+        // TOC Generation
+        const tocContainer = document.getElementById("toc-container");
+        const list = document.createElement("ul"); list.className = "toc-list";
+        document.querySelectorAll(".section").forEach(s => {
+            const h2 = s.querySelector(".section-title");
+            if (h2) {
+                if (!s.id) {
+                    s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                }
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = "#" + s.id;
+                a.className = "toc-link";
+                a.textContent = h2.textContent;
+                li.appendChild(a);
+                list.appendChild(li);
+            }
+        });
+        tocContainer.appendChild(list);
+
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
+        function updateToc() {
+            let current = "";
+            sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
+            tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
+        }
+        window.addEventListener("scroll", updateToc);
+
         const tt = document.getElementById("themeToggle");
         tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
         tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-        render();
+
+        renderQuiz();
     </script>
 </body>
 
