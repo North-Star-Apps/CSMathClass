@@ -50,16 +50,20 @@
       --accent-light: #2e2454;
       --accent-dark: #c4b5fd;
       --code-bg: #0f0f12;
-      --success: #4ade80;
+      --success: #86efac;
       --success-bg: #14532d;
-      --error: #f87171;
+      --error: #fca5a5;
       --error-bg: #7f1d1d;
-      --warning: #fbbf24;
+      --warning: #fde68a;
       --warning-bg: #78350f;
-      --info: #22d3ee;
+      --info: #a5f3fc;
       --info-bg: #164e63;
     }
     [data-theme="dark"] .nav { background: rgba(22,22,26,0.92); }
+    [data-theme="dark"] .warning { color: #fef3c7; }
+    [data-theme="dark"] .warning strong { color: #fef3c7; }
+    [data-theme="dark"] .info { color: #cffafe; }
+    [data-theme="dark"] .rule { color: var(--accent-dark); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
