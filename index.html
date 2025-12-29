@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Math + CS Curriculum — Day by Day</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg: #fafaf9;
@@ -24,7 +27,7 @@
       --accent-glow: rgba(139, 92, 246, 0.15);
       --success: #16a34a;
       --success-bg: #dcfce7;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
       --radius: 8px;
       --radius-lg: 12px;
       --radius-xl: 16px;
@@ -32,6 +35,7 @@
       --font-sans: 'DM Sans', system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
+
     [data-theme="dark"] {
       --bg: #0c0c0f;
       --surface: #16161a;
@@ -49,182 +53,661 @@
       --success: #4ade80;
       --success-bg: #14532d;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; min-height: 100vh; }
-    .nav { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; }
-    [data-theme="dark"] .nav { background: rgba(22,22,26,0.92); backdrop-filter: blur(12px); }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: var(--text); text-decoration: none; }
-    .nav-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #ec4899); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 14px; }
-    .theme-toggle { width: 40px; height: 40px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-    .theme-toggle:hover { background: var(--surface-alt); color: var(--text); border-color: var(--border-strong); }
-    .hero { max-width: 1100px; margin: 0 auto; padding: 64px 24px 48px; text-align: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent-dark); background: var(--accent-light); padding: 8px 16px; border-radius: 999px; margin-bottom: 24px; }
-    [data-theme="dark"] .hero-badge { color: var(--accent); }
-    .hero h1 { font-family: var(--font-serif); font-size: clamp(36px, 6vw, 56px); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 20px; }
-    .hero-desc { font-size: 18px; color: var(--text-secondary); max-width: 640px; margin: 0 auto 32px; line-height: 1.7; }
-    .hero-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
-    .hero-stat { text-align: center; }
-    .hero-stat-value { font-family: var(--font-mono); font-size: 32px; font-weight: 700; color: var(--accent); }
-    .hero-stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-    .progress-section { max-width: 480px; margin: 0 auto; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
-    .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .progress-label { font-weight: 600; font-size: 14px; }
-    .progress-value { font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary); }
-    .progress-bar { height: 8px; background: var(--surface-alt); border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #ec4899); border-radius: 999px; transition: width 0.5s ease; }
-    .progress-meta { display: flex; justify-content: space-between; margin-top: 12px; font-size: 13px; color: var(--text-muted); }
-    .toolbar { max-width: 1100px; margin: 32px auto 0; padding: 0 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .search-box { flex: 1; min-width: 280px; position: relative; }
-    .search-box input { width: 100%; padding: 12px 16px 12px 44px; font-size: 14px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); color: var(--text); outline: none; transition: all 0.15s; }
-    .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-    .search-box input::placeholder { color: var(--text-muted); }
-    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-    .toolbar-btn { padding: 12px 16px; font-size: 14px; font-weight: 600; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); color: var(--text); cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
-    .toolbar-btn:hover { background: var(--surface-alt); border-color: var(--border-strong); }
-    .toolbar-btn.danger { color: #ef4444; border-color: rgba(239,68,68,0.3); }
-    .toolbar-btn.danger:hover { background: rgba(239,68,68,0.1); }
-    .kbd { font-family: var(--font-mono); font-size: 11px; padding: 2px 6px; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); }
-    .main { max-width: 1100px; margin: 32px auto 0; padding: 0 24px 80px; }
-    .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-bottom: 16px; overflow: hidden; transition: border-color 0.15s; }
-    .section-card:hover { border-color: var(--border-strong); }
-    .section-header { padding: 20px 24px; cursor: pointer; display: flex; align-items: center; gap: 16px; user-select: none; list-style: none; }
-    .section-header::-webkit-details-marker { display: none; }
-    .section-header:hover { background: var(--surface-alt); }
-    .section-toggle { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: transform 0.2s; }
-    .section-card[open] .section-toggle { transform: rotate(90deg); }
-    .section-info { flex: 1; min-width: 0; }
-    .section-number { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-    .section-title { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--text); }
-    .section-meta { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); background: var(--surface-alt); padding: 6px 12px; border-radius: 999px; }
-    .section-body { padding: 0 24px 20px; }
-    .item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border-radius: var(--radius-lg); border: 1px solid transparent; transition: all 0.15s; margin-bottom: 4px; }
-    .item:hover { background: var(--surface-alt); border-color: var(--border); }
-    .item-checkbox { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); cursor: pointer; }
-    .item-day { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 56px; padding-top: 3px; }
-    .item-content { flex: 1; min-width: 0; }
-    .item-text { font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
-    .item.done .item-text { text-decoration: line-through; color: var(--text-muted); }
-    .lesson-link { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border-radius: 999px; text-decoration: none; transition: all 0.15s; }
-    .lesson-link:hover { background: var(--accent); color: white; }
-    [data-theme="dark"] .lesson-link:hover { color: #0c0c0f; }
-    .file-input { display: none; }
-    .footer { max-width: 1100px; margin: 0 auto; padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); }
-    @media (max-width: 640px) { .hero { padding: 40px 16px 32px; } .hero-stats { gap: 24px; } .hero-stat-value { font-size: 24px; } .toolbar { padding: 0 16px; } .main { padding: 0 16px 60px; } .section-header { padding: 16px; } .section-body { padding: 0 16px 16px; } .item { padding: 12px; gap: 10px; } .item-day { min-width: 48px; font-size: 11px; } }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+    }
+
+    [data-theme="dark"] .nav {
+      background: rgba(22, 22, 26, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), #ec4899);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--surface-alt);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px 48px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-dark);
+      background: var(--accent-light);
+      padding: 8px 16px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    [data-theme="dark"] .hero-badge {
+      color: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .hero-stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .progress-section {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .progress-label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .progress-value {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--surface-alt);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #ec4899);
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .toolbar {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .toolbar-btn {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toolbar-btn:hover {
+      background: var(--surface-alt);
+      border-color: var(--border-strong);
+    }
+
+    .toolbar-btn.danger {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .toolbar-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .kbd {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 6px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .main {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding: 0 24px 80px;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .section-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .section-header {
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+      list-style: none;
+    }
+
+    .section-header::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-header:hover {
+      background: var(--surface-alt);
+    }
+
+    .section-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .section-card[open] .section-toggle {
+      transform: rotate(90deg);
+    }
+
+    .section-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--surface-alt);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .section-body {
+      padding: 0 24px 20px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid transparent;
+      transition: all 0.15s;
+      margin-bottom: 4px;
+    }
+
+    .item:hover {
+      background: var(--surface-alt);
+      border-color: var(--border);
+    }
+
+    .item-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .item-day {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 56px;
+      padding-top: 3px;
+    }
+
+    .item-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .item.done .item-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .lesson-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 10px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-light);
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .lesson-link:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    [data-theme="dark"] .lesson-link:hover {
+      color: #0c0c0f;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 40px 16px 32px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .hero-stat-value {
+        font-size: 24px;
+      }
+
+      .toolbar {
+        padding: 0 16px;
+      }
+
+      .main {
+        padding: 0 16px 60px;
+      }
+
+      .section-header {
+        padding: 16px;
+      }
+
+      .section-body {
+        padding: 0 16px 16px;
+      }
+
+      .item {
+        padding: 12px;
+        gap: 10px;
+      }
+
+      .item-day {
+        min-width: 48px;
+        font-size: 11px;
+      }
+    }
   </style>
-  <script>(function(){const t=localStorage.getItem('math_cs_theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
+
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-brand"><div class="nav-logo">∑</div><span>Math + CS</span></a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">∑</div><span>Math + CS</span>
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg></button>
     </div>
   </nav>
   <header class="hero">
-    <div class="hero-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>One bullet = One day</div>
+    <div class="hero-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>One bullet = One day</div>
     <h1>Day-by-Day Math + CS Curriculum</h1>
-    <p class="hero-desc">A structured path through mathematics and computer science fundamentals. Check items off as you go—progress saves locally.</p>
+    <p class="hero-desc">A structured path through mathematics and computer science fundamentals. Check items off as you
+      go—progress saves locally.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-value" id="totalCount">0</div><div class="hero-stat-label">Total Days</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="doneCount">0</div><div class="hero-stat-label">Completed</div></div>
-      <div class="hero-stat"><div class="hero-stat-value" id="currentDay">1</div><div class="hero-stat-label">Current Day</div></div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" id="totalCount">0</div>
+        <div class="hero-stat-label">Total Days</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" id="doneCount">0</div>
+        <div class="hero-stat-label">Completed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" id="currentDay">1</div>
+        <div class="hero-stat-label">Current Day</div>
+      </div>
     </div>
     <div class="progress-section">
-      <div class="progress-header"><span class="progress-label">Overall Progress</span><span class="progress-value" id="pctText">0%</span></div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-header"><span class="progress-label">Overall Progress</span><span class="progress-value"
+          id="pctText">0%</span></div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
       <div class="progress-meta"><span>Consistency beats intensity.</span></div>
     </div>
   </header>
   <div class="toolbar">
-    <div class="search-box"><svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="search" id="search" placeholder="Search topics... (press / to focus)" /></div>
-    <button class="toolbar-btn" id="expandAll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Expand <span class="kbd">E</span></button>
-    <button class="toolbar-btn" id="collapseAll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>Collapse <span class="kbd">C</span></button>
-    <button class="toolbar-btn danger" id="resetBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Reset</button>
+    <div class="search-box"><svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg><input type="search" id="search" placeholder="Search topics... (press / to focus)" /></div>
+    <button class="toolbar-btn" id="expandAll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <polyline points="15 3 21 3 21 9" />
+        <polyline points="9 21 3 21 3 15" />
+        <line x1="21" y1="3" x2="14" y2="10" />
+        <line x1="3" y1="21" x2="10" y2="14" />
+      </svg>Expand <span class="kbd">E</span></button>
+    <button class="toolbar-btn" id="collapseAll"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <polyline points="4 14 10 14 10 20" />
+        <polyline points="20 10 14 10 14 4" />
+        <line x1="14" y1="10" x2="21" y2="3" />
+        <line x1="3" y1="21" x2="10" y2="14" />
+      </svg>Collapse <span class="kbd">C</span></button>
+    <button class="toolbar-btn danger" id="resetBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <polyline points="1 4 1 10 7 10" />
+        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+      </svg>Reset</button>
   </div>
   <main class="main" id="app"></main>
   <footer class="footer">Built for focused learning. Progress stored locally.</footer>
   <script>
-const sunIcon=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-const moonIcon=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-const themeToggle=document.getElementById('themeToggle');
-function updateThemeIcon(){themeToggle.innerHTML=document.documentElement.getAttribute('data-theme')==='dark'?sunIcon:moonIcon;}
-themeToggle.addEventListener('click',()=>{const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('math_cs_theme',next);updateThemeIcon();});
-updateThemeIcon();
+    const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+    const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    const themeToggle = document.getElementById('themeToggle');
+    function updateThemeIcon() { themeToggle.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? sunIcon : moonIcon; }
+    themeToggle.addEventListener('click', () => { const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', next); localStorage.setItem('math_cs_theme', next); updateThemeIcon(); });
+    updateThemeIcon();
 
-const curriculum=[
-{title:"Operating System (Non-negotiable Skills)",items:[{text:"Arithmetic fluency: Fractions, negatives, exponents/roots, scientific notation",lesson:"DayOne.html"},{text:"Arithmetic fluency: Ratio/rate/percent, unit conversions",lesson:"DayTwo.html"},{text:"Algebra fluency: Solve linear/quadratic systems",lesson:"DayThree.html"},{text:"Algebra fluency: Manipulate expressions fast (factor, expand, simplify)",lesson:"DayFour.html"},{text:"Algebra fluency: Functions — domain/range, inverses, composition",lesson:"DayFive.html"},{text:"Proof habits: Learn direct proof, contrapositive, contradiction, induction, invariants",lesson:"DaySix.html"},{text:"Proof habits: Write solutions like Definitions → Claim → Proof → QED",lesson:"DaySeven.html"},{text:"Checkpoint: Explain why each step is valid (not just do steps)",lesson:"DayEight.html"}]},
-{title:"Precalculus Foundation",items:[{text:"Functions & graphs: Polynomials, rational, exponential/log, piecewise",lesson:"DayNine.html"},{text:"Functions & graphs: Transformations, asymptotes, growth rates",lesson:"DayTen.html"},{text:"Trigonometry: Unit circle, identities, trig equations",lesson:"DayEleven.html"},{text:"Trigonometry: Vectors + dot product (basic)",lesson:"DayTwelve.html"},{text:"Complex numbers: a+bi, magnitude/angle, Euler's formula (intro)",lesson:"DayThirteen.html"}]},
-{title:"Calculus Sequence",items:[{text:"Single-variable: Limits, derivatives, integrals",lesson:"DayFourteen.html"},{text:"Single-variable: Fundamental Theorem of Calculus",lesson:"DayFifteen.html"},{text:"Single-variable: Series — Taylor series basics",lesson:"DaySixteen.html"},{text:"Multivariable: Partial derivatives, gradients, Jacobians",lesson:"DaySeventeen.html"},{text:"Multivariable: Multiple integrals, change of variables",lesson:"DayEighteen.html"},{text:"Multivariable: Line/surface integrals (recognize ideas)",lesson:"DayNineteen.html"},{text:"Diff equations: First-order ODEs, second-order linear ODEs",lesson:"DayTwenty.html"},{text:"Diff equations: Systems of ODEs (ties to linear algebra)",lesson:"DayTwentyOne.html"}]},
-{title:"Linear Algebra (The Spine)",items:[{text:"Computational: Matrix ops, elimination, rank",lesson:"DayTwentyTwo.html"},{text:"Computational: Eigenvalues/eigenvectors, diagonalization",lesson:"DayTwentyThree.html"},{text:"Computational: Orthogonality, projections, least squares",lesson:"DayTwentyFour.html"},{text:"Abstract: Vector spaces, linear maps, dual spaces",lesson:"DayTwentyFive.html"},{text:"Abstract: Inner product spaces, spectral theorem",lesson:"DayTwentySix.html"},{text:"Checkpoint: Move between matrix and linear map form",lesson:"DayTwentySeven.html"}]},
-{title:"Discrete Math Core",items:[{text:"Logic + sets: Propositional/first-order logic",lesson:"DayTwentyEight.html"},{text:"Logic + sets: Equivalence relations, partial orders",lesson:"DayTwentyNine.html"},{text:"Proof techniques: Induction variants, strong induction",lesson:"DayThirty.html"},{text:"Proof techniques: Pigeonhole, invariants, extremal arguments",lesson:"DayThirtyOne.html"},{text:"Combinatorics: Counting, inclusion–exclusion",lesson:"DayThirtyTwo.html"},{text:"Combinatorics: Recurrences, generating functions",lesson:"DayThirtyThree.html"},{text:"Graph theory: Trees, connectivity, matchings, flows",lesson:"DayThirtyFour.html"},{text:"Graph theory: Traversal and correctness proofs",lesson:"DayThirtyFive.html"},{text:"Number theory: Modular arithmetic, gcd, Euclid",lesson:"DayThirtySix.html"},{text:"Number theory: Fermat/Euler, CRT, primality",lesson:"DayThirtySeven.html"}]},
-{title:"Algorithms + Data Structures",items:[{text:"Programming: Clean code, tests, debug, performance",lesson:"DayThirtyEight.html"},{text:"Data structures: Arrays/lists, stacks/queues, hash tables",lesson:"DayThirtyNine.html"},{text:"Data structures: Trees (BST, heap), tries",lesson:"DayForty.html"},{text:"Data structures: Graph representations",lesson:"DayFortyOne.html"},{text:"Algorithms: Sorting/searching, greedy, divide & conquer",lesson:"DayFortyTwo.html"},{text:"Algorithms: Dynamic programming",lesson:"DayFortyThree.html"},{text:"Algorithms: Graph algorithms (BFS/DFS, shortest paths, MST)",lesson:"DayFortyFour.html"},{text:"Algorithms: Correctness proofs + complexity",lesson:"DayFortyFive.html"},{text:"Algorithmic math: Amortized analysis",lesson:"DayFortySix.html"},{text:"Algorithmic math: Randomized algorithms",lesson:"DayFortySeven.html"},{text:"Algorithmic math: Reductions and hardness",lesson:"DayFortyEight.html"}]},
-{title:"Probability + Statistics",items:[{text:"Probability: Conditional probability, Bayes",lesson:"DayFortyNine.html"},{text:"Probability: Random variables, expectation/variance",lesson:"DayFifty.html"},{text:"Probability: Common distributions",lesson:"DayFiftyOne.html"},{text:"Probability: Concentration (Markov/Chebyshev → Chernoff)",lesson:"DayFiftyTwo.html"},{text:"Statistics: Estimation, confidence intervals",lesson:"DayFiftyThree.html"},{text:"Statistics: Regression (ties to linear algebra)",lesson:"DayFiftyFour.html"}]},
-{title:"Analysis + Rigor",items:[{text:"Intro analysis: ε–δ definitions",lesson:"DayFiftyFive.html"},{text:"Intro analysis: Limits/continuity rigor",lesson:"DayFiftySix.html"},{text:"Intro analysis: Sequences/series rigor",lesson:"DayFiftySeven.html"},{text:"Real analysis I: Completeness, compactness, uniform continuity",lesson:"DayFiftyEight.html"},{text:"Real analysis I: Differentiation/integration theorems",lesson:"DayFiftyNine.html"},{text:"Real analysis II: Metric spaces",lesson:"DaySixty.html"},{text:"Real analysis II: Function spaces",lesson:"DaySixtyOne.html"},{text:"Real analysis II: Convergence modes",lesson:"DaySixtyTwo.html"},{text:"Checkpoint: Read dense proof, reconstruct cleanly",lesson:"DaySixtyThree.html"}]},
-{title:"Abstract Algebra",items:[{text:"Group theory: Homomorphisms, quotient groups, actions",lesson:"DaySixtyFour.html"},{text:"Rings + fields: Ideals, quotient rings",lesson:"DaySixtyFive.html"},{text:"Rings + fields: Field extensions basics",lesson:"DaySixtySix.html"},{text:"LA via algebra: Modules viewpoint",lesson:"DaySixtySeven.html"}]},
-{title:"Topology + Measure",items:[{text:"Topology: Open/closed sets, continuity generalization",lesson:"DaySixtyEight.html"},{text:"Topology: Compactness/connectedness",lesson:"DaySixtyNine.html"},{text:"Topology: Product spaces",lesson:"DaySeventy.html"},{text:"Measure theory: Sigma-algebras, Lebesgue measure",lesson:"DaySeventyOne.html"},{text:"Measure theory: Measurable functions, integration",lesson:"DaySeventyTwo.html"},{text:"Measure theory: Convergence theorems",lesson:"DaySeventyThree.html"},{text:"Probability upgrade: RVs as measurable functions",lesson:"DaySeventyFour.html"},{text:"Probability upgrade: Expectation as integral",lesson:"DaySeventyFive.html"},{text:"Probability upgrade: LLN / CLT seriously",lesson:"DaySeventySix.html"}]},
-{title:"Functional Analysis + PDE",items:[{text:"Functional: Normed/Banach/Hilbert spaces",lesson:"DaySeventySeven.html"},{text:"Functional: Bounded operators, duality",lesson:"DaySeventyEight.html"},{text:"Functional: Weak convergence",lesson:"DaySeventyNine.html"},{text:"Complex analysis: Holomorphic functions, residues",lesson:"DayEighty.html"},{text:"Complex analysis: Conformal mapping",lesson:"DayEightyOne.html"},{text:"Harmonic analysis: Fourier series/transforms",lesson:"DayEightyTwo.html"},{text:"Harmonic analysis: L^p spaces, convolution",lesson:"DayEightyThree.html"},{text:"PDE: Weak solutions, energy methods",lesson:"DayEightyFour.html"},{text:"PDE: Sobolev spaces",lesson:"DayEightyFive.html"}]},
-{title:"Theoretical CS",items:[{text:"Automata: Regular/CFL, Turing machines",lesson:"DayEightySix.html"},{text:"Automata: Decidability/undecidability",lesson:"DayEightySeven.html"},{text:"Complexity: P, NP, reductions, NP-completeness",lesson:"DayEightyEight.html"},{text:"Complexity: Space/time hierarchy",lesson:"DayEightyNine.html"},{text:"Complexity: Randomness (BPP)",lesson:"DayNinety.html"},{text:"Info theory: Entropy, KL divergence",lesson:"DayNinetyOne.html"},{text:"Info theory: Coding theorems",lesson:"DayNinetyTwo.html"},{text:"Crypto: RSA/ECC foundations",lesson:"DayNinetyThree.html"},{text:"Crypto: Security proofs (reductions)",lesson:"DayNinetyFour.html"},{text:"Crypto: Modern (lattices)",lesson:"DayNinetyFive.html"},{text:"Advanced: Approximation algorithms",lesson:"DayNinetySix.html"},{text:"Advanced: Online algorithms",lesson:"DayNinetySeven.html"},{text:"Advanced: Spectral graph theory",lesson:"DayNinetyEight.html"},{text:"Advanced: Expander graphs",lesson:"DayNinetyNine.html"},{text:"Advanced: Convex optimization",lesson:"DayOneHundred.html"}]},
-{title:"Convex Optimization + Numerical",items:[{text:"Convex opt: Convex sets/functions, duality",lesson:"DayOneHundredOne.html"},{text:"Convex opt: KKT conditions",lesson:"DayOneHundredTwo.html"},{text:"Convex opt: Gradient/proximal methods",lesson:"DayOneHundredThree.html"},{text:"Numerical: Conditioning, stability",lesson:"DayOneHundredFour.html"},{text:"Numerical: Iterative methods",lesson:"DayOneHundredFive.html"},{text:"Numerical: Fast transforms",lesson:"DayOneHundredSix.html"}]},
-{title:"Specialize",items:[{text:"Additive combinatorics",lesson:"DayOneHundredSeven.html"},{text:"Analytic number theory",lesson:"DayOneHundredEight.html"},{text:"Harmonic analysis",lesson:"DayOneHundredNine.html"},{text:"PDE / geometric analysis",lesson:"DayOneHundredTen.html"},{text:"Probability (random matrices, stochastic)",lesson:"DayOneHundredEleven.html"},{text:"Algebraic geometry",lesson:"DayOneHundredTwelve.html"},{text:"Theoretical CS (complexity/algorithms/crypto)",lesson:"DayOneHundredThirteen.html"},{text:"Rule: Pick 2–3 and go deep",lesson:"DayOneHundredFourteen.html"}]},
-{title:"Always-On Discipline",items:[{text:"Do problems daily (reading ≠ ability)",lesson:"DayOneHundredFifteen.html"},{text:"Write proofs in full sentences",lesson:"DayOneHundredSixteen.html"},{text:"Keep a lemma notebook",lesson:"DayOneHundredSeventeen.html"},{text:"Two-pass: definitions/theorems first",lesson:"DayOneHundredEighteen.html"},{text:"Two-pass: hard problems + re-prove",lesson:"DayOneHundredNineteen.html"},{text:"Teach it back: plain English then formal",lesson:"DayOneHundredTwenty.html"}]}
-];
+    const curriculum = [
+      { title: "Operating System (Non-negotiable Skills)", items: [{ text: "Arithmetic fluency: Fractions, negatives, exponents/roots, scientific notation", lesson: "lessons/01-operating-system/DayOne.html" }, { text: "Arithmetic fluency: Ratio/rate/percent, unit conversions", lesson: "lessons/01-operating-system/DayTwo.html" }, { text: "Algebra fluency: Solve linear/quadratic systems", lesson: "lessons/01-operating-system/DayThree.html" }, { text: "Algebra fluency: Manipulate expressions fast (factor, expand, simplify)", lesson: "lessons/01-operating-system/DayFour.html" }, { text: "Algebra fluency: Functions — domain/range, inverses, composition", lesson: "lessons/01-operating-system/DayFive.html" }, { text: "Proof habits: Learn direct proof, contrapositive, contradiction, induction, invariants", lesson: "lessons/01-operating-system/DaySix.html" }, { text: "Proof habits: Write solutions like Definitions → Claim → Proof → QED", lesson: "lessons/01-operating-system/DaySeven.html" }, { text: "Checkpoint: Explain why each step is valid (not just do steps)", lesson: "lessons/01-operating-system/DayEight.html" }] },
+      { title: "Precalculus Foundation", items: [{ text: "Functions & graphs: Polynomials, rational, exponential/log, piecewise", lesson: "lessons/02-precalculus/DayNine.html" }, { text: "Functions & graphs: Transformations, asymptotes, growth rates", lesson: "lessons/02-precalculus/DayTen.html" }, { text: "Trigonometry: Unit circle, identities, trig equations", lesson: "lessons/02-precalculus/DayEleven.html" }, { text: "Trigonometry: Vectors + dot product (basic)", lesson: "lessons/02-precalculus/DayTwelve.html" }, { text: "Complex numbers: a+bi, magnitude/angle, Euler's formula (intro)", lesson: "lessons/02-precalculus/DayThirteen.html" }] },
+      { title: "Calculus Sequence", items: [{ text: "Single-variable: Limits, derivatives, integrals", lesson: "lessons/03-calculus/DayFourteen.html" }, { text: "Single-variable: Fundamental Theorem of Calculus", lesson: "lessons/03-calculus/DayFifteen.html" }, { text: "Single-variable: Series — Taylor series basics", lesson: "lessons/03-calculus/DaySixteen.html" }, { text: "Multivariable: Partial derivatives, gradients, Jacobians", lesson: "lessons/03-calculus/DaySeventeen.html" }, { text: "Multivariable: Multiple integrals, change of variables", lesson: "lessons/03-calculus/DayEighteen.html" }, { text: "Multivariable: Line/surface integrals (recognize ideas)", lesson: "lessons/03-calculus/DayNineteen.html" }, { text: "Diff equations: First-order ODEs, second-order linear ODEs", lesson: "lessons/03-calculus/DayTwenty.html" }, { text: "Diff equations: Systems of ODEs (ties to linear algebra)", lesson: "lessons/03-calculus/DayTwentyOne.html" }] },
+      { title: "Linear Algebra (The Spine)", items: [{ text: "Computational: Matrix ops, elimination, rank", lesson: "lessons/04-linear-algebra/DayTwentyTwo.html" }, { text: "Computational: Eigenvalues/eigenvectors, diagonalization", lesson: "lessons/04-linear-algebra/DayTwentyThree.html" }, { text: "Computational: Orthogonality, projections, least squares", lesson: "lessons/04-linear-algebra/DayTwentyFour.html" }, { text: "Abstract: Vector spaces, linear maps, dual spaces", lesson: "lessons/04-linear-algebra/DayTwentyFive.html" }, { text: "Abstract: Inner product spaces, spectral theorem", lesson: "lessons/04-linear-algebra/DayTwentySix.html" }, { text: "Checkpoint: Move between matrix and linear map form", lesson: "lessons/04-linear-algebra/DayTwentySeven.html" }] },
+      { title: "Discrete Math Core", items: [{ text: "Logic + sets: Propositional/first-order logic", lesson: "DayTwentyEight.html" }, { text: "Logic + sets: Equivalence relations, partial orders", lesson: "DayTwentyNine.html" }, { text: "Proof techniques: Induction variants, strong induction", lesson: "DayThirty.html" }, { text: "Proof techniques: Pigeonhole, invariants, extremal arguments", lesson: "DayThirtyOne.html" }, { text: "Combinatorics: Counting, inclusion–exclusion", lesson: "DayThirtyTwo.html" }, { text: "Combinatorics: Recurrences, generating functions", lesson: "DayThirtyThree.html" }, { text: "Graph theory: Trees, connectivity, matchings, flows", lesson: "DayThirtyFour.html" }, { text: "Graph theory: Traversal and correctness proofs", lesson: "DayThirtyFive.html" }, { text: "Number theory: Modular arithmetic, gcd, Euclid", lesson: "DayThirtySix.html" }, { text: "Number theory: Fermat/Euler, CRT, primality", lesson: "DayThirtySeven.html" }] },
+      { title: "Algorithms + Data Structures", items: [{ text: "Programming: Clean code, tests, debug, performance", lesson: "DayThirtyEight.html" }, { text: "Data structures: Arrays/lists, stacks/queues, hash tables", lesson: "DayThirtyNine.html" }, { text: "Data structures: Trees (BST, heap), tries", lesson: "DayForty.html" }, { text: "Data structures: Graph representations", lesson: "DayFortyOne.html" }, { text: "Algorithms: Sorting/searching, greedy, divide & conquer", lesson: "DayFortyTwo.html" }, { text: "Algorithms: Dynamic programming", lesson: "DayFortyThree.html" }, { text: "Algorithms: Graph algorithms (BFS/DFS, shortest paths, MST)", lesson: "DayFortyFour.html" }, { text: "Algorithms: Correctness proofs + complexity", lesson: "DayFortyFive.html" }, { text: "Algorithmic math: Amortized analysis", lesson: "DayFortySix.html" }, { text: "Algorithmic math: Randomized algorithms", lesson: "DayFortySeven.html" }, { text: "Algorithmic math: Reductions and hardness", lesson: "DayFortyEight.html" }] },
+      { title: "Probability + Statistics", items: [{ text: "Probability: Conditional probability, Bayes", lesson: "DayFortyNine.html" }, { text: "Probability: Random variables, expectation/variance", lesson: "DayFifty.html" }, { text: "Probability: Common distributions", lesson: "DayFiftyOne.html" }, { text: "Probability: Concentration (Markov/Chebyshev → Chernoff)", lesson: "DayFiftyTwo.html" }, { text: "Statistics: Estimation, confidence intervals", lesson: "DayFiftyThree.html" }, { text: "Statistics: Regression (ties to linear algebra)", lesson: "DayFiftyFour.html" }] },
+      { title: "Analysis + Rigor", items: [{ text: "Intro analysis: ε–δ definitions", lesson: "DayFiftyFive.html" }, { text: "Intro analysis: Limits/continuity rigor", lesson: "DayFiftySix.html" }, { text: "Intro analysis: Sequences/series rigor", lesson: "DayFiftySeven.html" }, { text: "Real analysis I: Completeness, compactness, uniform continuity", lesson: "DayFiftyEight.html" }, { text: "Real analysis I: Differentiation/integration theorems", lesson: "DayFiftyNine.html" }, { text: "Real analysis II: Metric spaces", lesson: "DaySixty.html" }, { text: "Real analysis II: Function spaces", lesson: "DaySixtyOne.html" }, { text: "Real analysis II: Convergence modes", lesson: "DaySixtyTwo.html" }, { text: "Checkpoint: Read dense proof, reconstruct cleanly", lesson: "DaySixtyThree.html" }] },
+      { title: "Abstract Algebra", items: [{ text: "Group theory: Homomorphisms, quotient groups, actions", lesson: "DaySixtyFour.html" }, { text: "Rings + fields: Ideals, quotient rings", lesson: "DaySixtyFive.html" }, { text: "Rings + fields: Field extensions basics", lesson: "DaySixtySix.html" }, { text: "LA via algebra: Modules viewpoint", lesson: "DaySixtySeven.html" }] },
+      { title: "Topology + Measure", items: [{ text: "Topology: Open/closed sets, continuity generalization", lesson: "DaySixtyEight.html" }, { text: "Topology: Compactness/connectedness", lesson: "DaySixtyNine.html" }, { text: "Topology: Product spaces", lesson: "DaySeventy.html" }, { text: "Measure theory: Sigma-algebras, Lebesgue measure", lesson: "DaySeventyOne.html" }, { text: "Measure theory: Measurable functions, integration", lesson: "DaySeventyTwo.html" }, { text: "Measure theory: Convergence theorems", lesson: "DaySeventyThree.html" }, { text: "Probability upgrade: RVs as measurable functions", lesson: "DaySeventyFour.html" }, { text: "Probability upgrade: Expectation as integral", lesson: "DaySeventyFive.html" }, { text: "Probability upgrade: LLN / CLT seriously", lesson: "DaySeventySix.html" }] },
+      { title: "Functional Analysis + PDE", items: [{ text: "Functional: Normed/Banach/Hilbert spaces", lesson: "DaySeventySeven.html" }, { text: "Functional: Bounded operators, duality", lesson: "DaySeventyEight.html" }, { text: "Functional: Weak convergence", lesson: "DaySeventyNine.html" }, { text: "Complex analysis: Holomorphic functions, residues", lesson: "DayEighty.html" }, { text: "Complex analysis: Conformal mapping", lesson: "DayEightyOne.html" }, { text: "Harmonic analysis: Fourier series/transforms", lesson: "DayEightyTwo.html" }, { text: "Harmonic analysis: L^p spaces, convolution", lesson: "DayEightyThree.html" }, { text: "PDE: Weak solutions, energy methods", lesson: "DayEightyFour.html" }, { text: "PDE: Sobolev spaces", lesson: "DayEightyFive.html" }] },
+      { title: "Theoretical CS", items: [{ text: "Automata: Regular/CFL, Turing machines", lesson: "DayEightySix.html" }, { text: "Automata: Decidability/undecidability", lesson: "DayEightySeven.html" }, { text: "Complexity: P, NP, reductions, NP-completeness", lesson: "DayEightyEight.html" }, { text: "Complexity: Space/time hierarchy", lesson: "DayEightyNine.html" }, { text: "Complexity: Randomness (BPP)", lesson: "DayNinety.html" }, { text: "Info theory: Entropy, KL divergence", lesson: "DayNinetyOne.html" }, { text: "Info theory: Coding theorems", lesson: "DayNinetyTwo.html" }, { text: "Crypto: RSA/ECC foundations", lesson: "DayNinetyThree.html" }, { text: "Crypto: Security proofs (reductions)", lesson: "DayNinetyFour.html" }, { text: "Crypto: Modern (lattices)", lesson: "DayNinetyFive.html" }, { text: "Advanced: Approximation algorithms", lesson: "DayNinetySix.html" }, { text: "Advanced: Online algorithms", lesson: "DayNinetySeven.html" }, { text: "Advanced: Spectral graph theory", lesson: "DayNinetyEight.html" }, { text: "Advanced: Expander graphs", lesson: "DayNinetyNine.html" }, { text: "Advanced: Convex optimization", lesson: "DayOneHundred.html" }] },
+      { title: "Convex Optimization + Numerical", items: [{ text: "Convex opt: Convex sets/functions, duality", lesson: "DayOneHundredOne.html" }, { text: "Convex opt: KKT conditions", lesson: "DayOneHundredTwo.html" }, { text: "Convex opt: Gradient/proximal methods", lesson: "DayOneHundredThree.html" }, { text: "Numerical: Conditioning, stability", lesson: "DayOneHundredFour.html" }, { text: "Numerical: Iterative methods", lesson: "DayOneHundredFive.html" }, { text: "Numerical: Fast transforms", lesson: "DayOneHundredSix.html" }] },
+      { title: "Specialize", items: [{ text: "Additive combinatorics", lesson: "DayOneHundredSeven.html" }, { text: "Analytic number theory", lesson: "DayOneHundredEight.html" }, { text: "Harmonic analysis", lesson: "DayOneHundredNine.html" }, { text: "PDE / geometric analysis", lesson: "DayOneHundredTen.html" }, { text: "Probability (random matrices, stochastic)", lesson: "DayOneHundredEleven.html" }, { text: "Algebraic geometry", lesson: "DayOneHundredTwelve.html" }, { text: "Theoretical CS (complexity/algorithms/crypto)", lesson: "DayOneHundredThirteen.html" }, { text: "Rule: Pick 2–3 and go deep", lesson: "DayOneHundredFourteen.html" }] },
+      { title: "Always-On Discipline", items: [{ text: "Do problems daily (reading ≠ ability)", lesson: "DayOneHundredFifteen.html" }, { text: "Write proofs in full sentences", lesson: "DayOneHundredSixteen.html" }, { text: "Keep a lemma notebook", lesson: "DayOneHundredSeventeen.html" }, { text: "Two-pass: definitions/theorems first", lesson: "DayOneHundredEighteen.html" }, { text: "Two-pass: hard problems + re-prove", lesson: "DayOneHundredNineteen.html" }, { text: "Teach it back: plain English then formal", lesson: "DayOneHundredTwenty.html" }] }
+    ];
 
-const STORAGE_KEY="tao_checklist_v1";
-let state=loadState();
-const flat=[];
-curriculum.forEach((sec,si)=>sec.items.forEach((item,ii)=>flat.push({si,ii,...item})));
-const idFor=(si,ii)=>`sec${si}_item${ii}`;
-const dayById={};flat.forEach((x,i)=>{dayById[idFor(x.si,x.ii)]=i+1;});
+    const STORAGE_KEY = "tao_checklist_v1";
+    let state = loadState();
+    const flat = [];
+    curriculum.forEach((sec, si) => sec.items.forEach((item, ii) => flat.push({ si, ii, ...item })));
+    const idFor = (si, ii) => `sec${si}_item${ii}`;
+    const dayById = {}; flat.forEach((x, i) => { dayById[idFor(x.si, x.ii)] = i + 1; });
 
-function loadState(){try{const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):{checked:{},openSections:[0]};}catch{return{checked:{},openSections:[0]};}}
-function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
+    function loadState() { try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : { checked: {}, openSections: [0] }; } catch { return { checked: {}, openSections: [0] }; } }
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
-function render(){
-const app=document.getElementById('app');
-const q=document.getElementById('search').value.toLowerCase().trim();
-app.innerHTML='';
-curriculum.forEach((sec,si)=>{
-const secIds=sec.items.map((_,ii)=>idFor(si,ii));
-const secDone=secIds.filter(id=>state.checked[id]).length;
-const vis=sec.items.filter((item,ii)=>{if(!q)return true;const d=dayById[idFor(si,ii)];return`${sec.title} ${item.text} day ${d}`.toLowerCase().includes(q);});
-if(q&&vis.length===0)return;
-const det=document.createElement('details');det.className='section-card';det.open=state.openSections?.includes(si)??false;
-det.innerHTML=`<summary class="section-header"><div class="section-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div><div class="section-info"><div class="section-number">Section ${si}</div><div class="section-title">${sec.title}</div></div><div class="section-meta">${secDone}/${sec.items.length}</div></summary><div class="section-body"></div>`;
-const body=det.querySelector('.section-body');
-sec.items.forEach((item,ii)=>{
-const id=idFor(si,ii);const day=dayById[id];
-if(q&&!`${sec.title} ${item.text} day ${day}`.toLowerCase().includes(q))return;
-const row=document.createElement('div');row.className='item'+(state.checked[id]?' done':'');
-const lesson=item.lesson?`<a href="${item.lesson}" class="lesson-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>View Lesson</a>`:'';
-row.innerHTML=`<input type="checkbox" class="item-checkbox" id="${id}" ${state.checked[id]?'checked':''}/><div class="item-day">Day ${day}</div><div class="item-content"><span class="item-text">${item.text}</span>${lesson}</div>`;
-const cb=row.querySelector('input');
-cb.addEventListener('change',()=>{state.checked[id]=cb.checked;row.classList.toggle('done',cb.checked);saveState();updateStats();det.querySelector('.section-meta').textContent=`${secIds.filter(x=>state.checked[x]).length}/${sec.items.length}`;});
-body.appendChild(row);
-});
-det.addEventListener('toggle',()=>{state.openSections=state.openSections||[];if(det.open&&!state.openSections.includes(si))state.openSections.push(si);else if(!det.open)state.openSections=state.openSections.filter(x=>x!==si);saveState();});
-app.appendChild(det);
-});
-updateStats();
-}
+    function render() {
+      const app = document.getElementById('app');
+      const q = document.getElementById('search').value.toLowerCase().trim();
+      app.innerHTML = '';
+      curriculum.forEach((sec, si) => {
+        const secIds = sec.items.map((_, ii) => idFor(si, ii));
+        const secDone = secIds.filter(id => state.checked[id]).length;
+        const vis = sec.items.filter((item, ii) => { if (!q) return true; const d = dayById[idFor(si, ii)]; return `${sec.title} ${item.text} day ${d}`.toLowerCase().includes(q); });
+        if (q && vis.length === 0) return;
+        const det = document.createElement('details'); det.className = 'section-card'; det.open = state.openSections?.includes(si) ?? false;
+        det.innerHTML = `<summary class="section-header"><div class="section-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div><div class="section-info"><div class="section-number">Section ${si}</div><div class="section-title">${sec.title}</div></div><div class="section-meta">${secDone}/${sec.items.length}</div></summary><div class="section-body"></div>`;
+        const body = det.querySelector('.section-body');
+        sec.items.forEach((item, ii) => {
+          const id = idFor(si, ii); const day = dayById[id];
+          if (q && !`${sec.title} ${item.text} day ${day}`.toLowerCase().includes(q)) return;
+          const row = document.createElement('div'); row.className = 'item' + (state.checked[id] ? ' done' : '');
+          const lesson = item.lesson ? `<a href="${item.lesson}" class="lesson-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>View Lesson</a>` : '';
+          row.innerHTML = `<input type="checkbox" class="item-checkbox" id="${id}" ${state.checked[id] ? 'checked' : ''}/><div class="item-day">Day ${day}</div><div class="item-content"><span class="item-text">${item.text}</span>${lesson}</div>`;
+          const cb = row.querySelector('input');
+          cb.addEventListener('change', () => { state.checked[id] = cb.checked; row.classList.toggle('done', cb.checked); saveState(); updateStats(); det.querySelector('.section-meta').textContent = `${secIds.filter(x => state.checked[x]).length}/${sec.items.length}`; });
+          body.appendChild(row);
+        });
+        det.addEventListener('toggle', () => { state.openSections = state.openSections || []; if (det.open && !state.openSections.includes(si)) state.openSections.push(si); else if (!det.open) state.openSections = state.openSections.filter(x => x !== si); saveState(); });
+        app.appendChild(det);
+      });
+      updateStats();
+    }
 
-function updateStats(){
-const total=flat.length,done=Object.values(state.checked).filter(Boolean).length,pct=total?Math.round(done/total*100):0;
-document.getElementById('totalCount').textContent=total;
-document.getElementById('doneCount').textContent=done;
-document.getElementById('pctText').textContent=`${pct}%`;
-document.getElementById('progressFill').style.width=`${pct}%`;
-let cur=total+1;for(let i=0;i<flat.length;i++){if(!state.checked[idFor(flat[i].si,flat[i].ii)]){cur=i+1;break;}}
-document.getElementById('currentDay').textContent=cur;
-}
+    function updateStats() {
+      const total = flat.length, done = Object.values(state.checked).filter(Boolean).length, pct = total ? Math.round(done / total * 100) : 0;
+      document.getElementById('totalCount').textContent = total;
+      document.getElementById('doneCount').textContent = done;
+      document.getElementById('pctText').textContent = `${pct}%`;
+      document.getElementById('progressFill').style.width = `${pct}%`;
+      let cur = total + 1; for (let i = 0; i < flat.length; i++) { if (!state.checked[idFor(flat[i].si, flat[i].ii)]) { cur = i + 1; break; } }
+      document.getElementById('currentDay').textContent = cur;
+    }
 
-document.getElementById('search').addEventListener('input',render);
-document.getElementById('expandAll').addEventListener('click',()=>{document.querySelectorAll('.section-card').forEach(d=>d.open=true);state.openSections=curriculum.map((_,i)=>i);saveState();});
-document.getElementById('collapseAll').addEventListener('click',()=>{document.querySelectorAll('.section-card').forEach(d=>d.open=false);state.openSections=[];saveState();});
-document.getElementById('resetBtn').addEventListener('click',()=>{if(!confirm('Reset all progress?'))return;state={checked:{},openSections:[0]};saveState();render();});
-document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='/')e.preventDefault(),document.getElementById('search').focus();else if(e.key==='e'||e.key==='E')document.getElementById('expandAll').click();else if(e.key==='c'||e.key==='C')document.getElementById('collapseAll').click();});
-render();
+    document.getElementById('search').addEventListener('input', render);
+    document.getElementById('expandAll').addEventListener('click', () => { document.querySelectorAll('.section-card').forEach(d => d.open = true); state.openSections = curriculum.map((_, i) => i); saveState(); });
+    document.getElementById('collapseAll').addEventListener('click', () => { document.querySelectorAll('.section-card').forEach(d => d.open = false); state.openSections = []; saveState(); });
+    document.getElementById('resetBtn').addEventListener('click', () => { if (!confirm('Reset all progress?')) return; state = { checked: {}, openSections: [0] }; saveState(); render(); });
+    document.addEventListener('keydown', e => { if (e.target.tagName === 'INPUT') return; if (e.key === '/') e.preventDefault(), document.getElementById('search').focus(); else if (e.key === 'e' || e.key === 'E') document.getElementById('expandAll').click(); else if (e.key === 'c' || e.key === 'C') document.getElementById('collapseAll').click(); });
+    render();
   </script>
 </body>
+
 </html>

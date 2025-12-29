@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 13: Counting Basics — Rule of Sum/Product, P(n,k), C(n,k)</title>
+    <title>Day 22: Matrix Operations, Elimination & Rank</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #059669;
-            --accent-light: #d1fae5;
-            --accent-dark: #047857;
+            --accent: #0891b2;
+            --accent-light: #cffafe;
+            --accent-dark: #0e7490;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #34d399;
-            --accent-light: #064e3b;
-            --accent-dark: #6ee7b7;
+            --accent: #22d3ee;
+            --accent-light: #164e63;
+            --accent-dark: #67e8f9;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -553,32 +553,9 @@
 
         .formula-main {
             font-family: var(--font-mono);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: var(--text)
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border)
-        }
-
-        th {
-            background: var(--surface-alt);
-            font-weight: 600
-        }
-
-        td {
-            font-family: var(--font-mono)
         }
 
         .video-container {
@@ -862,11 +839,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 18 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -881,13 +858,13 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 13 · Combinatorics</div>
-        <h1>Counting Basics: Rule of Sum/Product, P(n,k) & C(n,k)</h1>
-        <p class="hero-desc">Counting is the foundation of probability and algorithm analysis. Learn to count
-            possibilities systematically using permutations and combinations.</p>
+            </svg>Day 22 · Linear Algebra</div>
+        <h1>Matrix Operations, Elimination & Rank</h1>
+        <p class="hero-desc">Master the computational foundations: matrix arithmetic, Gaussian elimination, and the
+            critical concept of rank.</p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min read</div>
-            <div class="meta-item">18 practice problems</div>
+            <div class="meta-item">~50 min read</div>
+            <div class="meta-item">15 practice problems</div>
             <div class="meta-item">8 video lessons</div>
         </div>
     </header>
@@ -898,13 +875,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#rules" class="toc-link">1. Basic Rules</a></li>
-                    <li><a href="#factorial" class="toc-link">2. Factorials</a></li>
-                    <li><a href="#permutations" class="toc-link">3. Permutations</a></li>
-                    <li><a href="#combinations" class="toc-link">4. Combinations</a></li>
-                    <li><a href="#applications" class="toc-link">5. CS Applications</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#ops" class="toc-link">1. Matrix Operations</a></li>
+                    <li><a href="#elimination" class="toc-link">2. Gaussian Elimination</a></li>
+                    <li><a href="#rank" class="toc-link">3. Rank</a></li>
+                    <li><a href="#inverse" class="toc-link">4. Matrix Inverse</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -922,299 +898,180 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Counting Matters</h2>
+                    <h2 class="section-title">Why Matrix Operations?</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Counting = Understanding the search space.</strong> How many possible
-                        passwords? How many ways to arrange data? How many states in your algorithm?</div>
+                    <div class="rule"><strong>Matrices are everywhere.</strong> Graphics, ML, scientific computing—all
+                        built on efficient matrix operations.</div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Where you'll use this</h3>
+                        <h3 class="subsection-title">Applications</h3>
                         <ul>
-                            <li><strong>Security:</strong> Password strength = log₂(number of possibilities)</li>
-                            <li><strong>Algorithms:</strong> Brute force time = number of configurations to check</li>
-                            <li><strong>Probability:</strong> P(event) = favorable outcomes / total outcomes</li>
-                            <li><strong>Data Structures:</strong> Hash functions, bloom filters, random sampling</li>
-                            <li><strong>Testing:</strong> How many test cases cover all combinations?</li>
+                            <li><strong>Graphics:</strong> Transformations, projections</li>
+                            <li><strong>ML:</strong> Neural network weights, data matrices</li>
+                            <li><strong>Scientific computing:</strong> Solving systems</li>
+                            <li><strong>Cryptography:</strong> Hill cipher, lattice-based</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="rules">
+            <section class="section" id="ops">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Basic Counting Rules</h2>
+                    <h2 class="section-title">Matrix Operations</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Rule of Sum (OR)</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Rule of Sum</div>
-                            <div class="formula-main">If A has m outcomes and B has n outcomes (disjoint), then A OR B
-                                has m + n outcomes</div>
-                        </div>
-                        <div class="math-block">Example: A restaurant offers 5 appetizers OR 8 entrees.
-                            If you can only pick one dish: 5 + 8 = 13 choices.
+                        <h3 class="subsection-title">Addition & scalar multiplication</h3>
+                        <div class="math-block">A + B: element-wise addition (same dimensions required)
+                            cA: multiply every element by scalar c
 
-                            Key: Use when choices are mutually exclusive (can't pick both).</div>
+                            [1 2] [5 6] [6 8]
+                            [3 4] + [7 8] = [10 12]</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Rule of Product (AND)</h3>
+                        <h3 class="subsection-title">Matrix multiplication</h3>
                         <div class="formula-box">
-                            <div class="formula-label">Rule of Product</div>
-                            <div class="formula-main">If A has m outcomes and B has n outcomes (independent), then A AND
-                                B has m × n outcomes</div>
+                            <div class="formula-label">Matrix Multiplication</div>
+                            <div class="formula-main">(AB)ᵢⱼ = Σₖ Aᵢₖ Bₖⱼ (row i of A · column j of B)</div>
                         </div>
-                        <div class="math-block">Example: A restaurant offers 5 appetizers AND 8 entrees.
-                            If you pick one of each: 5 × 8 = 40 meal combinations.
+                        <div class="math-block">A is m×n, B is n×p → AB is m×p
 
-                            Key: Use when making a sequence of independent choices.</div>
+                            Key properties:
+                            • AB ≠ BA in general (not commutative!)
+                            • (AB)C = A(BC) (associative)
+                            • A(B+C) = AB + AC (distributive)
+
+                            [1 2] [5 6] [1·5+2·7 1·6+2·8] [19 22]
+                            [3 4] [7 8] = [3·5+4·7 3·6+4·8] = [43 50]</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Extended product rule</h3>
-                        <div class="math-block">For a sequence of k independent choices with n₁, n₂, ..., nₖ options:
-                            Total = n₁ × n₂ × ... × nₖ
+                        <h3 class="subsection-title">Transpose</h3>
+                        <div class="math-block">(Aᵀ)ᵢⱼ = Aⱼᵢ (flip rows and columns)
 
-                            Example: License plate with 3 letters + 4 digits
-                            = 26 × 26 × 26 × 10 × 10 × 10 × 10
-                            = 26³ × 10⁴ = 175,760,000</div>
+                            Properties:
+                            • (Aᵀ)ᵀ = A
+                            • (AB)ᵀ = BᵀAᵀ (note the order reversal!)</div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">NumPy
+                                matrix ops</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+A = np.<span class="code-function">array</span>([[<span class="code-number">1</span>, <span class="code-number">2</span>], [<span class="code-number">3</span>, <span class="code-number">4</span>]])
+B = np.<span class="code-function">array</span>([[<span class="code-number">5</span>, <span class="code-number">6</span>], [<span class="code-number">7</span>, <span class="code-number">8</span>]])
+
+A + B      <span class="code-comment"># Addition</span>
+<span class="code-number">2</span> * A      <span class="code-comment"># Scalar multiplication</span>
+A @ B      <span class="code-comment"># Matrix multiplication</span>
+A.T        <span class="code-comment"># Transpose</span></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="factorial">
+            <section class="section" id="elimination">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Factorials</h2>
+                    <h2 class="section-title">Gaussian Elimination</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Factorial</div>
-                            <div class="formula-main">n! = n × (n-1) × (n-2) × ... × 2 × 1</div>
-                        </div>
-                        <div class="math-block">Examples:
-                            0! = 1 (by definition)
-                            1! = 1
-                            2! = 2
-                            3! = 6
-                            4! = 24
-                            5! = 120
-                            10! = 3,628,800
-                            20! ≈ 2.4 × 10¹⁸</div>
+                        <h3 class="subsection-title">Row operations</h3>
+                        <div class="math-block">Three allowed operations (don't change solution set):
+                            1. Swap two rows
+                            2. Multiply a row by nonzero scalar
+                            3. Add multiple of one row to another</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Why factorial?</h3>
-                        <div class="math-block">n! counts the number of ways to arrange n distinct objects.
+                        <h3 class="subsection-title">Row Echelon Form (REF)</h3>
+                        <div class="math-block">• Leading entry (pivot) of each row is to right of row above
+                            • Rows of zeros at bottom
 
-                            Arranging 3 books on a shelf:
-                            Position 1: 3 choices
-                            Position 2: 2 choices (one book used)
-                            Position 3: 1 choice
-                            Total: 3 × 2 × 1 = 3! = 6</div>
+                            [2 1 -1 | 8] [2 1 -1 | 8]
+                            [4 3 1 | 12] → [0 1 3 | -4]
+                            [2 1 2 | 3] [0 0 5 | -5]</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">In code</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">import</span> math
+                        <h3 class="subsection-title">Reduced REF (RREF)</h3>
+                        <div class="math-block">• All pivots are 1
+                            • Each pivot is the only nonzero in its column
 
-math.<span class="code-function">factorial</span>(<span class="code-number">5</span>)   <span class="code-comment"># 120</span>
-math.<span class="code-function">factorial</span>(<span class="code-number">10</span>)  <span class="code-comment"># 3628800</span>
-
-<span class="code-comment"># Recursive definition</span>
-<span class="code-keyword">def</span> <span class="code-function">factorial</span>(n):
-    <span class="code-keyword">if</span> n <= <span class="code-number">1</span>:
-        <span class="code-keyword">return</span> <span class="code-number">1</span>
-    <span class="code-keyword">return</span> n * <span class="code-function">factorial</span>(n - <span class="code-number">1</span>)</pre>
-                            </div>
-                        </div>
+                            [1 0 0 | 2]
+                            [0 1 0 | 1] ← Solution: x=2, y=1, z=-1
+                            [0 0 1 | -1]</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="permutations">
+            <section class="section" id="rank">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Permutations P(n,k)</h2>
+                    <h2 class="section-title">Rank</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
                         <h3 class="subsection-title">Definition</h3>
                         <div class="formula-box">
-                            <div class="formula-label">Permutations: Order Matters</div>
-                            <div class="formula-main">P(n,k) = n! / (n-k)! = n × (n-1) × ... × (n-k+1)</div>
-                        </div>
-                        <p>P(n,k) = number of ways to arrange k items from n distinct items, where <strong>order
-                                matters</strong>.</p>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Examples</h3>
-                        <div class="math-block">How many 3-letter "words" from {A,B,C,D,E}? (no repeats)
-                            P(5,3) = 5 × 4 × 3 = 60
-
-                            Gold/Silver/Bronze medals for 8 athletes?
-                            P(8,3) = 8 × 7 × 6 = 336
-
-                            Arrange all 4 books?
-                            P(4,4) = 4! = 24</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">With repetition</h3>
-                        <div class="math-block">If repetition is allowed:
-                            n choices for each of k positions = nᵏ
-
-                            PIN code (4 digits, can repeat): 10⁴ = 10,000
-                            Password (8 lowercase letters): 26⁸ ≈ 209 billion</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">In code</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">import</span> math
-<span class="code-keyword">from</span> itertools <span class="code-keyword">import</span> permutations
-
-<span class="code-comment"># P(n,k) using math</span>
-<span class="code-keyword">def</span> <span class="code-function">P</span>(n, k):
-    <span class="code-keyword">return</span> math.<span class="code-function">factorial</span>(n) // math.<span class="code-function">factorial</span>(n - k)
-
-<span class="code-function">P</span>(<span class="code-number">5</span>, <span class="code-number">3</span>)  <span class="code-comment"># 60</span>
-
-<span class="code-comment"># Or use math.perm (Python 3.8+)</span>
-math.<span class="code-function">perm</span>(<span class="code-number">5</span>, <span class="code-number">3</span>)  <span class="code-comment"># 60</span>
-
-<span class="code-comment"># Generate all permutations</span>
-<span class="code-function">list</span>(<span class="code-function">permutations</span>(<span class="code-string">'ABC'</span>, <span class="code-number">2</span>))
-<span class="code-comment"># [('A','B'), ('A','C'), ('B','A'), ('B','C'), ('C','A'), ('C','B')]</span></pre>
-                            </div>
+                            <div class="formula-label">Rank</div>
+                            <div class="formula-main">rank(A) = # of pivots = dim(column space) = dim(row space)</div>
                         </div>
                     </div>
-                </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key facts</h3>
+                        <div class="math-block">For m×n matrix A:
+                            • rank(A) ≤ min(m, n)
+                            • rank(A) = rank(Aᵀ)
+                            • Full row rank: rank(A) = m
+                            • Full column rank: rank(A) = n
+
+                            For Ax = b:
+                            • Unique solution ⟺ rank(A) = n and rank(A|b) = rank(A)
+                            • No solution ⟺ rank(A|b) > rank(A)
+                            • Infinite solutions ⟺ rank(A) < n</div>
+                        </div>
+                        <div class="info"><strong>Rank-Nullity Theorem:</strong> rank(A) + nullity(A) = n (# columns)
+                        </div>
+                    </div>
             </section>
 
-            <section class="section" id="combinations">
+            <section class="section" id="inverse">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Combinations C(n,k)</h2>
+                    <h2 class="section-title">Matrix Inverse</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
                         <h3 class="subsection-title">Definition</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Combinations: Order Doesn't Matter</div>
-                            <div class="formula-main">C(n,k) = n! / (k! × (n-k)!) = P(n,k) / k!</div>
-                        </div>
-                        <p>C(n,k), also written (n choose k) or ⁿCₖ, counts ways to choose k items from n where
-                            <strong>order doesn't matter</strong>.</p>
+                        <div class="math-block">A⁻¹ exists ⟺ A is square and det(A) ≠ 0
+
+                            AA⁻¹ = A⁻¹A = I
+
+                            Properties:
+                            • (A⁻¹)⁻¹ = A
+                            • (AB)⁻¹ = B⁻¹A⁻¹ (order reverses!)
+                            • (Aᵀ)⁻¹ = (A⁻¹)ᵀ</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Why divide by k!?</h3>
-                        <div class="math-block">Permutations count different orderings as different.
-                            Combinations don't care about order.
+                        <h3 class="subsection-title">2×2 formula</h3>
+                        <div class="math-block">[a b]⁻¹ 1 [ d -b]
+                            [c d] = ――――― [-c a]
+                            ad-bc
 
-                            {A,B,C} has 3! = 6 orderings: ABC, ACB, BAC, BCA, CAB, CBA
-                            But as a set, they're all the same selection.
-
-                            So: C(n,k) = P(n,k) / k!</div>
+                            det = ad-bc (must be nonzero)</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Examples</h3>
-                        <div class="math-block">Choose 3 students from 10 for a committee?
-                            C(10,3) = 10!/(3! × 7!) = (10×9×8)/(3×2×1) = 120
-
-                            5-card hand from 52-card deck?
-                            C(52,5) = 2,598,960
-
-                            Choose 0 items from n?
-                            C(n,0) = 1 (the empty set)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Key properties</h3>
-                        <div class="math-block">C(n,k) = C(n, n-k) (symmetry)
-                            C(n,0) = C(n,n) = 1
-                            C(n,1) = n
-                            Σₖ C(n,k) = 2ⁿ (all subsets)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">In code</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">import</span> math
-<span class="code-keyword">from</span> itertools <span class="code-keyword">import</span> combinations
-
-<span class="code-comment"># C(n,k) using math</span>
-<span class="code-keyword">def</span> <span class="code-function">C</span>(n, k):
-    <span class="code-keyword">return</span> math.<span class="code-function">factorial</span>(n) // (math.<span class="code-function">factorial</span>(k) * math.<span class="code-function">factorial</span>(n-k))
-
-<span class="code-function">C</span>(<span class="code-number">10</span>, <span class="code-number">3</span>)  <span class="code-comment"># 120</span>
-
-<span class="code-comment"># Or use math.comb (Python 3.8+)</span>
-math.<span class="code-function">comb</span>(<span class="code-number">10</span>, <span class="code-number">3</span>)  <span class="code-comment"># 120</span>
-
-<span class="code-comment"># Generate all combinations</span>
-<span class="code-function">list</span>(<span class="code-function">combinations</span>(<span class="code-string">'ABCD'</span>, <span class="code-number">2</span>))
-<span class="code-comment"># [('A','B'), ('A','C'), ('A','D'), ('B','C'), ('B','D'), ('C','D')]</span></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="applications">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">CS Applications</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Password strength</h3>
-                        <div class="math-block">8-char password (lowercase + uppercase + digits):
-                            62 choices per position
-                            Total: 62⁸ ≈ 2.18 × 10¹⁴
-
-                            Bits of entropy: log₂(62⁸) ≈ 48 bits
-
-                            To crack at 10 billion/sec: ~6 hours</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Subsets and power sets</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Number of subsets of a set of size n = 2ⁿ</span>
-<span class="code-comment"># Each element: include or exclude (2 choices)</span>
-
-n = <span class="code-number">20</span>
-subsets = <span class="code-number">2</span> ** n  <span class="code-comment"># 1,048,576</span>
-
-<span class="code-comment"># Generate all subsets using bit manipulation</span>
-<span class="code-keyword">def</span> <span class="code-function">all_subsets</span>(items):
-    n = <span class="code-function">len</span>(items)
-    <span class="code-keyword">for</span> mask <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">2</span>**n):
-        <span class="code-keyword">yield</span> [items[i] <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n) <span class="code-keyword">if</span> mask & (<span class="code-number">1</span> << i)]</pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Binomial coefficients in algorithms</h3>
-                        <div class="math-block">Pascal's Triangle: C(n,k) = C(n-1,k-1) + C(n-1,k)
-
-                            Used in:
-                            • Dynamic programming
-                            • Polynomial expansion: (a+b)ⁿ
-                            • Probability distributions
-                            • Paths in a grid: C(m+n, m) paths from (0,0) to (m,n)</div>
+                        <h3 class="subsection-title">Finding inverse via elimination</h3>
+                        <div class="math-block">Augment [A | I], reduce to RREF:
+                            [A | I] → [I | A⁻¹]</div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -1235,7 +1092,7 @@ subsets = <span class="code-number">2</span> ** n  <span class="code-comment"># 
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -1252,31 +1109,28 @@ subsets = <span class="code-number">2</span> ** n  <span class="code-comment"># 
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/,/g, "") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Factorial", prompt: "5! = ?", answer: ["120"], display: "120" },
-            { id: 2, topic: "Factorial", prompt: "0! = ?", answer: ["1"], display: "1" },
-            { id: 3, topic: "Factorial", prompt: "4! = ?", answer: ["24"], display: "24" },
-            { id: 4, topic: "Product", prompt: "3 shirts × 4 pants = ? outfits", answer: ["12"], display: "12" },
-            { id: 5, topic: "Product", prompt: "2-digit PIN (0-9, can repeat) = 10 × 10 = ?", answer: ["100"], display: "100" },
-            { id: 6, topic: "Permutation", prompt: "P(5,2) = 5 × 4 = ?", answer: ["20"], display: "20" },
-            { id: 7, topic: "Permutation", prompt: "P(4,4) = 4! = ?", answer: ["24"], display: "24" },
-            { id: 8, topic: "Permutation", prompt: "P(6,3) = 6 × 5 × 4 = ?", answer: ["120"], display: "120" },
-            { id: 9, topic: "Combination", prompt: "C(5,2) = 5!/(2!×3!) = ?", answer: ["10"], display: "10" },
-            { id: 10, topic: "Combination", prompt: "C(4,0) = ?", answer: ["1"], display: "1" },
-            { id: 11, topic: "Combination", prompt: "C(6,3) = ?", answer: ["20"], display: "20" },
-            { id: 12, topic: "Combination", prompt: "C(10,1) = ?", answer: ["10"], display: "10" },
-            { id: 13, topic: "Symmetry", prompt: "C(7,5) = C(7,?) by symmetry", answer: ["2"], display: "2" },
-            { id: 14, topic: "Subsets", prompt: "Subsets of {A,B,C} = 2³ = ?", answer: ["8"], display: "8" },
-            { id: 15, topic: "With Rep", prompt: "3-letter code (26 letters, can repeat) = 26³ = ?", answer: ["17576"], display: "17,576" },
-            { id: 16, topic: "Formula", prompt: "P(n,k) = n! / (?)", answer: ["(n-k)!"], display: "(n-k)!" },
-            { id: 17, topic: "Formula", prompt: "C(n,k) = P(n,k) / ?", answer: ["k!"], display: "k!" },
-            { id: 18, topic: "Apply", prompt: "Ways to choose 2 from 5 people: C(5,2) = ?", answer: ["10"], display: "10" },
+            { id: 1, topic: "Mult", prompt: "A is 3×2, B is 2×4. AB is ?×? matrix", answer: ["3x4", "3×4"], display: "3×4" },
+            { id: 2, topic: "Mult", prompt: "Matrix multiplication IS/IS NOT commutative?", answer: ["isnot", "is not", "not"], display: "IS NOT commutative" },
+            { id: 3, topic: "Transpose", prompt: "(AB)ᵀ = ?ᵀAᵀ", answer: ["b", "bᵀ"], display: "BᵀAᵀ" },
+            { id: 4, topic: "Elimination", prompt: "How many elementary row operations are there?", answer: ["3", "three"], display: "3" },
+            { id: 5, topic: "Rank", prompt: "rank(A) = number of ___ after elimination", answer: ["pivots"], display: "pivots" },
+            { id: 6, topic: "Rank", prompt: "rank(A) = dim(column space) = dim(? space)", answer: ["row"], display: "row space" },
+            { id: 7, topic: "Rank", prompt: "Rank-Nullity: rank(A) + nullity(A) = ?", answer: ["n", "# columns", "number of columns"], display: "n (# columns)" },
+            { id: 8, topic: "Inverse", prompt: "A⁻¹ exists ⟺ det(A) ≠ ?", answer: ["0", "zero"], display: "0" },
+            { id: 9, topic: "Inverse", prompt: "(AB)⁻¹ = B⁻¹ × ?", answer: ["a^-1", "a⁻¹", "a inverse"], display: "A⁻¹" },
+            { id: 10, topic: "2x2", prompt: "For [a b; c d], det = ad - ?", answer: ["bc"], display: "bc" },
+            { id: 11, topic: "Concept", prompt: "Full column rank means rank(A) = ?", answer: ["n"], display: "n (# columns)" },
+            { id: 12, topic: "Concept", prompt: "No solution to Ax=b when rank([A|b]) > rank(?)", answer: ["a"], display: "rank(A)" },
+            { id: 13, topic: "Ops", prompt: "A+B requires same ___?", answer: ["dimensions", "size", "shape"], display: "dimensions" },
+            { id: 14, topic: "RREF", prompt: "In RREF, each pivot is the only nonzero in its ___?", answer: ["column"], display: "column" },
+            { id: 15, topic: "Apply", prompt: "To find A⁻¹, reduce [A|I] to [I|?]", answer: ["a^-1", "a⁻¹", "a inverse"], display: "A⁻¹" },
         ];
 
-        const LS_KEY = "day13_stats_v1";
+        const LS_KEY = "day22_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1315,27 +1169,23 @@ subsets = <span class="code-number">2</span> ** n  <span class="code-comment"># 
 
         const VIDEO_GROUPS = [
             {
-                title: "Counting Basics", items: [
-                    { title: "Khan Academy — Counting Principle", channel: "Khan Academy", vid: "0NAASclUm4k" },
-                    { title: "3Blue1Brown — Counting", channel: "3Blue1Brown", vid: "8idr1WZ1A7Q" },
+                title: "Matrix Basics", items: [
+                    { title: "3Blue1Brown — Linear Transformations", channel: "3Blue1Brown", vid: "kYB8IZa5AuE" },
+                    { title: "Khan Academy — Matrix Multiplication", channel: "Khan Academy", vid: "OAh573i_qn8" },
                 ]
             },
             {
-                title: "Permutations", items: [
-                    { title: "Khan Academy — Permutations", channel: "Khan Academy", vid: "DROZVHObeko" },
-                    { title: "Organic Chemistry Tutor — Permutations", channel: "Organic Chemistry Tutor", vid: "XqQTXW7XfYA" },
+                title: "Elimination", items: [
+                    { title: "MIT OCW — Elimination", channel: "MIT OCW", vid: "QVKj3LADCnA" },
+                    { title: "3Blue1Brown — Solving Systems", channel: "3Blue1Brown", vid: "PFDu9oVAE-g" },
                 ]
             },
             {
-                title: "Combinations", items: [
-                    { title: "Khan Academy — Combinations", channel: "Khan Academy", vid: "iKy-d5_erhI" },
-                    { title: "Eddie Woo — Combinations", channel: "Eddie Woo", vid: "bCxMhncR7PU" },
-                ]
-            },
-            {
-                title: "Applications", items: [
-                    { title: "Computerphile — Password Entropy", channel: "Computerphile", vid: "3NjQ9b3pgIg" },
-                    { title: "MIT OCW — Counting", channel: "MIT OCW", vid: "oHcH4P8WuXY" },
+                title: "Rank & Inverse", items: [
+                    { title: "3Blue1Brown — Inverse Matrices", channel: "3Blue1Brown", vid: "uQhTuRlWMxw" },
+                    { title: "Khan Academy — Rank", channel: "Khan Academy", vid: "fBNDHSw2mIA" },
+                    { title: "MIT OCW — Rank", channel: "MIT OCW", vid: "EEixQi5nGCI" },
+                    { title: "Organic Chemistry — Inverse", channel: "Organic Chemistry Tutor", vid: "01c12NaUQDw" },
                 ]
             },
         ];

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 12: Recurrences — Unrolling, Guess-and-Check & Master Theorem</title>
+    <title>Day 19: Line & Surface Integrals — Recognize the Ideas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #7c3aed;
-            --accent-light: #ede9fe;
-            --accent-dark: #6d28d9;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --accent-dark: #1d4ed8;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #a78bfa;
-            --accent-light: #2e1065;
-            --accent-dark: #c4b5fd;
+            --accent: #60a5fa;
+            --accent-light: #1e3a5f;
+            --accent-dark: #93c5fd;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -453,73 +453,6 @@
             color: #155e75
         }
 
-        .code-block {
-            background: var(--code-bg);
-            border-radius: var(--radius);
-            margin: 16px 0;
-            overflow: hidden
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: #2d2d2d;
-            border-bottom: 1px solid #3d3d3d
-        }
-
-        .code-lang {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: #a1a1aa;
-            text-transform: uppercase;
-            letter-spacing: 0.05em
-        }
-
-        .code-label {
-            font-size: 12px;
-            color: #71717a
-        }
-
-        .code-content {
-            padding: 16px 20px;
-            overflow-x: auto
-        }
-
-        .code-content pre {
-            margin: 0;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--code-text)
-        }
-
-        .code-keyword {
-            color: #c586c0
-        }
-
-        .code-function {
-            color: #dcdcaa
-        }
-
-        .code-string {
-            color: #ce9178
-        }
-
-        .code-number {
-            color: #b5cea8
-        }
-
-        .code-comment {
-            color: #6a9955
-        }
-
-        .code-type {
-            color: #4ec9b0
-        }
-
         ul {
             margin: 12px 0 12px 24px;
             color: var(--text-secondary)
@@ -556,29 +489,6 @@
             font-size: 18px;
             font-weight: 600;
             color: var(--text)
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border)
-        }
-
-        th {
-            background: var(--surface-alt);
-            font-weight: 600
-        }
-
-        td {
-            font-family: var(--font-mono)
         }
 
         .video-container {
@@ -862,11 +772,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 10 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -881,14 +791,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 12 · Algorithm Analysis</div>
-        <h1>Recurrences: Unrolling, Guess-and-Check & Master Theorem</h1>
-        <p class="hero-desc">Recursive algorithms have recursive running times. Learn three techniques to solve
-            recurrence relations and determine the Big-O complexity of divide-and-conquer algorithms.</p>
+            </svg>Day 19 · Vector Calculus</div>
+        <h1>Line & Surface Integrals: Recognize the Ideas</h1>
+        <p class="hero-desc">Integrate along curves and over surfaces. These concepts appear in physics, graphics, and
+            understanding the deep theorems of calculus.</p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">15 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">~40 min read</div>
+            <div class="meta-item">10 practice problems</div>
+            <div class="meta-item">6 video lessons</div>
         </div>
     </header>
 
@@ -898,13 +808,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#basics" class="toc-link">1. Recurrence Basics</a></li>
-                    <li><a href="#unrolling" class="toc-link">2. Unrolling Method</a></li>
-                    <li><a href="#guess" class="toc-link">3. Guess and Check</a></li>
-                    <li><a href="#master" class="toc-link">4. Master Theorem</a></li>
-                    <li><a href="#examples" class="toc-link">5. Common Examples</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#line" class="toc-link">1. Line Integrals</a></li>
+                    <li><a href="#conservative" class="toc-link">2. Conservative Fields</a></li>
+                    <li><a href="#surface" class="toc-link">3. Surface Integrals</a></li>
+                    <li><a href="#theorems" class="toc-link">4. The Big Theorems</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -922,314 +831,149 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Recurrences Matter</h2>
+                    <h2 class="section-title">Why Line & Surface Integrals?</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>The pattern:</strong> Recursive code leads to recurrence relations. To
-                        find the Big-O of recursive algorithms, you must solve these recurrences.</div>
+                    <div class="rule"><strong>Goal:</strong> Recognize what these integrals compute and when to use
+                        them. Deep mastery comes later—here we build intuition.</div>
                     <div class="subsection">
-                        <h3 class="subsection-title">From code to recurrence</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Merge
-                                    sort</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">merge_sort</span>(arr):
-    <span class="code-keyword">if</span> <span class="code-function">len</span>(arr) <= <span class="code-number">1</span>:
-        <span class="code-keyword">return</span> arr           <span class="code-comment"># O(1) base case</span>
-    
-    mid = <span class="code-function">len</span>(arr) // <span class="code-number">2</span>
-    left = <span class="code-function">merge_sort</span>(arr[:mid])   <span class="code-comment"># T(n/2)</span>
-    right = <span class="code-function">merge_sort</span>(arr[mid:])  <span class="code-comment"># T(n/2)</span>
-    <span class="code-keyword">return</span> <span class="code-function">merge</span>(left, right)      <span class="code-comment"># O(n)</span>
-
-<span class="code-comment"># Recurrence: T(n) = 2T(n/2) + O(n)</span></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">The goal</h3>
-                        <p>Convert T(n) = 2T(n/2) + n into T(n) = O(n log n). That's what this day teaches!</p>
+                        <h3 class="subsection-title">Applications</h3>
+                        <ul>
+                            <li><strong>Physics:</strong> Work done by a force along a path</li>
+                            <li><strong>Electromagnetism:</strong> Flux through surfaces</li>
+                            <li><strong>Graphics:</strong> Path length, surface area</li>
+                            <li><strong>Fluid dynamics:</strong> Flow across boundaries</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="basics">
+            <section class="section" id="line">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Recurrence Basics</h2>
+                    <h2 class="section-title">Line Integrals</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Anatomy of a recurrence</h3>
-                        <div class="math-block">T(n) = a·T(n/b) + f(n)
+                        <h3 class="subsection-title">Scalar line integral</h3>
+                        <div class="formula-box">
+                            <div class="formula-label">Line Integral of Scalar Function</div>
+                            <div class="formula-main">∫_C f ds = ∫ₐᵇ f(r(t)) |r'(t)| dt</div>
+                        </div>
+                        <p>Integrates f along the curve C. Think: "weighted arc length."</p>
+                        <div class="math-block">If f = 1: ∫_C 1 ds = arc length of C
 
-                            Where:
-                            • T(n) = time to solve problem of size n
-                            • a = number of subproblems
-                            • n/b = size of each subproblem
-                            • f(n) = work done outside recursive calls (divide + combine)</div>
+                            Example: C is unit circle, f = 1
+                            Arc length = ∫₀^{2π} 1 · 1 dt = 2π</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Common patterns</h3>
-                        <table>
-                            <tr>
-                                <th>Algorithm</th>
-                                <th>Recurrence</th>
-                                <th>Solution</th>
-                            </tr>
-                            <tr>
-                                <td>Binary search</td>
-                                <td>T(n) = T(n/2) + O(1)</td>
-                                <td>O(log n)</td>
-                            </tr>
-                            <tr>
-                                <td>Merge sort</td>
-                                <td>T(n) = 2T(n/2) + O(n)</td>
-                                <td>O(n log n)</td>
-                            </tr>
-                            <tr>
-                                <td>Naive multiply</td>
-                                <td>T(n) = 4T(n/2) + O(n)</td>
-                                <td>O(n²)</td>
-                            </tr>
-                            <tr>
-                                <td>Karatsuba</td>
-                                <td>T(n) = 3T(n/2) + O(n)</td>
-                                <td>O(n^1.58)</td>
-                            </tr>
-                            <tr>
-                                <td>Linear scan</td>
-                                <td>T(n) = T(n-1) + O(1)</td>
-                                <td>O(n)</td>
-                            </tr>
-                        </table>
+                        <h3 class="subsection-title">Vector line integral (work)</h3>
+                        <div class="formula-box">
+                            <div class="formula-label">Line Integral of Vector Field</div>
+                            <div class="formula-main">∫_C F · dr = ∫ₐᵇ F(r(t)) · r'(t) dt</div>
+                        </div>
+                        <p>Computes work done by force F along path C.</p>
+                        <div class="math-block">Physical meaning:
+                            • F · dr = component of force along path × distance
+                            • Sum up these tiny work contributions
+
+                            If F ⊥ path everywhere: work = 0
+                            If F ∥ path everywhere: work = |F| × length</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="unrolling">
+            <section class="section" id="conservative">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">The Unrolling Method</h2>
+                    <h2 class="section-title">Conservative Vector Fields</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The technique</h3>
-                        <div class="rule"><strong>Unrolling:</strong> Repeatedly substitute the recurrence into itself
-                            until you see a pattern, then sum up all the work.</div>
+                        <h3 class="subsection-title">Definition</h3>
+                        <div class="math-block">F is conservative if F = ∇φ for some potential function φ.
+
+                            Then: ∫_C F · dr = φ(end) - φ(start)
+
+                            Path independent! Only endpoints matter.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = 2T(n/2) + n</h3>
-                        <div class="math-block">Unroll step by step:
+                        <h3 class="subsection-title">Test for conservative</h3>
+                        <div class="math-block">In 2D: F = (P, Q) is conservative if ∂P/∂y = ∂Q/∂x
+                            In 3D: F is conservative if curl(F) = ∇ × F = 0
 
-                            T(n) = 2T(n/2) + n
-
-                            = 2[2T(n/4) + n/2] + n
-                            = 4T(n/4) + n + n
-                            = 4T(n/4) + 2n
-
-                            = 4[2T(n/8) + n/4] + 2n
-                            = 8T(n/8) + n + 2n
-                            = 8T(n/8) + 3n
-
-                            Pattern: After k steps:
-                            = 2ᵏ T(n/2ᵏ) + kn
-
-                            Stop when n/2ᵏ = 1, so k = log₂ n:
-                            = n·T(1) + n log n
-                            = O(n log n) ✓</div>
+                            Conservative ⟺ curl-free (in simply connected domains)</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = T(n/2) + 1 (Binary search)</h3>
-                        <div class="math-block">T(n) = T(n/2) + 1
-                            = T(n/4) + 1 + 1
-                            = T(n/8) + 1 + 1 + 1
-                            ...
-                            = T(n/2ᵏ) + k
-
-                            When n/2ᵏ = 1, k = log n:
-                            = T(1) + log n
-                            = O(log n) ✓</div>
-                    </div>
+                    <div class="info"><strong>Key insight:</strong> Gravity is conservative. Friction is not. This is
+                        why energy is conserved in some systems but not others.</div>
                 </div>
             </section>
 
-            <section class="section" id="guess">
+            <section class="section" id="surface">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Guess and Check (Substitution)</h2>
+                    <h2 class="section-title">Surface Integrals</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The technique</h3>
-                        <div class="rule"><strong>Guess and Check:</strong><br>1. Guess the answer (based on intuition
-                            or unrolling)<br>2. Prove by induction that your guess works<br>3. Find the constant that
-                            makes it valid</div>
+                        <h3 class="subsection-title">Scalar surface integral</h3>
+                        <div class="formula-box">
+                            <div class="formula-label">Surface Integral (Scalar)</div>
+                            <div class="formula-main">∫∫_S f dS = "sum f over surface"</div>
+                        </div>
+                        <p>If f = 1: this gives surface area.</p>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = 2T(n/2) + n</h3>
-                        <div class="math-block"><strong>Guess:</strong> T(n) ≤ cn log n for some constant c.
-
-                            <strong>Prove by induction:</strong>
-
-                            Assume T(k) ≤ ck log k for all k < n. T(n)=2T(n/2) + n ≤ 2 · c(n/2)log(n/2) + n [by I.H.]=cn
-                                log(n/2) + n=cn log n - cn log 2 + n=cn log n - cn + n=cn log n + n(1 - c) For this ≤ cn
-                                log n, we need: n(1 - c) ≤ 0 c ≥ 1 So T(n) ≤ cn log n for c ≥ 1. ✓ Therefore T(n)=O(n
-                                log n).</div>
+                        <h3 class="subsection-title">Flux integral</h3>
+                        <div class="formula-box">
+                            <div class="formula-label">Flux Through Surface</div>
+                            <div class="formula-main">∫∫_S F · dS = ∫∫_S F · n̂ dS</div>
                         </div>
-                        <div class="warning"><strong>Common mistake:</strong> Guessing T(n) = O(n) for T(n) = 2T(n/2) +
-                            n doesn't work because the substitution doesn't go through. Always verify with induction!
-                        </div>
+                        <div class="math-block">Measures how much F "flows through" surface S.
+
+                            n̂ = unit normal to surface
+                            F · n̂ = component of F perpendicular to surface
+
+                            Examples:
+                            • Water flow through a net
+                            • Electric field through a surface (Gauss's law)</div>
                     </div>
+                </div>
             </section>
 
-            <section class="section" id="master">
+            <section class="section" id="theorems">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">The Master Theorem</h2>
+                    <h2 class="section-title">The Big Theorems (Overview)</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The theorem</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Master Theorem</div>
-                            <div class="formula-main">T(n) = aT(n/b) + f(n)</div>
-                        </div>
-                        <p>Compare f(n) with n^(log_b a):</p>
-                        <div class="math-block"><strong>Case 1:</strong> f(n) = O(n^(log_b a - ε)) for some ε > 0
-                            → T(n) = Θ(n^(log_b a))
-                            "Recursion dominates"
+                        <h3 class="subsection-title">Green's Theorem (2D)</h3>
+                        <div class="math-block">∮_C (P dx + Q dy) = ∫∫_D (∂Q/∂x - ∂P/∂y) dA
 
-                            <strong>Case 2:</strong> f(n) = Θ(n^(log_b a))
-                            → T(n) = Θ(n^(log_b a) · log n)
-                            "Balanced work"
-
-                            <strong>Case 3:</strong> f(n) = Ω(n^(log_b a + ε)) for some ε > 0
-                            AND a·f(n/b) ≤ c·f(n) for c < 1 → T(n)=Θ(f(n)) "Non-recursive work dominates" </div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Quick reference</h3>
-                            <table>
-                                <tr>
-                                    <th>Recurrence</th>
-                                    <th>a</th>
-                                    <th>b</th>
-                                    <th>f(n)</th>
-                                    <th>n^(log_b a)</th>
-                                    <th>Case</th>
-                                    <th>Result</th>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + n</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n</td>
-                                    <td>2</td>
-                                    <td>O(n log n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + 1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>n</td>
-                                    <td>1</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + n²</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>n²</td>
-                                    <td>n</td>
-                                    <td>3</td>
-                                    <td>O(n²)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = T(n/2) + 1</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>O(log n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 4T(n/2) + n</td>
-                                    <td>4</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n²</td>
-                                    <td>1</td>
-                                    <td>O(n²)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 3T(n/2) + n</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n^1.58</td>
-                                    <td>1</td>
-                                    <td>O(n^1.58)</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Step-by-step Master Theorem</h3>
-                            <div class="math-block">Given T(n) = 4T(n/2) + n:
-
-                                1. Identify: a = 4, b = 2, f(n) = n
-
-                                2. Compute n^(log_b a) = n^(log_2 4) = n^2
-
-                                3. Compare f(n) = n vs n^2:
-                                n = O(n^(2-ε)) for ε = 1 ✓
-
-                                4. Case 1 applies: T(n) = Θ(n²)</div>
-                        </div>
-                    </div>
-            </section>
-
-            <section class="section" id="examples">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Common Algorithm Examples</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Binary Search: T(n) = T(n/2) + O(1)</h3>
-                        <div class="math-block">a = 1, b = 2, f(n) = 1
-                            n^(log_2 1) = n^0 = 1
-                            f(n) = Θ(1) = Θ(n^0) → Case 2
-                            T(n) = Θ(1 · log n) = Θ(log n)</div>
+                            Relates line integral around boundary to double integral over region.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Merge Sort: T(n) = 2T(n/2) + O(n)</h3>
-                        <div class="math-block">a = 2, b = 2, f(n) = n
-                            n^(log_2 2) = n^1 = n
-                            f(n) = Θ(n) → Case 2
-                            T(n) = Θ(n log n)</div>
+                        <h3 class="subsection-title">Stokes' Theorem (3D)</h3>
+                        <div class="math-block">∮_C F · dr = ∫∫_S (∇ × F) · dS
+
+                            Relates line integral around boundary to surface integral of curl.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Strassen's Matrix Multiply: T(n) = 7T(n/2) + O(n²)</h3>
-                        <div class="math-block">a = 7, b = 2, f(n) = n²
-                            n^(log_2 7) ≈ n^2.81
-                            f(n) = n² = O(n^(2.81-ε)) for ε ≈ 0.81 → Case 1
-                            T(n) = Θ(n^2.81) ≈ Θ(n^2.81)</div>
+                        <h3 class="subsection-title">Divergence Theorem</h3>
+                        <div class="math-block">∫∫_S F · dS = ∫∫∫_V (∇ · F) dV
+
+                            Relates flux through closed surface to triple integral of divergence.</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Fibonacci (naive): T(n) = T(n-1) + T(n-2) + O(1)</h3>
-                        <div class="warning"><strong>Master Theorem doesn't apply!</strong> The problem size doesn't
-                            divide by a constant. Use unrolling or tree method:<br><br>T(n) ≈ 2^n (exponential) because
-                            the recursion tree has 2^n nodes.</div>
-                    </div>
+                    <div class="rule"><strong>Pattern:</strong> All three theorems relate a boundary integral to an
+                        integral over the interior. They're all versions of the Fundamental Theorem of Calculus in
+                        higher dimensions!</div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -1250,7 +994,7 @@
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -1267,28 +1011,23 @@
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/\*\*/g, "^").replace(/log/g, "log") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/'/g, "") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Master", prompt: "T(n) = 2T(n/2) + n. What is log_2(2)?", answer: ["1"], display: "1" },
-            { id: 2, topic: "Master", prompt: "T(n) = 2T(n/2) + n. n^(log_b a) = ?", answer: ["n", "n^1"], display: "n" },
-            { id: 3, topic: "Master", prompt: "T(n) = 2T(n/2) + n is Case 1, 2, or 3?", answer: ["2"], display: "Case 2" },
-            { id: 4, topic: "Master", prompt: "T(n) = 2T(n/2) + n = O(?) — just the growth", answer: ["nlogn", "n log n"], display: "O(n log n)" },
-            { id: 5, topic: "Master", prompt: "T(n) = 4T(n/2) + n. log_2(4) = ?", answer: ["2"], display: "2" },
-            { id: 6, topic: "Master", prompt: "T(n) = 4T(n/2) + n is Case 1, 2, or 3?", answer: ["1"], display: "Case 1" },
-            { id: 7, topic: "Master", prompt: "T(n) = 4T(n/2) + n = O(?)", answer: ["n^2", "n²"], display: "O(n²)" },
-            { id: 8, topic: "Master", prompt: "T(n) = T(n/2) + 1 = O(?)", answer: ["logn", "log n"], display: "O(log n)" },
-            { id: 9, topic: "Master", prompt: "T(n) = 2T(n/2) + n² is Case 1, 2, or 3?", answer: ["3"], display: "Case 3" },
-            { id: 10, topic: "Master", prompt: "T(n) = 2T(n/2) + n² = O(?)", answer: ["n^2", "n²"], display: "O(n²)" },
-            { id: 11, topic: "Unroll", prompt: "T(n) = T(n-1) + 1 unrolled for k steps = T(n-k) + ?", answer: ["k"], display: "k" },
-            { id: 12, topic: "Unroll", prompt: "T(n) = T(n-1) + 1, base T(1)=1 → T(n) = O(?)", answer: ["n"], display: "O(n)" },
-            { id: 13, topic: "Algorithm", prompt: "Binary search recurrence: T(n) = T(n/?) + O(1)", answer: ["2"], display: "T(n/2)" },
-            { id: 14, topic: "Algorithm", prompt: "Merge sort recurrence: T(n) = ?T(n/2) + O(n)", answer: ["2"], display: "2" },
-            { id: 15, topic: "Algorithm", prompt: "Naive Fibonacci T(n) = T(n-1) + T(n-2) is O(2^?) approximately", answer: ["n"], display: "O(2ⁿ)" },
+            { id: 1, topic: "Line", prompt: "∫_C 1 ds gives the ___ of curve C", answer: ["arclength", "arc length", "length"], display: "arc length" },
+            { id: 2, topic: "Line", prompt: "∫_C F·dr computes ___ done by force F?", answer: ["work"], display: "work" },
+            { id: 3, topic: "Conservative", prompt: "F is conservative if F = ∇ ___ for some scalar function", answer: ["φ", "phi", "f", "potential"], display: "φ (potential)" },
+            { id: 4, topic: "Conservative", prompt: "For conservative F, line integral depends only on ___?", answer: ["endpoints", "start and end"], display: "endpoints" },
+            { id: 5, topic: "Conservative", prompt: "F is conservative if curl(F) = ?", answer: ["0", "zero"], display: "0" },
+            { id: 6, topic: "Surface", prompt: "∫∫_S 1 dS gives ___ of surface S", answer: ["area", "surface area"], display: "surface area" },
+            { id: 7, topic: "Flux", prompt: "∫∫_S F·dS measures ___ through surface", answer: ["flux", "flow"], display: "flux" },
+            { id: 8, topic: "Theorem", prompt: "Green's theorem relates line integral to ___ integral", answer: ["double", "area"], display: "double integral" },
+            { id: 9, topic: "Theorem", prompt: "Divergence theorem: ∫∫_S F·dS = ∫∫∫_V (∇·F) dV relates surface to ___", answer: ["volume", "triple"], display: "volume/triple integral" },
+            { id: 10, topic: "Concept", prompt: "All big theorems relate boundary integral to ___ integral?", answer: ["interior", "inside", "region"], display: "interior" },
         ];
 
-        const LS_KEY = "day12_stats_v1";
+        const LS_KEY = "day19_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1327,27 +1066,21 @@
 
         const VIDEO_GROUPS = [
             {
-                title: "Recurrence Basics", items: [
-                    { title: "MIT OCW — Recurrences", channel: "MIT OCW", vid: "OQi4n8EKRD8" },
-                    { title: "Abdul Bari — Recurrence Relations", channel: "Abdul Bari", vid: "4V30R3I1vLI" },
+                title: "Line Integrals", items: [
+                    { title: "3Blue1Brown — Line Integrals", channel: "3Blue1Brown", vid: "2ptFnIj71SM" },
+                    { title: "Khan Academy — Line Integrals", channel: "Khan Academy", vid: "uXjQ8yc9Pdg" },
                 ]
             },
             {
-                title: "Master Theorem", items: [
-                    { title: "Abdul Bari — Master Theorem", channel: "Abdul Bari", vid: "OynWkEj0S-s" },
-                    { title: "mycodeschool — Master Method", channel: "mycodeschool", vid: "2H0GKdrIowU" },
+                title: "Surface Integrals", items: [
+                    { title: "Khan Academy — Surface Integrals", channel: "Khan Academy", vid: "DjXoO3VBmqM" },
+                    { title: "3Blue1Brown — Flux", channel: "3Blue1Brown", vid: "rB83DpBJQsE" },
                 ]
             },
             {
-                title: "Methods", items: [
-                    { title: "Back To Back SWE — Unrolling", channel: "Back To Back SWE", vid: "B0NtAFf4bvU" },
-                    { title: "Gate Smashers — Substitution", channel: "Gate Smashers", vid: "8gt0D0IqU5w" },
-                ]
-            },
-            {
-                title: "Examples", items: [
-                    { title: "CS Dojo — Merge Sort Analysis", channel: "CS Dojo", vid: "JSceec-wEyw" },
-                    { title: "Tushar Roy — Recurrence Examples", channel: "Tushar Roy", vid: "oBt53YbR9Kk" },
+                title: "Theorems", items: [
+                    { title: "3Blue1Brown — Divergence Theorem", channel: "3Blue1Brown", vid: "rB83DpBJQsE" },
+                    { title: "Khan Academy — Stokes' Theorem", channel: "Khan Academy", vid: "9iaYNaENVH4" },
                 ]
             },
         ];

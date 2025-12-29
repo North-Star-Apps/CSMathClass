@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 9: Growth — Polynomial vs Exponential, Log Plots</title>
+    <title>Day 7: Writing Proofs — Definitions, Claims, and Structure</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #16a34a;
-            --accent-light: #dcfce7;
-            --accent-dark: #15803d;
+            --accent: #ea580c;
+            --accent-light: #ffedd5;
+            --accent-dark: #c2410c;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #4ade80;
-            --accent-light: #14532d;
-            --accent-dark: #86efac;
+            --accent: #fb923c;
+            --accent-light: #431407;
+            --accent-dark: #fdba74;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -413,6 +413,14 @@
             white-space: pre-wrap;
         }
 
+        .math-inline {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
         .rule {
             background: var(--accent-light);
             border-left: 3px solid var(--accent);
@@ -533,27 +541,36 @@
             color: var(--text);
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px;
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border);
-        }
-
-        th {
+        .proof-box {
             background: var(--surface-alt);
-            font-weight: 600;
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            margin: 16px 0;
         }
 
-        td {
+        .proof-label {
             font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .proof-content {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .proof-qed {
+            text-align: right;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            margin-top: 12px;
         }
 
         .video-container {
@@ -566,19 +583,6 @@
         @media (max-width: 800px) {
             .video-container {
                 grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding: 32px 16px 24px;
-            }
-
-            .main-layout {
-                padding: 0 16px 60px;
-            }
-
-            .section-header,
-            .section-body {
-                padding: 20px;
             }
         }
 
@@ -617,7 +621,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
-            max-height: 400px;
+            max-height: 480px;
             overflow-y: auto;
         }
 
@@ -830,6 +834,21 @@
         [data-theme="dark"] .question-answer {
             color: var(--accent);
         }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 32px 16px 24px;
+            }
+
+            .main-layout {
+                padding: 0 16px 60px;
+            }
+
+            .section-header,
+            .section-body {
+                padding: 20px;
+            }
+        }
     </style>
     <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
@@ -837,11 +856,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 12 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -856,14 +875,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 9 · Complexity</div>
-        <h1>Growth: Polynomial vs Exponential & Log Plots</h1>
-        <p class="hero-desc">Understanding growth rates is essential for algorithm analysis. Know why O(n²) is tractable
-            but O(2ⁿ) is not—and how logarithmic scales reveal patterns invisible on linear plots.</p>
+            </svg>Day 7 · Foundation</div>
+        <h1>Writing Proofs: Definition → Claim → Proof → QED</h1>
+        <p class="hero-desc">Good proofs are like good code: structured, clear, and verifiable. Learn the standard
+            format that mathematicians and computer scientists use to communicate rigorous arguments.</p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min read</div>
-            <div class="meta-item">15 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">~40 min read</div>
+            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">6 video lessons</div>
         </div>
     </header>
 
@@ -873,12 +892,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#polynomial" class="toc-link">1. Polynomial Growth</a></li>
-                    <li><a href="#exponential" class="toc-link">2. Exponential Growth</a></li>
-                    <li><a href="#compare" class="toc-link">3. Comparison</a></li>
-                    <li><a href="#logarithms" class="toc-link">4. Logarithms</a></li>
-                    <li><a href="#logplots" class="toc-link">5. Log Plots</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
+                    <li><a href="#structure" class="toc-link">1. Proof Structure</a></li>
+                    <li><a href="#definitions" class="toc-link">2. Definitions</a></li>
+                    <li><a href="#claims" class="toc-link">3. Claims & Theorems</a></li>
+                    <li><a href="#writing" class="toc-link">4. Writing the Proof</a></li>
+                    <li><a href="#style" class="toc-link">5. Style Guide</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">7. Practice</a></li>
                 </ul>
             </nav>
@@ -897,303 +916,276 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Growth Rates Matter</h2>
+                    <h2 class="section-title">Why Proof Writing Matters in CS</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>The key insight:</strong> The difference between polynomial and
-                        exponential is the difference between "slow but tractable" and "impossible at scale."</div>
+                    <p>Writing proofs is like writing documentation for your logical reasoning. Just as code needs
+                        structure (functions, modules, classes), proofs need structure (definitions, claims, steps).</p>
+                    <div class="rule"><strong>Key insight:</strong> A well-structured proof is readable, verifiable, and
+                        maintainable—just like good code.</div>
                     <div class="subsection">
-                        <h3 class="subsection-title">A concrete example</h3>
-                        <p>Suppose each operation takes 1 microsecond (10⁻⁶ seconds):</p>
-                        <table>
-                            <tr>
-                                <th>n</th>
-                                <th>n² (polynomial)</th>
-                                <th>2ⁿ (exponential)</th>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>100 μs</td>
-                                <td>1 ms</td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
-                                <td>400 μs</td>
-                                <td>1 second</td>
-                            </tr>
-                            <tr>
-                                <td>30</td>
-                                <td>900 μs</td>
-                                <td>18 minutes</td>
-                            </tr>
-                            <tr>
-                                <td>40</td>
-                                <td>1.6 ms</td>
-                                <td>12.7 days</td>
-                            </tr>
-                            <tr>
-                                <td>50</td>
-                                <td>2.5 ms</td>
-                                <td>35.7 years</td>
-                            </tr>
-                            <tr>
-                                <td>100</td>
-                                <td>10 ms</td>
-                                <td>4 × 10²² years</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Where you'll see this</h3>
+                        <h3 class="subsection-title">The parallel to code</h3>
                         <ul>
-                            <li><strong>Algorithm Design:</strong> Choosing O(n log n) sort over O(n²)</li>
-                            <li><strong>Cryptography:</strong> Security relies on exponential hardness</li>
-                            <li><strong>NP-Complete Problems:</strong> No known polynomial solutions</li>
-                            <li><strong>System Scaling:</strong> Will your app survive 10× growth?</li>
-                            <li><strong>Machine Learning:</strong> Training time vs dataset size</li>
+                            <li><strong>Definitions</strong> = Type declarations and interfaces</li>
+                            <li><strong>Claims/Theorems</strong> = Function signatures (what you promise to deliver)
+                            </li>
+                            <li><strong>Proof</strong> = Implementation (how you deliver it)</li>
+                            <li><strong>QED</strong> = Return statement / tests passing</li>
                         </ul>
                     </div>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Comparison</span><span class="code-label">Proof
+                                structure ≈ Code structure</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-comment">// CODE</span>
+<span class="code-keyword">interface</span> <span class="code-type">Number</span> { ... }     <span class="code-comment">// Definition</span>
+<span class="code-keyword">function</span> <span class="code-function">isEven</span>(n): <span class="code-type">bool</span>    <span class="code-comment">// Claim (signature)</span>
+{ <span class="code-keyword">return</span> n % 2 == 0; }      <span class="code-comment">// Proof (implementation)</span>
+
+<span class="code-comment">// PROOF</span>
+<span class="code-keyword">Definition:</span> n is even if n = 2k for some integer k.
+<span class="code-keyword">Claim:</span> The sum of two even numbers is even.
+<span class="code-keyword">Proof:</span> Let a = 2m and b = 2n. Then a + b = 2(m+n). ∎</pre>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="polynomial">
+            <section class="section" id="structure">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Polynomial Growth</h2>
+                    <h2 class="section-title">The Standard Proof Structure</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">A function f(n) has polynomial growth if:
-                            f(n) = O(nᵏ) for some constant k
-
-                            Examples:
-                            n → O(n) linear
-                            n² → O(n²) quadratic
-                            n³ → O(n³) cubic
-                            5n² + 3n + 7 → O(n²) (highest power dominates)</div>
+                        <h3 class="subsection-title">The four parts</h3>
+                        <div class="math-block">1. DEFINITIONS — State precisely what terms mean
+                            2. CLAIM/THEOREM — State exactly what you will prove
+                            3. PROOF — The logical argument
+                            4. QED — Signal that the proof is complete (∎ or □ or QED)</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Key property: Doubling input</h3>
-                        <div class="rule">When input doubles (n → 2n), polynomial functions grow by a constant
-                            factor:<br><br>
-                            • Linear (n): time doubles (×2)<br>
-                            • Quadratic (n²): time quadruples (×4)<br>
-                            • Cubic (n³): time octuples (×8)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common polynomial algorithms</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Examples</span></div>
-                            <div class="code-content">
-                                <pre>O(1)      - Array access, hash table lookup
-O(log n)  - Binary search
-O(n)      - Linear search, single loop
-O(n log n)- Merge sort, heap sort
-O(n²)     - Bubble sort, nested loops
-O(n³)     - Matrix multiplication (naive)</pre>
+                        <h3 class="subsection-title">Complete example</h3>
+                        <div class="proof-box">
+                            <div class="proof-label">Definition</div>
+                            <div class="proof-content">An integer n is <strong>even</strong> if n = 2k for some integer
+                                k.<br>An integer n is <strong>odd</strong> if n = 2k + 1 for some integer k.</div>
+                        </div>
+                        <div class="proof-box">
+                            <div class="proof-label">Theorem</div>
+                            <div class="proof-content">The sum of two even integers is even.</div>
+                        </div>
+                        <div class="proof-box">
+                            <div class="proof-label">Proof</div>
+                            <div class="proof-content">
+                                Let a and b be even integers.<br>
+                                By definition, a = 2m for some integer m, and b = 2n for some integer n.<br>
+                                Then a + b = 2m + 2n = 2(m + n).<br>
+                                Since m + n is an integer, a + b has the form 2k where k = m + n.<br>
+                                Therefore, by definition, a + b is even.
                             </div>
+                            <div class="proof-qed">∎</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="exponential">
+            <section class="section" id="definitions">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Exponential Growth</h2>
+                    <h2 class="section-title">Writing Good Definitions</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">A function f(n) has exponential growth if:
-                            f(n) = O(cⁿ) for some constant c > 1
+                        <h3 class="subsection-title">What makes a good definition</h3>
+                        <div class="rule"><strong>A good definition is:</strong><br>• Precise — no ambiguity<br>•
+                            Complete — covers all cases<br>• Minimal — no redundant conditions<br>• Usable — easy to
+                            apply in proofs</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Definition patterns</h3>
+                        <div class="math-block"><strong>Existential:</strong> "X is Y if there exists Z such that..."
+                            Example: n is even if there exists an integer k such that n = 2k.
 
-                            Examples:
-                            2ⁿ - Doubles with each increment
-                            3ⁿ - Triples with each increment
-                            1.5ⁿ - Still exponential!</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Key property: Adding to input</h3>
-                        <div class="warning"><strong>Critical difference:</strong> When input increases by 1 (n → n+1),
-                            exponential functions multiply by a constant!<br><br>
-                            • 2ⁿ⁺¹ = 2 × 2ⁿ → time doubles for each +1<br>
-                            • 3ⁿ⁺¹ = 3 × 3ⁿ → time triples for each +1</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Why exponential is intractable</h3>
-                        <div class="math-block">For 2ⁿ with n = 300:
-                            2³⁰⁰ ≈ 2 × 10⁹⁰
+                            <strong>Universal:</strong> "X is Y if for all Z, ..."
+                            Example: f is continuous if for all ε > 0, there exists δ > 0...
 
-                            The universe has ~10⁸⁰ atoms.
-                            No computer can ever compute this many operations.</div>
+                            <strong>Recursive:</strong> Base case + recursive case
+                            Example: 0! = 1, and n! = n × (n-1)! for n > 0.
+                        </div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Common exponential problems</h3>
+                        <h3 class="subsection-title">CS parallel: Type definitions</h3>
                         <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Examples</span></div>
+                            <div class="code-header"><span class="code-lang">TypeScript</span><span
+                                    class="code-label">Definitions in code</span></div>
                             <div class="code-content">
-                                <pre>O(2ⁿ)  - Naive recursive Fibonacci
-       - Subset enumeration (power set)
-       - Brute-force password cracking
+                                <pre><span class="code-comment">// Existential definition</span>
+<span class="code-keyword">type</span> <span class="code-type">Even</span> = <span class="code-type">number</span> & { _brand: <span class="code-string">'even'</span> };
+<span class="code-keyword">const</span> <span class="code-function">isEven</span> = (n: <span class="code-type">number</span>): n <span class="code-keyword">is</span> <span class="code-type">Even</span> => n % <span class="code-number">2</span> === <span class="code-number">0</span>;
 
-O(n!)  - Permutation enumeration
-       - Traveling Salesman (brute force)
-       - Even worse than 2ⁿ!</pre>
+<span class="code-comment">// Recursive definition</span>
+<span class="code-keyword">type</span> <span class="code-type">Tree</span><T> = 
+  | { kind: <span class="code-string">'leaf'</span>, value: T }
+  | { kind: <span class="code-string">'node'</span>, left: <span class="code-type">Tree</span><T>, right: <span class="code-type">Tree</span><T> };</pre>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="compare">
+            <section class="section" id="claims">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Polynomial vs Exponential</h2>
+                    <h2 class="section-title">Stating Claims and Theorems</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The fundamental theorem</h3>
-                        <div class="rule"><strong>For any k and c > 1:</strong><br><br>
-                            nᵏ = o(cⁿ)<br><br>
-                            Every polynomial is eventually dominated by every exponential. No matter how large k is, 2ⁿ
-                            will eventually surpass nᵏ.</div>
+                        <h3 class="subsection-title">The hierarchy</h3>
+                        <div class="math-block"><strong>Theorem:</strong> A major result, often the main goal
+                            <strong>Lemma:</strong> A helper result used to prove theorems
+                            <strong>Corollary:</strong> An easy consequence of a theorem
+                            <strong>Proposition:</strong> A result of medium importance
+                            <strong>Claim:</strong> An informal assertion (often inside a proof)
+                        </div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Crossover points</h3>
-                        <div class="math-block">When does 2ⁿ overtake n¹⁰?
-
-                            For small n, n¹⁰ > 2ⁿ:
-                            n=10: 10¹⁰ = 10 billion, 2¹⁰ = 1,024
-
-                            But eventually 2ⁿ wins:
-                            n=59: 2⁵⁹ ≈ 5.8 × 10¹⁷
-                            59¹⁰ ≈ 5.1 × 10¹⁷
-
-                            After n=59, exponential dominates forever.</div>
+                        <h3 class="subsection-title">Writing precise claims</h3>
+                        <div class="warning"><strong>Bad:</strong> "Even numbers plus even numbers are
+                            even."<br><strong>Good:</strong> "For all integers a and b, if a is even and b is even, then
+                            a + b is even."</div>
+                        <p>A precise claim should:</p>
+                        <ul>
+                            <li>Quantify all variables (for all, there exists)</li>
+                            <li>Specify the domain (integers, reals, etc.)</li>
+                            <li>Make the logical structure explicit (if...then)</li>
+                        </ul>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">P vs NP connection</h3>
-                        <div class="info"><strong>P</strong> = Problems solvable in Polynomial time<br>
-                            <strong>NP</strong> = Problems verifiable in Polynomial time<br><br>
-                            The P vs NP question asks: Is verification as hard as solving?<br>
-                            If P ≠ NP, some problems have no polynomial algorithm.
+                        <h3 class="subsection-title">Common claim patterns</h3>
+                        <div class="math-block"><strong>Universal:</strong> For all x in S, P(x).
+                            "Every prime > 2 is odd."
+
+                            <strong>Existential:</strong> There exists x in S such that P(x).
+                            "There exists a prime between n and 2n."
+
+                            <strong>Conditional:</strong> If P, then Q.
+                            "If n² is even, then n is even."
+
+                            <strong>Biconditional:</strong> P if and only if Q.
+                            "n is even iff n² is even."
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="logarithms">
+            <section class="section" id="writing">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Logarithms: The Inverse of Exponentials</h2>
+                    <h2 class="section-title">Writing the Proof Body</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">logₐ(x) = y means aʸ = x
-
-                            "log base a of x equals y"
-
-                            Examples:
-                            log₂(8) = 3 because 2³ = 8
-                            log₂(1024) = 10 because 2¹⁰ = 1024
-                            log₁₀(1000) = 3 because 10³ = 1000</div>
+                        <h3 class="subsection-title">Start with a roadmap</h3>
+                        <div class="rule"><strong>Opening line should state your approach:</strong><br>"We proceed by
+                            induction on n."<br>"We prove the contrapositive."<br>"Suppose for contradiction
+                            that..."<br>"Let a and b be arbitrary even integers."</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Key logarithm properties</h3>
-                        <div class="math-block">log(ab) = log(a) + log(b) Product → Sum
-                            log(a/b) = log(a) - log(b) Quotient → Difference
-                            log(aᵏ) = k × log(a) Power → Multiply
-                            logₐ(a) = 1 log of base = 1
-                            logₐ(1) = 0 log of 1 = 0</div>
+                        <h3 class="subsection-title">Justify every step</h3>
+                        <div class="math-block">Each step should have a reason:
+                            - "by definition"
+                            - "by assumption"
+                            - "by the inductive hypothesis"
+                            - "by Theorem 2.3"
+                            - "since a = 2k"
+                            - "by algebra"</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Why O(log n) is amazing</h3>
-                        <div class="rule"><strong>log₂(n) grows incredibly slowly:</strong><br><br>
-                            log₂(1,000) ≈ 10<br>
-                            log₂(1,000,000) ≈ 20<br>
-                            log₂(1,000,000,000) ≈ 30<br><br>
-                            A billion elements? Only 30 steps with binary search!</div>
+                        <h3 class="subsection-title">Proof template</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Template</span><span
+                                    class="code-label">Standard proof structure</span></div>
+                            <div class="code-content">
+                                <pre><span class="code-keyword">Proof:</span>
+  <span class="code-comment">// 1. State your setup</span>
+  Let [variables] be [what they are].
+  
+  <span class="code-comment">// 2. Apply definitions</span>
+  By definition, [variable] = [form].
+  
+  <span class="code-comment">// 3. Do the work</span>
+  Then [calculation or logical step].
+  [More steps as needed, each justified.]
+  
+  <span class="code-comment">// 4. Connect to goal</span>
+  Therefore, [conclusion].
+  
+  <span class="code-comment">// 5. End marker</span>
+  ∎</pre>
+                            </div>
+                        </div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Change of base</h3>
-                        <div class="math-block">logₐ(x) = logᵦ(x) / logᵦ(a)
-
-                            In Big-O, base doesn't matter:
-                            log₂(n) = log₁₀(n) / log₁₀(2) ≈ 3.32 × log₁₀(n)
-
-                            All logarithms differ by a constant factor, so:
-                            O(log₂ n) = O(log₁₀ n) = O(ln n) = O(log n)</div>
+                        <h3 class="subsection-title">Complete worked example</h3>
+                        <div class="proof-box">
+                            <div class="proof-label">Theorem</div>
+                            <div class="proof-content">For all integers n, if n² is odd, then n is odd.</div>
+                        </div>
+                        <div class="proof-box">
+                            <div class="proof-label">Proof (by contrapositive)</div>
+                            <div class="proof-content">
+                                We prove the contrapositive: if n is even, then n² is even.<br><br>
+                                Let n be an even integer.<br>
+                                By definition, n = 2k for some integer k.<br>
+                                Then n² = (2k)² = 4k² = 2(2k²).<br>
+                                Since 2k² is an integer, n² has the form 2m where m = 2k².<br>
+                                Therefore n² is even by definition.<br><br>
+                                Since the contrapositive is true, the original statement holds.
+                            </div>
+                            <div class="proof-qed">∎</div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="logplots">
+            <section class="section" id="style">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Log Plots: Seeing the Pattern</h2>
+                    <h2 class="section-title">Style Guide for Proofs</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Why use log scale?</h3>
-                        <div class="rule"><strong>Problem:</strong> On a linear plot, exponential growth makes
-                            everything else look flat.<br><br>
-                            <strong>Solution:</strong> Log scale compresses large values, revealing patterns.
+                        <h3 class="subsection-title">Do's</h3>
+                        <ul>
+                            <li><strong>Write in complete sentences.</strong> "Let n be an integer." not "n = integer"
+                            </li>
+                            <li><strong>Define variables before using them.</strong> "Let ε > 0." before using ε</li>
+                            <li><strong>Be explicit about assumptions.</strong> "Assume P(k) holds for some k ≥ 1."</li>
+                            <li><strong>Use transitional words.</strong> "Then", "Therefore", "Hence", "Thus", "Since"
+                            </li>
+                            <li><strong>End with a clear conclusion.</strong> "Therefore, the claim holds."</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Don'ts</h3>
+                        <div class="warning">
+                            <strong>Don't use undefined variables.</strong> Always introduce before use.<br><br>
+                            <strong>Don't skip steps.</strong> What's obvious to you may not be to readers.<br><br>
+                            <strong>Don't prove by example.</strong> Showing P(5) doesn't prove "for all n".<br><br>
+                            <strong>Don't assume what you're proving.</strong> Circular reasoning is invalid.<br><br>
+                            <strong>Don't forget edge cases.</strong> Handle n = 0, empty sets, etc.
                         </div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Log-log plots</h3>
-                        <div class="math-block">If y = xᵏ (polynomial), then:
-                            log(y) = k × log(x)
-
-                            On a log-log plot, polynomials become straight lines!
-                            The slope tells you the exponent k.
-
-                            slope = 1 → linear (n)
-                            slope = 2 → quadratic (n²)
-                            slope = 3 → cubic (n³)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Semi-log plots</h3>
-                        <div class="math-block">If y = cⁿ (exponential), then:
-                            log(y) = n × log(c)
-
-                            On a semi-log plot (log y, linear x):
-                            Exponentials become straight lines!
-                            The slope reveals the base c.</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Python example</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Identifying growth with log plots</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
-
-n = np.<span class="code-function">arange</span>(<span class="code-number">1</span>, <span class="code-number">100</span>)
-
-<span class="code-comment"># Different growth rates</span>
-linear = n
-quadratic = n**<span class="code-number">2</span>
-exponential = <span class="code-number">2</span>**n
-
-<span class="code-comment"># Log-log plot reveals polynomial degree</span>
-plt.<span class="code-function">figure</span>()
-plt.<span class="code-function">loglog</span>(n, linear, label=<span class="code-string">'n (slope=1)'</span>)
-plt.<span class="code-function">loglog</span>(n, quadratic, label=<span class="code-string">'n² (slope=2)'</span>)
-plt.<span class="code-function">legend</span>()
-plt.<span class="code-function">title</span>(<span class="code-string">'Log-Log: Polynomials are lines'</span>)
-
-<span class="code-comment"># Semi-log plot reveals exponential</span>
-plt.<span class="code-function">figure</span>()
-plt.<span class="code-function">semilogy</span>(n[:<span class="code-number">30</span>], exponential[:<span class="code-number">30</span>], label=<span class="code-string">'2ⁿ'</span>)
-plt.<span class="code-function">legend</span>()
-plt.<span class="code-function">title</span>(<span class="code-string">'Semi-Log: Exponential is a line'</span>)</pre>
-                            </div>
-                        </div>
+                        <h3 class="subsection-title">Mathematical notation</h3>
+                        <div class="math-block">∀ — "for all"
+                            ∃ — "there exists"
+                            ∈ — "is an element of"
+                            ⊆ — "is a subset of"
+                            ⟹ or → — "implies"
+                            ⟺ or ↔ — "if and only if"
+                            ∎ or □ or QED — "end of proof"</div>
                     </div>
                 </div>
             </section>
@@ -1204,6 +1196,7 @@ plt.<span class="code-function">title</span>(<span class="code-string">'Semi-Log
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
+                    <p>Click any video to play.</p>
                     <div class="video-container">
                         <div class="video-player">
                             <iframe id="ytPlayer" src=""
@@ -1225,6 +1218,7 @@ plt.<span class="code-function">title</span>(<span class="code-string">'Semi-Log
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
+                    <p>Fill in the missing parts of proofs or identify errors.</p>
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -1238,28 +1232,25 @@ plt.<span class="code-function">title</span>(<span class="code-string">'Semi-Log
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/\*\*/g, "^") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, " ") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Log", prompt: "log₂(32) = ?", answer: ["5"], display: "5" },
-            { id: 2, topic: "Log", prompt: "log₂(1) = ?", answer: ["0"], display: "0" },
-            { id: 3, topic: "Log", prompt: "log₁₀(10000) = ?", answer: ["4"], display: "4" },
-            { id: 4, topic: "Log", prompt: "2^(log₂(n)) = ?", answer: ["n"], display: "n" },
-            { id: 5, topic: "Log", prompt: "log(a×b) = log(a) + ?", answer: ["log(b)", "logb"], display: "log(b)" },
-            { id: 6, topic: "Growth", prompt: "Is n³ polynomial or exponential?", answer: ["polynomial", "poly", "p"], display: "Polynomial" },
-            { id: 7, topic: "Growth", prompt: "Is 2ⁿ polynomial or exponential?", answer: ["exponential", "exp", "e"], display: "Exponential" },
-            { id: 8, topic: "Growth", prompt: "Is 1.01ⁿ polynomial or exponential?", answer: ["exponential", "exp", "e"], display: "Exponential" },
-            { id: 9, topic: "Growth", prompt: "Is n^100 polynomial or exponential?", answer: ["polynomial", "poly", "p"], display: "Polynomial" },
-            { id: 10, topic: "Compare", prompt: "Which grows faster: n¹⁰ or 2ⁿ (for large n)?", answer: ["2^n", "2ⁿ", "exponential"], display: "2ⁿ" },
-            { id: 11, topic: "Compare", prompt: "Which is faster algorithm: O(n²) or O(2ⁿ)?", answer: ["o(n^2)", "n^2", "n²", "o(n²)"], display: "O(n²)" },
-            { id: 12, topic: "Plot", prompt: "On a log-log plot, y=n² appears as a line with slope?", answer: ["2"], display: "2" },
-            { id: 13, topic: "Plot", prompt: "What type of plot makes exponentials look linear?", answer: ["semi-log", "semilog", "log-linear"], display: "Semi-log" },
-            { id: 14, topic: "Calc", prompt: "If log₂(n)=20, what is n?", answer: ["1048576", "2^20", "1,048,576"], display: "2²⁰ = 1,048,576" },
-            { id: 15, topic: "Calc", prompt: "How many steps for binary search on 1 billion items? (approx)", answer: ["30", "~30", "about 30", "approximately 30"], display: "≈ 30" },
+            { id: 1, topic: "Structure", prompt: "The four parts of a proof are: Definitions, Claim, Proof, and ___", answer: ["qed", "∎"], display: "QED (or ∎)" },
+            { id: 2, topic: "Structure", prompt: "A helper result used to prove a theorem is called a ___", answer: ["lemma"], display: "Lemma" },
+            { id: 3, topic: "Structure", prompt: "An easy consequence of a theorem is called a ___", answer: ["corollary"], display: "Corollary" },
+            { id: 4, topic: "Definitions", prompt: "n is even means n = ___ for some integer k", answer: ["2k"], display: "2k" },
+            { id: 5, topic: "Definitions", prompt: "n is odd means n = ___ for some integer k", answer: ["2k+1", "2k + 1"], display: "2k + 1" },
+            { id: 6, topic: "Claims", prompt: "Complete: 'For all x, if P(x) then ___'", answer: ["q(x)"], display: "Q(x)" },
+            { id: 7, topic: "Claims", prompt: "The symbol ∀ means ___", answer: ["for all", "for every"], display: "for all" },
+            { id: 8, topic: "Claims", prompt: "The symbol ∃ means ___", answer: ["there exists", "exists"], display: "there exists" },
+            { id: 9, topic: "Claims", prompt: "'P if and only if Q' can be written with symbol ___", answer: ["⟺", "↔", "iff"], display: "⟺ or ↔" },
+            { id: 10, topic: "Style", prompt: "Before using variable ε, you should first ___ it", answer: ["define", "introduce", "declare"], display: "define/introduce" },
+            { id: 11, topic: "Error", prompt: "Proving P(5) is true shows 'for all n, P(n)' — True or False?", answer: ["false", "f", "no"], display: "False" },
+            { id: 12, topic: "Style", prompt: "Using what you're trying to prove as a step is called ___ reasoning", answer: ["circular"], display: "Circular" },
         ];
 
-        const LS_KEY = "day9_stats_v1";
+        const LS_KEY = "day7_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1300,27 +1291,21 @@ plt.<span class="code-function">title</span>(<span class="code-string">'Semi-Log
 
         const VIDEO_GROUPS = [
             {
-                title: "Exponential Growth", items: [
-                    { title: "3Blue1Brown — Exponential Growth", channel: "3Blue1Brown", vid: "Kas0tIxDvrg" },
-                    { title: "Veritasium — Exponential Thinking", channel: "Veritasium", vid: "D2xYjiL8yyE" },
+                title: "Proof Writing Basics", items: [
+                    { title: "How to Write Proofs", channel: "Trefor Bazett", vid: "brU5yLm9DZM" },
+                    { title: "Mathematical Writing Tips", channel: "MIT OCW", vid: "L-bdLhx20Tk" },
                 ]
             },
             {
-                title: "Logarithms", items: [
-                    { title: "3Blue1Brown — Logarithms", channel: "3Blue1Brown", vid: "cEvgcoyZvB4" },
-                    { title: "Khan Academy — Intro to Logarithms", channel: "Khan Academy", vid: "ntBWrcbAhaY" },
+                title: "Definitions & Notation", items: [
+                    { title: "Mathematical Notation", channel: "3Blue1Brown", vid: "M6xp4B9jqZg" },
+                    { title: "Reading & Writing Math", channel: "Numberphile", vid: "D2xYjiL8yyE" },
                 ]
             },
             {
-                title: "Big-O & Growth", items: [
-                    { title: "CS Dojo — Big O Notation", channel: "CS Dojo", vid: "D6xkbGLQesk" },
-                    { title: "mycodeschool — Time Complexity", channel: "mycodeschool", vid: "V42FBiohc6c" },
-                ]
-            },
-            {
-                title: "Log Plots", items: [
-                    { title: "Numberphile — Log Scales", channel: "Numberphile", vid: "0YErxSShF0A" },
-                    { title: "StatQuest — Logarithms", channel: "StatQuest", vid: "VSl2JqIYV_s" },
+                title: "Examples & Practice", items: [
+                    { title: "First Proof Examples", channel: "Trefor Bazett", vid: "KRLmjJyqGFM" },
+                    { title: "Common Proof Mistakes", channel: "Mathologer", vid: "YBbBbY4heGM" },
                 ]
             },
         ];

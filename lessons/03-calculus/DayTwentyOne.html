@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 24: Orthogonality, Projections & Least Squares</title>
+    <title>Day 21: Systems of ODEs — Ties to Linear Algebra</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #16a34a;
-            --accent-light: #dcfce7;
-            --accent-dark: #15803d;
+            --accent: #7c3aed;
+            --accent-light: #ede9fe;
+            --accent-dark: #6d28d9;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #4ade80;
-            --accent-light: #14532d;
-            --accent-dark: #86efac;
+            --accent: #a78bfa;
+            --accent-light: #2e1065;
+            --accent-dark: #c4b5fd;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -478,6 +478,11 @@
             letter-spacing: 0.05em
         }
 
+        .code-label {
+            font-size: 12px;
+            color: #71717a
+        }
+
         .code-content {
             padding: 16px 20px;
             overflow-x: auto
@@ -509,6 +514,10 @@
 
         .code-comment {
             color: #6a9955
+        }
+
+        .code-type {
+            color: #4ec9b0
         }
 
         ul {
@@ -830,11 +839,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 12 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 10 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -849,13 +858,13 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 24 · Linear Algebra</div>
-        <h1>Orthogonality, Projections & Least Squares</h1>
-        <p class="hero-desc">Orthogonality is the foundation of numerical stability. Learn projections and the essential
-            least squares method.</p>
+            </svg>Day 21 · Differential Equations</div>
+        <h1>Systems of ODEs: Ties to Linear Algebra</h1>
+        <p class="hero-desc">Multiple coupled differential equations form systems. Eigenvalues and eigenvectors unlock
+            their solutions.</p>
         <div class="hero-meta">
             <div class="meta-item">~45 min read</div>
-            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">10 practice problems</div>
             <div class="meta-item">6 video lessons</div>
         </div>
     </header>
@@ -866,10 +875,10 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#ortho" class="toc-link">1. Orthogonality</a></li>
-                    <li><a href="#proj" class="toc-link">2. Projections</a></li>
-                    <li><a href="#gs" class="toc-link">3. Gram-Schmidt</a></li>
-                    <li><a href="#ls" class="toc-link">4. Least Squares</a></li>
+                    <li><a href="#systems" class="toc-link">1. ODE Systems</a></li>
+                    <li><a href="#matrix" class="toc-link">2. Matrix Form</a></li>
+                    <li><a href="#eigen" class="toc-link">3. Eigenvalue Method</a></li>
+                    <li><a href="#phase" class="toc-link">4. Phase Portraits</a></li>
                     <li><a href="#videos" class="toc-link">5. Videos</a></li>
                     <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
@@ -889,156 +898,155 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Orthogonality?</h2>
+                    <h2 class="section-title">Why Systems of ODEs?</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Orthogonal = numerically stable.</strong> Orthogonal matrices preserve
-                        lengths and are easy to invert (Q⁻¹ = Qᵀ).</div>
+                    <div class="rule"><strong>Real systems have multiple interacting parts.</strong> Population
+                        dynamics, coupled oscillators, neural networks—all require systems of equations.</div>
                     <div class="subsection">
                         <h3 class="subsection-title">Applications</h3>
                         <ul>
-                            <li><strong>Regression:</strong> Least squares fitting</li>
-                            <li><strong>Signal processing:</strong> Fourier basis is orthogonal</li>
-                            <li><strong>Compression:</strong> PCA, SVD</li>
-                            <li><strong>QR decomposition:</strong> Foundation of many algorithms</li>
+                            <li><strong>Control systems:</strong> State-space models</li>
+                            <li><strong>Machine learning:</strong> Recurrent dynamics</li>
+                            <li><strong>Epidemiology:</strong> SIR models</li>
+                            <li><strong>Economics:</strong> Dynamic equilibrium</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="ortho">
+            <section class="section" id="systems">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Orthogonality</h2>
+                    <h2 class="section-title">Systems of ODEs</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Orthogonal vectors</h3>
-                        <div class="math-block">u ⊥ v ⟺ u · v = 0 ⟺ uᵀv = 0
+                        <h3 class="subsection-title">Example: Coupled equations</h3>
+                        <div class="math-block">dx/dt = ax + by
+                            dy/dt = cx + dy
 
-                            Pythagorean theorem: ‖u + v‖² = ‖u‖² + ‖v‖² when u ⊥ v</div>
+                            Two unknowns x(t), y(t), each affects the other.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Orthonormal basis</h3>
-                        <div class="math-block">Set {q₁, q₂, ..., qₙ} is orthonormal if:
-                            • qᵢ · qⱼ = 0 for i ≠ j (orthogonal)
-                            • ‖qᵢ‖ = 1 (unit length)
+                        <h3 class="subsection-title">Higher-order → system</h3>
+                        <div class="math-block">Any higher-order ODE can be rewritten as a system:
 
-                            Any vector: v = (v·q₁)q₁ + (v·q₂)q₂ + ... (easy coefficients!)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Orthogonal matrices</h3>
-                        <div class="math-block">Q is orthogonal if QᵀQ = I
+                            y'' + 3y' + 2y = 0
 
-                            Key properties:
-                            • Q⁻¹ = Qᵀ (trivial to invert!)
-                            • ‖Qx‖ = ‖x‖ (preserves length)
-                            • det(Q) = ±1</div>
+                            Let x₁ = y, x₂ = y'. Then:
+                            x₁' = x₂
+                            x₂' = y'' = -3y' - 2y = -3x₂ - 2x₁</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="proj">
+            <section class="section" id="matrix">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Projections</h2>
+                    <h2 class="section-title">Matrix Form</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Projection onto a vector</h3>
+                        <h3 class="subsection-title">Vector notation</h3>
                         <div class="formula-box">
-                            <div class="formula-label">Projection of b onto a</div>
-                            <div class="formula-main">proj_a(b) = (aᵀb / aᵀa) × a</div>
+                            <div class="formula-label">System in Matrix Form</div>
+                            <div class="formula-main">x' = Ax where x = [x₁, x₂, ...]ᵀ</div>
                         </div>
-                        <div class="math-block">The projection is the closest point to b on the line through a.
-                            Error e = b - proj_a(b) is perpendicular to a.</div>
+                        <div class="math-block">dx/dt = ax + by ┌x'┐ ┌a b┐ ┌x┐
+                            dy/dt = cx + dy → └y'┘ = └c d┘ └y┘
+
+                            Or: x' = Ax where A = [a b; c d]</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Projection onto a subspace</h3>
-                        <div class="math-block">To project b onto column space of A:
+                        <h3 class="subsection-title">Solution form</h3>
+                        <div class="math-block">Analogous to scalar case (y' = ky → y = Ce^{kt}):
 
-                            p = A(AᵀA)⁻¹Aᵀb
+                            x' = Ax → x(t) = e^{At} x₀
 
-                            Projection matrix: P = A(AᵀA)⁻¹Aᵀ
-
-                            Properties of P:
-                            • P² = P (projecting twice = projecting once)
-                            • Pᵀ = P (symmetric)</div>
+                            Matrix exponential! But computing e^{At} requires diagonalization.</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="gs">
+            <section class="section" id="eigen">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Gram-Schmidt Process</h2>
+                    <h2 class="section-title">Eigenvalue Method</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Algorithm</h3>
-                        <div class="math-block">Given vectors a₁, a₂, ..., aₙ, produce orthonormal q₁, q₂, ..., qₙ:
-
-                            1. q₁ = a₁ / ‖a₁‖
-
-                            2. u₂ = a₂ - (a₂·q₁)q₁ (subtract projection onto q₁)
-                            q₂ = u₂ / ‖u₂‖
-
-                            3. u₃ = a₃ - (a₃·q₁)q₁ - (a₃·q₂)q₂
-                            q₃ = u₃ / ‖u₃‖
-
-                            Continue...</div>
+                        <h3 class="subsection-title">Key insight</h3>
+                        <div class="rule"><strong>Try x = ve^{λt}</strong> where v is a constant vector. Then:<br>
+                            x' = λve^{λt} = Ax = Ave^{λt}<br>
+                            So: Av = λv — eigenvalue equation!</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">QR Decomposition</h3>
-                        <div class="math-block">A = QR where:
-                            • Q has orthonormal columns (from Gram-Schmidt)
-                            • R is upper triangular
+                        <h3 class="subsection-title">Algorithm</h3>
+                        <div class="math-block">1. Find eigenvalues: det(A - λI) = 0
+                            2. Find eigenvectors: (A - λI)v = 0
+                            3. General solution:
+                            x(t) = c₁v₁e^{λ₁t} + c₂v₂e^{λ₂t} + ...</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Example</h3>
+                        <div class="math-block">A = [3 1]
+                            [0 2]
 
-                            Used for solving systems and eigenvalue algorithms.</div>
+                            det(A - λI) = (3-λ)(2-λ) = 0 → λ₁ = 3, λ₂ = 2
+
+                            For λ₁ = 3: v₁ = [1, 0]ᵀ
+                            For λ₂ = 2: v₂ = [1, -1]ᵀ
+
+                            Solution: x(t) = c₁[1,0]ᵀe^{3t} + c₂[1,-1]ᵀe^{2t}</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Complex eigenvalues</h3>
+                        <div class="math-block">If λ = α ± βi:
+
+                            Solution involves e^{αt}cos(βt) and e^{αt}sin(βt)
+
+                            Spiraling behavior:
+                            • α < 0: spiral inward (stable) • α> 0: spiral outward (unstable)
+                                • α = 0: pure oscillation</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="ls">
+            <section class="section" id="phase">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Least Squares</h2>
+                    <h2 class="section-title">Phase Portraits</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The problem</h3>
-                        <div class="math-block">Ax = b has no solution (overdetermined).
-                            Find x̂ that minimizes ‖Ax - b‖².</div>
+                        <h3 class="subsection-title">Classification by eigenvalues</h3>
+                        <div class="math-block">Real eigenvalues:
+                            • Both negative: stable node (all solutions → origin)
+                            • Both positive: unstable node (all solutions → ∞)
+                            • Opposite signs: saddle point (unstable)
+
+                            Complex eigenvalues (α ± βi):
+                            • α < 0: stable spiral • α> 0: unstable spiral
+                                • α = 0: center (periodic orbits)</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Normal equations</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Normal Equations</div>
-                            <div class="formula-main">AᵀAx̂ = Aᵀb</div>
-                        </div>
-                        <div class="math-block">Solution: x̂ = (AᵀA)⁻¹Aᵀb
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Plot
+                                phase portrait</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
 
-                            This is projection of b onto column space of A!</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Linear regression</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Least
-                                    squares regression</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+A = np.<span class="code-function">array</span>([[<span class="code-number">-1</span>, <span class="code-number">1</span>], [<span class="code-number">-1</span>, <span class="code-number">-1</span>]])  <span class="code-comment"># stable spiral</span>
 
-<span class="code-comment"># Data: y = mx + c</span>
-x = np.<span class="code-function">array</span>([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>])
-y = np.<span class="code-function">array</span>([<span class="code-number">2.1</span>, <span class="code-number">3.9</span>, <span class="code-number">6.2</span>, <span class="code-number">7.8</span>, <span class="code-number">10.1</span>])
+<span class="code-comment"># Create flow field</span>
+x = np.<span class="code-function">linspace</span>(<span class="code-number">-2</span>, <span class="code-number">2</span>, <span class="code-number">20</span>)
+X, Y = np.<span class="code-function">meshgrid</span>(x, x)
+U = A[<span class="code-number">0</span>,<span class="code-number">0</span>]*X + A[<span class="code-number">0</span>,<span class="code-number">1</span>]*Y
+V = A[<span class="code-number">1</span>,<span class="code-number">0</span>]*X + A[<span class="code-number">1</span>,<span class="code-number">1</span>]*Y
 
-<span class="code-comment"># Build design matrix [x, 1]</span>
-A = np.<span class="code-function">column_stack</span>([x, np.<span class="code-function">ones_like</span>(x)])
-
-<span class="code-comment"># Least squares: (AᵀA)⁻¹Aᵀy</span>
-x_hat = np.linalg.<span class="code-function">lstsq</span>(A, y, rcond=<span class="code-keyword">None</span>)[<span class="code-number">0</span>]
-<span class="code-function">print</span>(<span class="code-string">f"Slope: {x_hat[0]:.2f}, Intercept: {x_hat[1]:.2f}"</span>)</pre>
-                            </div>
+plt.<span class="code-function">streamplot</span>(X, Y, U, V)
+plt.<span class="code-function">show</span>()</pre>
                         </div>
                     </div>
                 </div>
@@ -1084,25 +1092,23 @@ x_hat = np.linalg.<span class="code-function">lstsq</span>(A, y, rcond=<span cla
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/[=]/g, "") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Ortho", prompt: "u ⊥ v means u · v = ?", answer: ["0", "zero"], display: "0" },
-            { id: 2, topic: "Ortho", prompt: "For orthonormal {q₁,...}, each ‖qᵢ‖ = ?", answer: ["1", "one"], display: "1" },
-            { id: 3, topic: "Matrix", prompt: "Q is orthogonal if QᵀQ = ?", answer: ["i", "identity"], display: "I (identity)" },
-            { id: 4, topic: "Matrix", prompt: "For orthogonal Q, Q⁻¹ = ?", answer: ["qᵀ", "q^t", "qtranspose"], display: "Qᵀ" },
-            { id: 5, topic: "Proj", prompt: "proj_a(b) = (aᵀb/aᵀa) × ?", answer: ["a"], display: "a" },
-            { id: 6, topic: "Proj", prompt: "Projection matrix satisfies P² = ?", answer: ["p"], display: "P" },
-            { id: 7, topic: "GS", prompt: "Gram-Schmidt produces an ___ basis?", answer: ["orthonormal", "orthogonal"], display: "orthonormal" },
-            { id: 8, topic: "QR", prompt: "A = QR. Q has orthonormal columns, R is ___ triangular?", answer: ["upper"], display: "upper triangular" },
-            { id: 9, topic: "LS", prompt: "Normal equations: AᵀA x̂ = ?", answer: ["aᵀb", "a^tb"], display: "Aᵀb" },
-            { id: 10, topic: "LS", prompt: "Least squares minimizes ‖Ax - ?‖²", answer: ["b"], display: "b" },
-            { id: 11, topic: "Apply", prompt: "x̂ = (AᵀA)⁻¹Aᵀb solves ___ squares?", answer: ["least"], display: "least squares" },
-            { id: 12, topic: "Apply", prompt: "Orthogonal matrices preserve vector ___?", answer: ["length", "norm", "magnitude"], display: "length" },
+            { id: 1, topic: "Form", prompt: "System x' = Ax. We try solution x = v × e^(?t)", answer: ["λ", "lambda"], display: "e^{λt}" },
+            { id: 2, topic: "Form", prompt: "Substituting gives Av = λv. This is the ___ equation", answer: ["eigenvalue", "eigen"], display: "eigenvalue" },
+            { id: 3, topic: "Method", prompt: "First step: find eigenvalues by solving det(A - ?I) = 0", answer: ["λ", "lambda"], display: "det(A - λI) = 0" },
+            { id: 4, topic: "Method", prompt: "General solution is linear combination of vᵢ × e^(λᵢt). T/F?", answer: ["t", "true", "yes"], display: "True" },
+            { id: 5, topic: "Stability", prompt: "Both eigenvalues negative: stable ___?", answer: ["node"], display: "stable node" },
+            { id: 6, topic: "Stability", prompt: "Eigenvalues with opposite signs: ___ point?", answer: ["saddle"], display: "saddle point" },
+            { id: 7, topic: "Complex", prompt: "Complex eigenvalues α±βi with α<0 give stable ___?", answer: ["spiral"], display: "stable spiral" },
+            { id: 8, topic: "Complex", prompt: "Complex eigenvalues with α=0 give a ___?", answer: ["center"], display: "center" },
+            { id: 9, topic: "Convert", prompt: "y'' = -y can be written as system with x₁=y, x₂=?", answer: ["y'", "dy/dt"], display: "y'" },
+            { id: 10, topic: "Matrix", prompt: "Matrix exponential: x(t) = e^(At) × ?", answer: ["x0", "x(0)", "x₀"], display: "x₀" },
         ];
 
-        const LS_KEY = "day24_stats_v1";
+        const LS_KEY = "day21_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1141,21 +1147,21 @@ x_hat = np.linalg.<span class="code-function">lstsq</span>(A, y, rcond=<span cla
 
         const VIDEO_GROUPS = [
             {
-                title: "Orthogonality", items: [
-                    { title: "3Blue1Brown — Dot Product", channel: "3Blue1Brown", vid: "LyGKycYT2v0" },
-                    { title: "MIT OCW — Orthogonality", channel: "MIT OCW", vid: "uNsCkP9mgRk" },
+                title: "Systems Intro", items: [
+                    { title: "3Blue1Brown — Systems of ODEs", channel: "3Blue1Brown", vid: "IxGtfMaAoo8" },
+                    { title: "MIT OCW — Linear Systems", channel: "MIT OCW", vid: "4X0SGGrXDiI" },
                 ]
             },
             {
-                title: "Projections & Gram-Schmidt", items: [
-                    { title: "Khan Academy — Projections", channel: "Khan Academy", vid: "27vT-NWuw0M" },
-                    { title: "MIT OCW — Gram-Schmidt", channel: "MIT OCW", vid: "0MtwqhIwdrI" },
+                title: "Eigenvalue Method", items: [
+                    { title: "Khan Academy — Eigenvalue Method", channel: "Khan Academy", vid: "IdsHlqzLrJ4" },
+                    { title: "PatrickJMT — Systems", channel: "PatrickJMT", vid: "vA9dfINW4Rg" },
                 ]
             },
             {
-                title: "Least Squares", items: [
-                    { title: "3Blue1Brown — Least Squares", channel: "3Blue1Brown", vid: "IHZwWFHWa-w" },
-                    { title: "StatQuest — Linear Regression", channel: "StatQuest", vid: "nk2CQITm_eo" },
+                title: "Phase Portraits", items: [
+                    { title: "3Blue1Brown — Phase Space", channel: "3Blue1Brown", vid: "p_di4P1d_ww" },
+                    { title: "Steve Brunton — Phase Portraits", channel: "Steve Brunton", vid: "nyqJJdhReiA" },
                 ]
             },
         ];

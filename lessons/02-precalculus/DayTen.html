@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 6: Proof Techniques — Direct, Contrapositive, Contradiction, Induction</title>
+    <title>Day 10: Floors, Ceilings & Integer Arithmetic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #7c3aed;
-            --accent-light: #ede9fe;
-            --accent-dark: #6d28d9;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --accent-dark: #1d4ed8;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #a78bfa;
-            --accent-light: #2e1065;
-            --accent-dark: #c4b5fd;
+            --accent: #60a5fa;
+            --accent-light: #1e3a5f;
+            --accent-dark: #93c5fd;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -206,7 +206,7 @@
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(32px, 5vw, 48px);
+            font-size: clamp(32px, 5vw, 44px);
             font-weight: 700;
             line-height: 1.2;
             letter-spacing: -0.02em;
@@ -413,14 +413,6 @@
             white-space: pre-wrap;
         }
 
-        .math-inline {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            background: var(--surface-alt);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
         .rule {
             background: var(--accent-light);
             border-left: 3px solid var(--accent);
@@ -541,17 +533,27 @@
             color: var(--text);
         }
 
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin: 16px 0;
+            font-size: 14px;
         }
 
-        @media (max-width: 700px) {
-            .two-col {
-                grid-template-columns: 1fr;
-            }
+        th,
+        td {
+            padding: 12px 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface-alt);
+            font-weight: 600;
+        }
+
+        td {
+            font-family: var(--font-mono);
         }
 
         .video-container {
@@ -564,6 +566,19 @@
         @media (max-width: 800px) {
             .video-container {
                 grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 32px 16px 24px;
+            }
+
+            .main-layout {
+                padding: 0 16px 60px;
+            }
+
+            .section-header,
+            .section-body {
+                padding: 20px;
             }
         }
 
@@ -602,7 +617,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
-            max-height: 480px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
@@ -815,21 +830,6 @@
         [data-theme="dark"] .question-answer {
             color: var(--accent);
         }
-
-        @media (max-width: 600px) {
-            .hero {
-                padding: 32px 16px 24px;
-            }
-
-            .main-layout {
-                padding: 0 16px 60px;
-            }
-
-            .section-header,
-            .section-body {
-                padding: 20px;
-            }
-        }
     </style>
     <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
@@ -837,11 +837,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 18 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -856,15 +856,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 6 · Foundation</div>
-        <h1>Proof Techniques: Direct, Contrapositive, Contradiction & Induction</h1>
-        <p class="hero-desc">Proofs are the backbone of algorithm correctness. Every time you argue "this loop
-            terminates" or "this invariant holds," you're doing a proof. Master these techniques to write bulletproof
-            code.</p>
+            </svg>Day 10 · Discrete Math</div>
+        <h1>Floors, Ceilings & Integer Arithmetic</h1>
+        <p class="hero-desc">Computers work with integers. Floors (⌊x⌋), ceilings (⌈x⌉), and modular arithmetic are
+            everywhere—array indices, hash functions, pagination, and more.</p>
         <div class="hero-meta">
-            <div class="meta-item">~55 min read</div>
-            <div class="meta-item">15 practice problems</div>
-            <div class="meta-item">10 video lessons</div>
+            <div class="meta-item">~40 min read</div>
+            <div class="meta-item">18 practice problems</div>
+            <div class="meta-item">6 video lessons</div>
         </div>
     </header>
 
@@ -874,13 +873,13 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#direct" class="toc-link">1. Direct Proof</a></li>
-                    <li><a href="#contrapositive" class="toc-link">2. Contrapositive</a></li>
-                    <li><a href="#contradiction" class="toc-link">3. Contradiction</a></li>
-                    <li><a href="#induction" class="toc-link">4. Induction</a></li>
-                    <li><a href="#invariants" class="toc-link">5. Loop Invariants</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
+                    <li><a href="#floor" class="toc-link">1. Floor Function</a></li>
+                    <li><a href="#ceiling" class="toc-link">2. Ceiling Function</a></li>
+                    <li><a href="#division" class="toc-link">3. Integer Division</a></li>
+                    <li><a href="#modulo" class="toc-link">4. Modulo Operator</a></li>
+                    <li><a href="#applications" class="toc-link">5. Applications</a></li>
+                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -898,285 +897,313 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Proofs Matter in CS</h2>
+                    <h2 class="section-title">Why Integer Math Matters</h2>
                 </div>
                 <div class="section-body">
-                    <p>Every algorithm correctness argument is a proof. When you claim your sorting function works,
-                        you're implicitly proving it. Understanding proof techniques makes you better at reasoning about
-                        code.</p>
-                    <div class="rule"><strong>Key insight:</strong> Debugging is just proof-reading. You're checking if
-                        your implicit proof of correctness actually holds.</div>
+                    <div class="rule"><strong>Reality:</strong> Computers fundamentally operate on integers. Array
+                        indices, memory addresses, loop counts—all integers. Understanding integer math prevents subtle
+                        bugs.</div>
                     <div class="subsection">
                         <h3 class="subsection-title">Where you'll use this</h3>
                         <ul>
-                            <li><strong>Algorithm Analysis:</strong> Proving correctness, termination, complexity bounds
-                            </li>
-                            <li><strong>Loop Invariants:</strong> Showing loops do what they claim</li>
-                            <li><strong>Recursive Functions:</strong> Induction proves recursion is correct</li>
-                            <li><strong>Security:</strong> Cryptographic security proofs</li>
-                            <li><strong>Type Systems:</strong> Type safety proofs guarantee no runtime type errors</li>
+                            <li><strong>Array Indexing:</strong> Finding the middle element: mid = (lo + hi) // 2</li>
+                            <li><strong>Pagination:</strong> Number of pages = ⌈items / page_size⌉</li>
+                            <li><strong>Hash Tables:</strong> Bucket index = hash(key) mod table_size</li>
+                            <li><strong>Cryptography:</strong> RSA, Diffie-Hellman use modular arithmetic</li>
+                            <li><strong>Graphics:</strong> Pixel coordinates, grid snapping</li>
+                            <li><strong>Time:</strong> hours = minutes // 60, remaining = minutes % 60</li>
                         </ul>
-                    </div>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Every
-                                algorithm has an implicit proof</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">binary_search</span>(arr, target):
-    <span class="code-string">"""
-    Implicit proof claims:
-    1. If target exists, we find it (correctness)
-    2. Loop terminates (lo eventually meets hi)
-    3. O(log n) time (halving search space)
-    
-    Each claim needs a proof technique!
-    """</span>
-    lo, hi = <span class="code-number">0</span>, <span class="code-function">len</span>(arr) - <span class="code-number">1</span>
-    <span class="code-keyword">while</span> lo <= hi:
-        mid = (lo + hi) // <span class="code-number">2</span>
-        <span class="code-keyword">if</span> arr[mid] == target: <span class="code-keyword">return</span> mid
-        <span class="code-keyword">elif</span> arr[mid] < target: lo = mid + <span class="code-number">1</span>
-        <span class="code-keyword">else</span>: hi = mid - <span class="code-number">1</span>
-    <span class="code-keyword">return</span> -<span class="code-number">1</span></pre>
-                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="direct">
+            <section class="section" id="floor">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Direct Proof</h2>
+                    <h2 class="section-title">The Floor Function ⌊x⌋</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The method</h3>
-                        <div class="rule"><strong>To prove P → Q:</strong> Assume P is true, then show Q must follow
-                            through logical steps.</div>
-                        <div class="math-block">Structure:
-                            1. Assume P (the hypothesis)
-                            2. Apply definitions and known facts
-                            3. Derive Q (the conclusion)
-                            4. Therefore P → Q. ∎</div>
+                        <h3 class="subsection-title">Definition</h3>
+                        <div class="math-block">⌊x⌋ = the greatest integer less than or equal to x
+
+                            Also called: "floor of x" or "round down"
+
+                            Examples:
+                            ⌊3.7⌋ = 3
+                            ⌊5.0⌋ = 5
+                            ⌊-2.3⌋ = -3 (← watch out for negatives!)
+                            ⌊π⌋ = 3</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: Sum of two even numbers</h3>
-                        <div class="math-block">Claim: The sum of two even numbers is even.
+                        <h3 class="subsection-title">Key properties</h3>
+                        <div class="math-block">For any real x and integer n:
 
-                            Proof:
-                            1. Let a and b be even numbers.
-                            2. By definition, a = 2m and b = 2n for some integers m, n.
-                            3. Then a + b = 2m + 2n = 2(m + n).
-                            4. Since m + n is an integer, a + b = 2k where k = m + n.
-                            5. Therefore a + b is even by definition. ∎</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS Example: Array access is O(1)</h3>
-                        <div class="math-block">Claim: Accessing arr[i] takes constant time.
+                            1. ⌊x⌋ ≤ x < ⌊x⌋ + 1 2. ⌊x + n⌋=⌊x⌋ + n 3. ⌊⌊x⌋⌋=⌊x⌋ (idempotent) 4. x - 1 < ⌊x⌋ ≤ x</div>
+                        </div>
+                        <div class="warning"><strong>Negative numbers!</strong><br>
+                            ⌊-2.3⌋ = -3, NOT -2<br>
+                            Floor goes toward negative infinity, not toward zero.</div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">In code</h3>
+                            <div class="code-block">
+                                <div class="code-header"><span class="code-lang">Python</span></div>
+                                <div class="code-content">
+                                    <pre><span class="code-keyword">import</span> math
 
-                            Proof:
-                            1. An array stores elements contiguously in memory.
-                            2. The address of arr[i] = base_address + i × element_size.
-                            3. This calculation uses only addition and multiplication.
-                            4. Both operations take constant time.
-                            5. Therefore array access is O(1). ∎</div>
+<span class="code-comment"># Python's math.floor</span>
+math.<span class="code-function">floor</span>(<span class="code-number">3.7</span>)   <span class="code-comment"># 3</span>
+math.<span class="code-function">floor</span>(-<span class="code-number">2.3</span>)  <span class="code-comment"># -3</span>
+
+<span class="code-comment"># Integer division with // (floor division)</span>
+<span class="code-number">7</span> // <span class="code-number">2</span>    <span class="code-comment"># 3</span>
+-<span class="code-number">7</span> // <span class="code-number">2</span>   <span class="code-comment"># -4 (floors toward -∞)</span>
+
+<span class="code-comment"># int() truncates toward zero (different!)</span>
+<span class="code-function">int</span>(-<span class="code-number">2.3</span>)  <span class="code-comment"># -2 (not floor!)</span></pre>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
             </section>
 
-            <section class="section" id="contrapositive">
+            <section class="section" id="ceiling">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Proof by Contrapositive</h2>
+                    <h2 class="section-title">The Ceiling Function ⌈x⌉</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The method</h3>
-                        <div class="rule"><strong>Key fact:</strong> P → Q is logically equivalent to ¬Q →
-                            ¬P.<br>Instead of proving "if P then Q", prove "if not Q then not P".</div>
-                        <div class="math-block">Original: If n² is even, then n is even.
-                            Contrapositive: If n is odd, then n² is odd.
+                        <h3 class="subsection-title">Definition</h3>
+                        <div class="math-block">⌈x⌉ = the least integer greater than or equal to x
 
-                            These are logically equivalent! Sometimes the contrapositive is easier to prove.</div>
+                            Also called: "ceiling of x" or "round up"
+
+                            Examples:
+                            ⌈3.2⌉ = 4
+                            ⌈5.0⌉ = 5
+                            ⌈-2.7⌉ = -2 (toward zero for negatives)
+                            ⌈π⌉ = 4</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: If n² is even, then n is even</h3>
-                        <div class="math-block">Prove contrapositive: If n is odd, then n² is odd.
+                        <h3 class="subsection-title">Key properties</h3>
+                        <div class="math-block">For any real x and integer n:
 
-                            Proof:
-                            1. Assume n is odd.
-                            2. Then n = 2k + 1 for some integer k.
-                            3. n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1.
-                            4. This is of the form 2m + 1, so n² is odd.
-                            5. Therefore, by contrapositive, if n² is even then n is even. ∎</div>
+                            1. ⌈x⌉ - 1 < x ≤ ⌈x⌉ 2. ⌈x + n⌉=⌈x⌉ + n 3. ⌈-x⌉=-⌊x⌋ (important identity!) 4. x ≤ ⌈x⌉ < x +
+                                1</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Relationship to floor</h3>
+                            <div class="rule"><strong>Key identity:</strong><br><br>
+                                ⌈x⌉ = -⌊-x⌋<br><br>
+                                For non-integers: ⌈x⌉ = ⌊x⌋ + 1<br>
+                                For integers: ⌈n⌉ = ⌊n⌋ = n</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">In code</h3>
+                            <div class="code-block">
+                                <div class="code-header"><span class="code-lang">Python</span></div>
+                                <div class="code-content">
+                                    <pre><span class="code-keyword">import</span> math
+
+math.<span class="code-function">ceil</span>(<span class="code-number">3.2</span>)   <span class="code-comment"># 4</span>
+math.<span class="code-function">ceil</span>(-<span class="code-number">2.7</span>)  <span class="code-comment"># -2</span>
+math.<span class="code-function">ceil</span>(<span class="code-number">5.0</span>)   <span class="code-comment"># 5</span>
+
+<span class="code-comment"># Ceiling division (no built-in operator)</span>
+<span class="code-keyword">def</span> <span class="code-function">ceildiv</span>(a, b):
+    <span class="code-keyword">return</span> -(-a // b)  <span class="code-comment"># trick: negate, floor div, negate</span>
+
+<span class="code-function">ceildiv</span>(<span class="code-number">7</span>, <span class="code-number">2</span>)  <span class="code-comment"># 4</span>
+<span class="code-function">ceildiv</span>(<span class="code-number">6</span>, <span class="code-number">2</span>)  <span class="code-comment"># 3</span></pre>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">When to use it</h3>
-                        <p>Use contrapositive when:</p>
-                        <ul>
-                            <li>The conclusion Q involves negation or "not"</li>
-                            <li>¬Q gives you something concrete to work with</li>
-                            <li>The direct path seems blocked</li>
-                        </ul>
-                    </div>
-                </div>
             </section>
 
-            <section class="section" id="contradiction">
+            <section class="section" id="division">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Proof by Contradiction</h2>
+                    <h2 class="section-title">Integer Division</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The method</h3>
-                        <div class="rule"><strong>Strategy:</strong> Assume the opposite of what you want to prove. Show
-                            this leads to a logical impossibility. Therefore, your original claim must be true.</div>
-                        <div class="math-block">Structure:
-                            1. Assume ¬P (the negation of your claim)
-                            2. Derive a contradiction (something impossible)
-                            3. Therefore P must be true. ∎</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Classic: √2 is irrational</h3>
-                        <div class="math-block">Claim: √2 is irrational.
+                        <h3 class="subsection-title">The division algorithm</h3>
+                        <div class="math-block">For integers a and positive b, there exist unique integers q and r:
 
-                            Proof:
-                            1. Assume √2 is rational.
-                            2. Then √2 = a/b where a,b are integers with no common factors.
-                            3. Squaring: 2 = a²/b², so a² = 2b².
-                            4. Thus a² is even, so a is even (from contrapositive proof).
-                            5. Let a = 2k. Then (2k)² = 2b², so 4k² = 2b², so b² = 2k².
-                            6. Thus b² is even, so b is even.
-                            7. But if a and b are both even, they share factor 2. Contradiction!
-                            8. Therefore √2 is irrational. ∎</div>
+                            a = b × q + r where 0 ≤ r < b q=quotient=⌊a/b⌋ r=remainder=a mod b Example: 17=5 × 3 + 2 17
+                                ÷ 5: quotient=3, remainder=2</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Comparison table</h3>
+                            <table>
+                                <tr>
+                                    <th>a</th>
+                                    <th>b</th>
+                                    <th>a / b (float)</th>
+                                    <th>a // b (floor)</th>
+                                    <th>a % b (mod)</th>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>5</td>
+                                    <td>3.4</td>
+                                    <td>3</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>-17</td>
+                                    <td>5</td>
+                                    <td>-3.4</td>
+                                    <td>-4</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>-5</td>
+                                    <td>-3.4</td>
+                                    <td>-4</td>
+                                    <td>-3</td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>5</td>
+                                    <td>4.0</td>
+                                    <td>4</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="warning"><strong>Languages differ on negative division!</strong><br>
+                            Python: floors toward -∞ (mathematically consistent)<br>
+                            C/Java: truncates toward 0 (different for negatives)<br>
+                            Always test with negative numbers in a new language.</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS Example: Halting problem is undecidable</h3>
-                        <div class="math-block">Claim: No program can decide if any program halts.
-
-                            Proof sketch (contradiction):
-                            1. Assume a Halts(P, I) function exists that returns true/false.
-                            2. Construct Paradox(P): if Halts(P, P) then loop forever else halt.
-                            3. Does Paradox(Paradox) halt?
-                            - If yes → Halts returns true → it loops forever. Contradiction!
-                            - If no → Halts returns false → it halts. Contradiction!
-                            4. Therefore Halts cannot exist. ∎</div>
-                    </div>
-                </div>
             </section>
 
-            <section class="section" id="induction">
+            <section class="section" id="modulo">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Mathematical Induction</h2>
+                    <h2 class="section-title">Modulo Operator</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The method</h3>
-                        <div class="rule"><strong>To prove P(n) for all n ≥ base:</strong><br>1. Base case: Prove
-                            P(base) is true<br>2. Inductive step: Prove P(k) → P(k+1)</div>
-                        <div class="math-block">Think of it like dominoes:
-                            - Base case: First domino falls
-                            - Inductive step: Each domino knocks down the next
-                            - Conclusion: ALL dominoes fall</div>
+                        <h3 class="subsection-title">Definition</h3>
+                        <div class="math-block">a mod b = a - b × ⌊a/b⌋
+
+                            "a mod b" is the remainder when a is divided by b.
+
+                            Examples:
+                            17 mod 5 = 2 (17 = 5×3 + 2)
+                            23 mod 7 = 2 (23 = 7×3 + 2)
+                            100 mod 10 = 0 (100 = 10×10 + 0)</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: Sum formula</h3>
-                        <div class="math-block">Claim: 1 + 2 + ... + n = n(n+1)/2 for all n ≥ 1.
+                        <h3 class="subsection-title">Key properties</h3>
+                        <div class="math-block">(a + b) mod n = ((a mod n) + (b mod n)) mod n
+                            (a × b) mod n = ((a mod n) × (b mod n)) mod n
+                            (a - b) mod n = ((a mod n) - (b mod n) + n) mod n
 
-                            Base case (n = 1):
-                            Left: 1
-                            Right: 1(2)/2 = 1 ✓
-
-                            Inductive step:
-                            Assume true for k: 1 + 2 + ... + k = k(k+1)/2
-                            Show true for k+1:
-                            1 + 2 + ... + k + (k+1) = k(k+1)/2 + (k+1)
-                            = (k+1)(k/2 + 1)
-                            = (k+1)(k+2)/2 ✓
-
-                            By induction, the formula holds for all n ≥ 1. ∎</div>
+                            These let you compute mod of huge numbers!</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">CS Example: Proving recursion correct</h3>
+                        <h3 class="subsection-title">Common uses</h3>
                         <div class="code-block">
                             <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Induction proves recursion works</span></div>
+                                    class="code-label">Modulo patterns</span></div>
                             <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">factorial</span>(n):
-    <span class="code-keyword">if</span> n == <span class="code-number">0</span>: <span class="code-keyword">return</span> <span class="code-number">1</span>        <span class="code-comment"># Base case</span>
-    <span class="code-keyword">return</span> n * <span class="code-function">factorial</span>(n-<span class="code-number">1</span>)   <span class="code-comment"># Inductive step</span>
+                                <pre><span class="code-comment"># Check if even/odd</span>
+is_even = n % <span class="code-number">2</span> == <span class="code-number">0</span>
 
-<span class="code-comment"># Proof that factorial(n) = n!</span>
-<span class="code-comment"># Base: factorial(0) = 1 = 0! ✓</span>
-<span class="code-comment"># Inductive: Assume factorial(k) = k!</span>
-<span class="code-comment">#   factorial(k+1) = (k+1) × factorial(k)</span>
-<span class="code-comment">#                  = (k+1) × k!  (by assumption)</span>
-<span class="code-comment">#                  = (k+1)! ✓</span></pre>
+<span class="code-comment"># Wrap around (circular array)</span>
+next_index = (i + <span class="code-number">1</span>) % <span class="code-function">len</span>(arr)
+
+<span class="code-comment"># Extract last digit</span>
+last_digit = n % <span class="code-number">10</span>
+
+<span class="code-comment"># Check divisibility</span>
+divisible_by_3 = n % <span class="code-number">3</span> == <span class="code-number">0</span>
+
+<span class="code-comment"># Hash table index</span>
+bucket = <span class="code-function">hash</span>(key) % num_buckets
+
+<span class="code-comment"># Convert to hours/minutes</span>
+hours = total_minutes // <span class="code-number">60</span>
+minutes = total_minutes % <span class="code-number">60</span></pre>
                             </div>
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Strong induction</h3>
-                        <div class="math-block">Strong induction: Assume P(1), P(2), ..., P(k) all true to prove P(k+1).
-
-                            Useful when P(k+1) depends on multiple previous cases, not just P(k).
-
-                            Example: Every integer > 1 has a prime factorization.
-                            - Need strong induction because n might factor as a × b
-                            where both a, b < n (not just n-1).</div>
-                        </div>
-                    </div>
+                </div>
             </section>
 
-            <section class="section" id="invariants">
+            <section class="section" id="applications">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Loop Invariants</h2>
+                    <h2 class="section-title">CS Applications</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">What is a loop invariant?</h3>
-                        <div class="rule"><strong>Definition:</strong> A condition that is true before and after each
-                            iteration of a loop.<br><br><strong>To prove correctness:</strong><br>1. Initialization:
-                            Invariant holds before loop starts<br>2. Maintenance: If invariant holds before iteration,
-                            it holds after<br>3. Termination: When loop ends, invariant + exit condition → correctness
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: Linear search</h3>
+                        <h3 class="subsection-title">Binary search midpoint</h3>
                         <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Loop
-                                    invariant proof</span></div>
+                            <div class="code-header"><span class="code-lang">Python</span></div>
                             <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">find</span>(arr, target):
-    <span class="code-comment"># Invariant: target is not in arr[0..i-1]</span>
-    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-function">len</span>(arr)):
-        <span class="code-keyword">if</span> arr[i] == target:
-            <span class="code-keyword">return</span> i
-    <span class="code-keyword">return</span> -<span class="code-number">1</span>
+                                <pre><span class="code-comment"># Classic (can overflow in some languages)</span>
+mid = (lo + hi) // <span class="code-number">2</span>
 
-<span class="code-comment"># Initialization: Before i=0, arr[0..-1] is empty, so invariant trivially holds.</span>
-<span class="code-comment"># Maintenance: If arr[i] ≠ target, invariant extends to arr[0..i].</span>
-<span class="code-comment"># Termination: Loop ends when found (correct!) or i = len(arr),</span>
-<span class="code-comment">#              meaning target not in arr[0..n-1], so -1 is correct.</span></pre>
+<span class="code-comment"># Overflow-safe version</span>
+mid = lo + (hi - lo) // <span class="code-number">2</span></pre>
                             </div>
                         </div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: Binary search invariant</h3>
-                        <div class="math-block">Invariant: If target exists in arr, it is in arr[lo..hi].
+                        <h3 class="subsection-title">Pagination</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span></div>
+                            <div class="code-content">
+                                <pre>items = <span class="code-number">47</span>
+page_size = <span class="code-number">10</span>
 
-                            Initialization: lo=0, hi=n-1 covers entire array. ✓
+<span class="code-comment"># How many pages needed? Use ceiling!</span>
+num_pages = -(-items // page_size)  <span class="code-comment"># = ⌈47/10⌉ = 5</span>
 
-                            Maintenance:
-                            - If arr[mid] < target, target must be in arr[mid+1..hi]. Setting lo=mid+1 maintains
-                                invariant. - If arr[mid]> target, target must be in arr[lo..mid-1].
-                                Setting hi = mid-1 maintains invariant.
+<span class="code-comment"># Or equivalently:</span>
+num_pages = (items + page_size - <span class="code-number">1</span>) // page_size</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Circular buffers</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span></div>
+                            <div class="code-content">
+                                <pre><span class="code-keyword">class</span> <span class="code-type">CircularBuffer</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, size):
+        self.buf = [<span class="code-keyword">None</span>] * size
+        self.head = <span class="code-number">0</span>
+        self.size = size
+    
+    <span class="code-keyword">def</span> <span class="code-function">push</span>(self, item):
+        self.buf[self.head] = item
+        self.head = (self.head + <span class="code-number">1</span>) % self.size  <span class="code-comment"># wrap around!</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Digits of a number</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span></div>
+                            <div class="code-content">
+                                <pre><span class="code-keyword">def</span> <span class="code-function">get_digits</span>(n):
+    digits = []
+    <span class="code-keyword">while</span> n > <span class="code-number">0</span>:
+        digits.<span class="code-function">append</span>(n % <span class="code-number">10</span>)  <span class="code-comment"># last digit</span>
+        n = n // <span class="code-number">10</span>           <span class="code-comment"># remove last digit</span>
+    <span class="code-keyword">return</span> digits[::-<span class="code-number">1</span>]
 
-                                Termination:
-                                - Found at mid: correct!
-                                - lo > hi: search space empty, target doesn't exist. ✓</div>
+<span class="code-function">get_digits</span>(<span class="code-number">12345</span>)  <span class="code-comment"># [1, 2, 3, 4, 5]</span></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1187,7 +1214,6 @@
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-                    <p>Click any video to play.</p>
                     <div class="video-container">
                         <div class="video-player">
                             <iframe id="ytPlayer" src=""
@@ -1209,7 +1235,6 @@
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <p>Identify the proof technique or complete the proof step.</p>
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -1223,28 +1248,31 @@
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, " ") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Identify", prompt: "To prove P→Q, assume P and derive Q. Which technique?", answer: ["direct", "direct proof"], display: "Direct proof" },
-            { id: 2, topic: "Identify", prompt: "Prove P→Q by proving ¬Q→¬P. Which technique?", answer: ["contrapositive", "contraposition", "proof by contrapositive"], display: "Contrapositive" },
-            { id: 3, topic: "Identify", prompt: "Assume ¬P, derive impossibility, conclude P. Which technique?", answer: ["contradiction", "proof by contradiction"], display: "Contradiction" },
-            { id: 4, topic: "Identify", prompt: "Base case + (P(k)→P(k+1)) = P(n) for all n. Which technique?", answer: ["induction", "mathematical induction", "proof by induction"], display: "Induction" },
-            { id: 5, topic: "Contrapositive", prompt: "What is the contrapositive of: If it rains, the ground is wet?", answer: ["if ground is not wet then it doesn't rain", "if not wet then not rain", "if the ground is not wet then it does not rain"], display: "If ground not wet → not raining" },
-            { id: 6, topic: "Contrapositive", prompt: "Contrapositive of: If n is prime, then n>1?", answer: ["if n<=1 then n is not prime", "if n is not greater than 1 then n is not prime"], display: "If n ≤ 1, then n is not prime" },
-            { id: 7, topic: "Induction", prompt: "In induction, what must you prove first?", answer: ["base case", "the base case", "base"], display: "Base case" },
-            { id: 8, topic: "Induction", prompt: "In the inductive step, you assume P(k). What do you prove?", answer: ["p(k+1)", "p(k + 1)"], display: "P(k+1)" },
-            { id: 9, topic: "Induction", prompt: "Sum 1+2+...+n when n=1 equals?", answer: ["1"], display: "1" },
-            { id: 10, topic: "Induction", prompt: "If 1+2+...+k = k(k+1)/2, what is 1+2+...+k+(k+1)?", answer: ["(k+1)(k+2)/2"], display: "(k+1)(k+2)/2" },
-            { id: 11, topic: "Invariant", prompt: "A condition true before and after each loop iteration is called a?", answer: ["loop invariant", "invariant"], display: "Loop invariant" },
-            { id: 12, topic: "Invariant", prompt: "To prove loop correctness: Initialization, Maintenance, and?", answer: ["termination"], display: "Termination" },
-            { id: 13, topic: "Contradiction", prompt: "To prove √2 irrational, we first assume √2 is... (what)?", answer: ["rational"], display: "Rational" },
-            { id: 14, topic: "Apply", prompt: "Prove: even + odd = odd. Which technique is simplest?", answer: ["direct", "direct proof"], display: "Direct proof" },
-            { id: 15, topic: "Strong", prompt: "When P(k+1) depends on all of P(1)...P(k), use ___ induction.", answer: ["strong"], display: "Strong" },
+            { id: 1, topic: "Floor", prompt: "⌊4.7⌋ = ?", answer: ["4"], display: "4" },
+            { id: 2, topic: "Floor", prompt: "⌊-2.3⌋ = ?", answer: ["-3"], display: "-3" },
+            { id: 3, topic: "Floor", prompt: "⌊5.0⌋ = ?", answer: ["5"], display: "5" },
+            { id: 4, topic: "Ceiling", prompt: "⌈3.1⌉ = ?", answer: ["4"], display: "4" },
+            { id: 5, topic: "Ceiling", prompt: "⌈-1.5⌉ = ?", answer: ["-1"], display: "-1" },
+            { id: 6, topic: "Ceiling", prompt: "⌈7.0⌉ = ?", answer: ["7"], display: "7" },
+            { id: 7, topic: "Division", prompt: "17 // 5 = ? (Python)", answer: ["3"], display: "3" },
+            { id: 8, topic: "Division", prompt: "-17 // 5 = ? (Python)", answer: ["-4"], display: "-4" },
+            { id: 9, topic: "Modulo", prompt: "17 % 5 = ?", answer: ["2"], display: "2" },
+            { id: 10, topic: "Modulo", prompt: "23 % 7 = ?", answer: ["2"], display: "2" },
+            { id: 11, topic: "Modulo", prompt: "100 % 10 = ?", answer: ["0"], display: "0" },
+            { id: 12, topic: "Modulo", prompt: "15 % 4 = ?", answer: ["3"], display: "3" },
+            { id: 13, topic: "Apply", prompt: "Pagination: ⌈47/10⌉ pages = ?", answer: ["5"], display: "5" },
+            { id: 14, topic: "Apply", prompt: "Binary search mid: (3 + 9) // 2 = ?", answer: ["6"], display: "6" },
+            { id: 15, topic: "Apply", prompt: "Last digit of 12345: 12345 % 10 = ?", answer: ["5"], display: "5" },
+            { id: 16, topic: "Apply", prompt: "Is 24 divisible by 6? (24 % 6 == 0): yes/no", answer: ["yes", "y"], display: "Yes" },
+            { id: 17, topic: "Apply", prompt: "Wrap index: (4 + 1) % 5 = ?", answer: ["0"], display: "0" },
+            { id: 18, topic: "Identity", prompt: "⌈x⌉ = -⌊?⌋ (fill in blank)", answer: ["-x"], display: "-x" },
         ];
 
-        const LS_KEY = "day6_stats_v1";
+        const LS_KEY = "day10_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1284,11 +1312,24 @@
         document.getElementById("btnReset").addEventListener("click", () => { if (!confirm("Reset all stats?")) return; stats = { attempted: 0, correct: 0 }; saveStats(); sessionCorrect = 0; updateUI(); });
 
         const VIDEO_GROUPS = [
-            { title: "Proof Basics", items: [{ title: "MIT OpenCourseWare — Intro to Proofs", channel: "MIT OCW", vid: "L-bdLhx20Tk" }, { title: "Trefor Bazett — Proof Techniques", channel: "Trefor Bazett", vid: "KRLmjJyqGFM" }] },
-            { title: "Direct & Contrapositive", items: [{ title: "Khan Academy — Direct Proof", channel: "Khan Academy", vid: "lm5ePH15hMo" }, { title: "Trefor Bazett — Contrapositive Proof", channel: "Trefor Bazett", vid: "X-hJ_5qM7Ag" }] },
-            { title: "Contradiction", items: [{ title: "Numberphile — Sqrt(2) is Irrational", channel: "Numberphile", vid: "LmpAntNjPj0" }, { title: "Trefor Bazett — Proof by Contradiction", channel: "Trefor Bazett", vid: "sRDwsfNDXak" }] },
-            { title: "Mathematical Induction", items: [{ title: "Khan Academy — Proof by Induction", channel: "Khan Academy", vid: "wblW_M_HVQ8" }, { title: "Trefor Bazett — Strong Induction", channel: "Trefor Bazett", vid: "NuGDkmwEObM" }, { title: "MIT OCW — Induction", channel: "MIT OCW", vid: "z8HKWUWS-lA" }] },
-            { title: "Loop Invariants", items: [{ title: "mycodeschool — Loop Invariants", channel: "mycodeschool", vid: "Xk8Q4fAbpLs" }] }
+            {
+                title: "Floors & Ceilings", items: [
+                    { title: "Khan Academy — Floor and Ceiling", channel: "Khan Academy", vid: "sTENvD1d-WA" },
+                    { title: "Math Antics — Rounding", channel: "Math Antics", vid: "UP7YmXJjvaU" },
+                ]
+            },
+            {
+                title: "Integer Division & Modulo", items: [
+                    { title: "Khan Academy — Division Algorithm", channel: "Khan Academy", vid: "KKs3mXI5IZQ" },
+                    { title: "CS50 — Modulo Operator", channel: "CS50", vid: "b5cb_nfDyyM" },
+                ]
+            },
+            {
+                title: "Applications", items: [
+                    { title: "Computerphile — Modular Arithmetic", channel: "Computerphile", vid: "M7kEpw1tn50" },
+                    { title: "MIT OCW — Integer Arithmetic", channel: "MIT OCW", vid: "xq8pSE3WHPI" },
+                ]
+            },
         ];
 
         function renderVideos() {

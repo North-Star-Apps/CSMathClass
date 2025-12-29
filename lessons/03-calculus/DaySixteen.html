@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 11: Summation Formulas — Arithmetic, Geometric & Telescoping</title>
+    <title>Day 16: Checkpoint — Walk Through a Probability Argument</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #be185d;
-            --accent-light: #fce7f3;
-            --accent-dark: #9d174d;
+            --accent: #0891b2;
+            --accent-light: #cffafe;
+            --accent-dark: #0e7490;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #f472b6;
-            --accent-light: #500724;
-            --accent-dark: #fbcfe8;
+            --accent: #22d3ee;
+            --accent-light: #164e63;
+            --accent-dark: #67e8f9;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -533,29 +533,66 @@
             color: var(--text)
         }
 
-        .formula-box {
-            background: var(--surface-alt);
+        .annotated-proof {
+            background: var(--surface);
             border: 2px solid var(--accent);
             border-radius: var(--radius-lg);
-            padding: 20px 24px;
-            margin: 16px 0;
-            text-align: center
+            margin: 20px 0;
+            overflow: hidden
         }
 
-        .formula-label {
-            font-size: 12px;
+        .proof-header {
+            background: var(--accent-light);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--accent)
+        }
+
+        .proof-title {
             font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px
+            color: var(--accent-dark);
+            font-size: 16px
         }
 
-        .formula-main {
+        [data-theme="dark"] .proof-title {
+            color: var(--accent)
+        }
+
+        .proof-body {
+            padding: 20px
+        }
+
+        .proof-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .proof-step:last-child {
+            border-bottom: none
+        }
+
+        @media(max-width:700px) {
+            .proof-step {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .step-math {
             font-family: var(--font-mono);
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text)
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.8
+        }
+
+        .step-reason {
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: var(--surface-alt);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            border-left: 3px solid var(--accent)
         }
 
         .video-container {
@@ -839,11 +876,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 16 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 6 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -858,14 +895,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 11 · Discrete Math</div>
-        <h1>Summation Formulas: Σ Arithmetic, Geometric & Telescoping</h1>
-        <p class="hero-desc">Summations appear everywhere in algorithm analysis. Knowing these formulas lets you convert
-            nested loops into closed-form expressions and proves Big-O bounds.</p>
+            </svg>Day 16 · Checkpoint</div>
+        <h1>Checkpoint: Walk Through a Probability Argument</h1>
+        <p class="hero-desc">Practice time! Study complete, annotated probability arguments. Learn to justify every step
+            and spot common errors in probabilistic reasoning.</p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min read</div>
-            <div class="meta-item">16 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">~40 min practice</div>
+            <div class="meta-item">4 worked examples</div>
+            <div class="meta-item">6 exercises</div>
         </div>
     </header>
 
@@ -875,13 +912,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#notation" class="toc-link">1. Sigma Notation</a></li>
-                    <li><a href="#arithmetic" class="toc-link">2. Arithmetic Series</a></li>
-                    <li><a href="#geometric" class="toc-link">3. Geometric Series</a></li>
-                    <li><a href="#telescoping" class="toc-link">4. Telescoping</a></li>
-                    <li><a href="#useful" class="toc-link">5. Useful Formulas</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#example1" class="toc-link">1. Birthday Problem</a></li>
+                    <li><a href="#example2" class="toc-link">2. Coupon Collector</a></li>
+                    <li><a href="#example3" class="toc-link">3. QuickSort Depth</a></li>
+                    <li><a href="#example4" class="toc-link">4. Bayes in Practice</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -898,254 +934,239 @@
         <main class="content">
             <section class="section" id="why">
                 <div class="section-header">
-                    <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Summations Matter</h2>
+                    <div class="section-number">Checkpoint</div>
+                    <h2 class="section-title">The Art of Probability Arguments</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>The connection:</strong> Loops = Summations. Every for-loop that does
-                        constant work n times is Σ₁ⁿ 1 = n operations.</div>
+                    <div class="rule"><strong>Goal:</strong> Walk through complete probability arguments, understanding
+                        the justification for each step. This is how you learn to construct and critique probabilistic
+                        proofs.</div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Loops as summations</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Loops
-                                    → Σ</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Simple loop: Σᵢ₌₁ⁿ 1 = n</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    work()  <span class="code-comment"># O(1)</span>
+                        <h3 class="subsection-title">Common justification types</h3>
+                        <ul>
+                            <li><strong>Definition:</strong> "By definition of conditional probability..."</li>
+                            <li><strong>Independence:</strong> "Since events are independent..."</li>
+                            <li><strong>Linearity:</strong> "By linearity of expectation..."</li>
+                            <li><strong>Complement:</strong> "P(A) = 1 - P(not A)..."</li>
+                            <li><strong>Union bound:</strong> "P(A or B) ≤ P(A) + P(B)..."</li>
+                            <li><strong>Indicator trick:</strong> "Let Xᵢ = 1 if event i occurs..."</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-<span class="code-comment"># Nested loop: Σᵢ₌₁ⁿ Σⱼ₌₁ⁿ 1 = n²</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-        work()
+            <section class="section" id="example1">
+                <div class="section-header">
+                    <div class="section-number">Example 1</div>
+                    <h2 class="section-title">Birthday Problem: P(shared birthday)</h2>
+                </div>
+                <div class="section-body">
+                    <p><strong>Problem:</strong> In a room of n people, what is the probability that at least two people
+                        share a birthday?</p>
 
-<span class="code-comment"># Triangular: Σᵢ₌₁ⁿ i = n(n+1)/2</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(i):  <span class="code-comment"># j goes up to i</span>
-        work()</pre>
+                    <div class="annotated-proof">
+                        <div class="proof-header">
+                            <div class="proof-title">Complete Annotated Solution</div>
+                        </div>
+                        <div class="proof-body">
+                            <div class="proof-step">
+                                <div class="step-math">P(at least one match) = 1 - P(all different)</div>
+                                <div class="step-reason"><strong>Complement rule:</strong> It's easier to compute P(no
+                                    match) and subtract from 1.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">P(all different) = P(person 1 unique) × P(person 2 unique |
+                                    person 1) × ...</div>
+                                <div class="step-reason"><strong>Chain rule:</strong> P(A₁ and A₂ and ... Aₙ) = P(A₁) ×
+                                    P(A₂|A₁) × P(A₃|A₁,A₂) × ...</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">= (365/365) × (364/365) × (363/365) × ... × ((365-n+1)/365)</div>
+                                <div class="step-reason"><strong>Counting:</strong> Person 1 has 365 options. Person 2
+                                    must avoid 1 date (364 options). Person k must avoid k-1 dates.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">= 365! / ((365-n)! × 365ⁿ)</div>
+                                <div class="step-reason"><strong>Simplification:</strong> Product of consecutive
+                                    integers = falling factorial = 365!/(365-n)!</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">For n = 23: P(all different) ≈ 0.493<br>P(at least one match) ≈
+                                    0.507</div>
+                                <div class="step-reason"><strong>Numerical evaluation:</strong> Plugging in n=23 and
+                                    computing. The 50% threshold is surprisingly low!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info"><strong>Key insight:</strong> The complement approach turned a complex "at least
+                        one" problem into a simpler "all different" problem. This is a powerful technique!</div>
+                </div>
+            </section>
+
+            <section class="section" id="example2">
+                <div class="section-header">
+                    <div class="section-number">Example 2</div>
+                    <h2 class="section-title">Coupon Collector: Expected Time</h2>
+                </div>
+                <div class="section-body">
+                    <p><strong>Problem:</strong> There are n different coupons. Each draw gives a uniformly random
+                        coupon. How many draws to collect all n?</p>
+
+                    <div class="annotated-proof">
+                        <div class="proof-header">
+                            <div class="proof-title">Complete Annotated Solution</div>
+                        </div>
+                        <div class="proof-body">
+                            <div class="proof-step">
+                                <div class="step-math">Define phases: Phase i = waiting for the iᵗʰ new coupon (after
+                                    having i-1 unique)</div>
+                                <div class="step-reason"><strong>Problem decomposition:</strong> Break into phases to
+                                    analyze separately.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">In phase i: P(new coupon) = (n-i+1)/n</div>
+                                <div class="step-reason"><strong>Simple counting:</strong> We have i-1 coupons, so
+                                    n-(i-1) = n-i+1 are new.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">Let Xᵢ = draws in phase i. Xᵢ ~ Geometric(pᵢ) where pᵢ =
+                                    (n-i+1)/n</div>
+                                <div class="step-reason"><strong>Geometric distribution:</strong> Waiting time for first
+                                    success with success probability p.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">E[Xᵢ] = 1/pᵢ = n/(n-i+1)</div>
+                                <div class="step-reason"><strong>Known formula:</strong> For geometric distribution,
+                                    E[X] = 1/p.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">E[total] = E[X₁ + X₂ + ... + Xₙ] = Σᵢ E[Xᵢ]</div>
+                                <div class="step-reason"><strong>Linearity of expectation:</strong> E[sum] = sum of
+                                    E[each].</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">= n/n + n/(n-1) + n/(n-2) + ... + n/1<br>= n × (1/n + 1/(n-1) +
+                                    ... + 1/1)<br>= n × Hₙ ≈ n ln n</div>
+                                <div class="step-reason"><strong>Harmonic series:</strong> Hₙ = Σᵢ₌₁ⁿ 1/i ≈ ln n + γ
+                                    where γ ≈ 0.577.</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="notation">
+            <section class="section" id="example3">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Sigma Notation</h2>
+                    <div class="section-number">Example 3</div>
+                    <h2 class="section-title">QuickSort: Expected Comparisons</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Reading the notation</h3>
-                        <div class="math-block"> n
-                            Σ f(i) = f(1) + f(2) + ... + f(n)
-                            i=1
+                    <p><strong>Problem:</strong> Prove QuickSort with random pivot makes O(n log n) expected
+                        comparisons.</p>
 
-                            Parts:
-                            • Σ — "sum"
-                            • i=1 — start index
-                            • n — end index
-                            • f(i) — the expression to sum</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Properties of summation</h3>
-                        <div class="math-block">1. Σ (aᵢ + bᵢ) = Σ aᵢ + Σ bᵢ (distribute)
-
-                            2. Σ c·aᵢ = c · Σ aᵢ (factor out constant)
-
-                            3. Σᵢ₌₁ⁿ c = n·c (sum of constants)
-
-                            4. Σᵢ₌ₘⁿ aᵢ = Σᵢ₌₁ⁿ aᵢ - Σᵢ₌₁ᵐ⁻¹ aᵢ (splitting)</div>
-                    </div>
-                </div>
+                    <div class="annotated-proof">
+                        <div class="proof-header">
+                            <div class="proof-title">Complete Annotated Solution</div>
+                        </div>
+                        <div class="proof-body">
+                            <div class="proof-step">
+                                <div class="step-math">Let elements be z₁ < z₂ < ... < zₙ in sorted order.</div>
+                                        <div class="step-reason"><strong>Setup:</strong> Name elements by their rank for
+                                            analysis.</div>
+                                </div>
+                                <div class="proof-step">
+                                    <div class="step-math">Define Xᵢⱼ = 1 if zᵢ and zⱼ are compared, 0 otherwise.</div>
+                                    <div class="step-reason"><strong>Indicator random variables:</strong> Count
+                                        comparisons using 0/1 variables.</div>
+                                </div>
+                                <div class="proof-step">
+                                    <div class="step-math">Total comparisons X = Σᵢ<ⱼ Xᵢⱼ</div>
+                                            <div class="step-reason"><strong>Counting:</strong> Sum over all pairs.
+                                            </div>
+                                    </div>
+                                    <div class="proof-step">
+                                        <div class="step-math">E[X] = Σᵢ<ⱼ E[Xᵢⱼ]=Σᵢ<ⱼ P(zᵢ, zⱼ compared)</div>
+                                                <div class="step-reason"><strong>Linearity + indicator
+                                                        property:</strong> E[indicator] = P(event).</div>
+                                        </div>
+                                        <div class="proof-step">
+                                            <div class="step-math">zᵢ and zⱼ compared ⟺ one of them is first pivot among
+                                                {zᵢ, zᵢ₊₁, ..., zⱼ}</div>
+                                            <div class="step-reason"><strong>Key insight:</strong> Two elements compare
+                                                only if one is picked as pivot before any element between them separates
+                                                them.</div>
+                                        </div>
+                                        <div class="proof-step">
+                                            <div class="step-math">P(zᵢ, zⱼ compared) = 2/(j-i+1)</div>
+                                            <div class="step-reason"><strong>Uniform probability:</strong> j-i+1
+                                                elements in range, 2 cause comparison.</div>
+                                        </div>
+                                        <div class="proof-step">
+                                            <div class="step-math">E[X] = Σᵢ₌₁ⁿ⁻¹ Σⱼ₌ᵢ₊₁ⁿ 2/(j-i+1)<br> = Σᵢ₌₁ⁿ⁻¹
+                                                Σₖ₌₂ⁿ⁻ⁱ⁺¹ 2/k<br> ≤ 2n × Hₙ = O(n log n)</div>
+                                            <div class="step-reason"><strong>Summation:</strong> Change variables k =
+                                                j-i+1, bound by harmonic series.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
             </section>
 
-            <section class="section" id="arithmetic">
+            <section class="section" id="example4">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Arithmetic Series</h2>
+                    <div class="section-number">Example 4</div>
+                    <h2 class="section-title">Bayes: Spam Classification</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The fundamental formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Sum of First n Integers</div>
-                            <div class="formula-main">Σᵢ₌₁ⁿ i = 1 + 2 + ... + n = n(n+1)/2</div>
+                    <p><strong>Problem:</strong> An email contains the word "FREE". Given: 80% of spam contains "FREE",
+                        5% of ham (non-spam) contains "FREE", 20% of all emails are spam. What's P(spam | contains
+                        "FREE")?</p>
+
+                    <div class="annotated-proof">
+                        <div class="proof-header">
+                            <div class="proof-title">Complete Annotated Solution</div>
                         </div>
-                        <p>This is O(n²) — the triangular numbers.</p>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Gauss's insight</h3>
-                        <div class="math-block">Write the sum forwards and backwards:
-
-                            S = 1 + 2 + 3 + ... + n
-                            S = n + n-1 + n-2 + ... + 1
-                            ─────────────────────────────────
-                            2S = (n+1) + (n+1) + (n+1) + ... + (n+1)
-                            = n × (n+1)
-
-                            S = n(n+1)/2</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">General arithmetic series</h3>
-                        <div class="math-block">For any arithmetic sequence a, a+d, a+2d, ..., a+(n-1)d:
-
-                            Sum = n × (first + last) / 2
-                            = n × (2a + (n-1)d) / 2
-
-                            Example: 3 + 5 + 7 + 9 + 11 (a=3, d=2, n=5)
-                            = 5 × (3 + 11) / 2 = 5 × 7 = 35</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Bubble sort analysis</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Bubble sort: inner loop shrinks each pass</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(n - <span class="code-number">1</span> - i):  <span class="code-comment"># shrinks!</span>
-        <span class="code-keyword">if</span> arr[j] > arr[j+<span class="code-number">1</span>]:
-            arr[j], arr[j+<span class="code-number">1</span>] = arr[j+<span class="code-number">1</span>], arr[j]
-
-<span class="code-comment"># Comparisons: (n-1) + (n-2) + ... + 1 + 0</span>
-<span class="code-comment">#            = Σᵢ₌₀ⁿ⁻¹ (n-1-i) = n(n-1)/2 = O(n²)</span></pre>
+                        <div class="proof-body">
+                            <div class="proof-step">
+                                <div class="step-math">Define: S = spam, F = contains "FREE"<br>Given: P(F|S) = 0.80,
+                                    P(F|¬S) = 0.05, P(S) = 0.20</div>
+                                <div class="step-reason"><strong>Define notation:</strong> Clearly state what each
+                                    probability represents.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">Want: P(S|F)</div>
+                                <div class="step-reason"><strong>State the goal:</strong> Probability of spam given the
+                                    word appears.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">P(S|F) = P(F|S) × P(S) / P(F)</div>
+                                <div class="step-reason"><strong>Bayes' Theorem:</strong> Flip the conditional.</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">P(F) = P(F|S)×P(S) + P(F|¬S)×P(¬S)<br> = 0.80×0.20 +
+                                    0.05×0.80<br> = 0.16 + 0.04 = 0.20</div>
+                                <div class="step-reason"><strong>Law of total probability:</strong> Sum over all cases
+                                    (spam and ham).</div>
+                            </div>
+                            <div class="proof-step">
+                                <div class="step-math">P(S|F) = (0.80 × 0.20) / 0.20<br> = 0.16 / 0.20 = 0.80</div>
+                                <div class="step-reason"><strong>Substitute and compute:</strong> 80% probability this
+                                    email is spam!</div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <section class="section" id="geometric">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Geometric Series</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Geometric Series (r ≠ 1)</div>
-                            <div class="formula-main">Σᵢ₌₀ⁿ rⁱ = 1 + r + r² + ... + rⁿ = (rⁿ⁺¹ - 1)/(r - 1)</div>
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Special case: r = 2</h3>
-                        <div class="math-block">1 + 2 + 4 + 8 + ... + 2ⁿ = 2ⁿ⁺¹ - 1
-
-                            Example: 1 + 2 + 4 + 8 = 2⁴ - 1 = 15
-
-                            Key insight: The last term dominates!
-                            Sum ≈ 2 × (largest term)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Infinite geometric series</h3>
-                        <div class="math-block">When |r| < 1, the infinite series converges: Σᵢ₌₀^∞ rⁱ=1/(1-r) Examples:
-                                1 + 1/2 + 1/4 + 1/8 + ...=1/(1-0.5)=2 1 + 1/3 + 1/9 + 1/27 + ...=1/(1-1/3)=3/2</div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">CS application: Binary tree nodes</h3>
-                            <div class="math-block">Full binary tree of height h:
-                                Level 0: 1 node
-                                Level 1: 2 nodes
-                                Level 2: 4 nodes
-                                ...
-                                Level h: 2ʰ nodes
-
-                                Total = 1 + 2 + 4 + ... + 2ʰ = 2ʰ⁺¹ - 1
-
-                                A tree with height h has about 2ʰ nodes.</div>
-                        </div>
-                    </div>
-            </section>
-
-            <section class="section" id="telescoping">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Telescoping Sums</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The idea</h3>
-                        <div class="rule"><strong>Telescoping:</strong> Most terms cancel, leaving only the first and
-                            last. Like a collapsing telescope!</div>
-                        <div class="math-block">Σᵢ₌₁ⁿ (aᵢ - aᵢ₊₁) = a₁ - aₙ₊₁
-
-                            Example: Σᵢ₌₁ⁿ (1/i - 1/(i+1))
-
-                            = (1/1 - 1/2) + (1/2 - 1/3) + (1/3 - 1/4) + ...
-
-                            = 1 - 1/(n+1) ← everything else cancels!</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Useful trick: Partial fractions</h3>
-                        <div class="math-block">To sum 1/(i(i+1)), use partial fractions:
-
-                            1/(i(i+1)) = 1/i - 1/(i+1)
-
-                            Then:
-                            Σᵢ₌₁ⁿ 1/(i(i+1)) = Σᵢ₌₁ⁿ (1/i - 1/(i+1))
-                            = 1 - 1/(n+1)
-                            = n/(n+1)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application: Amortized analysis</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Dynamic array resize</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Dynamic array doubles when full</span>
-<span class="code-comment"># Insertions: 1 + 1 + 1 + ... (cheap)</span>
-<span class="code-comment"># Resize costs: 1 + 2 + 4 + 8 + ... + n</span>
-
-<span class="code-comment"># Total resize = 2n - 1 (geometric sum)</span>
-<span class="code-comment"># Spread over n inserts = O(1) amortized per insert</span>
-
-<span class="code-comment"># Telescoping in action: each element copied</span>
-<span class="code-comment"># at most O(log n) times total</span></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="useful">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Essential Formulas Reference</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block"><strong>Constant:</strong>
-                        Σᵢ₌₁ⁿ c = nc
-
-                        <strong>Linear (Gauss):</strong>
-                        Σᵢ₌₁ⁿ i = n(n+1)/2 = O(n²)
-
-                        <strong>Squares:</strong>
-                        Σᵢ₌₁ⁿ i² = n(n+1)(2n+1)/6 = O(n³)
-
-                        <strong>Cubes:</strong>
-                        Σᵢ₌₁ⁿ i³ = [n(n+1)/2]² = O(n⁴)
-
-                        <strong>Geometric (r ≠ 1):</strong>
-                        Σᵢ₌₀ⁿ rⁱ = (rⁿ⁺¹ - 1)/(r - 1)
-
-                        <strong>Powers of 2:</strong>
-                        Σᵢ₌₀ⁿ 2ⁱ = 2ⁿ⁺¹ - 1
-
-                        <strong>Harmonic:</strong>
-                        Σᵢ₌₁ⁿ 1/i = Hₙ ≈ ln(n) + γ = O(log n)
-
-                        <strong>Log sum:</strong>
-                        Σᵢ₌₁ⁿ log(i) = log(n!) ≈ n log n = O(n log n)
-                    </div>
+                    <div class="warning"><strong>Common error:</strong> Don't confuse P(F|S) = 0.80 with P(S|F). The
+                        word "FREE" appears in 80% of spam, but that doesn't mean 80% of emails with "FREE" are
+                        spam—until you compute it with Bayes!</div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Video Lessons</h2>
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Video Review</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
@@ -1165,8 +1186,8 @@
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Practice Problems</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Practice Exercises</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls">
@@ -1182,29 +1203,19 @@
     </div>
 
     <script>
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "").replace(/\*/g, "") : ""; }
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Arithmetic", prompt: "Σᵢ₌₁⁵ i = 1+2+3+4+5 = ?", answer: ["15"], display: "15" },
-            { id: 2, topic: "Arithmetic", prompt: "Σᵢ₌₁¹⁰⁰ i using formula n(n+1)/2 = ?", answer: ["5050"], display: "5050" },
-            { id: 3, topic: "Arithmetic", prompt: "1+2+...+10 = 10×11/2 = ?", answer: ["55"], display: "55" },
-            { id: 4, topic: "Geometric", prompt: "1+2+4+8 = 2⁴-1 = ?", answer: ["15"], display: "15" },
-            { id: 5, topic: "Geometric", prompt: "1+2+4+8+16+32 = 2⁶-1 = ?", answer: ["63"], display: "63" },
-            { id: 6, topic: "Geometric", prompt: "Σᵢ₌₀³ 3ⁱ = 1+3+9+27 = ?", answer: ["40"], display: "40" },
-            { id: 7, topic: "Infinite", prompt: "1+1/2+1/4+1/8+... = 1/(1-0.5) = ?", answer: ["2"], display: "2" },
-            { id: 8, topic: "Formula", prompt: "Σᵢ₌₁ⁿ i = n(n+?)/2", answer: ["1"], display: "1" },
-            { id: 9, topic: "Formula", prompt: "Powers of 2: Σᵢ₌₀ⁿ 2ⁱ = 2^(n+1) - ?", answer: ["1"], display: "1" },
-            { id: 10, topic: "Telescope", prompt: "(1-1/2)+(1/2-1/3)+(1/3-1/4)+(1/4-1/5) = 1 - ?", answer: ["1/5", "0.2"], display: "1/5" },
-            { id: 11, topic: "Apply", prompt: "Full binary tree height 3: 1+2+4+8 = ? nodes", answer: ["15"], display: "15" },
-            { id: 12, topic: "Apply", prompt: "Bubble sort n=10: 9+8+...+1 = 10×9/2 = ?", answer: ["45"], display: "45" },
-            { id: 13, topic: "BigO", prompt: "Σᵢ₌₁ⁿ i is O(n^?) — what exponent?", answer: ["2"], display: "2" },
-            { id: 14, topic: "BigO", prompt: "Σᵢ₌₁ⁿ i² is O(n^?) — what exponent?", answer: ["3"], display: "3" },
-            { id: 15, topic: "BigO", prompt: "Harmonic series Σ1/i is O(? n)", answer: ["log", "logn"], display: "O(log n)" },
-            { id: 16, topic: "Property", prompt: "Σᵢ₌₁ⁿ c = ? × c", answer: ["n"], display: "n" },
+            { id: 1, topic: "Birthday", prompt: "Birthday problem uses which rule to simplify? (complement/addition/product)", answer: ["complement"], display: "Complement rule" },
+            { id: 2, topic: "Birthday", prompt: "P(all different) uses which rule for sequential events?", answer: ["chain", "multiplication", "product"], display: "Chain rule (multiplication)" },
+            { id: 3, topic: "Coupon", prompt: "Coupon collector: waiting time follows which distribution?", answer: ["geometric"], display: "Geometric distribution" },
+            { id: 4, topic: "Coupon", prompt: "E[draws to collect n coupons] ≈ n × ln(?)", answer: ["n"], display: "n ln n" },
+            { id: 5, topic: "QuickSort", prompt: "QuickSort analysis uses what type of random variables to count comparisons?", answer: ["indicator"], display: "Indicator random variables" },
+            { id: 6, topic: "Bayes", prompt: "In spam example, P(spam|FREE) = 0.80. What rule was used?", answer: ["bayes", "bayes'"], display: "Bayes' Theorem" },
         ];
 
-        const LS_KEY = "day11_stats_v1";
+        const LS_KEY = "day16_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1243,27 +1254,11 @@
 
         const VIDEO_GROUPS = [
             {
-                title: "Fundamentals", items: [
-                    { title: "Khan Academy — Sigma Notation", channel: "Khan Academy", vid: "5jwXThH6fg4" },
-                    { title: "Organic Chem Tutor — Summation", channel: "Organic Chemistry Tutor", vid: "sRDwsfNDXak" },
-                ]
-            },
-            {
-                title: "Arithmetic Series", items: [
-                    { title: "Khan Academy — Arithmetic Series", channel: "Khan Academy", vid: "Wv3UD-kHh9c" },
-                    { title: "Mathologer — Gauss Sum", channel: "Mathologer", vid: "iJ8pnCO0nTY" },
-                ]
-            },
-            {
-                title: "Geometric Series", items: [
-                    { title: "3Blue1Brown — Geometric Series", channel: "3Blue1Brown", vid: "XFDM1ip5HdU" },
-                    { title: "Khan Academy — Geometric Series", channel: "Khan Academy", vid: "pXo0bG4iAyg" },
-                ]
-            },
-            {
-                title: "Applications", items: [
-                    { title: "MIT OCW — Summations", channel: "MIT OCW", vid: "NuGDkmwEObM" },
-                    { title: "mycodeschool — Sum in Loops", channel: "mycodeschool", vid: "V42FBiohc6c" },
+                title: "Review Concepts", items: [
+                    { title: "Birthday Problem Explained", channel: "Numberphile", vid: "ofTb57aZHZs" },
+                    { title: "Coupon Collector", channel: "MIT OCW", vid: "Za-mHVT8Ee0" },
+                    { title: "QuickSort Analysis", channel: "MIT OCW", vid: "hP73xrHllbM" },
+                    { title: "Bayes in Practice", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
                 ]
             },
         ];

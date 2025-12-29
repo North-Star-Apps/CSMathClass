@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 14: Basic Probability — Independence, Conditional & Bayes</title>
+    <title>Day 23: Eigenvalues, Eigenvectors & Diagonalization</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +20,9 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #dc2626;
-            --accent-light: #fee2e2;
-            --accent-dark: #b91c1c;
+            --accent: #ea580c;
+            --accent-light: #ffedd5;
+            --accent-dark: #c2410c;
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
@@ -49,9 +49,9 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #f87171;
-            --accent-light: #450a0a;
-            --accent-dark: #fca5a5;
+            --accent: #fb923c;
+            --accent-light: #431407;
+            --accent-dark: #fdba74;
             --code-bg: #0f0f12;
             --success: #86efac;
             --success-bg: #14532d;
@@ -478,11 +478,6 @@
             letter-spacing: 0.05em
         }
 
-        .code-label {
-            font-size: 12px;
-            color: #71717a
-        }
-
         .code-content {
             padding: 16px 20px;
             overflow-x: auto
@@ -514,10 +509,6 @@
 
         .code-comment {
             color: #6a9955
-        }
-
-        .code-type {
-            color: #4ec9b0
         }
 
         ul {
@@ -556,29 +547,6 @@
             font-size: 18px;
             font-weight: 600;
             color: var(--text)
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 14px
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            text-align: left;
-            border: 1px solid var(--border)
-        }
-
-        th {
-            background: var(--surface-alt);
-            font-weight: 600
-        }
-
-        td {
-            font-family: var(--font-mono)
         }
 
         .video-container {
@@ -862,11 +830,11 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 16 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 12 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -881,14 +849,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 14 · Probability</div>
-        <h1>Basic Probability: Independence, Conditional & Bayes</h1>
-        <p class="hero-desc">Probability underpins randomized algorithms, machine learning, and system reliability.
-            Master the core concepts that every CS professional needs.</p>
+            </svg>Day 23 · Linear Algebra</div>
+        <h1>Eigenvalues, Eigenvectors & Diagonalization</h1>
+        <p class="hero-desc">The most powerful concepts in linear algebra. Eigenvalues reveal the fundamental behavior
+            of transformations.</p>
         <div class="hero-meta">
             <div class="meta-item">~50 min read</div>
-            <div class="meta-item">16 practice problems</div>
-            <div class="meta-item">10 video lessons</div>
+            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">8 video lessons</div>
         </div>
     </header>
 
@@ -898,13 +866,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#basics" class="toc-link">1. Probability Basics</a></li>
-                    <li><a href="#rules" class="toc-link">2. Addition & Multiplication</a></li>
-                    <li><a href="#conditional" class="toc-link">3. Conditional Probability</a></li>
-                    <li><a href="#independence" class="toc-link">4. Independence</a></li>
-                    <li><a href="#bayes" class="toc-link">5. Bayes' Theorem</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#eigen" class="toc-link">1. Eigenvalue Basics</a></li>
+                    <li><a href="#find" class="toc-link">2. Finding Eigenvalues</a></li>
+                    <li><a href="#diag" class="toc-link">3. Diagonalization</a></li>
+                    <li><a href="#apps" class="toc-link">4. Applications</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -922,233 +889,174 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Probability Matters</h2>
+                    <h2 class="section-title">Why Eigenvalues?</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>CS is full of uncertainty.</strong> Networks fail, users behave randomly,
-                        algorithms use randomness. Probability lets you reason about uncertain systems.</div>
+                    <div class="rule"><strong>Eigenvalues reveal structure.</strong> PCA, PageRank, vibration analysis,
+                        quantum mechanics—all depend on eigenvalue decomposition.</div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Where you'll use this</h3>
+                        <h3 class="subsection-title">Applications</h3>
                         <ul>
-                            <li><strong>Randomized Algorithms:</strong> QuickSort's expected O(n log n)</li>
-                            <li><strong>Machine Learning:</strong> Every model is probabilistic</li>
-                            <li><strong>Systems:</strong> Failure probability, load balancing</li>
-                            <li><strong>Cryptography:</strong> Security margins</li>
-                            <li><strong>A/B Testing:</strong> Statistical significance</li>
-                            <li><strong>Bloom Filters:</strong> False positive probability</li>
+                            <li><strong>PCA:</strong> Principal components are eigenvectors</li>
+                            <li><strong>PageRank:</strong> Dominant eigenvector of link matrix</li>
+                            <li><strong>Spectral clustering:</strong> Graph Laplacian eigenvectors</li>
+                            <li><strong>Matrix powers:</strong> Aⁿ easy via diagonalization</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="basics">
+            <section class="section" id="eigen">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Probability Basics</h2>
+                    <h2 class="section-title">Eigenvalue Basics</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
                         <h3 class="subsection-title">Definition</h3>
                         <div class="formula-box">
-                            <div class="formula-label">Probability of Event A</div>
-                            <div class="formula-main">P(A) = |favorable outcomes| / |total outcomes|</div>
+                            <div class="formula-label">Eigenvalue Equation</div>
+                            <div class="formula-main">Av = λv</div>
                         </div>
-                        <div class="math-block">Requirements:
-                            0 ≤ P(A) ≤ 1 for all events A
-                            P(Ω) = 1 where Ω is the sample space (all outcomes)
-                            P(∅) = 0 where ∅ is the empty event</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Complement</h3>
-                        <div class="math-block">P(not A) = P(Ā) = 1 - P(A)
+                        <div class="math-block">λ = eigenvalue (scalar)
+                            v = eigenvector (nonzero vector)
 
-                            Example: P(at least one head in 3 flips)
-                            = 1 - P(all tails)
-                            = 1 - (1/2)³
-                            = 1 - 1/8 = 7/8</div>
+                            Meaning: A scales v by λ, doesn't change direction.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Examples</h3>
-                        <div class="math-block">Fair die: P(roll 6) = 1/6
-                            Fair coin: P(heads) = 1/2
-                            Deck of cards: P(ace) = 4/52 = 1/13
-                            Random bit: P(1) = 1/2</div>
+                        <h3 class="subsection-title">Geometric intuition</h3>
+                        <div class="math-block">Most vectors change direction under A.
+                            Eigenvectors are special: they stay on their line.
+
+                            Example: Stretching in x-direction
+                            [2 0] [1] [2] [2 0] [0] [0]
+                            [0 1] [0] = [0] = 2v [0 1] [1] = [1] = 1v
+
+                            Eigenvectors: [1,0] with λ=2, [0,1] with λ=1</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="rules">
+            <section class="section" id="find">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Addition and Multiplication Rules</h2>
+                    <h2 class="section-title">Finding Eigenvalues & Eigenvectors</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Addition rule (OR)</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">General Addition Rule</div>
-                            <div class="formula-main">P(A or B) = P(A) + P(B) - P(A and B)</div>
-                        </div>
-                        <div class="math-block">If A and B are mutually exclusive (can't both happen):
-                            P(A or B) = P(A) + P(B)
+                        <h3 class="subsection-title">The characteristic equation</h3>
+                        <div class="math-block">Av = λv
+                            Av - λv = 0
+                            (A - λI)v = 0
 
-                            Example: P(roll 1 or 6) = 1/6 + 1/6 = 2/6 = 1/3</div>
+                            Nontrivial solution v exists ⟺ det(A - λI) = 0
+
+                            det(A - λI) = 0 is the characteristic equation.
+                            Roots are eigenvalues.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Multiplication rule (AND)</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">General Multiplication Rule</div>
-                            <div class="formula-main">P(A and B) = P(A) × P(B|A)</div>
-                        </div>
-                        <div class="math-block">If A and B are independent:
-                            P(A and B) = P(A) × P(B)
+                        <h3 class="subsection-title">Example</h3>
+                        <div class="math-block">A = [4 2]
+                            [1 3]
 
-                            Example: P(two heads) = 1/2 × 1/2 = 1/4</div>
+                            det(A - λI) = det([4-λ 2 ]) = (4-λ)(3-λ) - 2
+                            [1 3-λ]
+                            = λ² - 7λ + 10 = (λ-5)(λ-2)
+
+                            λ₁ = 5, λ₂ = 2
+
+                            For λ = 5: (A-5I)v = 0
+                            [-1 2] [x] [0] → -x + 2y = 0 → v₁ = [2,1]ᵀ
+                            [ 1 -2] [y] = [0]</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Properties</h3>
+                        <div class="math-block">• trace(A) = sum of eigenvalues
+                            • det(A) = product of eigenvalues
+                            • n×n matrix has n eigenvalues (counting multiplicity)
+                            • Symmetric matrices have real eigenvalues</div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="conditional">
+            <section class="section" id="diag">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Conditional Probability</h2>
+                    <h2 class="section-title">Diagonalization</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
+                        <h3 class="subsection-title">The theorem</h3>
                         <div class="formula-box">
-                            <div class="formula-label">Conditional Probability</div>
-                            <div class="formula-main">P(A|B) = P(A and B) / P(B)</div>
+                            <div class="formula-label">Diagonalization</div>
+                            <div class="formula-main">A = PDP⁻¹ where D = diag(λ₁,...,λₙ)</div>
                         </div>
-                        <p>Read as: "probability of A given B" — the probability of A occurring, knowing that B has
-                            occurred.</p>
+                        <div class="math-block">P = [v₁ | v₂ | ... | vₙ] (eigenvectors as columns)
+                            D = diagonal matrix of eigenvalues
+
+                            A is diagonalizable ⟺ A has n independent eigenvectors.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: Drawing cards</h3>
-                        <div class="math-block">Draw 2 cards without replacement.
-                            P(second is ace | first was ace)?
+                        <h3 class="subsection-title">Why it matters: Powers of A</h3>
+                        <div class="math-block">Aⁿ = (PDP⁻¹)ⁿ = PDⁿP⁻¹
 
-                            After removing one ace: 3 aces remain in 51 cards.
-                            P(second ace | first ace) = 3/51 = 1/17
+                            Dⁿ is trivial: just raise each diagonal entry to n.
 
-                            Compare to with replacement:
-                            P(second ace | first ace) = 4/52 = 1/13</div>
+                            [λ₁ 0 ]ⁿ [λ₁ⁿ 0 ]
+                            [0 λ₂] = [0 λ₂ⁿ]</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Chain rule</h3>
-                        <div class="math-block">P(A and B and C) = P(A) × P(B|A) × P(C|A and B)
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">NumPy
+                                eigendecomposition</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
 
-                            Example: Draw 3 aces in a row without replacement
-                            = (4/52) × (3/51) × (2/50)
-                            = 24 / 132,600
-                            ≈ 0.00018</div>
+A = np.<span class="code-function">array</span>([[<span class="code-number">4</span>, <span class="code-number">2</span>], [<span class="code-number">1</span>, <span class="code-number">3</span>]])
+eigenvalues, eigenvectors = np.linalg.<span class="code-function">eig</span>(A)
+
+<span class="code-function">print</span>(<span class="code-string">"Eigenvalues:"</span>, eigenvalues)   <span class="code-comment"># [5, 2]</span>
+<span class="code-function">print</span>(<span class="code-string">"Eigenvectors:"</span>, eigenvectors)
+
+<span class="code-comment"># Compute A^10 via diagonalization</span>
+P = eigenvectors
+D = np.<span class="code-function">diag</span>(eigenvalues)
+A_10 = P @ np.linalg.<span class="code-function">matrix_power</span>(D, <span class="code-number">10</span>) @ np.linalg.<span class="code-function">inv</span>(P)</pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="independence">
+            <section class="section" id="apps">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Independence</h2>
+                    <h2 class="section-title">Applications</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Independent Events</div>
-                            <div class="formula-main">P(A and B) = P(A) × P(B)</div>
-                        </div>
-                        <p>Equivalently: P(A|B) = P(A) — knowing B gives no information about A.</p>
+                        <h3 class="subsection-title">PageRank</h3>
+                        <div class="math-block">Web as graph, M = transition matrix.
+                            PageRank r satisfies Mr = r (steady state).
+
+                            r is eigenvector of M with eigenvalue 1!</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Independent vs mutually exclusive</h3>
-                        <div class="warning"><strong>Don't confuse these!</strong><br><br>
-                            <strong>Independent:</strong> P(A and B) = P(A) × P(B) — occurrence of one doesn't affect
-                            the other<br>
-                            <strong>Mutually exclusive:</strong> P(A and B) = 0 — can't both happen<br><br>
-                            If P(A) > 0 and P(B) > 0, mutually exclusive events are NOT independent!
-                        </div>
+                        <h3 class="subsection-title">PCA</h3>
+                        <div class="math-block">Covariance matrix C = (1/n)XᵀX.
+                            Principal components = eigenvectors of C.
+                            Eigenvalues = variance in each direction.</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">CS example: System reliability</h3>
-                        <div class="math-block">Two independent servers, each fails with probability 0.1.
-
-                            P(both fail) = 0.1 × 0.1 = 0.01
-                            P(at least one works) = 1 - 0.01 = 0.99
-
-                            With 3 servers:
-                            P(all fail) = 0.1³ = 0.001
-                            P(at least one works) = 0.999</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Birthday paradox intuition</h3>
-                        <div class="math-block">How many people until P(shared birthday) > 50%?
-
-                            P(all different) = (365/365) × (364/365) × ... × ((365-n+1)/365)
-
-                            With 23 people: P(all different) ≈ 0.49
-                            So P(at least one shared) ≈ 0.51
-
-                            Surprisingly small! Independence is tricky.</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="bayes">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Bayes' Theorem</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Bayes' Theorem</div>
-                            <div class="formula-main">P(A|B) = P(B|A) × P(A) / P(B)</div>
-                        </div>
-                        <div class="math-block">Also written as:
-                            P(hypothesis|evidence) = P(evidence|hypothesis) × P(hypothesis) / P(evidence)
-
-                            • P(A) = prior (belief before evidence)
-                            • P(A|B) = posterior (belief after evidence)
-                            • P(B|A) = likelihood (how likely is evidence if A is true)
-                            • P(B) = marginal (total probability of evidence)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Classic example: Disease testing</h3>
-                        <div class="math-block">A disease affects 1% of population.
-                            Test is 99% accurate (for both positive and negative).
-                            You test positive. What's P(you have disease)?
-
-                            P(disease) = 0.01
-                            P(positive | disease) = 0.99
-                            P(positive | no disease) = 0.01
-
-                            P(positive) = P(pos|D)×P(D) + P(pos|¬D)×P(¬D)
-                            = 0.99×0.01 + 0.01×0.99
-                            = 0.0099 + 0.0099 = 0.0198
-
-                            P(disease | positive) = (0.99 × 0.01) / 0.0198
-                            = 0.0099 / 0.0198
-                            = 0.5
-
-                            Only 50%! Base rate matters enormously.</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS applications</h3>
-                        <ul>
-                            <li><strong>Spam filtering:</strong> P(spam | contains "FREE")</li>
-                            <li><strong>Classification:</strong> Naive Bayes classifier</li>
-                            <li><strong>A/B testing:</strong> Bayesian inference</li>
-                            <li><strong>Debugging:</strong> P(bug in module A | test failed)</li>
-                        </ul>
+                        <h3 class="subsection-title">Markov chains</h3>
+                        <div class="math-block">State distribution: πₙ₊₁ = Mπₙ
+                            Long-term: πₙ → stationary distribution.
+                            Stationary = eigenvector with λ = 1.</div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -1169,7 +1077,7 @@
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -1190,25 +1098,21 @@
         function checkAnswer(input, expected) { return expected.map(a => normalize(a)).includes(normalize(input)); }
 
         const QUESTIONS = [
-            { id: 1, topic: "Basic", prompt: "P(heads on fair coin) = ?", answer: ["1/2", "0.5", "50%"], display: "1/2" },
-            { id: 2, topic: "Basic", prompt: "P(roll 6 on fair die) = ?", answer: ["1/6"], display: "1/6" },
-            { id: 3, topic: "Complement", prompt: "P(not A) = 1 - P(?)", answer: ["a", "p(a)"], display: "P(A)" },
-            { id: 4, topic: "Complement", prompt: "If P(rain) = 0.3, P(no rain) = ?", answer: ["0.7", "7/10"], display: "0.7" },
-            { id: 5, topic: "Addition", prompt: "P(roll 1 or 2) = 1/6 + 1/6 = ?", answer: ["2/6", "1/3"], display: "1/3" },
-            { id: 6, topic: "Multiply", prompt: "P(2 heads in a row) = 1/2 × 1/2 = ?", answer: ["1/4", "0.25"], display: "1/4" },
-            { id: 7, topic: "Multiply", prompt: "P(3 heads in a row) = ?", answer: ["1/8", "0.125"], display: "1/8" },
-            { id: 8, topic: "Conditional", prompt: "P(A|B) = P(A and B) / P(?)", answer: ["b", "p(b)"], display: "P(B)" },
-            { id: 9, topic: "Independence", prompt: "If A,B independent: P(A and B) = P(A) × P(?)", answer: ["b", "p(b)"], display: "P(B)" },
-            { id: 10, topic: "Independence", prompt: "Server fails 10%, 2 independent: P(both fail) = ?", answer: ["0.01", "1/100", "1%"], display: "0.01" },
-            { id: 11, topic: "Independence", prompt: "P(at least one of 2 servers works) = 1 - 0.01 = ?", answer: ["0.99", "99%"], display: "0.99" },
-            { id: 12, topic: "Bayes", prompt: "Bayes: P(A|B) = P(B|A) × P(A) / P(?)", answer: ["b", "p(b)"], display: "P(B)" },
-            { id: 13, topic: "Cards", prompt: "P(ace from 52-card deck) = ?", answer: ["4/52", "1/13"], display: "1/13" },
-            { id: 14, topic: "Cards", prompt: "P(second ace | first ace, no replacement) = 3/?", answer: ["51"], display: "3/51" },
-            { id: 15, topic: "Birthday", prompt: "Birthday paradox: ~? people for 50% shared birthday", answer: ["23"], display: "23" },
-            { id: 16, topic: "Bayes", prompt: "In disease test example, P(disease|positive) ≈ 50%. T/F?", answer: ["t", "true", "yes"], display: "True" },
+            { id: 1, topic: "Basics", prompt: "Av = λv. λ is called ___?", answer: ["eigenvalue"], display: "eigenvalue" },
+            { id: 2, topic: "Basics", prompt: "Av = λv. v is called ___?", answer: ["eigenvector"], display: "eigenvector" },
+            { id: 3, topic: "Find", prompt: "To find eigenvalues, solve det(A - ?I) = 0", answer: ["λ", "lambda"], display: "det(A - λI) = 0" },
+            { id: 4, topic: "Property", prompt: "trace(A) equals sum of ___?", answer: ["eigenvalues"], display: "eigenvalues" },
+            { id: 5, topic: "Property", prompt: "det(A) equals product of ___?", answer: ["eigenvalues"], display: "eigenvalues" },
+            { id: 6, topic: "Diag", prompt: "A = PDP⁻¹. P has ___ as columns?", answer: ["eigenvectors"], display: "eigenvectors" },
+            { id: 7, topic: "Diag", prompt: "Aⁿ = P?P⁻¹ where D is diagonal", answer: ["d^n", "dⁿ", "d^npower"], display: "PDⁿP⁻¹" },
+            { id: 8, topic: "Apply", prompt: "PageRank vector is eigenvector with λ = ?", answer: ["1", "one"], display: "λ = 1" },
+            { id: 9, topic: "Apply", prompt: "PCA uses eigenvectors of ___ matrix?", answer: ["covariance", "cov"], display: "covariance" },
+            { id: 10, topic: "Property", prompt: "Symmetric matrices have ___ eigenvalues?", answer: ["real"], display: "real" },
+            { id: 11, topic: "Diag", prompt: "A is diagonalizable if it has n independent ___?", answer: ["eigenvectors"], display: "eigenvectors" },
+            { id: 12, topic: "Compute", prompt: "A = [2 0; 0 3]. Eigenvalues are 2 and ?", answer: ["3"], display: "2 and 3" },
         ];
 
-        const LS_KEY = "day14_stats_v1";
+        const LS_KEY = "day23_stats_v1";
         let stats = (() => { try { const r = localStorage.getItem(LS_KEY); return r ? JSON.parse(r) : { attempted: 0, correct: 0 }; } catch { return { attempted: 0, correct: 0 }; } })();
         let sessionCorrect = 0;
         function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
@@ -1247,29 +1151,27 @@
 
         const VIDEO_GROUPS = [
             {
-                title: "Basics", items: [
-                    { title: "3Blue1Brown — Probability", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Khan Academy — Probability Intro", channel: "Khan Academy", vid: "uzkc-qNVoOk" },
+                title: "Eigenvalue Basics", items: [
+                    { title: "3Blue1Brown — Eigenvectors", channel: "3Blue1Brown", vid: "PFDu9oVAE-g" },
+                    { title: "Khan Academy — Eigenvalues", channel: "Khan Academy", vid: "pZ6mMVEE89g" },
                 ]
             },
             {
-                title: "Conditional & Independence", items: [
-                    { title: "Khan Academy — Conditional", channel: "Khan Academy", vid: "_IgyaD7vOOA" },
-                    { title: "Stat Quest — Independence", channel: "StatQuest", vid: "9wCnvr7Xw4E" },
+                title: "Computing", items: [
+                    { title: "MIT OCW — Eigenvalues", channel: "MIT OCW", vid: "G4N8vJpf7hM" },
+                    { title: "Organic Chemistry — Example", channel: "Organic Chemistry Tutor", vid: "IdsHlqzLrJ4" },
                 ]
             },
             {
-                title: "Bayes' Theorem", items: [
-                    { title: "3Blue1Brown — Bayes", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Veritasium — Bayes Explained", channel: "Veritasium", vid: "R13BD8qKeTg" },
-                    { title: "Khan Academy — Bayes", channel: "Khan Academy", vid: "HaYbxQC61pw" },
+                title: "Diagonalization", items: [
+                    { title: "3Blue1Brown — Diagonalization", channel: "3Blue1Brown", vid: "o1nDx-u3r04" },
+                    { title: "Khan Academy — Diagonalization", channel: "Khan Academy", vid: "vsNikf8dpzo" },
                 ]
             },
             {
                 title: "Applications", items: [
-                    { title: "Computerphile — Bayes Spam", channel: "Computerphile", vid: "O2L2Uv9pdDA" },
-                    { title: "MIT OCW — Probability Intro", channel: "MIT OCW", vid: "KbB0FjPg0mw" },
-                    { title: "Birthday Paradox", channel: "Numberphile", vid: "ofTb57aZHZs" },
+                    { title: "Computerphile — PageRank", channel: "Computerphile", vid: "qxEkY8OScYY" },
+                    { title: "StatQuest — PCA", channel: "StatQuest", vid: "FgakZw6K1QQ" },
                 ]
             },
         ];
