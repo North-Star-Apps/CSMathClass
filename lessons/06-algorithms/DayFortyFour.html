@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 44: Graph Algorithms — BFS, DFS, Shortest Paths, MST</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #fff;
+            --surface-alt: #f5f5f4;
+            --border: #e7e5e4;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #16a34a;
+            --error: #dc2626;
+            --radius: 8px;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            cursor: pointer
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 32px
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px
+        }
+
+        [data-theme="dark"] .hero-label {
+            color: var(--accent)
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .section-body {
+            padding: 20px 24px
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary)
+        }
+
+        .math-block {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto
+        }
+
+        .rule {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--accent-dark)
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent)
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 13px
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .question {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px
+        }
+
+        .q-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .q-topic {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 4px 8px;
+            border-radius: 999px
+        }
+
+        .q-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: var(--radius);
+            margin-bottom: 12px
+        }
+
+        .q-row {
+            display: flex;
+            gap: 8px
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .q-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .q-input.correct {
+            border-color: var(--success);
+            background: #dcfce7
+        }
+
+        .q-input.incorrect {
+            border-color: var(--error);
+            background: #fee2e2
+        }
+
+        .q-result {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .success {
+            color: var(--success)
+        }
+
+        .error {
+            color: var(--error)
+        }
+
+        .q-answer {
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 10px;
+            border-radius: var(--radius);
+            display: inline-block
+        }
+    </style>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
+    </nav>
+    <header class="hero">
+        <div class="hero-label">Day 44 · Algorithms</div>
+        <h1>Graph Algorithms — BFS, DFS, Shortest Paths, MST</h1>
+        <p class="hero-desc">Essential algorithms for exploring and optimizing paths through graphs.</p>
+    </header>
+    <main class="main">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">BFS & DFS</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">BFS (Breadth-First Search):
+                    • Uses: Queue (FIFO)
+                    • Explores: Level by level
+                    • Finds: Shortest path (unweighted)
+                    • Time: O(V + E)
+
+                    DFS (Depth-First Search):
+                    • Uses: Stack/Recursion
+                    • Explores: As deep as possible first
+                    • Finds: Paths, cycles, components
+                    • Time: O(V + E)</div>
+                <pre>// BFS
+function bfs(graph, start) {
+    const visited = new Set([start]);
+    const queue = [start];
+    while (queue.length) {
+        const node = queue.shift();
+        for (const neighbor of graph[node]) {
+            if (!visited.has(neighbor)) {
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
+        }
+    }
+}
+
+// DFS
+function dfs(graph, node, visited = new Set()) {
+    visited.add(node);
+    for (const neighbor of graph[node]) {
+        if (!visited.has(neighbor)) {
+            dfs(graph, neighbor, visited);
+        }
+    }
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Shortest Paths</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">DIJKSTRA (non-negative weights):
+                    • Single source shortest path
+                    • Uses priority queue (min-heap)
+                    • Time: O((V + E) log V) with heap
+
+                    BELLMAN-FORD (allows negative weights):
+                    • Single source, can detect negative cycles
+                    • Relaxes all edges V-1 times
+                    • Time: O(V × E)
+
+                    FLOYD-WARSHALL (all pairs):
+                    • Shortest paths between all pairs
+                    • Dynamic programming approach
+                    • Time: O(V³)</div>
+                <pre>// Dijkstra (simplified with array)
+function dijkstra(graph, start) {
+    const dist = {};
+    for (let v in graph) dist[v] = Infinity;
+    dist[start] = 0;
+    const pq = [[0, start]]; // [distance, node]
+    
+    while (pq.length) {
+        pq.sort((a,b) => a[0] - b[0]);
+        const [d, u] = pq.shift();
+        if (d > dist[u]) continue;
+        for (const [v, w] of graph[u]) {
+            if (dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push([dist[v], v]);
+            }
+        }
+    }
+    return dist;
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Minimum Spanning Tree</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>MST:</strong> Subset of edges connecting all vertices with minimum total
+                    weight.</div>
+                <div class="math-block">KRUSKAL'S ALGORITHM:
+                    1. Sort edges by weight
+                    2. Add edges smallest first
+                    3. Skip if would create cycle (union-find)
+                    Time: O(E log E)
+
+                    PRIM'S ALGORITHM:
+                    1. Start from any vertex
+                    2. Greedily add cheapest edge to new vertex
+                    3. Uses priority queue
+                    Time: O((V + E) log V)</div>
+                <pre>// Kruskal with Union-Find
+function kruskal(vertices, edges) {
+    edges.sort((a, b) => a.weight - b.weight);
+    const parent = {};
+    const find = x => parent[x] === x ? x : (parent[x] = find(parent[x]));
+    const union = (a, b) => { parent[find(a)] = find(b); };
+    
+    vertices.forEach(v => parent[v] = v);
+    const mst = [];
+    
+    for (const {u, v, weight} of edges) {
+        if (find(u) !== find(v)) {
+            union(u, v);
+            mst.push({u, v, weight});
+        }
+    }
+    return mst;
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Topological Sort</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">TOPOLOGICAL SORT (DAG only):
+                    Linear ordering of vertices such that
+                    for every edge u→v, u comes before v.
+
+                    Applications:
+                    • Build systems (dependencies)
+                    • Course prerequisites
+                    • Task scheduling</div>
+                <p><strong>Kahn's Algorithm:</strong> Use BFS with in-degree tracking. <strong>DFS method:</strong>
+                    Post-order traversal reversed.</p>
+            </div>
+        </section>
+        <section class="section" id="practice">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Practice</h2>
+            </div>
+            <div class="section-body">
+                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                        class="btn" id="showAll">Show All</button></div>
+                <div id="quiz"></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const Q = [
+            { id: 1, t: "BFS", q: "BFS uses a ___", a: ["queue"], d: "queue" },
+            { id: 2, t: "DFS", q: "DFS uses a ___ or recursion", a: ["stack"], d: "stack" },
+            { id: 3, t: "BFS/DFS", q: "BFS/DFS time complexity: O(V + ___)", a: ["e"], d: "O(V + E)" },
+            { id: 4, t: "Dijkstra", q: "Dijkstra requires ___ edge weights", a: ["non-negative", "positive", "nonnegative"], d: "non-negative" },
+            { id: 5, t: "B-F", q: "___ can detect negative cycles", a: ["bellman-ford", "bellmanford"], d: "Bellman-Ford" },
+            { id: 6, t: "Floyd", q: "Floyd-Warshall finds ___ pairs shortest paths", a: ["all"], d: "all" },
+            { id: 7, t: "MST", q: "Kruskal uses ___-find data structure", a: ["union"], d: "union-find" },
+            { id: 8, t: "MST", q: "MST = Minimum ___ Tree", a: ["spanning"], d: "Spanning" },
+            { id: 9, t: "Topo", q: "Topological sort only works on ___", a: ["dag", "dags"], d: "DAG" },
+            { id: 10, t: "Dijkstra", q: "Dijkstra uses priority ___ (heap)", a: ["queue"], d: "queue" }
+        ];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
+        function render() {
+            const c = document.getElementById("quiz"); c.innerHTML = "";
+            Q.forEach(q => {
+                const d = document.createElement("div"); d.className = "question";
+                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
+                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
+                c.appendChild(d);
+            });
+        }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        const tt = document.getElementById("themeToggle");
+        tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
+        tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
+    </script>
+</body>
+
+</html>

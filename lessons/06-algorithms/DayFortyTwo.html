@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 42: Sorting, Searching, Greedy, Divide & Conquer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #fff;
+            --surface-alt: #f5f5f4;
+            --border: #e7e5e4;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #16a34a;
+            --error: #dc2626;
+            --radius: 8px;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            cursor: pointer
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 32px
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px
+        }
+
+        [data-theme="dark"] .hero-label {
+            color: var(--accent)
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .section-body {
+            padding: 20px 24px
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary)
+        }
+
+        .math-block {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto
+        }
+
+        .rule {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--accent-dark)
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent)
+        }
+
+        ul {
+            margin: 12px 0 12px 24px;
+            color: var(--text-secondary)
+        }
+
+        li {
+            margin-bottom: 6px
+        }
+
+        li strong {
+            color: var(--text)
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 13px
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .question {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px
+        }
+
+        .q-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .q-topic {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 4px 8px;
+            border-radius: 999px
+        }
+
+        .q-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: var(--radius);
+            margin-bottom: 12px
+        }
+
+        .q-row {
+            display: flex;
+            gap: 8px
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .q-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .q-input.correct {
+            border-color: var(--success);
+            background: #dcfce7
+        }
+
+        .q-input.incorrect {
+            border-color: var(--error);
+            background: #fee2e2
+        }
+
+        .q-result {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .success {
+            color: var(--success)
+        }
+
+        .error {
+            color: var(--error)
+        }
+
+        .q-answer {
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 10px;
+            border-radius: var(--radius);
+            display: inline-block
+        }
+    </style>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
+    </nav>
+    <header class="hero">
+        <div class="hero-label">Day 42 · Algorithms</div>
+        <h1>Sorting, Searching, Greedy, Divide & Conquer</h1>
+        <p class="hero-desc">Core algorithmic paradigms that form the foundation of efficient problem solving.</p>
+    </header>
+    <main class="main">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Searching</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">LINEAR SEARCH: O(n)
+                    Check each element sequentially
+
+                    BINARY SEARCH: O(log n)
+                    Requires sorted array
+                    Repeatedly halve search space</div>
+                <pre>function binarySearch(arr, target) {
+    let lo = 0, hi = arr.length - 1;
+    while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (arr[mid] === target) return mid;
+        if (arr[mid] < target) lo = mid + 1;
+        else hi = mid - 1;
+    }
+    return -1;
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Sorting Algorithms</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">COMPARISON SORTS:
+                    Algorithm Best Average Worst Space Stable
+                    ─────────────────────────────────────────────────────────
+                    Bubble O(n) O(n²) O(n²) O(1) Yes
+                    Selection O(n²) O(n²) O(n²) O(1) No
+                    Insertion O(n) O(n²) O(n²) O(1) Yes
+                    Merge O(n lg n) O(n lg n) O(n lg n) O(n) Yes
+                    Quick O(n lg n) O(n lg n) O(n²) O(lg n) No
+                    Heap O(n lg n) O(n lg n) O(n lg n) O(1) No
+
+                    NON-COMPARISON (specialized):
+                    Counting Sort O(n + k) for integers in range [0,k]
+                    Radix Sort O(d(n+k)) for d digits, k values per digit
+                    Bucket Sort O(n + k) for uniformly distributed data</div>
+                <div class="rule"><strong>Lower bound:</strong> Comparison-based sorting cannot beat O(n log n) in the
+                    worst case.</div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Divide & Conquer</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Pattern:</strong> 1. DIVIDE into subproblems → 2. CONQUER recursively → 3.
+                    COMBINE solutions</div>
+                <div class="math-block">EXAMPLES:
+                    Merge Sort: Split → Sort halves → Merge
+                    Quick Sort: Partition → Sort parts
+                    Binary Search: Check mid → Search half
+                    Karatsuba: Multiply large numbers faster</div>
+                <pre>// Merge Sort
+function mergeSort(arr) {
+    if (arr.length <= 1) return arr;
+    const mid = Math.floor(arr.length / 2);
+    const left = mergeSort(arr.slice(0, mid));
+    const right = mergeSort(arr.slice(mid));
+    return merge(left, right);
+}
+
+function merge(l, r) {
+    const result = [];
+    while (l.length && r.length) {
+        result.push(l[0] <= r[0] ? l.shift() : r.shift());
+    }
+    return [...result, ...l, ...r];
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Greedy Algorithms</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Greedy:</strong> Make locally optimal choice at each step, hoping for global
+                    optimum.</div>
+                <div class="math-block">WHEN GREEDY WORKS:
+                    1. Greedy choice property: local optimum leads to global
+                    2. Optimal substructure: optimal solution contains optimal sub-solutions
+
+                    CLASSIC PROBLEMS:
+                    • Activity Selection: Pick non-overlapping activities
+                    • Huffman Coding: Build optimal prefix-free codes
+                    • Fractional Knapsack: Take items by value/weight ratio
+                    • Coin Change (some denominations): Minimum coins</div>
+                <pre>// Activity Selection (greedy by end time)
+function activitySelection(activities) {
+    activities.sort((a, b) => a.end - b.end);
+    const selected = [activities[0]];
+    let lastEnd = activities[0].end;
+    for (let i = 1; i < activities.length; i++) {
+        if (activities[i].start >= lastEnd) {
+            selected.push(activities[i]);
+            lastEnd = activities[i].end;
+        }
+    }
+    return selected;
+}</pre>
+            </div>
+        </section>
+        <section class="section" id="practice">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Practice</h2>
+            </div>
+            <div class="section-body">
+                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                        class="btn" id="showAll">Show All</button></div>
+                <div id="quiz"></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const Q = [
+            { id: 1, t: "Search", q: "Binary search: O(___ n)", a: ["log"], d: "O(log n)" },
+            { id: 2, t: "Search", q: "Binary search requires ___ array", a: ["sorted"], d: "sorted" },
+            { id: 3, t: "Sort", q: "Merge sort: O(n ___ n)", a: ["log"], d: "O(n log n)" },
+            { id: 4, t: "Sort", q: "Quick sort worst case: O(___²)", a: ["n"], d: "O(n²)" },
+            { id: 5, t: "Sort", q: "Stable sort preserving equal element ___", a: ["order"], d: "order" },
+            { id: 6, t: "D&C", q: "Divide & ___", a: ["conquer"], d: "Conquer" },
+            { id: 7, t: "D&C", q: "D&C steps: Divide, Conquer, ___", a: ["combine", "merge"], d: "Combine" },
+            { id: 8, t: "Greedy", q: "Greedy makes locally ___ choice", a: ["optimal", "best"], d: "optimal" },
+            { id: 9, t: "Sort", q: "Comparison sort lower bound: O(n ___ n)", a: ["log"], d: "O(n log n)" },
+            { id: 10, t: "Greedy", q: "Huffman coding builds ___ tree", a: ["prefix", "optimal"], d: "prefix/optimal" }
+        ];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
+        function render() {
+            const c = document.getElementById("quiz"); c.innerHTML = "";
+            Q.forEach(q => {
+                const d = document.createElement("div"); d.className = "question";
+                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
+                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
+                c.appendChild(d);
+            });
+        }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        const tt = document.getElementById("themeToggle");
+        tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
+        tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
+    </script>
+</body>
+
+</html>

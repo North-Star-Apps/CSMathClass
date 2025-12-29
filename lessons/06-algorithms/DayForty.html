@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 40: Trees — BST, Heap, Tries</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #fff;
+            --surface-alt: #f5f5f4;
+            --border: #e7e5e4;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #16a34a;
+            --error: #dc2626;
+            --radius: 8px;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: pointer
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 32px
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px
+        }
+
+        [data-theme="dark"] .hero-label {
+            color: var(--accent)
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .section-body {
+            padding: 20px 24px
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary)
+        }
+
+        .math-block {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto
+        }
+
+        .rule {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--accent-dark)
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent)
+        }
+
+        ul {
+            margin: 12px 0 12px 24px;
+            color: var(--text-secondary)
+        }
+
+        li {
+            margin-bottom: 6px
+        }
+
+        li strong {
+            color: var(--text)
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 13px
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px
+        }
+
+        pre code {
+            background: none;
+            padding: 0
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .question {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px
+        }
+
+        .q-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .q-topic {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 4px 8px;
+            border-radius: 999px
+        }
+
+        .q-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: var(--radius);
+            margin-bottom: 12px
+        }
+
+        .q-row {
+            display: flex;
+            gap: 8px
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .q-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .q-input.correct {
+            border-color: var(--success);
+            background: #dcfce7
+        }
+
+        .q-input.incorrect {
+            border-color: var(--error);
+            background: #fee2e2
+        }
+
+        .q-result {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .success {
+            color: var(--success)
+        }
+
+        .error {
+            color: var(--error)
+        }
+
+        .q-answer {
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 10px;
+            border-radius: var(--radius);
+            display: inline-block
+        }
+    </style>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back to Curriculum</a><button
+                class="theme-toggle" id="themeToggle">🌙</button></div>
+    </nav>
+    <header class="hero">
+        <div class="hero-label">Day 40 · Data Structures</div>
+        <h1>Trees — BST, Heap, Tries</h1>
+        <p class="hero-desc">Hierarchical data structures enable efficient searching, sorting, and string operations.
+        </p>
+    </header>
+    <main class="main">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Binary Trees</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">BINARY TREE:
+                    [A] Height h = log₂(n) for balanced
+                    / \ Full: every node has 0 or 2 children
+                    [B] [C] Complete: all levels full except last
+                    / \ \ Perfect: all levels completely full
+                    [D] [E] [F]</div>
+                <div class="math-block">TREE TRAVERSALS:
+                    Inorder (LNR): D, B, E, A, C, F (sorted for BST)
+                    Preorder (NLR): A, B, D, E, C, F (copy tree)
+                    Postorder (LRN): D, E, B, F, C, A (delete tree)
+                    Level-order: A, B, C, D, E, F (BFS)</div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Binary Search Trees (BST)</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>BST Property:</strong> Left subtree < Node < Right subtree</div>
+                        <div class="math-block">BST OPERATIONS (balanced):
+                            Search: O(log n)
+                            Insert: O(log n)
+                            Delete: O(log n)
+                            Min/Max: O(log n)
+
+                            UNBALANCED (worst case):
+                            All ops: O(n) — degenerates to linked list</div>
+                        <p><strong>Self-balancing BSTs:</strong> AVL trees (strict balance), Red-Black trees (relaxed),
+                            maintain O(log n) height.</p>
+                        <pre>// BST Search
+function search(node, key) {
+    if (!node || node.val === key) return node;
+    if (key < node.val) return search(node.left, key);
+    return search(node.right, key);
+}</pre>
+                </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Heaps & Priority Queues</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Heap Property:</strong> Parent ≥ children (max-heap) or Parent ≤ children
+                    (min-heap)</div>
+                <div class="math-block">HEAP (Complete Binary Tree):
+                    [90] Array representation:
+                    / \ [90, 80, 70, 40, 50, 60]
+                    [80] [70] Parent(i) = (i-1)/2
+                    / \ / Left(i) = 2i + 1
+                    [40] [50][60] Right(i) = 2i + 2</div>
+                <div class="math-block">HEAP OPERATIONS:
+                    Insert: O(log n) - add at end, bubble up
+                    Extract-max: O(log n) - remove root, bubble down
+                    Peek: O(1) - return root
+                    Build heap: O(n) - bottom-up heapify</div>
+                <p><strong>Priority Queue:</strong> Abstract type; heap is common implementation. Used in Dijkstra's,
+                    Huffman coding, task scheduling.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Tries (Prefix Trees)</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Trie:</strong> Tree where each path from root represents a string prefix.
+                </div>
+                <div class="math-block">TRIE for {"cat", "car", "card", "dog"}:
+                    [root]
+                    / \
+                    [c] [d]
+                    | |
+                    [a] [o]
+                    / \ |
+                    [t*] [r*] [g*]
+                    |
+                    [d*]
+                    (* = end of word)</div>
+                <div class="math-block">TRIE OPERATIONS:
+                    Insert: O(m) where m = word length
+                    Search: O(m)
+                    Prefix: O(m)
+                    Space: O(ALPHABET × n × m) worst case</div>
+                <p><strong>Use cases:</strong> Autocomplete, spell checking, IP routing, word games.</p>
+            </div>
+        </section>
+        <section class="section" id="practice">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Practice</h2>
+            </div>
+            <div class="section-body">
+                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                        class="btn" id="showAll">Show All</button></div>
+                <div id="quiz"></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const Q = [
+            { id: 1, t: "BST", q: "BST: left < node < ___", a: ["right"], d: "right" },
+            { id: 2, t: "BST", q: "Balanced BST search: O(___ n)", a: ["log"], d: "O(log n)" },
+            { id: 3, t: "Heap", q: "Max-heap: parent ≥ ___", a: ["children", "child"], d: "children" },
+            { id: 4, t: "Heap", q: "Heap extract-max: O(___ n)", a: ["log"], d: "O(log n)" },
+            { id: 5, t: "Heap", q: "Heap peek (get max): O(___)", a: ["1", "one"], d: "O(1)" },
+            { id: 6, t: "Trie", q: "Trie is also called ___ tree", a: ["prefix"], d: "prefix" },
+            { id: 7, t: "Trie", q: "Trie search for word of length m: O(___)", a: ["m"], d: "O(m)" },
+            { id: 8, t: "Tree", q: "Inorder traversal order: Left, ___, Right", a: ["node", "root", "n"], d: "Node" },
+            { id: 9, t: "Tree", q: "Complete binary tree height: O(___ n)", a: ["log"], d: "O(log n)" },
+            { id: 10, t: "Heap", q: "Build heap from array: O(___)", a: ["n"], d: "O(n)" }
+        ];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
+        function render() {
+            const c = document.getElementById("quiz"); c.innerHTML = "";
+            Q.forEach(q => {
+                const d = document.createElement("div"); d.className = "question";
+                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
+                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.querySelector(".bc").onclick = () => {
+                    if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
+                };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
+                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
+                c.appendChild(d);
+            });
+        }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); themeToggle.textContent = n === "dark" ? "☀️" : "🌙"; };
+        themeToggle.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
+    </script>
+</body>
+
+</html>

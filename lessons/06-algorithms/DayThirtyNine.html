@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 39: Arrays, Lists, Stacks, Queues, Hash Tables</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #fff;
+            --surface-alt: #f5f5f4;
+            --border: #e7e5e4;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #16a34a;
+            --error: #dc2626;
+            --radius: 8px;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: pointer
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 32px
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px
+        }
+
+        [data-theme="dark"] .hero-label {
+            color: var(--accent)
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .section-body {
+            padding: 20px 24px
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary)
+        }
+
+        .math-block {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto
+        }
+
+        .rule {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--accent-dark)
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent)
+        }
+
+        ul {
+            margin: 12px 0 12px 24px;
+            color: var(--text-secondary)
+        }
+
+        li {
+            margin-bottom: 6px
+        }
+
+        li strong {
+            color: var(--text)
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 13px
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px
+        }
+
+        pre code {
+            background: none;
+            padding: 0
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .question {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px
+        }
+
+        .q-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .q-topic {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 4px 8px;
+            border-radius: 999px
+        }
+
+        .q-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: var(--radius);
+            margin-bottom: 12px
+        }
+
+        .q-row {
+            display: flex;
+            gap: 8px
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .q-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .q-input.correct {
+            border-color: var(--success);
+            background: #dcfce7
+        }
+
+        .q-input.incorrect {
+            border-color: var(--error);
+            background: #fee2e2
+        }
+
+        .q-result {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .success {
+            color: var(--success)
+        }
+
+        .error {
+            color: var(--error)
+        }
+
+        .q-answer {
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 10px;
+            border-radius: var(--radius);
+            display: inline-block
+        }
+    </style>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back to Curriculum</a><button
+                class="theme-toggle" id="themeToggle">🌙</button></div>
+    </nav>
+    <header class="hero">
+        <div class="hero-label">Day 39 · Data Structures</div>
+        <h1>Arrays, Lists, Stacks, Queues, Hash Tables</h1>
+        <p class="hero-desc">Understand the fundamental building blocks of data storage and retrieval that power every
+            algorithm.</p>
+    </header>
+    <main class="main">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Arrays & Dynamic Arrays</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Array:</strong> Contiguous memory block with O(1) random access by index.
+                </div>
+                <div class="math-block">ARRAY OPERATIONS:
+                    Access by index: O(1)
+                    Search (unsorted): O(n)
+                    Insert at end: O(1) amortized (dynamic)
+                    Insert at middle: O(n)
+                    Delete at middle: O(n)</div>
+                <p><strong>Dynamic arrays</strong> (ArrayList, vector) grow automatically, typically doubling capacity
+                    when full. Amortized O(1) append.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Linked Lists</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">SINGLY LINKED LIST:
+                    [data|next] → [data|next] → [data|null]
+
+                    DOUBLY LINKED LIST:
+                    null ← [prev|data|next] ⇄ [prev|data|next] → null</div>
+                <div class="math-block">LINKED LIST OPERATIONS:
+                    Access by index: O(n)
+                    Insert at head: O(1)
+                    Insert at tail: O(1) with tail pointer
+                    Insert at middle: O(n) to find + O(1) to insert
+                    Delete (by ref): O(1)</div>
+                <p><strong>Trade-off:</strong> Arrays excel at random access; lists excel at insertion/deletion with a
+                    known position.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Stacks (LIFO)</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Stack:</strong> Last-In-First-Out. Only access the top element.</div>
+                <div class="math-block">STACK OPERATIONS (all O(1)):
+                    push(x) - Add to top
+                    pop() - Remove from top
+                    peek() - View top without removing
+                    isEmpty()- Check if empty</div>
+                <p><strong>Use cases:</strong> Function call stack, undo operations, expression parsing, DFS traversal.
+                </p>
+                <pre>// Balanced parentheses check
+function isBalanced(s) {
+    const stack = [];
+    const pairs = {'(':')', '[':']', '{':'}'};
+    for (let c of s) {
+        if (c in pairs) stack.push(c);
+        else if (')]}'.includes(c)) {
+            if (!stack.length || pairs[stack.pop()] !== c)
+                return false;
+        }
+    }
+    return stack.length === 0;
+}</pre>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Queues (FIFO)</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Queue:</strong> First-In-First-Out. Add at back, remove from front.</div>
+                <div class="math-block">QUEUE OPERATIONS (all O(1)):
+                    enqueue(x) - Add to back
+                    dequeue() - Remove from front
+                    front() - View front without removing
+                    isEmpty() - Check if empty</div>
+                <p><strong>Use cases:</strong> BFS traversal, scheduling, buffering, printer queues.</p>
+                <p><strong>Variants:</strong> Deque (double-ended), Priority Queue (comes next section with heaps).</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Hash Tables</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Hash Table:</strong> Key-value store with O(1) average lookup, insert, delete.
+                </div>
+                <div class="math-block">HASH TABLE:
+                    key → hash(key) → index → bucket
+
+                    COLLISION RESOLUTION:
+                    1. Chaining: Each bucket is a linked list
+                    2. Open Addressing: Probe for next empty slot
+                    - Linear probing: h(k) + 1, h(k) + 2, ...
+                    - Quadratic probing: h(k) + 1², h(k) + 2², ...</div>
+                <div class="math-block">HASH TABLE COMPLEXITY:
+                    Average Worst
+                    Search: O(1) O(n)
+                    Insert: O(1) O(n)
+                    Delete: O(1) O(n)
+
+                    Worst case = all keys collide</div>
+                <p><strong>Load factor:</strong> n/m (items/buckets). Rehash when load factor exceeds threshold (~0.75).
+                </p>
+            </div>
+        </section>
+        <section class="section" id="practice">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">Practice</h2>
+            </div>
+            <div class="section-body">
+                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                        class="btn" id="showAll">Show All</button></div>
+                <div id="quiz"></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const Q = [
+            { id: 1, t: "Array", q: "Array access by index: O(___)", a: ["1", "one"], d: "O(1)" },
+            { id: 2, t: "Array", q: "Insert in middle of array: O(___)", a: ["n"], d: "O(n)" },
+            { id: 3, t: "List", q: "Linked list insert at head: O(___)", a: ["1", "one"], d: "O(1)" },
+            { id: 4, t: "List", q: "Linked list access by index: O(___)", a: ["n"], d: "O(n)" },
+            { id: 5, t: "Stack", q: "Stack is ___ (LIFO/FIFO)", a: ["lifo"], d: "LIFO" },
+            { id: 6, t: "Stack", q: "Stack remove operation: ___()", a: ["pop"], d: "pop()" },
+            { id: 7, t: "Queue", q: "Queue is ___ (LIFO/FIFO)", a: ["fifo"], d: "FIFO" },
+            { id: 8, t: "Queue", q: "Queue add operation: ___(x)", a: ["enqueue"], d: "enqueue()" },
+            { id: 9, t: "Hash", q: "Hash table average lookup: O(___)", a: ["1", "one"], d: "O(1)" },
+            { id: 10, t: "Hash", q: "Hash collision via linked list: ___", a: ["chaining"], d: "Chaining" }
+        ];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
+        function render() {
+            const c = document.getElementById("quiz"); c.innerHTML = "";
+            Q.forEach(q => {
+                const d = document.createElement("div"); d.className = "question";
+                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
+                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.querySelector(".bc").onclick = () => {
+                    if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
+                };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
+                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
+                c.appendChild(d);
+            });
+        }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); themeToggle.textContent = n === "dark" ? "☀️" : "🌙"; };
+        themeToggle.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
+    </script>
+</body>
+
+</html>

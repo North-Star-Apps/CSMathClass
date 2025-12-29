@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 45: Correctness Proofs & Complexity</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --surface: #fff;
+            --surface-alt: #f5f5f4;
+            --border: #e7e5e4;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #16a34a;
+            --error: #dc2626;
+            --radius: 8px;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace
+        }
+
+        [data-theme="dark"] {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px
+        }
+
+        .theme-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            cursor: pointer
+        }
+
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 32px
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 12px;
+            border-radius: 999px;
+            margin-bottom: 16px
+        }
+
+        [data-theme="dark"] .hero-label {
+            color: var(--accent)
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            margin-bottom: 16px
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        .section-body {
+            padding: 20px 24px
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-secondary)
+        }
+
+        .math-block {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto
+        }
+
+        .rule {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 16px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--accent-dark)
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent)
+        }
+
+        ul {
+            margin: 12px 0 12px 24px;
+            color: var(--text-secondary)
+        }
+
+        li {
+            margin-bottom: 6px
+        }
+
+        li strong {
+            color: var(--text)
+        }
+
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .question {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px
+        }
+
+        .q-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent)
+        }
+
+        .q-topic {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 4px 8px;
+            border-radius: 999px
+        }
+
+        .q-prompt {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: var(--radius);
+            margin-bottom: 12px
+        }
+
+        .q-row {
+            display: flex;
+            gap: 8px
+        }
+
+        .q-input {
+            flex: 1;
+            padding: 10px;
+            font-family: var(--font-mono);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .q-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .q-input.correct {
+            border-color: var(--success);
+            background: #dcfce7
+        }
+
+        .q-input.incorrect {
+            border-color: var(--error);
+            background: #fee2e2
+        }
+
+        .q-result {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .success {
+            color: var(--success)
+        }
+
+        .error {
+            color: var(--error)
+        }
+
+        .q-answer {
+            margin-top: 6px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-dark);
+            background: var(--accent-light);
+            padding: 6px 10px;
+            border-radius: var(--radius);
+            display: inline-block
+        }
+    </style>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
+    </nav>
+    <header class="hero">
+        <div class="hero-label">Day 45 · Algorithms</div>
+        <h1>Correctness Proofs & Complexity</h1>
+        <p class="hero-desc">Prove your algorithms work and analyze how efficiently they use resources.</p>
+    </header>
+    <main class="main">
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Loop Invariants</h2>
+            </div>
+            <div class="section-body">
+                <div class="rule"><strong>Loop Invariant:</strong> A property that holds before each iteration and, when
+                    combined with the loop exit condition, proves correctness.</div>
+                <div class="math-block">PROVING WITH LOOP INVARIANTS:
+                    1. Initialization: Invariant holds before first iteration
+                    2. Maintenance: If true before iteration, true after
+                    3. Termination: Loop ends + invariant → correct result</div>
+                <p><strong>Example:</strong> Binary search invariant: "If target exists, it's in arr[lo..hi]". When lo >
+                    hi, search space is empty, so target doesn't exist.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Big-O Analysis</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">ASYMPTOTIC NOTATION:
+                    O(g(n)) Upper bound: f(n) ≤ c·g(n) for large n
+                    Ω(g(n)) Lower bound: f(n) ≥ c·g(n) for large n
+                    Θ(g(n)) Tight bound: both O and Ω</div>
+                <div class="math-block">COMMON RULES:
+                    • Drop constants: O(2n) = O(n)
+                    • Drop lower terms: O(n² + n) = O(n²)
+                    • Sequential: O(f) + O(g) = O(max(f,g))
+                    • Nested: O(f) × O(g) = O(f × g)
+
+                    ANALYZING LOOPS:
+                    Single loop 1..n: O(n)
+                    Nested loops n × n: O(n²)
+                    Loop halving (i *= 2): O(log n)
+                    Loop with inner halving: O(n log n)</div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Recurrence Relations</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">MASTER THEOREM for T(n) = aT(n/b) + f(n):
+                    Let c = log_b(a)
+
+                    Case 1: f(n) = O(n^(c-ε)) → T(n) = Θ(n^c)
+                    Case 2: f(n) = Θ(n^c) → T(n) = Θ(n^c log n)
+                    Case 3: f(n) = Ω(n^(c+ε)) → T(n) = Θ(f(n))</div>
+                <div class="math-block">COMMON RECURRENCES:
+                    Binary Search: T(n) = T(n/2) + O(1) = O(log n)
+                    Merge Sort: T(n) = 2T(n/2) + O(n) = O(n log n)
+                    Linear work: T(n) = 2T(n/2) + O(1) = O(n)
+                    Quadratic: T(n) = 2T(n-1) + O(1) = O(2^n)</div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Space Complexity</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">SPACE USAGE:
+                    Input space: Memory for input (often excluded)
+                    Auxiliary space: Extra memory used by algorithm
+
+                    COMMON PATTERNS:
+                    In-place: O(1) extra space
+                    Recursion: O(depth) for call stack
+                    DP tables: O(states), often optimizable
+                    Creating copies: O(n) per copy</div>
+                <p><strong>Trade-offs:</strong> Often can trade time for space (memoization) or space for time
+                    (recomputing instead of caching).</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Proof Techniques</h2>
+            </div>
+            <div class="section-body">
+                <div class="math-block">FOR GREEDY ALGORITHMS:
+                    1. Greedy choice property: First greedy choice is in some optimal
+                    2. Optimal substructure: Remaining problem is also optimal
+
+                    FOR DIVIDE & CONQUER:
+                    • Prove base case correct
+                    • Prove combine step preserves correctness
+                    • Use strong induction on input size
+
+                    FOR DP:
+                    • Define what dp[i] represents precisely
+                    • Prove recurrence relation correct
+                    • Verify base cases cover all starting states</div>
+            </div>
+        </section>
+        <section class="section" id="practice">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">Practice</h2>
+            </div>
+            <div class="section-body">
+                <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
+                        class="btn" id="showAll">Show All</button></div>
+                <div id="quiz"></div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const Q = [
+            { id: 1, t: "Invariant", q: "Loop ___ holds before each iteration", a: ["invariant"], d: "invariant" },
+            { id: 2, t: "Big-O", q: "O(n² + n) = O(___²)", a: ["n"], d: "O(n²)" },
+            { id: 3, t: "Big-O", q: "Upper bound notation: O / Ω / Θ?", a: ["o"], d: "O" },
+            { id: 4, t: "Big-O", q: "Lower bound notation: O / Ω / Θ?", a: ["ω", "omega"], d: "Ω" },
+            { id: 5, t: "Big-O", q: "Tight bound notation: O / Ω / Θ?", a: ["θ", "theta"], d: "Θ" },
+            { id: 6, t: "Recurr", q: "Merge sort: O(n ___ n)", a: ["log"], d: "O(n log n)" },
+            { id: 7, t: "Recurr", q: "Binary search: O(___ n)", a: ["log"], d: "O(log n)" },
+            { id: 8, t: "Space", q: "In-place algorithm uses O(___) extra space", a: ["1", "one"], d: "O(1)" },
+            { id: 9, t: "Master", q: "Master theorem: T(n) = aT(n/___) + f(n)", a: ["b"], d: "b" },
+            { id: 10, t: "Proof", q: "Greedy needs: greedy choice + optimal ___", a: ["substructure"], d: "substructure" }
+        ];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
+        function render() {
+            const c = document.getElementById("quiz"); c.innerHTML = "";
+            Q.forEach(q => {
+                const d = document.createElement("div"); d.className = "question";
+                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
+                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.querySelector(".bc").onclick = () => { if (check(inp.value, q.a)) { inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">${q.d}</div>`; };
+                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
+                c.appendChild(d);
+            });
+        }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        const tt = document.getElementById("themeToggle");
+        tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
+        tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
+    </script>
+</body>
+
+</html>
