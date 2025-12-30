@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 100: The Final Exam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/exam-logic.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">Back to Curriculum</a>
+            <div class="nav-progress">Day 100</div>
+            <button class="theme-toggle" id="themeToggle"></button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>The Final Exam</h1>
+        <p class="hero-desc">The cumulative challenge. 50% of the curriculum. Good luck.</p>
+    </header>
+
+    <main class="content">
+        <div id="quizContainer"></div>
+        <div style="text-align:center; margin-top:32px;">
+            <button class="btn btn-primary" id="btnCheckAll">Submit Exam</button>
+        </div>
+    </main>
+
+    <script>
+        initLesson({});
+
+        const questions = window.EXAM_LOGIC.getExam();
+        initQuiz(questions, 'day100_exam_stats');
+    </script>
+</body>
+
+</html>

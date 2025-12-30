@@ -46,7 +46,8 @@ function initTocHighlight() {
 
 // ==================== VIDEO PLAYER ====================
 function initVideoPlayer(videoGroups) {
-    const container = document.getElementById("videoList");
+    let container = document.getElementById("videoList");
+    if (!container) container = document.querySelector(".video-list");
     if (!container || !videoGroups) return;
 
     container.innerHTML = "";
@@ -86,11 +87,18 @@ function initVideoPlayer(videoGroups) {
 function setVideo(item, btn) {
     document.querySelectorAll(".video-item").forEach(b => b.classList.remove("active"));
     if (btn) btn.classList.add("active");
-    const player = document.getElementById("ytPlayer");
+
+    let player = document.getElementById("ytPlayer");
+    if (!player) player = document.querySelector(".video-player iframe");
+
     if (player) player.src = `https://www.youtube.com/embed/${item.vid}?rel=0`;
-    const title = document.getElementById("videoTitle");
+
+    let title = document.getElementById("videoTitle");
+    if (!title) title = document.querySelector(".video-title");
     if (title) title.textContent = item.title;
-    const meta = document.getElementById("videoMeta");
+
+    let meta = document.getElementById("videoMeta");
+    if (!meta) meta = document.querySelector(".video-meta");
     if (meta) meta.textContent = item.channel;
 }
 
@@ -224,9 +232,63 @@ function updateQuizUI(totalQuestions) {
     if (progressFill) progressFill.style.width = `${pct}%`;
 }
 
+// ==================== SIMPLE MODE ====================
+function initSimpleMode() {
+    if (document.getElementById('simpleModeToggle')) return;
+
+    const navInner = document.querySelector('.nav-inner');
+    if (!navInner) return;
+
+    const btn = document.createElement('button');
+    btn.id = 'simpleModeToggle';
+    btn.className = 'theme-toggle';
+    btn.style.marginLeft = '8px';
+    btn.style.width = 'auto';
+    btn.style.padding = '0 12px';
+    btn.style.fontSize = '13px';
+    btn.style.fontWeight = '600';
+    btn.innerHTML = 'Simple';
+    btn.type = 'button';
+
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle && themeToggle.parentNode === navInner) {
+        navInner.insertBefore(btn, themeToggle);
+    } else {
+        navInner.appendChild(btn);
+    }
+
+    function updateSimpleMode() {
+        const isSimple = localStorage.getItem('math_cs_simple_mode') === 'true';
+        if (isSimple) {
+            document.body.classList.add('simple-mode');
+            btn.style.background = 'var(--accent-light)';
+            btn.style.color = 'var(--accent-dark)';
+            btn.style.borderColor = 'var(--accent)';
+            document.querySelectorAll('.complex-only').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.simple-only').forEach(el => el.style.display = 'block');
+        } else {
+            document.body.classList.remove('simple-mode');
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.style.borderColor = '';
+            document.querySelectorAll('.complex-only').forEach(el => el.style.display = '');
+            document.querySelectorAll('.simple-only').forEach(el => el.style.display = 'none');
+        }
+    }
+
+    btn.addEventListener('click', () => {
+        const current = localStorage.getItem('math_cs_simple_mode') === 'true';
+        localStorage.setItem('math_cs_simple_mode', !current);
+        updateSimpleMode();
+    });
+
+    updateSimpleMode();
+}
+
 // ==================== INIT ====================
 function initLesson(config) {
     initThemeToggle();
+    initSimpleMode();
     initTocHighlight();
     if (config.videos) initVideoPlayer(config.videos);
     if (config.questions) initQuiz(config.questions, config.storageKey || 'lesson_quiz');

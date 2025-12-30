@@ -7,851 +7,65 @@
   <title>Day 1: Complete Arithmetic Fluency for CS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg: #fafaf9;
-      --surface: #ffffff;
-      --surface-alt: #f5f5f4;
-      --border: #e7e5e4;
-      --border-strong: #d6d3d1;
-      --text: #1c1917;
-      --text-secondary: #57534e;
-      --text-muted: #78716c;
-      --accent: #0d9488;
-      --accent-light: #ccfbf1;
-      --accent-dark: #0f766e;
-      --code-bg: #1e1e1e;
-      --code-text: #d4d4d4;
-      --success: #16a34a;
-      --success-bg: #dcfce7;
-      --error: #dc2626;
-      --error-bg: #fee2e2;
-      --warning: #d97706;
-      --warning-bg: #fef3c7;
-      --purple: #7c3aed;
-      --purple-light: #ede9fe;
-      --blue: #2563eb;
-      --blue-light: #dbeafe;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      --radius: 8px;
-      --radius-lg: 12px;
-      --font-serif: 'Source Serif 4', Georgia, serif;
-      --font-sans: 'DM Sans', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-    }
-
-    [data-theme="dark"] {
-      --bg: #0c0c0f;
-      --surface: #16161a;
-      --surface-alt: #1c1c21;
-      --border: #2a2a32;
-      --border-strong: #3a3a44;
-      --text: #ececf1;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --accent: #14b8a6;
-      --accent-light: #134e4a;
-      --accent-dark: #2dd4bf;
-      --code-bg: #0f0f12;
-      --code-text: #d4d4d4;
-      --success: #86efac;
-      --success-bg: #14532d;
-      --error: #fca5a5;
-      --error-bg: #7f1d1d;
-      --warning: #fde68a;
-      --warning-bg: #78350f;
-      --info: #a5f3fc;
-      --info-bg: #164e63;
-    }
-
-    [data-theme="dark"] .nav {
-      background: rgba(22, 22, 26, 0.92);
-    }
-
-    [data-theme="dark"] .warning {
-      color: #fef3c7;
-    }
-
-    [data-theme="dark"] .warning strong {
-      color: #fef3c7;
-    }
-
-    [data-theme="dark"] .info {
-      color: #cffafe;
-    }
-
-    [data-theme="dark"] .rule {
-      color: var(--accent-dark);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Navigation */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(250, 250, 249, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .nav-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      padding: 8px 12px;
-      border-radius: var(--radius);
-      transition: all 0.15s;
-    }
-
-    .nav-back:hover {
-      background: var(--surface-alt);
-      color: var(--text);
-    }
-
-    .nav-progress {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .progress-bar {
-      width: 120px;
-      height: 6px;
-      background: var(--border);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    .theme-toggle {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-secondary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--surface-alt);
-      color: var(--text);
-      border-color: var(--border-strong);
-    }
-
-    /* Hero */
-    .hero {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 24px 32px;
-    }
-
-    .hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent-dark);
-      background: var(--accent-light);
-      padding: 6px 12px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-
-    .hero-desc {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 720px;
-      line-height: 1.6;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .meta-icon {
-      width: 18px;
-      height: 18px;
-      color: var(--text-muted);
-    }
-
-    /* Main Layout */
-    .main-layout {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 48px;
-    }
-
-    @media (max-width: 900px) {
-      .main-layout {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .sidebar {
-        display: none;
-      }
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: sticky;
-      top: 80px;
-      align-self: start;
-      max-height: calc(100vh - 100px);
-      overflow-y: auto;
-    }
-
-    .toc {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-    }
-
-    .toc-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .toc-list {
-      list-style: none;
-    }
-
-    .toc-link {
-      display: block;
-      padding: 8px 12px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: var(--radius);
-      border-left: 2px solid transparent;
-      margin-left: -2px;
-      transition: all 0.15s;
-    }
-
-    .toc-link:hover {
-      color: var(--text);
-      background: var(--surface-alt);
-    }
-
-    .toc-link.active {
-      color: var(--accent-dark);
-      background: var(--accent-light);
-      border-left-color: var(--accent);
-    }
-
-    /* Stats Card */
-    .stats-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-top: 16px;
-    }
-
-    .stats-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      font-size: 13px;
-    }
-
-    .stats-label {
-      color: var(--text-muted);
-    }
-
-    .stats-value {
-      font-weight: 600;
-      font-family: var(--font-mono);
-      color: var(--text);
-    }
-
-    /* Content */
-    .content {
-      min-width: 0;
-    }
-
-    /* Section */
-    .section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-
-    .section-header {
-      padding: 24px 28px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-number {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .section-body {
-      padding: 24px 28px;
-    }
-
-    /* Subsection */
-    .subsection {
-      margin-bottom: 32px;
-    }
-
-    .subsection:last-child {
-      margin-bottom: 0;
-    }
-
-    .subsection-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .subsection-title::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    p {
-      margin-bottom: 12px;
-      color: var(--text-secondary);
-    }
-
-    /* Math Display */
-    .math-block {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin: 16px 0;
-      font-family: var(--font-mono);
-      font-size: 15px;
-      color: var(--text);
-      overflow-x: auto;
-    }
-
-    .math-inline {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      background: var(--surface-alt);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: var(--text);
-    }
-
-    /* Rule/Callout */
-    .rule {
-      background: var(--accent-light);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 16px 20px;
-      margin: 16px 0;
-      color: var(--accent-dark);
-      font-weight: 500;
-    }
-
-    .warning {
-      background: var(--warning-bg);
-      border-left: 3px solid var(--warning);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 16px 20px;
-      margin: 16px 0;
-      color: #92400e;
-    }
-
-    .warning strong {
-      color: #78350f;
-    }
-
-    /* Code Block */
-    .code-block {
-      background: var(--code-bg);
-      border-radius: var(--radius);
-      margin: 16px 0;
-      overflow: hidden;
-    }
-
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: #2d2d2d;
-      border-bottom: 1px solid #3d3d3d;
-    }
-
-    .code-lang {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 600;
-      color: #a1a1aa;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .code-label {
-      font-size: 12px;
-      color: #71717a;
-    }
-
-    .code-content {
-      padding: 16px 20px;
-      overflow-x: auto;
-    }
-
-    .code-content pre {
-      margin: 0;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--code-text);
-    }
-
-    /* Syntax highlighting */
-    .code-keyword {
-      color: #c586c0;
-    }
-
-    .code-function {
-      color: #dcdcaa;
-    }
-
-    .code-string {
-      color: #ce9178;
-    }
-
-    .code-number {
-      color: #b5cea8;
-    }
-
-    .code-comment {
-      color: #6a9955;
-    }
-
-    .code-operator {
-      color: #d4d4d4;
-    }
-
-    .code-type {
-      color: #4ec9b0;
-    }
-
-    /* List */
-    ul {
-      margin: 12px 0 12px 24px;
-      color: var(--text-secondary);
-    }
-
-    li {
-      margin-bottom: 8px;
-    }
-
-    li strong {
-      color: var(--text);
-    }
-
-    /* Two Column Grid */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 16px 0;
-    }
-
-    @media (max-width: 600px) {
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Video Section */
-    .video-container {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 20px;
-      margin-top: 16px;
-    }
-
-    @media (max-width: 800px) {
-      .video-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .video-player {
-      background: var(--code-bg);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    .video-player iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      display: block;
-      border: 0;
-    }
-
-    .video-info {
-      padding: 16px;
-      border-top: 1px solid #3d3d3d;
-    }
-
-    .video-title {
-      font-weight: 600;
-      color: #fff;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .video-meta {
-      font-size: 13px;
-      color: #a1a1aa;
-    }
-
-    .video-list {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      max-height: 480px;
-      overflow-y: auto;
-    }
-
-    .video-group-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      padding: 16px 16px 8px;
-      background: var(--surface-alt);
-      position: sticky;
-      top: 0;
-    }
-
-    .video-item {
-      display: flex;
-      gap: 12px;
-      padding: 12px 16px;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      transition: background 0.15s;
-    }
-
-    .video-item:hover {
-      background: var(--surface-alt);
-    }
-
-    .video-item.active {
-      background: var(--accent-light);
-    }
-
-    .video-num {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 600;
-      min-width: 24px;
-    }
-
-    .video-item-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
-    .video-item-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* Quiz Section */
-    .quiz-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .btn:hover {
-      background: var(--surface-alt);
-      border-color: var(--border-strong);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-dark);
-      border-color: var(--accent-dark);
-    }
-
-    .btn-danger {
-      color: var(--error);
-      border-color: var(--error);
-    }
-
-    .btn-danger:hover {
-      background: var(--error-bg);
-    }
-
-    /* Question Card */
-    .question {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .question-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .question-num {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .question-topic {
-      font-size: 12px;
-      color: var(--text-muted);
-      background: var(--surface);
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-    }
-
-    .question-prompt {
-      font-family: var(--font-mono);
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--surface);
-      padding: 16px 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      margin-bottom: 16px;
-    }
-
-    .question-input-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .question-input {
-      flex: 1;
-      min-width: 200px;
-      padding: 12px 16px;
-      font-family: var(--font-mono);
-      font-size: 15px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .question-input:focus {
-      border-color: var(--accent);
-    }
-
-    .question-input.correct {
-      border-color: var(--success);
-      background: var(--success-bg);
-    }
-
-    .question-input.incorrect {
-      border-color: var(--error);
-      background: var(--error-bg);
-    }
-
-    .question-result {
-      margin-top: 12px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .question-result.success {
-      color: var(--success);
-    }
-
-    .question-result.error {
-      color: var(--error);
-    }
-
-    .question-answer {
-      margin-top: 8px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--accent-dark);
-      background: var(--accent-light);
-      padding: 8px 12px;
-      border-radius: var(--radius);
-      display: inline-block;
-    }
-
-    /* Divider */
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 24px 0;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .hero {
-        padding: 32px 16px 24px;
-      }
-
-      .main-layout {
-        padding: 0 16px 60px;
-      }
-
-      .section-header,
-      .section-body {
-        padding: 20px;
-      }
-    }
-  </style>
-  <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <link rel="stylesheet" href="../../lessons/shared-styles.css">
+  <script src="../../lessons/questions-data.js"></script>
+  <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
   <nav class="nav">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10 12L6 8L10 4" />
+        </svg>
+        Back to Curriculum
+      </a>
+      <div class="nav-progress">
+        <span id="progressText">Day 1</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-label">Day 1</div>
+    <h1>Complete Arithmetic Fluency for CS</h1>
+  </header>
+
+  <div class="main-layout">
+    <aside class="sidebar">
+      <nav class="toc">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list">
+          <!-- TODO: Auto-generate items? For now we leave empty or simple link -->
+          <li><a href="#content" class="toc-link active">Lesson Content</a></li>
+          <li><a href="#videos" class="toc-link">Video Lessons</a></li>
+          <li><a href="#practice" class="toc-link">Practice Problems</a></li>
+        </ul>
+      </nav>
+      <div class="stats-card">
+        <div class="toc-title">Your Progress</div>
+        <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value" id="statAttempted">0</span></div>
+        <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value" id="statCorrect">0</span></div>
+        <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value" id="statAccuracy">—</span></div>
+      </div>
+    </aside>
+
+    <main class="content" id="content">
+      <!-- MIGRATED CONTENT START -->
+      <nav class="nav">
     <div class="nav-inner">
       <a href="../../index.html" class="nav-back">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
@@ -880,7 +94,7 @@
       </svg>
       Day 1 · Foundation
     </div>
-    <h1>Complete Arithmetic Fluency for CS</h1>
+    
     <p class="hero-desc">
       Master all numerical operations that underpin algorithms, graphics, cryptography, and machine learning—fractions,
       exponents, ratios, rates, percentages, and unit conversions. This is your mathematical foundation.
@@ -1824,13 +1038,7 @@ needed_visitors = <span class="code-number">1000</span> / <span class="code-numb
             in depth—use them to reinforce concepts you're unsure about.
           </p>
 
-          <div class="video-container">
-            <div class="video-player">
-              <iframe id="ytPlayer" src=""
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-              <div class="video-info">
-                <div class="video-title" id="videoTitle">Select a video to start</div>
+          
                 <div class="video-meta" id="videoMeta"></div>
               </div>
             </div>
@@ -1865,293 +1073,49 @@ needed_visitors = <span class="code-number">1000</span> / <span class="code-numb
       </section>
     </main>
   </div>
+      <!-- MIGRATED CONTENT END -->
+
+      <section class="section" id="videos">
+        <div class="section-header">
+          <div class="section-number">Videos</div>
+          <h2 class="section-title">Video Lessons</h2>
+        </div>
+        <div class="section-body">
+          <div class="video-container">
+            <div class="video-player">
+              <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+              <div class="video-info">
+                <div class="video-title" id="videoTitle">Select a video</div>
+                <div class="video-meta" id="videoMeta"></div>
+              </div>
+            </div>
+            <div class="video-list" id="videoList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="practice">
+        <div class="section-header">
+           <div class="section-number">Practice</div>
+           <h2 class="section-title">Practice Problems</h2>
+        </div>
+        <div class="section-body">
+           <div class="quiz-controls">
+             <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+             <button class="btn" id="btnRevealAll">Reveal All</button>
+             <button class="btn" id="btnClear">Clear</button>
+             <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+           </div>
+           <div id="quizContainer"></div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script>
-    // ==================== UTILITIES ====================
-    function gcd(a, b) {
-      a = Math.abs(a);
-      b = Math.abs(b);
-      while (b !== 0) {
-        const t = a % b;
-        a = b;
-        b = t;
-      }
-      return a;
-    }
-
-    function reduceFrac(n, d) {
-      if (d === 0) return { n: NaN, d: NaN };
-      if (d < 0) { n = -n; d = -d; }
-      const g = gcd(n, d);
-      return { n: n / g, d: d / g };
-    }
-
-    function normalizeInput(s) {
-      if (!s) return "";
-      return s.trim()
-        .replace(/\u2212/g, "-")
-        .replace(/\s+/g, " ")
-        .replace(/×/g, "*")
-        .replace(/X/g, "*")
-        .replace(/,/g, "");
-    }
-
-    function parseFrac(str) {
-      const m = str.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
-      if (!m) return null;
-      const n = parseInt(m[1], 10);
-      const d = parseInt(m[2], 10);
-      if (d === 0) return null;
-      return reduceFrac(n, d);
-    }
-
-    function parseMixed(str) {
-      const m = str.match(/^([+-]?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
-      if (!m) return null;
-      const whole = parseInt(m[1], 10);
-      const n = parseInt(m[2], 10);
-      const d = parseInt(m[3], 10);
-      if (d === 0) return null;
-      const sign = whole < 0 ? -1 : 1;
-      const absWhole = Math.abs(whole);
-      const totalN = sign * (absWhole * d + n);
-      return reduceFrac(totalN, d);
-    }
-
-    function parseScientific(str) {
-      const e = str.match(/^([+-]?\d+(?:\.\d+)?)\s*e\s*([+-]?\d+)$/i);
-      if (e) return parseFloat(e[1]) * Math.pow(10, parseInt(e[2], 10));
-      const t = str.match(/^([+-]?\d+(?:\.\d+)?)\s*\*\s*10\s*\^\s*\(?([+-]?\d+)\)?$/i);
-      if (t) return parseFloat(t[1]) * Math.pow(10, parseInt(t[2], 10));
-      return null;
-    }
-
-    function parseNumber(str) {
-      const s = normalizeInput(str).toLowerCase();
-      if (!s) return null;
-      const mixed = parseMixed(s);
-      if (mixed) return { kind: "fraction", frac: mixed, value: mixed.n / mixed.d };
-      const frac = parseFrac(s);
-      if (frac) return { kind: "fraction", frac: frac, value: frac.n / frac.d };
-      const sci = parseScientific(s);
-      if (sci !== null && !Number.isNaN(sci)) return { kind: "number", value: sci };
-      const num = Number(s);
-      if (!Number.isFinite(num)) return null;
-      return { kind: "number", value: num };
-    }
-
-    function nearlyEqual(a, b, eps = 1e-10) {
-      const scale = Math.max(1, Math.abs(a), Math.abs(b));
-      return Math.abs(a - b) <= eps * scale;
-    }
-
-    // ==================== QUIZ DATA ====================
-    const QUESTIONS = [
-      { id: 1, topic: "Fractions", prompt: "Simplify: 42/56", exactFraction: { n: 3, d: 4 } },
-      { id: 2, topic: "Fractions", prompt: "3/4 + 5/6", exactFraction: { n: 19, d: 12 } },
-      { id: 3, topic: "Fractions", prompt: "7/9 − 1/6", exactFraction: { n: 11, d: 18 } },
-      { id: 4, topic: "Fractions", prompt: "(5/12) × (18/25)", exactFraction: { n: 3, d: 10 } },
-      { id: 5, topic: "Fractions", prompt: "(3/5) ÷ (9/10)", exactFraction: { n: 2, d: 3 } },
-      { id: 6, topic: "Negatives", prompt: "−7 + 12", exactNumber: 5 },
-      { id: 7, topic: "Negatives", prompt: "5 − (−13)", exactNumber: 18 },
-      { id: 8, topic: "Negatives", prompt: "−4 − 9", exactNumber: -13 },
-      { id: 9, topic: "Negatives", prompt: "(−6) × 7", exactNumber: -42 },
-      { id: 10, topic: "Negatives", prompt: "(−48) ÷ (−6)", exactNumber: 8 },
-      { id: 11, topic: "Exponents", prompt: "2⁶", exactNumber: 64 },
-      { id: 12, topic: "Exponents", prompt: "5⁷ ÷ 5³", exactNumber: 625 },
-      { id: 13, topic: "Exponents", prompt: "(3²)⁴", exactNumber: 6561 },
-      { id: 14, topic: "Exponents", prompt: "16^(3/4)", exactNumber: 8 },
-      { id: 15, topic: "Exponents", prompt: "∛(−125)", exactNumber: -5 },
-      { id: 16, topic: "Scientific", prompt: "Write 0.000091 in scientific notation", acceptedStrings: ["9.1e-5", "9.1*10^-5", "9.1*10^(-5)"], exactNumber: 0.000091 },
-      { id: 17, topic: "Scientific", prompt: "(6×10⁴) × (3×10⁻²)", acceptedStrings: ["1.8e3", "1.8*10^3", "1800"], exactNumber: 1800 },
-      { id: 18, topic: "Scientific", prompt: "(9×10⁷) ÷ (3×10³)", acceptedStrings: ["3e4", "3*10^4", "30000"], exactNumber: 30000 },
-      { id: 19, topic: "Scientific", prompt: "4.2×10⁵ + 7.9×10⁴", acceptedStrings: ["4.99e5", "4.99*10^5", "499000"], exactNumber: 499000 },
-      { id: 20, topic: "Scientific", prompt: "Write 5.06×10⁻³ as decimal", acceptedStrings: ["0.00506"], exactNumber: 0.00506 },
-      // Day 2 Questions: Ratios, Rates, Percentages, Conversions
-      { id: 21, topic: "Ratios", prompt: "Simplify 24:36 (enter as decimal)", exactNumber: 2 / 3 },
-      { id: 22, topic: "Ratios", prompt: "Cache hits:misses = 850:150. Hit rate?", exactNumber: 0.85 },
-      { id: 23, topic: "Ratios", prompt: "Screen 2560×1440. Aspect ratio? (as decimal)", exactNumber: 16 / 9 },
-      { id: 24, topic: "Ratios", prompt: "Wins:Losses = 3:2. Win rate?", exactNumber: 0.6 },
-      { id: 25, topic: "Rates", prompt: "50,000 ops in 2.5 sec. Ops/sec?", exactNumber: 20000 },
-      { id: 26, topic: "Rates", prompt: "100 ops/sec = how many ms/op?", exactNumber: 10 },
-      { id: 27, topic: "Rates", prompt: "4GB at 100 Mbps. Seconds?", exactNumber: 320 },
-      { id: 28, topic: "Rates", prompt: "Workers: 100, 150, 80 ops/sec. Parallel total?", exactNumber: 330 },
-      { id: 29, topic: "Percentages", prompt: "15% of 240?", exactNumber: 36 },
-      { id: 30, topic: "Percentages", prompt: "45 is what % of 180? (as decimal)", exactNumber: 0.25 },
-      { id: 31, topic: "Percentages", prompt: "60 is 40% of what?", exactNumber: 150 },
-      { id: 32, topic: "Percentages", prompt: "250ms to 180ms. Percent change?", exactNumber: -0.28 },
-      { id: 33, topic: "Percentages", prompt: "2% to 3%. Percent increase?", exactNumber: 0.50 },
-      { id: 34, topic: "Percentages", prompt: "10% growth, 3 years. Factor?", exactNumber: 1.331 },
-      { id: 35, topic: "Conversions", prompt: "2.5 GB to MB (1024)", exactNumber: 2560 },
-      { id: 36, topic: "Conversions", prompt: "500,000 μs to seconds", exactNumber: 0.5 },
-      { id: 37, topic: "Conversions", prompt: "100 Mbps = ? MB/s", exactNumber: 12.5 },
-      { id: 38, topic: "Conversions", prompt: "1 TB (decimal) = ? GiB (round)", exactNumber: 931 },
-      { id: 39, topic: "Conversions", prompt: "5 GB/s = ? KB/ms (1024)", exactNumber: 5242.88 },
-      { id: 40, topic: "Conversions", prompt: "50ms latency = max req/sec?", exactNumber: 20 },
-    ];
-
-    function expectedText(q) {
-      if (q.exactFraction) {
-        const f = reduceFrac(q.exactFraction.n, q.exactFraction.d);
-        return `${f.n}/${f.d}`;
-      }
-      if (typeof q.exactNumber === "number") return String(q.exactNumber);
-      return q.acceptedStrings?.[0] ?? "";
-    }
-
-    function isCorrect(q, userStr) {
-      const uNorm = normalizeInput(userStr).toLowerCase();
-      if (!uNorm) return { ok: false, reason: "empty" };
-      if (q.acceptedStrings && q.acceptedStrings.some(s => normalizeInput(s).toLowerCase() === uNorm)) {
-        return { ok: true, reason: "string" };
-      }
-      const parsed = parseNumber(uNorm);
-      if (!parsed) return { ok: false, reason: "parse" };
-      if (q.exactFraction) {
-        const ex = reduceFrac(q.exactFraction.n, q.exactFraction.d);
-        if (parsed.kind === "fraction") {
-          return { ok: parsed.frac.n === ex.n && parsed.frac.d === ex.d, reason: "fraction" };
-        }
-        return { ok: nearlyEqual(parsed.value, ex.n / ex.d), reason: "numeric" };
-      }
-      if (typeof q.exactNumber === "number") {
-        return { ok: nearlyEqual(parsed.value, q.exactNumber), reason: "numeric" };
-      }
-      return { ok: false, reason: "unknown" };
-    }
-
-    // ==================== STATE ====================
-    const LS_KEY = "arith_fluency_cs_v1";
-    let stats = loadStats();
-    let sessionCorrect = 0;
-    let sessionAttempted = 0;
-
-    function loadStats() {
-      try {
-        const raw = localStorage.getItem(LS_KEY);
-        if (!raw) return { attempted: 0, correct: 0 };
-        return JSON.parse(raw);
-      } catch {
-        return { attempted: 0, correct: 0 };
-      }
-    }
-
-    function saveStats() {
-      localStorage.setItem(LS_KEY, JSON.stringify(stats));
-    }
-
-    function updateStatsUI() {
-      document.getElementById("statAttempted").textContent = stats.attempted;
-      document.getElementById("statCorrect").textContent = stats.correct;
-      document.getElementById("statAccuracy").textContent = stats.attempted > 0
-        ? `${Math.round((stats.correct / stats.attempted) * 100)}%`
-        : "—";
-
-      const pct = QUESTIONS.length > 0 ? Math.round((sessionCorrect / QUESTIONS.length) * 100) : 0;
-      document.getElementById("progressText").textContent = `${sessionCorrect} / ${QUESTIONS.length} complete`;
-      document.getElementById("progressFill").style.width = `${pct}%`;
-    }
-
-    // ==================== QUIZ UI ====================
-    function renderQuiz() {
-      const container = document.getElementById("quizContainer");
-      container.innerHTML = "";
-
-      QUESTIONS.forEach(q => {
-        const div = document.createElement("div");
-        div.className = "question";
-        div.dataset.qid = q.id;
-        div.innerHTML = `
-          <div class="question-header">
-            <span class="question-num">Q${q.id}</span>
-            <span class="question-topic">${q.topic}</span>
-          </div>
-          <div class="question-prompt">${q.prompt}</div>
-          <div class="question-input-row">
-            <input type="text" class="question-input" placeholder="Your answer..." />
-            <button class="btn btn-primary btn-check">Check</button>
-            <button class="btn btn-show">Show</button>
-          </div>
-          <div class="question-result"></div>
-        `;
-
-        const input = div.querySelector(".question-input");
-        const result = div.querySelector(".question-result");
-        const btnCheck = div.querySelector(".btn-check");
-        const btnShow = div.querySelector(".btn-show");
-
-        btnCheck.addEventListener("click", () => checkQuestion(q, input, result));
-        input.addEventListener("keydown", e => {
-          if (e.key === "Enter") checkQuestion(q, input, result);
-        });
-        btnShow.addEventListener("click", () => {
-          result.innerHTML = `<div class="question-answer">Answer: ${expectedText(q)}</div>`;
-        });
-
-        container.appendChild(div);
-      });
-    }
-
-    function checkQuestion(q, input, resultEl) {
-      const verdict = isCorrect(q, input.value);
-      stats.attempted++;
-      sessionAttempted++;
-
-      if (verdict.ok) {
-        stats.correct++;
-        sessionCorrect++;
-        input.classList.remove("incorrect");
-        input.classList.add("correct");
-        resultEl.innerHTML = `<span class="success">✓ Correct</span>`;
-      } else {
-        input.classList.remove("correct");
-        input.classList.add("incorrect");
-        const msg = verdict.reason === "empty" ? "Enter an answer first"
-          : verdict.reason === "parse" ? "Couldn't parse that format"
-            : "Not quite right";
-        resultEl.innerHTML = `<span class="error">✗ ${msg}</span>`;
-      }
-
-      saveStats();
-      updateStatsUI();
-    }
-
-    // Controls
-    document.getElementById("btnCheckAll").addEventListener("click", () => {
-      document.querySelectorAll(".question").forEach(div => {
-        div.querySelector(".btn-check").click();
-      });
-    });
-
-    document.getElementById("btnRevealAll").addEventListener("click", () => {
-      document.querySelectorAll(".question").forEach(div => {
-        div.querySelector(".btn-show").click();
-      });
-    });
-
-    document.getElementById("btnClear").addEventListener("click", () => {
-      document.querySelectorAll(".question").forEach(div => {
-        const input = div.querySelector(".question-input");
-        input.value = "";
-        input.classList.remove("correct", "incorrect");
-        div.querySelector(".question-result").innerHTML = "";
-      });
-      sessionCorrect = 0;
-      sessionAttempted = 0;
-      updateStatsUI();
-    });
-
-    document.getElementById("btnReset").addEventListener("click", () => {
-      if (!confirm("Reset all saved stats? This cannot be undone.")) return;
-      stats = { attempted: 0, correct: 0 };
-      saveStats();
-      sessionCorrect = 0;
-      sessionAttempted = 0;
-      updateStatsUI();
-    });
-
-    // ==================== VIDEO PLAYER ====================
-    const VIDEO_GROUPS = [
+    initLesson({
+      questions: window.QUESTIONS_DATA ? window.QUESTIONS_DATA['day1'] : [],
+      videos: [
       {
         title: "Fractions",
         items: [
@@ -2213,93 +1177,9 @@ needed_visitors = <span class="code-number">1000</span> / <span class="code-numb
           { title: "Khan Academy — Dimensional Analysis", channel: "Khan Academy", vid: "bIQVjB_LnCM" },
         ]
       }
-    ];
-
-    function renderVideoList() {
-      const container = document.getElementById("videoList");
-      container.innerHTML = "";
-      let idx = 0;
-
-      VIDEO_GROUPS.forEach(group => {
-        const titleDiv = document.createElement("div");
-        titleDiv.className = "video-group-title";
-        titleDiv.textContent = group.title;
-        container.appendChild(titleDiv);
-
-        group.items.forEach(item => {
-          idx++;
-          const btn = document.createElement("button");
-          btn.className = "video-item";
-          btn.dataset.vid = item.vid;
-          btn.innerHTML = `
-            <span class="video-num">${idx}</span>
-            <div>
-              <div class="video-item-title">${item.title}</div>
-              <div class="video-item-desc">${item.channel}</div>
-            </div>
-          `;
-          btn.addEventListener("click", () => setVideo(item, btn));
-          container.appendChild(btn);
-        });
-      });
-
-      // Load first video
-      const first = VIDEO_GROUPS[0].items[0];
-      const firstBtn = container.querySelector(".video-item");
-      setVideo(first, firstBtn);
-    }
-
-    function setVideo(item, btn) {
-      document.querySelectorAll(".video-item").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
-      document.getElementById("ytPlayer").src = `https://www.youtube.com/embed/${item.vid}?rel=0`;
-      document.getElementById("videoTitle").textContent = item.title;
-      document.getElementById("videoMeta").textContent = item.channel;
-    }
-
-    // ==================== TOC HIGHLIGHTING ====================
-    const tocLinks = document.querySelectorAll(".toc-link");
-    const sections = document.querySelectorAll(".section");
-
-    function updateTocHighlight() {
-      let current = "";
-      sections.forEach(section => {
-        const top = section.getBoundingClientRect().top;
-        if (top < 150) current = section.id;
-      });
-      tocLinks.forEach(link => {
-        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
-      });
-    }
-
-    window.addEventListener("scroll", updateTocHighlight);
-
-    // ==================== THEME TOGGLE ====================
-    const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-    const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-    const themeToggle = document.getElementById('themeToggle');
-
-    function updateThemeIcon() {
-      const theme = document.documentElement.getAttribute('data-theme');
-      themeToggle.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('math_cs_theme', next);
-      updateThemeIcon();
+    ],
+      storageKey: 'day1_stats'
     });
-
-    updateThemeIcon();
-
-    // ==================== INIT ====================
-    renderQuiz();
-    renderVideoList();
-    updateStatsUI();
-    updateTocHighlight();
   </script>
 </body>
-
 </html>
