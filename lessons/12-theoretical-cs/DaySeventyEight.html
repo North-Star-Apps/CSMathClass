@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 98: Cryptography</title>
+    <title>Day 78: Information Theory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,24 +38,24 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 98 · Theoretical CS
+            Day 78 · Theoretical CS
         </div>
-        <h1>Cryptography</h1>
-        <p class="hero-desc">Securing communication in the presence of adversaries. RSA and Diffie-Hellman.</p>
+        <h1>Information Theory</h1>
+        <p class="hero-desc">The mathematics of communication. Entropy, bits, and compression.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~50 min read
+                ~45 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                Public Key
+                Entropy
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,12 +71,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#symmetric" class="toc-link">1. Symmetric Key</a></li>
-                    <li><a href="#public" class="toc-link">2. Public Key (Asymmetric)</a></li>
-                    <li><a href="#rsa" class="toc-link">3. RSA Algorithm</a></li>
-                    <li><a href="#diffie" class="toc-link">4. Diffie-Hellman</a></li>
-                    <li><a href="#zk" class="toc-link">5. Zero-Knowledge</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: RSA Basics</a></li>
+                    <li><a href="#bits" class="toc-link">1. Bits & Surprise</a></li>
+                    <li><a href="#entropy" class="toc-link">2. Shannon Entropy</a></li>
+                    <li><a href="#compression" class="toc-link">3. Source Coding</a></li>
+                    <li><a href="#huffman" class="toc-link">4. Huffman Coding</a></li>
+                    <li><a href="#channel" class="toc-link">5. Channel Capacity</a></li>
+                    <li><a href="#code" class="toc-link">6. Python: Huffman Tree</a></li>
                     <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">8. Practice</a></li>
                 </ul>
@@ -93,80 +93,78 @@
         </aside>
 
         <main class="content">
-            <!-- Symmetric -->
-            <section class="section" id="symmetric">
+            <!-- Bits -->
+            <section class="section" id="bits">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Symmetric Key</h2>
+                    <h2 class="section-title">Bits & Surprise</h2>
                 </div>
                 <div class="section-body">
-                    <p>Alice and Bob share a secret key `K`. `E(m, K) = c`, `D(c, K) = m`.</p>
-                    <p>Example: One-Time Pad (XOR with random key). Proven perfectly secure if key is truly random and
-                        never reused.</p>
-                    <p>Issue: Key Exchange. How to share `K` securely?</p>
+                    <p>What is information? It is the resolution of uncertainty.</p>
+                    <p>If I tell you "The sun rose today", learning that is low information (high probability).</p>
+                    <p>If I tell you "I won the lottery", learning that is high information (low probability).</p>
+                    <div class="math-block">
+                        I(x) = -\log_2 P(x)
+                    </div>
                 </div>
             </section>
 
-            <!-- Public -->
-            <section class="section" id="public">
+            <!-- Entropy -->
+            <section class="section" id="entropy">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Public Key Cryptography</h2>
+                    <h2 class="section-title">Shannon Entropy</h2>
                 </div>
                 <div class="section-body">
-                    <p>Uses two keys: Public `PK` (Encryption) and Private `SK` (Decryption).</p>
-                    <p>Anyone can lock the box (Pub), only you can open it (Priv).</p>
-                    <p>Relies on One-Way Functions: Easy to compute `f(x)`, hard to find `x` given `y=f(x)`.</p>
+                    <p>Entropy `H(X)` is the average information content of a random variable.</p>
+                    <div class="math-block">
+                        H(X) = - \sum P(x) \log_2 P(x)
+                    </div>
+                    <p>It represents the <strong>minimum average number of bits</strong> needed to encode the variable.
+                    </p>
                 </div>
             </section>
 
-            <!-- RSA -->
-            <section class="section" id="rsa">
+            <!-- Compression -->
+            <section class="section" id="compression">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">RSA</h2>
+                    <h2 class="section-title">Source Coding Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p>Relies on the hardness of <strong>Factoring</strong>.</p>
-                    <ol>
-                        <li>Choose primes `p, q`. Let `n = p q`.</li>
-                        <li>Compute `\phi(n) = (p-1)(q-1)`.</li>
-                        <li>Choose `e` coprime to `\phi(n)`. Find `d` such that `d e \equiv 1 \pmod{\phi(n)}`.</li>
-                        <li>Public: `(e, n)`. Private: `d`.</li>
-                        <li>Encrypt: `c = m^e \pmod n`.</li>
-                        <li>Decrypt: `m = c^d \pmod n`.</li>
-                    </ol>
+                    <div class="rule">
+                        Theorem: You cannot compress data below its entropy without losing information.
+                    </div>
+                    <p>Lossless compression (ZIP, PNG) relies on patterns to approach entropy.</p>
+                    <p>Lossy compression (JPEG, MP3) throws away "unimportant" bits to go below entropy.</p>
                 </div>
             </section>
 
-            <!-- Diffie -->
-            <section class="section" id="diffie">
+            <!-- Huffman -->
+            <section class="section" id="huffman">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Diffie-Hellman Key Exchange</h2>
+                    <h2 class="section-title">Huffman Coding</h2>
                 </div>
                 <div class="section-body">
-                    <p>Allows two parties to agree on a secret key over an insecure channel.</p>
-                    <p>Relies on <strong>Discrete Logarithm Problem</strong>: Given `g^a \pmod p`, find `a`.</p>
-                    <ul>
-                        <li>Alice sends `g^a`. Bob sends `g^b`.</li>
-                        <li>Alice computes `(g^b)^a`. Bob computes `(g^a)^b`.</li>
-                        <li>They share `g^{ab}`. Secure!</li>
-                    </ul>
+                    <p>An algorithm to construct optimal prefix codes.</p>
+                    <p>High frequency symbols get short codes (e.g. 'e' = 0). Low frequency symbols get long codes (e.g.
+                        'z' = 1101).</p>
+                    <p>This is a Greedy Algorithm that builds a binary tree from the bottom up.</p>
                 </div>
             </section>
 
-            <!-- ZK -->
-            <section class="section" id="zk">
+            <!-- Channel -->
+            <section class="section" id="channel">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Zero-Knowledge Proofs</h2>
+                    <h2 class="section-title">Channel Capacity</h2>
                 </div>
                 <div class="section-body">
-                    <p>Proving you know a secret without revealing the secret.</p>
-                    <p>Example: Finding Waldo. I can prove I found Waldo by covering the rest of the image, showing you
-                        only Waldo through a hole. You know I know where he is, but you don't know where (relative to
-                        the full page).</p>
+                    <p>Noisy Channel Coding Theorem: For any channel with capacity `C`, data can be transmitted reliably
+                        at rate `R < C` using error-correcting codes.</p>
+                            <p>This birthed the digital age. Errors can be detected and corrected, making digital
+                                storage perfect.</p>
                 </div>
             </section>
 
@@ -174,46 +172,46 @@
             <section class="section" id="code">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: RSA Text</h2>
+                    <h2 class="section-title">Python: Entropy Calc</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Toy RSA</span>
+                            <span class="code-label">Entropy</span>
                         </div>
                         <div class="code-content">
-                            <pre><code class="language-python">def modinv(a, m):
-    # Extended Euclidean Algorithm
-    m0, x0, x1 = m, 0, 1
-    if m == 1: return 0
-    while a > 1:
-        q = a // m
-        m, a = a % m, m
-        x0, x1 = x1 - q * x0, x0
-    if x1 < 0: x1 += m0
-    return x1
+                            <pre><code class="language-python">import math
+from collections import Counter
 
-# 1. Setup
-p, q = 61, 53
-n = p * q
-phi = (p-1) * (q-1)
-e = 17 # Public Exponent
-d = modinv(e, phi) # Private Exponent
+def calculate_entropy(data):
+    if not data:
+        return 0
+    
+    counts = Counter(data)
+    total = len(data)
+    entropy = 0
+    
+    for count in counts.values():
+        p = count / total
+        entropy -= p * math.log2(p)
+        
+    return entropy
 
-print(f"Public Key (e,n): ({e}, {n})")
-print(f"Private Key d: {d}")
+s1 = "AAAAABBBBB" # 50/50 split
+s2 = "AAAAAAAAAB" # Highly predictable
+s3 = "ABCDEFGHIJ" # Maximum surprise
 
-# 2. Encrypt Message (must be < n)
-m = 123
-c = pow(m, e, n)
-print(f"Encrypted: {c}")
+print(f"Entropy s1: {calculate_entropy(s1):.2f} bits (Max 1.0)")
+print(f"Entropy s2: {calculate_entropy(s2):.2f} bits (Low)")
+print(f"Entropy s3: {calculate_entropy(s3):.2f} bits (High)")
 
-# 3. Decrypt
-m_dec = pow(c, d, n)
-print(f"Decrypted: {m_dec}")
-
-assert m == m_dec</code></pre>
+# Huffman Logic (Conceptual)
+# s2 could be encoded: A=0, B=1. 
+# Code: 0000000001 (10 bits).
+# Avg bits per symbol = 1.0. 
+# But Entropy is 0.47! 
+# Optimal block coding would do better than 1 bit per symbol.</code></pre>
                         </div>
                     </div>
                 </div>
@@ -264,21 +262,21 @@ assert m == m_dec</code></pre>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Cryptography",
+                title: "Information Theory",
                 items: [
-                    { title: "RSA Encryption", channel: "Computerphile", vid: "video_id_placeholder" },
-                    { title: "Diffie Hellman Key Exchange", channel: "Computerphile", vid: "video_id_placeholder" },
+                    { title: "Entropy (Shannon Information Theory)", channel: "Computerphile", vid: "video_id_placeholder" },
+                    { title: "Huffman Coding", channel: "Computerphile", vid: "video_id_placeholder" },
                 ]
             }
         ];
         const QUESTIONS = [
-            { topic: "Symmetric", prompt: "Symmetric encryption uses the ___ key for encryption and decryption.", answer: "same" },
-            { topic: "RSA", prompt: "RSA security relies on the difficulty of ___ large numbers.", answer: "factoring" },
-            { topic: "Diffie-Hellman", prompt: "Diffie-Hellman relies on the ___ Logarithm problem.", answer: "discrete" },
-            { topic: "Keys", prompt: "In public key crypto, the ___ key is shared with everyone.", answer: "public" },
-            { topic: "ZK", prompt: "Zero-Knowledge proofs prove knowledge without revealing the ___.", answer: "secret", altAnswers: ["concept", "information"] },
+            { topic: "Entropy", prompt: "Entropy measures the average ___ content.", answer: "information" },
+            { topic: "Probability", prompt: "Low probability events provide ___ information.", answer: "high" },
+            { topic: "Coding", prompt: "Huffman coding assigns shorter codes to ___ frequent symbols.", answer: "more" },
+            { topic: "Channel", prompt: "The Channel Coding theorem proves transmission can be reliable even with ___.", answer: "noise", altAnswers: ["errors"] },
+            { topic: "Unit", prompt: "Information is typically measured in ___.", answer: "bits" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day98_crypto_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day78_info_v1' });
     </script>
 </body>
 

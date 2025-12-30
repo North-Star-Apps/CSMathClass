@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 97: Information Theory</title>
+    <title>Day 75: Mathematical Logic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,24 +38,24 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 97 · Theoretical CS
+            Day 75 · Theoretical CS
         </div>
-        <h1>Information Theory</h1>
-        <p class="hero-desc">The mathematics of communication. Entropy, bits, and compression.</p>
+        <h1>Mathematical Logic</h1>
+        <p class="hero-desc">The foundation of truth. First-Order Logic and Gödel's Incompleteness.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~50 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                Entropy
+                Incompleteness
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,12 +71,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#bits" class="toc-link">1. Bits & Surprise</a></li>
-                    <li><a href="#entropy" class="toc-link">2. Shannon Entropy</a></li>
-                    <li><a href="#compression" class="toc-link">3. Source Coding</a></li>
-                    <li><a href="#huffman" class="toc-link">4. Huffman Coding</a></li>
-                    <li><a href="#channel" class="toc-link">5. Channel Capacity</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: Huffman Tree</a></li>
+                    <li><a href="#fol" class="toc-link">1. First-Order Logic</a></li>
+                    <li><a href="#models" class="toc-link">2. Models & Soundness</a></li>
+                    <li><a href="#completeness" class="toc-link">3. Completeness Theorem</a></li>
+                    <li><a href="#incompleteness" class="toc-link">4. Incompleteness Theorem</a></li>
+                    <li><a href="#peano" class="toc-link">5. Peano Arithmetic</a></li>
+                    <li><a href="#code" class="toc-link">6. Python: Logical Proofs</a></li>
                     <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">8. Practice</a></li>
                 </ul>
@@ -93,78 +93,79 @@
         </aside>
 
         <main class="content">
-            <!-- Bits -->
-            <section class="section" id="bits">
+            <!-- FOL -->
+            <section class="section" id="fol">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Bits & Surprise</h2>
+                    <h2 class="section-title">First-Order Logic (FOL)</h2>
                 </div>
                 <div class="section-body">
-                    <p>What is information? It is the resolution of uncertainty.</p>
-                    <p>If I tell you "The sun rose today", learning that is low information (high probability).</p>
-                    <p>If I tell you "I won the lottery", learning that is high information (low probability).</p>
-                    <div class="math-block">
-                        I(x) = -\log_2 P(x)
-                    </div>
+                    <p>Propositional Logic: `P \implies Q`. (Boolean).</p>
+                    <p>First-Order Logic: `\forall x \exists y, P(x, y)`. Adds predicates, quantifiers, and objects.</p>
+                    <p>It is expressive enough to formalize most of mathematics (ZFC Set Theory).</p>
                 </div>
             </section>
 
-            <!-- Entropy -->
-            <section class="section" id="entropy">
+            <!-- Models -->
+            <section class="section" id="models">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Shannon Entropy</h2>
+                    <h2 class="section-title">Models, Soundness, Validity</h2>
                 </div>
                 <div class="section-body">
-                    <p>Entropy `H(X)` is the average information content of a random variable.</p>
-                    <div class="math-block">
-                        H(X) = - \sum P(x) \log_2 P(x)
-                    </div>
-                    <p>It represents the <strong>minimum average number of bits</strong> needed to encode the variable.
-                    </p>
+                    <ul>
+                        <li><strong>Syntax:</strong> The symbols written down. `P \vdash \phi` (Provable).</li>
+                        <li><strong>Semantics:</strong> The meaning/interpretation. `P \vDash \phi` (True in all
+                            models).</li>
+                        <li><strong>Soundness:</strong> If `\vdash \phi` then `\vDash \phi`. (Proofs don't lie).</li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- Compression -->
-            <section class="section" id="compression">
+            <!-- Completeness -->
+            <section class="section" id="completeness">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Source Coding Theorem</h2>
+                    <h2 class="section-title">Gödel's Completeness Theorem</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule">
-                        Theorem: You cannot compress data below its entropy without losing information.
+                        Theorem: In First-Order Logic, if `\vDash \phi`, then `\vdash \phi`.
                     </div>
-                    <p>Lossless compression (ZIP, PNG) relies on patterns to approach entropy.</p>
-                    <p>Lossy compression (JPEG, MP3) throws away "unimportant" bits to go below entropy.</p>
+                    <p>Meaning: If something is true in every possible mathematical universe, there exists a proof for
+                        it.</p>
                 </div>
             </section>
 
-            <!-- Huffman -->
-            <section class="section" id="huffman">
+            <!-- Incompleteness -->
+            <section class="section" id="incompleteness">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Huffman Coding</h2>
+                    <h2 class="section-title">Gödel's Incompleteness Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p>An algorithm to construct optimal prefix codes.</p>
-                    <p>High frequency symbols get short codes (e.g. 'e' = 0). Low frequency symbols get long codes (e.g.
-                        'z' = 1101).</p>
-                    <p>This is a Greedy Algorithm that builds a binary tree from the bottom up.</p>
+                    <p>Different from Completeness! This deals with <strong>Systems capable of Arithmetic</strong> (like
+                        PA).</p>
+                    <div class="rule">
+                        Theorem 1: Any consistent formal system `F` sufficient for arithmetic is incomplete. There exist
+                        statements `G` such that `F \not\vdash G` and `F \not\vdash \neg G`.
+                    </div>
+                    <p>`G` essentially says "I am not provable in F". If computable, it's true but unprovable.</p>
+                    <div class="rule">
+                        Theorem 2: `F` cannot prove its own consistency. `F \not\vdash Cons(F)`.
+                    </div>
                 </div>
             </section>
 
-            <!-- Channel -->
-            <section class="section" id="channel">
+            <!-- Peano -->
+            <section class="section" id="peano">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Channel Capacity</h2>
+                    <h2 class="section-title">Peano Arithmetic</h2>
                 </div>
                 <div class="section-body">
-                    <p>Noisy Channel Coding Theorem: For any channel with capacity `C`, data can be transmitted reliably
-                        at rate `R < C` using error-correcting codes.</p>
-                            <p>This birthed the digital age. Errors can be detected and corrected, making digital
-                                storage perfect.</p>
+                    <p>The standard axioms for natural numbers (Successor, Induction). It is incomplete.</p>
+                    <p>Truth in Math > Provability in Math.</p>
                 </div>
             </section>
 
@@ -172,46 +173,26 @@
             <section class="section" id="code">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: Entropy Calc</h2>
+                    <h2 class="section-title">Python: Quine (Self-Reference)</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Entropy</span>
+                            <span class="code-label">Quine</span>
                         </div>
                         <div class="code-content">
-                            <pre><code class="language-python">import math
-from collections import Counter
+                            <pre><code class="language-python"># A Quine is a program that prints its own source code.
+# This demonstrates the mechanism behind Gödel's proof:
+# "Diagonalization Lemma" allows a formula to refer to itself.
 
-def calculate_entropy(data):
-    if not data:
-        return 0
-    
-    counts = Counter(data)
-    total = len(data)
-    entropy = 0
-    
-    for count in counts.values():
-        p = count / total
-        entropy -= p * math.log2(p)
-        
-    return entropy
+s = 's = {0}{1}{0}{2}print(s.format(chr(39), s, chr(10)))'
+print(s.format(chr(39), s, chr(10)))
 
-s1 = "AAAAABBBBB" # 50/50 split
-s2 = "AAAAAAAAAB" # Highly predictable
-s3 = "ABCDEFGHIJ" # Maximum surprise
-
-print(f"Entropy s1: {calculate_entropy(s1):.2f} bits (Max 1.0)")
-print(f"Entropy s2: {calculate_entropy(s2):.2f} bits (Low)")
-print(f"Entropy s3: {calculate_entropy(s3):.2f} bits (High)")
-
-# Huffman Logic (Conceptual)
-# s2 could be encoded: A=0, B=1. 
-# Code: 0000000001 (10 bits).
-# Avg bits per symbol = 1.0. 
-# But Entropy is 0.47! 
-# Optimal block coding would do better than 1 bit per symbol.</code></pre>
+# In Logic:
+# Let P(x) be the predicate "x is the Gödel number of a provable formula".
+# We construct a sentence G <-> ~P(G).
+# G says "I am not provable".</code></pre>
                         </div>
                     </div>
                 </div>
@@ -262,21 +243,21 @@ print(f"Entropy s3: {calculate_entropy(s3):.2f} bits (High)")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Information Theory",
+                title: "Logic",
                 items: [
-                    { title: "Entropy (Shannon Information Theory)", channel: "Computerphile", vid: "video_id_placeholder" },
-                    { title: "Huffman Coding", channel: "Computerphile", vid: "video_id_placeholder" },
+                    { title: "Gödel Incompleteness", channel: "Veritasium", vid: "video_id_placeholder" },
+                    { title: "First Order Logic", channel: "TrevTutor", vid: "video_id_placeholder" },
                 ]
             }
         ];
         const QUESTIONS = [
-            { topic: "Entropy", prompt: "Entropy measures the average ___ content.", answer: "information" },
-            { topic: "Probability", prompt: "Low probability events provide ___ information.", answer: "high" },
-            { topic: "Coding", prompt: "Huffman coding assigns shorter codes to ___ frequent symbols.", answer: "more" },
-            { topic: "Channel", prompt: "The Channel Coding theorem proves transmission can be reliable even with ___.", answer: "noise", altAnswers: ["errors"] },
-            { topic: "Unit", prompt: "Information is typically measured in ___.", answer: "bits" },
+            { topic: "FOL", prompt: "First Order Logic allows quantifying over ___.", answer: "objects", altAnswers: ["variables"] },
+            { topic: "Soundness", prompt: "Soundness means if a statement is provable, it is ___.", answer: "true" },
+            { topic: "Completeness", prompt: "Gödel's Completeness Theorem links syntax (proofs) with ___.", answer: "semantics", altAnswers: ["truth"] },
+            { topic: "Incompleteness", prompt: "Any consistent system capable of arithmetic contains statements that are true but ___.", answer: "unprovable" },
+            { topic: "Self-Reference", prompt: "Gödel's proof typically relies on self-___.", answer: "reference" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day97_info_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day75_logic_v1' });
     </script>
 </body>
 
