@@ -4,711 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 38: Clean Code, Tests, Debug, Performance</title>
+    <title>Day 38: Data Structures Overview</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --surface-alt: #f5f5f4;
-            --border: #e7e5e4;
-            --border-strong: #d6d3d1;
-            --text: #1c1917;
-            --text-secondary: #57534e;
-            --text-muted: #78716c;
-            --accent: #059669;
-            --accent-light: #d1fae5;
-            --accent-dark: #047857;
-            --code-bg: #1e1e1e;
-            --code-text: #d4d4d4;
-            --success: #16a34a;
-            --success-bg: #dcfce7;
-            --error: #dc2626;
-            --error-bg: #fee2e2;
-            --warning: #d97706;
-            --warning-bg: #fef3c7;
-            --info: #0891b2;
-            --info-bg: #cffafe;
-            --radius: 8px;
-            --radius-lg: 12px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0c0c0f;
-            --surface: #16161a;
-            --surface-alt: #1c1c21;
-            --border: #2a2a32;
-            --border-strong: #3a3a44;
-            --text: #ececf1;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --accent: #34d399;
-            --accent-light: #064e3b;
-            --accent-dark: #6ee7b7;
-            --code-bg: #0f0f12;
-            --success: #86efac;
-            --success-bg: #14532d;
-            --error: #fca5a5;
-            --error-bg: #7f1d1d;
-            --warning: #fde68a;
-            --warning-bg: #78350f;
-            --info: #a5f3fc;
-            --info-bg: #164e63;
-        }
-
-        [data-theme="dark"] .nav {
-            background: rgba(22, 22, 26, 0.92);
-        }
-
-        [data-theme="dark"] .warning {
-            color: #fef3c7;
-        }
-
-        [data-theme="dark"] .warning strong {
-            color: #fef3c7;
-        }
-
-        [data-theme="dark"] .info {
-            color: #cffafe;
-        }
-
-        [data-theme="dark"] .rule {
-            color: var(--accent-dark);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 250, 249, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px;
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .nav-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            transition: all 0.15s;
-        }
-
-        .nav-back:hover {
-            background: var(--surface-alt);
-            color: var(--text);
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
-        }
-
-        .theme-toggle:hover {
-            background: var(--surface-alt);
-            color: var(--text);
-            border-color: var(--border-strong);
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px 32px;
-        }
-
-        .hero-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 6px 12px;
-            border-radius: 999px;
-            margin-bottom: 16px;
-        }
-
-        [data-theme="dark"] .hero-label {
-            color: var(--accent);
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 720px;
-            line-height: 1.6;
-        }
-
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .main-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 48px;
-        }
-
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .sidebar {
-                display: none;
-            }
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 80px;
-            align-self: start;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-        }
-
-        .toc {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-        }
-
-        .toc-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .toc-list {
-            list-style: none;
-        }
-
-        .toc-link {
-            display: block;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: all 0.15s;
-        }
-
-        .toc-link:hover {
-            color: var(--text);
-            background: var(--surface-alt);
-        }
-
-        .toc-link.active {
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent);
-        }
-
-        [data-theme="dark"] .toc-link.active {
-            color: var(--accent);
-        }
-
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            margin-top: 16px;
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            font-size: 13px;
-        }
-
-        .stats-label {
-            color: var(--text-muted);
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono);
-            color: var(--text);
-        }
-
-        .content {
-            min-width: 0;
-        }
-
-        .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
-
-        .section-header {
-            padding: 24px 28px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-number {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        .section-body {
-            padding: 24px 28px;
-        }
-
-        .subsection {
-            margin-bottom: 32px;
-        }
-
-        .subsection:last-child {
-            margin-bottom: 0;
-        }
-
-        .subsection-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .subsection-title::before {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        p {
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-        }
-
-        .math-block {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 15px;
-            color: var(--text);
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-
-        .math-inline {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            background: var(--surface-alt);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--text);
-        }
-
-        .rule {
-            background: var(--accent-light);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: var(--accent-dark);
-            font-weight: 500;
-        }
-
-        .warning {
-            background: var(--warning-bg);
-            border-left: 3px solid var(--warning);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: #92400e;
-        }
-
-        .warning strong {
-            color: #78350f;
-        }
-
-        [data-theme="dark"] .warning strong {
-            color: #fcd34d;
-        }
-
-        .info {
-            background: var(--info-bg);
-            border-left: 3px solid var(--info);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: #155e75;
-        }
-
-        ul {
-            margin: 12px 0 12px 24px;
-            color: var(--text-secondary);
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        li strong {
-            color: var(--text);
-        }
-
-        .code-block {
-            background: var(--code-bg);
-            border-radius: var(--radius);
-            margin: 16px 0;
-            overflow: hidden;
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: #2d2d2d;
-            border-bottom: 1px solid #3d3d3d;
-        }
-
-        .code-lang {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: #a1a1aa;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .code-label {
-            font-size: 12px;
-            color: #71717a;
-        }
-
-        .code-content {
-            padding: 16px 20px;
-            overflow-x: auto;
-        }
-
-        .code-content pre {
-            margin: 0;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--code-text);
-        }
-
-        .code-keyword {
-            color: #c586c0;
-        }
-
-        .code-function {
-            color: #dcdcaa;
-        }
-
-        .code-string {
-            color: #ce9178;
-        }
-
-        .code-number {
-            color: #b5cea8;
-        }
-
-        .code-comment {
-            color: #6a9955;
-        }
-
-        .quiz-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .btn:hover {
-            background: var(--surface-alt);
-            border-color: var(--border-strong);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            border-color: var(--accent-dark);
-        }
-
-        .btn-danger {
-            color: var(--error);
-            border-color: var(--error);
-        }
-
-        .btn-danger:hover {
-            background: var(--error-bg);
-        }
-
-        .question {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .question-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .question-num {
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .question-topic {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-        }
-
-        .question-prompt {
-            font-family: var(--font-mono);
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text);
-            background: var(--surface);
-            padding: 16px 20px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        .question-input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .question-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px 16px;
-            font-family: var(--font-mono);
-            font-size: 15px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--surface);
-            color: var(--text);
-            outline: none;
-            transition: border-color 0.15s;
-        }
-
-        .question-input:focus {
-            border-color: var(--accent);
-        }
-
-        .question-input.correct {
-            border-color: var(--success);
-            background: var(--success-bg);
-        }
-
-        .question-input.incorrect {
-            border-color: var(--error);
-            background: var(--error-bg);
-        }
-
-        .question-result {
-            margin-top: 12px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .question-result .success {
-            color: var(--success);
-        }
-
-        .question-result .error {
-            color: var(--error);
-        }
-
-        .question-answer {
-            margin-top: 8px;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            display: inline-block;
-        }
-
-        [data-theme="dark"] .question-answer {
-            color: var(--accent);
-        }
-
-        @media (max-width: 600px) {
-            .hero {
-                padding: 32px 16px 24px;
-            }
-
-            .main-layout {
-                padding: 0 16px 60px;
-            }
-
-            .section-header,
-            .section-body {
-                padding: 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../shared-styles.css">
     <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
@@ -722,16 +24,12 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 12 complete</span>
+                <span id="progressText">0 / 10 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
         </div>
     </nav>
 
@@ -742,14 +40,32 @@
             </svg>
             Day 38 · Algorithms
         </div>
-        <h1>Clean Code, Tests, Debug, Performance</h1>
+        <h1>Data Structures Overview</h1>
         <p class="hero-desc">
-            Master foundational programming practices: readable code, rigorous testing, systematic debugging, and wise
-            optimization.
+            The building blocks of efficient algorithms: choosing the right data structure
+            can mean the difference between O(n²) and O(n log n).
         </p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min read</div>
-            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~40 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                10 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Video lessons
+            </div>
         </div>
     </header>
 
@@ -758,251 +74,279 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#clean" class="toc-link">1. Clean Code</a></li>
-                    <li><a href="#solid" class="toc-link">2. SOLID Principles</a></li>
-                    <li><a href="#testing" class="toc-link">3. Testing Strategies</a></li>
-                    <li><a href="#debugging" class="toc-link">4. Debugging</a></li>
-                    <li><a href="#performance" class="toc-link">5. Performance</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#why" class="toc-link">Why Data Structures</a></li>
+                    <li><a href="#arrays" class="toc-link">1. Arrays</a></li>
+                    <li><a href="#stacks" class="toc-link">2. Stacks & Queues</a></li>
+                    <li><a href="#hashing" class="toc-link">3. Hash Tables</a></li>
+                    <li><a href="#complexity" class="toc-link">4. Complexity Chart</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
+
             <div class="stats-card">
                 <div class="toc-title">Your Progress</div>
-                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
-                        id="statAttempted">0</span></div>
-                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
-                        id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
+                <div class="stats-row">
+                    <span class="stats-label">Attempted</span>
+                    <span class="stats-value" id="statAttempted">0</span>
+                </div>
+                <div class="stats-row">
+                    <span class="stats-label">Correct</span>
+                    <span class="stats-value" id="statCorrect">0</span>
+                </div>
+                <div class="stats-row">
+                    <span class="stats-label">Accuracy</span>
+                    <span class="stats-value" id="statAccuracy">—</span>
+                </div>
             </div>
         </aside>
 
         <main class="content">
-            <!-- Clean Code -->
-            <section class="section" id="clean">
+            <!-- Why Data Structures -->
+            <section class="section" id="why">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Clean Code Principles</h2>
+                    <div class="section-number">Section 0</div>
+                    <h2 class="section-title">Why Data Structures Matter</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Why clean code matters</h3>
-                        <p>Code is read far more often than it's written. Every hour spent writing clear code saves ten
-                            hours of debugging and maintenance later.</p>
-                        <div class="rule"><strong>The goal:</strong> Code should read like well-written prose. If you
-                            need comments to explain what it does, the code itself isn't clear enough.</div>
+                    <p>
+                        A data structure is a way of organizing data so that it can be used efficiently.
+                        The choice of data structure often determines the efficiency of an algorithm.
+                    </p>
+
+                    <div class="rule">
+                        <strong>Key Insight:</strong> The right data structure can transform an O(n²) algorithm
+                        into O(n log n) or even O(n). Always choose based on your access patterns.
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">Naming conventions</h3>
+                        <h3 class="subsection-title">Common Operations to Consider</h3>
                         <ul>
-                            <li><strong>Variables:</strong> Nouns that describe what they hold — <span
-                                    class="math-inline">userCount</span>, <span class="math-inline">maxRetries</span>
-                            </li>
-                            <li><strong>Functions:</strong> Verbs that describe what they do — <span
-                                    class="math-inline">getUserById()</span>, <span
-                                    class="math-inline">calculateTotal()</span></li>
-                            <li><strong>Booleans:</strong> Predicates — <span class="math-inline">isValid</span>, <span
-                                    class="math-inline">hasPermission</span>, <span class="math-inline">canEdit</span>
-                            </li>
-                            <li><strong>Classes:</strong> Nouns — <span class="math-inline">UserRepository</span>, <span
-                                    class="math-inline">PaymentProcessor</span></li>
+                            <li><strong>Access:</strong> How fast can we get element i?</li>
+                            <li><strong>Search:</strong> How fast can we find element x?</li>
+                            <li><strong>Insert:</strong> How fast can we add a new element?</li>
+                            <li><strong>Delete:</strong> How fast can we remove an element?</li>
                         </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Function guidelines</h3>
-                        <div class="math-block">FUNCTIONS SHOULD:
-                            • Be small (< 20 lines ideal) • Do one thing and do it well • Have few arguments (0-2 ideal,
-                                3 max) • Follow command-query separation • Have no side effects (when possible)</div>
-                                <div class="code-block">
-                                    <div class="code-header"><span class="code-lang">Python</span><span
-                                            class="code-label">Good vs Bad naming</span></div>
-                                    <div class="code-content">
-                                        <pre><span class="code-comment"># Bad: What does this do?</span>
-<span class="code-keyword">def</span> <span class="code-function">proc</span>(d, f):
-    <span class="code-keyword">return</span> [x <span class="code-keyword">for</span> x <span class="code-keyword">in</span> d <span class="code-keyword">if</span> f(x)]
-
-<span class="code-comment"># Good: Crystal clear intent</span>
-<span class="code-keyword">def</span> <span class="code-function">filter_active_users</span>(users, is_active):
-    <span class="code-keyword">return</span> [user <span class="code-keyword">for</span> user <span class="code-keyword">in</span> users <span class="code-keyword">if</span> is_active(user)]</pre>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-            </section>
-
-            <!-- SOLID -->
-            <section class="section" id="solid">
-                <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">SOLID Principles</h2>
-                </div>
-                <div class="section-body">
-                    <p>Five principles for maintainable object-oriented design:</p>
-                    <div class="math-block">S — Single Responsibility: One class, one reason to change
-                        O — Open/Closed: Open for extension, closed for modification
-                        L — Liskov Substitution: Subtypes must be substitutable
-                        I — Interface Segregation: Many specific interfaces > one general
-                        D — Dependency Inversion: Depend on abstractions, not concretions</div>
-
-                    <div class="warning">
-                        <strong>Common violation:</strong> A <span class="math-inline">User</span> class that handles
-                        authentication, database access, AND email sending. Split these into <span
-                            class="math-inline">Authenticator</span>, <span class="math-inline">UserRepository</span>,
-                        and <span class="math-inline">EmailService</span>.
                     </div>
 
                     <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span
-                                class="code-label">Dependency Inversion example</span></div>
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Choosing the right structure matters</span>
+                        </div>
                         <div class="code-content">
-                            <pre><span class="code-comment"># Bad: Concrete dependency</span>
-<span class="code-keyword">class</span> <span class="code-function">OrderService</span>:
-    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
-        self.db = MySQLDatabase()  <span class="code-comment"># Locked to MySQL!</span>
+                            <pre><span class="code-comment"># Bad: O(n) lookup in list</span>
+<span class="code-keyword">def</span> <span class="code-function">find_in_list</span>(items, target):
+    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:  <span class="code-comment"># O(n)</span>
+        <span class="code-keyword">if</span> item == target:
+            <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+    <span class="code-keyword">return</span> <span class="code-keyword">False</span>
 
-<span class="code-comment"># Good: Depend on abstraction</span>
-<span class="code-keyword">class</span> <span class="code-function">OrderService</span>:
-    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, database: Database):
-        self.db = database  <span class="code-comment"># Any database works!</span></pre>
+<span class="code-comment"># Good: O(1) lookup in set</span>
+<span class="code-keyword">def</span> <span class="code-function">find_in_set</span>(items_set, target):
+    <span class="code-keyword">return</span> target <span class="code-keyword">in</span> items_set  <span class="code-comment"># O(1) average!</span></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Testing -->
-            <section class="section" id="testing">
+            <!-- Arrays -->
+            <section class="section" id="arrays">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Testing Strategies</h2>
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Arrays</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The testing pyramid</h3>
-                        <div class="math-block"> /\ E2E Tests (few, slow, expensive)
-                            / \
-                            /----\ Integration Tests (some)
-                            / \
-                            /--------\ Unit Tests (many, fast, cheap)</div>
-                        <p>Unit tests form the foundation. They're fast, isolated, and catch bugs early. Integration
-                            tests verify components work together. E2E tests validate complete user flows.</p>
+                        <h3 class="subsection-title">Fixed-size Arrays</h3>
+                        <p>Contiguous memory block. O(1) access by index, but O(n) insert/delete.</p>
+                        <div class="math-block">Array[i] address = base + (i × element_size)</div>
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">The AAA pattern</h3>
-                        <div class="rule"><strong>Arrange → Act → Assert:</strong> Set up the test, perform the action,
-                            verify the result.</div>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">AAA
-                                    pattern in action</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">test_add_item_to_cart</span>():
-    <span class="code-comment"># Arrange</span>
-    cart = ShoppingCart()
-    item = Product(<span class="code-string">"Widget"</span>, price=<span class="code-number">9.99</span>)
-    
-    <span class="code-comment"># Act</span>
-    cart.add(item)
-    
-    <span class="code-comment"># Assert</span>
-    <span class="code-keyword">assert</span> len(cart.items) == <span class="code-number">1</span>
-    <span class="code-keyword">assert</span> cart.total == <span class="code-number">9.99</span></pre>
-                            </div>
+                        <h3 class="subsection-title">Dynamic Arrays (Python list, Java ArrayList)</h3>
+                        <p>Automatically resize when full. Amortized O(1) append, O(n) insert at arbitrary position.</p>
+                        <div class="warning">
+                            <strong>Gotcha:</strong> Inserting at the front of a dynamic array is O(n) —
+                            every element must shift. Use a deque if you need fast front insertion.
                         </div>
                     </div>
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">What to test</h3>
-                        <ul>
-                            <li><strong>Happy path:</strong> Normal expected usage</li>
-                            <li><strong>Edge cases:</strong> Empty inputs, nulls, maximum values</li>
-                            <li><strong>Error conditions:</strong> Invalid inputs, network failures</li>
-                            <li><strong>Boundary conditions:</strong> Off-by-one, limits</li>
-                        </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Array operations and their costs</span>
+                        </div>
+                        <div class="code-content">
+                            <pre>arr = [<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>]
+
+<span class="code-comment"># O(1) - Direct access</span>
+x = arr[<span class="code-number">2</span>]        <span class="code-comment"># 3</span>
+
+<span class="code-comment"># O(1) amortized - Append</span>
+arr.append(<span class="code-number">6</span>)    <span class="code-comment"># [1, 2, 3, 4, 5, 6]</span>
+
+<span class="code-comment"># O(n) - Insert at position</span>
+arr.insert(<span class="code-number">0</span>, <span class="code-number">0</span>) <span class="code-comment"># [0, 1, 2, 3, 4, 5, 6] - shifts all!</span>
+
+<span class="code-comment"># O(n) - Search</span>
+idx = arr.index(<span class="code-number">3</span>) <span class="code-comment"># Linear scan to find</span></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Debugging -->
-            <section class="section" id="debugging">
+            <!-- Stacks & Queues -->
+            <section class="section" id="stacks">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Systematic Debugging</h2>
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Stacks & Queues</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The scientific method</h3>
-                        <div class="math-block">1. OBSERVE — Reproduce the bug reliably
-                            2. HYPOTHESIZE — Form a theory about the cause
-                            3. PREDICT — What should happen if hypothesis is true?
-                            4. EXPERIMENT — Test your prediction
-                            5. ANALYZE — Refine hypothesis and repeat</div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Debugging techniques</h3>
-                        <ul>
-                            <li><strong>Binary search:</strong> Halve the problem space each step</li>
-                            <li><strong>Rubber duck:</strong> Explain the code line by line out loud</li>
-                            <li><strong>Print debugging:</strong> Strategic logging to trace execution</li>
-                            <li><strong>Breakpoints:</strong> Pause execution and inspect state</li>
-                            <li><strong>Git bisect:</strong> Find the commit that introduced the bug</li>
-                        </ul>
+                    <div class="two-col">
+                        <div class="subsection">
+                            <h3 class="subsection-title">Stack (LIFO)</h3>
+                            <div class="math-block">push(x): Add to top
+                                pop(): Remove from top
+                                peek(): View top
+                                All O(1)</div>
+                            <p>Use cases: function calls, undo, parsing parentheses</p>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Queue (FIFO)</h3>
+                            <div class="math-block">enqueue(x): Add to back
+                                dequeue(): Remove from front
+                                peek(): View front
+                                All O(1)*</div>
+                            <p>Use cases: BFS, task scheduling, buffers</p>
+                        </div>
                     </div>
 
                     <div class="info">
-                        <strong>Pro tip:</strong> When you find a bug, write a test that reproduces it BEFORE you fix
-                        it. This prevents regression and proves the fix works.
+                        <strong>*Note:</strong> Queue with array needs circular buffer for O(1) dequeue,
+                        or use linked list. Python's <span class="math-inline">collections.deque</span> handles this.
                     </div>
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common bug patterns</h3>
-                        <ul>
-                            <li><strong>Off-by-one:</strong> Loop bounds, array indices</li>
-                            <li><strong>Null/undefined access:</strong> Missing null checks</li>
-                            <li><strong>Mutation bugs:</strong> Unexpected state changes</li>
-                            <li><strong>Race conditions:</strong> Timing-dependent failures</li>
-                        </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Stack and Queue implementations</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">from</span> collections <span class="code-keyword">import</span> deque
+
+<span class="code-comment"># Stack (use list)</span>
+stack = []
+stack.append(<span class="code-number">1</span>)      <span class="code-comment"># push</span>
+stack.append(<span class="code-number">2</span>)
+top = stack.pop()    <span class="code-comment"># 2</span>
+
+<span class="code-comment"># Queue (use deque)</span>
+queue = deque()
+queue.append(<span class="code-number">1</span>)      <span class="code-comment"># enqueue</span>
+queue.append(<span class="code-number">2</span>)
+front = queue.popleft()  <span class="code-comment"># 1 - O(1)!</span></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Performance -->
-            <section class="section" id="performance">
+            <!-- Hash Tables -->
+            <section class="section" id="hashing">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Performance Optimization</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Hash Tables</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Knuth's law:</strong> "Premature optimization is the root of all evil."
-                        First make it work, then make it right, then make it fast.</div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Big-O reference</h3>
-                        <div class="math-block">O(1) — HashMap lookup, array access
-                            O(log n) — Binary search, balanced tree ops
-                            O(n) — Linear scan, single loop
-                            O(n log n) — Merge sort, heap sort
-                            O(n²) — Nested loops, bubble sort
-                            O(2ⁿ) — Subsets, naive recursion
-                            O(n!) — Permutations, brute force</div>
+                    <div class="rule">
+                        <strong>Hash Table:</strong> Maps keys to values using a hash function.
+                        Average O(1) for insert, delete, and lookup!
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">Optimization strategies</h3>
-                        <ul>
-                            <li><strong>Better algorithm:</strong> Always beats micro-optimization</li>
-                            <li><strong>Caching:</strong> Trade memory for speed</li>
-                            <li><strong>Lazy evaluation:</strong> Don't compute until needed</li>
-                            <li><strong>Batching:</strong> Reduce overhead with bulk operations</li>
-                            <li><strong>Right data structure:</strong> HashSet for lookups, not List</li>
-                        </ul>
+                        <h3 class="subsection-title">How it works</h3>
+                        <div class="math-block">1. hash(key) → integer
+                            2. index = hash(key) % table_size
+                            3. Store (key, value) at that index
+                            4. Handle collisions (chaining or probing)</div>
                     </div>
 
                     <div class="warning">
-                        <strong>Measure first!</strong> Always profile before optimizing. Your intuition about
-                        bottlenecks is often wrong.
+                        <strong>Worst case is O(n)</strong> if many collisions. Good hash functions
+                        and proper load factor (typically &lt; 0.75) keep performance at O(1).
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Python dict is a hash table</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-comment"># Python dict = hash table</span>
+counts = {}
+counts[<span class="code-string">"apple"</span>] = <span class="code-number">3</span>    <span class="code-comment"># O(1) insert</span>
+counts[<span class="code-string">"banana"</span>] = <span class="code-number">5</span>
+
+<span class="code-comment"># O(1) lookup</span>
+<span class="code-keyword">print</span>(counts[<span class="code-string">"apple"</span>])  <span class="code-comment"># 3</span>
+
+<span class="code-comment"># O(1) membership test</span>
+<span class="code-keyword">if</span> <span class="code-string">"apple"</span> <span class="code-keyword">in</span> counts:
+    <span class="code-keyword">print</span>(<span class="code-string">"Found!"</span>)
+
+<span class="code-comment"># Set = hash table with only keys</span>
+seen = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>}
+<span class="code-keyword">print</span>(<span class="code-number">2</span> <span class="code-keyword">in</span> seen)  <span class="code-comment"># True, O(1)</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complexity Chart -->
+            <section class="section" id="complexity">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Complexity Comparison</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">
+                        DATA STRUCTURE | ACCESS | SEARCH | INSERT | DELETE
+                        ------------------|---------|---------|---------|--------
+                        Array | O(1) | O(n) | O(n) | O(n)
+                        Dynamic Array | O(1) | O(n) | O(n)* | O(n)
+                        Stack | O(n) | O(n) | O(1) | O(1)
+                        Queue | O(n) | O(n) | O(1) | O(1)
+                        Hash Table | N/A | O(1)† | O(1)† | O(1)†
+                        Linked List | O(n) | O(n) | O(1)‡ | O(1)‡
+
+                        * O(1) amortized for append
+                        † Average case; O(n) worst case
+                        ‡ O(1) if you have the node; O(n) to find it</div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Curated explanations from top educators. Click any video to watch.
+                    </p>
+
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
                     </div>
                 </div>
             </section>
@@ -1014,145 +358,69 @@
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <p>Type your answer and press Check (or hit Enter).</p>
+                    <p>
+                        Type your answer and press Check (or hit Enter).
+                    </p>
+
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
-                        <button class="btn" id="btnClear">Clear</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
                         <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
+
                     <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
 
+    <script src="../shared-scripts.js"></script>
     <script>
-        const QUESTIONS = [
-            { id: 1, topic: "Clean Code", prompt: "SOLID: S stands for Single ___", answer: "Responsibility" },
-            { id: 2, topic: "Clean Code", prompt: "DRY stands for Don't ___ Yourself", answer: "Repeat" },
-            { id: 3, topic: "SOLID", prompt: "SOLID: O stands for Open/___", answer: "Closed" },
-            { id: 4, topic: "SOLID", prompt: "SOLID: D stands for Dependency ___", answer: "Inversion" },
-            { id: 5, topic: "Testing", prompt: "AAA pattern: Arrange, Act, ___", answer: "Assert" },
-            { id: 6, topic: "Testing", prompt: "Base of testing pyramid: ___ tests", answer: "Unit" },
-            { id: 7, topic: "Debugging", prompt: "Explain code to a rubber ___", answer: "Duck" },
-            { id: 8, topic: "Debugging", prompt: "Off-by-___ error is common with loops", answer: "One" },
-            { id: 9, topic: "Performance", prompt: "HashMap lookup time complexity: O(___)", answer: "1" },
-            { id: 10, topic: "Performance", prompt: "Binary search time complexity: O(___ n)", answer: "log" },
-            { id: 11, topic: "Performance", prompt: "Merge sort time complexity: O(n ___ n)", answer: "log" },
-            { id: 12, topic: "Clean Code", prompt: "Functions should do ___ thing well", answer: "One" },
+        // Lesson-specific configuration
+        const VIDEO_GROUPS = [
+            {
+                title: "Data Structures Overview",
+                items: [
+                    { title: "CS50 — Data Structures", channel: "CS50", vid: "X8h4dq9Hzq8" },
+                    { title: "Data Structures Easy to Advanced", channel: "freeCodeCamp", vid: "RBSGKlAvoiM" },
+                ]
+            },
+            {
+                title: "Arrays & Lists",
+                items: [
+                    { title: "Arrays vs Linked Lists", channel: "Computerphile", vid: "DyG9S9nAlUM" },
+                    { title: "Dynamic Arrays", channel: "WilliamFiset", vid: "tvw4v7FEF1w" },
+                ]
+            },
+            {
+                title: "Hash Tables",
+                items: [
+                    { title: "Hash Tables Explained", channel: "Computerphile", vid: "shs0KM3wKv8" },
+                    { title: "Hash Tables in Python", channel: "CS Dojo", vid: "ea8BRGxGmlA" },
+                ]
+            }
         ];
 
-        const LS_KEY = "day38_clean_code_v1";
-        let stats = loadStats();
-        let sessionCorrect = 0;
-        let sessionAttempted = 0;
+        const QUESTIONS = [
+            { topic: "Arrays", prompt: "Array access by index is O(___)", answer: "1" },
+            { topic: "Arrays", prompt: "Insert at front of dynamic array is O(___)", answer: "n" },
+            { topic: "Stack", prompt: "Stack follows ___ order (acronym)", answer: "lifo", altAnswers: ["last in first out"] },
+            { topic: "Queue", prompt: "Queue follows ___ order (acronym)", answer: "fifo", altAnswers: ["first in first out"] },
+            { topic: "Hash", prompt: "Hash table average lookup is O(___)", answer: "1" },
+            { topic: "Hash", prompt: "Hash table worst-case lookup is O(___)", answer: "n" },
+            { topic: "Hash", prompt: "Python dict is a ___ table", answer: "hash" },
+            { topic: "Stack", prompt: "Use stack for ___ function calls", answer: "tracking", altAnswers: ["managing", "handling"] },
+            { topic: "Queue", prompt: "BFS uses a ___", answer: "queue" },
+            { topic: "General", prompt: "Set membership test is O(___) average", answer: "1" },
+        ];
 
-        function loadStats() {
-            try { return JSON.parse(localStorage.getItem(LS_KEY)) || { attempted: 0, correct: 0 }; }
-            catch { return { attempted: 0, correct: 0 }; }
-        }
-        function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
-
-        function updateStatsUI() {
-            document.getElementById("statAttempted").textContent = stats.attempted;
-            document.getElementById("statCorrect").textContent = stats.correct;
-            document.getElementById("statAccuracy").textContent = stats.attempted > 0 ? `${Math.round((stats.correct / stats.attempted) * 100)}%` : "—";
-            const pct = Math.round((sessionCorrect / QUESTIONS.length) * 100);
-            document.getElementById("progressText").textContent = `${sessionCorrect} / ${QUESTIONS.length} complete`;
-            document.getElementById("progressFill").style.width = `${pct}%`;
-        }
-
-        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
-        function isCorrect(input, answer) { return normalize(input) === normalize(answer); }
-
-        function renderQuiz() {
-            const container = document.getElementById("quizContainer");
-            container.innerHTML = "";
-            QUESTIONS.forEach(q => {
-                const div = document.createElement("div");
-                div.className = "question";
-                div.innerHTML = `
-          <div class="question-header">
-            <span class="question-num">Q${q.id}</span>
-            <span class="question-topic">${q.topic}</span>
-          </div>
-          <div class="question-prompt">${q.prompt}</div>
-          <div class="question-input-row">
-            <input type="text" class="question-input" placeholder="Your answer..."/>
-            <button class="btn btn-primary btn-check">Check</button>
-            <button class="btn btn-show">Show</button>
-          </div>
-          <div class="question-result"></div>
-        `;
-                const input = div.querySelector(".question-input");
-                const result = div.querySelector(".question-result");
-                const btnCheck = div.querySelector(".btn-check");
-                const btnShow = div.querySelector(".btn-show");
-
-                btnCheck.addEventListener("click", () => {
-                    stats.attempted++; sessionAttempted++;
-                    if (isCorrect(input.value, q.answer)) {
-                        stats.correct++; sessionCorrect++;
-                        input.classList.add("correct"); input.classList.remove("incorrect");
-                        result.innerHTML = `<span class="success">✓ Correct</span>`;
-                    } else {
-                        input.classList.add("incorrect"); input.classList.remove("correct");
-                        result.innerHTML = `<span class="error">✗ Not quite right</span>`;
-                    }
-                    saveStats(); updateStatsUI();
-                });
-                input.addEventListener("keydown", e => { if (e.key === "Enter") btnCheck.click(); });
-                btnShow.addEventListener("click", () => { result.innerHTML = `<div class="question-answer">Answer: ${q.answer}</div>`; });
-                container.appendChild(div);
-            });
-        }
-
-        document.getElementById("btnCheckAll").addEventListener("click", () => document.querySelectorAll(".btn-check").forEach(b => b.click()));
-        document.getElementById("btnRevealAll").addEventListener("click", () => document.querySelectorAll(".btn-show").forEach(b => b.click()));
-        document.getElementById("btnClear").addEventListener("click", () => {
-            document.querySelectorAll(".question").forEach(div => {
-                div.querySelector(".question-input").value = "";
-                div.querySelector(".question-input").classList.remove("correct", "incorrect");
-                div.querySelector(".question-result").innerHTML = "";
-            });
-            sessionCorrect = 0; sessionAttempted = 0; updateStatsUI();
+        // Initialize the lesson
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: QUESTIONS,
+            storageKey: 'day38_ds_overview_v1'
         });
-        document.getElementById("btnReset").addEventListener("click", () => {
-            if (!confirm("Reset all saved stats?")) return;
-            stats = { attempted: 0, correct: 0 }; saveStats();
-            sessionCorrect = 0; sessionAttempted = 0; updateStatsUI();
-        });
-
-        // TOC highlighting
-        const tocLinks = document.querySelectorAll(".toc-link");
-        const sections = document.querySelectorAll(".section");
-        function updateTocHighlight() {
-            let current = "";
-            sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
-            tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
-        }
-        window.addEventListener("scroll", updateTocHighlight);
-
-        // Theme toggle
-        const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-        const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-        const themeToggle = document.getElementById('themeToggle');
-        function updateThemeIcon() {
-            themeToggle.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? sunIcon : moonIcon;
-        }
-        themeToggle.addEventListener('click', () => {
-            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('math_cs_theme', next);
-            updateThemeIcon();
-        });
-        updateThemeIcon();
-
-        // Init
-        renderQuiz();
-        updateStatsUI();
-        updateTocHighlight();
     </script>
 </body>
 

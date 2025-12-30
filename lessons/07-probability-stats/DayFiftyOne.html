@@ -5,409 +5,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 51: Common Distributions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #fff;
-            --surface-alt: #f5f5f4;
-            --border: #e7e5e4;
-            --text: #1c1917;
-            --text-secondary: #57534e;
-            --text-muted: #78716c;
-            --accent: #059669;
-            --accent-light: #d1fae5;
-            --accent-dark: #047857;
-            --code-bg: #1e1e1e;
-            --success: #16a34a;
-            --success-bg: #dcfce7;
-            --error: #dc2626;
-            --error-bg: #fee2e2;
-            --warning: #d97706;
-            --warning-bg: #fef3c7;
-            --info: #0891b2;
-            --info-bg: #cffafe;
-            --radius: 8px;
-            --radius-lg: 12px;
-            --font-serif: 'Source Serif 4', serif;
-            --font-sans: 'DM Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace
-        }
-
-        [data-theme="dark"] {
-            --bg: #0c0c0f;
-            --surface: #16161a;
-            --surface-alt: #1c1c21;
-            --border: #2a2a32;
-            --text: #ececf1;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --accent: #34d399;
-            --accent-light: #064e3b;
-            --accent-dark: #6ee7b7
-        }
-
-        [data-theme="dark"] .nav {
-            background: rgba(22, 22, 26, 0.92)
-        }
-
-        [data-theme="dark"] .warning {
-            color: #fef3c7
-        }
-
-        [data-theme="dark"] .info {
-            color: #cffafe
-        }
-
-        [data-theme="dark"] .rule {
-            color: var(--accent-dark)
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 250, 249, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
-        .nav-back {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px
-        }
-
-        .hero-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 6px 12px;
-            border-radius: 999px;
-            margin-bottom: 16px;
-            display: inline-block
-        }
-
-        [data-theme="dark"] .hero-label {
-            color: var(--accent)
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 44px);
-            font-weight: 700;
-            margin-bottom: 16px
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 720px
-        }
-
-        .main-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 48px
-        }
-
-        @media(max-width:900px) {
-            .main-layout {
-                grid-template-columns: 1fr
-            }
-
-            .sidebar {
-                display: none
-            }
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 80px
-        }
-
-        .toc {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px
-        }
-
-        .toc-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 12px
-        }
-
-        .toc-list {
-            list-style: none
-        }
-
-        .toc-link {
-            display: block;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius)
-        }
-
-        .toc-link.active {
-            color: var(--accent-dark);
-            background: var(--accent-light)
-        }
-
-        [data-theme="dark"] .toc-link.active {
-            color: var(--accent)
-        }
-
-        .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            overflow: hidden
-        }
-
-        .section-header {
-            padding: 24px 28px;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .section-number {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--accent);
-            margin-bottom: 4px
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 700
-        }
-
-        .section-body {
-            padding: 24px 28px
-        }
-
-        .subsection {
-            margin-bottom: 32px
-        }
-
-        .subsection:last-child {
-            margin-bottom: 0
-        }
-
-        .subsection-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px
-        }
-
-        p {
-            margin-bottom: 12px;
-            color: var(--text-secondary)
-        }
-
-        .math-block {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 14px;
-            white-space: pre-wrap;
-            overflow-x: auto
-        }
-
-        .rule {
-            background: var(--accent-light);
-            border-left: 3px solid var(--accent);
-            padding: 16px;
-            margin: 16px 0;
-            color: var(--accent-dark);
-            font-weight: 500
-        }
-
-        .warning {
-            background: var(--warning-bg);
-            border-left: 3px solid var(--warning);
-            padding: 16px;
-            margin: 16px 0;
-            color: #92400e
-        }
-
-        .info {
-            background: var(--info-bg);
-            border-left: 3px solid var(--info);
-            padding: 16px;
-            margin: 16px 0;
-            color: #155e75
-        }
-
-        .quiz-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .btn {
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff
-        }
-
-        .question {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 16px
-        }
-
-        .question-num {
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 12px
-        }
-
-        .question-prompt {
-            font-family: var(--font-mono);
-            font-size: 15px;
-            background: var(--surface);
-            padding: 16px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            margin-bottom: 16px
-        }
-
-        .question-input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap
-        }
-
-        .question-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px;
-            font-family: var(--font-mono);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--surface);
-            color: var(--text)
-        }
-
-        .question-input.correct {
-            border-color: var(--success);
-            background: var(--success-bg)
-        }
-
-        .question-input.incorrect {
-            border-color: var(--error);
-            background: var(--error-bg)
-        }
-
-        .question-result {
-            margin-top: 12px
-        }
-
-        .success {
-            color: var(--success)
-        }
-
-        .error {
-            color: var(--error)
-        }
-
-        .question-answer {
-            font-family: var(--font-mono);
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            display: inline-block;
-            margin-top: 8px
-        }
-
-        [data-theme="dark"] .question-answer {
-            color: var(--accent)
-        }
-    </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
-                id="themeToggle">🌙</button></div>
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 10 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        </div>
     </nav>
+
     <header class="hero">
-        <div class="hero-label">Day 51 · Distributions</div>
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 51 · Probability
+        </div>
         <h1>Common Distributions</h1>
-        <p class="hero-desc">The named probability distributions that model real-world phenomena.</p>
+        <p class="hero-desc">Bernoulli, Binomial, Geometric, Poisson, Normal, and more.</p>
     </header>
+
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
@@ -415,11 +51,21 @@
                 <ul class="toc-list">
                     <li><a href="#discrete" class="toc-link">1. Discrete</a></li>
                     <li><a href="#continuous" class="toc-link">2. Continuous</a></li>
-                    <li><a href="#summary" class="toc-link">3. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">3. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">4. Practice</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
+
         <main class="content">
             <section class="section" id="discrete">
                 <div class="section-header">
@@ -427,21 +73,20 @@
                     <h2 class="section-title">Discrete Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">BERNOULLI(p): Single trial, success prob p
-                        P(X=1) = p, P(X=0) = 1-p
+                    <div class="math-block">BERNOULLI(p): One trial, success prob p
                         E[X] = p, Var(X) = p(1-p)
 
-                        BINOMIAL(n,p): n independent Bernoulli trials
-                        P(X=k) = C(n,k) · p^k · (1-p)^(n-k)
+                        BINOMIAL(n,p): n trials, count successes
+                        P(X=k) = C(n,k) p^k (1-p)^(n-k)
                         E[X] = np, Var(X) = np(1-p)
 
                         GEOMETRIC(p): Trials until first success
-                        P(X=k) = (1-p)^(k-1) · p
-                        E[X] = 1/p, Var(X) = (1-p)/p²
+                        P(X=k) = (1-p)^(k-1) p
+                        E[X] = 1/p
 
-                        POISSON(λ): Events in fixed interval
-                        P(X=k) = e^(-λ) · λ^k / k!
-                        E[X] = λ, Var(X) = λ</div>
+                        POISSON(λ): Events in interval
+                        P(X=k) = λ^k e^(-λ) / k!
+                        E[X] = Var(X) = λ</div>
                 </div>
             </section>
 
@@ -451,65 +96,90 @@
                     <h2 class="section-title">Continuous Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">UNIFORM(a,b): Equally likely in [a,b]
+                    <div class="math-block">UNIFORM(a,b): Equal probability on [a,b]
                         f(x) = 1/(b-a)
                         E[X] = (a+b)/2, Var(X) = (b-a)²/12
 
                         EXPONENTIAL(λ): Time between Poisson events
-                        f(x) = λe^(-λx) for x ≥ 0
+                        f(x) = λe^(-λx), x ≥ 0
                         E[X] = 1/λ, Var(X) = 1/λ²
-                        Memoryless property!
 
-                        NORMAL(μ,σ²): Bell curve (Gaussian)
-                        f(x) = (1/(σ√(2π))) · e^(-(x-μ)²/(2σ²))
+                        NORMAL(μ,σ²): Bell curve
+                        f(x) = (1/σ√(2π)) e^(-(x-μ)²/(2σ²))
                         E[X] = μ, Var(X) = σ²
-                        68-95-99.7 rule for ±1,2,3 σ</div>
-                    <div class="info"><strong>Standard Normal N(0,1):</strong> Z = (X-μ)/σ. Use Z-tables or software for
-                        probabilities.</div>
+
+                        STANDARD NORMAL: N(0,1)
+                        Z = (X - μ)/σ</div>
+
+                    <div class="info"><strong>Central Limit Theorem:</strong> Sum of many independent RVs → Normal!
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="summary">
+            <section class="section" id="videos">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Quick Reference</h2>
+                    <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">DISTRIBUTION E[X] Var(X)
-                        Bernoulli(p) p p(1-p)
-                        Binomial(n,p) np np(1-p)
-                        Geometric(p) 1/p (1-p)/p²
-                        Poisson(λ) λ λ
-                        Uniform(a,b) (a+b)/2 (b-a)²/12
-                        Exponential(λ) 1/λ 1/λ²
-                        Normal(μ,σ²) μ σ²</div>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
 
             <section class="section" id="practice">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Practice</h2>
+                    <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
-                    <div id="quiz"></div>
+                    <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
+
+    <script src="../shared-scripts.js"></script>
     <script>
-        const Q = [{ q: "Bernoulli: E[X] = ___", a: "p" }, { q: "Binomial(n,p): E[X] = ___", a: "np" }, { q: "Geometric: E[X] = 1/___", a: "p" }, { q: "Poisson(λ): E[X] = Var(X) = ___", a: "λ" }, { q: "Normal: 68% within ±___ σ", a: "1" }, { q: "Exponential has ___ property", a: "memoryless" }, { q: "Standard normal has μ=0 and σ=___", a: "1" }, { q: "Uniform(a,b): E[X] = (a+___)/2", a: "b" }];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
-        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-num">Q${i + 1}</div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { if (norm(inp.value) === norm(q.a)) { inp.classList.add("correct"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); res.innerHTML = `<span class="error">✗</span>`; } }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
-        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); };
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-        render();
+        const VIDEO_GROUPS = [
+            {
+                title: "Distributions",
+                items: [
+                    { title: "Binomial Distribution", channel: "StatQuest", vid: "8idr1WZ1A7Q" },
+                    { title: "Normal Distribution", channel: "3Blue1Brown", vid: "zeJD6dqJ5lo" },
+                    { title: "Poisson Distribution", channel: "StatQuest", vid: "jmqZG6roVqU" },
+                ]
+            }
+        ];
+        const QUESTIONS = [
+            { topic: "Bernoulli", prompt: "Bernoulli has ___ trial(s)", answer: "1", altAnswers: ["one"] },
+            { topic: "Binomial", prompt: "Binomial E[X] = n·___", answer: "p" },
+            { topic: "Binomial", prompt: "Binomial counts ___ in n trials", answer: "successes" },
+            { topic: "Geometric", prompt: "Geometric E[X] = 1/___", answer: "p" },
+            { topic: "Poisson", prompt: "Poisson E[X] = Var(X) = ___", answer: "λ", altAnswers: ["lambda"] },
+            { topic: "Uniform", prompt: "Uniform E[X] = (a+___)/2", answer: "b" },
+            { topic: "Exponential", prompt: "Exponential models time between ___ events", answer: "poisson" },
+            { topic: "Normal", prompt: "Normal is also called ___ curve", answer: "bell" },
+            { topic: "Standard", prompt: "Standard normal has μ = 0, σ = ___", answer: "1" },
+            { topic: "CLT", prompt: "Central ___ Theorem: sums → normal", answer: "limit" },
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day51_dist_v1' });
     </script>
 </body>
 

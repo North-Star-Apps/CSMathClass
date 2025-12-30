@@ -10,643 +10,53 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #ffffff;
-            --surface-alt: #f5f5f4;
-            --border: #e7e5e4;
-            --border-strong: #d6d3d1;
-            --text: #1c1917;
-            --text-secondary: #57534e;
-            --text-muted: #78716c;
-            --accent: #059669;
-            --accent-light: #d1fae5;
-            --accent-dark: #047857;
-            --code-bg: #1e1e1e;
-            --code-text: #d4d4d4;
-            --success: #16a34a;
-            --success-bg: #dcfce7;
-            --error: #dc2626;
-            --error-bg: #fee2e2;
-            --warning: #d97706;
-            --warning-bg: #fef3c7;
-            --info: #0891b2;
-            --info-bg: #cffafe;
-            --radius: 8px;
-            --radius-lg: 12px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0c0c0f;
-            --surface: #16161a;
-            --surface-alt: #1c1c21;
-            --border: #2a2a32;
-            --border-strong: #3a3a44;
-            --text: #ececf1;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --accent: #34d399;
-            --accent-light: #064e3b;
-            --accent-dark: #6ee7b7;
-            --code-bg: #0f0f12;
-            --success: #86efac;
-            --success-bg: #14532d;
-            --error: #fca5a5;
-            --error-bg: #7f1d1d;
-            --warning: #fde68a;
-            --warning-bg: #78350f;
-            --info: #a5f3fc;
-            --info-bg: #164e63;
-        }
-
-        [data-theme="dark"] .nav {
-            background: rgba(22, 22, 26, 0.92);
-        }
-
-        [data-theme="dark"] .warning {
-            color: #fef3c7;
-        }
-
-        [data-theme="dark"] .info {
-            color: #cffafe;
-        }
-
-        [data-theme="dark"] .rule {
-            color: var(--accent-dark);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 16px;
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 250, 249, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px;
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .nav-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: var(--radius);
-        }
-
-        .nav-back:hover {
-            background: var(--surface-alt);
-            color: var(--text);
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px 32px;
-        }
-
-        .hero-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 6px 12px;
-            border-radius: 999px;
-            margin-bottom: 16px;
-        }
-
-        [data-theme="dark"] .hero-label {
-            color: var(--accent);
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 16px;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 720px;
-        }
-
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-        }
-
-        .meta-item {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .main-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 48px;
-        }
-
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 80px;
-            align-self: start;
-        }
-
-        .toc {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-        }
-
-        .toc-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .toc-list {
-            list-style: none;
-        }
-
-        .toc-link {
-            display: block;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-        }
-
-        .toc-link:hover {
-            background: var(--surface-alt);
-        }
-
-        .toc-link.active {
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent);
-        }
-
-        [data-theme="dark"] .toc-link.active {
-            color: var(--accent);
-        }
-
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            margin-top: 16px;
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            font-size: 13px;
-        }
-
-        .stats-label {
-            color: var(--text-muted);
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono);
-        }
-
-        .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
-
-        .section-header {
-            padding: 24px 28px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-number {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .section-body {
-            padding: 24px 28px;
-        }
-
-        .subsection {
-            margin-bottom: 32px;
-        }
-
-        .subsection:last-child {
-            margin-bottom: 0;
-        }
-
-        .subsection-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .subsection-title::before {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        p {
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-        }
-
-        .math-block {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px 20px;
-            margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 15px;
-            white-space: pre-wrap;
-            overflow-x: auto;
-        }
-
-        .rule {
-            background: var(--accent-light);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: var(--accent-dark);
-            font-weight: 500;
-        }
-
-        .warning {
-            background: var(--warning-bg);
-            border-left: 3px solid var(--warning);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: #92400e;
-        }
-
-        .info {
-            background: var(--info-bg);
-            border-left: 3px solid var(--info);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            margin: 16px 0;
-            color: #155e75;
-        }
-
-        ul {
-            margin: 12px 0 12px 24px;
-            color: var(--text-secondary);
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        li strong {
-            color: var(--text);
-        }
-
-        .code-block {
-            background: var(--code-bg);
-            border-radius: var(--radius);
-            margin: 16px 0;
-            overflow: hidden;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: #2d2d2d;
-            border-bottom: 1px solid #3d3d3d;
-        }
-
-        .code-lang {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 600;
-            color: #a1a1aa;
-            text-transform: uppercase;
-        }
-
-        .code-label {
-            font-size: 12px;
-            color: #71717a;
-        }
-
-        .code-content {
-            padding: 16px 20px;
-            overflow-x: auto;
-        }
-
-        .code-content pre {
-            margin: 0;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--code-text);
-        }
-
-        .code-keyword {
-            color: #c586c0;
-        }
-
-        .code-function {
-            color: #dcdcaa;
-        }
-
-        .code-string {
-            color: #ce9178;
-        }
-
-        .code-number {
-            color: #b5cea8;
-        }
-
-        .code-comment {
-            color: #6a9955;
-        }
-
-        .quiz-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .btn {
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-        }
-
-        .btn-danger {
-            color: var(--error);
-            border-color: var(--error);
-        }
-
-        .question {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .question-num {
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .question-topic {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 10px;
-            border-radius: 999px;
-        }
-
-        .question-prompt {
-            font-family: var(--font-mono);
-            font-size: 16px;
-            background: var(--surface);
-            padding: 16px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            margin-bottom: 16px;
-        }
-
-        .question-input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .question-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px 16px;
-            font-family: var(--font-mono);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--surface);
-            color: var(--text);
-        }
-
-        .question-input:focus {
-            border-color: var(--accent);
-            outline: none;
-        }
-
-        .question-input.correct {
-            border-color: var(--success);
-            background: var(--success-bg);
-        }
-
-        .question-input.incorrect {
-            border-color: var(--error);
-            background: var(--error-bg);
-        }
-
-        .question-result {
-            margin-top: 12px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .success {
-            color: var(--success);
-        }
-
-        .error {
-            color: var(--error);
-        }
-
-        .question-answer {
-            margin-top: 8px;
-            font-family: var(--font-mono);
-            font-size: 13px;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            display: inline-block;
-        }
-
-        [data-theme="dark"] .question-answer {
-            color: var(--accent);
-        }
-    </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 12</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 10 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 40 · Trees</div>
+            </svg>
+            Day 40 · Algorithms
+        </div>
         <h1>Trees — BST, Heap, Tries</h1>
-        <p class="hero-desc">Hierarchical data structures that enable efficient searching, priority management, and
-            prefix matching.</p>
+        <p class="hero-desc">Hierarchical structures for fast search, priority queues, and prefix matching.</p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~45 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                10 practice problems
+            </div>
         </div>
     </header>
 
@@ -657,14 +67,16 @@
                 <ul class="toc-list">
                     <li><a href="#basics" class="toc-link">1. Tree Basics</a></li>
                     <li><a href="#bst" class="toc-link">2. Binary Search Trees</a></li>
-                    <li><a href="#balanced" class="toc-link">3. Balanced Trees</a></li>
-                    <li><a href="#heap" class="toc-link">4. Heaps</a></li>
-                    <li><a href="#trie" class="toc-link">5. Tries</a></li>
+                    <li><a href="#heap" class="toc-link">3. Heaps</a></li>
+                    <li><a href="#trie" class="toc-link">4. Tries</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
-                <div class="toc-title">Progress</div>
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
                         id="statCorrect">0</span></div>
                 <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
@@ -679,36 +91,18 @@
                     <h2 class="section-title">Tree Basics</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Tree:</strong> A connected acyclic graph with a designated root node.
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Terminology</h3>
-                        <div class="math-block">TREE VOCABULARY:
-                            Root: Top node (no parent)
-                            Leaf: Node with no children
-                            Internal: Node with at least one child
-                            Depth: Distance from root (root = 0)
-                            Height: Max depth of any leaf
-                            Subtree: Tree rooted at any node</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Binary trees</h3>
-                        <p>Each node has at most 2 children (left and right). A <strong>complete</strong> binary tree
-                            fills levels left-to-right. A <strong>full</strong> binary tree has 0 or 2 children per
-                            node. A <strong>perfect</strong> tree is both full and complete.</p>
-                        <div class="math-block">BINARY TREE PROPERTIES:
-                            Max nodes at depth d: 2^d
-                            Max nodes in tree of height h: 2^(h+1) - 1
-                            Min height for n nodes: ⌊log₂(n)⌋</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Traversals</h3>
-                        <div class="math-block">TRAVERSAL ORDERS:
-                            Preorder: Root → Left → Right (copy tree)
-                            Inorder: Left → Root → Right (sorted order in BST)
-                            Postorder: Left → Right → Root (delete tree)
-                            Level: BFS, level by level (uses queue)</div>
-                    </div>
+                    <div class="rule"><strong>Tree:</strong> Connected acyclic graph with n nodes and n-1 edges.</div>
+                    <div class="math-block"> root
+                        / \
+                        child child
+                        / \
+                        leaf leaf
+
+                        Terminology:
+                        • Root: top node (no parent)
+                        • Leaf: node with no children
+                        • Height: longest path from root to leaf
+                        • Depth: path length from root to node</div>
                 </div>
             </section>
 
@@ -718,145 +112,121 @@
                     <h2 class="section-title">Binary Search Trees</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>BST Property:</strong> For every node, all left descendants < node < all
-                            right descendants.</div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Operations</h3>
-                                <div class="math-block">BST OPERATIONS (h = height):
-                                    Search: O(h) — traverse left/right
-                                    Insert: O(h) — search + add leaf
-                                    Delete: O(h) — find successor/predecessor
-                                    Min/Max: O(h) — go left/right to leaf
+                    <div class="rule"><strong>BST Property:</strong> Left subtree < Node < Right subtree</div>
+                            <div class="math-block">BST Operations (balanced):
+                                Search: O(log n)
+                                Insert: O(log n)
+                                Delete: O(log n)
 
-                                    Balanced BST: h = O(log n) → all ops O(log n)
-                                    Degenerate: h = O(n) → all ops O(n)</div>
-                            </div>
+                                Unbalanced BST degrades to O(n)!</div>
+
                             <div class="code-block">
-                                <div class="code-header"><span class="code-lang">Python</span><span
-                                        class="code-label">BST Search</span></div>
+                                <div class="code-header">
+                                    <span class="code-lang">Python</span>
+                                    <span class="code-label">BST search</span>
+                                </div>
                                 <div class="code-content">
-                                    <pre><span class="code-keyword">def</span> <span class="code-function">search</span>(root, key):
-    <span class="code-keyword">if</span> root <span class="code-keyword">is</span> <span class="code-keyword">None</span> <span class="code-keyword">or</span> root.val == key:
+                                    <pre><span class="code-keyword">def</span> <span class="code-function">search</span>(root, target):
+    <span class="code-keyword">if</span> <span class="code-keyword">not</span> root:
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    <span class="code-keyword">if</span> target == root.val:
         <span class="code-keyword">return</span> root
-    <span class="code-keyword">if</span> key < root.val:
-        <span class="code-keyword">return</span> <span class="code-function">search</span>(root.left, key)
-    <span class="code-keyword">return</span> <span class="code-function">search</span>(root.right, key)</pre>
+    <span class="code-keyword">elif</span> target < root.val:
+        <span class="code-keyword">return</span> search(root.left, target)
+    <span class="code-keyword">else</span>:
+        <span class="code-keyword">return</span> search(root.right, target)</pre>
                                 </div>
                             </div>
-                            <div class="warning"><strong>Danger:</strong> Inserting sorted data into a BST creates a
-                                linked list (degenerate tree). Use balanced trees to guarantee O(log n).</div>
-                    </div>
-            </section>
 
-            <section class="section" id="balanced">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Balanced Trees</h2>
-                </div>
-                <div class="section-body">
-                    <p>Balanced trees automatically rebalance to maintain O(log n) height.</p>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Types</h3>
-                        <ul>
-                            <li><strong>AVL Tree:</strong> Height of left/right subtrees differ by at most 1</li>
-                            <li><strong>Red-Black Tree:</strong> Nodes colored red/black with specific rules</li>
-                            <li><strong>B-Tree:</strong> Multi-way tree for disk storage (databases)</li>
-                        </ul>
+                            <div class="warning"><strong>Self-balancing trees:</strong> AVL, Red-Black guarantee O(log
+                                n) height.</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Rotations</h3>
-                        <div class="math-block">ROTATIONS (rebalancing operations):
-                            Left Rotate: Move right child up
-                            Right Rotate: Move left child up
-
-                            Used to fix imbalance after insert/delete
-                            Rotations take O(1) time</div>
-                    </div>
-                    <div class="info"><strong>In practice:</strong> Most standard libraries use Red-Black trees (C++
-                        std::map, Java TreeMap) because they have fewer rotations than AVL on insert/delete.</div>
-                </div>
             </section>
 
             <section class="section" id="heap">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Heaps</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Heap Property:</strong> Parent ≥ children (max-heap) or Parent ≤ children
-                        (min-heap).</div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Operations</h3>
-                        <div class="math-block">HEAP OPERATIONS:
-                            Find min/max: O(1) — always at root
-                            Insert: O(log n) — add at end, bubble up
-                            Extract min/max: O(log n) — remove root, bubble down
-                            Build heap: O(n) — heapify from bottom up</div>
+                    <div class="two-col">
+                        <div class="subsection">
+                            <h3 class="subsection-title">Min-Heap</h3>
+                            <div class="math-block">Parent ≤ Children
+                                Root = minimum
+                                peek: O(1)
+                                push: O(log n)
+                                pop: O(log n)</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Max-Heap</h3>
+                            <div class="math-block">Parent ≥ Children
+                                Root = maximum
+                                Used in heapsort</div>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Array representation</h3>
-                        <div class="math-block">HEAP IN ARRAY (0-indexed):
-                            Parent(i) = (i-1) / 2
-                            Left(i) = 2i + 1
-                            Right(i) = 2i + 2
 
-                            Complete tree → no gaps in array!</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Use cases</h3>
-                        <ul>
-                            <li><strong>Priority queue:</strong> Process by priority, not order</li>
-                            <li><strong>Heap sort:</strong> O(n log n) in-place sorting</li>
-                            <li><strong>Dijkstra's algorithm:</strong> Get next closest vertex</li>
-                            <li><strong>Top-k problems:</strong> Maintain k largest/smallest</li>
-                        </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Using heapq (min-heap)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> heapq
+
+h = []
+heapq.heappush(h, <span class="code-number">5</span>)
+heapq.heappush(h, <span class="code-number">2</span>)
+heapq.heappush(h, <span class="code-number">8</span>)
+
+<span class="code-function">print</span>(h[<span class="code-number">0</span>])         <span class="code-comment"># 2 (min)</span>
+<span class="code-function">print</span>(heapq.heappop(h))  <span class="code-comment"># 2</span></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="trie">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Tries (Prefix Trees)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Trie:</strong> Tree where each path from root represents a prefix. Edges
-                        are characters.</div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Operations</h3>
-                        <div class="math-block">TRIE OPERATIONS (k = key length):
-                            Search: O(k)
-                            Insert: O(k)
-                            Prefix search: O(k) + O(results)
-
-                            Space: O(alphabet × total characters)</div>
+                    <div class="rule"><strong>Trie:</strong> Tree for storing strings where each node is a character.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Use cases</h3>
-                        <ul>
-                            <li><strong>Autocomplete:</strong> Find all words with prefix</li>
-                            <li><strong>Spell check:</strong> Dictionary lookup</li>
-                            <li><strong>IP routing:</strong> Longest prefix matching</li>
-                            <li><strong>Word games:</strong> Valid word checking</li>
-                        </ul>
-                    </div>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Trie
-                                Node</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">class</span> <span class="code-function">TrieNode</span>:
-    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
-        self.children = {}  <span class="code-comment"># char → TrieNode</span>
-        self.is_end = <span class="code-keyword">False</span>
+                    <div class="math-block">Insert "cat", "car", "card":
+                        root
+                        |
+                        c
+                        |
+                        a
+                        / \
+                        t r
+                        |
+                        d
 
-<span class="code-keyword">def</span> <span class="code-function">insert</span>(root, word):
-    node = root
-    <span class="code-keyword">for</span> char <span class="code-keyword">in</span> word:
-        <span class="code-keyword">if</span> char <span class="code-keyword">not in</span> node.children:
-            node.children[char] = TrieNode()
-        node = node.children[char]
-    node.is_end = <span class="code-keyword">True</span></pre>
+                        Search/Insert: O(length of string)</div>
+                    <p>Use cases: autocomplete, spell check, IP routing tables.</p>
+                </div>
+            </section>
+
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
                         </div>
+                        <div class="video-list" id="videoList"></div>
                     </div>
                 </div>
             </section>
@@ -868,83 +238,43 @@
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls">
-                        <button class="btn btn-primary" id="checkAll">Check All</button>
-                        <button class="btn" id="showAll">Show All</button>
-                        <button class="btn" id="clear">Clear</button>
-                        <button class="btn btn-danger" id="reset">Reset</button>
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
-                    <div id="quiz"></div>
+                    <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
 
+    <script src="../shared-scripts.js"></script>
     <script>
-        const Q = [
-            { id: 1, t: "Basics", q: "Tree node with no children: ___", a: "leaf" },
-            { id: 2, t: "Basics", q: "Inorder traversal: Left → ___ → Right", a: "root" },
-            { id: 3, t: "BST", q: "BST search time (balanced): O(___)", a: "log n" },
-            { id: 4, t: "BST", q: "BST property: left < ___ < right", a: "node" },
-            { id: 5, t: "Balanced", q: "___ tree: height differs by at most 1", a: "avl" },
-            { id: 6, t: "Heap", q: "Max-heap: parent ___ children", a: ">=" },
-            { id: 7, t: "Heap", q: "Find min in min-heap: O(___)", a: "1" },
-            { id: 8, t: "Heap", q: "Build heap from array: O(___)", a: "n" },
-            { id: 9, t: "Heap", q: "Left child index (0-indexed): 2i + ___", a: "1" },
-            { id: 10, t: "Trie", q: "Trie search time (k = key length): O(___)", a: "k" },
-            { id: 11, t: "Trie", q: "Tries are also called ___ trees", a: "prefix" },
-            { id: 12, t: "Heap", q: "Heap is used for ___ queue", a: "priority" },
+        const VIDEO_GROUPS = [
+            {
+                title: "Trees",
+                items: [
+                    { title: "Binary Trees", channel: "mycodeschool", vid: "H5JubkIy_p8" },
+                    { title: "BST Explained", channel: "CS Dojo", vid: "pYT9F8_LFTM" },
+                    { title: "Heaps & Priority Queues", channel: "HackerRank", vid: "t0Cq6tVNRBA" },
+                    { title: "Tries Explained", channel: "Tushar Roy", vid: "AXjmTQ8LEoI" },
+                ]
+            }
         ];
-
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
-        let correct = 0, attempted = 0;
-
-        function updateUI() {
-            document.getElementById("statCorrect").textContent = correct;
-            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—";
-            document.getElementById("progressText").textContent = `${correct} / ${Q.length}`;
-            document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%`;
-        }
-
-        function render() {
-            const c = document.getElementById("quiz"); c.innerHTML = "";
-            Q.forEach(q => {
-                const d = document.createElement("div"); d.className = "question";
-                d.innerHTML = `<div class="question-header"><span class="question-num">Q${q.id}</span><span class="question-topic">${q.t}</span></div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`;
-                const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result");
-                d.querySelector(".bc").onclick = () => {
-                    attempted++;
-                    if (norm(inp.value) === norm(q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
-                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
-                    updateUI();
-                };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">Answer: ${q.a}</div>`; };
-                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
-                c.appendChild(d);
-            });
-            updateUI();
-        }
-
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
-        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        document.getElementById("clear").onclick = () => {
-            document.querySelectorAll(".question").forEach(d => {
-                d.querySelector(".question-input").value = "";
-                d.querySelector(".question-input").classList.remove("correct", "incorrect");
-                d.querySelector(".question-result").innerHTML = "";
-            });
-            correct = 0; attempted = 0; updateUI();
-        };
-        document.getElementById("reset").onclick = () => { if (confirm("Reset stats?")) { correct = 0; attempted = 0; updateUI(); } };
-
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
-        function updateToc() { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${cur}`)); }
-        window.addEventListener("scroll", updateToc);
-
-        const tt = document.getElementById("themeToggle");
-        tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
-        tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-
-        render();
+        const QUESTIONS = [
+            { topic: "Basics", prompt: "Tree with n nodes has ___-1 edges", answer: "n" },
+            { topic: "BST", prompt: "BST: left subtree values are ___ than parent", answer: "less", altAnswers: ["smaller", "lower"] },
+            { topic: "BST", prompt: "Balanced BST search is O(log ___)", answer: "n" },
+            { topic: "BST", prompt: "Unbalanced BST degrades to O(___)", answer: "n" },
+            { topic: "Heap", prompt: "Min-heap root contains the ___", answer: "minimum", altAnswers: ["min", "smallest"] },
+            { topic: "Heap", prompt: "Heap push is O(log ___)", answer: "n" },
+            { topic: "Heap", prompt: "Heap peek is O(___)", answer: "1" },
+            { topic: "Trie", prompt: "Trie is also called ___ tree", answer: "prefix" },
+            { topic: "Trie", prompt: "Trie search is O(___) where k = word length", answer: "k" },
+            { topic: "Balance", prompt: "AVL and Red-Black are ___-balancing trees", answer: "self" },
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day40_trees_v1' });
     </script>
 </body>
 

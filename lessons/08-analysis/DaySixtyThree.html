@@ -5,465 +5,66 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 63: Analysis Checkpoint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fafaf9;
-            --surface: #fff;
-            --surface-alt: #f5f5f4;
-            --border: #e7e5e4;
-            --text: #1c1917;
-            --text-secondary: #57534e;
-            --text-muted: #78716c;
-            --accent: #059669;
-            --accent-light: #d1fae5;
-            --accent-dark: #047857;
-            --success: #16a34a;
-            --success-bg: #dcfce7;
-            --error: #dc2626;
-            --error-bg: #fee2e2;
-            --info: #0891b2;
-            --info-bg: #cffafe;
-            --radius: 8px;
-            --radius-lg: 12px;
-            --font-serif: 'Source Serif 4', serif;
-            --font-sans: 'DM Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace
-        }
-
-        [data-theme="dark"] {
-            --bg: #0c0c0f;
-            --surface: #16161a;
-            --surface-alt: #1c1c21;
-            --border: #2a2a32;
-            --text: #ececf1;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --accent: #34d399;
-            --accent-light: #064e3b;
-            --accent-dark: #6ee7b7
-        }
-
-        [data-theme="dark"] .nav {
-            background: rgba(22, 22, 26, 0.92)
-        }
-
-        [data-theme="dark"] .rule {
-            color: var(--accent-dark)
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 250, 249, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
-
-        .nav-back {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 48px 24px
-        }
-
-        .hero-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 6px 12px;
-            border-radius: 999px;
-            margin-bottom: 16px;
-            display: inline-block
-        }
-
-        [data-theme="dark"] .hero-label {
-            color: var(--accent)
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 44px);
-            font-weight: 700;
-            margin-bottom: 16px
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-secondary)
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border)
-        }
-
-        .meta-item {
-            font-size: 14px;
-            color: var(--text-muted)
-        }
-
-        .main-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 48px
-        }
-
-        @media(max-width:900px) {
-            .main-layout {
-                grid-template-columns: 1fr
-            }
-
-            .sidebar {
-                display: none
-            }
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 80px
-        }
-
-        .toc {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px
-        }
-
-        .toc-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 12px
-        }
-
-        .toc-list {
-            list-style: none
-        }
-
-        .toc-link {
-            display: block;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius)
-        }
-
-        .toc-link.active {
-            color: var(--accent-dark);
-            background: var(--accent-light)
-        }
-
-        [data-theme="dark"] .toc-link.active {
-            color: var(--accent)
-        }
-
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            margin-top: 16px
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            font-size: 13px
-        }
-
-        .stats-label {
-            color: var(--text-muted)
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono)
-        }
-
-        .section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            margin-bottom: 24px;
-            overflow: hidden
-        }
-
-        .section-header {
-            padding: 24px 28px;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .section-number {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--accent);
-            margin-bottom: 4px
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 700
-        }
-
-        .section-body {
-            padding: 24px 28px
-        }
-
-        p {
-            margin-bottom: 12px;
-            color: var(--text-secondary)
-        }
-
-        .math-block {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 14px;
-            white-space: pre-wrap;
-            overflow-x: auto
-        }
-
-        .rule {
-            background: var(--accent-light);
-            border-left: 3px solid var(--accent);
-            padding: 16px;
-            margin: 16px 0;
-            color: var(--accent-dark);
-            font-weight: 500
-        }
-
-        .quiz-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px
-        }
-
-        .btn {
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--surface);
-            cursor: pointer
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff
-        }
-
-        .question {
-            background: var(--surface-alt);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 16px
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px
-        }
-
-        .question-num {
-            font-family: var(--font-mono);
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent)
-        }
-
-        .question-topic {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 10px;
-            border-radius: 999px
-        }
-
-        .question-prompt {
-            font-family: var(--font-mono);
-            font-size: 15px;
-            background: var(--surface);
-            padding: 16px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            margin-bottom: 16px
-        }
-
-        .question-input-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap
-        }
-
-        .question-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 12px;
-            font-family: var(--font-mono);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--surface);
-            color: var(--text)
-        }
-
-        .question-input.correct {
-            border-color: var(--success);
-            background: var(--success-bg)
-        }
-
-        .question-input.incorrect {
-            border-color: var(--error);
-            background: var(--error-bg)
-        }
-
-        .question-result {
-            margin-top: 12px
-        }
-
-        .success {
-            color: var(--success)
-        }
-
-        .error {
-            color: var(--error)
-        }
-
-        .question-answer {
-            font-family: var(--font-mono);
-            color: var(--accent-dark);
-            background: var(--accent-light);
-            padding: 8px 12px;
-            border-radius: var(--radius);
-            display: inline-block;
-            margin-top: 8px
-        }
-
-        [data-theme="dark"] .question-answer {
-            color: var(--accent)
-        }
-    </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <link rel="stylesheet" href="../shared-styles.css">
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a>
-            <div class="nav-progress"><span id="progressText">0 / 15</span>
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 15 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-            </div><button class="theme-toggle" id="themeToggle">🌙</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
         </div>
     </nav>
+
     <header class="hero">
-        <div class="hero-label">Day 63 · Checkpoint</div>
-        <h1>Analysis Checkpoint</h1>
-        <p class="hero-desc">Comprehensive review of rigorous analysis concepts from Days 55-62.</p>
-        <div class="hero-meta">
-            <div class="meta-item">~45 min</div>
-            <div class="meta-item">15 review problems</div>
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 63 · Analysis
         </div>
+        <h1>Analysis Checkpoint</h1>
+        <p class="hero-desc">Comprehensive review of real analysis concepts.</p>
     </header>
+
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#review" class="toc-link">1. Key Concepts</a></li>
-                    <li><a href="#practice" class="toc-link">2. Checkpoint Quiz</a></li>
+                    <li><a href="#videos" class="toc-link">2. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">3. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
-                <div class="toc-title">Progress</div>
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
                         id="statCorrect">0</span></div>
                 <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
                         id="statAccuracy">—</span></div>
             </div>
         </aside>
+
         <main class="content">
             <section class="section" id="review">
                 <div class="section-header">
@@ -471,64 +72,88 @@
                     <h2 class="section-title">Key Concepts Review</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">ANALYSIS FOUNDATIONS:
-                        • ε-δ limit definition
-                        • Continuity and uniform continuity
-                        • Completeness and compactness
-                        • Convergence of sequences and series
-                        • Metric and function spaces
-                        • Convergence modes: pointwise, uniform, Lᵖ
+                    <div class="math-block">FOUNDATIONS:
+                        • ε-δ definitions of limits and continuity
+                        • Completeness of ℝ (Cauchy ⟺ convergent)
+                        • Compactness (closed + bounded in ℝⁿ)
 
-                        KEY THEOREMS:
-                        • Extreme Value Theorem
-                        • Intermediate Value Theorem
-                        • Mean Value Theorem
+                        THEOREMS:
+                        • IVT, EVT, MVT
                         • Fundamental Theorem of Calculus
-                        • Heine-Borel (compact ⟺ closed + bounded)</div>
+                        • Uniform continuity on compact sets
+
+                        CONVERGENCE:
+                        • Sequence and series tests
+                        • Pointwise vs uniform convergence
+                        • Lᵖ spaces and norms
+
+                        SPACES:
+                        • Metric spaces and topology
+                        • Function spaces C[a,b], Lᵖ
+                        • Banach and Hilbert spaces</div>
+                </div>
+            </section>
+
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Checkpoint Quiz</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Comprehensive Practice</h2>
                 </div>
                 <div class="section-body">
-                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
-                    <div id="quiz"></div>
+                    <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
+
+    <script src="../shared-scripts.js"></script>
     <script>
-        const Q = [
-            { t: "ε-δ", q: "∀ε>0 ∃___>0 for limit definition", a: "δ" },
-            { t: "ε-δ", q: "|f(x)-L| < ___ in limit definition", a: "ε" },
-            { t: "Continuity", q: "Uniform continuity: δ depends only on ___", a: "ε" },
-            { t: "Theorems", q: "EVT requires ___ interval [a,b]", a: "closed" },
-            { t: "Theorems", q: "IVT = ___ Value Theorem", a: "intermediate" },
-            { t: "Theorems", q: "MVT finds c where f'(c) = average ___", a: "slope" },
-            { t: "Series", q: "Ratio test: L < 1 means ___", a: "converges" },
-            { t: "Series", q: "If lim aₙ ≠ 0, series ___", a: "diverges" },
-            { t: "Complete", q: "ℝ is ___: Cauchy sequences converge", a: "complete" },
-            { t: "Compact", q: "Heine-Borel: compact ⟺ closed and ___", a: "bounded" },
-            { t: "Metric", q: "d(x,z) ≤ d(x,y) + d(y,z) is ___ inequality", a: "triangle" },
-            { t: "FTC", q: "FTC: F(x) = ∫f, then F' = ___", a: "f" },
-            { t: "Spaces", q: "Banach = complete ___ space", a: "normed" },
-            { t: "Converge", q: "Uniform limit of continuous is ___", a: "continuous" },
-            { t: "Converge", q: "Lᵖ convergence: ||fₙ-f||ₚ → ___", a: "0" }
+        const VIDEO_GROUPS = [{ title: "Analysis Review", items: [{ title: "Real Analysis Review", channel: "Bright Side of Mathematics", vid: "TkIg_1TuVbk" }] }];
+        const QUESTIONS = [
+            { topic: "ε-δ", prompt: "ε stands for ___", answer: "epsilon" },
+            { topic: "ε-δ", prompt: "δ stands for ___", answer: "delta" },
+            { topic: "Complete", prompt: "ℝ is ___ (every Cauchy converges)", answer: "complete" },
+            { topic: "IVT", prompt: "IVT = ___ Value Theorem", answer: "intermediate" },
+            { topic: "EVT", prompt: "EVT = ___ Value Theorem", answer: "extreme" },
+            { topic: "MVT", prompt: "MVT = ___ Value Theorem", answer: "mean" },
+            { topic: "FTC", prompt: "FTC = ___ Theorem of Calculus", answer: "fundamental" },
+            { topic: "Compact", prompt: "In ℝⁿ: compact = closed + ___", answer: "bounded" },
+            { topic: "Uniform", prompt: "Uniform limit of continuous is ___", answer: "continuous" },
+            { topic: "L2", prompt: "L² is a ___ space with inner product", answer: "hilbert" },
+            { topic: "Banach", prompt: "Complete normed space = ___", answer: "banach" },
+            { topic: "Metric", prompt: "d(x,z) ≤ d(x,y) + d(y,z) is ___ inequality", answer: "triangle" },
+            { topic: "Series", prompt: "Σ1/n ___ (diverges/converges)", answer: "diverges" },
+            { topic: "Ratio", prompt: "___ test: L = lim|aₙ₊₁/aₙ|", answer: "ratio" },
+            { topic: "Squeeze", prompt: "g ≤ f ≤ h with same limits uses ___ theorem", answer: "squeeze" },
         ];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; let correct = 0, attempted = 0;
-        function updateUI() { document.getElementById("statCorrect").textContent = correct; document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—"; document.getElementById("progressText").textContent = `${correct} / ${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%`; }
-        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-header"><span class="question-num">Q${i + 1}</span><span class="question-topic">${q.t}</span></div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { attempted++; if (norm(inp.value) === norm(q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗</span>`; } updateUI(); }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); updateUI(); }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
-        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); correct = 0; attempted = 0; updateUI(); };
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-        render();
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day63_checkpoint_v1' });
     </script>
 </body>
 
