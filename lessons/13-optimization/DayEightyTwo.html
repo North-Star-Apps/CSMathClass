@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 103: Gradient & Proximal Methods</title>
+    <title>Day 82: Gradient & Proximal Methods</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,7 +38,7 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 103 · Optimization
+            Day 82 · Optimization
         </div>
         <h1>Gradient, Subgradient & Proximal</h1>
         <p class="hero-desc">Solving optimization problems. From smooth Gradient Descent to non-differentiable Proximal
@@ -141,7 +141,8 @@
                         f(y) \ge f(x) + g^T (y - x) \quad \forall y
                     </div>
                     <p>A subgradient is any vector `g` that supports the function from below. The
-                        <strong>subdifferential</strong> `\partial f(x)` is the set of all such vectors.</p>
+                        <strong>subdifferential</strong> `\partial f(x)` is the set of all such vectors.
+                    </p>
                     <p><strong>Subgradient Method:</strong> `x_{k+1} = x_k - \alpha_k g_k`. Note: Not a descent method!
                         We must keep track of `f_{best}`.</p>
                 </div>
@@ -276,7 +277,7 @@ print(f"Prox(2.5, 1.0) = {soft_threshold(2.5, 1.0)}")   # Should be 1.5</code></
             { topic: "Smoothness", prompt: "Smoothness means the gradient is ___ continuous.", answer: "lipschitz" },
             { topic: "Conditioning", prompt: "GD struggles with problems that have high ___ number.", answer: "condition" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day103_grad_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day82_gradient_v1' });
     </script>
 </body>
 

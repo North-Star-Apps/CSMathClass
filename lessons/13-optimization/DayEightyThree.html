@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 104: Numerical Conditioning</title>
+    <title>Day 83: Numerical Conditioning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,7 +38,7 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 104 · Numerical Analysis
+            Day 83 · Optimizationalysis
         </div>
         <h1>Conditioning & Stability</h1>
         <p class="hero-desc">When exact math meets finite precision. Why some problems are unsolvable.</p>
@@ -140,7 +140,8 @@
                 </div>
                 <div class="section-body">
                     <p>Conditioning is a property of the <strong>problem</strong>. Stability is a property of the
-                        <strong>algorithm</strong>.</p>
+                        <strong>algorithm</strong>.
+                    </p>
                     <ul>
                         <li><strong>Forward Stable:</strong> The computed answer is close to the true answer.</li>
                         <li><strong>Backward Stable:</strong> The computed answer is the <em>exact</em> answer to a
@@ -273,8 +274,9 @@ plt.show()</code></pre>
             { topic: "Precision", prompt: "IEEE 754 defines standard ___ point arithmetic.", answer: "floating" },
             { topic: "Error", prompt: "Relative error is absolute error divided by the ___ value.", answer: "true" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day104_cond_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day83_numerical_v1' });
     </script>
 </body>
 
 </html>
+```

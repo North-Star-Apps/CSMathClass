@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 105: Iterative Methods (Krylov)</title>
+    <title>Day 85: Fast Transforms (FFT)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,10 +38,10 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 105 · Numerical Analysis
+            Day 85 · Optimizationalysis
         </div>
-        <h1>Iterative Methods (Krylov)</h1>
-        <p class="hero-desc">Solving Ax=b when A is too big for Gaussian Elimination. Conjugate Gradients and GMRES.</p>
+        <h1>Fast Fourier Transform (FFT)</h1>
+        <p class="hero-desc">The most important algorithm of the 20th century. O(N log N) changes everything.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,14 +71,13 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#direct" class="toc-link">1. Direct vs Iterative</a></li>
-                    <li><a href="#krylov" class="toc-link">2. Krylov Subspaces</a></li>
-                    <li><a href="#cg" class="toc-link">3. Conjugate Gradient</a></li>
-                    <li><a href="#gmres" class="toc-link">4. GMRES</a></li>
-                    <li><a href="#precond" class="toc-link">5. Preconditioning</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: Sparse CG</a></li>
-                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">8. Practice</a></li>
+                    <li><a href="#dft" class="toc-link">1. Describe DFT</a></li>
+                    <li><a href="#fft" class="toc-link">2. Cooley-Tukey FFT</a></li>
+                    <li><a href="#roots" class="toc-link">3. Roots of Unity</a></li>
+                    <li><a href="#conv" class="toc-link">4. Convolution Theorem</a></li>
+                    <li><a href="#code" class="toc-link">5. Python: Fast Conv</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -93,121 +92,107 @@
         </aside>
 
         <main class="content">
-            <!-- Direct -->
-            <section class="section" id="direct">
+            <!-- DFT -->
+            <section class="section" id="dft">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Direct vs Iterative</h2>
+                    <h2 class="section-title">Discrete Fourier Transform</h2>
                 </div>
                 <div class="section-body">
-                    <ul>
-                        <li><strong>Direct (Gaussian Elimination):</strong> Exact step count (`O(n^3)`). Modifies `A`
-                            (fill-in). Bad for massive sparse matrices.</li>
-                        <li><strong>Iterative:</strong> Approximate solution. Matrix-vector products only (`O(nnz)`).
-                            Good for massive sparse matrices.</li>
-                    </ul>
+                    <p>The DFT maps a sequence `x_n` (time) to `X_k` (frequency):</p>
+                    <div class="math-block">
+                        X_k = \sum_{n=0}^{N-1} x_n \cdot e^{-i 2\pi k n / N}
+                    </div>
+                    <p>Naively, this is a matrix-vector product, taking `O(N^2)` time.</p>
                 </div>
             </section>
 
-            <!-- Krylov -->
-            <section class="section" id="krylov">
+            <!-- FFT -->
+            <section class="section" id="fft">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Krylov Subspaces</h2>
+                    <h2 class="section-title">Cooley-Tukey Algorithm</h2>
                 </div>
                 <div class="section-body">
-                    <p>Modern iterative solvers search for the solution in the <strong>Krylov Subspace</strong>:</p>
-                    <div class="math-block">
-                        \mathcal{K}_k(A, b) = \text{span}\{b, Ab, A^2b, \dots, A^{k-1}b\}
+                    <p><strong>Divide and Conquer:</strong> Determine the DFT of size `N` by interacting two DFTs of
+                        size `N/2`.</p>
+                    <div class="subsection">
+                        <h3>The Split</h3>
+                        <p>Separate indices into even and odd: `2m` and `2m+1`.</p>
+                        <div class="math-block">
+                            X_k = E_k + e^{-i 2\pi k / N} O_k
+                        </div>
+                        <p>This recursion `T(N) = 2T(N/2) + O(N)` gives `O(N \log N)` complexity.</p>
                     </div>
-                    <p>Why? Because `A^k b` is easy to compute if `A` is sparse!</p>
                 </div>
             </section>
 
-            <!-- CG -->
-            <section class="section" id="cg">
+            <!-- Roots -->
+            <section class="section" id="roots">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Conjugate Gradient (CG)</h2>
+                    <h2 class="section-title">Roots of Unity</h2>
                 </div>
                 <div class="section-body">
-                    <p>For <strong>Symmetric Positive Definite (SPD)</strong> matrices. CG finds the optimal solution in
-                        `\mathcal{K}_k` that minimizes the A-norm error.</p>
-                    <div class="subsection">
-                        <h3>Magic Property</h3>
-                        <p>Unlike standard Gradient Descent which can zig-zag, CG takes "conjugate" steps. It guarantees
-                            convergence in `n` steps (in exact arithmetic), but we usually stop much earlier.</p>
+                    <p>The magic relies on the properties of `\omega_N = e^{-i 2\pi/N}` (the N-th root of unity).</p>
+                    <div class="rule">
+                        Cancellation: `\sum_{k=0}^{N-1} \omega_N^{jk} = 0` (unless `j` is a multiple of `N`).
                     </div>
                 </div>
             </section>
 
-            <!-- GMRES -->
-            <section class="section" id="gmres">
+            <!-- Conv -->
+            <section class="section" id="conv">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">GMRES</h2>
+                    <h2 class="section-title">Convolution Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p><strong>Generalized Minimal Residual</strong>. Works for <strong>non-symmetric</strong> matrices.
-                    </p>
-                    <p>It minimizes the residual `\|Ax_k - b\|_2`. However, it explicitly builds an orthonormal basis
-                        (Arnoldi iteration), so memory usage grows with `k`. We often "restart" it (GMRES(k)).</p>
-                </div>
-            </section>
-
-            <!-- Precond -->
-            <section class="section" id="precond">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Preconditioning</h2>
-                </div>
-                <div class="section-body">
-                    <p>Convergence depends on `\kappa(A)`. If `A` is ill-conditioned, CG is slow.</p>
-                    <p>Idea: Solve `M^{-1}Ax = M^{-1}b` where `M \approx A` but easy to invert. `M` is the
-                        <strong>Preconditioner</strong>.</p>
-                    <div class="rule">
-                        A good preconditioner makes `\kappa(M^{-1}A) \ll \kappa(A)`.
+                    <p>Convolution in time is multiplication in frequency:</p>
+                    <div class="math-block">
+                        \mathcal{F}(f * g) = \mathcal{F}(f) \cdot \mathcal{F}(g)
                     </div>
+                    <p>This allows us to compute convolution (normally `O(N^2)`) in `O(N \log N)`!</p>
                 </div>
             </section>
 
             <!-- Code -->
             <section class="section" id="code">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: Solving Sparse Systems</h2>
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Python: Fast Convolution</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Sparse CG (SciPy)</span>
+                            <span class="code-label">FFT Convolution</span>
                         </div>
                         <div class="code-content">
                             <pre><code class="language-python">import numpy as np
-import scipy.sparse as sp
-import scipy.sparse.linalg as spla
+import scipy.signal
 import time
 
-# 1. Create a large sparse SPD matrix (Poisson 1D Laplacian)
-n = 10000
-diagonals = [np.ones(n) * 2, -np.ones(n-1), -np.ones(n-1)]
-A = sp.diags(diagonals, [0, -1, 1], format='csr')
-b = np.ones(n)
+N = 100000
+# Random signals
+f = np.random.rand(N)
+g = np.random.rand(N)
 
-print(f"Matrix shape: {A.shape}, Non-zeros: {A.nnz}")
+# 1. Slow Convolution (Direct)
+# Note: Full convolution size is 2N-1
+print("Starting Direct Conv (this might take a while for N=1e5)...")
+# Actually, let's just do a small section to prove point, or trust scipy
+# direct = np.convolve(f, g) # Too slow for demo!
 
-# 2. Solve with Conjugate Gradient
+# 2. Fast Convolution via FFT
 start = time.time()
-x, exit_code = spla.cg(A, b, tol=1e-5)
+fft_f = np.fft.fft(f, n=2*N) # Pad to avoid circular artifacts
+fft_g = np.fft.fft(g, n=2*N)
+conv_fft = np.fft.ifft(fft_f * fft_g)
 end = time.time()
 
-print(f"Solved in {end-start:.4f}s")
-print(f"Exit code (0=success): {exit_code}")
-print(f"Residual norm: {np.linalg.norm(b - A@x):.2e}")
-
-# Compare to dense solve (Would crash for very large n!)
-# x_dense = np.linalg.solve(A.toarray(), b) </code></pre>
+print(f"FFT Convolution Time: {end-start:.4f}s")
+print(f"Result Size: {conv_fft.shape}")</code></pre>
                         </div>
                     </div>
                 </div>
@@ -216,7 +201,7 @@ print(f"Residual norm: {np.linalg.norm(b - A@x):.2e}")
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -238,7 +223,7 @@ print(f"Residual norm: {np.linalg.norm(b - A@x):.2e}")
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 8</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -258,26 +243,26 @@ print(f"Residual norm: {np.linalg.norm(b - A@x):.2e}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Iterative Methods",
+                title: "FFT",
                 items: [
-                    { title: "Krylov Subspaces", channel: "MIT", vid: "video_id_placeholder" },
-                    { title: "Conjugate Gradients", channel: "Shewchuk", vid: "video_id_placeholder" },
+                    { title: "The FFT Algorithm", channel: "Reducible", vid: "video_id_placeholder" },
+                    { title: "Fourier Transform Visualized", channel: "3Blue1Brown", vid: "video_id_placeholder" },
                 ]
             }
         ];
         const QUESTIONS = [
-            { topic: "Iterative", prompt: "Iterative methods are preferred for large ___ matrices.", answer: "sparse" },
-            { topic: "Krylov", prompt: "Krylov subspace is span of {b, Ab, ..., ___}.", answer: "A^kb", altAnswers: ["A^k-1b"] },
-            { topic: "CG", prompt: "Conjugate Gradient requires the matrix to be symmetric and ___.", answer: "positive definite", altAnswers: ["spd", "positive-definite"] },
-            { topic: "GMRES", prompt: "GMRES works for ___ matrices.", answer: "non-symmetric", altAnswers: ["general", "nonsymmetric"] },
-            { topic: "Precond", prompt: "Preconditioning attempts to reduce the ___ number.", answer: "condition" },
-            { topic: "Memory", prompt: "Direct methods like Gaussian Elimination suffer from ___ (new non-zeros).", answer: "fill-in" },
-            { topic: "Complexity", prompt: "Iterative methods rely on fast Matrix-___ multiplication.", answer: "vector" },
-            { topic: "Arnoldi", prompt: "GMRES uses the ___ iteration to build an orthogonal basis.", answer: "arnoldi" },
-            { topic: "Lanczos", prompt: "CG uses the ___ iteration (symmetric Arnoldi).", answer: "lanczos" },
-            { topic: "Restart", prompt: "GMRES is often ___ to save memory.", answer: "restarted" },
+            { topic: "Complexity", prompt: "Naive DFT is O(N^2), FFT is O(___).", answer: "N log N", altAnswers: ["NlogN", "n log n"] },
+            { topic: "Strategy", prompt: "FFT uses a ___ and conquer strategy.", answer: "divide" },
+            { topic: "Recursion", prompt: "The FFT splits the problem into ___ and odd indices.", answer: "even" },
+            { topic: "Convolution", prompt: "Convolution in time is ___ in frequency.", answer: "multiplication" },
+            { topic: "Roots", prompt: "FFT relies on symmetries of the Roots of ___.", answer: "unity" },
+            { topic: "Inverse", prompt: "The Inverse FFT is almost identical, but with a sign change in the ___.", answer: "exponent" },
+            { topic: "Polynomial", prompt: "FFT is equivalent to fast ___ multiplication.", answer: "polynomial" },
+            { topic: "Physics", prompt: "In Physics, frequency domain is often called ___ space (k-space).", answer: "reciprocal" },
+            { topic: "Aliasing", prompt: "Sampling below the Nyquist rate causes ___.", answer: "aliasing" },
+            { topic: "Windowing", prompt: "To reduce spectral leakage, we apply a ___ function.", answer: "window" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day105_iter_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day85_fft_v1' });
     </script>
 </body>
 
