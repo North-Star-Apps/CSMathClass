@@ -13,9 +13,10 @@
     <style>
         :root {
             --bg: #fafaf9;
-            --surface: #fff;
+            --surface: #ffffff;
             --surface-alt: #f5f5f4;
             --border: #e7e5e4;
+            --border-strong: #d6d3d1;
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
@@ -25,11 +26,18 @@
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
+            --radius-lg: 12px;
             --font-serif: 'Source Serif 4', Georgia, serif;
             --font-sans: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         [data-theme="dark"] {
@@ -37,94 +45,179 @@
             --surface: #16161a;
             --surface-alt: #1c1c21;
             --border: #2a2a32;
+            --border-strong: #3a3a44;
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
             --accent: #34d399;
             --accent-light: #064e3b;
             --accent-dark: #6ee7b7;
-            --code-bg: #0f0f12
+            --code-bg: #0f0f12;
+            --success: #86efac;
+            --success-bg: #14532d;
+            --error: #fca5a5;
+            --error-bg: #7f1d1d;
+            --warning: #fde68a;
+            --warning-bg: #78350f;
+            --info: #a5f3fc;
+            --info-bg: #164e63;
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92);
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7;
+        }
+
+        [data-theme="dark"] .warning strong {
+            color: #fef3c7;
+        }
+
+        [data-theme="dark"] .info {
+            color: #cffafe;
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7
+            line-height: 1.7;
+            font-size: 16px;
         }
 
         .nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 12px 24px
+            padding: 12px 24px;
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center
+            gap: 16px;
         }
 
         .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 14px
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            transition: all 0.15s;
+        }
+
+        .nav-back:hover {
+            background: var(--surface-alt);
+            color: var(--text);
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
             color: var(--text-secondary);
-            cursor: pointer
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--surface-alt);
+            color: var(--text);
+            border-color: var(--border-strong);
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px 32px;
         }
 
         .hero-label {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
         }
 
         [data-theme="dark"] .hero-label {
-            color: var(--accent)
+            color: var(--accent);
         }
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
-            margin-bottom: 16px
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
         }
 
         .hero-desc {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--text-secondary);
-            max-width: 640px
+            max-width: 720px;
+            line-height: 1.6;
         }
 
         .hero-meta {
@@ -133,7 +226,7 @@
             gap: 16px;
             margin-top: 24px;
             padding-top: 24px;
-            border-top: 1px solid var(--border)
+            border-top: 1px solid var(--border);
         }
 
         .meta-item {
@@ -141,7 +234,7 @@
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            color: var(--text-muted)
+            color: var(--text-muted);
         }
 
         .main-layout {
@@ -150,30 +243,33 @@
             padding: 0 24px 80px;
             display: grid;
             grid-template-columns: 260px 1fr;
-            gap: 48px
+            gap: 48px;
         }
 
-        @media(max-width:900px) {
+        @media (max-width: 900px) {
             .main-layout {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
 
             .sidebar {
-                display: none
+                display: none;
             }
         }
 
         .sidebar {
             position: sticky;
             top: 80px;
-            align-self: start
+            align-self: start;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 16px
+            padding: 16px;
         }
 
         .toc-title {
@@ -182,11 +278,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
-            margin-bottom: 12px
+            margin-bottom: 12px;
         }
 
         .toc-list {
-            list-style: none
+            list-style: none;
         }
 
         .toc-link {
@@ -198,22 +294,22 @@
             border-radius: var(--radius);
             border-left: 2px solid transparent;
             margin-left: -2px;
-            transition: all 0.15s
+            transition: all 0.15s;
         }
 
         .toc-link:hover {
             color: var(--text);
-            background: var(--surface-alt)
+            background: var(--surface-alt);
         }
 
         .toc-link.active {
             color: var(--accent-dark);
             background: var(--accent-light);
-            border-left-color: var(--accent)
+            border-left-color: var(--accent);
         }
 
         [data-theme="dark"] .toc-link.active {
-            color: var(--accent)
+            color: var(--accent);
         }
 
         .stats-card {
@@ -221,7 +317,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 16px;
-            margin-top: 16px
+            margin-top: 16px;
         }
 
         .stats-row {
@@ -229,152 +325,232 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            font-size: 13px
+            font-size: 13px;
         }
 
         .stats-label {
-            color: var(--text-muted)
+            color: var(--text-muted);
         }
 
         .stats-value {
             font-weight: 600;
             font-family: var(--font-mono);
-            color: var(--text)
+            color: var(--text);
         }
 
         .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s ease
+            min-width: 0;
         }
 
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .section-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border)
+            padding: 24px 28px 20px;
+            border-bottom: 1px solid var(--border);
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
             font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px;
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
-            font-weight: 700
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px;
+        }
+
+        .subsection {
+            margin-bottom: 32px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subsection-title::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
         }
 
         p {
             margin-bottom: 12px;
-            color: var(--text-secondary)
+            color: var(--text-secondary);
         }
 
         .math-block {
             background: var(--surface-alt);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 16px;
+            padding: 16px 20px;
             margin: 16px 0;
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 15px;
+            color: var(--text);
+            overflow-x: auto;
             white-space: pre-wrap;
-            overflow-x: auto
+        }
+
+        .math-inline {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--text);
         }
 
         .rule {
             background: var(--accent-light);
             border-left: 3px solid var(--accent);
-            padding: 16px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
             margin: 16px 0;
+            color: var(--accent-dark);
             font-weight: 500;
-            color: var(--accent-dark)
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #92400e;
+        }
+
+        .warning strong {
+            color: #78350f;
+        }
+
+        [data-theme="dark"] .warning strong {
+            color: #fcd34d;
+        }
+
+        .info {
+            background: var(--info-bg);
+            border-left: 3px solid var(--info);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #155e75;
         }
 
         ul {
             margin: 12px 0 12px 24px;
-            color: var(--text-secondary)
+            color: var(--text-secondary);
         }
 
         li {
-            margin-bottom: 6px
+            margin-bottom: 8px;
         }
 
         li strong {
-            color: var(--text)
+            color: var(--text);
         }
 
-        pre {
+        .code-block {
             background: var(--code-bg);
-            color: var(--code-text);
-            padding: 16px;
             border-radius: var(--radius);
-            overflow-x: auto;
             margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 13px
+            overflow: hidden;
         }
 
-        code {
-            font-family: var(--font-mono);
-            font-size: 0.9em;
-            background: var(--surface-alt);
-            padding: 2px 6px;
-            border-radius: 4px
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #2d2d2d;
+            border-bottom: 1px solid #3d3d3d;
         }
 
-        pre code {
-            background: none;
-            padding: 0
+        .code-lang {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: #71717a;
+        }
+
+        .code-content {
+            padding: 16px 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--code-text);
+        }
+
+        .code-keyword {
+            color: #c586c0;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-number {
+            color: #b5cea8;
+        }
+
+        .code-comment {
+            color: #6a9955;
         }
 
         .quiz-controls {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border)
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
 
         .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             padding: 10px 16px;
             font-size: 14px;
             font-weight: 600;
@@ -382,327 +558,601 @@
             border: 1px solid var(--border);
             background: var(--surface);
             color: var(--text);
-            cursor: pointer
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn:hover {
+            background: var(--surface-alt);
+            border-color: var(--border-strong);
         }
 
         .btn-primary {
             background: var(--accent);
             border-color: var(--accent);
-            color: #fff
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+
+        .btn-danger {
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        .btn-danger:hover {
+            background: var(--error-bg);
         }
 
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px;
         }
 
-        .q-header {
+        .question-header {
             display: flex;
+            align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 10px
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
-            color: var(--accent)
+            color: var(--accent);
         }
 
-        .q-topic {
-            font-size: 11px;
+        .question-topic {
+            font-size: 12px;
             color: var(--text-muted);
             background: var(--surface);
-            padding: 4px 8px;
-            border-radius: 999px
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
         }
 
-        .q-prompt {
+        .question-prompt {
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
             background: var(--surface);
-            padding: 12px;
+            padding: 16px 20px;
             border-radius: var(--radius);
-            margin-bottom: 12px
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
         }
 
-        .q-row {
+        .question-input-row {
             display: flex;
-            gap: 8px
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .q-input {
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px 16px;
             font-family: var(--font-mono);
+            font-size: 15px;
             border: 2px solid var(--border);
             border-radius: var(--radius);
             background: var(--surface);
-            color: var(--text)
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.15s;
         }
 
-        .q-input:focus {
+        .question-input:focus {
             border-color: var(--accent);
-            outline: none
         }
 
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg);
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg);
         }
 
-        .q-result {
+        .question-result {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .question-result .success {
+            color: var(--success);
+        }
+
+        .question-result .error {
+            color: var(--error);
+        }
+
+        .question-answer {
             margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
-        }
-
-        .success {
-            color: var(--success)
-        }
-
-        .error {
-            color: var(--error)
-        }
-
-        .q-answer {
-            margin-top: 6px;
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 13px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent);
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 32px 16px 24px;
+            }
+
+            .main-layout {
+                padding: 0 16px 60px;
+            }
+
+            .section-header,
+            .section-body {
+                padding: 20px;
+            }
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">← Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 0 complete</span>
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 12 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle">🌙</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
+
     <header class="hero">
-        <div class="hero-label">Day 38 · Algorithms</div>
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 38 · Algorithms
+        </div>
         <h1>Clean Code, Tests, Debug, Performance</h1>
-        <p class="hero-desc">Master foundational programming practices: readable code, rigorous testing, systematic
-            debugging, and wise optimization.</p>
+        <p class="hero-desc">
+            Master foundational programming practices: readable code, rigorous testing, systematic debugging, and wise
+            optimization.
+        </p>
+        <div class="hero-meta">
+            <div class="meta-item">~45 min read</div>
+            <div class="meta-item">12 practice problems</div>
+        </div>
     </header>
-    <div class="hero-meta">
-        <div class="meta-item">~45 min read</div>
-        <div class="meta-item">10 questions</div>
-    </div>
-    </header>
+
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#clean" class="toc-link">1. Clean Code</a></li>
+                    <li><a href="#solid" class="toc-link">2. SOLID Principles</a></li>
+                    <li><a href="#testing" class="toc-link">3. Testing Strategies</a></li>
+                    <li><a href="#debugging" class="toc-link">4. Debugging</a></li>
+                    <li><a href="#performance" class="toc-link">5. Performance</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                </ul>
             </nav>
             <div class="stats-card">
                 <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
                         id="statCorrect">0</span></div>
                 <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
                         id="statAccuracy">—</span></div>
             </div>
         </aside>
+
         <main class="content">
+            <!-- Clean Code -->
             <section class="section" id="clean">
                 <div class="section-header">
-                    <div class="section-number">01</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Clean Code Principles</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Core:</strong> Code is read more than written. Optimize for clarity.</div>
-                    <p><strong>Naming:</strong> Use intention-revealing names. Functions use verbs
-                        (<code>getUser</code>),
-                        classes use nouns (<code>UserRepository</code>), booleans use predicates (<code>isValid</code>).
-                    </p>
-                    <div class="math-block">FUNCTIONS SHOULD:
-                        • Be small (&lt;20 lines)
-                        • Do one thing well
-                        • Have few arguments (0-2 ideal)
-                        • Follow command-query separation</div>
-                    <p><strong>SOLID Principles:</strong></p>
-                    <ul>
-                        <li><strong>S</strong> - Single Responsibility</li>
-                        <li><strong>O</strong> - Open/Closed</li>
-                        <li><strong>L</strong> - Liskov Substitution</li>
-                        <li><strong>I</strong> - Interface Segregation</li>
-                        <li><strong>D</strong> - Dependency Inversion</li>
-                    </ul>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Why clean code matters</h3>
+                        <p>Code is read far more often than it's written. Every hour spent writing clear code saves ten
+                            hours of debugging and maintenance later.</p>
+                        <div class="rule"><strong>The goal:</strong> Code should read like well-written prose. If you
+                            need comments to explain what it does, the code itself isn't clear enough.</div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Naming conventions</h3>
+                        <ul>
+                            <li><strong>Variables:</strong> Nouns that describe what they hold — <span
+                                    class="math-inline">userCount</span>, <span class="math-inline">maxRetries</span>
+                            </li>
+                            <li><strong>Functions:</strong> Verbs that describe what they do — <span
+                                    class="math-inline">getUserById()</span>, <span
+                                    class="math-inline">calculateTotal()</span></li>
+                            <li><strong>Booleans:</strong> Predicates — <span class="math-inline">isValid</span>, <span
+                                    class="math-inline">hasPermission</span>, <span class="math-inline">canEdit</span>
+                            </li>
+                            <li><strong>Classes:</strong> Nouns — <span class="math-inline">UserRepository</span>, <span
+                                    class="math-inline">PaymentProcessor</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Function guidelines</h3>
+                        <div class="math-block">FUNCTIONS SHOULD:
+                            • Be small (< 20 lines ideal) • Do one thing and do it well • Have few arguments (0-2 ideal,
+                                3 max) • Follow command-query separation • Have no side effects (when possible)</div>
+                                <div class="code-block">
+                                    <div class="code-header"><span class="code-lang">Python</span><span
+                                            class="code-label">Good vs Bad naming</span></div>
+                                    <div class="code-content">
+                                        <pre><span class="code-comment"># Bad: What does this do?</span>
+<span class="code-keyword">def</span> <span class="code-function">proc</span>(d, f):
+    <span class="code-keyword">return</span> [x <span class="code-keyword">for</span> x <span class="code-keyword">in</span> d <span class="code-keyword">if</span> f(x)]
+
+<span class="code-comment"># Good: Crystal clear intent</span>
+<span class="code-keyword">def</span> <span class="code-function">filter_active_users</span>(users, is_active):
+    <span class="code-keyword">return</span> [user <span class="code-keyword">for</span> user <span class="code-keyword">in</span> users <span class="code-keyword">if</span> is_active(user)]</pre>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+            </section>
+
+            <!-- SOLID -->
+            <section class="section" id="solid">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">SOLID Principles</h2>
+                </div>
+                <div class="section-body">
+                    <p>Five principles for maintainable object-oriented design:</p>
+                    <div class="math-block">S — Single Responsibility: One class, one reason to change
+                        O — Open/Closed: Open for extension, closed for modification
+                        L — Liskov Substitution: Subtypes must be substitutable
+                        I — Interface Segregation: Many specific interfaces > one general
+                        D — Dependency Inversion: Depend on abstractions, not concretions</div>
+
+                    <div class="warning">
+                        <strong>Common violation:</strong> A <span class="math-inline">User</span> class that handles
+                        authentication, database access, AND email sending. Split these into <span
+                            class="math-inline">Authenticator</span>, <span class="math-inline">UserRepository</span>,
+                        and <span class="math-inline">EmailService</span>.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Python</span><span
+                                class="code-label">Dependency Inversion example</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-comment"># Bad: Concrete dependency</span>
+<span class="code-keyword">class</span> <span class="code-function">OrderService</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
+        self.db = MySQLDatabase()  <span class="code-comment"># Locked to MySQL!</span>
+
+<span class="code-comment"># Good: Depend on abstraction</span>
+<span class="code-keyword">class</span> <span class="code-function">OrderService</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, database: Database):
+        self.db = database  <span class="code-comment"># Any database works!</span></pre>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Testing -->
             <section class="section" id="testing">
                 <div class="section-header">
-                    <div class="section-number">02</div>
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Testing Strategies</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">TESTING PYRAMID:
-                        /\ E2E (few)
-                        / \ Integration (some)
-                        /----\ Unit (many)</div>
-                    <p>Follow AAA pattern: <strong>Arrange</strong> → <strong>Act</strong> → <strong>Assert</strong></p>
-                    <pre>function test_add() {
-    // Arrange
-    const calc = new Calculator();
-    // Act
-    const result = calc.add(2, 3);
-    // Assert
-    assert(result === 5);
-}</pre>
-                    <p><strong>Test:</strong> Happy path, edge cases (empty, null, max), error conditions, boundary
-                        cases.
-                    </p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">The testing pyramid</h3>
+                        <div class="math-block"> /\ E2E Tests (few, slow, expensive)
+                            / \
+                            /----\ Integration Tests (some)
+                            / \
+                            /--------\ Unit Tests (many, fast, cheap)</div>
+                        <p>Unit tests form the foundation. They're fast, isolated, and catch bugs early. Integration
+                            tests verify components work together. E2E tests validate complete user flows.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The AAA pattern</h3>
+                        <div class="rule"><strong>Arrange → Act → Assert:</strong> Set up the test, perform the action,
+                            verify the result.</div>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">AAA
+                                    pattern in action</span></div>
+                            <div class="code-content">
+                                <pre><span class="code-keyword">def</span> <span class="code-function">test_add_item_to_cart</span>():
+    <span class="code-comment"># Arrange</span>
+    cart = ShoppingCart()
+    item = Product(<span class="code-string">"Widget"</span>, price=<span class="code-number">9.99</span>)
+    
+    <span class="code-comment"># Act</span>
+    cart.add(item)
+    
+    <span class="code-comment"># Assert</span>
+    <span class="code-keyword">assert</span> len(cart.items) == <span class="code-number">1</span>
+    <span class="code-keyword">assert</span> cart.total == <span class="code-number">9.99</span></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">What to test</h3>
+                        <ul>
+                            <li><strong>Happy path:</strong> Normal expected usage</li>
+                            <li><strong>Edge cases:</strong> Empty inputs, nulls, maximum values</li>
+                            <li><strong>Error conditions:</strong> Invalid inputs, network failures</li>
+                            <li><strong>Boundary conditions:</strong> Off-by-one, limits</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
+
+            <!-- Debugging -->
             <section class="section" id="debugging">
                 <div class="section-header">
-                    <div class="section-number">03</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Systematic Debugging</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">SCIENTIFIC METHOD:
-                        1. OBSERVE - Reproduce reliably
-                        2. HYPOTHESIZE - About the cause
-                        3. PREDICT - What if hypothesis is true
-                        4. EXPERIMENT - Test prediction
-                        5. ANALYZE - Refine and repeat</div>
-                    <p><strong>Techniques:</strong> Binary search (halve area), rubber duck (explain aloud), print
-                        debugging, breakpoints, git bisect.</p>
-                    <p><strong>Common bugs:</strong> Off-by-one, null access, unexpected mutation, wrong operator.</p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">The scientific method</h3>
+                        <div class="math-block">1. OBSERVE — Reproduce the bug reliably
+                            2. HYPOTHESIZE — Form a theory about the cause
+                            3. PREDICT — What should happen if hypothesis is true?
+                            4. EXPERIMENT — Test your prediction
+                            5. ANALYZE — Refine hypothesis and repeat</div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Debugging techniques</h3>
+                        <ul>
+                            <li><strong>Binary search:</strong> Halve the problem space each step</li>
+                            <li><strong>Rubber duck:</strong> Explain the code line by line out loud</li>
+                            <li><strong>Print debugging:</strong> Strategic logging to trace execution</li>
+                            <li><strong>Breakpoints:</strong> Pause execution and inspect state</li>
+                            <li><strong>Git bisect:</strong> Find the commit that introduced the bug</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>Pro tip:</strong> When you find a bug, write a test that reproduces it BEFORE you fix
+                        it. This prevents regression and proves the fix works.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common bug patterns</h3>
+                        <ul>
+                            <li><strong>Off-by-one:</strong> Loop bounds, array indices</li>
+                            <li><strong>Null/undefined access:</strong> Missing null checks</li>
+                            <li><strong>Mutation bugs:</strong> Unexpected state changes</li>
+                            <li><strong>Race conditions:</strong> Timing-dependent failures</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
+
+            <!-- Performance -->
             <section class="section" id="performance">
                 <div class="section-header">
-                    <div class="section-number">04</div>
-                    <h2 class="section-title">Performance</h2>
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Performance Optimization</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Knuth:</strong> "Premature optimization is the root of all evil." Make it
-                        work
-                        → make it right → make it fast.</div>
-                    <div class="math-block">BIG-O REFERENCE:
-                        O(1) HashMap lookup
-                        O(log n) Binary search
-                        O(n) Array traversal
-                        O(n log n) Merge sort
-                        O(n²) Nested loops
-                        O(2ⁿ) Subsets
-                        O(n!) Permutations</div>
-                    <p><strong>Strategies:</strong> Better algorithm beats micro-optimization. Use caching, lazy
-                        evaluation,
-                        batching, right data structures.</p>
+                    <div class="rule"><strong>Knuth's law:</strong> "Premature optimization is the root of all evil."
+                        First make it work, then make it right, then make it fast.</div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Big-O reference</h3>
+                        <div class="math-block">O(1) — HashMap lookup, array access
+                            O(log n) — Binary search, balanced tree ops
+                            O(n) — Linear scan, single loop
+                            O(n log n) — Merge sort, heap sort
+                            O(n²) — Nested loops, bubble sort
+                            O(2ⁿ) — Subsets, naive recursion
+                            O(n!) — Permutations, brute force</div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Optimization strategies</h3>
+                        <ul>
+                            <li><strong>Better algorithm:</strong> Always beats micro-optimization</li>
+                            <li><strong>Caching:</strong> Trade memory for speed</li>
+                            <li><strong>Lazy evaluation:</strong> Don't compute until needed</li>
+                            <li><strong>Batching:</strong> Reduce overhead with bulk operations</li>
+                            <li><strong>Right data structure:</strong> HashSet for lookups, not List</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Measure first!</strong> Always profile before optimizing. Your intuition about
+                        bottlenecks is often wrong.
+                    </div>
                 </div>
             </section>
+
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2 class="section-title">Practice</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
-                    <div id="quiz"></div>
+                    <p>Type your answer and press Check (or hit Enter).</p>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
-    <script>
-        const Q = [
-            { id: 1, t: "Clean Code", q: "SOLID: S = Single ___", a: ["responsibility"], d: "Responsibility" },
-            { id: 2, t: "Clean Code", q: "DRY = Don't ___ Yourself", a: ["repeat"], d: "Repeat" },
-            { id: 3, t: "Testing", q: "AAA: Arrange, Act, ___", a: ["assert"], d: "Assert" },
-            { id: 4, t: "Testing", q: "Testing pyramid base: ___ tests", a: ["unit"], d: "Unit" },
-            { id: 5, t: "Debug", q: "Explain code to rubber ___", a: ["duck"], d: "Duck" },
-            { id: 6, t: "Debug", q: "Off-by-___ error", a: ["one", "1"], d: "One" },
-            { id: 7, t: "Performance", q: "HashMap lookup: O(___)", a: ["1", "one"], d: "1" },
-            { id: 8, t: "Performance", q: "Binary search: O(___ n)", a: ["log"], d: "log" },
-            { id: 9, t: "Performance", q: "Merge sort: O(n ___ n)", a: ["log"], d: "log" },
-            { id: 10, t: "Clean Code", q: "SOLID: D = Dependency ___", a: ["inversion"], d: "Inversion" }
-        ];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
-        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
-        let correct = 0;
-        let attempted = 0;
 
-        function updateUI() {
-            document.getElementById("statCorrect").textContent = correct;
-            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : "—";
-            document.getElementById("progressText").textContent = `${correct} / ${Q.length} complete`;
-            document.getElementById("progressFill").style.width = `${Math.round((correct / Q.length) * 100)}%`;
+    <script>
+        const QUESTIONS = [
+            { id: 1, topic: "Clean Code", prompt: "SOLID: S stands for Single ___", answer: "Responsibility" },
+            { id: 2, topic: "Clean Code", prompt: "DRY stands for Don't ___ Yourself", answer: "Repeat" },
+            { id: 3, topic: "SOLID", prompt: "SOLID: O stands for Open/___", answer: "Closed" },
+            { id: 4, topic: "SOLID", prompt: "SOLID: D stands for Dependency ___", answer: "Inversion" },
+            { id: 5, topic: "Testing", prompt: "AAA pattern: Arrange, Act, ___", answer: "Assert" },
+            { id: 6, topic: "Testing", prompt: "Base of testing pyramid: ___ tests", answer: "Unit" },
+            { id: 7, topic: "Debugging", prompt: "Explain code to a rubber ___", answer: "Duck" },
+            { id: 8, topic: "Debugging", prompt: "Off-by-___ error is common with loops", answer: "One" },
+            { id: 9, topic: "Performance", prompt: "HashMap lookup time complexity: O(___)", answer: "1" },
+            { id: 10, topic: "Performance", prompt: "Binary search time complexity: O(___ n)", answer: "log" },
+            { id: 11, topic: "Performance", prompt: "Merge sort time complexity: O(n ___ n)", answer: "log" },
+            { id: 12, topic: "Clean Code", prompt: "Functions should do ___ thing well", answer: "One" },
+        ];
+
+        const LS_KEY = "day38_clean_code_v1";
+        let stats = loadStats();
+        let sessionCorrect = 0;
+        let sessionAttempted = 0;
+
+        function loadStats() {
+            try { return JSON.parse(localStorage.getItem(LS_KEY)) || { attempted: 0, correct: 0 }; }
+            catch { return { attempted: 0, correct: 0 }; }
         }
+        function saveStats() { localStorage.setItem(LS_KEY, JSON.stringify(stats)); }
+
+        function updateStatsUI() {
+            document.getElementById("statAttempted").textContent = stats.attempted;
+            document.getElementById("statCorrect").textContent = stats.correct;
+            document.getElementById("statAccuracy").textContent = stats.attempted > 0 ? `${Math.round((stats.correct / stats.attempted) * 100)}%` : "—";
+            const pct = Math.round((sessionCorrect / QUESTIONS.length) * 100);
+            document.getElementById("progressText").textContent = `${sessionCorrect} / ${QUESTIONS.length} complete`;
+            document.getElementById("progressFill").style.width = `${pct}%`;
+        }
+
+        function normalize(s) { return s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; }
+        function isCorrect(input, answer) { return normalize(input) === normalize(answer); }
 
         function renderQuiz() {
-            const c = document.getElementById("quiz"); c.innerHTML = "";
-            Q.forEach(q => {
-                const d = document.createElement("div"); d.className = "question";
-                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
-                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
-                d.querySelector(".bc").onclick = () => {
-                    attempted++;
-                    if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
-                    else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
-                    updateUI();
-                };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
-                inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
-                c.appendChild(d);
+            const container = document.getElementById("quizContainer");
+            container.innerHTML = "";
+            QUESTIONS.forEach(q => {
+                const div = document.createElement("div");
+                div.className = "question";
+                div.innerHTML = `
+          <div class="question-header">
+            <span class="question-num">Q${q.id}</span>
+            <span class="question-topic">${q.topic}</span>
+          </div>
+          <div class="question-prompt">${q.prompt}</div>
+          <div class="question-input-row">
+            <input type="text" class="question-input" placeholder="Your answer..."/>
+            <button class="btn btn-primary btn-check">Check</button>
+            <button class="btn btn-show">Show</button>
+          </div>
+          <div class="question-result"></div>
+        `;
+                const input = div.querySelector(".question-input");
+                const result = div.querySelector(".question-result");
+                const btnCheck = div.querySelector(".btn-check");
+                const btnShow = div.querySelector(".btn-show");
+
+                btnCheck.addEventListener("click", () => {
+                    stats.attempted++; sessionAttempted++;
+                    if (isCorrect(input.value, q.answer)) {
+                        stats.correct++; sessionCorrect++;
+                        input.classList.add("correct"); input.classList.remove("incorrect");
+                        result.innerHTML = `<span class="success">✓ Correct</span>`;
+                    } else {
+                        input.classList.add("incorrect"); input.classList.remove("correct");
+                        result.innerHTML = `<span class="error">✗ Not quite right</span>`;
+                    }
+                    saveStats(); updateStatsUI();
+                });
+                input.addEventListener("keydown", e => { if (e.key === "Enter") btnCheck.click(); });
+                btnShow.addEventListener("click", () => { result.innerHTML = `<div class="question-answer">Answer: ${q.answer}</div>`; });
+                container.appendChild(div);
             });
-            updateUI();
         }
 
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
-        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-
-        // TOC Generation
-        const tocContainer = document.getElementById("toc-container");
-        const list = document.createElement("ul"); list.className = "toc-list";
-        document.querySelectorAll(".section").forEach(s => {
-            const h2 = s.querySelector(".section-title");
-            if (h2) {
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                a.href = "#" + s.id;
-                a.className = "toc-link";
-                a.textContent = h2.textContent;
-                li.appendChild(a);
-                list.appendChild(li);
-            }
+        document.getElementById("btnCheckAll").addEventListener("click", () => document.querySelectorAll(".btn-check").forEach(b => b.click()));
+        document.getElementById("btnRevealAll").addEventListener("click", () => document.querySelectorAll(".btn-show").forEach(b => b.click()));
+        document.getElementById("btnClear").addEventListener("click", () => {
+            document.querySelectorAll(".question").forEach(div => {
+                div.querySelector(".question-input").value = "";
+                div.querySelector(".question-input").classList.remove("correct", "incorrect");
+                div.querySelector(".question-result").innerHTML = "";
+            });
+            sessionCorrect = 0; sessionAttempted = 0; updateStatsUI();
         });
-        tocContainer.appendChild(list);
+        document.getElementById("btnReset").addEventListener("click", () => {
+            if (!confirm("Reset all saved stats?")) return;
+            stats = { attempted: 0, correct: 0 }; saveStats();
+            sessionCorrect = 0; sessionAttempted = 0; updateStatsUI();
+        });
 
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
-        function updateToc() {
+        // TOC highlighting
+        const tocLinks = document.querySelectorAll(".toc-link");
+        const sections = document.querySelectorAll(".section");
+        function updateTocHighlight() {
             let current = "";
             sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
             tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
         }
-        window.addEventListener("scroll", updateToc);
+        window.addEventListener("scroll", updateTocHighlight);
 
+        // Theme toggle
+        const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+        const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+        const themeToggle = document.getElementById('themeToggle');
+        function updateThemeIcon() {
+            themeToggle.innerHTML = document.documentElement.getAttribute('data-theme') === 'dark' ? sunIcon : moonIcon;
+        }
+        themeToggle.addEventListener('click', () => {
+            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('math_cs_theme', next);
+            updateThemeIcon();
+        });
+        updateThemeIcon();
+
+        // Init
         renderQuiz();
-        const themeToggle = document.getElementById("themeToggle");
-        themeToggle.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); themeToggle.textContent = n === "dark" ? "☀️" : "🌙"; };
-        themeToggle.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        updateStatsUI();
+        updateTocHighlight();
     </script>
 </body>
 
