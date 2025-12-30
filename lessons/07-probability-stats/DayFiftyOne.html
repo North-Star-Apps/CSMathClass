@@ -5,10 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 51: Common Distributions</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -19,14 +17,22 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #7c3aed;
-            --accent-light: #ede9fe;
-            --accent-dark: #6d28d9;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --radius-lg: 12px;
+            --font-serif: 'Source Serif 4', serif;
+            --font-sans: 'DM Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace
         }
 
@@ -38,9 +44,25 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #a78bfa;
-            --accent-light: #2e1065;
-            --accent-dark: #c4b5fd
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92)
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7
+        }
+
+        [data-theme="dark"] .info {
+            color: #cffafe
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark)
         }
 
         * {
@@ -60,13 +82,14 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 24px
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -76,13 +99,12 @@
         .nav-back {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
             font-size: 14px
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
@@ -90,20 +112,20 @@
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px
         }
 
         .hero-label {
-            display: inline-block;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
+            display: inline-block
         }
 
         [data-theme="dark"] .hero-label {
@@ -112,15 +134,15 @@
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(28px, 5vw, 44px);
             font-weight: 700;
             margin-bottom: 16px
         }
 
         .hero-desc {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--text-secondary);
-            max-width: 640px
+            max-width: 720px
         }
 
         .main-layout {
@@ -144,14 +166,13 @@
 
         .sidebar {
             position: sticky;
-            top: 80px;
-            align-self: start
+            top: 80px
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 16px
         }
 
@@ -159,7 +180,6 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .05em;
             color: var(--text-muted);
             margin-bottom: 12px
         }
@@ -174,108 +194,60 @@
             font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: all .15s
-        }
-
-        .toc-link:hover {
-            color: var(--text);
-            background: var(--surface-alt)
+            border-radius: var(--radius)
         }
 
         .toc-link.active {
             color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent)
+            background: var(--accent-light)
         }
 
         [data-theme="dark"] .toc-link.active {
             color: var(--accent)
         }
 
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            font-size: 13px
-        }
-
-        .stats-label {
-            color: var(--text-muted)
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono);
-            color: var(--text)
-        }
-
-        .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width .3s ease
-        }
-
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
             overflow: hidden
         }
 
         .section-header {
-            padding: 20px 24px;
+            padding: 24px 28px;
             border-bottom: 1px solid var(--border)
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
-            font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px
+        }
+
+        .subsection {
+            margin-bottom: 32px
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px
         }
 
         p {
@@ -300,19 +272,31 @@
             border-left: 3px solid var(--accent);
             padding: 16px;
             margin: 16px 0;
-            font-weight: 500;
-            color: var(--accent-dark)
+            color: var(--accent-dark);
+            font-weight: 500
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            padding: 16px;
+            margin: 16px 0;
+            color: #92400e
+        }
+
+        .info {
+            background: var(--info-bg);
+            border-left: 3px solid var(--info);
+            padding: 16px;
+            margin: 16px 0;
+            color: #155e75
         }
 
         .quiz-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border)
         }
 
@@ -323,7 +307,6 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text);
             cursor: pointer
         }
 
@@ -336,49 +319,39 @@
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px
         }
 
-        .q-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px
-        }
-
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
-            color: var(--accent)
-        }
-
-        .q-topic {
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 8px;
-            border-radius: 999px
-        }
-
-        .q-prompt {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            background: var(--surface);
-            padding: 12px;
-            border-radius: var(--radius);
+            color: var(--accent);
             margin-bottom: 12px
         }
 
-        .q-row {
-            display: flex;
-            gap: 8px
+        .question-prompt {
+            font-family: var(--font-mono);
+            font-size: 15px;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 16px
         }
 
-        .q-input {
+        .question-input-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px;
             font-family: var(--font-mono);
             border: 2px solid var(--border);
             border-radius: var(--radius);
@@ -386,25 +359,18 @@
             color: var(--text)
         }
 
-        .q-input:focus {
-            border-color: var(--accent);
-            outline: none
-        }
-
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg)
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg)
         }
 
-        .q-result {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
+        .question-result {
+            margin-top: 12px
         }
 
         .success {
@@ -415,210 +381,135 @@
             color: var(--error)
         }
 
-        .q-answer {
-            margin-top: 6px;
+        .question-answer {
             font-family: var(--font-mono);
-            font-size: 12px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+            margin-top: 8px
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent)
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a>
-            <div class="nav-progress"><span id="progressText">0 / 0</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div><button class="theme-toggle" id="themeToggle">🌙</button>
-        </div>
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
     </nav>
     <header class="hero">
-        <div class="hero-label">Day 51 · Probability</div>
+        <div class="hero-label">Day 51 · Distributions</div>
         <h1>Common Distributions</h1>
-        <p class="hero-desc">Master the building blocks of probability: discrete and continuous distributions.</p>
+        <p class="hero-desc">The named probability distributions that model real-world phenomena.</p>
     </header>
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#discrete" class="toc-link">1. Discrete</a></li>
+                    <li><a href="#continuous" class="toc-link">2. Continuous</a></li>
+                    <li><a href="#summary" class="toc-link">3. Summary</a></li>
+                    <li><a href="#practice" class="toc-link">4. Practice</a></li>
+                </ul>
             </nav>
-            <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
-                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
-                        id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
-            </div>
         </aside>
         <main class="content">
-            <section class="section">
+            <section class="section" id="discrete">
                 <div class="section-header">
-                    <div class="section-number">01</div>
-                    <h2 class="section-title">Bernoulli & Binomial</h2>
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Discrete Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Bernoulli(p):</strong> Single trial, success with probability p.</div>
-                    <div class="math-block">BERNOULLI(p):
-                        X ∈ {0, 1}, P(X=1) = p, P(X=0) = 1-p
+                    <div class="math-block">BERNOULLI(p): Single trial, success prob p
+                        P(X=1) = p, P(X=0) = 1-p
                         E[X] = p, Var(X) = p(1-p)
 
-                        BINOMIAL(n, p):
-                        X = # successes in n independent Bernoulli(p) trials
+                        BINOMIAL(n,p): n independent Bernoulli trials
                         P(X=k) = C(n,k) · p^k · (1-p)^(n-k)
-                        E[X] = np, Var(X) = np(1-p)</div>
-                    <p>Think: coin flips, yes/no outcomes, counting successes.</p>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">02</div>
-                    <h2 class="section-title">Geometric & Negative Binomial</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">GEOMETRIC(p):
-                        X = # trials until first success
-                        P(X=k) = (1-p)^(k-1) · p, k = 1,2,3,...
+                        E[X] = np, Var(X) = np(1-p)
+
+                        GEOMETRIC(p): Trials until first success
+                        P(X=k) = (1-p)^(k-1) · p
                         E[X] = 1/p, Var(X) = (1-p)/p²
-                        Memoryless: P(X>s+t | X>s) = P(X>t)
 
-                        NEGATIVE BINOMIAL(r, p):
-                        X = # trials until r-th success
-                        P(X=k) = C(k-1,r-1) · p^r · (1-p)^(k-r)
-                        E[X] = r/p</div>
+                        POISSON(λ): Events in fixed interval
+                        P(X=k) = e^(-λ) · λ^k / k!
+                        E[X] = λ, Var(X) = λ</div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="continuous">
                 <div class="section-header">
-                    <div class="section-number">03</div>
-                    <h2 class="section-title">Poisson Distribution</h2>
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Continuous Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Poisson(λ):</strong> Count of rare events in fixed time/space.</div>
-                    <div class="math-block">POISSON(λ):
-                        P(X=k) = (λ^k · e^(-λ)) / k!, k = 0,1,2,...
-                        E[X] = λ, Var(X) = λ (mean = variance!)
-
-                        USE WHEN:
-                        • Counting events in interval
-                        • Events occur independently
-                        • Rate λ is constant
-
-                        POISSON APPROXIMATION TO BINOMIAL:
-                        If n large, p small, λ = np moderate:
-                        Binomial(n,p) ≈ Poisson(np)</div>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">04</div>
-                    <h2 class="section-title">Uniform Distribution</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">DISCRETE UNIFORM on {1,...,n}:
-                        P(X=k) = 1/n for each k
-                        E[X] = (n+1)/2, Var(X) = (n²-1)/12
-
-                        CONTINUOUS UNIFORM on [a,b]:
-                        f(x) = 1/(b-a) for x ∈ [a,b]
+                    <div class="math-block">UNIFORM(a,b): Equally likely in [a,b]
+                        f(x) = 1/(b-a)
                         E[X] = (a+b)/2, Var(X) = (b-a)²/12
 
-                        CDF: F(x) = (x-a)/(b-a)</div>
-                    <p>Used for random number generation and modeling equally-likely outcomes.</p>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2 class="section-title">Exponential Distribution</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule"><strong>Exponential(λ):</strong> Time between Poisson events.</div>
-                    <div class="math-block">EXPONENTIAL(λ):
+                        EXPONENTIAL(λ): Time between Poisson events
                         f(x) = λe^(-λx) for x ≥ 0
-                        F(x) = 1 - e^(-λx)
                         E[X] = 1/λ, Var(X) = 1/λ²
+                        Memoryless property!
 
-                        MEMORYLESS PROPERTY:
-                        P(X > s+t | X > s) = P(X > t)
-                        "Fresh start" — no aging!
-
-                        Only continuous memoryless distribution.</div>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2 class="section-title">Normal (Gaussian)</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule"><strong>Normal(μ, σ²):</strong> The bell curve — ubiquitous due to CLT.</div>
-                    <div class="math-block">NORMAL(μ, σ²):
-                        f(x) = (1/√(2πσ²)) · exp(-(x-μ)²/(2σ²))
+                        NORMAL(μ,σ²): Bell curve (Gaussian)
+                        f(x) = (1/(σ√(2π))) · e^(-(x-μ)²/(2σ²))
                         E[X] = μ, Var(X) = σ²
-
-                        STANDARD NORMAL N(0,1):
-                        Z = (X-μ)/σ ← standardization
-                        Φ(z) = P(Z ≤ z) ← CDF tables
-
-                        KEY PROPERTIES:
-                        • Symmetric around μ
-                        • 68-95-99.7 rule (within 1,2,3 σ)
-                        • Sum of normals is normal
-                        • Linear transform of normal is normal</div>
+                        68-95-99.7 rule for ±1,2,3 σ</div>
+                    <div class="info"><strong>Standard Normal N(0,1):</strong> Z = (X-μ)/σ. Use Z-tables or software for
+                        probabilities.</div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="summary">
                 <div class="section-header">
-                    <div class="section-number">07</div>
-                    <h2 class="section-title">Other Key Distributions</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Quick Reference</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">GAMMA(α, β): Generalizes exponential
-                        • Sum of α independent Exp(β) RVs
-                        • E[X] = α/β, Var(X) = α/β²
-
-                        CHI-SQUARED(k): Sum of k squared N(0,1)
-                        • Used in hypothesis testing
-                        • E[X] = k, Var(X) = 2k
-
-                        BETA(α, β): Values in [0,1]
-                        • Conjugate prior for Bernoulli
-                        • Models probabilities/proportions
-
-                        t-DISTRIBUTION(ν): Heavier tails than normal
-                        • Used when σ unknown, small samples</div>
+                    <div class="math-block">DISTRIBUTION E[X] Var(X)
+                        Bernoulli(p) p p(1-p)
+                        Binomial(n,p) np np(1-p)
+                        Geometric(p) 1/p (1-p)/p²
+                        Poisson(λ) λ λ
+                        Uniform(a,b) (a+b)/2 (b-a)²/12
+                        Exponential(λ) 1/λ 1/λ²
+                        Normal(μ,σ²) μ σ²</div>
                 </div>
             </section>
+
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">08</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Practice</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
+                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    </div>
                     <div id="quiz"></div>
                 </div>
             </section>
         </main>
     </div>
     <script>
-        const Q = [{ id: 1, t: "Bern", q: "Bernoulli has ___ possible outcomes", a: ["2", "two"], d: "2" }, { id: 2, t: "Binom", q: "E[Binomial(n,p)] = ___", a: ["np", "n*p"], d: "np" }, { id: 3, t: "Geom", q: "E[Geometric(p)] = 1/___", a: ["p"], d: "p" }, { id: 4, t: "Geom", q: "Geometric is the only discrete ___ distribution", a: ["memoryless"], d: "memoryless" }, { id: 5, t: "Pois", q: "For Poisson(λ), mean equals ___", a: ["variance", "var", "λ", "lambda"], d: "variance (= λ)" }, { id: 6, t: "Exp", q: "Exponential(λ) has mean = 1/___", a: ["λ", "lambda"], d: "λ" }, { id: 7, t: "Norm", q: "Standard normal has μ=0 and σ=___", a: ["1", "one"], d: "1" }, { id: 8, t: "Norm", q: "Z = (X-μ)/σ is called ___", a: ["standardization", "standardizing", "z-score"], d: "standardization" }, { id: 9, t: "CLT", q: "Normal is ubiquitous due to the ___ Limit Theorem", a: ["central"], d: "Central" }, { id: 10, t: "χ²", q: "Chi-squared(k) is sum of k squared ___", a: ["normal", "n(0,1)", "normals"], d: "N(0,1)" }];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; const check = (v, a) => a.map(x => norm(x)).includes(norm(v)); let correct = 0, attempted = 0;
-        function updateUI() { document.getElementById("statCorrect").textContent = correct; document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—"; document.getElementById("progressText").textContent = `${correct}/${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%` }
-        function renderQuiz() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach(q => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`; const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result"); d.querySelector(".bc").onclick = () => { attempted++; if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>` } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>` } updateUI() }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>` }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click() }; c.appendChild(d) }); updateUI() }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click()); document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        const tocContainer = document.getElementById("toc-container"); const list = document.createElement("ul"); list.className = "toc-list"; document.querySelectorAll(".section").forEach(s => { const h2 = s.querySelector(".section-title"); if (h2) { if (!s.id) s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); const li = document.createElement("li"); const a = document.createElement("a"); a.href = "#" + s.id; a.className = "toc-link"; a.textContent = h2.textContent; li.appendChild(a); list.appendChild(li) } }); tocContainer.appendChild(list);
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); function updateToc() { let current = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`)) } window.addEventListener("scroll", updateToc);
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙" }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"; renderQuiz();
+        const Q = [{ q: "Bernoulli: E[X] = ___", a: "p" }, { q: "Binomial(n,p): E[X] = ___", a: "np" }, { q: "Geometric: E[X] = 1/___", a: "p" }, { q: "Poisson(λ): E[X] = Var(X) = ___", a: "λ" }, { q: "Normal: 68% within ±___ σ", a: "1" }, { q: "Exponential has ___ property", a: "memoryless" }, { q: "Standard normal has μ=0 and σ=___", a: "1" }, { q: "Uniform(a,b): E[X] = (a+___)/2", a: "b" }];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-num">Q${i + 1}</div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { if (norm(inp.value) === norm(q.a)) { inp.classList.add("correct"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); res.innerHTML = `<span class="error">✗</span>`; } }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); };
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
+        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
     </script>
 </body>
 

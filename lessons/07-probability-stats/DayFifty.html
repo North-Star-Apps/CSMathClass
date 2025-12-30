@@ -4,11 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 50: Random Variables, Expectation & Variance</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Day 50: Random Variables & Expectation</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -19,14 +17,23 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #7c3aed;
-            --accent-light: #ede9fe;
-            --accent-dark: #6d28d9;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --radius-lg: 12px;
+            --font-serif: 'Source Serif 4', serif;
+            --font-sans: 'DM Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace
         }
 
@@ -38,15 +45,36 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #a78bfa;
-            --accent-light: #2e1065;
-            --accent-dark: #c4b5fd
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7;
+            --code-bg: #0f0f12
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92)
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7
+        }
+
+        [data-theme="dark"] .info {
+            color: #cffafe
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark)
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
         }
 
         body {
@@ -60,13 +88,14 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 24px
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -76,13 +105,35 @@
         .nav-back {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 14px
+            font-size: 14px;
+            padding: 8px 12px
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted)
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
@@ -90,20 +141,20 @@
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px
         }
 
         .hero-label {
-            display: inline-block;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
+            display: inline-block
         }
 
         [data-theme="dark"] .hero-label {
@@ -112,15 +163,28 @@
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(28px, 5vw, 44px);
             font-weight: 700;
             margin-bottom: 16px
         }
 
         .hero-desc {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--text-secondary);
-            max-width: 640px
+            max-width: 720px
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border)
+        }
+
+        .meta-item {
+            font-size: 14px;
+            color: var(--text-muted)
         }
 
         .main-layout {
@@ -144,14 +208,13 @@
 
         .sidebar {
             position: sticky;
-            top: 80px;
-            align-self: start
+            top: 80px
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 16px
         }
 
@@ -159,7 +222,6 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .05em;
             color: var(--text-muted);
             margin-bottom: 12px
         }
@@ -174,21 +236,12 @@
             font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: all .15s
-        }
-
-        .toc-link:hover {
-            color: var(--text);
-            background: var(--surface-alt)
+            border-radius: var(--radius)
         }
 
         .toc-link.active {
             color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent)
+            background: var(--accent-light)
         }
 
         [data-theme="dark"] .toc-link.active {
@@ -198,7 +251,7 @@
         .stats-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 16px;
             margin-top: 16px
         }
@@ -206,7 +259,6 @@
         .stats-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 8px 0;
             font-size: 13px
         }
@@ -217,65 +269,62 @@
 
         .stats-value {
             font-weight: 600;
-            font-family: var(--font-mono);
-            color: var(--text)
-        }
-
-        .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width .3s ease
+            font-family: var(--font-mono)
         }
 
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
             overflow: hidden
         }
 
         .section-header {
-            padding: 20px 24px;
+            padding: 24px 28px;
             border-bottom: 1px solid var(--border)
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
-            font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px
+        }
+
+        .subsection {
+            margin-bottom: 32px
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .subsection-title::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%
         }
 
         p {
@@ -300,19 +349,44 @@
             border-left: 3px solid var(--accent);
             padding: 16px;
             margin: 16px 0;
-            font-weight: 500;
-            color: var(--accent-dark)
+            color: var(--accent-dark);
+            font-weight: 500
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            padding: 16px;
+            margin: 16px 0;
+            color: #92400e
+        }
+
+        .info {
+            background: var(--info-bg);
+            border-left: 3px solid var(--info);
+            padding: 16px;
+            margin: 16px 0;
+            color: #155e75
+        }
+
+        ul {
+            margin: 12px 0 12px 24px;
+            color: var(--text-secondary)
+        }
+
+        li {
+            margin-bottom: 8px
+        }
+
+        li strong {
+            color: var(--text)
         }
 
         .quiz-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--border)
         }
 
@@ -323,7 +397,6 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text);
             cursor: pointer
         }
 
@@ -336,49 +409,52 @@
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 12px
         }
 
-        .q-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px
-        }
-
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
             color: var(--accent)
         }
 
-        .q-topic {
-            font-size: 11px;
+        .question-topic {
+            font-size: 12px;
             color: var(--text-muted);
             background: var(--surface);
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 999px
         }
 
-        .q-prompt {
+        .question-prompt {
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 15px;
             background: var(--surface);
-            padding: 12px;
+            padding: 16px;
             border-radius: var(--radius);
-            margin-bottom: 12px
+            border: 1px solid var(--border);
+            margin-bottom: 16px
         }
 
-        .q-row {
+        .question-input-row {
             display: flex;
-            gap: 8px
+            gap: 10px;
+            flex-wrap: wrap
         }
 
-        .q-input {
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px 16px;
             font-family: var(--font-mono);
             border: 2px solid var(--border);
             border-radius: var(--radius);
@@ -386,25 +462,23 @@
             color: var(--text)
         }
 
-        .q-input:focus {
+        .question-input:focus {
             border-color: var(--accent);
             outline: none
         }
 
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg)
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg)
         }
 
-        .q-result {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
+        .question-result {
+            margin-top: 12px
         }
 
         .success {
@@ -415,24 +489,27 @@
             color: var(--error)
         }
 
-        .q-answer {
-            margin-top: 6px;
+        .question-answer {
             font-family: var(--font-mono);
-            font-size: 12px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+            margin-top: 8px
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent)
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a>
-            <div class="nav-progress"><span id="progressText">0 / 0</span>
+            <div class="nav-progress"><span id="progressText">0 / 10</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -441,129 +518,139 @@
     </nav>
     <header class="hero">
         <div class="hero-label">Day 50 · Probability</div>
-        <h1>Random Variables, Expectation & Variance</h1>
-        <p class="hero-desc">Quantify randomness with numbers and measure their center and spread.</p>
+        <h1>Random Variables & Expectation</h1>
+        <p class="hero-desc">Quantify randomness with numbers and compute their average behavior.</p>
+        <div class="hero-meta">
+            <div class="meta-item">~50 min read</div>
+            <div class="meta-item">10 practice problems</div>
+        </div>
     </header>
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#rv" class="toc-link">1. Random Variables</a></li>
+                    <li><a href="#pmf" class="toc-link">2. PMF and PDF</a></li>
+                    <li><a href="#expectation" class="toc-link">3. Expectation</a></li>
+                    <li><a href="#variance" class="toc-link">4. Variance</a></li>
+                    <li><a href="#practice" class="toc-link">5. Practice</a></li>
+                </ul>
             </nav>
             <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
+                <div class="toc-title">Progress</div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
                         id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
             </div>
         </aside>
         <main class="content">
-            <section class="section">
+            <section class="section" id="rv">
                 <div class="section-header">
-                    <div class="section-number">01</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Random Variables</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Random Variable (RV):</strong> A function X: Ω → ℝ that assigns a number
-                        to each outcome.</div>
-                    <div class="math-block">DISCRETE RV: Takes countably many values
-                        PMF (probability mass function): p(x) = P(X = x)
-                        Must satisfy: Σ p(xᵢ) = 1
+                    <div class="rule"><strong>Random Variable X:</strong> A function from sample space Ω to real numbers
+                        ℝ.</div>
+                    <div class="math-block">X: Ω → ℝ
 
-                        CONTINUOUS RV: Takes values in intervals
-                        PDF (probability density function): f(x)
-                        P(a ≤ X ≤ b) = ∫ₐᵇ f(x) dx
-                        Note: P(X = x) = 0 for any specific x!</div>
+                        EXAMPLE - Sum of two dice:
+                        Ω = {(1,1), (1,2), ..., (6,6)}
+                        X((i,j)) = i + j
+                        X takes values in {2, 3, ..., 12}</div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Types</h3>
+                        <ul>
+                            <li><strong>Discrete:</strong> Countable range (die roll, coin flips)</li>
+                            <li><strong>Continuous:</strong> Uncountable range (height, time)</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="pmf">
                 <div class="section-header">
-                    <div class="section-number">02</div>
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">PMF and PDF</h2>
+                </div>
+                <div class="section-body">
+                    <div class="math-block">DISCRETE - Probability Mass Function:
+                        pₓ(x) = P(X = x)
+                        Σₓ pₓ(x) = 1
+
+                        CONTINUOUS - Probability Density Function:
+                        fₓ(x) such that P(a ≤ X ≤ b) = ∫ₐᵇ fₓ(x) dx
+                        ∫₋∞^∞ fₓ(x) dx = 1
+
+                        CDF - Cumulative Distribution Function:
+                        Fₓ(x) = P(X ≤ x)</div>
+                    <div class="warning"><strong>For continuous RVs:</strong> P(X = x) = 0 for any specific value x.
+                        Only intervals have positive probability.</div>
+                </div>
+            </section>
+
+            <section class="section" id="expectation">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Expectation</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Expected Value E[X]:</strong> The probability-weighted average.</div>
-                    <div class="math-block">DISCRETE: E[X] = Σ xᵢ · P(X = xᵢ)
-                        CONTINUOUS: E[X] = ∫ x · f(x) dx
+                    <div class="rule"><strong>Expected Value E[X]:</strong> The probability-weighted average of all
+                        outcomes.</div>
+                    <div class="math-block">DISCRETE: E[X] = Σₓ x · P(X = x)
+                        CONTINUOUS: E[X] = ∫ x · fₓ(x) dx
 
-                        EXAMPLE (Fair die):
-                        E[X] = (1+2+3+4+5+6)/6 = 3.5</div>
+                        PROPERTIES (always true):
+                        • E[aX + b] = aE[X] + b
+                        • E[X + Y] = E[X] + E[Y] (linearity!)
+                        • E[XY] = E[X]E[Y] only if X ⊥ Y</div>
+                    <div class="info"><strong>LOTUS:</strong> E[g(X)] = Σₓ g(x)·P(X=x). No need to find distribution of
+                        g(X)!</div>
                 </div>
             </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">03</div>
-                    <h2 class="section-title">Linearity of Expectation</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">LINEARITY (Most powerful property!):
-                        E[aX + b] = a·E[X] + b
-                        E[X + Y] = E[X] + E[Y] ← ALWAYS TRUE!
 
-                        ⚠️ NO INDEPENDENCE NEEDED for addition!</div>
-                    <p>Break complex RVs into simpler indicator variables!</p>
-                </div>
-            </section>
-            <section class="section">
+            <section class="section" id="variance">
                 <div class="section-header">
-                    <div class="section-number">04</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Variance</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Variance Var(X):</strong> Expected squared deviation from mean.</div>
-                    <div class="math-block">Var(X) = E[(X - E[X])²] = E[X²] - (E[X])²
-                        SD(X) = √Var(X)
+                    <div class="math-block">VARIANCE - measures spread:
+                        Var(X) = E[(X - μ)²] = E[X²] - (E[X])²
+
+                        STANDARD DEVIATION:
+                        σ = √Var(X)
 
                         PROPERTIES:
-                        • Var(aX + b) = a²·Var(X)
-                        • If X,Y independent: Var(X+Y) = Var(X) + Var(Y)</div>
+                        • Var(aX + b) = a² Var(X)
+                        • Var(X + Y) = Var(X) + Var(Y) only if X ⊥ Y</div>
                 </div>
             </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2 class="section-title">Covariance</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">Cov(X,Y) = E[XY] - E[X]·E[Y]
-                        • > 0: move together | < 0: move opposite • If independent: Cov(X,Y)=0 CORRELATION:
-                            ρ=Cov(X,Y)/(SD(X)·SD(Y)) -1 ≤ ρ ≤ 1</div>
-                    </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2 class="section-title">Indicators</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">I_A = 1 if A occurs, 0 otherwise
-                        E[I_A] = P(A) ← expectation = probability!
-                        Counting: E[Σ I_Aᵢ] = Σ P(Aᵢ)</div>
-                </div>
-            </section>
+
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">07</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Practice</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
+                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    </div>
                     <div id="quiz"></div>
                 </div>
             </section>
         </main>
     </div>
     <script>
-        const Q = [{ id: 1, t: "RV", q: "PMF stands for probability ___ function", a: ["mass"], d: "mass" }, { id: 2, t: "RV", q: "PDF stands for probability ___ function", a: ["density"], d: "density" }, { id: 3, t: "E[X]", q: "E[aX+b] = a·E[X] + ___", a: ["b"], d: "b" }, { id: 4, t: "Lin", q: "E[X+Y] = E[X] + E[Y] requires ___ independence", a: ["no", "none", "zero"], d: "no" }, { id: 5, t: "Var", q: "Var(X) = E[X²] - (E[X])___", a: ["^2", "2", "squared"], d: "²" }, { id: 6, t: "Var", q: "Var(aX+b) = ___·Var(X)", a: ["a^2", "a2"], d: "a²" }, { id: 7, t: "SD", q: "SD(X) = √___", a: ["var(x)", "var", "variance"], d: "Var(X)" }, { id: 8, t: "Cov", q: "Cov(X,Y) = E[XY] - E[X]·E[___]", a: ["y"], d: "Y" }, { id: 9, t: "Ind", q: "E[I_A] = P(___) for indicator I_A", a: ["a"], d: "A" }, { id: 10, t: "ρ", q: "Correlation ρ ranges from -1 to ___", a: ["1", "+1"], d: "1" }];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; const check = (v, a) => a.map(x => norm(x)).includes(norm(v)); let correct = 0, attempted = 0;
-        function updateUI() { document.getElementById("statCorrect").textContent = correct; document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—"; document.getElementById("progressText").textContent = `${correct}/${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%` }
-        function renderQuiz() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach(q => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`; const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result"); d.querySelector(".bc").onclick = () => { attempted++; if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>` } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>` } updateUI() }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>` }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click() }; c.appendChild(d) }); updateUI() }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click()); document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        const tocContainer = document.getElementById("toc-container"); const list = document.createElement("ul"); list.className = "toc-list"; document.querySelectorAll(".section").forEach(s => { const h2 = s.querySelector(".section-title"); if (h2) { if (!s.id) s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); const li = document.createElement("li"); const a = document.createElement("a"); a.href = "#" + s.id; a.className = "toc-link"; a.textContent = h2.textContent; li.appendChild(a); list.appendChild(li) } }); tocContainer.appendChild(list);
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); function updateToc() { let current = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`)) } window.addEventListener("scroll", updateToc);
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙" }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"; renderQuiz();
+        const Q = [{ t: "RV", q: "Random variable maps Ω to ___", a: "real numbers" }, { t: "PMF", q: "PMF: pₓ(x) = P(X = ___)", a: "x" }, { t: "PMF", q: "Sum of all PMF values = ___", a: "1" }, { t: "PDF", q: "For continuous RV, P(X = x) = ___", a: "0" }, { t: "Expect", q: "E[X + Y] = E[X] + E[___]", a: "y" }, { t: "Expect", q: "E[aX + b] = aE[X] + ___", a: "b" }, { t: "Var", q: "Var(X) = E[X²] - (E[X])^___", a: "2" }, { t: "Var", q: "σ = √Var(___)", a: "x" }, { t: "Var", q: "Var(aX) = a² Var(___)", a: "x" }, { t: "Expect", q: "LOTUS: E[g(X)] = Σ g(x)·P(X=___)", a: "x" }];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; let correct = 0;
+        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-header"><span class="question-num">Q${i + 1}</span><span class="question-topic">${q.t}</span></div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { if (norm(inp.value) === norm(q.a)) { correct++; inp.classList.add("correct"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); res.innerHTML = `<span class="error">✗</span>`; } document.getElementById("statCorrect").textContent = correct; document.getElementById("progressText").textContent = `${correct} / ${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%`; }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); correct = 0; document.getElementById("statCorrect").textContent = 0; document.getElementById("progressText").textContent = `0 / ${Q.length}`; document.getElementById("progressFill").style.width = "0%"; };
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
+        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
     </script>
 </body>
 
