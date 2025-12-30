@@ -5,10 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Day 62: Convergence Modes</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -19,14 +17,21 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #0891b2;
-            --accent-light: #cffafe;
-            --accent-dark: #0e7490;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --radius-lg: 12px;
+            --font-serif: 'Source Serif 4', serif;
+            --font-sans: 'DM Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace
         }
 
@@ -38,9 +43,21 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #22d3ee;
-            --accent-light: #164e63;
-            --accent-dark: #67e8f9
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92)
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark)
         }
 
         * {
@@ -60,29 +77,28 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 24px
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            align-items: center
+            justify-content: space-between
         }
 
         .nav-back {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
             font-size: 14px
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
@@ -90,20 +106,20 @@
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px
         }
 
         .hero-label {
-            display: inline-block;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
+            display: inline-block
         }
 
         [data-theme="dark"] .hero-label {
@@ -112,15 +128,14 @@
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(28px, 5vw, 44px);
             font-weight: 700;
             margin-bottom: 16px
         }
 
         .hero-desc {
-            font-size: 17px;
-            color: var(--text-secondary);
-            max-width: 640px
+            font-size: 18px;
+            color: var(--text-secondary)
         }
 
         .main-layout {
@@ -144,14 +159,13 @@
 
         .sidebar {
             position: sticky;
-            top: 80px;
-            align-self: start
+            top: 80px
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 16px
         }
 
@@ -159,7 +173,6 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .05em;
             color: var(--text-muted);
             margin-bottom: 12px
         }
@@ -174,108 +187,46 @@
             font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: all .15s
-        }
-
-        .toc-link:hover {
-            color: var(--text);
-            background: var(--surface-alt)
+            border-radius: var(--radius)
         }
 
         .toc-link.active {
             color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent)
+            background: var(--accent-light)
         }
 
         [data-theme="dark"] .toc-link.active {
             color: var(--accent)
         }
 
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            font-size: 13px
-        }
-
-        .stats-label {
-            color: var(--text-muted)
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono);
-            color: var(--text)
-        }
-
-        .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width .3s ease
-        }
-
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
             overflow: hidden
         }
 
         .section-header {
-            padding: 20px 24px;
+            padding: 24px 28px;
             border-bottom: 1px solid var(--border)
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
-            font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px
         }
 
         p {
@@ -300,20 +251,24 @@
             border-left: 3px solid var(--accent);
             padding: 16px;
             margin: 16px 0;
-            font-weight: 500;
-            color: var(--accent-dark)
+            color: var(--accent-dark);
+            font-weight: 500
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            padding: 16px;
+            margin: 16px 0;
+            color: #92400e
         }
 
         .quiz-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border)
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px
         }
 
         .btn {
@@ -323,7 +278,6 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text);
             cursor: pointer
         }
 
@@ -336,49 +290,39 @@
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px
         }
 
-        .q-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px
-        }
-
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
-            color: var(--accent)
-        }
-
-        .q-topic {
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 8px;
-            border-radius: 999px
-        }
-
-        .q-prompt {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            background: var(--surface);
-            padding: 12px;
-            border-radius: var(--radius);
+            color: var(--accent);
             margin-bottom: 12px
         }
 
-        .q-row {
-            display: flex;
-            gap: 8px
+        .question-prompt {
+            font-family: var(--font-mono);
+            font-size: 15px;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 16px
         }
 
-        .q-input {
+        .question-input-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px;
             font-family: var(--font-mono);
             border: 2px solid var(--border);
             border-radius: var(--radius);
@@ -386,25 +330,18 @@
             color: var(--text)
         }
 
-        .q-input:focus {
-            border-color: var(--accent);
-            outline: none
-        }
-
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg)
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg)
         }
 
-        .q-result {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
+        .question-result {
+            margin-top: 12px
         }
 
         .success {
@@ -415,212 +352,121 @@
             color: var(--error)
         }
 
-        .q-answer {
-            margin-top: 6px;
+        .question-answer {
             font-family: var(--font-mono);
-            font-size: 12px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+            margin-top: 8px
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent)
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a>
-            <div class="nav-progress"><span id="progressText">0 / 0</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div><button class="theme-toggle" id="themeToggle">🌙</button>
-        </div>
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
     </nav>
     <header class="hero">
-        <div class="hero-label">Day 62 · Real Analysis II</div>
+        <div class="hero-label">Day 62 · Analysis</div>
         <h1>Convergence Modes</h1>
-        <p class="hero-desc">Understand different ways functions and sequences can converge.</p>
+        <p class="hero-desc">Pointwise, uniform, Lᵖ — different ways sequences of functions can converge.</p>
     </header>
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#pointwise" class="toc-link">1. Pointwise</a></li>
+                    <li><a href="#uniform" class="toc-link">2. Uniform</a></li>
+                    <li><a href="#lp" class="toc-link">3. Lᵖ Convergence</a></li>
+                    <li><a href="#practice" class="toc-link">4. Practice</a></li>
+                </ul>
             </nav>
-            <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
-                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
-                        id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
-            </div>
         </aside>
         <main class="content">
-            <section class="section">
+            <section class="section" id="pointwise">
                 <div class="section-header">
-                    <div class="section-number">01</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Pointwise Convergence</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Pointwise:</strong> For each fixed x, fₙ(x) → f(x) as n → ∞.</div>
-                    <div class="math-block">DEFINITION:
-                        fₙ → f pointwise on S means:
-                        ∀x ∈ S, ∀ε > 0, ∃N(x,ε): n > N ⟹ |fₙ(x) - f(x)| < ε ⚠️ N depends on BOTH x and ε! EXAMPLE:
-                            fₙ(x)=xⁿ on [0,1] • x ∈ [0,1): fₙ(x) → 0 • x=1: fₙ(1)=1 → 1 Pointwise limit: f(x)=0 if x <
-                            1, f(1)=1 PROBLEM: fₙ continuous, but f is NOT continuous! Pointwise limit of continuous ≠
-                            continuous</div>
+                    <div class="math-block">POINTWISE CONVERGENCE:
+                        fₙ → f pointwise if for each x:
+                        lim fₙ(x) = f(x)
+                        n→∞
+
+                        ∀x ∀ε>0 ∃N(x,ε): n>N ⟹ |fₙ(x)-f(x)| < ε Note: N depends on BOTH x and ε</div>
+                            <div class="warning"><strong>Pointwise limit of continuous ≠ necessarily
+                                    continuous!</strong></div>
                     </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="uniform">
                 <div class="section-header">
-                    <div class="section-number">02</div>
+                    <div class="section-number">Section 2</div>
                     <h2 class="section-title">Uniform Convergence</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Uniform:</strong> Same N works for all x — convergence is "uniform" across
-                        the domain.</div>
-                    <div class="math-block">DEFINITION:
-                        fₙ → f uniformly on S means:
-                        ∀ε > 0, ∃N(ε): ∀x ∈ S, n > N ⟹ |fₙ(x) - f(x)| < ε EQUIVALENTLY: ||fₙ - f||∞=sup_{x∈S} |fₙ(x) -
-                            f(x)| → 0 KEY DIFFERENCE: • Pointwise: N depends on x • Uniform: N works for all x
-                            simultaneously UNIFORM ⟹ POINTWISE (converse false!) TEST FOR UNIFORM CONVERGENCE:
-                            Mₙ=sup|fₙ(x) - f(x)| fₙ → f uniformly ⟺ Mₙ → 0</div>
+                    <div class="rule"><strong>Uniform:</strong> fₙ → f uniformly if sup|fₙ(x)-f(x)| → 0</div>
+                    <div class="math-block">UNIFORM CONVERGENCE:
+                        ∀ε>0 ∃N(ε): ∀x, n>N ⟹ |fₙ(x)-f(x)| < ε KEY DIFFERENCE: N depends ONLY on ε, not on x!
+                            PRESERVATION THEOREMS: • Uniform limit of continuous=continuous • Can swap limit and
+                            integral • Can swap limit and derivative (with conditions)</div>
                     </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="lp">
                 <div class="section-header">
-                    <div class="section-number">03</div>
-                    <h2 class="section-title">Why Uniform Matters</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">THEOREM 1: Preservation of Continuity
-                        fₙ continuous, fₙ → f uniformly
-                        ⟹ f is continuous
-
-                        THEOREM 2: Interchange Limit & Integral
-                        fₙ → f uniformly on [a,b]
-                        ⟹ ∫ₐᵇ fₙ → ∫ₐᵇ f
-
-                        THEOREM 3: Interchange Limit & Derivative
-                        fₙ → f pointwise (just pointwise!)
-                        f'ₙ → g uniformly
-                        ⟹ f is differentiable and f' = g
-
-                        ⚠️ POINTWISE FAILS THESE:
-                        fₙ(x) = xⁿ on [0,1]:
-                        • Each fₙ continuous
-                        • Limit f discontinuous at x=1
-                        • Pointwise conv. doesn't preserve continuity!</div>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">04</div>
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Lᵖ Convergence</h2>
                 </div>
                 <div class="section-body">
                     <div class="math-block">Lᵖ CONVERGENCE:
-                        fₙ → f in Lᵖ means:
-                        ||fₙ - f||ₚ = (∫|fₙ - f|ᵖ)^(1/p) → 0
+                        fₙ → f in Lᵖ if ||fₙ - f||ₚ → 0
 
-                        L¹ CONVERGENCE:
-                        ∫|fₙ - f| → 0 ("convergence in mean")
+                        That is: (∫|fₙ - f|ᵖ)^(1/p) → 0
 
-                        L² CONVERGENCE:
-                        ∫|fₙ - f|² → 0 ("mean square convergence")
+                        IMPLICATIONS:
+                        uniform ⟹ pointwise
+                        uniform ⟹ L∞
+                        Lᵖ ⟹ convergence in measure
 
-                        RELATIONSHIPS:
-                        Uniform conv. on bounded domain ⟹ Lᵖ conv.
-                        Lᵖ conv. ⟹ conv. in measure
-                        (Neither implies pointwise in general!)</div>
+                        NONE imply each other in general!</div>
                 </div>
             </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2 class="section-title">Convergence in Measure</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">DEFINITION:
-                        fₙ → f in measure means:
-                        ∀ε > 0, μ({x : |fₙ(x) - f(x)| > ε}) → 0
 
-                        INTUITION:
-                        The "bad set" where fₙ differs from f by more than ε
-                        shrinks to measure zero
-
-                        RELATIONSHIPS:
-                        Uniform ⟹ Lᵖ ⟹ In measure
-                        None of these imply pointwise everywhere!
-
-                        BUT:
-                        Convergence in measure ⟹ ∃ subsequence
-                        that converges pointwise a.e.
-
-                        DOMINATED CONVERGENCE:
-                        fₙ → f in measure + |fₙ| ≤ g ∈ L¹
-                        ⟹ fₙ → f in L¹</div>
-                </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2 class="section-title">Almost Everywhere Convergence</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">DEFINITION:
-                        fₙ → f almost everywhere (a.e.) means:
-                        fₙ(x) → f(x) for all x except a set of measure 0
-
-                        EGOROV'S THEOREM:
-                        fₙ → f a.e. on E with μ(E) < ∞ ⟹ ∀δ> 0, ∃F ⊂ E with μ(E\F) < δ and fₙ → f uniformly on
-                                F "Almost uniform convergence" RELATIONSHIPS: a.e. convergence + dominated ⟹ Lᵖ
-                                convergence Lᵖ convergence ⟹ subsequence converges a.e.</div>
-                    </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">07</div>
-                    <h2 class="section-title">Convergence Hierarchy</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">IMPLICATION DIAGRAM:
-
-                        Uniform
-                        ↓
-                        ┌──────┴──────┐
-                        ↓ ↓
-                        Pointwise a.e. Lᵖ (p < ∞) ↓ ↓ └──────┬──────┘ ↓ In Measure ↓ Subsequence converges a.e.
-                            COUNTEREXAMPLES TO MEMORIZE: 1. Pointwise ↛ Uniform: fₙ=xⁿ on [0,1] 2. Lᵖ ↛ Pointwise:
-                            typewriter sequence 3. Pointwise ↛ Lᵖ: fₙ=n·𝟙[0,1/n] 4. In measure ↛ Lᵖ: need dominating
-                            function</div>
-                    </div>
-            </section>
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">08</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Practice</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
+                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    </div>
                     <div id="quiz"></div>
                 </div>
             </section>
         </main>
     </div>
     <script>
-        const Q = [{ id: 1, t: "Pt", q: "Pointwise: N depends on x and ___", a: ["ε", "epsilon"], d: "ε" }, { id: 2, t: "Uni", q: "Uniform: same N works for ___ x", a: ["all"], d: "all" }, { id: 3, t: "Uni", q: "Uniform conv ⟹ ||fₙ-f||∞ → ___", a: ["0", "zero"], d: "0" }, { id: 4, t: "Thm", q: "Uniform limit of continuous functions is ___", a: ["continuous"], d: "continuous" }, { id: 5, t: "Lᵖ", q: "L² convergence: ∫|fₙ-f|² → ___", a: ["0", "zero"], d: "0" }, { id: 6, t: "Meas", q: "Convergence in ___: bad set shrinks to measure 0", a: ["measure"], d: "measure" }, { id: 7, t: "ae", q: "a.e. = almost ___, i.e., except measure 0 set", a: ["everywhere"], d: "everywhere" }, { id: 8, t: "Ego", q: "___ theorem: a.e. conv ⟹ almost uniform on finite measure", a: ["egorov", "egorov's"], d: "Egorov's" }, { id: 9, t: "Hier", q: "Uniform ⟹ Lᵖ ⟹ in ___", a: ["measure"], d: "measure" }, { id: 10, t: "DCT", q: "Dominated convergence needs |fₙ| ≤ g ∈ ___", a: ["l1", "l^1"], d: "L¹" }];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; const check = (v, a) => a.map(x => norm(x)).includes(norm(v)); let correct = 0, attempted = 0;
-        function updateUI() { document.getElementById("statCorrect").textContent = correct; document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—"; document.getElementById("progressText").textContent = `${correct}/${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%` }
-        function renderQuiz() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach(q => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`; const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result"); d.querySelector(".bc").onclick = () => { attempted++; if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>` } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>` } updateUI() }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>` }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click() }; c.appendChild(d) }); updateUI() }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click()); document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        const tocContainer = document.getElementById("toc-container"); const list = document.createElement("ul"); list.className = "toc-list"; document.querySelectorAll(".section").forEach(s => { const h2 = s.querySelector(".section-title"); if (h2) { if (!s.id) s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); const li = document.createElement("li"); const a = document.createElement("a"); a.href = "#" + s.id; a.className = "toc-link"; a.textContent = h2.textContent; li.appendChild(a); list.appendChild(li) } }); tocContainer.appendChild(list);
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); function updateToc() { let current = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`)) } window.addEventListener("scroll", updateToc);
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙" }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"; renderQuiz();
+        const Q = [{ q: "Pointwise: N depends on x and ___", a: "ε" }, { q: "Uniform: N depends only on ___", a: "ε" }, { q: "Uniform convergence: sup|fₙ-f| → ___", a: "0" }, { q: "Uniform limit of continuous is ___", a: "continuous" }, { q: "Lᵖ convergence: ||fₙ - f||ₚ → ___", a: "0" }, { q: "Uniform ⟹ ___ (weaker mode)", a: "pointwise" }];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-num">Q${i + 1}</div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { if (norm(inp.value) === norm(q.a)) { inp.classList.add("correct"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); res.innerHTML = `<span class="error">✗</span>`; } }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); };
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
+        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
     </script>
 </body>
 

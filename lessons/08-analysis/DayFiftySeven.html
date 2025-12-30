@@ -4,11 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 57: Sequences & Series Rigor</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Day 57: Sequences and Series Convergence</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;700&family=DM+Sans:wght@400;600&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -19,14 +17,21 @@
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
-            --accent: #0891b2;
-            --accent-light: #cffafe;
-            --accent-dark: #0e7490;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --accent-dark: #047857;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --radius-lg: 12px;
+            --font-serif: 'Source Serif 4', serif;
+            --font-sans: 'DM Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace
         }
 
@@ -38,9 +43,25 @@
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --accent: #22d3ee;
-            --accent-light: #164e63;
-            --accent-dark: #67e8f9
+            --accent: #34d399;
+            --accent-light: #064e3b;
+            --accent-dark: #6ee7b7
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92)
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7
+        }
+
+        [data-theme="dark"] .info {
+            color: #cffafe
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark)
         }
 
         * {
@@ -60,29 +81,28 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 24px
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
-            align-items: center
+            justify-content: space-between
         }
 
         .nav-back {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
             font-size: 14px
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
@@ -90,20 +110,20 @@
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px
         }
 
         .hero-label {
-            display: inline-block;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
+            display: inline-block
         }
 
         [data-theme="dark"] .hero-label {
@@ -112,15 +132,14 @@
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(28px, 5vw, 44px);
             font-weight: 700;
             margin-bottom: 16px
         }
 
         .hero-desc {
-            font-size: 17px;
-            color: var(--text-secondary);
-            max-width: 640px
+            font-size: 18px;
+            color: var(--text-secondary)
         }
 
         .main-layout {
@@ -144,14 +163,13 @@
 
         .sidebar {
             position: sticky;
-            top: 80px;
-            align-self: start
+            top: 80px
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             padding: 16px
         }
 
@@ -159,7 +177,6 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .05em;
             color: var(--text-muted);
             margin-bottom: 12px
         }
@@ -174,108 +191,46 @@
             font-size: 14px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius);
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: all .15s
-        }
-
-        .toc-link:hover {
-            color: var(--text);
-            background: var(--surface-alt)
+            border-radius: var(--radius)
         }
 
         .toc-link.active {
             color: var(--accent-dark);
-            background: var(--accent-light);
-            border-left-color: var(--accent)
+            background: var(--accent-light)
         }
 
         [data-theme="dark"] .toc-link.active {
             color: var(--accent)
         }
 
-        .stats-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 16px
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            font-size: 13px
-        }
-
-        .stats-label {
-            color: var(--text-muted)
-        }
-
-        .stats-value {
-            font-weight: 600;
-            font-family: var(--font-mono);
-            color: var(--text)
-        }
-
-        .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width .3s ease
-        }
-
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
             overflow: hidden
         }
 
         .section-header {
-            padding: 20px 24px;
+            padding: 24px 28px;
             border-bottom: 1px solid var(--border)
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
-            font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px
         }
 
         p {
@@ -300,20 +255,32 @@
             border-left: 3px solid var(--accent);
             padding: 16px;
             margin: 16px 0;
-            font-weight: 500;
-            color: var(--accent-dark)
+            color: var(--accent-dark);
+            font-weight: 500
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            padding: 16px;
+            margin: 16px 0;
+            color: #92400e
+        }
+
+        .info {
+            background: var(--info-bg);
+            border-left: 3px solid var(--info);
+            padding: 16px;
+            margin: 16px 0;
+            color: #155e75
         }
 
         .quiz-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border)
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px
         }
 
         .btn {
@@ -323,7 +290,6 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text);
             cursor: pointer
         }
 
@@ -336,49 +302,39 @@
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px
         }
 
-        .q-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px
-        }
-
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
-            color: var(--accent)
-        }
-
-        .q-topic {
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--surface);
-            padding: 4px 8px;
-            border-radius: 999px
-        }
-
-        .q-prompt {
-            font-family: var(--font-mono);
-            font-size: 14px;
-            background: var(--surface);
-            padding: 12px;
-            border-radius: var(--radius);
+            color: var(--accent);
             margin-bottom: 12px
         }
 
-        .q-row {
-            display: flex;
-            gap: 8px
+        .question-prompt {
+            font-family: var(--font-mono);
+            font-size: 15px;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 16px
         }
 
-        .q-input {
+        .question-input-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px;
             font-family: var(--font-mono);
             border: 2px solid var(--border);
             border-radius: var(--radius);
@@ -386,25 +342,18 @@
             color: var(--text)
         }
 
-        .q-input:focus {
-            border-color: var(--accent);
-            outline: none
-        }
-
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg)
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg)
         }
 
-        .q-result {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
+        .question-result {
+            margin-top: 12px
         }
 
         .success {
@@ -415,218 +364,134 @@
             color: var(--error)
         }
 
-        .q-answer {
-            margin-top: 6px;
+        .question-answer {
             font-family: var(--font-mono);
-            font-size: 12px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+            margin-top: 8px
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent)
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
-        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a>
-            <div class="nav-progress"><span id="progressText">0 / 0</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div><button class="theme-toggle" id="themeToggle">🌙</button>
-        </div>
+        <div class="nav-inner"><a href="../../index.html" class="nav-back">← Back</a><button class="theme-toggle"
+                id="themeToggle">🌙</button></div>
     </nav>
     <header class="hero">
         <div class="hero-label">Day 57 · Analysis</div>
-        <h1>Sequences & Series Rigor</h1>
-        <p class="hero-desc">Develop rigorous understanding of convergence for sequences and series.</p>
+        <h1>Sequences and Series Convergence</h1>
+        <p class="hero-desc">When do infinite sums and sequences have finite limits?</p>
     </header>
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#sequences" class="toc-link">1. Sequence Convergence</a></li>
+                    <li><a href="#series" class="toc-link">2. Series Tests</a></li>
+                    <li><a href="#power" class="toc-link">3. Power Series</a></li>
+                    <li><a href="#practice" class="toc-link">4. Practice</a></li>
+                </ul>
             </nav>
-            <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
-                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
-                        id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
-            </div>
         </aside>
         <main class="content">
-            <section class="section">
+            <section class="section" id="sequences">
                 <div class="section-header">
-                    <div class="section-number">01</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Sequence Convergence</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Definition:</strong> (aₙ) → L if terms get arbitrarily close to L.</div>
-                    <div class="math-block">FORMAL DEFINITION:
-                        lim_{n→∞} aₙ = L means:
-                        ∀ε > 0, ∃N ∈ ℕ: n > N ⟹ |aₙ - L| < ε INTERPRETATION: • ε=tolerance (how close to L) •
-                            N=threshold (after which all terms are close) • "Eventually, all terms stay within ε of L"
-                            EXAMPLE: Prove lim (1/n)=0 Let ε> 0. Choose N = ⌈1/ε⌉.
-                            If n > N, then n > 1/ε, so 1/n < ε. Thus |1/n - 0|=1/n < ε. ✓</div>
-                    </div>
+                    <div class="rule"><strong>Definition:</strong> aₙ → L if ∀ε>0 ∃N such that n>N ⟹ |aₙ-L|<ε< /div>
+                            <div class="math-block">SEQUENCE CONVERGENCE:
+                                lim aₙ = L means:
+                                n→∞
+                                For every ε > 0, there exists N such that
+                                whenever n > N, we have |aₙ - L| < ε KEY THEOREMS: • Monotone bounded sequences converge
+                                    • Cauchy criterion: {aₙ} converges iff ∀ε>0 ∃N: m,n>N ⟹ |aₘ-aₙ|<ε •
+                                        Bolzano-Weierstrass: bounded sequence has convergent subsequence</div>
+                            </div>
             </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">02</div>
-                    <h2 class="section-title">Sequence Properties</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">BOUNDED:
-                        (aₙ) bounded if ∃M: |aₙ| ≤ M for all n
 
-                        MONOTONE:
-                        Increasing: aₙ ≤ aₙ₊₁ for all n
-                        Decreasing: aₙ ≥ aₙ₊₁ for all n
-                        Strictly: replace ≤ with < THEOREM: Convergent ⟹ Bounded Proof: Eventually |aₙ - L| < 1, so |aₙ|
-                            < |L| + 1 Finitely many terms before, take max MONOTONE CONVERGENCE THEOREM: Bounded +
-                            Monotone ⟹ Convergent • Increasing + bounded above → converges to sup • Decreasing + bounded
-                            below → converges to inf</div>
-                            <div class="rule"><strong>MCT</strong> is fundamental — it uses completeness of ℝ!</div>
-                    </div>
-            </section>
-            <section class="section">
+            <section class="section" id="series">
                 <div class="section-header">
-                    <div class="section-number">03</div>
-                    <h2 class="section-title">Cauchy Sequences</h2>
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Series Convergence Tests</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">CAUCHY SEQUENCE:
-                        (aₙ) is Cauchy if:
-                        ∀ε > 0, ∃N: m,n > N ⟹ |aₘ - aₙ| < ε INTUITION: Terms get close to each other (not to a specific
-                            L) THEOREM: In ℝ, Cauchy ⟺ Convergent • Convergent ⟹ Cauchy (easy, triangle inequality) •
-                            Cauchy ⟹ Convergent (uses completeness) WHY USEFUL: Can prove convergence without knowing
-                            the limit! Define ℝ as completion of ℚ (fill in gaps) EXAMPLE: Cauchy but not convergent in
-                            ℚ aₙ=decimal expansion of √2 to n digits Cauchy in ℚ, but √2 ∉ ℚ</div>
-                    </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">04</div>
-                    <h2 class="section-title">Series Convergence</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule"><strong>Series:</strong> Σaₙ converges if partial sums Sₙ converge.</div>
-                    <div class="math-block">DEFINITION:
-                        Sₙ = a₁ + a₂ + ... + aₙ (partial sum)
-                        Σaₙ = lim_{n→∞} Sₙ (if exists)
+                    <div class="math-block">CONVERGENCE TESTS for Σaₙ:
 
-                        NECESSARY CONDITION:
-                        Σaₙ converges ⟹ aₙ → 0
-                        (Contrapositive: aₙ ↛ 0 ⟹ diverges)
-                        ⚠️ aₙ → 0 does NOT imply convergence!
-                        Example: Σ(1/n) diverges (harmonic series)
+                        DIVERGENCE TEST:
+                        If lim aₙ ≠ 0, series diverges
+                        (converse is FALSE!)
 
-                        CAUCHY CRITERION FOR SERIES:
-                        Σaₙ converges ⟺
-                        ∀ε > 0, ∃N: m > n > N ⟹ |aₙ₊₁ + ... + aₘ| < ε</div>
-                    </div>
-            </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">05</div>
-                    <h2 class="section-title">Convergence Tests</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">COMPARISON TEST:
-                        0 ≤ aₙ ≤ bₙ and Σbₙ converges ⟹ Σaₙ converges
-                        0 ≤ bₙ ≤ aₙ and Σbₙ diverges ⟹ Σaₙ diverges
+                        COMPARISON TEST:
+                        If 0 ≤ aₙ ≤ bₙ and Σbₙ converges, so does Σaₙ
 
                         RATIO TEST:
                         L = lim |aₙ₊₁/aₙ|
-                        • L < 1: converges absolutely • L> 1: diverges
-                            • L = 1: inconclusive
+                        L < 1 → converges, L> 1 → diverges
 
                             ROOT TEST:
-                            L = lim (|aₙ|)^(1/n)
-                            • L < 1: converges absolutely • L> 1: diverges
-                                • L = 1: inconclusive
+                            L = lim |aₙ|^(1/n)
+                            L < 1 → converges, L> 1 → diverges
 
                                 INTEGRAL TEST:
-                                f positive, decreasing, f(n) = aₙ
-                                Σaₙ converges ⟺ ∫₁^∞ f(x)dx converges</div>
+                                If f positive decreasing, Σf(n) and ∫f(x)dx converge together</div>
+                    <div class="warning"><strong>Divergence test converse is false!</strong> Σ(1/n) diverges even though
+                        1/n → 0.</div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="power">
                 <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2 class="section-title">Absolute vs Conditional</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Power Series</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">ABSOLUTE CONVERGENCE:
-                        Σ|aₙ| converges
+                    <div class="math-block">POWER SERIES:
+                        Σ aₙxⁿ = a₀ + a₁x + a₂x² + ...
 
-                        CONDITIONAL CONVERGENCE:
-                        Σaₙ converges but Σ|aₙ| diverges
+                        RADIUS OF CONVERGENCE R:
+                        • |x| < R → converges • |x|> R → diverges
+                            • |x| = R → check endpoints
 
-                        THEOREM:
-                        Absolute convergence ⟹ Convergence
-
-                        ALTERNATING SERIES TEST:
-                        If aₙ > 0, aₙ decreasing, aₙ → 0
-                        Then Σ(-1)ⁿaₙ converges
-
-                        RIEMANN REARRANGEMENT THEOREM:
-                        Conditionally convergent series can be rearranged
-                        to converge to ANY real number (or diverge)!
-
-                        Absolutely convergent: any rearrangement
-                        gives same sum</div>
-                    <div class="rule"><strong>Key insight:</strong> Absolute convergence is "safer" and better behaved.
-                    </div>
+                            R = 1 / lim sup |aₙ|^(1/n) = lim |aₙ/aₙ₊₁|</div>
                 </div>
             </section>
-            <section class="section">
-                <div class="section-header">
-                    <div class="section-number">07</div>
-                    <h2 class="section-title">limsup and liminf</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">DEFINITIONS:
-                        limsup aₙ = lim_{n→∞} (sup_{k≥n} aₖ)
-                        liminf aₙ = lim_{n→∞} (inf_{k≥n} aₖ)
 
-                        ALWAYS EXIST (possibly ±∞)
-
-                        PROPERTIES:
-                        • liminf aₙ ≤ limsup aₙ
-                        • lim aₙ exists ⟺ liminf = limsup
-                        • If limit exists: liminf = limsup = lim
-
-                        USE IN ROOT TEST:
-                        limsup |aₙ|^(1/n) < 1 ⟹ absolute convergence limsup |aₙ|^(1/n)> 1 ⟹ divergence</div>
-                </div>
-            </section>
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">08</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Practice</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
+                            class="btn" id="showAll">Show All</button><button class="btn" id="clear">Clear</button>
+                    </div>
                     <div id="quiz"></div>
                 </div>
             </section>
         </main>
     </div>
     <script>
-        const Q = [{ id: 1, t: "Conv", q: "aₙ → L: ∀ε>0 ∃___: n>N ⟹ |aₙ-L|<ε", a: ["n"], d: "N" }, { id: 2, t: "MCT", q: "Bounded + ___ ⟹ Convergent", a: ["monotone"], d: "Monotone" }, { id: 3, t: "Cauchy", q: "In ℝ, Cauchy ⟺ ___", a: ["convergent"], d: "Convergent" }, { id: 4, t: "Series", q: "Series Σaₙ = limit of partial ___", a: ["sums"], d: "sums" }, { id: 5, t: "Nec", q: "Σaₙ converges ⟹ aₙ → ___", a: ["0", "zero"], d: "0" }, { id: 6, t: "Harm", q: "Σ(1/n) is the ___ series (diverges)", a: ["harmonic"], d: "harmonic" }, { id: 7, t: "Ratio", q: "Ratio test: L < 1 means ___", a: ["converges", "convergent"], d: "converges" }, { id: 8, t: "Abs", q: "Σ|aₙ| converges means ___ convergence", a: ["absolute"], d: "absolute" }, { id: 9, t: "Alt", q: "Alternating series test requires aₙ ___", a: ["decreasing"], d: "decreasing" }, { id: 10, t: "lim", q: "lim exists ⟺ liminf = ___", a: ["limsup"], d: "limsup" }];
-        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : ""; const check = (v, a) => a.map(x => norm(x)).includes(norm(v)); let correct = 0, attempted = 0;
-        function updateUI() { document.getElementById("statCorrect").textContent = correct; document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—"; document.getElementById("progressText").textContent = `${correct}/${Q.length}`; document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%` }
-        function renderQuiz() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach(q => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`; const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result"); d.querySelector(".bc").onclick = () => { attempted++; if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>` } else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>` } updateUI() }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>` }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click() }; c.appendChild(d) }); updateUI() }
-        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click()); document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
-        const tocContainer = document.getElementById("toc-container"); const list = document.createElement("ul"); list.className = "toc-list"; document.querySelectorAll(".section").forEach(s => { const h2 = s.querySelector(".section-title"); if (h2) { if (!s.id) s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); const li = document.createElement("li"); const a = document.createElement("a"); a.href = "#" + s.id; a.className = "toc-link"; a.textContent = h2.textContent; li.appendChild(a); list.appendChild(li) } }); tocContainer.appendChild(list);
-        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); function updateToc() { let current = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`)) } window.addEventListener("scroll", updateToc);
-        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙" }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"; renderQuiz();
+        const Q = [{ q: "Monotone ___ sequences converge", a: "bounded" }, { q: "If lim aₙ ≠ 0, series ___", a: "diverges" }, { q: "Ratio test: L < 1 means ___", a: "converges" }, { q: "Σ(1/n) ___ even though 1/n → 0", a: "diverges" }, { q: "Power series has radius of ___", a: "convergence" }, { q: "Cauchy criterion uses |aₘ - ___| < ε", a: "aₙ" }];
+        const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
+        function render() { const c = document.getElementById("quiz"); c.innerHTML = ""; Q.forEach((q, i) => { const d = document.createElement("div"); d.className = "question"; d.innerHTML = `<div class="question-num">Q${i + 1}</div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`; const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result"); d.querySelector(".bc").onclick = () => { if (norm(inp.value) === norm(q.a)) { inp.classList.add("correct"); res.innerHTML = `<span class="success">✓</span>`; } else { inp.classList.add("incorrect"); res.innerHTML = `<span class="error">✗</span>`; } }; d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">${q.a}</div>`; }; inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); }; c.appendChild(d); }); }
+        document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
+        document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        document.getElementById("clear").onclick = () => { document.querySelectorAll(".question").forEach(d => { d.querySelector(".question-input").value = ""; d.querySelector(".question-input").classList.remove("correct", "incorrect"); d.querySelector(".question-result").innerHTML = ""; }); };
+        const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section"); window.addEventListener("scroll", () => { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + cur)); });
+        const tt = document.getElementById("themeToggle"); tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; }; tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        render();
     </script>
 </body>
 
