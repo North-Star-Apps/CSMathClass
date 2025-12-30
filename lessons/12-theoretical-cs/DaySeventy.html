@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 89: Decidability & Reducibility</title>
+    <title>Day 70: Turing Machines & Decidability</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,24 +38,24 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 89 · Theoretical CS
+            Day 70 · Theoretical CS
         </div>
-        <h1>Decidability & Reducibility</h1>
-        <p class="hero-desc">Proving problems are unsolvable by reducing them to the Halting Problem.</p>
+        <h1>Turing Machines</h1>
+        <p class="hero-desc">The definition of an algorithm. Infinite tape and the Halting Problem.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~50 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                Reductions
+                Computability
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,12 +71,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#diagonal" class="toc-link">1. Countability & Diagonalization</a></li>
-                    <li><a href="#undecidable" class="toc-link">2. Undecidable Problems</a></li>
-                    <li><a href="#reduction" class="toc-link">3. Reductions</a></li>
-                    <li><a href="#rice" class="toc-link">4. Rice's Theorem</a></li>
-                    <li><a href="#pcp" class="toc-link">5. Post Correspondence Problem</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: Reduction Logic</a></li>
+                    <li><a href="#tm" class="toc-link">1. Definition</a></li>
+                    <li><a href="#church" class="toc-link">2. Church-Turing Thesis</a></li>
+                    <li><a href="#recognizable" class="toc-link">3. Recognizable vs Decidable</a></li>
+                    <li><a href="#universal" class="toc-link">4. Universal TM</a></li>
+                    <li><a href="#halting" class="toc-link">5. Halting Problem</a></li>
+                    <li><a href="#code" class="toc-link">6. Python: TM Sim</a></li>
                     <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">8. Practice</a></li>
                 </ul>
@@ -93,82 +93,88 @@
         </aside>
 
         <main class="content">
-            <!-- Diagonal -->
-            <section class="section" id="diagonal">
+            <!-- TM -->
+            <section class="section" id="tm">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Countability & Diagonalization</h2>
+                    <h2 class="section-title">Definition</h2>
                 </div>
                 <div class="section-body">
-                    <p>There are countably many Turing Machines (they are strings). There are uncountably many languages
-                        (subsets of strings).</p>
-                    <p>Therefore, <strong>almost all</strong> languages are undecidable. We just need to find specific
-                        ones.</p>
+                    <p>A Turing Machine (TM) is a finite state machine with an infinite tape. At each step, it can:</p>
+                    <ol>
+                        <li>Write to the current cell.</li>
+                        <li>Move Left or Right.</li>
+                        <li>Change state.</li>
+                    </ol>
+                    <div class="math-block">
+                        \delta: Q \times \Gamma \to Q \times \Gamma \times \{L, R\}
+                    </div>
                 </div>
             </section>
 
-            <!-- Undecidable -->
-            <section class="section" id="undecidable">
+            <!-- Church -->
+            <section class="section" id="church">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Undecidable Problems</h2>
-                </div>
-                <div class="section-body">
-                    <p>We know `A_{TM} = \{\langle M, w \rangle \mid M \text{ accepts } w\}` is undecidable.</p>
-                    <p>What about:</p>
-                    <ul>
-                        <li>`E_{TM}`: Is `L(M)` empty?</li>
-                        <li>`EQ_{TM}`: Are `L(M_1)` and `L(M_2)` equal?</li>
-                        <li>`REGULAR_{TM}`: Is `L(M)` regular?</li>
-                    </ul>
-                    <p>Spoiler: They are all undecidable.</p>
-                </div>
-            </section>
-
-            <!-- Reduction -->
-            <section class="section" id="reduction">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Reductions</h2>
-                </div>
-                <div class="section-body">
-                    <p>To prove problem `P` is undecidable, we show `A_{TM} \le_m P` (Mapping Reduction).</p>
-                    <p>Meaning: "If I could solve `P`, I could solve the Halting Problem." Since Halting is impossible,
-                        `P` must be impossible.</p>
-                    <p>Example for `E_{TM}`: Construct a machine `M'` that ignores its input and simulates `M` on `w`.
-                        If `M` accepts, `M'` accepts everything (non-empty). If `M` rejects, `M'` accepts nothing
-                        (empty). A solver for Empty would solve Halting.</p>
-                </div>
-            </section>
-
-            <!-- Rice -->
-            <section class="section" id="rice">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Rice's Theorem</h2>
+                    <h2 class="section-title">Church-Turing Thesis</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule">
-                        Theorem: Any non-trivial property of the language recognized by a Turing machine is restricted
-                        (undecidable).
+                        Thesis: Everything that is effectively computable can be computed by a Turing Machine.
                     </div>
-                    <p>"Non-trivial" means it's true for some TMs and false for others (and depends on the language, not
-                        the syntax).</p>
-                    <p>You cannot check IF a function is empty, finite, regular, or context-free.</p>
+                    <p>There is no computer stronger than a TM (only faster). Your laptop, a supercomputer, and a TM are
+                        equivalent in power.</p>
                 </div>
             </section>
 
-            <!-- PCP -->
-            <section class="section" id="pcp">
+            <!-- Recognizable -->
+            <section class="section" id="recognizable">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Post Correspondence Problem (PCP)</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Recognizable vs Decidable</h2>
                 </div>
                 <div class="section-body">
-                    <p>Not all undecidable problems are about TMs. PCP is about dominos.</p>
-                    <p>Given a set of dominos `[\frac{a}{ab}], [\frac{b}{ca}], \dots`, can you arrange them so the top
-                        string equals the bottom string?</p>
-                    <p>This is undecidable! It can simulate a computation history.</p>
+                    <p>A machine can halt (Accept/Reject) or Loop forever.</p>
+                    <ul>
+                        <li><strong>Decidable (Recursive):</strong> TM always halts. (Yes or No).</li>
+                        <li><strong>Recognizable (Recursively Enumerable):</strong> TM halts on Yes, but might loop on
+                            No.</li>
+                    </ul>
+                    <p>Decidability is what we want (algorithms). Recognizability is what we often get.</p>
+                </div>
+            </section>
+
+            <!-- Universal -->
+            <section class="section" id="universal">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Universal Turing Machine</h2>
+                </div>
+                <div class="section-body">
+                    <p>A TM can take the code of another TM as input and simulate it. This is the <strong>Universal
+                            Turing Machine</strong>.</p>
+                    <p>This is the theoretical basis for General Purpose Computers (Stored-program architecture).</p>
+                </div>
+            </section>
+
+            <!-- Halting -->
+            <section class="section" id="halting">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">The Halting Problem</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        Theorem: There is no algorithm to determine if a generic TM halts on a given input.
+                    </div>
+                    <p>Proof by Diagonalization (sketch):</p>
+                    <ul>
+                        <li>Assume `H` decides halting.</li>
+                        <li>Construct `D` which calls `H(D)`. If `H` says `D` halts, `D` loops. If `H` says `D` loops,
+                            `D` halts.</li>
+                        <li>Contradiction.</li>
+                    </ul>
+                    <p>This means some problems are strictly <strong>Undecidable</strong>.</p>
                 </div>
             </section>
 
@@ -176,52 +182,61 @@
             <section class="section" id="code">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: Simulation</h2>
+                    <h2 class="section-title">Python: TM Simulator</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Reduction Concept</span>
+                            <span class="code-label">Turing Machine</span>
                         </div>
                         <div class="code-content">
-                            <pre><code class="language-python"># We cannot code a real reduction for undecidable problems,
-# but we can simulate the "logic" of a reduction.
+                            <pre><code class="language-python">class TuringMachine:
+    def __init__(self, tape, transitions, start_state, accept_state, reject_state):
+        self.tape = list(tape) + ['_'] * 100 # Infinite tape extension
+        self.head = 0
+        self.state = start_state
+        self.transitions = transitions
+        self.accept_state = accept_state
+        self.reject_state = reject_state
 
-def solve_halting_oracle(M, w):
-    """Hypothetical Oracle"""
-    # Magic
-    return True 
+    def step(self):
+        symbol = self.tape[self.head]
+        if (self.state, symbol) in self.transitions:
+            new_state, write_sym, move = self.transitions[(self.state, symbol)]
+            self.tape[self.head] = write_sym
+            self.state = new_state
+            self.head += 1 if move == 'R' else -1
+            self.head = max(0, self.head) # Tape bounded left
+            return True
+        return False
 
-def solve_is_empty(M):
-    """
-    To determine if L(M) is empty using Halting Oracle:
-    We don't call M directly. We assume M is a machine that
-    runs only on specific inputs.
-    """
-    pass
+    def run(self, max_steps=1000):
+        for _ in range(max_steps):
+            if self.state == self.accept_state:
+                return "ACCEPT"
+            if self.state == self.reject_state:
+                return "REJECT"
+            if not self.step():
+                return "STUCK"
+        return "LOOP (Timeout)"
 
-# Reductions are about code transformation.
-# Input: Source Code of M, Input w
-# Output: Source Code of M'
+# TM to increment binary number (Reverse order for simplicity)
+# State q0: Add 1. If 0 -> 1 done. If 1 -> 0 and carry.
+transitions = {
+    ('q0', '0'): ('q_done', '1', 'R'),
+    ('q0', '1'): ('q0', '0', 'R'), # Carry
+    ('q0', '_'): ('q_done', '1', 'R'), # Overflow
+}
 
-def construct_M_prime(M_code, w):
-    """
-    Constructs source code for a machine M' that:
-    1. Ignores actual input x.
-    2. Runs M(w).
-    3. If M(w) accepts, M' accepts x.
-    """
-    M_prime_code = f"""
-def M_prime(x):
-    # Ignore x
-    simulate({M_code}, {w})
-    return ACCEPT
-    """
-    return M_prime_code
+tm = TuringMachine(tape="111", # Binary 7 (reversed: 111)
+                   transitions=transitions, 
+                   start_state='q0', 
+                   accept_state='q_done', 
+                   reject_state='q_rej')
 
-# If E_TM(M_prime_code) says "NOT EMPTY", it implies M(w) accepted.
-# Thus we reduced Halting to Emptiness.</code></pre>
+print(f"Result: {tm.run()}")
+print(f"Tape: {''.join(tm.tape[:5])}") # Should be 0001 (8)</code></pre>
                         </div>
                     </div>
                 </div>
@@ -272,21 +287,21 @@ def M_prime(x):
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Undecidability",
+                title: "Computability",
                 items: [
-                    { title: "Rice's Theorem", channel: "Easy Theory", vid: "video_id_placeholder" },
-                    { title: "Reductions Explained", channel: "Udacity", vid: "video_id_placeholder" },
+                    { title: "Turing Machines Explained", channel: "Computerphile", vid: "video_id_placeholder" },
+                    { title: "Proof of Halting Problem", channel: "Udacity", vid: "video_id_placeholder" },
                 ]
             }
         ];
         const QUESTIONS = [
-            { topic: "Countability", prompt: "The set of TMs is countable, but the set of languages is ___.", answer: "uncountable" },
-            { topic: "Method", prompt: "To prove undecidability, we typically use a ___ from a known undecidable problem.", answer: "reduction" },
-            { topic: "Rice", prompt: "Rice's Theorem applies to any ___ property of the language.", answer: "non-trivial", altAnswers: ["nontrivial"] },
-            { topic: "PCP", prompt: "The Post Correspondence Problem involves matching strings on ___.", answer: "dominos", altAnswers: ["tiles"] },
-            { topic: "ATM", prompt: "A_TM is the problem of determining if a TM ___ a given string.", answer: "accepts" },
+            { topic: "Tape", prompt: "A Turing Machine has a tape that is infinite in ___ direction(s) (typically).", answer: "both", altAnswers: ["one"] },
+            { topic: "CT Thesis", prompt: "The Church-Turing Thesis states that TMs capture the intuitive notion of ___.", answer: "algorithms", altAnswers: ["computation"] },
+            { topic: "Decidable", prompt: "A language is decidable if the TM always ___.", answer: "halts" },
+            { topic: "Halting", prompt: "The Halting Problem is ___.", answer: "undecidable" },
+            { topic: "Universal", prompt: "A ___ TM can simulate any other TM.", answer: "universal" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day89_decide_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day70_tm_v1' });
     </script>
 </body>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 87: Context-Free Languages</title>
+    <title>Day 71: Decidability & Reducibility</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,10 +38,10 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 87 · Theoretical CS
+            Day 71 · Theoretical CS
         </div>
-        <h1>Context-Free Languages</h1>
-        <p class="hero-desc">Grammars, Parsers, and the Pushdown Automata. The structure of code.</p>
+        <h1>Decidability & Reducibility</h1>
+        <p class="hero-desc">Proving problems are unsolvable by reducing them to the Halting Problem.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -55,7 +55,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                CFGs & PDAs
+                Reductions
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,12 +71,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#cfg" class="toc-link">1. Context-Free Grammars</a></li>
-                    <li><a href="#pda" class="toc-link">2. Pushdown Automata</a></li>
-                    <li><a href="#ambiguity" class="toc-link">3. Ambiguity & Parsing</a></li>
-                    <li><a href="#cnf" class="toc-link">4. Chomsky Normal Form</a></li>
-                    <li><a href="#pumping" class="toc-link">5. Pumping Lemma for CFL</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: Recursive Descent</a></li>
+                    <li><a href="#diagonal" class="toc-link">1. Countability & Diagonalization</a></li>
+                    <li><a href="#undecidable" class="toc-link">2. Undecidable Problems</a></li>
+                    <li><a href="#reduction" class="toc-link">3. Reductions</a></li>
+                    <li><a href="#rice" class="toc-link">4. Rice's Theorem</a></li>
+                    <li><a href="#pcp" class="toc-link">5. Post Correspondence Problem</a></li>
+                    <li><a href="#code" class="toc-link">6. Python: Reduction Logic</a></li>
                     <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">8. Practice</a></li>
                 </ul>
@@ -93,80 +93,82 @@
         </aside>
 
         <main class="content">
-            <!-- CFG -->
-            <section class="section" id="cfg">
+            <!-- Diagonal -->
+            <section class="section" id="diagonal">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Context-Free Grammars (CFG)</h2>
+                    <h2 class="section-title">Countability & Diagonalization</h2>
                 </div>
                 <div class="section-body">
-                    <p>Regular languages cannot handle nested structures like `((()))`. CFGs can.</p>
-                    <p>A CFG consists of variables, terminals, and rules like `S \to A | B`.</p>
-                    <p>Example: `S \to 0S1 | \epsilon` generates `\{0^n 1^n\}`.</p>
-                    <p>"Context-Free" means we can replace a variable `A` regardless of what surrounds it.</p>
+                    <p>There are countably many Turing Machines (they are strings). There are uncountably many languages
+                        (subsets of strings).</p>
+                    <p>Therefore, <strong>almost all</strong> languages are undecidable. We just need to find specific
+                        ones.</p>
                 </div>
             </section>
 
-            <!-- PDA -->
-            <section class="section" id="pda">
+            <!-- Undecidable -->
+            <section class="section" id="undecidable">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Pushdown Automata (PDA)</h2>
+                    <h2 class="section-title">Undecidable Problems</h2>
+                </div>
+                <div class="section-body">
+                    <p>We know `A_{TM} = \{\langle M, w \rangle \mid M \text{ accepts } w\}` is undecidable.</p>
+                    <p>What about:</p>
+                    <ul>
+                        <li>`E_{TM}`: Is `L(M)` empty?</li>
+                        <li>`EQ_{TM}`: Are `L(M_1)` and `L(M_2)` equal?</li>
+                        <li>`REGULAR_{TM}`: Is `L(M)` regular?</li>
+                    </ul>
+                    <p>Spoiler: They are all undecidable.</p>
+                </div>
+            </section>
+
+            <!-- Reduction -->
+            <section class="section" id="reduction">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Reductions</h2>
+                </div>
+                <div class="section-body">
+                    <p>To prove problem `P` is undecidable, we show `A_{TM} \le_m P` (Mapping Reduction).</p>
+                    <p>Meaning: "If I could solve `P`, I could solve the Halting Problem." Since Halting is impossible,
+                        `P` must be impossible.</p>
+                    <p>Example for `E_{TM}`: Construct a machine `M'` that ignores its input and simulates `M` on `w`.
+                        If `M` accepts, `M'` accepts everything (non-empty). If `M` rejects, `M'` accepts nothing
+                        (empty). A solver for Empty would solve Halting.</p>
+                </div>
+            </section>
+
+            <!-- Rice -->
+            <section class="section" id="rice">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Rice's Theorem</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule">
-                        Theorem: A language is Context-Free `\iff` it is recognized by a Non-deterministic PDA.
+                        Theorem: Any non-trivial property of the language recognized by a Turing machine is restricted
+                        (undecidable).
                     </div>
-                    <p>A PDA is an NFA with a <strong>Stack</strong> (LIFO memory).</p>
-                    <p>Important: Deterministic PDAs (DPDA) are strictly weaker than Non-deterministic PDAs. This is
-                        unlike Finite Automata where DFA=NFA. Programming languages usually target DPDAs for efficient
-                        parsing.</p>
+                    <p>"Non-trivial" means it's true for some TMs and false for others (and depends on the language, not
+                        the syntax).</p>
+                    <p>You cannot check IF a function is empty, finite, regular, or context-free.</p>
                 </div>
             </section>
 
-            <!-- Ambiguity -->
-            <section class="section" id="ambiguity">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Ambiguity</h2>
-                </div>
-                <div class="section-body">
-                    <p>A grammar is <strong>ambiguous</strong> if a string has multiple distinct parse trees.</p>
-                    <p>Example: `E \to E+E | E*E | a`. The string `a+a*a` can be parsed as `(a+a)*a` or `a+(a*a)`.</p>
-                    <p>We fix this in compilers using operator precedence. Some languages are inherently ambiguous.</p>
-                </div>
-            </section>
-
-            <!-- CNF -->
-            <section class="section" id="cnf">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Chomsky Normal Form</h2>
-                </div>
-                <div class="section-body">
-                    <p>Any CFG can be simplified to rules of the form:</p>
-                    <ul>
-                        <li>`A \to BC` (Two variables)</li>
-                        <li>`A \to a` (One terminal)</li>
-                    </ul>
-                    <p>This canonical form enables the <strong>CYK Algorithm</strong>, which checks if a string is in
-                        the grammar in `O(n^3)` time.</p>
-                </div>
-            </section>
-
-            <!-- Pumping -->
-            <section class="section" id="pumping">
+            <!-- PCP -->
+            <section class="section" id="pcp">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Pumping Lemma for CFLs</h2>
+                    <h2 class="section-title">Post Correspondence Problem (PCP)</h2>
                 </div>
                 <div class="section-body">
-                    <p>If a parse tree is deep enough, a path must repeat a variable `R`. We can "pump" the subtree
-                        under `R`.</p>
-                    <div class="math-block">
-                        w = uvxyz, \quad |vxy| \le p, \quad |vy| > 0, \quad uv^i xy^i z \in L
-                    </div>
-                    <p>Used to prove languages like `\{0^n 1^n 2^n\}` are <strong>NOT</strong> Context-Free.</p>
+                    <p>Not all undecidable problems are about TMs. PCP is about dominos.</p>
+                    <p>Given a set of dominos `[\frac{a}{ab}], [\frac{b}{ca}], \dots`, can you arrange them so the top
+                        string equals the bottom string?</p>
+                    <p>This is undecidable! It can simulate a computation history.</p>
                 </div>
             </section>
 
@@ -174,54 +176,52 @@
             <section class="section" id="code">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: Recursive Descent (Top-Down Parsing)</h2>
+                    <h2 class="section-title">Python: Simulation</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Simple Parser</span>
+                            <span class="code-label">Reduction Concept</span>
                         </div>
                         <div class="code-content">
-                            <pre><code class="language-python">class SimpleParser:
+                            <pre><code class="language-python"># We cannot code a real reduction for undecidable problems,
+# but we can simulate the "logic" of a reduction.
+
+def solve_halting_oracle(M, w):
+    """Hypothetical Oracle"""
+    # Magic
+    return True 
+
+def solve_is_empty(M):
     """
-    Parses S -> 'a' S 'b' | epsilon
-    Language: a^n b^n
+    To determine if L(M) is empty using Halting Oracle:
+    We don't call M directly. We assume M is a machine that
+    runs only on specific inputs.
     """
-    def __init__(self, token_stream):
-        self.tokens = list(token_stream)
-        self.pos = 0
+    pass
 
-    def peek(self):
-        return self.tokens[self.pos] if self.pos < len(self.tokens) else None
+# Reductions are about code transformation.
+# Input: Source Code of M, Input w
+# Output: Source Code of M'
 
-    def consume(self, expected):
-        if self.peek() == expected:
-            self.pos += 1
-            return True
-        return False
+def construct_M_prime(M_code, w):
+    """
+    Constructs source code for a machine M' that:
+    1. Ignores actual input x.
+    2. Runs M(w).
+    3. If M(w) accepts, M' accepts x.
+    """
+    M_prime_code = f"""
+def M_prime(x):
+    # Ignore x
+    simulate({M_code}, {w})
+    return ACCEPT
+    """
+    return M_prime_code
 
-    def parse_S(self):
-        # S -> 'a' S 'b'
-        if self.consume('a'):
-            if self.parse_S():
-                if self.consume('b'):
-                    return True
-                else:
-                    return False # Expected 'b'
-            return False
-        # S -> epsilon (valid if we don't see 'a')
-        return True
-
-    def parse(self):
-        # Must match S and reach End of Stream
-        valid = self.parse_S()
-        return valid and self.pos == len(self.tokens)
-
-# Test
-print(f"aabb: {SimpleParser('aabb').parse()}") # True
-print(f"aabbb: {SimpleParser('aabbb').parse()}") # False (leftover b)
-print(f"ba: {SimpleParser('ba').parse()}") # False (starts with b)</code></pre>
+# If E_TM(M_prime_code) says "NOT EMPTY", it implies M(w) accepted.
+# Thus we reduced Halting to Emptiness.</code></pre>
                         </div>
                     </div>
                 </div>
@@ -272,21 +272,21 @@ print(f"ba: {SimpleParser('ba').parse()}") # False (starts with b)</code></pre>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Context-Free Languages",
+                title: "Undecidability",
                 items: [
-                    { title: "Pushdown Automata", channel: "Easy Theory", vid: "video_id_placeholder" },
-                    { title: "Chomsky Normal Form", channel: "Neso Academy", vid: "video_id_placeholder" },
+                    { title: "Rice's Theorem", channel: "Easy Theory", vid: "video_id_placeholder" },
+                    { title: "Reductions Explained", channel: "Udacity", vid: "video_id_placeholder" },
                 ]
             }
         ];
         const QUESTIONS = [
-            { topic: "PDA", prompt: "A PDA uses a ___ for memory.", answer: "stack" },
-            { topic: "Determinism", prompt: "Deterministic PDAs are ___ powerful than Nondeterministic PDAs.", answer: "less" },
-            { topic: "Ambiguity", prompt: "If a string has multiple parse trees, the grammar is ___.", answer: "ambiguous" },
-            { topic: "CNF", prompt: "In Chomsky Normal Form, all rules map to either a terminal or ___ variables.", answer: "two" },
-            { topic: "Parsing", prompt: "Recursive Descent is a ___ parser.", answer: "top-down", altAnswers: ["top down"] },
+            { topic: "Countability", prompt: "The set of TMs is countable, but the set of languages is ___.", answer: "uncountable" },
+            { topic: "Method", prompt: "To prove undecidability, we typically use a ___ from a known undecidable problem.", answer: "reduction" },
+            { topic: "Rice", prompt: "Rice's Theorem applies to any ___ property of the language.", answer: "non-trivial", altAnswers: ["nontrivial"] },
+            { topic: "PCP", prompt: "The Post Correspondence Problem involves matching strings on ___.", answer: "dominos", altAnswers: ["tiles"] },
+            { topic: "ATM", prompt: "A_TM is the problem of determining if a TM ___ a given string.", answer: "accepts" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day87_cfg_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day71_complexity_v1' });
     </script>
 </body>
 
