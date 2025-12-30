@@ -13,9 +13,10 @@
     <style>
         :root {
             --bg: #fafaf9;
-            --surface: #fff;
+            --surface: #ffffff;
             --surface-alt: #f5f5f4;
             --border: #e7e5e4;
+            --border-strong: #d6d3d1;
             --text: #1c1917;
             --text-secondary: #57534e;
             --text-muted: #78716c;
@@ -25,11 +26,18 @@
             --code-bg: #1e1e1e;
             --code-text: #d4d4d4;
             --success: #16a34a;
+            --success-bg: #dcfce7;
             --error: #dc2626;
+            --error-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --info: #0891b2;
+            --info-bg: #cffafe;
             --radius: 8px;
+            --radius-lg: 12px;
             --font-serif: 'Source Serif 4', Georgia, serif;
             --font-sans: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         [data-theme="dark"] {
@@ -37,94 +45,169 @@
             --surface: #16161a;
             --surface-alt: #1c1c21;
             --border: #2a2a32;
+            --border-strong: #3a3a44;
             --text: #ececf1;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
             --accent: #34d399;
             --accent-light: #064e3b;
             --accent-dark: #6ee7b7;
-            --code-bg: #0f0f12
+            --code-bg: #0f0f12;
+            --success: #86efac;
+            --success-bg: #14532d;
+            --error: #fca5a5;
+            --error-bg: #7f1d1d;
+            --warning: #fde68a;
+            --warning-bg: #78350f;
+            --info: #a5f3fc;
+            --info-bg: #164e63;
+        }
+
+        [data-theme="dark"] .nav {
+            background: rgba(22, 22, 26, 0.92);
+        }
+
+        [data-theme="dark"] .warning {
+            color: #fef3c7;
+        }
+
+        [data-theme="dark"] .warning strong {
+            color: #fef3c7;
+        }
+
+        [data-theme="dark"] .info {
+            color: #cffafe;
+        }
+
+        [data-theme="dark"] .rule {
+            color: var(--accent-dark);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
-            padding: 0
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7
+            line-height: 1.7;
+            font-size: 16px;
         }
 
         .nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: var(--surface);
+            background: rgba(250, 250, 249, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 12px 24px
+            padding: 12px 24px;
         }
 
         .nav-inner {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center
+            gap: 16px;
         }
 
         .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 14px
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            transition: all 0.15s;
+        }
+
+        .nav-back:hover {
+            background: var(--surface-alt);
+            color: var(--text);
+        }
+
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            width: 120px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
         .theme-toggle {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text-secondary);
-            cursor: pointer
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px 24px 32px
+            padding: 48px 24px 32px;
         }
 
         .hero-label {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 13px;
             font-weight: 600;
             color: var(--accent-dark);
             background: var(--accent-light);
             padding: 6px 12px;
             border-radius: 999px;
-            margin-bottom: 16px
+            margin-bottom: 16px;
         }
 
         [data-theme="dark"] .hero-label {
-            color: var(--accent)
+            color: var(--accent);
         }
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
-            margin-bottom: 16px
+            line-height: 1.2;
+            margin-bottom: 16px;
         }
 
         .hero-desc {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--text-secondary);
-            max-width: 640px
+            max-width: 720px;
         }
 
         .hero-meta {
@@ -133,15 +216,12 @@
             gap: 16px;
             margin-top: 24px;
             padding-top: 24px;
-            border-top: 1px solid var(--border)
+            border-top: 1px solid var(--border);
         }
 
         .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             font-size: 14px;
-            color: var(--text-muted)
+            color: var(--text-muted);
         }
 
         .main-layout {
@@ -150,30 +230,30 @@
             padding: 0 24px 80px;
             display: grid;
             grid-template-columns: 260px 1fr;
-            gap: 48px
+            gap: 48px;
         }
 
-        @media(max-width:900px) {
+        @media (max-width: 900px) {
             .main-layout {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
 
             .sidebar {
-                display: none
+                display: none;
             }
         }
 
         .sidebar {
             position: sticky;
             top: 80px;
-            align-self: start
+            align-self: start;
         }
 
         .toc {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 16px
+            padding: 16px;
         }
 
         .toc-title {
@@ -182,11 +262,11 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
-            margin-bottom: 12px
+            margin-bottom: 12px;
         }
 
         .toc-list {
-            list-style: none
+            list-style: none;
         }
 
         .toc-link {
@@ -198,22 +278,22 @@
             border-radius: var(--radius);
             border-left: 2px solid transparent;
             margin-left: -2px;
-            transition: all 0.15s
+            transition: all 0.15s;
         }
 
         .toc-link:hover {
             color: var(--text);
-            background: var(--surface-alt)
+            background: var(--surface-alt);
         }
 
         .toc-link.active {
             color: var(--accent-dark);
             background: var(--accent-light);
-            border-left-color: var(--accent)
+            border-left-color: var(--accent);
         }
 
         [data-theme="dark"] .toc-link.active {
-            color: var(--accent)
+            color: var(--accent);
         }
 
         .stats-card {
@@ -221,157 +301,215 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 16px;
-            margin-top: 16px
+            margin-top: 16px;
         }
 
         .stats-row {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 8px 0;
-            font-size: 13px
+            font-size: 13px;
         }
 
         .stats-label {
-            color: var(--text-muted)
+            color: var(--text-muted);
         }
 
         .stats-value {
             font-weight: 600;
             font-family: var(--font-mono);
-            color: var(--text)
-        }
-
-        .content {
-            min-width: 0
-        }
-
-        .nav-progress {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            color: var(--text-muted)
-        }
-
-        .progress-bar {
-            width: 120px;
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s ease
         }
 
         .section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             margin-bottom: 24px;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .section-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border)
+            padding: 24px 28px 20px;
+            border-bottom: 1px solid var(--border);
         }
 
         .section-number {
             font-family: var(--font-mono);
             font-size: 12px;
             font-weight: 600;
-            color: var(--accent)
+            color: var(--accent);
+            margin-bottom: 4px;
         }
 
         .section-title {
             font-family: var(--font-serif);
-            font-size: 22px;
-            font-weight: 700
+            font-size: 24px;
+            font-weight: 700;
         }
 
         .section-body {
-            padding: 20px 24px
+            padding: 24px 28px;
+        }
+
+        .subsection {
+            margin-bottom: 32px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subsection-title::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
         }
 
         p {
             margin-bottom: 12px;
-            color: var(--text-secondary)
+            color: var(--text-secondary);
         }
 
         .math-block {
             background: var(--surface-alt);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 16px;
+            padding: 16px 20px;
             margin: 16px 0;
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 15px;
             white-space: pre-wrap;
-            overflow-x: auto
+            overflow-x: auto;
+        }
+
+        .math-inline {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .rule {
             background: var(--accent-light);
             border-left: 3px solid var(--accent);
-            padding: 16px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
             margin: 16px 0;
+            color: var(--accent-dark);
             font-weight: 500;
-            color: var(--accent-dark)
         }
 
-        [data-theme="dark"] .rule {
-            color: var(--accent)
+        .warning {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #92400e;
+        }
+
+        .info {
+            background: var(--info-bg);
+            border-left: 3px solid var(--info);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            color: #155e75;
         }
 
         ul {
             margin: 12px 0 12px 24px;
-            color: var(--text-secondary)
+            color: var(--text-secondary);
         }
 
         li {
-            margin-bottom: 6px
+            margin-bottom: 8px;
         }
 
         li strong {
-            color: var(--text)
+            color: var(--text);
         }
 
-        pre {
+        .code-block {
             background: var(--code-bg);
-            color: var(--code-text);
-            padding: 16px;
             border-radius: var(--radius);
-            overflow-x: auto;
             margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 13px
+            overflow: hidden;
         }
 
-        code {
-            font-family: var(--font-mono);
-            font-size: 0.9em;
-            background: var(--surface-alt);
-            padding: 2px 6px;
-            border-radius: 4px
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #2d2d2d;
+            border-bottom: 1px solid #3d3d3d;
         }
 
-        pre code {
-            background: none;
-            padding: 0
+        .code-lang {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            color: #a1a1aa;
+            text-transform: uppercase;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: #71717a;
+        }
+
+        .code-content {
+            padding: 16px 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--code-text);
+        }
+
+        .code-keyword {
+            color: #c586c0;
+        }
+
+        .code-function {
+            color: #dcdcaa;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-number {
+            color: #b5cea8;
+        }
+
+        .code-comment {
+            color: #6a9955;
         }
 
         .quiz-controls {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border)
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
 
         .btn {
@@ -381,117 +519,131 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
-            color: var(--text);
-            cursor: pointer
+            cursor: pointer;
         }
 
         .btn-primary {
             background: var(--accent);
             border-color: var(--accent);
-            color: #fff
+            color: #fff;
+        }
+
+        .btn-danger {
+            color: var(--error);
+            border-color: var(--error);
         }
 
         .question {
             background: var(--surface-alt);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 16px;
         }
 
-        .q-header {
+        .question-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px
+            margin-bottom: 12px;
         }
 
-        .q-num {
+        .question-num {
             font-family: var(--font-mono);
             font-size: 13px;
             font-weight: 700;
-            color: var(--accent)
+            color: var(--accent);
         }
 
-        .q-topic {
-            font-size: 11px;
+        .question-topic {
+            font-size: 12px;
             color: var(--text-muted);
             background: var(--surface);
-            padding: 4px 8px;
-            border-radius: 999px
+            padding: 4px 10px;
+            border-radius: 999px;
         }
 
-        .q-prompt {
+        .question-prompt {
             font-family: var(--font-mono);
-            font-size: 14px;
+            font-size: 16px;
             background: var(--surface);
-            padding: 12px;
+            padding: 16px;
             border-radius: var(--radius);
-            margin-bottom: 12px
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
         }
 
-        .q-row {
+        .question-input-row {
             display: flex;
-            gap: 8px
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .q-input {
+        .question-input {
             flex: 1;
-            padding: 10px;
+            min-width: 200px;
+            padding: 12px 16px;
             font-family: var(--font-mono);
             border: 2px solid var(--border);
             border-radius: var(--radius);
             background: var(--surface);
-            color: var(--text)
+            color: var(--text);
         }
 
-        .q-input:focus {
+        .question-input:focus {
             border-color: var(--accent);
-            outline: none
+            outline: none;
         }
 
-        .q-input.correct {
+        .question-input.correct {
             border-color: var(--success);
-            background: #dcfce7
+            background: var(--success-bg);
         }
 
-        .q-input.incorrect {
+        .question-input.incorrect {
             border-color: var(--error);
-            background: #fee2e2
+            background: var(--error-bg);
         }
 
-        .q-result {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500
+        .question-result {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .success {
-            color: var(--success)
+            color: var(--success);
         }
 
         .error {
-            color: var(--error)
+            color: var(--error);
         }
 
-        .q-answer {
-            margin-top: 6px;
+        .question-answer {
+            margin-top: 8px;
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 13px;
             color: var(--accent-dark);
             background: var(--accent-light);
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--radius);
-            display: inline-block
+            display: inline-block;
+        }
+
+        [data-theme="dark"] .question-answer {
+            color: var(--accent);
         }
     </style>
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t) })();</script>
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">← Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 0 complete</span>
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>Back to Curriculum</a>
+            <div class="nav-progress"><span id="progressText">0 / 12</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -499,195 +651,269 @@
             <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
     </nav>
+
     <header class="hero">
-        <div class="hero-label">Day 39 · Data Structures</div>
+        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>Day 39 · Data Structures</div>
         <h1>Arrays, Lists, Stacks, Queues, Hash Tables</h1>
-        <p class="hero-desc">Understand the fundamental building blocks of data storage and retrieval that power every
+        <p class="hero-desc">Master the fundamental building blocks of data storage and retrieval that power every
             algorithm.</p>
+        <div class="hero-meta">
+            <div class="meta-item">~45 min read</div>
+            <div class="meta-item">12 practice problems</div>
+        </div>
     </header>
+
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
                 <div class="toc-title">On this page</div>
-                <div id="toc-container"></div>
+                <ul class="toc-list">
+                    <li><a href="#arrays" class="toc-link">1. Arrays</a></li>
+                    <li><a href="#linked" class="toc-link">2. Linked Lists</a></li>
+                    <li><a href="#stacks" class="toc-link">3. Stacks</a></li>
+                    <li><a href="#queues" class="toc-link">4. Queues</a></li>
+                    <li><a href="#hash" class="toc-link">5. Hash Tables</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                </ul>
             </nav>
             <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
+                <div class="toc-title">Progress</div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
                         id="statCorrect">0</span></div>
                 <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
                         id="statAccuracy">—</span></div>
             </div>
         </aside>
+
         <main class="content">
-            <section class="section">
+            <section class="section" id="arrays">
                 <div class="section-header">
-                    <div class="section-number">01</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Arrays & Dynamic Arrays</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule"><strong>Array:</strong> Contiguous memory block with O(1) random access by index.
                     </div>
-                    <div class="math-block">ARRAY OPERATIONS:
-                        Access by index: O(1)
-                        Search (unsorted): O(n)
-                        Insert at end: O(1) amortized (dynamic)
-                        Insert at middle: O(n)
-                        Delete at middle: O(n)</div>
-                    <p><strong>Dynamic arrays</strong> (ArrayList, vector) grow automatically, typically doubling
-                        capacity
-                        when full. Amortized O(1) append.</p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Time complexities</h3>
+                        <div class="math-block">ARRAY OPERATIONS:
+                            Access by index: O(1)
+                            Search (unsorted): O(n)
+                            Insert at end: O(1) amortized (dynamic)
+                            Insert at middle: O(n)
+                            Delete at middle: O(n)</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Dynamic arrays</h3>
+                        <p><strong>Dynamic arrays</strong> (ArrayList, vector, Python list) grow automatically by
+                            doubling capacity when full. This gives amortized O(1) append.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Dynamic array in action</span></div>
+                            <div class="code-content">
+                                <pre><span class="code-comment"># Python lists are dynamic arrays</span>
+arr = []
+arr.<span class="code-function">append</span>(<span class="code-number">1</span>)  <span class="code-comment"># O(1) amortized</span>
+arr.<span class="code-function">append</span>(<span class="code-number">2</span>)
+arr[<span class="code-number">0</span>]           <span class="code-comment"># O(1) access</span>
+arr.<span class="code-function">insert</span>(<span class="code-number">0</span>, <span class="code-number">99</span>) <span class="code-comment"># O(n) - shifts everything</span></pre>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="linked">
                 <div class="section-header">
-                    <div class="section-number">02</div>
+                    <div class="section-number">Section 2</div>
                     <h2 class="section-title">Linked Lists</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">SINGLY LINKED LIST:
-                        [data|next] → [data|next] → [data|null]
+                    <div class="subsection">
+                        <h3 class="subsection-title">Structure</h3>
+                        <div class="math-block">SINGLY LINKED:
+                            [data|next] → [data|next] → [data|null]
 
-                        DOUBLY LINKED LIST:
-                        null ← [prev|data|next] ⇄ [prev|data|next] → null</div>
-                    <div class="math-block">LINKED LIST OPERATIONS:
-                        Access by index: O(n)
-                        Insert at head: O(1)
-                        Insert at tail: O(1) with tail pointer
-                        Insert at middle: O(n) to find + O(1) to insert
-                        Delete (by ref): O(1)</div>
-                    <p><strong>Trade-off:</strong> Arrays excel at random access; lists excel at insertion/deletion with
-                        a
-                        known position.</p>
+                            DOUBLY LINKED:
+                            null ← [prev|data|next] ⇄ [prev|data|next] → null</div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Time complexities</h3>
+                        <div class="math-block">LINKED LIST OPERATIONS:
+                            Access by index: O(n)
+                            Insert at head: O(1)
+                            Insert at tail: O(1) with tail pointer
+                            Insert at middle: O(n) to find + O(1) to insert
+                            Delete (given ref): O(1)</div>
+                    </div>
+                    <div class="info"><strong>Trade-off:</strong> Arrays excel at random access; linked lists excel at
+                        insertion/deletion when you have a reference to the node.</div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="stacks">
                 <div class="section-header">
-                    <div class="section-number">03</div>
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Stacks (LIFO)</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule"><strong>Stack:</strong> Last-In-First-Out. Only access the top element.</div>
                     <div class="math-block">STACK OPERATIONS (all O(1)):
-                        push(x) - Add to top
-                        pop() - Remove from top
-                        peek() - View top without removing
-                        isEmpty()- Check if empty</div>
-                    <p><strong>Use cases:</strong> Function call stack, undo operations, expression parsing, DFS
-                        traversal.
-                    </p>
-                    <pre>// Balanced parentheses check
-function isBalanced(s) {
-    const stack = [];
-    const pairs = {'(':')', '[':']', '{':'}'};
-    for (let c of s) {
-        if (c in pairs) stack.push(c);
-        else if (')]}'.includes(c)) {
-            if (!stack.length || pairs[stack.pop()] !== c)
-                return false;
+                        push(x) — Add to top
+                        pop() — Remove from top
+                        peek() — View top without removing
+                        isEmpty() — Check if empty</div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Use cases</h3>
+                        <ul>
+                            <li><strong>Function call stack:</strong> Track nested function calls</li>
+                            <li><strong>Undo operations:</strong> Push actions, pop to undo</li>
+                            <li><strong>Expression parsing:</strong> Balance parentheses</li>
+                            <li><strong>DFS traversal:</strong> Iterative depth-first search</li>
+                        </ul>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">JavaScript</span><span
+                                class="code-label">Balanced parentheses checker</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">function</span> <span class="code-function">isBalanced</span>(s) {
+    <span class="code-keyword">const</span> stack = [];
+    <span class="code-keyword">const</span> pairs = {<span class="code-string">'('</span>:<span class="code-string">')'</span>, <span class="code-string">'['</span>:<span class="code-string">']'</span>, <span class="code-string">'{'</span>:<span class="code-string">'}'</span>};
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> c <span class="code-keyword">of</span> s) {
+        <span class="code-keyword">if</span> (c <span class="code-keyword">in</span> pairs) stack.<span class="code-function">push</span>(c);
+        <span class="code-keyword">else if</span> (<span class="code-string">')]}'</span>.<span class="code-function">includes</span>(c)) {
+            <span class="code-keyword">if</span> (!stack.length || pairs[stack.<span class="code-function">pop</span>()] !== c)
+                <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
         }
     }
-    return stack.length === 0;
+    <span class="code-keyword">return</span> stack.length === <span class="code-number">0</span>;
 }</pre>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="queues">
                 <div class="section-header">
-                    <div class="section-number">04</div>
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">Queues (FIFO)</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule"><strong>Queue:</strong> First-In-First-Out. Add at back, remove from front.</div>
                     <div class="math-block">QUEUE OPERATIONS (all O(1)):
-                        enqueue(x) - Add to back
-                        dequeue() - Remove from front
-                        front() - View front without removing
-                        isEmpty() - Check if empty</div>
-                    <p><strong>Use cases:</strong> BFS traversal, scheduling, buffering, printer queues.</p>
-                    <p><strong>Variants:</strong> Deque (double-ended), Priority Queue (comes next section with heaps).
-                    </p>
+                        enqueue(x) — Add to back
+                        dequeue() — Remove from front
+                        front() — View front without removing
+                        isEmpty() — Check if empty</div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Use cases</h3>
+                        <ul>
+                            <li><strong>BFS traversal:</strong> Level-order graph exploration</li>
+                            <li><strong>Task scheduling:</strong> Process in order received</li>
+                            <li><strong>Buffering:</strong> Producer-consumer patterns</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Variants</h3>
+                        <ul>
+                            <li><strong>Deque:</strong> Double-ended queue (add/remove both ends)</li>
+                            <li><strong>Priority Queue:</strong> Remove by priority, not order (uses heap)</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
-            <section class="section">
+
+            <section class="section" id="hash">
                 <div class="section-header">
-                    <div class="section-number">05</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Hash Tables</h2>
                 </div>
                 <div class="section-body">
                     <div class="rule"><strong>Hash Table:</strong> Key-value store with O(1) average lookup, insert,
-                        delete.
+                        delete.</div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">How it works</h3>
+                        <div class="math-block">key → hash(key) → index → bucket
+
+                            COLLISION RESOLUTION:
+                            1. Chaining: Each bucket is a linked list
+                            2. Open Addressing: Probe for next empty slot
+                            • Linear probing: h(k)+1, h(k)+2, ...
+                            • Quadratic probing: h(k)+1², h(k)+2², ...</div>
                     </div>
-                    <div class="math-block">HASH TABLE:
-                        key → hash(key) → index → bucket
+                    <div class="subsection">
+                        <h3 class="subsection-title">Time complexities</h3>
+                        <div class="math-block">HASH TABLE: Average Worst
+                            Search: O(1) O(n)
+                            Insert: O(1) O(n)
+                            Delete: O(1) O(n)
 
-                        COLLISION RESOLUTION:
-                        1. Chaining: Each bucket is a linked list
-                        2. Open Addressing: Probe for next empty slot
-                        - Linear probing: h(k) + 1, h(k) + 2, ...
-                        - Quadratic probing: h(k) + 1², h(k) + 2², ...</div>
-                    <div class="math-block">HASH TABLE COMPLEXITY:
-                        Average Worst
-                        Search: O(1) O(n)
-                        Insert: O(1) O(n)
-                        Delete: O(1) O(n)
-
-                        Worst case = all keys collide</div>
-                    <p><strong>Load factor:</strong> n/m (items/buckets). Rehash when load factor exceeds threshold
-                        (~0.75).
-                    </p>
+                            Worst case = all keys collide to same bucket</div>
+                    </div>
+                    <div class="warning"><strong>Load factor:</strong> n/m (items/buckets). Rehash when load factor
+                        exceeds ~0.75 to maintain O(1) operations.</div>
                 </div>
             </section>
+
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">06</div>
-                    <h2 class="section-title">Practice</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <div class="quiz-controls"><button class="btn btn-primary" id="checkAll">Check All</button><button
-                            class="btn" id="showAll">Show All</button></div>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="checkAll">Check All</button>
+                        <button class="btn" id="showAll">Show All</button>
+                        <button class="btn" id="clear">Clear</button>
+                        <button class="btn btn-danger" id="reset">Reset</button>
+                    </div>
                     <div id="quiz"></div>
                 </div>
             </section>
         </main>
     </div>
+
     <script>
         const Q = [
-            { id: 1, t: "Array", q: "Array access by index: O(___)", a: ["1", "one"], d: "O(1)" },
-            { id: 2, t: "Array", q: "Insert in middle of array: O(___)", a: ["n"], d: "O(n)" },
-            { id: 3, t: "List", q: "Linked list insert at head: O(___)", a: ["1", "one"], d: "O(1)" },
-            { id: 4, t: "List", q: "Linked list access by index: O(___)", a: ["n"], d: "O(n)" },
-            { id: 5, t: "Stack", q: "Stack is ___ (LIFO/FIFO)", a: ["lifo"], d: "LIFO" },
-            { id: 6, t: "Stack", q: "Stack remove operation: ___()", a: ["pop"], d: "pop()" },
-            { id: 7, t: "Queue", q: "Queue is ___ (LIFO/FIFO)", a: ["fifo"], d: "FIFO" },
-            { id: 8, t: "Queue", q: "Queue add operation: ___(x)", a: ["enqueue"], d: "enqueue()" },
-            { id: 9, t: "Hash", q: "Hash table average lookup: O(___)", a: ["1", "one"], d: "O(1)" },
-            { id: 10, t: "Hash", q: "Hash collision via linked list: ___", a: ["chaining"], d: "Chaining" }
+            { id: 1, t: "Array", q: "Array access by index: O(___)", a: "1" },
+            { id: 2, t: "Array", q: "Insert in middle of array: O(___)", a: "n" },
+            { id: 3, t: "List", q: "Linked list insert at head: O(___)", a: "1" },
+            { id: 4, t: "List", q: "Linked list access by index: O(___)", a: "n" },
+            { id: 5, t: "Stack", q: "Stack is ___ (LIFO/FIFO)", a: "lifo" },
+            { id: 6, t: "Stack", q: "Stack remove operation: ___()", a: "pop" },
+            { id: 7, t: "Queue", q: "Queue is ___ (LIFO/FIFO)", a: "fifo" },
+            { id: 8, t: "Queue", q: "Queue add operation: ___(x)", a: "enqueue" },
+            { id: 9, t: "Hash", q: "Hash table average lookup: O(___)", a: "1" },
+            { id: 10, t: "Hash", q: "Collision resolution via linked lists: ___", a: "chaining" },
+            { id: 11, t: "Array", q: "Dynamic array grows by ___ capacity", a: "doubling" },
+            { id: 12, t: "Queue", q: "BFS uses a ___ data structure", a: "queue" },
         ];
+
         const norm = s => s ? s.trim().toLowerCase().replace(/\s+/g, "") : "";
-        const check = (v, a) => a.map(x => norm(x)).includes(norm(v));
-        let correct = 0;
-        let attempted = 0;
+        let correct = 0, attempted = 0;
 
         function updateUI() {
             document.getElementById("statCorrect").textContent = correct;
-            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : "—";
-            document.getElementById("progressText").textContent = `${correct} / ${Q.length} complete`;
-            document.getElementById("progressFill").style.width = `${Math.round((correct / Q.length) * 100)}%`;
+            document.getElementById("statAccuracy").textContent = attempted > 0 ? `${Math.round(correct / attempted * 100)}%` : "—";
+            document.getElementById("progressText").textContent = `${correct} / ${Q.length}`;
+            document.getElementById("progressFill").style.width = `${Math.round(correct / Q.length * 100)}%`;
         }
 
-        function renderQuiz() {
+        function render() {
             const c = document.getElementById("quiz"); c.innerHTML = "";
             Q.forEach(q => {
                 const d = document.createElement("div"); d.className = "question";
-                d.innerHTML = `<div class="q-header"><span class="q-num">Q${q.id}</span><span class="q-topic">${q.t}</span></div><div class="q-prompt">${q.q}</div><div class="q-row"><input class="q-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="q-result"></div>`;
-                const inp = d.querySelector(".q-input"), res = d.querySelector(".q-result");
+                d.innerHTML = `<div class="question-header"><span class="question-num">Q${q.id}</span><span class="question-topic">${q.t}</span></div><div class="question-prompt">${q.q}</div><div class="question-input-row"><input class="question-input" placeholder="Answer..."/><button class="btn btn-primary bc">Check</button><button class="btn bs">Show</button></div><div class="question-result"></div>`;
+                const inp = d.querySelector(".question-input"), res = d.querySelector(".question-result");
                 d.querySelector(".bc").onclick = () => {
                     attempted++;
-                    if (check(inp.value, q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
+                    if (norm(inp.value) === norm(q.a)) { correct++; inp.classList.add("correct"); inp.classList.remove("incorrect"); res.innerHTML = `<span class="success">✓ Correct</span>`; }
                     else { inp.classList.add("incorrect"); inp.classList.remove("correct"); res.innerHTML = `<span class="error">✗ Try again</span>`; }
                     updateUI();
                 };
-                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="q-answer">Answer: ${q.d}</div>`; };
+                d.querySelector(".bs").onclick = () => { res.innerHTML = `<div class="question-answer">Answer: ${q.a}</div>`; };
                 inp.onkeydown = e => { if (e.key === "Enter") d.querySelector(".bc").click(); };
                 c.appendChild(d);
             });
@@ -696,39 +922,27 @@ function isBalanced(s) {
 
         document.getElementById("checkAll").onclick = () => document.querySelectorAll(".bc").forEach(b => b.click());
         document.getElementById("showAll").onclick = () => document.querySelectorAll(".bs").forEach(b => b.click());
+        document.getElementById("clear").onclick = () => {
+            document.querySelectorAll(".question").forEach(d => {
+                d.querySelector(".question-input").value = "";
+                d.querySelector(".question-input").classList.remove("correct", "incorrect");
+                d.querySelector(".question-result").innerHTML = "";
+            });
+            correct = 0; attempted = 0; updateUI();
+        };
+        document.getElementById("reset").onclick = () => { if (confirm("Reset stats?")) { correct = 0; attempted = 0; updateUI(); } };
 
-        // TOC Generation
-        const tocContainer = document.getElementById("toc-container");
-        const list = document.createElement("ul"); list.className = "toc-list";
-        document.querySelectorAll(".section").forEach(s => {
-            const h2 = s.querySelector(".section-title");
-            if (h2) {
-                if (!s.id) {
-                    s.id = h2.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                }
-                const li = document.createElement("li");
-                const a = document.createElement("a");
-                a.href = "#" + s.id;
-                a.className = "toc-link";
-                a.textContent = h2.textContent;
-                li.appendChild(a);
-                list.appendChild(li);
-            }
-        });
-        tocContainer.appendChild(list);
-
+        // TOC
         const tocLinks = document.querySelectorAll(".toc-link"), sections = document.querySelectorAll(".section");
-        function updateToc() {
-            let current = "";
-            sections.forEach(s => { if (s.getBoundingClientRect().top < 150) current = s.id; });
-            tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${current}`));
-        }
+        function updateToc() { let cur = ""; sections.forEach(s => { if (s.getBoundingClientRect().top < 150) cur = s.id; }); tocLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === `#${cur}`)); }
         window.addEventListener("scroll", updateToc);
 
-        renderQuiz();
-        const themeToggle = document.getElementById("themeToggle");
-        themeToggle.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); themeToggle.textContent = n === "dark" ? "☀️" : "🌙"; };
-        themeToggle.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+        // Theme
+        const tt = document.getElementById("themeToggle");
+        tt.onclick = () => { const n = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"; document.documentElement.setAttribute("data-theme", n); localStorage.setItem("math_cs_theme", n); tt.textContent = n === "dark" ? "☀️" : "🌙"; };
+        tt.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+
+        render();
     </script>
 </body>
 
