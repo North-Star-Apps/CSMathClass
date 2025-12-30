@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 100: Lightning Round — FreeCSMath</title>
+    <link rel="stylesheet" href="../shared-styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-alt: #1c1c21;
+            --border: #2a2a32;
+            --border-strong: #3a3a44;
+            --text: #ececf1;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #a78bfa;
+            --accent-light: #2e2454;
+            --accent-dark: #c4b5fd;
+            --success: #4ade80;
+            --success-bg: rgba(74, 222, 128, 0.15);
+            --danger: #f87171;
+            --danger-bg: rgba(248, 113, 113, 0.15);
+            --warning: #fbbf24;
+            --radius: 12px;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-serif: 'Source Serif 4', Georgia, serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(22, 22, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+        }
+
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 24px 40px;
+            background: linear-gradient(180deg, rgba(167, 139, 250, 0.08) 0%, transparent 100%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--warning);
+            background: rgba(251, 191, 36, 0.15);
+            padding: 8px 16px;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #ec4899 50%, var(--warning) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 17px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* Badge Gallery */
+        .badge-section {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            padding: 0 24px;
+        }
+
+        .badge-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .badge-title {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-count {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .badge-gallery {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .badge-item.earned {
+            border-color: var(--success);
+            background: var(--success-bg);
+            animation: badgePop 0.5s ease;
+        }
+
+        .badge-item.milestone {
+            border-color: var(--warning);
+            background: rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        }
+
+        @keyframes badgePop {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .badge-item .badge-num {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Flashcard Area */
+        .flashcard-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        .deck-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #ec4899);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(167, 139, 250, 0.35);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-alt);
+            border-color: var(--border-strong);
+        }
+
+        /* Progress */
+        .deck-progress {
+            margin-bottom: 24px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--surface-alt);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #ec4899);
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        /* Flashcard */
+        .flashcard-wrapper {
+            perspective: 1000px;
+            margin-bottom: 24px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 280px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: var(--radius);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(145deg, var(--surface), var(--surface-alt));
+            border: 1px solid var(--border);
+        }
+
+        .flashcard-back {
+            background: linear-gradient(145deg, var(--accent-light), var(--surface));
+            border: 1px solid var(--accent);
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .flashcard-question {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .flashcard-answer {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-dark);
+            margin-bottom: 16px;
+        }
+
+        .flashcard-link {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--surface);
+            border-radius: 999px;
+            transition: all 0.2s;
+        }
+
+        .flashcard-link:hover {
+            color: var(--accent);
+            background: var(--surface-alt);
+        }
+
+        .flip-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+
+        /* Answer Buttons */
+        .answer-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .answer-btn {
+            flex: 1;
+            max-width: 160px;
+            padding: 16px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 2px solid;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .answer-btn.correct {
+            background: var(--success-bg);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .answer-btn.correct:hover {
+            background: var(--success);
+            color: white;
+        }
+
+        .answer-btn.incorrect {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .answer-btn.incorrect:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Results */
+        .results-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .results-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .results-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .results-score {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .results-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .results-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--success);
+            background: var(--success-bg);
+            padding: 12px 24px;
+            border-radius: 999px;
+            margin-bottom: 24px;
+            animation: badgePop 0.6s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Question Pool Placeholder */
+        #startScreen {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .start-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .start-title {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .start-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Milestone Popup */
+        .milestone-popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .milestone-content {
+            background: var(--surface);
+            border: 2px solid var(--warning);
+            border-radius: var(--radius);
+            padding: 48px;
+            text-align: center;
+            max-width: 400px;
+            animation: scaleIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .milestone-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .milestone-title {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 12px;
+        }
+
+        .milestone-desc {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-brand">
+                <div class="nav-logo">∫</div>
+                <span>FreeCSMath</span>
+            </a>
+            <span style="font-family: var(--font-mono); font-size: 14px; color: var(--text-muted);">Day 100</span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">⚡ FINALE</div>
+        <h1>Lightning Round</h1>
+        <p class="hero-desc">The ultimate test: 10 randomized flashcards from across the entire curriculum. Score 100%
+            to earn a badge!</p>
+    </header>
+
+    <section class="badge-section">
+        <div class="badge-header">
+            <h2 class="badge-title">🏆 Your Badges</h2>
+            <span class="badge-count" id="badgeCount">0 earned</span>
+        </div>
+        <div class="badge-gallery" id="badgeGallery">
+            <!-- Badges render here -->
+        </div>
+    </section>
+
+    <main class="flashcard-container">
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <div class="start-icon">🎯</div>
+            <h2 class="start-title">Ready for the Challenge?</h2>
+            <p class="start-desc">Each deck pulls 10 random questions from across all 99 lessons. Every perfect score
+                earns you a badge!</p>
+            <button class="btn btn-primary" onclick="startDeck()">
+                <span>⚡</span> Generate Deck
+            </button>
+        </div>
+
+        <!-- Active Deck -->
+        <div id="deckScreen" class="hidden">
+            <div class="deck-progress">
+                <div class="progress-info">
+                    <span>Question <span id="currentQ">1</span> of <span id="totalQ">10</span></span>
+                    <span id="scoreDisplay">Score: 0/0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="flashcard-wrapper" onclick="flipCard()">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-face flashcard-front">
+                        <div class="flashcard-label">Question</div>
+                        <div class="flashcard-question" id="questionText">Loading...</div>
+                        <p class="flip-hint">Click to reveal answer</p>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <div class="flashcard-label">Answer</div>
+                        <div class="flashcard-answer" id="answerText">Loading...</div>
+                        <a href="#" class="flashcard-link" id="lessonLink" target="_blank">
+                            📚 Review: <span id="lessonTitle">Day X</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer-buttons" id="answerButtons">
+                <button class="answer-btn correct" onclick="recordAnswer(true)">✓ I knew it</button>
+                <button class="answer-btn incorrect" onclick="recordAnswer(false)">✗ Didn't know</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="hidden">
+            <div class="results-card">
+                <div class="results-icon" id="resultsIcon">🎉</div>
+                <h2 class="results-title" id="resultsTitle">Well Done!</h2>
+                <div class="results-score" id="resultsScore">0%</div>
+                <p class="results-desc" id="resultsDesc">You answered 0 out of 10 correctly.</p>
+                <div class="results-badge hidden" id="badgeEarned">
+                    <span>🏅</span> New Badge Earned!
+                </div>
+                <div class="deck-controls">
+                    <button class="btn btn-primary" onclick="startDeck()">⚡ Try Again</button>
+                    <button class="btn btn-secondary" onclick="backToStart()">← Back</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Milestone Popup -->
+    <div class="milestone-popup hidden" id="milestonePopup">
+        <div class="milestone-content">
+            <div class="milestone-icon" id="milestoneIcon">🥇</div>
+            <h2 class="milestone-title" id="milestoneTitle">Milestone!</h2>
+            <p class="milestone-desc" id="milestoneDesc">You've reached an incredible achievement!</p>
+            <button class="btn btn-primary" onclick="closeMilestone()">Awesome!</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // QUESTION POOL - Aggregated from all lessons
+        // Each question has: q (question), a (answer), day (number), lessonPath
+        // ============================================================
+        const QUESTION_POOL = [
+            // Section 01 - Operating System
+            { q: "What is the result of (-3)² vs -(3²)?", a: "(-3)² = 9, while -(3²) = -9. Parentheses matter!", day: 1, lessonPath: "../01-operating-system/DayOne.html" },
+            { q: "Convert 0.125 to a fraction.", a: "0.125 = 1/8 (since 125/1000 = 1/8)", day: 1, lessonPath: "../01-operating-system/DayOne.html" },
+            { q: "What does 5! (factorial) equal?", a: "5! = 5 × 4 × 3 × 2 × 1 = 120", day: 1, lessonPath: "../01-operating-system/DayOne.html" },
+            { q: "What is the quadratic formula?", a: "x = (-b ± √(b²-4ac)) / 2a", day: 2, lessonPath: "../01-operating-system/DayTwo.html" },
+            { q: "Factor x² - 9.", a: "(x+3)(x-3) — difference of squares", day: 2, lessonPath: "../01-operating-system/DayTwo.html" },
+            { q: "What is the domain of f(x) = 1/(x-2)?", a: "All real numbers except x = 2", day: 3, lessonPath: "../01-operating-system/DayThree.html" },
+            { q: "If f(x) = 2x + 3, what is f⁻¹(x)?", a: "f⁻¹(x) = (x - 3)/2", day: 3, lessonPath: "../01-operating-system/DayThree.html" },
+            { q: "State the principle of mathematical induction.", a: "1) Base case, 2) Inductive step: if P(k) then P(k+1)", day: 4, lessonPath: "../01-operating-system/DayFour.html" },
+            { q: "What is a proof by contradiction?", a: "Assume the opposite is true, derive a contradiction, conclude original statement is true", day: 4, lessonPath: "../01-operating-system/DayFour.html" },
+            { q: "What does QED stand for?", a: "Quod Erat Demonstrandum (which was to be demonstrated)", day: 5, lessonPath: "../01-operating-system/DayFive.html" },
+
+            // Section 02 - Precalculus
+            { q: "What is the degree of a polynomial?", a: "The highest power of x with a non-zero coefficient", day: 7, lessonPath: "../02-precalculus/DaySeven.html" },
+            { q: "What is a horizontal asymptote?", a: "A horizontal line that the graph approaches as x → ±∞", day: 8, lessonPath: "../02-precalculus/DayEight.html" },
+            { q: "What is sin(π/6)?", a: "1/2", day: 9, lessonPath: "../02-precalculus/DayNine.html" },
+            { q: "What is cos(π/4)?", a: "√2/2", day: 9, lessonPath: "../02-precalculus/DayNine.html" },
+            { q: "State the Pythagorean identity.", a: "sin²θ + cos²θ = 1", day: 9, lessonPath: "../02-precalculus/DayNine.html" },
+            { q: "What is the dot product of vectors a·b?", a: "a·b = |a||b|cos(θ) = a₁b₁ + a₂b₂ + ...", day: 10, lessonPath: "../02-precalculus/DayTen.html" },
+            { q: "What is Euler's formula?", a: "e^(iθ) = cos(θ) + i·sin(θ)", day: 11, lessonPath: "../02-precalculus/DayEleven.html" },
+            { q: "What is i² (where i is imaginary)?", a: "i² = -1", day: 11, lessonPath: "../02-precalculus/DayEleven.html" },
+
+            // Section 03 - Calculus
+            { q: "What is the limit definition of a derivative?", a: "f'(x) = lim[h→0] (f(x+h) - f(x))/h", day: 12, lessonPath: "../03-calculus/DayTwelve.html" },
+            { q: "What is the derivative of x^n?", a: "d/dx(x^n) = nx^(n-1)", day: 12, lessonPath: "../03-calculus/DayTwelve.html" },
+            { q: "State the Fundamental Theorem of Calculus.", a: "∫[a,b] f'(x)dx = f(b) - f(a)", day: 13, lessonPath: "../03-calculus/DayThirteen.html" },
+            { q: "What is the derivative of e^x?", a: "d/dx(e^x) = e^x", day: 12, lessonPath: "../03-calculus/DayTwelve.html" },
+            { q: "What is ∫ 1/x dx?", a: "ln|x| + C", day: 13, lessonPath: "../03-calculus/DayThirteen.html" },
+            { q: "Write the Taylor series for e^x.", a: "e^x = 1 + x + x²/2! + x³/3! + ...", day: 14, lessonPath: "../03-calculus/DayFourteen.html" },
+            { q: "What is a gradient?", a: "∇f = (∂f/∂x, ∂f/∂y, ...) — points in direction of steepest increase", day: 15, lessonPath: "../03-calculus/DayFifteen.html" },
+            { q: "What is the chain rule?", a: "d/dx[f(g(x))] = f'(g(x)) · g'(x)", day: 12, lessonPath: "../03-calculus/DayTwelve.html" },
+
+            // Section 04 - Linear Algebra
+            { q: "What is matrix multiplication order?", a: "(m×n) · (n×p) = (m×p) matrix", day: 19, lessonPath: "../04-linear-algebra/DayNineteen.html" },
+            { q: "What is an eigenvalue?", a: "A scalar λ where Av = λv for some non-zero vector v", day: 19, lessonPath: "../04-linear-algebra/DayNineteen.html" },
+            { q: "What does it mean for vectors to be orthogonal?", a: "Their dot product equals zero: u·v = 0", day: 20, lessonPath: "../04-linear-algebra/DayTwenty.html" },
+            { q: "What is the rank of a matrix?", a: "The number of linearly independent rows (or columns)", day: 19, lessonPath: "../04-linear-algebra/DayNineteen.html" },
+            { q: "What is a basis of a vector space?", a: "A minimal set of vectors that spans the space", day: 21, lessonPath: "../04-linear-algebra/DayTwentyOne.html" },
+
+            // Section 05 - Discrete Math
+            { q: "What is the contrapositive of P → Q?", a: "¬Q → ¬P (and they're logically equivalent)", day: 24, lessonPath: "../05-discrete-math/DayTwentyFour.html" },
+            { q: "What is the negation of ∀x P(x)?", a: "∃x ¬P(x)", day: 24, lessonPath: "../05-discrete-math/DayTwentyFour.html" },
+            { q: "What is the Pigeonhole Principle?", a: "If n+1 items go into n boxes, some box has ≥2 items", day: 26, lessonPath: "../05-discrete-math/DayTwentySix.html" },
+            { q: "What is C(n,k)?", a: "n! / (k!(n-k)!) — ways to choose k items from n", day: 27, lessonPath: "../05-discrete-math/DayTwentySeven.html" },
+            { q: "State Euler's formula for planar graphs.", a: "V - E + F = 2 (vertices - edges + faces)", day: 29, lessonPath: "../05-discrete-math/DayTwentyNine.html" },
+            { q: "What is gcd(12, 18)?", a: "6", day: 31, lessonPath: "../05-discrete-math/DayThirtyOne.html" },
+            { q: "State Fermat's Little Theorem.", a: "If p is prime and gcd(a,p)=1, then a^(p-1) ≡ 1 (mod p)", day: 31, lessonPath: "../05-discrete-math/DayThirtyOne.html" },
+
+            // Section 06 - Algorithms
+            { q: "What is the time complexity of binary search?", a: "O(log n)", day: 35, lessonPath: "../06-algorithms/DayThirtyFive.html" },
+            { q: "What is the time complexity of merge sort?", a: "O(n log n)", day: 35, lessonPath: "../06-algorithms/DayThirtyFive.html" },
+            { q: "What data structure uses LIFO?", a: "Stack (Last In, First Out)", day: 32, lessonPath: "../06-algorithms/DayThirtyTwo.html" },
+            { q: "What data structure uses FIFO?", a: "Queue (First In, First Out)", day: 32, lessonPath: "../06-algorithms/DayThirtyTwo.html" },
+            { q: "What is the time complexity of hash table lookup (average)?", a: "O(1)", day: 32, lessonPath: "../06-algorithms/DayThirtyTwo.html" },
+            { q: "What is dynamic programming?", a: "Breaking problems into overlapping subproblems, solving each once and memoizing", day: 36, lessonPath: "../06-algorithms/DayThirtySix.html" },
+            { q: "What is the time complexity of BFS/DFS?", a: "O(V + E) where V=vertices, E=edges", day: 37, lessonPath: "../06-algorithms/DayThirtySeven.html" },
+            { q: "What does P = NP mean?", a: "Every problem verifiable in polynomial time can also be SOLVED in polynomial time", day: 40, lessonPath: "../06-algorithms/DayForty.html" },
+
+            // Section 07 - Probability
+            { q: "What is Bayes' Theorem?", a: "P(A|B) = P(B|A)·P(A) / P(B)", day: 41, lessonPath: "../07-probability-stats/DayFortyOne.html" },
+            { q: "What is E[X] for a discrete random variable?", a: "E[X] = Σ x·P(X=x)", day: 42, lessonPath: "../07-probability-stats/DayFortyTwo.html" },
+            { q: "What is Var(X)?", a: "Var(X) = E[(X-μ)²] = E[X²] - (E[X])²", day: 42, lessonPath: "../07-probability-stats/DayFortyTwo.html" },
+            { q: "What does σ represent in statistics?", a: "Standard deviation (σ = √Var)", day: 42, lessonPath: "../07-probability-stats/DayFortyTwo.html" },
+            { q: "State Markov's inequality.", a: "P(X ≥ a) ≤ E[X]/a for non-negative X", day: 44, lessonPath: "../07-probability-stats/DayFortyFour.html" },
+
+            // Section 08 - Analysis
+            { q: "What is the ε-δ definition of a limit?", a: "For all ε>0, exists δ>0 such that |x-a|<δ implies |f(x)-L|<ε", day: 46, lessonPath: "../08-analysis/DayFortySix.html" },
+            { q: "What does it mean for a set to be compact?", a: "Every open cover has a finite subcover (in R^n: closed and bounded)", day: 48, lessonPath: "../08-analysis/DayFortyEight.html" },
+            { q: "What is the Completeness Axiom of R?", a: "Every non-empty set bounded above has a least upper bound (supremum)", day: 48, lessonPath: "../08-analysis/DayFortyEight.html" },
+            { q: "What is uniform convergence?", a: "fn→f uniformly if sup|fn(x)-f(x)| → 0", day: 51, lessonPath: "../08-analysis/DayFiftyOne.html" },
+
+            // Section 09 - Abstract Algebra
+            { q: "What is a group?", a: "A set with a binary operation that has identity, inverses, and associativity", day: 54, lessonPath: "../09-abstract-algebra/DayFiftyFour.html" },
+            { q: "What is a field?", a: "A commutative ring where every non-zero element has a multiplicative inverse", day: 55, lessonPath: "../09-abstract-algebra/DayFiftyFive.html" },
+
+            // Section 10 - Topology
+            { q: "What is an open set (in R)?", a: "A set where every point has a neighborhood contained in the set", day: 57, lessonPath: "../10-topology-measure/DayFiftySeven.html" },
+            { q: "What is the Lebesgue measure of [0,1]?", a: "1", day: 59, lessonPath: "../10-topology-measure/DayFiftyNine.html" },
+            { q: "State the Law of Large Numbers.", a: "Sample average converges to expected value as n→∞", day: 63, lessonPath: "../10-topology-measure/DaySixtyThree.html" },
+
+            // Section 11 - Functional Analysis
+            { q: "What is a Hilbert space?", a: "A complete inner product space", day: 64, lessonPath: "../11-functional-pde/DaySixtyFour.html" },
+            { q: "What is the Cauchy-Riemann condition?", a: "∂u/∂x = ∂v/∂y and ∂u/∂y = -∂v/∂x for f = u + iv", day: 66, lessonPath: "../11-functional-pde/DaySixtySix.html" },
+            { q: "What is a Fourier series?", a: "f(x) = a₀/2 + Σ(aₙcos(nx) + bₙsin(nx))", day: 68, lessonPath: "../11-functional-pde/DaySixtyEight.html" },
+
+            // Section 12 - Theoretical CS
+            { q: "What is a Turing machine?", a: "An abstract machine with infinite tape, read/write head, and finite state control", day: 71, lessonPath: "../12-theoretical-cs/DaySeventyOne.html" },
+            { q: "What is NP-complete?", a: "In NP and as hard as any problem in NP (all NP problems reduce to it)", day: 72, lessonPath: "../12-theoretical-cs/DaySeventyTwo.html" },
+            { q: "What is entropy in information theory?", a: "H(X) = -Σ p(x)·log₂(p(x)) — measures uncertainty", day: 75, lessonPath: "../12-theoretical-cs/DaySeventyFive.html" },
+            { q: "What makes RSA secure?", a: "Difficulty of factoring large numbers", day: 76, lessonPath: "../12-theoretical-cs/DaySeventySix.html" },
+
+            // Section 13 - Optimization
+            { q: "What makes a function convex?", a: "f(λx + (1-λ)y) ≤ λf(x) + (1-λ)f(y) for all x,y and λ∈[0,1]", day: 83, lessonPath: "../13-optimization/DayEightyThree.html" },
+            { q: "What are the KKT conditions?", a: "Karush-Kuhn-Tucker: necessary conditions for optimal solutions with constraints", day: 83, lessonPath: "../13-optimization/DayEightyThree.html" },
+
+            // Section 14-15 - Specialize & Discipline
+            { q: "What is the best way to learn math?", a: "Do problems daily — reading ≠ ability", day: 94, lessonPath: "../15-discipline/DayNinetyFour.html" },
+            { q: "What is the two-pass technique?", a: "First pass: definitions/theorems. Second pass: hard problems + re-prove", day: 97, lessonPath: "../15-discipline/DayNinetySeven.html" }
+        ];
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        const STORAGE_KEY = 'lightning_round_badges';
+        const DECK_SIZE = 10;
+
+        let currentDeck = [];
+        let currentIndex = 0;
+        let score = 0;
+        let isFlipped = false;
+        let badges = loadBadges();
+
+        function loadBadges() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                return stored ? JSON.parse(stored) : { count: 0, milestones: [] };
+            } catch {
+                return { count: 0, milestones: [] };
+            }
+        }
+
+        function saveBadges() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(badges));
+        }
+
+        // ============================================================
+        // DECK GENERATION
+        // ============================================================
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function generateDeck() {
+            // Pick 10% or DECK_SIZE questions, whichever is smaller
+            const shuffled = shuffleArray(QUESTION_POOL);
+            return shuffled.slice(0, Math.min(DECK_SIZE, Math.ceil(QUESTION_POOL.length * 0.1)));
+        }
+
+        // ============================================================
+        // UI FUNCTIONS
+        // ============================================================
+        function renderBadges() {
+            const gallery = document.getElementById('badgeGallery');
+            document.getElementById('badgeCount').textContent = `${badges.count} earned`;
+
+            gallery.innerHTML = '';
+
+            // Show earned badges (max 12 visible)
+            const showCount = Math.min(badges.count, 12);
+            for (let i = 0; i < showCount; i++) {
+                const badge = document.createElement('div');
+                badge.className = 'badge-item earned';
+                badge.innerHTML = '🏅';
+
+                // Check for milestones
+                if (i === 4) { // 5th badge
+                    badge.classList.add('milestone');
+                    badge.innerHTML = '🥉';
+                } else if (i === 9) { // 10th badge
+                    badge.classList.add('milestone');
+                    badge.innerHTML = '🥈';
+                } else if (i === 24) { // 25th badge
+                    badge.classList.add('milestone');
+                    badge.innerHTML = '🥇';
+                }
+
+                const num = document.createElement('span');
+                num.className = 'badge-num';
+                num.textContent = i + 1;
+                badge.appendChild(num);
+
+                gallery.appendChild(badge);
+            }
+
+            if (badges.count > 12) {
+                const more = document.createElement('div');
+                more.className = 'badge-item';
+                more.style.fontSize = '14px';
+                more.style.fontWeight = '700';
+                more.style.color = 'var(--text-muted)';
+                more.textContent = `+${badges.count - 12}`;
+                gallery.appendChild(more);
+            }
+
+            // Show empty slots
+            for (let i = badges.count; i < 5; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'badge-item';
+                empty.innerHTML = '❓';
+                gallery.appendChild(empty);
+            }
+        }
+
+        function startDeck() {
+            currentDeck = generateDeck();
+            currentIndex = 0;
+            score = 0;
+            isFlipped = false;
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('deckScreen').classList.remove('hidden');
+
+            document.getElementById('totalQ').textContent = currentDeck.length;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentDeck[currentIndex];
+
+            document.getElementById('currentQ').textContent = currentIndex + 1;
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${currentIndex}`;
+            document.getElementById('progressFill').style.width = `${(currentIndex / currentDeck.length) * 100}%`;
+
+            document.getElementById('questionText').textContent = q.q;
+            document.getElementById('answerText').textContent = q.a;
+            document.getElementById('lessonLink').href = q.lessonPath;
+            document.getElementById('lessonTitle').textContent = `Day ${q.day}`;
+
+            document.getElementById('flashcard').classList.remove('flipped');
+            isFlipped = false;
+            document.getElementById('answerButtons').style.visibility = 'hidden';
+        }
+
+        function flipCard() {
+            if (!isFlipped) {
+                document.getElementById('flashcard').classList.add('flipped');
+                isFlipped = true;
+                document.getElementById('answerButtons').style.visibility = 'visible';
+            }
+        }
+
+        function recordAnswer(correct) {
+            if (correct) score++;
+            currentIndex++;
+
+            if (currentIndex >= currentDeck.length) {
+                showResults();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('deckScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+
+            const pct = Math.round((score / currentDeck.length) * 100);
+            document.getElementById('resultsScore').textContent = `${pct}%`;
+            document.getElementById('resultsDesc').textContent = `You answered ${score} out of ${currentDeck.length} correctly.`;
+
+            if (pct === 100) {
+                document.getElementById('resultsIcon').textContent = '🎉';
+                document.getElementById('resultsTitle').textContent = 'Perfect Score!';
+                document.getElementById('badgeEarned').classList.remove('hidden');
+
+                badges.count++;
+                saveBadges();
+                renderBadges();
+
+                // Check milestones
+                if (badges.count === 5) {
+                    showMilestone('🥉', 'Bronze Master!', 'You earned 5 perfect scores. The fundamentals are strong with you!');
+                } else if (badges.count === 10) {
+                    showMilestone('🥈', 'Silver Scholar!', '10 perfect decks! Your knowledge runs deep.');
+                } else if (badges.count === 25) {
+                    showMilestone('🥇', 'Gold Grandmaster!', '25 perfect scores! You have truly mastered the curriculum.');
+                }
+            } else if (pct >= 80) {
+                document.getElementById('resultsIcon').textContent = '👏';
+                document.getElementById('resultsTitle').textContent = 'Great Job!';
+                document.getElementById('badgeEarned').classList.add('hidden');
+            } else if (pct >= 50) {
+                document.getElementById('resultsIcon').textContent = '📚';
+                document.getElementById('resultsTitle').textContent = 'Keep Studying!';
+                document.getElementById('badgeEarned').classList.add('hidden');
+            } else {
+                document.getElementById('resultsIcon').textContent = '💪';
+                document.getElementById('resultsTitle').textContent = 'Room to Grow';
+                document.getElementById('badgeEarned').classList.add('hidden');
+            }
+        }
+
+        function showMilestone(icon, title, desc) {
+            document.getElementById('milestoneIcon').textContent = icon;
+            document.getElementById('milestoneTitle').textContent = title;
+            document.getElementById('milestoneDesc').textContent = desc;
+            document.getElementById('milestonePopup').classList.remove('hidden');
+        }
+
+        function closeMilestone() {
+            document.getElementById('milestonePopup').classList.add('hidden');
+        }
+
+        function backToStart() {
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+
+        // Initialize
+        renderBadges();
+    </script>
+</body>
+
+</html>
