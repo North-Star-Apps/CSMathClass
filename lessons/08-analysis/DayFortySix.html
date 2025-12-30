@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 59: Sequences & Series</title>
+    <title>Day 46: Completeness & Compactness</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,11 +38,11 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 59 · Real Analysis
+            Day 46 · Analysis + Rigor
         </div>
-        <h1>Sequences & Series</h1>
+        <h1>Riemann Integration</h1>
         <p class="hero-desc">
-            Infinite lists of numbers. When do they settle down, and when do they explode?
+            Accumulation of change. Defining area under a curve using infinite rectangles.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -73,10 +73,10 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#sequences" class="toc-link">1. Sequences</a></li>
-                    <li><a href="#series" class="toc-link">2. Series</a></li>
-                    <li><a href="#tests" class="toc-link">3. Convergence Tests</a></li>
-                    <li><a href="#python" class="toc-link">4. Python Visuals</a></li>
+                    <li><a href="#definition" class="toc-link">1. Riemann Sums</a></li>
+                    <li><a href="#integrability" class="toc-link">2. Integrability</a></li>
+                    <li><a href="#ftc" class="toc-link">3. FTC</a></li>
+                    <li><a href="#python" class="toc-link">4. Python Integration</a></li>
                     <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
@@ -93,62 +93,63 @@
         </aside>
 
         <main class="content">
-            <!-- Sequences -->
-            <section class="section" id="sequences">
+            <!-- Riemann Sums -->
+            <section class="section" id="definition">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Sequences</h2>
+                    <h2 class="section-title">Riemann Sums</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        A sequence $(a_n)$ <strong>converges</strong> to $L$ if for every $\epsilon > 0$, terms
-                        eventually stay within $L \pm \epsilon$.
+                        We approximate the area under $f(x)$ on $[a, b]$ by partitioning the interval into $n$
+                        sub-intervals using rectangles.
                     </p>
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Monotone Convergence Theorem:</strong> Every bounded monotone sequence converges.
-                        </div>
-                        <div class="list-item">
-                            <strong>Cauchy Sequence:</strong> Terms get closer to <em>each other</em>. In $\mathbb{R}$,
-                            Cauchy $\iff$ Convergent (Completeness).
+                    <div class="formula-box">
+                        <div class="formula-main">
+                            $S = \sum_{i=1}^n f(x_i^*) \Delta x_i$
                         </div>
                     </div>
+                    <p>
+                        As the width of the largest sub-interval approaches 0 (limit as $n \to \infty$), if the sum
+                        converges to a unique value $I$, then $I = \int_a^b f(x) dx$.
+                    </p>
                 </div>
             </section>
 
-            <!-- Series -->
-            <section class="section" id="series">
+            <!-- Integrability -->
+            <section class="section" id="integrability">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Infinite Series</h2>
+                    <h2 class="section-title">Integrability Criteria</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Sum of a sequence: $S = \sum_{n=1}^\infty a_n$.
-                        We define this as the limit of partial sums $S_N = \sum_{n=1}^N a_n$.
-                    </p>
                     <div class="rule">
-                        <strong>Geometric Series:</strong> $\sum ar^n$ converges if $|r| < 1$. Sum=$a/(1-r)$. <br>
-                            <strong>Harmonic Series:</strong> $\sum 1/n$ DIVERGES (even though terms go to 0).
+                        A bounded function on $[a,b]$ is Riemann integrable if and only if it is continuous almost
+                        everywhere (Lebesgue's Criterion).
                     </div>
+                    <p>
+                        Continuous functions are always integrable. Monotonic functions are always integrable.
+                        Dirichlet function (1 on rationals, 0 on irrationals) is NOT Riemann integrable.
+                    </p>
                 </div>
             </section>
 
-            <!-- Tests -->
-            <section class="section" id="tests">
+            <!-- FTC -->
+            <section class="section" id="ftc">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Convergence Tests</h2>
+                    <h2 class="section-title">Fundamental Theorem of Calculus</h2>
                 </div>
                 <div class="section-body">
-                    <ul class="spaced-list">
-                        <li><strong>Divergence Test:</strong> If $\lim a_n \neq 0$, sequences diverges.</li>
-                        <li><strong>Ratio Test:</strong> If $\lim |a_{n+1}/a_n| = L < 1$, converges absolutely.
-                                Excellent for factorials/exponentials.</li>
-                        <li><strong>Integral Test:</strong> Converges if $\int_1^\infty f(x) dx$ converges.</li>
-                        <li><strong>Alternating Series Test:</strong> $\sum (-1)^n a_n$ converges if $a_n$ decreases to
-                            0.</li>
-                    </ul>
+                    <p>Connects differentiation and integration as inverse processes.</p>
+                    <div class="list-group">
+                        <div class="list-item">
+                            <strong>Part 1:</strong> If $F(x) = \int_a^x f(t) dt$, then $F'(x) = f(x)$.
+                        </div>
+                        <div class="list-item">
+                            <strong>Part 2:</strong> $\int_a^b f(x) dx = F(b) - F(a)$, where $F' = f$.
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -156,38 +157,37 @@
             <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Visualizing Convergence</h2>
+                    <h2 class="section-title">Python Integration</h2>
                 </div>
                 <div class="section-body">
-                    <p>Comparing Harmonic vs Geometric series partial sums.</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Partial Sums</span>
+                            <span class="code-label">Numerical Integration (Trapezoidal)</span>
                         </div>
                         <div class="code-content">
                             <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt 
-<span class="code-comment"># Note: In browser we just print values</span>
 
-N = <span class="code-number">20</span>
-n = np.arange(<span class="code-number">1</span>, N+<span class="code-number">1</span>)
+<span class="code-comment"># Function to integrate: f(x) = x^2</span>
+f = <span class="code-keyword">lambda</span> x: x**<span class="code-number">2</span>
+a, b = <span class="code-number">0</span>, <span class="code-number">1</span>
+n = <span class="code-number">1000</span> <span class="code-comment"># Number of trapezoids</span>
 
-<span class="code-comment"># 1. Harmonic: 1/n</span>
-harmonic = <span class="code-number">1</span>/n
-harm_sum = np.cumsum(harmonic)
+<span class="code-comment"># Create x values</span>
+x = np.linspace(a, b, n+<span class="code-number">1</span>)
+y = f(x)
 
-<span class="code-comment"># 2. Geometric: (1/2)^n</span>
-geom = (<span class="code-number">0.5</span>)**n
-geom_sum = np.cumsum(geom)
+<span class="code-comment"># Trapezoidal Rule: np.trapz(y, x)</span>
+area = np.trapz(y, x)
+exact = (<span class="code-number">1</span>**<span class="code-number">3</span>)/<span class="code-number">3</span> - (<span class="code-number">0</span>**<span class="code-number">3</span>)/<span class="code-number">3</span> <span class="code-comment"># 1/3</span>
 
-<span class="code-function">print</span>(<span class="code-string">"n \t Harmonic \t Geometric"</span>)
-<span class="code-function">print</span>(<span class="code-string">"-"</span>*<span class="code-number">30</span>)
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(N):
-    <span class="code-function">print</span>(<span class="code-string">f"{i+1} \t {harm_sum[i]:.4f} \t {geom_sum[i]:.4f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Approx Area: {area:.6f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Exact Area: {exact:.6f}"</span>)
 
-<span class="code-comment"># Output shows Harmonic grows slowly (diverges)</span>
-<span class="code-comment"># Geometric approaches 1.0 (converges)</span></pre>
+<span class="code-comment"># Using SciPy for adaptive quadrature (quad)</span>
+<span class="code-keyword">from</span> scipy.integration <span class="code-keyword">import</span> quad
+res, err = quad(f, a, b)
+<span class="code-function">print</span>(<span class="code-string">f"SciPy Quad: {res:.10f}"</span>)</pre>
                         </div>
                     </div>
                 </div>
@@ -238,30 +238,30 @@ geom_sum = np.cumsum(geom)
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Sequences & Series",
+                title: "Integration",
                 items: [
-                    { title: "Taylor Series", channel: "3Blue1Brown", vid: "3d6DsjIBzJ4" },
-                    { title: "Convergence Tests", channel: "Professor Leonard", vid: "None" },
+                    { title: "Integration and the Fundamental Theorem", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
+                    { title: "Riemann Sums", channel: "The Organic Chemistry Tutor", vid: "None" },
                 ]
             }
         ];
         const VIDEOS_REAL = [
             {
-                title: "Series",
+                title: "Integration",
                 items: [
-                    { title: "Taylor Series", channel: "3Blue1Brown", vid: "3d6DsjIBzJ4" },
-                    { title: "Geometric Series", channel: "Khan Academy", vid: "None" },
+                    { title: "Integration", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
+                    { title: "Riemann Sums", channel: "Khan Academy", vid: "dIy-tSjZyk0" },
                 ]
             }
         ];
 
         const QUESTIONS = [
-            { topic: "Harmonic", prompt: "The harmonic series 1/n ___.", answer: "diverges" },
-            { topic: "Geometric", prompt: "Geometric series converges if |r| < ___.", answer: "1", altAnswers: ["one"] },
-            { topic: "Test", prompt: "Ratio test: L < 1 implies ___.", answer: "convergence" },
-            { topic: "Cauchy", prompt: "A sequence where terms get close to each other is ___.", answer: "cauchy" },
+            { topic: "Area", prompt: "The integral calculates the ___ under the curve.", answer: "area" },
+            { topic: "FTC", prompt: "Differentiation and Integration are ___ operations.", answer: "inverse", altAnswers: ["opposite"] },
+            { topic: "Sum", prompt: "Riemann sums use ___ to approximate area.", answer: "rectangles" },
+            { topic: "Condition", prompt: "Continuous functions are always ___.", answer: "integrable" },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day59_seq_v1' });
+        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day46_real1_v1' });
     </script>
 </body>
 

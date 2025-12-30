@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 60: Taylor Series</title>
+    <title>Day 50: Multivariable Calculus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,11 +38,11 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 60 · Real Analysis
+            Day 50 · Analysis + Rigor
         </div>
-        <h1>Taylor Series</h1>
+        <h1>Multivariable Calculus</h1>
         <p class="hero-desc">
-            Approximating any function with polynomials. The bridge between complex functions and simple arithmetic.
+            Calculus in higher dimensions. Partial derivatives, gradients, and optimization foundations.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -73,12 +73,13 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Definition</a></li>
-                    <li><a href="#common" class="toc-link">2. Common Series</a></li>
-                    <li><a href="#error" class="toc-link">3. Error Bounds</a></li>
-                    <li><a href="#python" class="toc-link">4. SymPy Expansions</a></li>
-                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#partials" class="toc-link">1. Partial Derivatives</a></li>
+                    <li><a href="#gradient" class="toc-link">2. The Gradient</a></li>
+                    <li><a href="#hessian" class="toc-link">3. The Hessian</a></li>
+                    <li><a href="#jacobian" class="toc-link">4. The Jacobian</a></li>
+                    <li><a href="#python" class="toc-link">5. Python Optimization</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -93,68 +94,66 @@
         </aside>
 
         <main class="content">
-            <!-- Definition -->
-            <section class="section" id="definition">
+            <!-- Partials -->
+            <section class="section" id="partials">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Master Formula</h2>
+                    <h2 class="section-title">Partial Derivatives</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        If $f$ is infinitely differentiable at $a$, its Taylor Series is:
+                        For $f(x, y)$, the derivative with respect to $x$ (holding $y$ constant) is $\frac{\partial
+                        f}{\partial x}$.
                     </p>
                     <div class="formula-box">
                         <div class="formula-main">
-                            $f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!} (x-a)^n$
+                            $\frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x+h, y) - f(x, y)}{h}$
                         </div>
                     </div>
-                    <p>
-                        It matches the value, slope, concavity, jerk, etc., of the function at a single point $a$.
-                        When $a=0$, it is called a <strong>Maclaurin Series</strong>.
-                    </p>
                 </div>
             </section>
 
-            <!-- Common -->
-            <section class="section" id="common">
+            <!-- Gradient -->
+            <section class="section" id="gradient">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Common Expansions</h2>
-                </div>
-                <div class="section-body">
-                    <div class="list-group">
-                        <div class="list-item">
-                            $e^x = 1 + x + \frac{x^2}{2!} + \dots$ (Converges everywhere)
-                        </div>
-                        <div class="list-item">
-                            $\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots$
-                        </div>
-                        <div class="list-item">
-                            $\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots$
-                        </div>
-                        <div class="list-item">
-                            $\frac{1}{1-x} = 1 + x + x^2 + \dots$ (Converges for $|x|<1$) </div>
-                        </div>
-                        <div class="info">
-                            <strong>Euler's Identity:</strong> $e^{ix} = \cos x + i \sin x$ becomes obvious when looking
-                            at the series expansions.
-                        </div>
-                    </div>
-            </section>
-
-            <!-- Error -->
-            <section class="section" id="error">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Taylor's Theorem (Error)</h2>
+                    <h2 class="section-title">The Gradient</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        The error $R_n(x)$ in using the $n$-th degree polynomial is:
-                        $$ R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!} (x-a)^{n+1} $$
-                        for some $c$ between $a$ and $x$.
-                        This allows us to bound the error and prove convergence.
+                        The vector of all partial derivatives.
+                        $$ \nabla f = \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \vdots \\ \frac{\partial
+                        f}{\partial x_n} \end{bmatrix} $$
                     </p>
+                    <div class="rule">
+                        The gradient points in the direction of steepest <strong>ascent</strong>.
+                        <br>
+                        $-\nabla f$ is the direction of steepest <strong>descent</strong> (used in Machine Learning).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hessian -->
+            <section class="section" id="hessian">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Hessian & Jacobian</h2>
+                </div>
+                <div class="section-body">
+                    <div class="grid-2">
+                        <div class="list-item">
+                            <strong>Hessian ($H$):</strong>
+                            Matrix of second order partials.
+                            <br>
+                            If $H$ is Positive Definite at a critical point, it's a local minimum.
+                        </div>
+                        <div class="list-item">
+                            <strong>Jacobian ($J$):</strong>
+                            Matrix of first order partials for vector-valued functions.
+                            <br>
+                            Used in change of variables (integration) and robotics.
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -162,34 +161,38 @@
             <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">SymPy Expansions</h2>
+                    <h2 class="section-title">Gradient Descent</h2>
                 </div>
                 <div class="section-body">
-                    <p>Computing series coefficients automatically.</p>
+                    <p>Visualizing optimization on a 2D surface.</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Taylor Series</span>
+                            <span class="code-label">Gradient Descent</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">from</span> sympy <span class="code-keyword">import</span> symbols, series, sin, exp, cos
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
 
-x = symbols(<span class="code-string">'x'</span>)
+<span class="code-comment"># Function: f(x, y) = x^2 + 2y^2</span>
+<span class="code-comment"># Gradient: [2x, 4y]</span>
+<span class="code-keyword">def</span> <span class="code-function">grad_f</span>(v):
+    x, y = v
+    <span class="code-flow">return</span> np.array([<span class="code-number">2</span>*x, <span class="code-number">4</span>*y])
 
-<span class="code-comment"># Maclaurin series of sin(x) up to x^9</span>
-TS_sin = series(sin(x), x, <span class="code-number">0</span>, <span class="code-number">10</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Sin(x) ~ {TS_sin}"</span>)
+<span class="code-comment"># Initial guess</span>
+start = np.array([<span class="code-number">3.0</span>, <span class="code-number">2.0</span>])
+lr = <span class="code-number">0.1</span> <span class="code-comment"># Learning Rate</span>
 
-<span class="code-comment"># Taylor Series of e^x at x=1</span>
-TS_exp = series(exp(x), x, <span class="code-number">1</span>, <span class="code-number">4</span>)
-<span class="code-function">print</span>(<span class="code-string">f"e^x at x=1 ~ {TS_exp}"</span>)
+current = start
+<span class="code-function">print</span>(<span class="code-string">"Step \t Location \t Gradient"</span>)
+<span class="code-function">print</span>(<span class="code-string">"-"</span>*<span class="code-number">40</span>)
 
-<span class="code-comment"># Using series to take limits</span>
-<span class="code-comment"># Limit of (sin x - x)/x^3 as x->0</span>
-<span class="code-comment"># sin x - x ~ -x^3/6. So ratio is -1/6.</span>
-expr = (sin(x) - x) / x**<span class="code-number">3</span>
-lim = expr.limit(x, <span class="code-number">0</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Limit: {lim}"</span>) <span class="code-comment"># -1/6</span></pre>
+<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">5</span>):
+    grad = grad_f(current)
+    <span class="code-function">print</span>(<span class="code-string">f"{i} \t {np.round(current, 2)} \t {np.round(grad, 2)}"</span>)
+    current = current - lr * grad
+
+<span class="code-comment"># See how it moves towards [0, 0]</span></pre>
                         </div>
                     </div>
                 </div>
@@ -240,30 +243,30 @@ lim = expr.limit(x, <span class="code-number">0</span>)
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Taylor Series",
+                title: "Multivariable",
                 items: [
-                    { title: "Taylor Series", channel: "3Blue1Brown", vid: "3d6DsjIBzJ4" },
-                    { title: "Euler's Formula with Taylor Series", channel: "Khan Academy", vid: "None" },
+                    { title: "Gradient", channel: "Khan Academy", vid: "GkB4vW16QHI" },
+                    { title: "Partial Derivatives", channel: "3Blue1Brown", vid: "S0_qX4VJhMQ" },
                 ]
             }
         ];
         const VIDEOS_REAL = [
             {
-                title: "Taylor",
+                title: "Multivariable",
                 items: [
-                    { title: "Taylor Series", channel: "3Blue1Brown", vid: "3d6DsjIBzJ4" },
-                    { title: "Power Series", channel: "Professor Leonard", vid: "None" },
+                    { title: "Gradient", channel: "Khan Academy", vid: "GkB4vW16QHI" },
+                    { title: "Partial Derivatives", channel: "3Blue1Brown", vid: "S0_qX4VJhMQ" },
                 ]
             }
         ];
 
         const QUESTIONS = [
-            { topic: "Maclaurin", prompt: "A Taylor series centered at 0 is valid a ___ series.", answer: "maclaurin" },
-            { topic: "Sin", prompt: "The Maclaurin series for sin(x) contains only ___ powers of x.", answer: "odd" },
-            { topic: "Cos", prompt: "The Maclaurin series for cos(x) contains only ___ powers of x.", answer: "even" },
-            { topic: "Exp", prompt: "Series for e^x is sum of x^n / ___.", answer: "n!", altAnswers: ["n factorial"] },
+            { topic: "Gradient", prompt: "Gradient points in direction of steepest ___.", answer: "ascent", altAnswers: ["increase"] },
+            { topic: "Hessian", prompt: "Hessian is a matrix of ___ derivatives.", answer: "second" },
+            { topic: "Optimization", prompt: "Gradient Descent moves in the direction of ___ gradient.", answer: "negative", altAnswers: ["minus", "opposite"] },
+            { topic: "Jacobian", prompt: "Matrix of first order partials is called ___.", answer: "jacobian" },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day60_taylor_v1' });
+        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day50_multi_v1' });
     </script>
 </body>
 
