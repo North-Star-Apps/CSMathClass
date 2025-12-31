@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -424,6 +424,7 @@ total_flips = <span class="code-function">sum</span>(increment(bits) <span class
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -444,19 +445,7 @@ total_flips = <span class="code-function">sum</span>(increment(bits) <span class
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Definition", prompt: "Amortized = average over ___ of operations", answer: "sequence", altAnswers: ["sequences", "worst-case sequence"] },
-            { topic: "Distinction", prompt: "Amortized is deterministic, not ___ case", answer: "average" },
-            { topic: "Methods", prompt: "___ method: total cost / n operations", answer: "aggregate" },
-            { topic: "Methods", prompt: "___ method uses credits", answer: "accounting", altAnswers: ["banker's", "bankers"] },
-            { topic: "Methods", prompt: "___ method uses Φ function", answer: "potential", altAnswers: ["physicist's", "physicists"] },
-            { topic: "Array", prompt: "Dynamic array amortized append is O(___)", answer: "1" },
-            { topic: "Array", prompt: "Dynamic array doubles capacity when ___", answer: "full", altAnswers: ["resize", "overflow", "size equals capacity"] },
-            { topic: "Counter", prompt: "Binary counter increment is O(___) amortized", answer: "1" },
-            { topic: "Stack", prompt: "Stack with multipop has O(___) amortized pop", answer: "1" },
-            { topic: "Potential", prompt: "Amortized = actual + Δ___", answer: "Φ", altAnswers: ["phi", "potential"] },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day46_amortized_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day37'], storageKey: 'day37_amortized_v2' });
     </script>
 </body>
 

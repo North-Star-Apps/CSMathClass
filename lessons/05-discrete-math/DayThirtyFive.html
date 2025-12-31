@@ -55,7 +55,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
         </div>
     </header>
@@ -266,6 +266,7 @@
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -278,19 +279,7 @@
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Core", prompt: "DP needs optimal ___ and overlapping subproblems", answer: "substructure" },
-            { topic: "Approaches", prompt: "Recursive + cache = ___", answer: "memoization" },
-            { topic: "Approaches", prompt: "Iterative + table = ___", answer: "tabulation" },
-            { topic: "Fib", prompt: "fib(n) = fib(n-1) + fib(n-___)", answer: "2" },
-            { topic: "Space", prompt: "If only need dp[i-1], space reduces to O(___)", answer: "1" },
-            { topic: "Problems", prompt: "LCS = Longest Common ___", answer: "subsequence" },
-            { topic: "Problems", prompt: "LIS = Longest ___ Subsequence", answer: "increasing" },
-            { topic: "Knapsack", prompt: "0/1 Knapsack: take or ___", answer: "skip", altAnswers: ["leave", "don't take"] },
-            { topic: "Patterns", prompt: "Grid DP uses dp[i][___]", answer: "j" },
-            { topic: "Vs", prompt: "DP explores ___ choices, greedy makes one", answer: "all" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day35_dp_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day35'], storageKey: 'day35_dp_v2' });
     </script>
 </body>
 

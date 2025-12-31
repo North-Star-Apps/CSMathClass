@@ -55,7 +55,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                25 practice problems
             </div>
         </div>
     </header>
@@ -302,6 +302,7 @@
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -338,29 +339,7 @@
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "BFS", prompt: "BFS uses a ___", answer: "queue" },
-            { topic: "DFS", prompt: "DFS uses a ___ or recursion", answer: "stack" },
-            { topic: "Complexity", prompt: "BFS/DFS time is O(V + ___)", answer: "e", altAnswers: ["edges"] },
-            { topic: "BFS", prompt: "BFS finds ___ path in unweighted graphs", answer: "shortest" },
-            { topic: "Dijkstra", prompt: "Dijkstra fails with ___ weights", answer: "negative" },
-            { topic: "Bellman", prompt: "___-Ford handles negative weights", answer: "bellman" },
-            { topic: "MST", prompt: "MST = Minimum ___ Tree", answer: "spanning" },
-            { topic: "MST", prompt: "Kruskal uses ___-Find data structure", answer: "union" },
-            { topic: "Floyd", prompt: "Floyd-Warshall is O(V^___)", answer: "3" },
-            { topic: "Greedy", prompt: "Dijkstra, Prim, Kruskal are all ___ algorithms", answer: "greedy" },
-            { topic: "Invariant", prompt: "Loop ___ is a property true each iteration", answer: "invariant" },
-            { topic: "Induction", prompt: "Induction: base case + ___ step", answer: "inductive" },
-            { topic: "Big-O", prompt: "O(f) is an ___ bound", answer: "upper" },
-            { topic: "Big-O", prompt: "Ω(f) is a ___ bound", answer: "lower" },
-            { topic: "Big-O", prompt: "Θ(f) is a ___ bound", answer: "tight" },
-            { topic: "Simplify", prompt: "5n³ + 2n² + n = O(n^___)", answer: "3" },
-            { topic: "Master", prompt: "Master ___ solves T(n) = aT(n/b) + f(n)", answer: "theorem" },
-            { topic: "Merge", prompt: "Merge sort recurrence: T(n) = 2T(n/___) + n", answer: "2" },
-            { topic: "Merge", prompt: "Merge sort complexity is Θ(n log ___)", answer: "n" },
-            { topic: "BinSearch", prompt: "Binary search is Θ(log ___)", answer: "n" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day36_graph_alg_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day36'], storageKey: 'day36_graph_alg_v1' });
     </script>
 </body>
 
