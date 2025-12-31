@@ -262,10 +262,29 @@ function initProctor(config) {
     }
 }
 
+// ==================== MATH RENDERING ====================
+function initMath() {
+    if (typeof renderMathInElement === 'undefined') return;
+
+    const options = {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false,
+        ignoredClasses: ["code-content"] // Don't render inside code blocks
+    };
+
+    renderMathInElement(document.body, options);
+}
+
 // ==================== INIT ====================
 function initLesson(config) {
     initThemeToggle();
     initTocHighlight();
+    initMath();
     if (config.videos) initVideoPlayer(config.videos);
     if (config.questions) initQuiz(config.questions, config.storageKey || 'lesson_quiz');
     if (config.proctor) initProctor(config.proctor);
