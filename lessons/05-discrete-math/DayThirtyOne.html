@@ -142,6 +142,11 @@
                             efficiently.
                         </div>
                     </div>
+                    <div class="info">
+                        <strong>⏰ Simple:</strong> Modular arithmetic is "clock math."
+                        <br>On a 12-hour clock: 10 + 5 = 3 (not 15). We "wrap around" after 12.
+                        <br>That's exactly what mod does: 15 mod 12 = 3.
+                    </div>
                 </div>
             </section>
 
@@ -164,6 +169,11 @@
                         The <strong>Prime Number Theorem</strong> says $\pi(x) \approx x / \ln x$, where $\pi(x)$ is the
                         count of primes $\le x$.
                     </p>
+                    <div class="info">
+                        <strong>🧱 Simple:</strong> Primes are the "atoms" of numbers.
+                        <br>Just as every molecule is made of atoms, every number is made of primes.
+                        <br>12 = 2 × 2 × 3. You can't break primes down further—they're fundamental!
+                    </div>
                 </div>
             </section>
 
@@ -232,6 +242,13 @@
                             <li><strong>Decrypt:</strong> $M = C^d \pmod n$</li>
                         </ul>
                         <p>Security relies on the difficulty of factoring $n$ back into $p$ and $q$.</p>
+                    </div>
+                    <div class="info">
+                        <strong>🔐 Simple:</strong> RSA is like a special padlock.
+                        <br>• Anyone can LOCK it (encrypt with public key)
+                        <br>• Only YOU have the key to UNLOCK it (decrypt with private key)
+                        <br>Breaking RSA = figuring out the secret combination from just the locked box (factoring huge
+                        numbers).
                     </div>
                 </div>
             </section>
@@ -318,35 +335,17 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "3ZJD1tXQp6Q" },
-            { title: "Video 2", channel: "Course Reference", vid: "-xJqW-O8pJA" },
-            { title: "Video 3", channel: "Course Reference", vid: "HZGCoVF3YvM" },
-            { title: "Video 4", channel: "Course Reference", vid: "O2L2Uv9pdDA" },
-            { title: "Video 5", channel: "Course Reference", vid: "heNB3JZT680" }
-            ]
-        }
-    ];
-        const VIDEOS_REAL = [
             {
                 title: "Number Theory",
                 items: [
                     { title: "Divisibility", channel: "TrevTutor", vid: "SRm6191R9Qo" },
-                    { title: "Modular Arithmetic", channel: "The Organic Chemistry Tutor", vid: "RcAb5vBz3Hg" },
-                    { title: "Prime Numbers", channel: "TrevTutor", vid: "None" }
-                ]
-            },
-            {
-                title: "Cryptography",
-                items: [
+                    { title: "Modular Arithmetic", channel: "Organic Chemistry Tutor", vid: "RcAb5vBz3Hg" },
                     { title: "Euclidean Algorithm", channel: "TrevTutor", vid: "p5gn2hj51hs" },
-                    { title: "RSA Encryption", channel: "Computerphile", vid: "JD72Ry60eSA" }
+                    { title: "RSA Encryption Explained", channel: "Computerphile", vid: "JD72Ry60eSA" },
+                    { title: "Prime Numbers", channel: "3Blue1Brown", vid: "3ZJD1tXQp6Q" }
                 ]
             }
         ];
-
         const QUESTIONS = [
             { topic: "Divisibility", prompt: "If a divides b, then b = a * ___.", answer: "k", altAnswers: ["integer", "c"] },
             { topic: "Modulo", prompt: "17 mod 5 = ___.", answer: "2" },
@@ -354,7 +353,6 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
             { topic: "Prime", prompt: "A prime number has exactly ___ factors.", answer: "2" },
             { topic: "Theorem", prompt: "Fundamental Theorem of Arithmetic involves limits of ___ factorization.", answer: "prime" },
             { topic: "Algorithm", prompt: "Division Algo: a = bq + ___.", answer: "r", altAnswers: ["remainder"] },
-            // Day 32: Cryptography
             { topic: "GCD", prompt: "Algorithm to find GCD efficiently is ___.", answer: "euclidean" },
             { topic: "Identity", prompt: "ax + by = GCD(a,b) is ___ Identity.", answer: "bezout", altAnswers: ["bezout's"] },
             { topic: "Inverse", prompt: "Inverse of 'a' mod 'm' exists iff GCD(a, m) = ___.", answer: "1" },
@@ -362,7 +360,7 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
             { topic: "RSA", prompt: "Public key is (e, n). Private key is (___, n).", answer: "d" },
             { topic: "Phi", prompt: "Euler's totient function φ(p) for prime p is ___.", answer: "p-1", altAnswers: ["p - 1"] },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day36_num1_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day31_num_v2' });
     </script>
 </body>
 
