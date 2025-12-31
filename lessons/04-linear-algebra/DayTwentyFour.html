@@ -356,51 +356,29 @@ truth_table([<span class="code-string">'p'</span>, <span class="code-string">'q'
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
-    {
-        "title": "Lesson Videos",
-        "items": [
             {
-                "title": "Propositional Logic",
-                "vid": "f5oFz2O5tQM"
-            },
-            {
-                "title": "Truth Tables",
-                "vid": "JrdfCRV2tKE"
-            },
-            {
-                "title": "Predicates and Quantifiers",
-                "vid": "GJmXHL-lqFk"
-            }
-        ]
-    }
-];
-        // Updating to real IDs if known, otherwise placeholders logic
-        const VIDEOS_REAL = [
-            {
-                title: "Logic Basics",
+                title: "Propositional Logic",
                 items: [
-                    { title: "Propositional Logic", channel: "TrevTutor", vid: "f5oFz2O5tQM" }, // Real ID
-                    { title: "Truth Tables", channel: "The Organic Chemistry Tutor", vid: "JrdfCRV2tKE" },
-                    { title: "Predicates and Quantifiers", channel: "TrevTutor", vid: "GJmXHL-lqFk" }
+                    { title: "Propositional Logic Introduction", channel: "TrevTutor", vid: "f5oFz2O5tQM" },
+                    { title: "Truth Tables Explained", channel: "Organic Chemistry Tutor", vid: "JrdfCRV2tKE" },
+                    { title: "Logical Connectives (AND, OR, NOT)", channel: "TheTrevTutor", vid: "itrXYg41-Q0" },
+                    { title: "Implications and Contrapositives", channel: "Eddie Woo", vid: "Vd3P2a3j_z0" }
+                ]
+            },
+            {
+                title: "First-Order Logic",
+                items: [
+                    { title: "Predicates and Quantifiers", channel: "TrevTutor", vid: "GJmXHL-lqFk" },
+                    { title: "Universal and Existential Quantifiers", channel: "Prof. Dave", vid: "bxLC7bP5l_k" },
+                    { title: "Negating Quantified Statements", channel: "Kimberly Brehm", vid: "6BPJMnXQXPE" },
+                    { title: "Rules of Inference", channel: "Neso Academy", vid: "BnMblWQ_0po" }
                 ]
             }
         ];
-
-        const QUESTIONS = [
-            { topic: "Prop", prompt: "p → q is false ONLY when p is ___ and q is False.", answer: "true", altAnswers: ["t"] },
-            { topic: "Prop", prompt: "The contrapositive of p → q is ___.", answer: "¬q → ¬p", altAnswers: ["!q -> !p", "~q -> ~p"] },
-            { topic: "Prop", prompt: "¬(p ∧ q) ≡ ¬p ∨ ¬q is called ___'s Law.", answer: "de morgan", altAnswers: ["demorgan"] },
-            { topic: "Quantifier", prompt: "The symbol ∀ means 'for ___'.", answer: "all", altAnswers: ["every"] },
-            { topic: "Quantifier", prompt: "The symbol ∃ means 'there ___'.", answer: "exists" },
-            { topic: "Logic", prompt: "Negation of ∀x P(x) is ___.", answer: "∃x ¬P(x)", altAnswers: ["exists x not p(x)"] },
-            { topic: "Inference", prompt: "If p→q and p are true, then q is true. Modus ___.", answer: "ponens" },
-            { topic: "Inference", prompt: "If p→q and ¬q are true, then ¬p is true. Modus ___.", answer: "tollens" },
-            { topic: "Type", prompt: "Sentence 'x > 5' is not a proposition, it is a ___.", answer: "predicate" },
-            { topic: "Vacuous", prompt: "If p is False, then p → q is always ___.", answer: "true" },
-        ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day28_logic_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day24'], storageKey: 'day24_logic_v2' });
     </script>
 </body>
 
