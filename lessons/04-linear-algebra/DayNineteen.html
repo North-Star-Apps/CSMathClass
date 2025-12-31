@@ -46,9 +46,9 @@
         <p class="hero-desc">Matrix operations, systems solving, determinants, and inverses—the complete toolkit for
             linear algebra computations in graphics, ML, and scientific computing.</p>
         <div class="hero-meta">
-            <div class="meta-item">~105 min read</div>
-            <div class="meta-item">12 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">~60 min read</div>
+            <div class="meta-item">20 practice problems</div>
+            <div class="meta-item">5 video lessons</div>
         </div>
     </header>
 
@@ -99,6 +99,11 @@
                     <div class="math-block">
                         [1 2] × [5 6] = [1×5+2×7 1×6+2×8] = [19 22]
                         [3 4] [7 8] [3×5+4×7 3×6+4×8] [43 50]
+                    </div>
+                    <div class="info">
+                        <strong>📦 Simple:</strong> Matrix multiplication is like a "transformation machine".
+                        <br>Each column of B gets transformed by the same rules defined in A.
+                        <br>Think of it like applying the same filter to multiple images.
                     </div>
                 </div>
             </section>
@@ -195,7 +200,14 @@ print(<span class="code-string">"C @ D ="</span>, C @ D)  <span class="code-comm
                     <div class="math-block">det([3 1]) = 3×4 - 1×2 = 12 - 2 = 10
                         ([2 4])</div>
                     <div class="info">
-                        <strong>Geometric meaning:</strong> |det(A)| = area of parallelogram formed by column vectors.
+                        <strong>📐 Geometric meaning:</strong> |det(A)| = area of parallelogram formed by column
+                        vectors.
+                    </div>
+                    <div class="info">
+                        <strong>🎭 Simple:</strong> The determinant tells you "how much" the matrix stretches or
+                        squishes space.
+                        <br>det = 0 means it squashes 2D into 1D (loses a dimension!).
+                        <br>Negative det means it "flips" the orientation (like a mirror).
                     </div>
                 </div>
             </section>
@@ -305,17 +317,23 @@ print(<span class="code-string">"A @ A⁻¹ ="</span>, A @ A_inv)</pre>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Core Concepts",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "LyGKycYT2v0" },
-                    { title: "Video 2", channel: "Course Reference", vid: "Y_Ac6KiQ1t0" },
-                    { title: "Video 3", channel: "Course Reference", vid: "k7RM-ot2NWY" }
+                    { title: "Matrix Multiplication", channel: "3Blue1Brown", vid: "XkY2DOUCWMU" },
+                    { title: "Determinant Meaning", channel: "3Blue1Brown", vid: "Ip3X9xaLO2A" },
+                    { title: "Gaussian Elimination", channel: "Khan Academy", vid: "woqq3Sls1d8" }
+                ]
+            },
+            {
+                title: "Techniques",
+                items: [
+                    { title: "Matrix Inverse", channel: "Khan Academy", vid: "w2t9VADaw10" },
+                    { title: "Systems of Equations", channel: "Course Reference", vid: "LyGKycYT2v0" }
                 ]
             }
         ];
         initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day19'], storageKey: 'day19_v1' });
     </script>
-</body>
 </body>
 
 </html>

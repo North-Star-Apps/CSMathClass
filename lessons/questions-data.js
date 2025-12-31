@@ -2832,6 +2832,62 @@ window.QUESTIONS_DATA = {
       "prompt": "np.linalg._____(A) computes determinant",
       "answer": "det",
       "display": "det"
+    },
+    {
+      "id": 13,
+      "topic": "Transpose",
+      "prompt": "(AB)^T = B^T × ___",
+      "answer": "a^t,at,a transpose",
+      "display": "A^T"
+    },
+    {
+      "id": 14,
+      "topic": "Scalar",
+      "prompt": "det(cA) for n×n matrix = c^___ × det(A)",
+      "answer": "n",
+      "display": "n (dimension)"
+    },
+    {
+      "id": 15,
+      "topic": "Properties",
+      "prompt": "det(A^T) = det(___)",
+      "answer": "a",
+      "display": "A"
+    },
+    {
+      "id": 16,
+      "topic": "Geometric",
+      "prompt": "|det(A)| represents the ___ of the parallelogram formed by columns",
+      "answer": "area",
+      "display": "Area"
+    },
+    {
+      "id": 17,
+      "topic": "Application",
+      "prompt": "In 3D graphics, matrices are used for ___, rotation, and scaling",
+      "answer": "translation,transform",
+      "display": "Translation"
+    },
+    {
+      "id": 18,
+      "topic": "NumPy",
+      "prompt": "np.linalg._____(A) computes the inverse",
+      "answer": "inv",
+      "display": "inv"
+    },
+    {
+      "id": 19,
+      "topic": "Singular",
+      "prompt": "A matrix with det = 0 is called ___",
+      "answer": "singular,noninvertible",
+      "display": "Singular"
+    },
+    {
+      "id": 20,
+      "topic": "Inverse",
+      "prompt": "det(A⁻¹) = 1 / det(___)",
+      "answer": "a",
+      "display": "A"
     }
   ],
   "day7": [
@@ -3393,48 +3449,26 @@ window.QUESTIONS_DATA = {
     }
   ],
   "day20": [
-    {
-      "id": 1,
-      "topic": "Basics",
-      "prompt": "ODE stands for ___ Differential Equation",
-      "answer": "ordinary",
-      "display": "Ordinary"
-    },
-    {
-      "id": 2,
-      "topic": "Exponential",
-      "prompt": "Solution to dy/dt = ky is y = y₀e^(___)",
-      "answer": "kt",
-      "display": "kt"
-    },
-    {
-      "id": 3,
-      "topic": "Exponential",
-      "prompt": "If k < 0, we have exponential ___ (growth/decay)",
-      "answer": "decay",
-      "display": "decay"
-    },
-    {
-      "id": 4,
-      "topic": "Separable",
-      "prompt": "dy/dx = xy can be solved by ___ variables",
-      "answer": "separating",
-      "display": "separating"
-    },
-    {
-      "id": 5,
-      "topic": "Harmonic",
-      "prompt": "y'' + ω²y = 0 has solutions involving sin and ___",
-      "answer": "cos,cosine",
-      "display": "cos"
-    },
-    {
-      "id": 6,
-      "topic": "Numerical",
-      "prompt": "SciPy function for solving ODEs numerically: ___",
-      "answer": "odeint,solve_ivp",
-      "display": "odeint (or solve_ivp)"
-    }
+    { "id": 1, "topic": "Dot", "prompt": "If u · v = 0, the vectors are ___", "answer": "orthogonal,perpendicular", "display": "Orthogonal" },
+    { "id": 2, "topic": "Norm", "prompt": "The norm ||v|| equals the square root of v · ___", "answer": "v", "display": "v" },
+    { "id": 3, "topic": "Angle", "prompt": "cos(θ) = (u · v) / (||u|| × ___)", "answer": "||v||,v norm", "display": "||v||" },
+    { "id": 4, "topic": "Orthonormal", "prompt": "A basis with unit vectors that are mutually orthogonal is called ___", "answer": "orthonormal", "display": "Orthonormal" },
+    { "id": 5, "topic": "Projection", "prompt": "proj_a(b) = ((a·b)/(a·a)) × ___", "answer": "a", "display": "a" },
+    { "id": 6, "topic": "Error", "prompt": "The error vector e = b - p is ___ to the subspace", "answer": "orthogonal,perpendicular", "display": "Orthogonal" },
+    { "id": 7, "topic": "Gram-Schmidt", "prompt": "___ process converts any basis to orthonormal", "answer": "gram-schmidt,gram schmidt", "display": "Gram-Schmidt" },
+    { "id": 8, "topic": "Least Squares", "prompt": "Least Squares minimizes ||Ax - ___||²", "answer": "b", "display": "b" },
+    { "id": 9, "topic": "Normal Eq", "prompt": "Normal Equation: A^T A x̂ = A^T ___", "answer": "b", "display": "b" },
+    { "id": 10, "topic": "Application", "prompt": "Linear ___ uses Least Squares to fit a line", "answer": "regression", "display": "Regression" },
+    { "id": 11, "topic": "NumPy", "prompt": "np.linalg._____(A, b) solves least squares", "answer": "lstsq", "display": "lstsq" },
+    { "id": 12, "topic": "Dot", "prompt": "u · v can be written as u^T × ___", "answer": "v", "display": "v" },
+    { "id": 13, "topic": "Parallel", "prompt": "If u · v = ||u|| ||v||, the vectors are ___", "answer": "parallel", "display": "Parallel" },
+    { "id": 14, "topic": "Orthogonal", "prompt": "Q is orthogonal matrix if Q^T Q = ___", "answer": "i,identity", "display": "I (Identity)" },
+    { "id": 15, "topic": "Property", "prompt": "Orthogonal matrices preserve ___ (length)", "answer": "norm,length,magnitude", "display": "Norm/Length" },
+    { "id": 16, "topic": "CS", "prompt": "PCA finds principal components using ___", "answer": "orthogonality,eigenvectors", "display": "Orthogonality" },
+    { "id": 17, "topic": "Geometry", "prompt": "Projection onto a plane gives the ___ point", "answer": "closest,nearest", "display": "Closest" },
+    { "id": 18, "topic": "Formula", "prompt": "||u||² = u · ___", "answer": "u", "display": "u" },
+    { "id": 19, "topic": "Residual", "prompt": "In regression, the error is called the ___", "answer": "residual,residuals", "display": "Residual" },
+    { "id": 20, "topic": "Overdetermined", "prompt": "Ax=b with more equations than unknowns is ___", "answer": "overdetermined", "display": "Overdetermined" }
   ],
   "day18": [
     {

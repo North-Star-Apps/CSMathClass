@@ -10,61 +10,45 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>
-                Back to Curriculum
-            </a>
-            <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                </svg>Back to Curriculum</a>
+            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg></button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>
-            Day 20 · Linear Algebra Sequence
-        </div>
-        <h1>Orthogonality & Least Squares</h1>
-        <p class="hero-desc">
-            The geometry of perpendicularity and finding the "best fit" solution when exact ones don't exist.
-        </p>
+            </svg>Day 20 · Linear Algebra</div>
+
+        <p class="hero-desc">The geometry of perpendicularity and finding the "best fit" solution when exact ones don't
+            exist. The foundation of Machine Learning regression.</p>
         <div class="hero-meta">
-            <div class="meta-item">
-                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 6v6l4 2" />
-                </svg>
-                ~45 min read
-            </div>
-            <div class="meta-item">
-                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                12 practice problems
-            </div>
-            <div class="meta-item">
-                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-                Video lessons
-            </div>
+            <div class="meta-item">~45 min read</div>
+            <div class="meta-item">20 practice problems</div>
+            <div class="meta-item">5 video lessons</div>
         </div>
     </header>
 
@@ -78,7 +62,7 @@
                     <li><a href="#projections" class="toc-link">3. Projections</a></li>
                     <li><a href="#least-squares" class="toc-link">4. Least Squares</a></li>
                     <li><a href="#python" class="toc-link">5. Python Fitting</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
+                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
                     <li><a href="#practice" class="toc-link">7. Practice</a></li>
                 </ul>
             </nav>
@@ -94,29 +78,31 @@
         </aside>
 
         <main class="content">
-            <!-- Dot Product -->
             <section class="section" id="dot-product">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">The Dot Product</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        The dot product (or inner product) is defined as:
-                        $$ \vec{u} \cdot \vec{v} = u^T v = \sum u_i v_i = ||u|| ||v|| \cos \theta $$
-                    </p>
-                    <div class="list-group">
-                        <div class="list-item">
-                            Length (Norm): $||v|| = \sqrt{v \cdot v}$
-                        </div>
-                        <div class="list-item">
-                            Angle: $\cos \theta = \frac{u \cdot v}{||u|| ||v||}$
-                        </div>
+                    <p>The dot product (or inner product) is defined as:</p>
+                    <div class="math-block">
+                        $\vec{u} \cdot \vec{v} = u^T v = \sum u_i v_i = ||u|| ||v|| \cos \theta$
+                    </div>
+                    <div class="rule">
+                        <strong>Key Properties:</strong>
+                        <br>Length (Norm): $||v|| = \sqrt{v \cdot v}$
+                        <br>Angle: $\cos \theta = \frac{u \cdot v}{||u|| ||v||}$
+                    </div>
+                    <div class="info">
+                        <strong>🎯 Simple:</strong> The dot product measures "how much" two vectors point in the same
+                        direction.
+                        <br>• If they're parallel, it's large.
+                        <br>• If they're perpendicular, it's zero.
+                        <br>Think of it as "overlap" or "similarity".
                     </div>
                 </div>
             </section>
 
-            <!-- Orthogonality -->
             <section class="section" id="orthogonality">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
@@ -125,64 +111,64 @@
                 <div class="section-body">
                     <div class="rule">
                         Two vectors are <strong>Orthogonal</strong> if their dot product is 0.
-                        <br>
-                        $\vec{u} \perp \vec{v} \iff \vec{u} \cdot \vec{v} = 0$.
+                        <br>$\vec{u} \perp \vec{v} \iff \vec{u} \cdot \vec{v} = 0$
                     </div>
-                    <p>
-                        <strong>Orthonormal Basis:</strong> A basis where all vectors are unit length and mutually
-                        orthogonal.
-                        This is the "nicest" kind of basis (like the standard $i, j, k$).
+                    <p><strong>Orthonormal Basis:</strong> A basis where all vectors are unit length AND mutually
+                        orthogonal. This is the "nicest" kind of basis (like the standard $\hat{i}, \hat{j}, \hat{k}$).
                     </p>
                     <div class="info">
-                        <strong>Gram-Schmidt Process:</strong> An algorithm to convert any basis into an orthonormal
-                        basis.
+                        <strong>📐 Gram-Schmidt Process:</strong> An algorithm to convert ANY basis into an orthonormal
+                        basis. Essential for numerical stability.
+                    </div>
+                    <div class="info">
+                        <strong>💻 CS Connection:</strong> Orthogonality is crucial in signal processing (Fourier
+                        basis), computer graphics (camera orientation), and PCA (principal components).
                     </div>
                 </div>
             </section>
 
-            <!-- Projections -->
             <section class="section" id="projections">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
                     <h2 class="section-title">Projections</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Projecting a vector $b$ on to a line $a$:
-                        $$ p = \text{proj}_a b = \frac{a \cdot b}{a \cdot a} a $$
-                    </p>
-                    <p>
-                        More generally, projecting onto a subspace (like a plane) finds the point in the subspace
-                        closest to $b$.
-                        The error vector $e = b - p$ is orthogonal to the subspace.
-                    </p>
+                    <p>Projecting a vector $b$ onto a line defined by $a$:</p>
+                    <div class="formula-box">
+                        <div class="formula-label">Projection Formula</div>
+                        <div class="formula-main">$\text{proj}_a b = \frac{a \cdot b}{a \cdot a} a$</div>
+                    </div>
+                    <p>The error vector $e = b - p$ is always orthogonal to the subspace.</p>
+                    <div class="info">
+                        <strong>🔦 Simple:</strong> Imagine shining a flashlight straight down onto a tilted stick.
+                        <br>The shadow on the ground is the projection.
+                        <br>The "error" is how far the stick sticks up from the ground.
+                    </div>
                 </div>
             </section>
 
-            <!-- Least Squares -->
             <section class="section" id="least-squares">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
                     <h2 class="section-title">Least Squares</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        When $Ax=b$ has no solution (often because there are more equations than variables), we solve
-                        for the "best" approximate solution $\hat{x}$.
-                    </p>
+                    <p>When $Ax=b$ has no exact solution (more equations than variables), we find the "best" approximate
+                        solution $\hat{x}$.</p>
                     <div class="formula-box">
                         <div class="formula-label">Normal Equation</div>
-                        <div class="formula-main">
-                            $A^T A \hat{x} = A^T b$
-                        </div>
+                        <div class="formula-main">$A^T A \hat{x} = A^T b$</div>
                     </div>
-                    <p>
-                        This minimizes the squared error $||Ax - b||^2$. This is the basis of Linear Regression.
-                    </p>
+                    <p>This minimizes the squared error $||Ax - b||^2$. This is the mathematical basis of <strong>Linear
+                            Regression</strong>.</p>
+                    <div class="info">
+                        <strong>📈 Simple:</strong> You have 100 data points, but you want to draw ONE line through
+                        them.
+                        <br>No perfect line exists. Least Squares finds the line that is "least wrong" overall.
+                    </div>
                 </div>
             </section>
 
-            <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
@@ -191,10 +177,8 @@
                 <div class="section-body">
                     <p>Using Least Squares to fit a line to data points.</p>
                     <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Linear Regression</span>
-                        </div>
+                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Linear
+                                Regression</span></div>
                         <div class="code-content">
                             <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
 
@@ -202,29 +186,18 @@
 X = np.array([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>])
 Y = np.array([<span class="code-number">6</span>, <span class="code-number">5</span>, <span class="code-number">7</span>, <span class="code-number">10</span>])
 
-<span class="code-comment"># We want y = mx + c</span>
-<span class="code-comment"># System:</span>
-<span class="code-comment"># 1*m + 1*c = 6</span>
-<span class="code-comment"># 2*m + 1*c = 5 ...</span>
-
-<span class="code-comment"># Construct Matrix A (columns: x values, then 1s)</span>
+<span class="code-comment"># Construct Matrix A (columns: x values, then 1s for intercept)</span>
 A = np.vstack([X, np.ones(<span class="code-function">len</span>(X))]).T
-<span class="code-function">print</span>(<span class="code-string">"Matrix A:\n"</span>, A)
 
-<span class="code-comment"># Solve Normal Equation directly: A.T @ A @ x = A.T @ Y</span>
-<span class="code-comment"># Or use numpy's least squares</span>
+<span class="code-comment"># Solve using numpy's least squares</span>
 m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span class="code-number">0</span>]
 
-<span class="code-function">print</span>(<span class="code-string">f"Best fit line: y = {m:.2f}x + {c:.2f}"</span>)
-<span class="code-comment"># Checks out?</span>
-<span class="code-comment"># x=1 -> y ~ 6</span>
-<span class="code-comment"># x=4 -> y ~ 10</span></pre>
+<span class="code-function">print</span>(<span class="code-string">f"Best fit line: y = {m:.2f}x + {c:.2f}"</span>)</pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
@@ -233,11 +206,9 @@ m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -246,7 +217,6 @@ m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span
                 </div>
             </section>
 
-            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
                     <div class="section-number">Section 7</div>
@@ -264,45 +234,25 @@ m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span
             </section>
         </main>
     </div>
-
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "btnCheckAll" },
-            { title: "Video 2", channel: "Course Reference", vid: "stats-label" },
-            { title: "Video 3", channel: "Course Reference", vid: "H9BWrYFzyqw" },
-            { title: "Video 4", channel: "Course Reference", vid: "eu6i7WJeinw" },
-            { title: "Video 5", channel: "Course Reference", vid: "Y_Ac6KiQ1t0" },
-            { title: "Video 6", channel: "Course Reference", vid: "projections" },
-            { title: "Video 7", channel: "Course Reference", vid: "code-string" },
-            { title: "Video 8", channel: "Course Reference", vid: "main-layout" },
-            { title: "Video 9", channel: "Course Reference", vid: "3Blue1Brown" },
-            { title: "Video 10", channel: "Course Reference", vid: "code-number" }
-            ]
-        }
-    ];
-        const VIDEOS_REAL = [
             {
-                title: "Orthogonality",
+                title: "Core Concepts",
                 items: [
                     { title: "Dot Product & Duality", channel: "3Blue1Brown", vid: "LyGKycYT2v0" },
-                    { title: "Cross Product", channel: "3Blue1Brown", vid: "eu6i7WJeinw" }, // Optional but good
-                    { title: "Projections", channel: "The Organic Chemistry Tutor", vid: "H9BWrYFzyqw" }
+                    { title: "Cross Product", channel: "3Blue1Brown", vid: "eu6i7WJeinw" },
+                    { title: "Projections", channel: "Organic Chemistry Tutor", vid: "H9BWrYFzyqw" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Least Squares", channel: "Khan Academy", vid: "PaFPbb66DxQ" },
+                    { title: "Linear Regression", channel: "Course Reference", vid: "Y_Ac6KiQ1t0" }
                 ]
             }
         ];
-
-        const QUESTIONS = [
-            { topic: "Dot", prompt: "If u · v = 0, the vectors are ___.", answer: "orthogonal", altAnswers: ["perpendicular"] },
-            { topic: "Norm", prompt: "The norm ||u|| is the square __ of u · u.", answer: "root" },
-            { topic: "LS", prompt: "Least Squares minimizes the squared ___.", answer: "error", altAnswers: ["errors", "residuals"] },
-            { topic: "Projection", prompt: "The error vector e = b - p is ___ to the subspace.", answer: "orthogonal" },
-            { topic: "Equation", prompt: "Normal Equation: A^T A x = ___.", answer: "a^t b", altAnswers: ["a^tb"] },
-        ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day24_orth_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day20'], storageKey: 'day20_orth_v1' });
     </script>
 </body>
 
