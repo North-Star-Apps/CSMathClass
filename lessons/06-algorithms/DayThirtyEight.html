@@ -131,6 +131,13 @@
                         <strong>Real-world usage:</strong> Hash functions, load balancing, cryptography,
                         machine learning (SGD), primality testing, and many more rely on randomization.
                     </div>
+                    <div class="info">
+                        <strong>🎲 Simple:</strong> Imagine you're playing rock-paper-scissors. If you always throw
+                        rock,
+                        someone will figure it out and beat you every time. But if you randomly pick each throw,
+                        no one can predict you—you'll win 1/3 of the time on average, which is optimal!
+                        Randomness defeats adversaries.
+                    </div>
                 </div>
             </section>
 
@@ -180,6 +187,13 @@
                     <div class="warning">
                         <strong>Converting between types:</strong> You can often convert Las Vegas to Monte Carlo
                         (add a time limit) or Monte Carlo to Las Vegas (repeat until verified correct).
+                    </div>
+                    <div class="info">
+                        <strong>🎰 Simple:</strong> Think of Las Vegas and Monte Carlo as two gambling strategies:
+                        <br>• <strong>Las Vegas:</strong> "I'll keep playing until I win." (Always win, but might take
+                        all night)
+                        <br>• <strong>Monte Carlo:</strong> "I'll play for exactly 1 hour." (Fixed time, but might go
+                        home empty-handed)
                     </div>
                 </div>
             </section>
@@ -400,6 +414,14 @@ result = quicksort(sorted_input)  <span class="code-comment"># Fast!</span></pre
                     <div class="warning">
                         <strong>P vs NP</strong> is one of the seven Millennium Prize Problems.
                         Solving it wins you $1 million! The question: does P = NP?
+                    </div>
+                    <div class="info">
+                        <strong>🔐 Simple:</strong> Imagine a Sudoku puzzle.
+                        <br>• <strong>Checking</strong> if a filled-in Sudoku is correct is easy—just verify rows,
+                        columns, and boxes.
+                        <br>• <strong>Solving</strong> an empty Sudoku is much harder.
+                        <br>P vs NP asks: if checking is easy, is solving also (secretly) easy? Most experts think NO,
+                        but no one can prove it!
                     </div>
                 </div>
             </section>
@@ -660,18 +682,23 @@ result = quicksort(sorted_input)  <span class="code-comment"># Fast!</span></pre
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "X8h4dq9Hzq8" },
-            { title: "Video 2", channel: "Course Reference", vid: "RBSGKlAvoiM" },
-            { title: "Video 3", channel: "Course Reference", vid: "DyG9S9nAlUM" },
-            { title: "Video 4", channel: "Course Reference", vid: "tvw4v7FEF1w" },
-            { title: "Video 5", channel: "Course Reference", vid: "shs0KM3wKv8" },
-            { title: "Video 6", channel: "Course Reference", vid: "ea8BRGxGmlA" }
-            ]
-        }
-    ];
+            {
+                title: "Randomized Algorithms",
+                items: [
+                    { title: "Randomized QuickSort Analysis", channel: "MIT OCW", vid: "X8h4dq9Hzq8" },
+                    { title: "Las Vegas vs Monte Carlo", channel: "freeCodeCamp", vid: "RBSGKlAvoiM" },
+                    { title: "Miller-Rabin Primality Test", channel: "Computerphile", vid: "DyG9S9nAlUM" },
+                    { title: "Universal Hashing", channel: "MIT OCW", vid: "tvw4v7FEF1w" }
+                ]
+            },
+            {
+                title: "Complexity Theory",
+                items: [
+                    { title: "P vs NP Explained", channel: "Reducible", vid: "shs0KM3wKv8" },
+                    { title: "NP-Completeness & Reductions", channel: "Abdul Bari", vid: "ea8BRGxGmlA" }
+                ]
+            }
+        ];
         const QUESTIONS = [
             { topic: "Types", prompt: "Las Vegas: always ___, time varies", answer: "correct" },
             { topic: "Types", prompt: "Monte Carlo: fixed time, may be ___", answer: "incorrect", altAnswers: ["wrong"] },
