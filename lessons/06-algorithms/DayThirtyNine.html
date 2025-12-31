@@ -261,6 +261,11 @@ event_A = [outcome <span class="code-keyword">for</span> outcome <span class="co
                         <div class="formula-label">Definition</div>
                         <div class="formula-main">P(A | B) = \frac{P(A \cap B)}{P(B)}</div>
                     </div>
+                    <div class="info">
+                        <strong>SQL Simple:</strong> Conditional probability is like a <code>WHERE</code> clause in SQL.
+                        <br><code>SELECT * FROM Universe WHERE Event_B_Occurred</code>
+                        <br>You are shrinking your total table. The rows that don't match B are gone.
+                    </div>
 
                     <div class="subsection">
                         <h3 class="subsection-title">Independence</h3>
@@ -270,6 +275,11 @@ event_A = [outcome <span class="code-keyword">for</span> outcome <span class="co
                         </p>
                         <div class="math-block">Definition 1: P(A | B) = P(A)
                             Definition 2: P(A ∩ B) = P(A)P(B)</div>
+                        <div class="info">
+                            <strong>Coin Simple:</strong> Independence is a coin having no memory.
+                            <br>If you roll 5 sixes in a row, the 6th roll is still 1/6.
+                            <br>Knowing the history tells you <em>nothing</em> about the future.
+                        </div>
                         <p>
                             <strong>Crucial Distinction:</strong> Disjoint (mutually exclusive) events are <em>highly
                                 dependent</em>.
@@ -306,6 +316,12 @@ event_A = [outcome <span class="code-keyword">for</span> outcome <span class="co
                     <div class="formula-box">
                         <div class="formula-label">Bayes' Theorem</div>
                         <div class="formula-main">P(H | E) = \frac{P(E | H) P(H)}{P(E)}</div>
+                    </div>
+                    <div class="info">
+                        <strong>Detective Simple:</strong> Bayes' Theorem is just updating your beliefs.
+                        <br><strong>Prior:</strong> Suspect might be guilty (10%).
+                        <br><strong>Evidence:</strong> Found their fingerprint.
+                        <br><strong>Posterior:</strong> Now they are VERY likely guilty (95%).
                     </div>
 
                     <div class="row" style="margin-top: 24px; display: flex; gap: 24px; flex-wrap: wrap;">
@@ -415,22 +431,16 @@ prob_spam = <span class="code-function">bayesian_update</span>(prior=<span class
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "btnCheckAll" },
-            { title: "Video 2", channel: "Course Reference", vid: "code-string" },
-            { title: "Video 3", channel: "Course Reference", vid: "stats-label" },
-            { title: "Video 4", channel: "Course Reference", vid: "main-layout" },
-            { title: "Video 5", channel: "Course Reference", vid: "HZGCoVF3YvM" },
-            { title: "Video 6", channel: "Course Reference", vid: "3Blue1Brown" },
-            { title: "Video 7", channel: "Course Reference", vid: "stats-value" },
-            { title: "Video 8", channel: "Course Reference", vid: "themeToggle" },
-            { title: "Video 9", channel: "Course Reference", vid: "foundations" },
-            { title: "Video 10", channel: "Course Reference", vid: "code-number" }
-            ]
-        }
-    ];
+            {
+                title: "Probability & Bayes",
+                items: [
+                    { title: "Bayes Theorem - 3Blue1Brown", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Conditional Probability - Khan Academy", channel: "Khan Academy", vid: "ibINrxRNvlD" },
+                    { title: "Bayes Theorem - StatQuest", channel: "StatQuest", vid: "9ig5G80DbLQ" },
+                    { title: "Conditional Probability - StatQuest", channel: "StatQuest", vid: "tKkVQhYS88U" }
+                ]
+            }
+        ];
         const QUESTIONS = [
             { topic: "Sets", prompt: "The set of all possible outcomes is the ___ Space.", answer: "sample" },
             { topic: "Sets", prompt: "If A ∩ B = ∅, the events are ___.", answer: "disjoint", altAnswers: ["independent", "mutually exclusive"] },

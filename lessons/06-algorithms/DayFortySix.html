@@ -109,6 +109,11 @@
                             $S = \sum_{i=1}^n f(x_i^*) \Delta x_i$
                         </div>
                     </div>
+                    <div class="info">
+                        <strong>Minecraft Simple:</strong> Riemann Sums are like the resolution in Minecraft.
+                        <br>With big blocks, the terrain looks jagged and barely matches the curve.
+                        <br>As blocks get tiny (limit n -> infinity), it looks like a smooth curve.
+                    </div>
                     <p>
                         As the width of the largest sub-interval approaches 0 (limit as $n \to \infty$), if the sum
                         converges to a unique value $I$, then $I = \int_a^b f(x) dx$.
@@ -142,6 +147,11 @@
                 </div>
                 <div class="section-body">
                     <p>Connects differentiation and integration as inverse processes.</p>
+                    <div class="info">
+                        <strong>Undo Button Simple:</strong> Integration is the "Undo" button for Differentiation.
+                        <br>If you differentiation <code>x^2</code> to get <code>2x</code>, integrating <code>2x</code>
+                        gets you back to <code>x^2</code> (plus a constant).
+                    </div>
                     <div class="list-group">
                         <div class="list-item">
                             <strong>Part 1:</strong> If $F(x) = \int_a^x f(t) dt$, then $F'(x) = f(x)$.
@@ -237,22 +247,15 @@ res, err = quad(f, a, b)
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "dIy-tSjZyk0" },
-            { title: "Video 2", channel: "Course Reference", vid: "btnCheckAll" },
-            { title: "Video 3", channel: "Course Reference", vid: "code-string" },
-            { title: "Video 4", channel: "Course Reference", vid: "stats-label" },
-            { title: "Video 5", channel: "Course Reference", vid: "main-layout" },
-            { title: "Video 6", channel: "Course Reference", vid: "3Blue1Brown" },
-            { title: "Video 7", channel: "Course Reference", vid: "stats-value" },
-            { title: "Video 8", channel: "Course Reference", vid: "themeToggle" },
-            { title: "Video 9", channel: "Course Reference", vid: "code-number" },
-            { title: "Video 10", channel: "Course Reference", vid: "Integration" }
-            ]
-        }
-    ];
+            {
+                title: "Integration",
+                items: [
+                    { title: "Integration and the Fundamental Theorem", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
+                    { title: "Riemann Sums - Khan Academy", channel: "Khan Academy", vid: "dIy-tSjZyk0" },
+                    { title: "Definite Integrals - Professor Leonard", channel: "Professor Leonard", vid: "u3Sp1_K6iG0" }
+                ]
+            }
+        ];
         const VIDEOS_REAL = [
             {
                 title: "Integration",
