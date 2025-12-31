@@ -56,7 +56,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -134,6 +134,13 @@
                     <p>This ensures we can answer: "What is the probability that `X` is in `B`?"</p>
                     <div class="math-block">
                         P(X \in B) = P(X^{-1}(B)) = P(\{\omega \mid X(\omega) \in B\})
+                    </div>
+                    <div class="info">
+                        <strong>🌡️ Simple:</strong> The Thermometer Analogy.
+                        <br>• The World State `\omega` is complex (atoms moving, pressure, wind).
+                        <br>• The Random Variable `X` (Thermometer) maps that complex state to a single number (25°C).
+                        <br>We usually don't care about the exact atoms (`\omega`); we only care about the reading on
+                        the thermometer (`X`).
                     </div>
                 </div>
             </section>
@@ -306,29 +313,20 @@ print(f"Theoretical E[X^2]: 2.0000")</code></pre>
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
-                items: [
-                    { title: "Video 4", channel: "Course Reference", vid: "pushforward" },
-                    { title: "Video 9", channel: "Course Reference", vid: "expectation" },
-                    { title: "Video 10", channel: "Course Reference", vid: "video-title" }
+                "title": "Lesson Videos",
+                "items": [
+                    { "title": "Probability Theory 1 - Introduction", "channel": "The Bright Side of Mathematics", "vid": "_JjSj3yA0wM" },
+                    { "title": "Random Variables", "channel": "The Bright Side of Mathematics", "vid": "video-title" },
+                    { "title": "Expectation & Integration", "channel": "The Bright Side of Mathematics", "vid": "video-title" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "RV Definition", prompt: "A random variable is a measurable ___ from the sample space to R.", answer: "function", altAnswers: ["map", "mapping"] },
-            { topic: "Measure", prompt: "The probability measure P must satisfy P(Omega) = ___.", answer: "1" },
-            { topic: "Event", prompt: "An event is a measurable set in the ___.", answer: "sigma algebra", altAnswers: ["sigma-algebra"] },
-            { topic: "Distribution", prompt: "The distribution of X is the ___ measure on R.", answer: "pushforward", altAnswers: ["push-forward"] },
-            { topic: "Definition", prompt: "Expectation is defined as the Lebesgue ___ of the random variable.", answer: "integral" },
-            { topic: "LOTUS", prompt: "LOTUS allows computing E[g(X)] using the distribution of ___.", answer: "X" },
-            { topic: "Conditional Expectation", prompt: "E[X|Y] is a random variable that is measurable with respect to ___.", answer: "sigma(Y)", altAnswers: ["sigma Y", "the sigma algebra of Y"] },
-            { topic: "Projection", prompt: "E[X|Y] can be viewed as the orthogonal projection onto the subspace of ___-measurable functions.", answer: "Y" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day60_prob_measure_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day60'], storageKey: 'day60_prob_measure_v1' });
     </script>
 </body>
 

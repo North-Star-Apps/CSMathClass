@@ -55,7 +55,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                Crucial Theorems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -159,6 +159,14 @@
                     </div>
                     <p>The function `g` acts as a "ceiling" that prevents mass from escaping to infinity or exploding.
                     </p>
+                    <div class="info">
+                        <strong>☔ Simple:</strong> The Umbrella Analogy.
+                        <br>Imagine a crowd of people (the sequence `f_n`) running around in the rain.
+                        <br>If everyone stays under a giant tent (the dominating function `g` with finite area), no one
+                        can run "too far" or "too high" to escape.
+                        <br>Therefore, the crowd's final formation `f` has the same total area as the limit of their
+                        individual areas.
+                    </div>
                 </div>
             </section>
 
@@ -291,25 +299,20 @@ plt.show()
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
-                items: [
-                    { title: "Video 7", channel: "Course Reference", vid: "video-title" }
+                "title": "Lesson Videos",
+                "items": [
+                    { "title": "Monotone Convergence Theorem", "channel": "The Bright Side of Mathematics", "vid": "851U-6-1-1" },
+                    { "title": "Fatou's Lemma", "channel": "The Bright Side of Mathematics", "vid": "G3k31XvjkG8" },
+                    { "title": "Dominated Convergence Theorem", "channel": "The Bright Side of Mathematics", "vid": "OrhJj3p8Bgw" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "MCT", prompt: "MCT requires the sequence to be non-negative and ___.", answer: "increasing" },
-            { topic: "DCT", prompt: "DCT requires the sequence to be bounded by an ___ function.", answer: "integrable", altAnswers: ["dominating"] },
-            { topic: "Fatou", prompt: "Fatou's Lemma gives an ___ (inequality/equality).", answer: "inequality" },
-            { topic: "Counterexample", prompt: "A 'traveling bump' sequence has pointwise limit ___.", answer: "0" },
-            { topic: "Strictness", prompt: "Strictly speaking, DCT allows pointwise convergence almost ___.", answer: "everywhere" },
-            { topic: "Swap", prompt: "These theorems tell us when we can swap the limit and the ___.", answer: "integral" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day59_convergence_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day59'], storageKey: 'day59_convergence_v2' });
     </script>
 </body>
 

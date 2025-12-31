@@ -55,7 +55,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                Core Tool
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -110,6 +110,15 @@
                         "I have to pay a certain sum... Riemann takes the coins out of his pocket in the order they
                         appear... I empty my pockets, heap coins of the same value... and pay the heap." — Henri
                         Lebesgue
+                    </div>
+                    <div class="info">
+                        <strong>💵 Simple:</strong> The Cash Register Analogy.
+                        <br>• <strong>Riemann:</strong> You count a pile of mixed change by picking coins one by one and
+                        adding them up (1c + 5c + 1c + 25c...).
+                        <br>• <strong>Lebesgue:</strong> You sort the coins into piles first (5 pennies, 2 nickels, 1
+                        quarter). Value = 5*(0.01) + 2*(0.05) + 1*(0.25).
+                        <br>This sorting strategy works even if the coins are scattered infinitely randomly (like the
+                        Dirichlet function).
                     </div>
                 </div>
             </section>
@@ -287,26 +296,20 @@ plt.show()</code></pre>
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
-                items: [
-                    { title: "Video 7", channel: "Course Reference", vid: "Perspective" },
-                    { title: "Video 8", channel: "Course Reference", vid: "video-title" }
+                "title": "Lesson Videos",
+                "items": [
+                    { "title": "Measure Theory - Lebesgue Integral", "channel": "The Bright Side of Mathematics", "vid": "G3k31XvjkG8" },
+                    { "title": "Lebesgue Integral Definition", "channel": "The Bright Side of Mathematics", "vid": "OrhJj3p8Bgw" },
+                    { "title": "Riemann vs Lebesgue", "channel": "Dr. Trefor Bazett", "vid": "3z-i2B1eT54" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Perspective", prompt: "Riemann partitions the domain, Lebesgue partitions the ___.", answer: "range" },
-            { topic: "Simple Function", prompt: "A simple function takes on only ___ many values.", answer: "finitely" },
-            { topic: "Dirichlet", prompt: "The Dirichlet function is 1 on rationals and 0 on irrationals. Its Lebesgue integral is ___.", answer: "0" },
-            { topic: "Construction", prompt: "The Lebesgue integral is the supremum of integrals of ___ functions.", answer: "simple" },
-            { topic: "Measure", prompt: "The measure of the set of rational numbers is ___.", answer: "0" },
-            { topic: "Generalization", prompt: "If functions are Riemann integrable, they are also ___ integrable.", answer: "Lebesgue" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day58_integration_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day58'], storageKey: 'day58_integration_v1' });
     </script>
 </body>
 
