@@ -106,6 +106,11 @@
                     <div class="math-block">
                         \text{Area} = \int_{x=a}^{x=b} f(x) \, dx
                     </div>
+                    <div class="info">
+                        <strong>📹 Simple:</strong> Your car's odometer is an integral.
+                        <br>Speed (velocity) is the rate. The odometer shows the TOTAL distance traveled.
+                        <br>The integral turns "how fast" into "how far."
+                    </div>
                 </div>
             </section>
 
@@ -153,6 +158,12 @@
                         <br>$\int_0^3 2x \, dx$
                         <br>Anti-derivative of $2x$ is $x^2$.
                         <br>$F(3) - F(0) = 3^2 - 0^2 = 9$.
+                    </div>
+                    <div class="info">
+                        <strong>↩️ Simple:</strong> The FTC says: "Integration is the undo button for differentiation."
+                        <br>If you know the derivative came from some function F, you can find the integral just by
+                        evaluating F at the endpoints.
+                        <br>No need to add up infinite rectangles!
                     </div>
                 </div>
             </section>
@@ -224,7 +235,7 @@
             {
                 title: "Deep Dives",
                 items: [
-                    { title: "Integration Essence", channel: "3Blue1Brown", vid: "tf_aV1S8jM" },
+                    { title: "Integration Essence", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
                     { title: "Riemann Sums", channel: "Khan Academy", vid: "WeVWv_OEJsY" },
                     { title: "Fundamental Theorem Pt 1", channel: "Khan Academy", vid: "W_E_E1lS7-E" },
                     { title: "Fundamental Theorem Pt 2", channel: "Khan Academy", vid: "qf1L03G7Qxw" }
@@ -237,11 +248,7 @@
                 ]
             }
         ];
-        // Note: Used best-guess IDs for Organic Chemistry Tutor and reused Khan for FTC if specific search returns it. 
-        // Will rely on "Professor Leonard" search result for substitution if better.
-        // Actually, I'll update the JS with the new search results from the parallel step if they are good. 
-
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day14'], storageKey: 'day14_int_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day14'], storageKey: 'day14_int_v2' });
     </script>
 </body>
 
