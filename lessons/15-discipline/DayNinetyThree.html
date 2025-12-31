@@ -247,14 +247,22 @@ if is_even:
     <script src="../shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-            {
-                title: "Writing Proofs",
-                items: [
-                    { title: "Mathematical Writing", channel: "Knuth", vid: "video_id_placeholder" },
-                    { title: "Intro to LaTeX", channel: "Overleaf", vid: "video_id_placeholder" },
-                ]
-            }
-        ];
+        {
+            title: "Lesson Videos",
+            items: [
+            { title: "Video 1", channel: "Course Reference", vid: "Definitions" },
+            { title: "Video 2", channel: "Course Reference", vid: "btnCheckAll" },
+            { title: "Video 3", channel: "Course Reference", vid: "stats-label" },
+            { title: "Video 4", channel: "Course Reference", vid: "main-layout" },
+            { title: "Video 5", channel: "Course Reference", vid: "definitions" },
+            { title: "Video 6", channel: "Course Reference", vid: "stats-value" },
+            { title: "Video 7", channel: "Course Reference", vid: "themeToggle" },
+            { title: "Video 8", channel: "Course Reference", vid: "code-header" },
+            { title: "Video 9", channel: "Course Reference", vid: "video-title" },
+            { title: "Video 10", channel: "Course Reference", vid: "statCorrect" }
+            ]
+        }
+    ];
         const QUESTIONS = [
             { topic: "Sentences", prompt: "In proofs, mathematical expressions should be treated as parts of ___.", answer: "speech" },
             { topic: "Contrapositive", prompt: "To prove P => Q, you can prove Not Q => ___.", answer: "Not P", altAnswers: ["!P", "~P"] },

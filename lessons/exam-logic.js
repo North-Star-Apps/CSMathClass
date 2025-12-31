@@ -191,6 +191,7 @@ const SECTION_MAP = {
         "day98"
     ]
 };
+window.SECTION_MAP = SECTION_MAP;
 
 function getAllQuestions() {
     if (!window.QUESTIONS_DATA) return [];
@@ -227,17 +228,17 @@ window.EXAM_LOGIC = {
         return shuffle([...pool]).slice(0, count);
     },
 
-    // day99
+    // day99 - 5% of total questions
     getTest: () => {
         const pool = getAllQuestions();
-        const count = Math.max(1, Math.floor(pool.length * 0.3));
+        const count = Math.max(1, Math.floor(pool.length * 0.05));
         return shuffle([...pool]).slice(0, count);
     },
 
-    // day100
+    // day100 - 10% of total questions
     getExam: () => {
         const pool = getAllQuestions();
-        const count = Math.max(1, Math.floor(pool.length * 0.5));
+        const count = Math.max(1, Math.floor(pool.length * 0.10));
         return shuffle([...pool]).slice(0, count);
     }
 };

@@ -2,22 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Day 12: Fundamental Theorem of Calculus</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-  <link rel="stylesheet" href="../../lessons/shared-styles.css">
-  <script src="../../lessons/questions-data.js"></script>
-  <script src="../../lessons/shared-scripts.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 12: Fundamental Theorem of Calculus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
-<nav class="nav">
+    <nav class="nav">
         <div class="nav-inner">
             <a href="../../index.html" class="nav-back">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
@@ -46,7 +49,7 @@
             </svg>
             Day 12 · Calculus
         </div>
-        
+
         <p class="hero-desc">
             The crown jewel of Calculus. This theorem connects two seemingly different operations—differentiation and
             integration—revealing they are inverses of each other.
@@ -201,17 +204,17 @@ print(<span class="code-string">f"Numerical: {result}"</span>)    <span class="c
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-          <div class="video-container">
-            <div class="video-player">
-              <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-              <div class="video-info">
-                <div class="video-title" id="videoTitle">Select a video</div>
-                <div class="video-meta" id="videoMeta"></div>
-              </div>
-            </div>
-            <div class="video-list" id="videoList"></div>
-          </div>
-        </div>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
             </section>
 
             <!-- Practice -->
@@ -232,17 +235,21 @@ print(<span class="code-string">f"Numerical: {result}"</span>)    <span class="c
             </section>
         </main>
     </div>
-<script>
-      const VIDEO_GROUPS = [
-        {
-          title: "Lesson Videos",
-          items: [
-            { title: "Video 1", channel: "Course Reference", vid: "video_placeholder_12_1" }
-          ]
-        }
-      ];
-      initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day12'], storageKey: 'day12_v1' });
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Lesson Videos",
+                items: [
+                    { title: "Video 1", channel: "Course Reference", vid: "HZGCoVF3YvM" },
+                    { title: "Video 2", channel: "Course Reference", vid: "uzkc-qNVoOk" },
+                    { title: "Video 3", channel: "Course Reference", vid: "_IgyaD7vOOA" },
+                    { title: "Video 4", channel: "Course Reference", vid: "9wCnvr7Xw4E" }
+                ]
+            }
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day12'], storageKey: 'day12_v1' });
     </script>
 </body>
 </body>
+
 </html>
