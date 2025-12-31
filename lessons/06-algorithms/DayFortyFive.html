@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -245,6 +245,7 @@ exact = <span class="code-number">3</span>*(c**<span class="code-number">2</span
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -258,13 +259,7 @@ exact = <span class="code-number">3</span>*(c**<span class="code-number">2</span
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Deriv", prompt: "The derivative represents the ___ of the tangent line.", answer: "slope", altAnswers: ["gradient"] },
-            { topic: "MVT", prompt: "MVT relates instantaneous rate to ___ rate.", answer: "average" },
-            { topic: "Relation", prompt: "If f is differentiable, it must be ___.", answer: "continuous" },
-            { topic: "Corner", prompt: "The function |x| is not differentiable at ___.", answer: "0", altAnswers: ["zero"] },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day45_deriv_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day45'], storageKey: 'day45_deriv_v2' });
     </script>
 </body>
 

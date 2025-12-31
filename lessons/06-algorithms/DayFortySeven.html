@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -130,6 +130,12 @@
                     <div class="rule">
                         <strong>Geometric Series:</strong> $\sum ar^n$ converges if $|r| < 1$. Sum=$a/(1-r)$. <br>
                             <strong>Harmonic Series:</strong> $\sum 1/n$ DIVERGES (even though terms go to 0).
+                    </div>
+                    <div class="info">
+                        <strong>🐇 Simple:</strong> Zeno's Paradox.
+                        <br>You walk halfway to the wall (1/2), then half of what's left (1/4), then half again (1/8)...
+                        <br>Sum = 1/2 + 1/4 + 1/8 + ... = 1.
+                        <br>Even though you take infinite steps, you eventually reach the wall (converges).
                     </div>
                 </div>
             </section>
@@ -234,6 +240,7 @@ geom_sum = np.cumsum(geom)
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -255,13 +262,7 @@ geom_sum = np.cumsum(geom)
             }
         ];
 
-        const QUESTIONS = [
-            { topic: "Harmonic", prompt: "The harmonic series 1/n ___.", answer: "diverges" },
-            { topic: "Geometric", prompt: "Geometric series converges if |r| < ___.", answer: "1", altAnswers: ["one"] },
-            { topic: "Test", prompt: "Ratio test: L < 1 implies ___.", answer: "convergence" },
-            { topic: "Cauchy", prompt: "A sequence where terms get close to each other is ___.", answer: "cauchy" },
-        ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day47_real1_calc_v1' });
+        initLesson({ videos: VIDEOS_REAL, questions: window.QUESTIONS_DATA['day47'], storageKey: 'day47_real1_calc_v1' });
     </script>
 </body>
 

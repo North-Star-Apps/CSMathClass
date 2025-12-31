@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -413,19 +413,7 @@ verify_chebyshev(<span class="code-string">"Uniform"</span>, np.random.uniform(s
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "RV Definition", prompt: "A Random Variable is a function from Ω to ___.", answer: "R", altAnswers: ["reals", "real numbers"] },
-            { topic: "CDF", prompt: "F(x) = P(X ___ x).", answer: "<=", altAnswers: ["≤", "less than or equal"] },
-            { topic: "Linearity", prompt: "E[aX + Y] = aE[X] + ___.", answer: "E[Y]", altAnswers: ["average Y"] },
-            { topic: "Variance", prompt: "Var(X) = E[X²] - ___.", answer: "E[X]²", altAnswers: ["(E[X])^2", "mean squared", "(E[X])²"] },
-            { topic: "Markov", prompt: "Markov's inequality requires X to be ___.", answer: "non-negative", altAnswers: ["positive", ">=0"] },
-            { topic: "Chebyshev", prompt: "P(|X-μ| ≥ kσ) ≤ ___.", answer: "1/k²", altAnswers: ["1/k^2"] },
-            { topic: "MGF", prompt: "MGF M(t) = E[___].", answer: "e^tX", altAnswers: ["exp(tX)"] },
-            { topic: "Moments", prompt: "The 3rd standardized moment is called ___.", answer: "skewness" },
-            { topic: "Moments", prompt: "The 4th standardized moment is called ___.", answer: "kurtosis" },
-            { topic: "St. Petersburg", prompt: "The expected payoff of St. Petersburg game is ___.", answer: "infinite", altAnswers: ["infinity", "undefined"] }
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day40_rv_v3' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day40'], storageKey: 'day40_rv_v3' });
     </script>
 </body>
 

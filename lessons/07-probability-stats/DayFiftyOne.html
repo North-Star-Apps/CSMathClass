@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -349,6 +349,7 @@ vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</sp
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
 
@@ -363,19 +364,8 @@ vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</sp
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Components", prompt: "Float = Sign * Mantissa * 2^___", answer: "exponent" },
-            { topic: "Bits", prompt: "Double precision (float64) has ___ bits total.", answer: "64" },
-            { topic: "Bits", prompt: "Single precision exponent has ___ bits.", answer: "8" },
-            { topic: "Bias", prompt: "The bias for single precision is ___.", answer: "127" },
-            { topic: "Special", prompt: "Result of 1.0 / 0.0 is ___.", answer: "infinity", altAnswers: ["inf", "+inf"] },
-            { topic: "Special", prompt: "Result of 0.0 / 0.0 is ___.", answer: "nan" },
-            { topic: "Logic", prompt: "NaN == NaN evaluates to ___.", answer: "false" },
-            { topic: "Error", prompt: "Smallest number > 0 s.t. 1+e != 1 is Machine ___.", answer: "epsilon" },
-            { topic: "Stability", prompt: "Algorithm to sum numbers maximizing precision: ___ summation.", answer: "kahan" },
-            { topic: "Stability", prompt: "Log-Sum-Exp trick prevents ___.", answer: "overflow" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day51_num_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day51'], storageKey: 'day51_num_v1' });
+
     </script>
 </body>
 

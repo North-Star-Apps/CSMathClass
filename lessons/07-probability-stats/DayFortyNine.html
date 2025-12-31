@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -164,7 +164,11 @@
                             This allows us to do calculus (limits, continuity, etc.) on abstract sets like strings,
                             graphs, or functions!
                     </p>
-                </div>
+                    <div class="info">
+                        <strong>🪐 Simple:</strong> Think of an Open Ball as a "Neighborhood" or "Orbit".
+                        <br>In 2D Euclidean space, it's a circle without the rim.
+                        <br>In the Discrete metric, if $r < 1$, the only thing in your neighborhood is YOU! </div>
+                    </div>
             </section>
 
             <!-- Completeness -->
@@ -181,6 +185,11 @@
                         $\mathbb{Q}$ (Rationals) is NOT complete (since $\sqrt{2}$ is missing).
                         $\mathbb{R}$ is complete.
                     </p>
+                    <div class="info">
+                        <strong>🧩 Simple:</strong> Completeness means "No Punctures".
+                        <br>The Rational numbers line is full of holes (where $\sqrt{2}, \pi, e$ should be).
+                        <br>The Real numbers line fills in all those holes so you can't fall through.
+                    </div>
                     <div class="rule">
                         <strong>Banach Fixed Point Theorem (Contraction Mapping):</strong>
                         A contraction $f: M \to M$ on a complete metric space has a unique fixed point. This proves
@@ -272,6 +281,7 @@ d_ham = distance.hamming(v1, v2)
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -285,13 +295,8 @@ d_ham = distance.hamming(v1, v2)
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Inequality", prompt: "Triangle inequality: d(x,z) <= d(x,y) + ___.", answer: "d(y,z)" },
-            { topic: "Identity", prompt: "d(x,y)=0 implies x = ___.", answer: "y" },
-            { topic: "Complete", prompt: "A space where Cauchy sequences converge is ___.", answer: "complete" },
-            { topic: "Contraction", prompt: "Contraction mappings have a unique ___ point.", answer: "fixed" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day49_metric_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day49'], storageKey: 'day49_metric_v2' });
+
     </script>
 </body>
 

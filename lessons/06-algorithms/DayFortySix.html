@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -251,6 +251,7 @@ res, err = quad(f, a, b)
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -273,13 +274,7 @@ res, err = quad(f, a, b)
             }
         ];
 
-        const QUESTIONS = [
-            { topic: "Area", prompt: "The integral calculates the ___ under the curve.", answer: "area" },
-            { topic: "FTC", prompt: "Differentiation and Integration are ___ operations.", answer: "inverse", altAnswers: ["opposite"] },
-            { topic: "Sum", prompt: "Riemann sums use ___ to approximate area.", answer: "rectangles" },
-            { topic: "Condition", prompt: "Continuous functions are always ___.", answer: "integrable" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day46_real1_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day46'], storageKey: 'day46_real1_v1' });
     </script>
 </body>
 

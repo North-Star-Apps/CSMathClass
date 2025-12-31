@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -218,6 +218,11 @@
                         <strong>Using Variance:</strong> For ANY random variable with finite variance:
                         $$P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}$$
                     </div>
+                    <div class="info">
+                        <strong>📏 Simple:</strong> Chebyshev is the "Worst-Case Guarantee."
+                        <br>No matter how weird the distribution (two humps, flat, spiked), data can't stray too far.
+                        <br>At least 75% of data MUST be within 2 standard deviations. No exceptions.
+                    </div>
                     <p>
                         This bound holds for <em>any</em> distribution.
                         It guarantees that extreme outliers are rare.
@@ -358,19 +363,7 @@ hoeff = <span class="code-number">2</span> * np.exp(-<span class="code-number">2
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Marginal", prompt: "To get f(x) from f(x,y), you ___ out y.", answer: "integrate", altAnswers: ["sum"] },
-            { topic: "Independence", prompt: "If X, Y indep, P(X,Y) = P(X)___.", answer: "P(Y)", altAnswers: ["*P(Y)", "times P(Y)"] },
-            { topic: "Covariance", prompt: "Cov(X,Y) = E[XY] - ___.", answer: "E[X]E[Y]" },
-            { topic: "Covariance", prompt: "If X, Y independent, Cov(X,Y) = ___.", answer: "0" },
-            { topic: "Correlation", prompt: "Max value of correlation is ___.", answer: "1" },
-            { topic: "Variance Sum", prompt: "Var(X+Y) = Var(X)+Var(Y) only if ___ is 0.", answer: "covariance", altAnswers: ["cov", "correlation"] },
-            { topic: "Markov", prompt: "Markov inequality bound: E[X]/___.", answer: "a" },
-            { topic: "Chebyshev", prompt: "Chebyshev bound falls off as 1/k^___.", answer: "2" },
-            { topic: "Chernoff", prompt: "Chernoff requires the variables to be ___.", answer: "independent" },
-            { topic: "Hoeffding", prompt: "Hoeffding bound decay is ___ (mathematical term).", answer: "exponential" }
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day42_joint_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day42'], storageKey: 'day42_joint_v2' });
     </script>
 </body>
 

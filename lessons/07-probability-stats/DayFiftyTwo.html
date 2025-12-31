@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                8 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -253,34 +253,25 @@ elements = <span class="code-function">list</span>(S3.generate_schreier_sims(af=
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-    {
-        "title": "Lesson Videos",
-        "items": [
             {
-                "title": "Groups and Group Actions",
-                "vid": "P8fO7e79lqg"
-            },
-            {
-                "title": "Rings definition",
-                "vid": "z8bTv8Z5R4o"
+                "title": "Lesson Videos",
+                "items": [
+                    {
+                        "title": "Groups and Group Actions",
+                        "vid": "P8fO7e79lqg"
+                    },
+                    {
+                        "title": "Rings definition",
+                        "vid": "z8bTv8Z5R4o"
+                    }
+                ]
             }
-        ]
-    }
-];
-        const QUESTIONS = [
-            { topic: "Group", prompt: "A group must have an ___ element (like 0 or 1)", answer: "identity" },
-            { topic: "Group", prompt: "If a•b = b•a, the group is ___", answer: "abelian" },
-            { topic: "Group", prompt: "S_n is the ___ group on n elements", answer: "symmetric" },
-            { topic: "Ring", prompt: "Ring requires ___ distributive over addition", answer: "multiplication" },
-            { topic: "Ideal", prompt: "Ideal is to Ring what ___ Subgroup is to Group", answer: "normal" },
-            { topic: "Integer", prompt: "The set of integers ℤ with + and × is a ___", answer: "ring" },
-            { topic: "Homomorphism", prompt: "Map preserving structure: φ(xy) = ___", answer: "φ(x)φ(y)", altAnswers: ["phi(x)phi(y)"] },
-            { topic: "Group", prompt: "Every element must have an ___", answer: "inverse" },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day52_alg1_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day52'], storageKey: 'day52_alg1_v1' });
     </script>
 </body>
 

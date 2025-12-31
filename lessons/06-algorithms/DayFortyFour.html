@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                24 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -358,6 +358,7 @@ root = solve_ivt(f, <span class="code-number">0</span>, <span class="code-number
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -372,17 +373,7 @@ root = solve_ivt(f, <span class="code-number">0</span>, <span class="code-number
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Def", prompt: "For every epsilon > 0 there exists a ___ > 0.", answer: "delta" },
-            { topic: "Limit", prompt: "Limit of sin(x)/x as x -> 0 is ___.", answer: "1" },
-            { topic: "Squeeze", prompt: "Theorem used to bound a function between two others is ___.", answer: "squeeze", altAnswers: ["sandwich"] },
-            { topic: "Infinity", prompt: "Limit of 1/x as x -> infinity is ___.", answer: "0" },
-            { topic: "Cont", prompt: "A function is continuous if the limit equals the ___ value.", answer: "function" },
-            { topic: "Topology", prompt: "A set (0, 1) excluding endpoints is ___.", answer: "open" },
-            { topic: "Topology", prompt: "A set [0, 1] including endpoints is ___.", answer: "closed" },
-            { topic: "IVT", prompt: "IVT guarantees a value exists if the function is ___.", answer: "continuous" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day44_analysis_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day44'], storageKey: 'day44_analysis_v2' });
     </script>
 </body>
 

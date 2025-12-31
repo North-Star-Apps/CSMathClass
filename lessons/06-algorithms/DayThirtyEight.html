@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -699,29 +699,7 @@ result = quicksort(sorted_input)  <span class="code-comment"># Fast!</span></pre
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Types", prompt: "Las Vegas: always ___, time varies", answer: "correct" },
-            { topic: "Types", prompt: "Monte Carlo: fixed time, may be ___", answer: "incorrect", altAnswers: ["wrong"] },
-            { topic: "QuickSort", prompt: "Randomized QuickSort uses random ___", answer: "pivot" },
-            { topic: "QuickSort", prompt: "Randomized QuickSort expected time: O(n log ___)", answer: "n" },
-            { topic: "Primality", prompt: "Miller-___ is a probabilistic primality test", answer: "rabin" },
-            { topic: "Analysis", prompt: "E[X+Y] = E[X] + E[Y] is ___ of expectation", answer: "linearity" },
-            { topic: "Bounds", prompt: "___ inequality: P(X ≥ a) ≤ E[X]/a", answer: "markov", altAnswers: ["markov's"] },
-            { topic: "Bounds", prompt: "___ bound gives exponential concentration", answer: "chernoff", altAnswers: ["chernoff's"] },
-            { topic: "Hashing", prompt: "___ hashing randomly selects hash function", answer: "universal" },
-            { topic: "Indicator", prompt: "Indicator variable: 1 if event occurs, ___ otherwise", answer: "0" },
-            { topic: "Classes", prompt: "P = problems solvable in ___ time", answer: "polynomial" },
-            { topic: "Classes", prompt: "NP = problems ___ in polynomial time", answer: "verifiable" },
-            { topic: "Question", prompt: "P = NP is an ___ problem", answer: "open", altAnswers: ["unsolved", "unknown"] },
-            { topic: "Reduction", prompt: "A ≤ₚ B means A ___ to B", answer: "reduces" },
-            { topic: "Reduction", prompt: "If A ≤ₚ B and A is hard, then B is ___", answer: "hard" },
-            { topic: "NPC", prompt: "NP-___ = in NP + all NP reduces to it", answer: "complete" },
-            { topic: "Theorem", prompt: "Cook-Levin proved ___ is NP-complete", answer: "sat" },
-            { topic: "Examples", prompt: "TSP = Traveling ___ Problem", answer: "salesman" },
-            { topic: "Prize", prompt: "P vs NP has a ___ prize", answer: "millennium", altAnswers: ["million", "$1 million"] },
-            { topic: "Relation", prompt: "P ⊆ ___ (P is a subset of)", answer: "np" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day38_complexity_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day38'], storageKey: 'day38_rnd_v1' });
     </script>
 </body>
 

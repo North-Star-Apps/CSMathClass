@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                24 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -202,6 +202,13 @@
                         <p>
                             "The choice of $N$ depends only on $\epsilon$, not on $x$."
                         </p>
+                        <div class="info">
+                            <strong>🛌 Simple:</strong> The Blanket Analogy.
+                            <br><strong>Pointwise:</strong> Everyone in a room gets cold at different rates. You give
+                            each person a blanket when THEY get cold (N depends on x).
+                            <br><strong>Uniform:</strong> You turn up the thermostat for the WHOLE ROOM at once.
+                            Everyone gets warm together (N works for all x simultaneously).
+                        </div>
                     </div>
             </section>
 
@@ -340,6 +347,7 @@ x = np.linspace(<span class="code-number">0</span>, <span class="code-number">1<
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
@@ -352,17 +360,7 @@ x = np.linspace(<span class="code-number">0</span>, <span class="code-number">1<
             }
         ];
 
-        const QUESTIONS = [
-            { topic: "Maclaurin", prompt: "A Taylor series centered at 0 is valid a ___ series.", answer: "maclaurin" },
-            { topic: "Sin", prompt: "The Maclaurin series for sin(x) contains only ___ powers of x.", answer: "odd" },
-            { topic: "Cos", prompt: "The Maclaurin series for cos(x) contains only ___ powers of x.", answer: "even" },
-            { topic: "Exp", prompt: "Series for e^x is sum of x^n / ___.", answer: "n!", altAnswers: ["n factorial"] },
-            { topic: "Pointwise", prompt: "Pointwise convergence depends on x and ___.", answer: "n" },
-            { topic: "Uniform", prompt: "Uniform convergence means N depends only on ___.", answer: "epsilon" },
-            { topic: "Integral", prompt: "Uniform convergence allows swapping limit and ___.", answer: "integral" },
-            { topic: "Continuity", prompt: "The limit of continuous functions is continuous if convergence is ___.", answer: "uniform" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day48_series_unif_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day48'], storageKey: 'day48_series_unif_v1' });
     </script>
 </body>
 

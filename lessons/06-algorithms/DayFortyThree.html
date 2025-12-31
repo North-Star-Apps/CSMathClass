@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -573,29 +573,7 @@ model.fit(X, y)
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "MLE", prompt: "MLE maximizes the ___ function.", answer: "likelihood" },
-            { topic: "Log-Likelihood", prompt: "We use log-likelihood because it turns products into ___.", answer: "sums" },
-            { topic: "Bias", prompt: "Difference between E[estimator] and truth is ___.", answer: "bias" },
-            { topic: "Variance", prompt: "Sensitivity to training data fluctuations is ___.", answer: "variance" },
-            { topic: "Tradeoff", prompt: "High bias usually means ___fitting.", answer: "under" },
-            { topic: "Tradeoff", prompt: "High variance usually means ___fitting.", answer: "over" },
-            { topic: "Consistency", prompt: "Estimator converges to truth as n -> infinity is ___.", answer: "consistency" },
-            { topic: "Bernoulli MLE", prompt: "MLE for Bernoulli p is k/___.", answer: "n" },
-            { topic: "p-value", prompt: "Small p-value suggests rejecting the ___ hypothesis.", answer: "null" },
-            { topic: "MAP", prompt: "MAP includes a ___ distribution.", answer: "prior" },
-            { topic: "Model", prompt: "y = β₀ + β₁x + ε, β₁ is the ___", answer: "slope" },
-            { topic: "Model", prompt: "y = β₀ + β₁x + ε, β₀ is the ___", answer: "intercept" },
-            { topic: "Model", prompt: "ε represents the ___ term", answer: "error", altAnswers: ["noise", "random"] },
-            { topic: "Method", prompt: "Least ___ minimizes sum of squared errors", answer: "squares" },
-            { topic: "Fitted", prompt: "Residual = y - ___", answer: "ŷ", altAnswers: ["y-hat", "yhat", "y hat"] },
-            { topic: "R²", prompt: "R² = 1 means ___ fit", answer: "perfect" },
-            { topic: "R²", prompt: "R² = 0.75 means ___% variance explained", answer: "75" },
-            { topic: "R²", prompt: "R² is also called coefficient of ___", answer: "determination" },
-            { topic: "Multiple", prompt: "Matrix solution: β̂ = (XᵀX)⁻¹Xᵀ___", answer: "y" },
-            { topic: "sklearn", prompt: "sklearn class for linear regression is ___", answer: "linearregression" }
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day43_stats_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day43'], storageKey: 'day43_stats_v1' });
     </script>
 </body>
 

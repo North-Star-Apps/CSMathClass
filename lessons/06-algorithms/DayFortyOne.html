@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -233,6 +233,11 @@
                     <p>
                         The "Bell Curve" is the limit of sums of random variables (Central Limit Theorem).
                     </p>
+                    <div class="info">
+                        <strong>🔔 Simple:</strong> The Normal Distribution is the "Average of Averages."
+                        <br>Imagine rolling 100 dice and adding them up. Do this 1,000 times.
+                        <br>Most sums will be near 350. Very few will be 100 or 600. The shape they form? A Bell Curve.
+                    </div>
                     <div class="formula-box">f(x) = \frac{1}{\sigma\sqrt{2\pi}}
                         e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}</div>
 
@@ -355,19 +360,7 @@ top_1_percent = norm.ppf(<span class="code-number">0.99</span>)
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Binomial", prompt: "Mean of Binomial(n,p) is ___.", answer: "np" },
-            { topic: "Poisson", prompt: "For Poisson, Mean = ___.", answer: "variance", altAnswers: ["var", "lambda"] },
-            { topic: "Geometric", prompt: "Geometric distribution is ___ (property).", answer: "memoryless" },
-            { topic: "Normal", prompt: "Approx 95% of Normal is within +/- ___ sigma.", answer: "2", altAnswers: ["1.96"] },
-            { topic: "Bernoulli", prompt: "Bernoulli variance is p(1-___).", answer: "p" },
-            { topic: "Uniform", prompt: "Uniform PDF on [a,b] is 1/___.", answer: "b-a", altAnswers: ["(b-a)"] },
-            { topic: "Beta", prompt: "Beta distribution is defined on interval [___, 1].", answer: "0" },
-            { topic: "Exponential", prompt: "Exponential PDF is λe^(-___).", answer: "λx", altAnswers: ["lambda x", "lambdax"] },
-            { topic: "CLT", prompt: "Sum of independent RVs converges to ___.", answer: "normal", altAnswers: ["gaussian"] },
-            { topic: "Hypergeometric", prompt: "Used for sampling ___ replacement.", answer: "without", altAnswers: ["w/o"] }
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day41_dist_v3' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day41'], storageKey: 'day41_dist_v3' });
     </script>
 </body>
 

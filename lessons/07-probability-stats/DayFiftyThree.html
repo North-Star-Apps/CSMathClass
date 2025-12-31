@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                8 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -113,6 +113,12 @@
                             • Gal(pⁿ) (Finite fields of prime power order)
 
                             Non-example: ℤ (no division, e.g., 1/2 ∉ ℤ).
+                        </div>
+                        <div class="info">
+                            <strong>🏖️ Simple:</strong> Think of a Field as a "Math Sandbox".
+                            <br>You can play freely (Add, Sub, Mult, Div) and never fall out of the sandbox.
+                            <br>In Integers, if you divide 1 by 2, you fall out (0.5 is not an integer). In Rationals,
+                            you stay inside.
                         </div>
                     </div>
                 </div>
@@ -247,33 +253,25 @@ result = add_gf256(a, b)
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-    {
-        "title": "Lesson Videos",
-        "items": [
             {
-                "title": "Field Extensions",
-                "vid": "sz7t9s1E0Jc"
-            },
-            {
-                "title": "Galois Theory Explained",
-                "vid": "KkEN_K624C8"
+                "title": "Lesson Videos",
+                "items": [
+                    {
+                        "title": "Field Extensions",
+                        "vid": "sz7t9s1E0Jc"
+                    },
+                    {
+                        "title": "Galois Theory Explained",
+                        "vid": "KkEN_K624C8"
+                    }
+                ]
             }
-        ]
-    }
-];
-        const QUESTIONS = [
-            { topic: "Field", prompt: "A field must allow division by ___ elements", answer: "nonzero", altAnswers: ["non-zero"] },
-            { topic: "Extension", prompt: "If K contains F, K is an ___ of F", answer: "extension" },
-            { topic: "Degree", prompt: "Degree [K:F] is the ___ of K as a vector space", answer: "dimension" },
-            { topic: "Finite Field", prompt: "GF(p^n) has characteristic ___", answer: "p" },
-            { topic: "Complex", prompt: "Degree [Complex:Real] = ___", answer: "2" },
-            { topic: "Operations", prompt: "In GF(2^n), addition is equivalent to ___ (bitwise op)", answer: "xor" },
-            { topic: "Galois", prompt: "Galois group permutes roots of a ___", answer: "polynomial" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day53_alg2_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day53'], storageKey: 'day53_alg2_v1' });
     </script>
 </body>
 

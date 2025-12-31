@@ -58,7 +58,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -441,19 +441,7 @@ prob_spam = <span class="code-function">bayesian_update</span>(prior=<span class
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Sets", prompt: "The set of all possible outcomes is the ___ Space.", answer: "sample" },
-            { topic: "Sets", prompt: "If A ∩ B = ∅, the events are ___.", answer: "disjoint", altAnswers: ["independent", "mutually exclusive"] },
-            { topic: "Axioms", prompt: "P(Ω) = ___.", answer: "1" },
-            { topic: "Combinatorics", prompt: "Number of ways to arrange 3 items: ___.", answer: "6" },
-            { topic: "Independence", prompt: "If A, B independent, P(A|B) = P(___).", answer: "A", altAnswers: ["a"] },
-            { topic: "Independence", prompt: "If A, B independent, P(A ∩ B) = P(A) * P(___).", answer: "B", altAnswers: ["b"] },
-            { topic: "Bayes", prompt: "P(H|E) is called the ___ probability.", answer: "posterior" },
-            { topic: "Bayes", prompt: "P(H) is called the ___ probability.", answer: "prior" },
-            { topic: "Theorems", prompt: "P(A ∪ B) = P(A) + P(B) - P(___).", answer: "A ∩ B", altAnswers: ["a ∩ b", "intersection", "A and B"] },
-            { topic: "Simulation", prompt: "In Python, we use the ___ library for combinations.", answer: "itertools", altAnswers: ["math"] }
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day39_conditional_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day39'], storageKey: 'day39_prob_v1' });
     </script>
 </body>
 

@@ -57,7 +57,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                8 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -228,29 +228,21 @@ pts = np.array(points)
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-    {
-        "title": "Lesson Videos",
-        "items": [
             {
-                "title": "What is a Module?",
-                "vid": "1wz6y7R0k4Y"
+                "title": "Lesson Videos",
+                "items": [
+                    {
+                        "title": "What is a Module?",
+                        "vid": "1wz6y7R0k4Y"
+                    }
+                ]
             }
-        ]
-    }
-];
-        const QUESTIONS = [
-            { topic: "Definition", prompt: "Module is like a vector space over a ___", answer: "ring" },
-            { topic: "Scalars", prompt: "Scalars in modules might not have ___", answer: "inverses" },
-            { topic: "Free", prompt: "A module with a basis is called ___", answer: "free" },
-            { topic: "Basis", prompt: "Does every module have a basis?", answer: "no" },
-            { topic: "Structure", prompt: "Theorem for FG modules over ___", answer: "pid" },
-            { topic: "Elements", prompt: "Elements x where rx=0 (r≠0) are ___ elements", answer: "torsion" },
-            { topic: "Example", prompt: "Abelian groups are ___ - modules", answer: "z", altAnswers: ["integer"] },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day54_alg3_v1' });
+        initLesson({ videos: VIDEOS_REAL, questions: window.QUESTIONS_DATA['day54'], storageKey: 'day54_alg3_v1' });
     </script>
 </body>
 
