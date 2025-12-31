@@ -155,6 +155,11 @@
 
                     <div class="warning"><strong>Dijkstra fails with negative weights!</strong> Use Bellman-Ford
                         instead.</div>
+                    <div class="info">
+                        <strong>GPS Simple:</strong> Dijkstra is how your GPS finds the fastest route.
+                        <br>It always expands the closest unvisited city, updating distances as it goes.
+                        <br>Greedy, but provably optimal for non-negative edge weights!
+                    </div>
                 </div>
             </section>
 
@@ -170,6 +175,11 @@
 
                         Kruskal's: Sort edges, add if no cycle (greedy)
                         O(E log E) with Union-Find</div>
+                    <div class="info">
+                        <strong>Roads Simple:</strong> MST = connect all cities with the cheapest roads possible.
+                        <br>Prim: Start from one city, always add the cheapest road to a new city.
+                        <br>Kruskal: Sort ALL roads by cost, add cheapest that doesn't create a loop.
+                    </div>
                 </div>
             </section>
 
@@ -287,40 +297,40 @@
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-    {
-        "title": "Lesson Videos",
-        "items": [
             {
-                "title": "BFS Algorithm",
-                "vid": "oDqjPvD54Ss"
-            },
-            {
-                "title": "DFS Algorithm",
-                "vid": "7fujbpJ0LB4"
-            },
-            {
-                "title": "Dijkstra",
-                "vid": "_lHSawdgXpI"
-            },
-            {
-                "title": "Prim",
-                "vid": "4ZlRH0eK-qQ"
-            },
-            {
-                "title": "Big-O Notation",
-                "vid": "D6xkbGLQesk"
-            },
-            {
-                "title": "Loop Invariants",
-                "vid": "0JUN9aDxVmI"
-            },
-            {
-                "title": "Master Theorem",
-                "vid": "4l8fBKzWgXw"
+                "title": "Lesson Videos",
+                "items": [
+                    {
+                        "title": "BFS Algorithm",
+                        "vid": "oDqjPvD54Ss"
+                    },
+                    {
+                        "title": "DFS Algorithm",
+                        "vid": "7fujbpJ0LB4"
+                    },
+                    {
+                        "title": "Dijkstra",
+                        "vid": "_lHSawdgXpI"
+                    },
+                    {
+                        "title": "Prim",
+                        "vid": "4ZlRH0eK-qQ"
+                    },
+                    {
+                        "title": "Big-O Notation",
+                        "vid": "D6xkbGLQesk"
+                    },
+                    {
+                        "title": "Loop Invariants",
+                        "vid": "0JUN9aDxVmI"
+                    },
+                    {
+                        "title": "Master Theorem",
+                        "vid": "4l8fBKzWgXw"
+                    }
+                ]
             }
-        ]
-    }
-];
+        ];
         const QUESTIONS = [
             { topic: "BFS", prompt: "BFS uses a ___", answer: "queue" },
             { topic: "DFS", prompt: "DFS uses a ___ or recursion", answer: "stack" },

@@ -102,6 +102,12 @@
 
                     <div class="warning"><strong>DP vs Greedy:</strong> Greedy makes one choice per step. DP explores
                         all choices and picks optimal.</div>
+                    <div class="info">
+                        <strong>Notes Simple:</strong> DP is like being a smart student who takes notes.
+                        <br>Dumb approach: Solve fib(50) by computing fib(49) + fib(48), which both recompute fib(47)...
+                        <br>Smart approach: Write down each answer as you compute it. Never solve the same problem
+                        twice!
+                    </div>
                 </div>
             </section>
 
@@ -248,22 +254,16 @@
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "jgiZlGzXMBw" },
-            { title: "Video 2", channel: "Course Reference", vid: "btnCheckAll" },
-            { title: "Video 3", channel: "Course Reference", vid: "code-string" },
-            { title: "Video 4", channel: "Course Reference", vid: "stats-label" },
-            { title: "Video 5", channel: "Course Reference", vid: "main-layout" },
-            { title: "Video 6", channel: "Course Reference", vid: "sSno9rV8Rhg" },
-            { title: "Video 7", channel: "Course Reference", vid: "stats-value" },
-            { title: "Video 8", channel: "Course Reference", vid: "themeToggle" },
-            { title: "Video 9", channel: "Course Reference", vid: "code-number" },
-            { title: "Video 10", channel: "Course Reference", vid: "code-header" }
-            ]
-        }
-    ];
+            {
+                title: "Dynamic Programming",
+                items: [
+                    { title: "DP Introduction", channel: "Abdul Bari", vid: "jgiZlGzXMBw" },
+                    { title: "Memoization vs Tabulation", channel: "NeetCode", vid: "sSno9rV8Rhg" },
+                    { title: "Coin Change Problem", channel: "NeetCode", vid: "H9bfqozjoqs" },
+                    { title: "0/1 Knapsack", channel: "Abdul Bari", vid: "8LusJS5-AGo" }
+                ]
+            }
+        ];
         const QUESTIONS = [
             { topic: "Core", prompt: "DP needs optimal ___ and overlapping subproblems", answer: "substructure" },
             { topic: "Approaches", prompt: "Recursive + cache = ___", answer: "memoization" },
@@ -276,7 +276,7 @@
             { topic: "Patterns", prompt: "Grid DP uses dp[i][___]", answer: "j" },
             { topic: "Vs", prompt: "DP explores ___ choices, greedy makes one", answer: "all" },
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day43_dp_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day35_dp_v2' });
     </script>
 </body>
 
