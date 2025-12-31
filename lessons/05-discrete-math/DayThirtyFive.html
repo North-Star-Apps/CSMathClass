@@ -146,6 +146,12 @@
     <span class="code-keyword">if</span> n <span class="code-keyword">not in</span> memo:
         memo[n] = fib_memo(n-<span class="code-number">1</span>) + fib_memo(n-<span class="code-number">2</span>)
     <span class="code-keyword">return</span> memo[n]
+                    <div class="info">
+                        <strong>🧠 Simple:</strong> The Trivia Champion.
+                        <br>Memoization is like remembering the answer to a trivia question.
+                        <br>First time: You have to think hard (compute).
+                        <br>Second time: You just recall the answer instantly (cache lookup).
+                    </div>
 
 <span class="code-comment"># Bottom-up (tabulation)</span>
 <span class="code-keyword">def</span> <span class="code-function">fib_tab</span>(n):
@@ -174,6 +180,14 @@
                         • Longest Increasing Subsequence (LIS)
                         • 0/1 Knapsack: dp[i][w] = max(take, skip)
                         • Edit Distance: min insertions/deletions/subs</div>
+                    <div class="info">
+                        <strong>🎒 Simple:</strong> The 0/1 Knapsack.
+                        <br>You are a thief with a backpack that holds 10kg.
+                        <br>You see items with different values and weights.
+                        <br>Greedy (pick most valuable) fails if it's heavy.
+                        <br>DP checks every combination: "If I take this, what's the best I can do with the remaining
+                        space?"
+                    </div>
 
                     <div class="code-block">
                         <div class="code-header">

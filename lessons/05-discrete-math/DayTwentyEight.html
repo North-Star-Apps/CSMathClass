@@ -52,19 +52,21 @@
                 </svg>
                 ~45 min read
             </div>
-            <div class="meta-item">
-                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                10 practice problems
-            </div>
-            <div class="meta-item">
-                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-                Video lessons
-            </div>
+            100% complete
+        </div>
+        <div class="meta-item">
+            <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            25 practice problems
+        </div>
+        <div class="meta-item">
+            <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            6 Video Lessons
+        </div>
         </div>
     </header>
 
@@ -266,27 +268,22 @@
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
                 title: "Recurrences",
                 items: [
                     { title: "Linear Recurrence Relations", channel: "Organic Chemistry Tutor", vid: "upTO78o7zI0" },
+                    { title: "Recurrence Relations Intro", channel: "TrevTutor", vid: "eSttO4_4-v8" },
                     { title: "Master Theorem", channel: "Abdul Bari", vid: "OdynsEtGTrg" },
+                    { title: "Master Theorem Examples", channel: "TrevTutor", vid: "iq38Jqg9x1E" },
                     { title: "Solving Recurrences", channel: "MIT OCW", vid: "f5oFz2O5tQM" },
                     { title: "Fibonacci Closed Form", channel: "Mathologer", vid: "GJmXHL-lqFk" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Fibonacci", prompt: "F_n = F_{n-1} + ___.", answer: "f_{n-2}", altAnswers: ["f_n-2", "f(n-2)"] },
-            { topic: "Linear", prompt: "To solve linear recurrences, we find roots of the ___ equation.", answer: "characteristic" },
-            { topic: "Master", prompt: "Master theorem applies to relations of the form T(n) = aT(n/b) + ___.", answer: "f(n)" },
-            { topic: "Merge Sort", prompt: "Merge sort recurrence is T(n) = 2T(n/2) + ___.", answer: "n" },
-            { topic: "Complexity", prompt: "Recursive Fibonacci is O(___).", answer: "2^n" },
-            { topic: "Closed Form", prompt: "A formula for a_n that does not use previous terms is called ___ form.", answer: "closed" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day28_rec_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day28'], storageKey: 'day28_rec_v2' });
     </script>
 </body>
 

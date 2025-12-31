@@ -5496,6 +5496,33 @@ window.QUESTIONS_DATA = {
     { "id": 18, "topic": "Execute", "prompt": "Execute with ___", "answer": ["excellence"], "display": "excellence" },
     { "id": 19, "topic": "Believe", "prompt": "Believe in ___", "answer": ["yourself"], "display": "yourself" },
     { "id": 20, "topic": "Future", "prompt": "The future is ___", "answer": ["yours"], "display": "yours" }
+  ],
+  "day28": [
+    { "id": 1, "topic": "Fibonacci", "prompt": "F_n = F_{n-1} + ___.", "answer": "f_{n-2}", "altAnswers": ["f_n-2", "f(n-2)"] },
+    { "id": 2, "topic": "Linear", "prompt": "To solve linear recurrences, we find roots of the ___ equation.", "answer": "characteristic" },
+    { "id": 3, "topic": "Master", "prompt": "Master theorem applies to relations of the form T(n) = aT(n/b) + ___.", "answer": "f(n)", "altAnswers": ["f_n"] },
+    { "id": 4, "topic": "Merge Sort", "prompt": "Merge sort recurrence is T(n) = 2T(n/2) + ___.", "answer": "n" },
+    { "id": 5, "topic": "Complexity", "prompt": "Recursive Fibonacci is O(___).", "answer": "2^n" },
+    { "id": 6, "topic": "Closed Form", "prompt": "A formula for a_n that does not use previous terms is called ___ form.", "answer": "closed" },
+    { "id": 7, "topic": "Roots", "prompt": "Distinct roots r1, r2 -> a_n = c1*r1^n + c2*___.", "answer": "r2^n", "altAnswers": ["r2^n"] },
+    { "id": 8, "topic": "Repeated Roots", "prompt": "Repeated root r -> a_n = c1*r^n + c2*___*r^n.", "answer": "n" },
+    { "id": 9, "topic": "Master Case 1", "prompt": "If f(n) is polynomial small, T(n) = Theta(n^(log_b ___)).", "answer": "a" },
+    { "id": 10, "topic": "Master Case 2", "prompt": "If f(n) matches n^(log_b a), multiply by ___.", "answer": "log n" },
+    { "id": 11, "topic": "Master Case 3", "prompt": "If f(n) is polynomial larger, T(n) = Theta(___).", "answer": "f(n)" },
+    { "id": 12, "topic": "Binary Search", "prompt": "Binary Search recurrence: T(n) = T(n/2) + ___.", "answer": "1" },
+    { "id": 13, "topic": "Binary Search", "prompt": "Binary Search complexity: Theta(___).", "answer": "log n" },
+    { "id": 14, "topic": "Strassen", "prompt": "Strassen's Matrix Mult recurrence: T(n) = ___T(n/2) + O(n^2).", "answer": "7" },
+    { "id": 15, "topic": "Strassen", "prompt": "Strassen's complexity is approx n^___.", "answer": "2.81", "altAnswers": ["2.8"] },
+    { "id": 16, "topic": "Karatsuba", "prompt": "Karatsuba Mult recurrence: T(n) = ___T(n/2) + O(n).", "answer": "3" },
+    { "id": 17, "topic": "Tower of Hanoi", "prompt": "Hanoi recurrence: T(n) = 2T(n-1) + ___.", "answer": "1" },
+    { "id": 18, "topic": "Tower of Hanoi", "prompt": "Hanoi complexity is O(___).", "answer": "2^n" },
+    { "id": 19, "topic": "Catalan", "prompt": "Number of valid parenthesis expressions is given by ___ numbers.", "answer": "catalan" },
+    { "id": 20, "topic": "Derangement", "prompt": "Permutations with no fixed points are called ___.", "answer": "derangements" },
+    { "id": 21, "topic": "Recurrence", "prompt": "a_n = 2a_{n-1}, a_0=1 -> a_n = ___.", "answer": "2^n" },
+    { "id": 22, "topic": "Recurrence", "prompt": "a_n = a_{n-1} + 2, a_0=0 -> a_n = ___.", "answer": "2n" },
+    { "id": 23, "topic": "Def", "prompt": "A homogeneous recurrence has no extra ___ term f(n).", "answer": "constant", "altAnswers": ["f(n)", "non-homogeneous"] },
+    { "id": 24, "topic": "Order", "prompt": "a_n = a_{n-1} + a_{n-3} is a recurrence of order ___.", "answer": "3" },
+    { "id": 25, "topic": "Generating", "prompt": "Generating function for 1, 1, 1, ... is 1 / (1 - ___).", "answer": "x" }
   ]
 };
 
