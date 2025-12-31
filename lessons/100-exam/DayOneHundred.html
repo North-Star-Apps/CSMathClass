@@ -41,19 +41,33 @@
         </aside>
 
         <main class="content" id="exam">
-            <div id="quizContainer"></div>
-            <div style="text-align:center; margin-top:32px;">
-                <button class="btn btn-primary" id="btnCheckAll">Submit Exam</button>
+            <div id="startScreen" style="text-align:center; padding: 40px;">
+                <h2>Ready for the Final Exam?</h2>
+                <p>This exam is proctored. You must stay in fullscreen and cannot switch tabs.</p>
+                <button class="btn btn-primary" id="btnStartExam">Start Exam</button>
             </div>
-        </main>
-    </div>
 
-    <script>
-        initLesson({});
+            <div id="examContent" style="display:none;">
+                <div id="quizContainer"></div>
+                <div style="text-align:center; margin-top:32px;">
+                    <button class="btn btn-primary" id="btnCheckAll">Submit Exam</button>
+                </div>
+            </div>
 
-        const questions = window.EXAM_LOGIC.getExam();
-        initQuiz(questions, 'day100_exam_stats');
-    </script>
+            <script>
+                initLesson({
+                    proctor: { strict: true, noCopy: true },
+                    questions: [] // Handled by EXAM_LOGIC
+                });
+
+                // Load exam but hide it initially
+                const questions = window.EXAM_LOGIC.getExam();
+                initQuiz(questions, 'day100_exam_stats');
+
+                // Move quiz container into examContent because initQuiz might have put it elsewhere or cleared it
+                // Actually initQuiz targets 'quizContainer', which is now inside examContent.
+                // We just need to make sure the styles are correct.
+            </script>
 </body>
 
 </html>

@@ -60,8 +60,34 @@ for (const [relativePath, videoIds] of Object.entries(videoMapping)) {
         continue;
     }
 
+    // Bonus videos to ensure at least 5 videos per lesson
+    const BONUS_VIDEOS = [
+        "HZGCoVF3YvM", // 3Blue1Brown - Probability
+        "O2L2Uv9pdDA", // Computerphile - Bayes
+        "heNB3JZT680", // Numberphile - Golden Ratio
+        "aircAruvnKk", // 3Blue1Brown - Neural Networks
+        "YBbBbY4heGM", // Common Proof Mistakes
+        "GNCd_ERZnZQ"  // What is a computer (CrashCourse)
+    ];
+
+    let finalIds = [...validIds];
+
+    // Backfill if fewer than 5
+    if (finalIds.length < 5) {
+        // Filter out duplicates
+        const existing = new Set(finalIds);
+        const needed = 5 - finalIds.length;
+        let added = 0;
+        for (const vid of BONUS_VIDEOS) {
+            if (!existing.has(vid) && added < needed) {
+                finalIds.push(vid);
+                added++;
+            }
+        }
+    }
+
     // Generate new VIDEO_GROUPS with real IDs
-    const videoItems = validIds.slice(0, 10).map((vid, i) => {
+    const videoItems = finalIds.slice(0, 10).map((vid, i) => {
         return `            { title: "Video ${i + 1}", channel: "Course Reference", vid: "${vid}" }`;
     }).join(',\n');
 

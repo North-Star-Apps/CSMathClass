@@ -243,10 +243,30 @@ function updateQuizUI(totalQuestions) {
 }
 
 
+// ==================== PROCTORING ====================
+function initProctor(config) {
+    if (typeof Proctor !== 'undefined') {
+        Proctor.init(config);
+
+        // Add a "Start Exam" button if specifically requested
+        const startBtn = document.getElementById('btnStartExam');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                Proctor.startExam();
+                startBtn.style.display = 'none';
+                // Show exam content
+                const content = document.getElementById('examContent');
+                if (content) content.style.display = 'block';
+            });
+        }
+    }
+}
+
 // ==================== INIT ====================
 function initLesson(config) {
     initThemeToggle();
     initTocHighlight();
     if (config.videos) initVideoPlayer(config.videos);
     if (config.questions) initQuiz(config.questions, config.storageKey || 'lesson_quiz');
+    if (config.proctor) initProctor(config.proctor);
 }
