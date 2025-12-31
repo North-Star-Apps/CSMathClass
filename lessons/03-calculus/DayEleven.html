@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 11: Summation Formulas — Arithmetic, Geometric & Telescoping</title>
+    <title>Day 11: Summation Formulas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,7 +26,7 @@
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 16 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -41,14 +41,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 11 · Discrete Math</div>
+            </svg>Day 11 · Calculus Prep</div>
 
-        <p class="hero-desc">Summations appear everywhere in algorithm analysis. Knowing these formulas lets you convert
-            nested loops into closed-form expressions and proves Big-O bounds.</p>
+        <p class="hero-desc">Summations are the discrete cousins of Integrals. Mastering Sigma notation and series
+            formulas is essential for analyzing algorithm complexity and understanding Calculus.</p>
         <div class="hero-meta">
             <div class="meta-item">~45 min read</div>
-            <div class="meta-item">16 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">20 practice problems</div>
+            <div class="meta-item">5 video lessons</div>
         </div>
     </header>
 
@@ -62,9 +62,8 @@
                     <li><a href="#arithmetic" class="toc-link">2. Arithmetic Series</a></li>
                     <li><a href="#geometric" class="toc-link">3. Geometric Series</a></li>
                     <li><a href="#telescoping" class="toc-link">4. Telescoping</a></li>
-                    <li><a href="#useful" class="toc-link">5. Useful Formulas</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -85,34 +84,15 @@
                     <h2 class="section-title">Why Summations Matter</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>The connection:</strong> Loops = Summations. Every for-loop that does
-                        constant work n times is Σ₁ⁿ 1 = n operations.</div>
+                    <p>In Computer Science, we start counting at 0, or 1. We iterate. We accumulate. That is exactly
+                        what a Summation is.</p>
                     <div class="info">
-                        <strong>∑ Simple:</strong> A summation is just a for-loop in math notation. It tells you to
-                        start at a specific number, step through every integer until the end, and add them all to a
-                        running total.
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Loops as summations</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Loops
-                                    → Σ</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Simple loop: Σᵢ₌₁ⁿ 1 = n</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    work()  <span class="code-comment"># O(1)</span>
-
-<span class="code-comment"># Nested loop: Σᵢ₌₁ⁿ Σⱼ₌₁ⁿ 1 = n²</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-        work()
-
-<span class="code-comment"># Triangular: Σᵢ₌₁ⁿ i = n(n+1)/2</span>
-<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(i):  <span class="code-comment"># j goes up to i</span>
-        work()</pre>
-                            </div>
-                        </div>
+                        <strong>🔌 Simple:</strong> A Summation ($\Sigma$) is just a <code>for</code> loop that adds
+                        numbers to a variable called <code>total</code>.
+                        <ul>
+                            <li><strong>Start Index ($i=0$):</strong> <code>for i in range(0, n):</code></li>
+                            <li><strong>Formula ($f(i)$):</strong> <code>total += f(i)</code></li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -123,27 +103,17 @@
                     <h2 class="section-title">Sigma Notation</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Reading the notation</h3>
-                        <div class="math-block"> n
-                            Σ f(i) = f(1) + f(2) + ... + f(n)
-                            i=1
-
-                            Parts:
-                            • Σ — "sum"
-                            • i=1 — start index
-                            • n — end index
-                            • f(i) — the expression to sum</div>
+                    <div class="math-block">
+                        \sum_{i=1}^{n} i = 1 + 2 + 3 + ... + n
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Properties of summation</h3>
-                        <div class="math-block">1. Σ (aᵢ + bᵢ) = Σ aᵢ + Σ bᵢ (distribute)
-
-                            2. Σ c·aᵢ = c · Σ aᵢ (factor out constant)
-
-                            3. Σᵢ₌₁ⁿ c = n·c (sum of constants)
-
-                            4. Σᵢ₌ₘⁿ aᵢ = Σᵢ₌₁ⁿ aᵢ - Σᵢ₌₁ᵐ⁻¹ aᵢ (splitting)</div>
+                    <p>This asks: "Start at i=1, go up to n, and add indices together."</p>
+                    <div class="rule">
+                        <strong>Properties:</strong>
+                        <ul>
+                            <li>$\sum c \cdot a_i = c \sum a_i$ (Pull out constants)</li>
+                            <li>$\sum (a_i + b_i) = \sum a_i + \sum b_i$ (Split sums)</li>
+                            <li>$\sum_{i=1}^n c = n \cdot c$ (Summing a constant $n$ times)</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -154,51 +124,27 @@
                     <h2 class="section-title">Arithmetic Series</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The fundamental formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Sum of First n Integers</div>
-                            <div class="formula-main">Σᵢ₌₁ⁿ i = 1 + 2 + ... + n = n(n+1)/2</div>
-                        </div>
-                        <p>This is O(n²) — the triangular numbers.</p>
+                    <p>An arithmetic series increases by a constant amount each step (like 1, 2, 3... or 5, 7, 9...).
+                    </p>
+                    <div class="formula-box">
+                        <div class="formula-label">Sum of First n Integers (Gauss Sum)</div>
+                        <div class="formula-main">\sum_{i=1}^n i = \frac{n(n+1)}{2}</div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Gauss's insight</h3>
-                        <div class="math-block">Write the sum forwards and backwards:
-
-                            S = 1 + 2 + 3 + ... + n
-                            S = n + n-1 + n-2 + ... + 1
-                            ─────────────────────────────────
-                            2S = (n+1) + (n+1) + (n+1) + ... + (n+1)
-                            = n × (n+1)
-
-                            S = n(n+1)/2</div>
+                    <div class="info">
+                        <strong>🧠 Gauss's Trick:</strong> Pair the first and last numbers.
+                        <br>$(1 + n) + (2 + n-1) + ...$
+                        <br>You have $n/2$ pairs, each summing to $n+1$.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">General arithmetic series</h3>
-                        <div class="math-block">For any arithmetic sequence a, a+d, a+2d, ..., a+(n-1)d:
-
-                            Sum = n × (first + last) / 2
-                            = n × (2a + (n-1)d) / 2
-
-                            Example: 3 + 5 + 7 + 9 + 11 (a=3, d=2, n=5)
-                            = 5 × (3 + 11) / 2 = 5 × 7 = 35</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Bubble sort analysis</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Bubble sort: inner loop shrinks each pass</span>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">O(n^2)
+                                Loop</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-comment"># This loop runs n times, then n-1, then n-2...</span>
 <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(n - <span class="code-number">1</span> - i):  <span class="code-comment"># shrinks!</span>
-        <span class="code-keyword">if</span> arr[j] > arr[j+<span class="code-number">1</span>]:
-            arr[j], arr[j+<span class="code-number">1</span>] = arr[j+<span class="code-number">1</span>], arr[j]
-
-<span class="code-comment"># Comparisons: (n-1) + (n-2) + ... + 1 + 0</span>
-<span class="code-comment">#            = Σᵢ₌₀ⁿ⁻¹ (n-1-i) = n(n-1)/2 = O(n²)</span></pre>
-                            </div>
+    <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(i):
+        do_work()
+        
+<span class="code-comment"># Total work = 1 + 2 + ... + n = O(n^2)</span></pre>
                         </div>
                     </div>
                 </div>
@@ -210,129 +156,49 @@
                     <h2 class="section-title">Geometric Series</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Geometric Series (r ≠ 1)</div>
-                            <div class="formula-main">Σᵢ₌₀ⁿ rⁱ = 1 + r + r² + ... + rⁿ = (rⁿ⁺¹ - 1)/(r - 1)</div>
-                        </div>
+                    <p>A geometric series multiplies by a ratio $r$ each step (like 1, 2, 4, 8...).</p>
+                    <div class="formula-box">
+                        <div class="formula-label">Geometric Series ($r \neq 1$)</div>
+                        <div class="formula-main">\sum_{i=0}^n r^i = \frac{r^{n+1} - 1}{r - 1}</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Special case: r = 2</h3>
-                        <div class="math-block">1 + 2 + 4 + 8 + ... + 2ⁿ = 2ⁿ⁺¹ - 1
-
-                            Example: 1 + 2 + 4 + 8 = 2⁴ - 1 = 15
-
-                            Key insight: The last term dominates!
-                            Sum ≈ 2 × (largest term)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Infinite geometric series</h3>
-                        <div class="math-block">When |r| < 1, the infinite series converges: Σᵢ₌₀^∞ rⁱ=1/(1-r) Examples:
-                                1 + 1/2 + 1/4 + 1/8 + ...=1/(1-0.5)=2 1 + 1/3 + 1/9 + 1/27 + ...=1/(1-1/3)=3/2</div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">CS application: Binary tree nodes</h3>
-                            <div class="math-block">Full binary tree of height h:
-                                Level 0: 1 node
-                                Level 1: 2 nodes
-                                Level 2: 4 nodes
-                                ...
-                                Level h: 2ʰ nodes
-
-                                Total = 1 + 2 + 4 + ... + 2ʰ = 2ʰ⁺¹ - 1
-
-                                A tree with height h has about 2ʰ nodes.</div>
+                        <h3 class="subsection-title">Important Case: Powers of 2</h3>
+                        <div class="math-block">\sum_{i=0}^n 2^i = 2^{n+1} - 1</div>
+                        <p>This means the sum of all powers of 2 up to $n$ is just one less than the <em>next</em> power
+                            of 2.</p>
+                        <div class="info">
+                            <strong>1️⃣ Simple:</strong> In binary <code>1111</code> (sum of 1+2+4+8 = 15) is just
+                            <code>10000 - 1</code> (16 - 1).
                         </div>
                     </div>
+                </div>
             </section>
 
             <section class="section" id="telescoping">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Telescoping Sums</h2>
+                    <h2 class="section-title">Telescoping Series</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The idea</h3>
-                        <div class="rule"><strong>Telescoping:</strong> Most terms cancel, leaving only the first and
-                            last. Like a collapsing telescope!</div>
-                        <div class="math-block">Σᵢ₌₁ⁿ (aᵢ - aᵢ₊₁) = a₁ - aₙ₊₁
-
-                            Example: Σᵢ₌₁ⁿ (1/i - 1/(i+1))
-
-                            = (1/1 - 1/2) + (1/2 - 1/3) + (1/3 - 1/4) + ...
-
-                            = 1 - 1/(n+1) ← everything else cancels!</div>
+                    <p>A series where most terms cancel out ("collapse" like a telescope) leaving only the first and
+                        last terms.</p>
+                    <div class="math-block">
+                        \sum_{i=1}^n (\frac{1}{i} - \frac{1}{i+1})
+                        \newline
+                        = (1 - \frac{1}{2}) + (\frac{1}{2} - \frac{1}{3}) + ... + (\frac{1}{n} - \frac{1}{n+1})
+                        \newline
+                        = 1 - \frac{1}{n+1}
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Useful trick: Partial fractions</h3>
-                        <div class="math-block">To sum 1/(i(i+1)), use partial fractions:
-
-                            1/(i(i+1)) = 1/i - 1/(i+1)
-
-                            Then:
-                            Σᵢ₌₁ⁿ 1/(i(i+1)) = Σᵢ₌₁ⁿ (1/i - 1/(i+1))
-                            = 1 - 1/(n+1)
-                            = n/(n+1)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application: Amortized analysis</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Dynamic array resize</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Dynamic array doubles when full</span>
-<span class="code-comment"># Insertions: 1 + 1 + 1 + ... (cheap)</span>
-<span class="code-comment"># Resize costs: 1 + 2 + 4 + 8 + ... + n</span>
-
-<span class="code-comment"># Total resize = 2n - 1 (geometric sum)</span>
-<span class="code-comment"># Spread over n inserts = O(1) amortized per insert</span>
-
-<span class="code-comment"># Telescoping in action: each element copied</span>
-<span class="code-comment"># at most O(log n) times total</span></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="useful">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Essential Formulas Reference</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block"><strong>Constant:</strong>
-                        Σᵢ₌₁ⁿ c = nc
-
-                        <strong>Linear (Gauss):</strong>
-                        Σᵢ₌₁ⁿ i = n(n+1)/2 = O(n²)
-
-                        <strong>Squares:</strong>
-                        Σᵢ₌₁ⁿ i² = n(n+1)(2n+1)/6 = O(n³)
-
-                        <strong>Cubes:</strong>
-                        Σᵢ₌₁ⁿ i³ = [n(n+1)/2]² = O(n⁴)
-
-                        <strong>Geometric (r ≠ 1):</strong>
-                        Σᵢ₌₀ⁿ rⁱ = (rⁿ⁺¹ - 1)/(r - 1)
-
-                        <strong>Powers of 2:</strong>
-                        Σᵢ₌₀ⁿ 2ⁱ = 2ⁿ⁺¹ - 1
-
-                        <strong>Harmonic:</strong>
-                        Σᵢ₌₁ⁿ 1/i = Hₙ ≈ ln(n) + γ = O(log n)
-
-                        <strong>Log sum:</strong>
-                        Σᵢ₌₁ⁿ log(i) = log(n!) ≈ n log n = O(n log n)
+                    <div class="warning">
+                        <strong>Pattern Spotting:</strong> If you see a subtraction where the second part looks like the
+                        "next" version of the first part, it probably telescopes!
                     </div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -351,7 +217,7 @@
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -369,22 +235,24 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Basics & Notation",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "Kas0tIxDvrg" },
-                    { title: "Video 2", channel: "Course Reference", vid: "D2xYjiL8yyE" },
-                    { title: "Video 3", channel: "Course Reference", vid: "cEvgcoyZvB4" },
-                    { title: "Video 4", channel: "Course Reference", vid: "ntBWrcbAhaY" },
-                    { title: "Video 5", channel: "Course Reference", vid: "D6xkbGLQesk" },
-                    { title: "Video 6", channel: "Course Reference", vid: "V42FBiohc6c" },
-                    { title: "Video 7", channel: "Course Reference", vid: "0YErxSShF0A" },
-                    { title: "Video 8", channel: "Course Reference", vid: "VSl2JqIYV_s" }
+                    { title: "Sigma Notation Explained", channel: "Math Queen", vid: "m_P3O8lF2Jk" },
+                    { title: "Arithmetic Series Formula", channel: "Organic Chemistry Tutor", vid: "DjWedTq_Sd8" }
+                ]
+            },
+            {
+                title: "Advanced Series",
+                items: [
+                    { title: "Infinite Geometric Series", channel: "Brian McLogan", vid: "fL_g24Y621k" },
+                    { title: "Telescoping Series", channel: "MaeMap", vid: "jL_B7T5a_mY" },
+                    { title: "Summation Properties", channel: "Khan Academy", vid: "Nu_7g7hjjy0" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day9'], storageKey: 'day9_v1' });
+        // Note: 'day11' in questions-data.js needs to be updated!
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day11'], storageKey: 'day11_sum_v1' });
     </script>
-</body>
 </body>
 
 </html>

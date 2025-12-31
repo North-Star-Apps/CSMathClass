@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 12: Recurrences — Unrolling, Guess-and-Check & Master Theorem</title>
+    <title>Day 12: Limits & Continuity</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,7 +26,7 @@
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -41,14 +41,14 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 12 · Algorithm Analysis</div>
+            </svg>Day 12 · Calculus Foundations</div>
 
-        <p class="hero-desc">Recursive algorithms have recursive running times. Learn three techniques to solve
-            recurrence relations and determine the Big-O complexity of divide-and-conquer algorithms.</p>
+        <p class="hero-desc">The concept of the Limit is the gateway to Calculus. It allows us to handle the "infinitely
+            small" and is the rigorous foundation for continuity and derivatives.</p>
         <div class="hero-meta">
             <div class="meta-item">~50 min read</div>
-            <div class="meta-item">15 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">20 practice problems</div>
+            <div class="meta-item">5 video lessons</div>
         </div>
     </header>
 
@@ -58,13 +58,12 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#basics" class="toc-link">1. Recurrence Basics</a></li>
-                    <li><a href="#unrolling" class="toc-link">2. Unrolling Method</a></li>
-                    <li><a href="#guess" class="toc-link">3. Guess and Check</a></li>
-                    <li><a href="#master" class="toc-link">4. Master Theorem</a></li>
-                    <li><a href="#examples" class="toc-link">5. Common Examples</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#intuition" class="toc-link">1. Intuition</a></li>
+                    <li><a href="#definition" class="toc-link">2. Epsilon-Delta</a></li>
+                    <li><a href="#computing" class="toc-link">3. Computing Limits</a></li>
+                    <li><a href="#continuity" class="toc-link">4. Continuity & IVT</a></li>
+                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -82,319 +81,132 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Recurrences Matter</h2>
+                    <h2 class="section-title">Why Limits Matter</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>The pattern:</strong> Recursive code leads to recurrence relations. To
-                        find the Big-O of recursive algorithms, you must solve these recurrences.</div>
+                    <p>Calculus is the study of continuous change. But algebra only handles static values. The Limit is
+                        the tool that bridges this gap, allowing us to ask "what happens as we get arbitrarily close to
+                        a moment in time?"</p>
                     <div class="info">
-                        <strong>🌳 Simple:</strong> A recurrence relation is like predicting how many branches a tree
-                        will have. If you know how many branches sprout from the trunk, and how many sprout from each
-                        branch, you can calculate the total size of the tree without counting every single leaf.
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">From code to recurrence</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Merge
-                                    sort</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">merge_sort</span>(arr):
-    <span class="code-keyword">if</span> <span class="code-function">len</span>(arr) <= <span class="code-number">1</span>:
-        <span class="code-keyword">return</span> arr           <span class="code-comment"># O(1) base case</span>
-    
-    mid = <span class="code-function">len</span>(arr) // <span class="code-number">2</span>
-    left = <span class="code-function">merge_sort</span>(arr[:mid])   <span class="code-comment"># T(n/2)</span>
-    right = <span class="code-function">merge_sort</span>(arr[mid:])  <span class="code-comment"># T(n/2)</span>
-    <span class="code-keyword">return</span> <span class="code-function">merge</span>(left, right)      <span class="code-comment"># O(n)</span>
-
-<span class="code-comment"># Recurrence: T(n) = 2T(n/2) + O(n)</span></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">The goal</h3>
-                        <p>Convert T(n) = 2T(n/2) + n into T(n) = O(n log n). That's what this day teaches!</p>
+                        <strong>🍕 Simple:</strong> Imagine trying to slice a pizza into more and more slices.
+                        <br>8 slices... 16 slices... 1,000,000 slices.
+                        <br>The limit as the number of slices approaches infinity is that each slice becomes a single
+                        line, and the crust becomes a perfect circle.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="basics">
+            <section class="section" id="intuition">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Recurrence Basics</h2>
+                    <h2 class="section-title">Intuition</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Anatomy of a recurrence</h3>
-                        <div class="math-block">T(n) = a·T(n/b) + f(n)
-
-                            Where:
-                            • T(n) = time to solve problem of size n
-                            • a = number of subproblems
-                            • n/b = size of each subproblem
-                            • f(n) = work done outside recursive calls (divide + combine)</div>
+                    <div class="math-block">
+                        \lim_{x \to c} f(x) = L
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common patterns</h3>
-                        <table>
-                            <tr>
-                                <th>Algorithm</th>
-                                <th>Recurrence</th>
-                                <th>Solution</th>
-                            </tr>
-                            <tr>
-                                <td>Binary search</td>
-                                <td>T(n) = T(n/2) + O(1)</td>
-                                <td>O(log n)</td>
-                            </tr>
-                            <tr>
-                                <td>Merge sort</td>
-                                <td>T(n) = 2T(n/2) + O(n)</td>
-                                <td>O(n log n)</td>
-                            </tr>
-                            <tr>
-                                <td>Naive multiply</td>
-                                <td>T(n) = 4T(n/2) + O(n)</td>
-                                <td>O(n²)</td>
-                            </tr>
-                            <tr>
-                                <td>Karatsuba</td>
-                                <td>T(n) = 3T(n/2) + O(n)</td>
-                                <td>O(n^1.58)</td>
-                            </tr>
-                            <tr>
-                                <td>Linear scan</td>
-                                <td>T(n) = T(n-1) + O(1)</td>
-                                <td>O(n)</td>
-                            </tr>
-                        </table>
+                    <p><strong>Translation:</strong> "As $x$ gets closer and closer (but not equal) to $c$, the value of
+                        $f(x)$ gets closer and closer to $L$."</p>
+                    <div class="rule">
+                        <strong>Left vs Right:</strong>
+                        <br>$\lim_{x \to c^-} f(x)$ (Left-hand limit: approaching from below)
+                        <br>$\lim_{x \to c^+} f(x)$ (Right-hand limit: approaching from above)
+                        <br>The limit exists <strong>IF AND ONLY IF</strong> Left Limit = Right Limit.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="unrolling">
+            <section class="section" id="definition">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">The Unrolling Method</h2>
+                    <h2 class="section-title">The Formal Definition (Epsilon-Delta)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The technique</h3>
-                        <div class="rule"><strong>Unrolling:</strong> Repeatedly substitute the recurrence into itself
-                            until you see a pattern, then sum up all the work.</div>
+                    <p>This is the rigorous standard logic.</p>
+                    <div class="formula-box">
+                        <div class="formula-label">Epsilon-Delta Definition</div>
+                        <div class="formula-main">\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } 0 < |x - c| <
+                                \delta \implies |f(x) - L| < \epsilon</div>
+                        </div>
+                        <div class="info">
+                            <strong>🎯 Simple: The Target Game</strong>
+                            <ul>
+                                <li><strong>Challenger ($\epsilon$):</strong> Picks a target size epsilon around $L$.
+                                    "You must be within 0.01 of the answer."</li>
+                                <li><strong>Defender ($\delta$):</strong> Must find a range delta around $c$. "Okay, if
+                                    $x$ is within 0.005 of $c$, then $f(x)$ is inside your target."</li>
+                                <li>If the Defender can <em>always</em> win, no matter how small the Challenger makes
+                                    the target, the limit exists.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = 2T(n/2) + n</h3>
-                        <div class="math-block">Unroll step by step:
-
-                            T(n) = 2T(n/2) + n
-
-                            = 2[2T(n/4) + n/2] + n
-                            = 4T(n/4) + n + n
-                            = 4T(n/4) + 2n
-
-                            = 4[2T(n/8) + n/4] + 2n
-                            = 8T(n/8) + n + 2n
-                            = 8T(n/8) + 3n
-
-                            Pattern: After k steps:
-                            = 2ᵏ T(n/2ᵏ) + kn
-
-                            Stop when n/2ᵏ = 1, so k = log₂ n:
-                            = n·T(1) + n log n
-                            = O(n log n) ✓</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = T(n/2) + 1 (Binary search)</h3>
-                        <div class="math-block">T(n) = T(n/2) + 1
-                            = T(n/4) + 1 + 1
-                            = T(n/8) + 1 + 1 + 1
-                            ...
-                            = T(n/2ᵏ) + k
-
-                            When n/2ᵏ = 1, k = log n:
-                            = T(1) + log n
-                            = O(log n) ✓</div>
-                    </div>
-                </div>
             </section>
 
-            <section class="section" id="guess">
+            <section class="section" id="computing">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Guess and Check (Substitution)</h2>
+                    <h2 class="section-title">Computing Limits</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">The technique</h3>
-                        <div class="rule"><strong>Guess and Check:</strong><br>1. Guess the answer (based on intuition
-                            or unrolling)<br>2. Prove by induction that your guess works<br>3. Find the constant that
-                            makes it valid</div>
+                        <h3 class="subsection-title">1. Direct Substitution</h3>
+                        <p>If the function is nice (continuous), just plug in the number.</p>
+                        <div class="math-block">\lim_{x \to 2} (3x + 1) = 3(2) + 1 = 7</div>
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Example: T(n) = 2T(n/2) + n</h3>
-                        <div class="math-block"><strong>Guess:</strong> T(n) ≤ cn log n for some constant c.
-
-                            <strong>Prove by induction:</strong>
-
-                            Assume T(k) ≤ ck log k for all k < n. T(n)=2T(n/2) + n ≤ 2 · c(n/2)log(n/2) + n [by I.H.]=cn
-                                log(n/2) + n=cn log n - cn log 2 + n=cn log n - cn + n=cn log n + n(1 - c) For this ≤ cn
-                                log n, we need: n(1 - c) ≤ 0 c ≥ 1 So T(n) ≤ cn log n for c ≥ 1. ✓ Therefore T(n)=O(n
-                                log n).</div>
-                        </div>
-                        <div class="warning"><strong>Common mistake:</strong> Guessing T(n) = O(n) for T(n) = 2T(n/2) +
-                            n doesn't work because the substitution doesn't go through. Always verify with induction!
+                        <h3 class="subsection-title">2. Factoring (0/0 Case)</h3>
+                        <p>If you get $0/0$, there is a hole in the graph. Factor it out!</p>
+                        <div class="math-block">
+                            \lim_{x \to 2} \frac{x^2 - 4}{x - 2}
+                            \newline
+                            = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2}
+                            \newline
+                            = \lim_{x \to 2} (x+2) = 4
                         </div>
                     </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">3. Limits at Infinity</h3>
+                        <p>Look at the highest power (similar to Big-O!).</p>
+                        <div class="math-block">
+                            \lim_{x \to \infty} \frac{2x^2 + 5}{3x^2 - x}
+                            \newline
+                            = \frac{2}{3} \quad (\text{Since } x^2 \text{ dominates})
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <section class="section" id="master">
+            <section class="section" id="continuity">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">The Master Theorem</h2>
+                    <h2 class="section-title">Continuity & IVT</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The theorem</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Master Theorem</div>
-                            <div class="formula-main">T(n) = aT(n/b) + f(n)</div>
-                        </div>
-                        <p>Compare f(n) with n^(log_b a):</p>
-                        <div class="math-block"><strong>Case 1:</strong> f(n) = O(n^(log_b a - ε)) for some ε > 0
-                            → T(n) = Θ(n^(log_b a))
-                            "Recursion dominates"
-
-                            <strong>Case 2:</strong> f(n) = Θ(n^(log_b a))
-                            → T(n) = Θ(n^(log_b a) · log n)
-                            "Balanced work"
-
-                            <strong>Case 3:</strong> f(n) = Ω(n^(log_b a + ε)) for some ε > 0
-                            AND a·f(n/b) ≤ c·f(n) for c < 1 → T(n)=Θ(f(n)) "Non-recursive work dominates" </div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Quick reference</h3>
-                            <table>
-                                <tr>
-                                    <th>Recurrence</th>
-                                    <th>a</th>
-                                    <th>b</th>
-                                    <th>f(n)</th>
-                                    <th>n^(log_b a)</th>
-                                    <th>Case</th>
-                                    <th>Result</th>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + n</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n</td>
-                                    <td>2</td>
-                                    <td>O(n log n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + 1</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>n</td>
-                                    <td>1</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 2T(n/2) + n²</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>n²</td>
-                                    <td>n</td>
-                                    <td>3</td>
-                                    <td>O(n²)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = T(n/2) + 1</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>O(log n)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 4T(n/2) + n</td>
-                                    <td>4</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n²</td>
-                                    <td>1</td>
-                                    <td>O(n²)</td>
-                                </tr>
-                                <tr>
-                                    <td>T(n) = 3T(n/2) + n</td>
-                                    <td>3</td>
-                                    <td>2</td>
-                                    <td>n</td>
-                                    <td>n^1.58</td>
-                                    <td>1</td>
-                                    <td>O(n^1.58)</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Step-by-step Master Theorem</h3>
-                            <div class="math-block">Given T(n) = 4T(n/2) + n:
-
-                                1. Identify: a = 4, b = 2, f(n) = n
-
-                                2. Compute n^(log_b a) = n^(log_2 4) = n^2
-
-                                3. Compare f(n) = n vs n^2:
-                                n = O(n^(2-ε)) for ε = 1 ✓
-
-                                4. Case 1 applies: T(n) = Θ(n²)</div>
-                        </div>
-                    </div>
-            </section>
-
-            <section class="section" id="examples">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Common Algorithm Examples</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Binary Search: T(n) = T(n/2) + O(1)</h3>
-                        <div class="math-block">a = 1, b = 2, f(n) = 1
-                            n^(log_2 1) = n^0 = 1
-                            f(n) = Θ(1) = Θ(n^0) → Case 2
-                            T(n) = Θ(1 · log n) = Θ(log n)</div>
+                    <div class="rule">
+                        <strong>Continuity Checklist:</strong> A function $f$ is continuous at $c$ if:
+                        <ol>
+                            <li>$f(c)$ is defined.</li>
+                            <li>$\lim_{x \to c} f(x)$ exists.</li>
+                            <li>$\lim_{x \to c} f(x) = f(c)$.</li>
+                        </ol>
+                        In plain English: "You can draw it without lifting your pen."
                     </div>
                     <div class="subsection">
-                        <h3 class="subsection-title">Merge Sort: T(n) = 2T(n/2) + O(n)</h3>
-                        <div class="math-block">a = 2, b = 2, f(n) = n
-                            n^(log_2 2) = n^1 = n
-                            f(n) = Θ(n) → Case 2
-                            T(n) = Θ(n log n)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Strassen's Matrix Multiply: T(n) = 7T(n/2) + O(n²)</h3>
-                        <div class="math-block">a = 7, b = 2, f(n) = n²
-                            n^(log_2 7) ≈ n^2.81
-                            f(n) = n² = O(n^(2.81-ε)) for ε ≈ 0.81 → Case 1
-                            T(n) = Θ(n^2.81) ≈ Θ(n^2.81)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Fibonacci (naive): T(n) = T(n-1) + T(n-2) + O(1)</h3>
-                        <div class="warning"><strong>Master Theorem doesn't apply!</strong> The problem size doesn't
-                            divide by a constant. Use unrolling or tree method:<br><br>T(n) ≈ 2^n (exponential) because
-                            the recursion tree has 2^n nodes.</div>
+                        <h3 class="subsection-title">Intermediate Value Theorem (IVT)</h3>
+                        <p>If $f$ is continuous on $[a, b]$, and $f(a) < 0$ and $f(b)> 0$, then there MUST be a point
+                                $c$ where $f(c) = 0$.</p>
+                        <div class="info">
+                            <strong>🌡️ Simple:</strong> If it was 60°F this morning and it's 80°F now, and temperature
+                            changes continuously, then at some exact moment today it was <strong>exactly</strong> 70°F.
+                            It didn't skip from 69 to 71.
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -413,7 +225,7 @@
 
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -431,20 +243,23 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Deep Dives",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "sTENvD1d-WA" },
-                    { title: "Video 2", channel: "Course Reference", vid: "UP7YmXJjvaU" },
-                    { title: "Video 3", channel: "Course Reference", vid: "KKs3mXI5IZQ" },
-                    { title: "Video 4", channel: "Course Reference", vid: "b5cb_nfDyyM" },
-                    { title: "Video 5", channel: "Course Reference", vid: "M7kEpw1tn50" },
-                    { title: "Video 6", channel: "Course Reference", vid: "xq8pSE3WHPI" }
+                    { title: "Limits & Epsilon Delta", channel: "3Blue1Brown", vid: "rjQe_j9e_tM" },
+                    { title: "Continuity Explained", channel: "Khan Academy", vid: "03y9T5Gq5X0" },
+                    { title: "Intermediate Value Theorem", channel: "Organic Chemistry Tutor", vid: "pcUXo7XbRaM" }
+                ]
+            },
+            {
+                title: "Examples",
+                items: [
+                    { title: "Epsilon Delta Visualization", channel: "Math Visuals", vid: "9JMFLzHtljA" },
+                    { title: "Limits at Infinity", channel: "Course Reference", vid: "rX_a2qYtZ1I" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day10'], storageKey: 'day10_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day12'], storageKey: 'day12_limits_v1' });
     </script>
-</body>
 </body>
 
 </html>
