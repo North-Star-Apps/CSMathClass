@@ -280,6 +280,7 @@ is_iso = nx.is_isomorphic(G, H)
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -292,18 +293,7 @@ is_iso = nx.is_isomorphic(G, H)
                     { title: "NetworkX Tutorial", channel: "Corey Schafer", vid: "wIqnJ8b6n0g" }
                 ]
             }
-        ];
-        const QUESTIONS = [
-            { topic: "Edges", prompt: "A set of vertices V and edges E make a ___.", answer: "graph" },
-            { topic: "Degree", prompt: "Number of edges connected to a vertex is its ___.", answer: "degree" },
-            { topic: "Handshake", prompt: "Sum of degrees is ___ times the number of edges.", answer: "2", altAnswers: ["two"] },
-            { topic: "Complete", prompt: "A graph where all nodes connect to all others is ___.", answer: "complete" },
-            { topic: "Bipartite", prompt: "Graph with 2 sets of nodes only connecting to each other is ___.", answer: "bipartite" },
-            { topic: "Isomorphism", prompt: "Isomorphism requires preserving ___.", answer: "adjacency" },
-            { topic: "Digraph", prompt: "In a directed graph, edges have ___.", answer: "direction" },
-            { topic: "Loop", prompt: "An edge from a vertex to itself is a ___.", answer: "loop" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day29_graph_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day29'], storageKey: 'day29_graph_v2' });
     </script>
 </body>
 

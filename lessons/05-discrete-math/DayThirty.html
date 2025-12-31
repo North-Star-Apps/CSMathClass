@@ -301,6 +301,7 @@ coloring = greedy_color(G)
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -313,18 +314,7 @@ coloring = greedy_color(G)
                     { title: "Graph Coloring Algorithms", channel: "MIT OCW", vid: "C_W7xXm-ZqM" }
                 ]
             }
-        ];
-        const QUESTIONS = [
-            { topic: "Cycle", prompt: "A path starting and ending at the same vertex is a ___.", answer: "cycle" },
-            { topic: "Tree", prompt: "A tree with n vertices has ___ edges.", answer: "n-1", altAnswers: ["n - 1"] },
-            { topic: "Euler", prompt: "Euler path visits every ___ exactly once.", answer: "edge" },
-            { topic: "Hamilton", prompt: "Hamiltonian path visits every ___ exactly once.", answer: "vertex", altAnswers: ["node"] },
-            { topic: "Planar", prompt: "Planar graphs can be drawn with no edge ___.", answer: "crossings", altAnswers: ["crossing"] },
-            { topic: "Formula", prompt: "Euler's Formula: v - e + f = ___.", answer: "2" },
-            { topic: "Color", prompt: "Chromatic number of a triangle (K3) is ___.", answer: "3" },
-            { topic: "Theorem", prompt: "Every planar graph can be colored with ___ colors.", answer: "4", altAnswers: ["four"] },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day30_trees_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day30'], storageKey: 'day30_trees_v1' });
     </script>
 </body>
 

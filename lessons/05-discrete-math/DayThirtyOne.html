@@ -333,6 +333,7 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
     </div>
 
     <script src="../../lessons/shared-scripts.js"></script>
+    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
@@ -346,21 +347,7 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Divisibility", prompt: "If a divides b, then b = a * ___.", answer: "k", altAnswers: ["integer", "c"] },
-            { topic: "Modulo", prompt: "17 mod 5 = ___.", answer: "2" },
-            { topic: "Modulo", prompt: "If a and b have same remainder mod m, then a ___ b (mod m).", answer: "equiv", altAnswers: ["equivalent", "congruent"] },
-            { topic: "Prime", prompt: "A prime number has exactly ___ factors.", answer: "2" },
-            { topic: "Theorem", prompt: "Fundamental Theorem of Arithmetic involves limits of ___ factorization.", answer: "prime" },
-            { topic: "Algorithm", prompt: "Division Algo: a = bq + ___.", answer: "r", altAnswers: ["remainder"] },
-            { topic: "GCD", prompt: "Algorithm to find GCD efficiently is ___.", answer: "euclidean" },
-            { topic: "Identity", prompt: "ax + by = GCD(a,b) is ___ Identity.", answer: "bezout", altAnswers: ["bezout's"] },
-            { topic: "Inverse", prompt: "Inverse of 'a' mod 'm' exists iff GCD(a, m) = ___.", answer: "1" },
-            { topic: "RSA", prompt: "In RSA, n is the product of two large ___.", answer: "primes" },
-            { topic: "RSA", prompt: "Public key is (e, n). Private key is (___, n).", answer: "d" },
-            { topic: "Phi", prompt: "Euler's totient function φ(p) for prime p is ___.", answer: "p-1", altAnswers: ["p - 1"] },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day31_num_v2' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day31'], storageKey: 'day31_num_v2' });
     </script>
 </body>
 
