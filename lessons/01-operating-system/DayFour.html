@@ -48,8 +48,8 @@
             code.</p>
         <div class="hero-meta">
             <div class="meta-item">~55 min read</div>
-            <div class="meta-item">15 questions</div>
-            <div class="meta-item">10 video lessons</div>
+            <div class="meta-item">15 practice problems</div>
+            <div class="meta-item">5 video lessons</div>
         </div>
     </header>
 
@@ -148,6 +148,11 @@
                             <strong>Analogy:</strong> Think of it like a train. Each logical step is a segment of track.
                             If every segment is connected correctly, the train flows perfectly from start to finish.
                         </div>
+                        <div class="info">
+                            <strong>🚂 Simple:</strong> It's a train track. You start at Station A (Assumption) and lay
+                            down solid rails (logic steps). If the track is unbroken, you *must* arrive at Station B
+                            (Conclusion).
+                        </div>
                     </div>
                     <div class="subsection">
                         <h3 class="subsection-title">Example: Sum of two even numbers</h3>
@@ -171,45 +176,49 @@
                         (the Contrapositive) is exactly the same thing.</p>
                     <div class="subsection">
                         <h3 class="subsection-title">The "Switcheroo"</h3>
-                        <div class="info">
-                            <strong>Analogy:</strong> "If it's a dog, it has four legs."<br>
-                            <strong>Contrapositive:</strong> "If it DOES NOT have four legs, it IS NOT a dog."<br>
-                            If the second one is true, the first one must be too!
-                        </div>
+                        <strong>Contrapositive:</strong> "If it DOES NOT have four legs, it IS NOT a dog."<br>
+                        If the second one is true, the first one must be too!
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: If n² is even, then n is even</h3>
-                        <div class="math-block">Prove contrapositive: If n is odd, then n² is odd.
-                            Proof:
-                            1. Assume n is odd: n = 2k + 1.
-                            2. n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1.
-                            3. This is clearly odd.
-                            4. Since the contrapositive is true, the original claim is true. ∎</div>
+                    <div class="info">
+                        <strong>🔄 Simple:</strong> The "Switcheroo". Instead of proving "If it rains, ground is wet",
+                        you prove "If ground is dry, it didn't rain". Both mean the same thing!
                     </div>
                 </div>
-            </section>
-
-            <section class="section" id="contradiction">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Proof by Contradiction</h2>
-                </div>
-                <div class="section-body">
-                    <p>Proof by <strong>Contradiction</strong> is like an argument where you say, "Okay, let's pretend
-                        you're right for a second. If you're right, then something impossible happens. Since impossible
-                        things can't happen, you MUST be wrong!"</p>
-                    <div class="subsection">
-                        <h3 class="subsection-title">The "Nuh-uh" Method</h3>
-                        <div class="rule"><strong>Strategy:</strong> Assume the opposite of your claim. Show it leads to
-                            nonsense (e.g. 1 = 0).</div>
-                        <div class="math-block">Example: Prove there is no largest integer.
-                            1. Assume there IS a largest integer L.
-                            2. But L+1 is also an integer and clearly larger than L.
-                            3. This contradicts the claim that L was the largest.
-                            4. Therefore, no largest integer exists. ∎</div>
-                    </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">Example: If n² is even, then n is even</h3>
+                    <div class="math-block">Prove contrapositive: If n is odd, then n² is odd.
+                        Proof:
+                        1. Assume n is odd: n = 2k + 1.
+                        2. n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1.
+                        3. This is clearly odd.
+                        4. Since the contrapositive is true, the original claim is true. ∎</div>
                 </div>
     </div>
+    </section>
+
+    <section class="section" id="contradiction">
+        <div class="section-header">
+            <div class="section-number">Section 3</div>
+            <h2 class="section-title">Proof by Contradiction</h2>
+        </div>
+        <div class="section-body">
+            <p>Proof by <strong>Contradiction</strong> is like an argument where you say, "Okay, let's pretend
+                you're right for a second. If you're right, then something impossible happens. Since impossible
+                things can't happen, you MUST be wrong!"</p>
+            <div class="subsection">
+                <h3 class="subsection-title">The "Nuh-uh" Method</h3>
+                <div class="rule"><strong>Strategy:</strong> Assume the opposite of your claim. Show it leads to
+                    nonsense (e.g. 1 = 0).</div>
+                3. This contradicts the claim that L was the largest.
+                4. Therefore, no largest integer exists. ∎
+            </div>
+            <div class="info">
+                <strong>🙄 Simple:</strong> The "Nuh-uh" method. You pretend the opposite is true ("There is a largest
+                number"). Then you show this leads to nonsense ("But I can add 1 to it!"). So your pretend assumption
+                must be wrong.
+            </div>
+        </div>
+        </div>
     </section>
 
     <section class="section" id="induction">
@@ -229,6 +238,10 @@
                     <strong>Analogy:</strong> If the first domino falls, and every falling domino knocks over the next
                     one, then EVERY domino will fall no matter how long the line is!
                 </div>
+                <div class="info">
+                    <strong>DOMINOES.</strong> Simple as that. If you knock over the first domino (Base Case), and every
+                    domino ensures the next one falls (Inductive Step), the whole line falls.
+                </div>
             </div>
             <div class="subsection">
                 <h3 class="subsection-title">Example: Sum of first $n$ integers</h3>
@@ -238,8 +251,6 @@
                     3. For k+1: sum = [k(k+1)/2] + (k+1) = (k+1)(k/2 + 1) = (k+1)(k+2)/2. ✓
                     It works for all $n$!</div>
             </div>
-        </div>
-        </div>
         </div>
     </section>
 
@@ -258,19 +269,20 @@
                     2. <strong>Maintenance:</strong> If true before a step, it's true after.<br>
                     3. <strong>Termination:</strong> When loop ends, Invariant + Exit Condition = Correctness.
                 </div>
-                <div class="info">
-                    <strong>Analogy:</strong> Sorting a deck of cards. The "rule" is: "The hand I'm holding is always
-                    sorted." No matter if you've picked up 1 card or 50, that rule stays true!
-                </div>
+                <strong>Analogy:</strong> Sorting a deck of cards. The "rule" is: "The hand I'm holding is always
+                sorted." No matter if you've picked up 1 card or 50, that rule stays true!
             </div>
-            <div class="subsection">
-                <h3 class="subsection-title">Example: Binary Search</h3>
-                <div class="math-block">Invariant: "If the target exists, it is in the range [lo, hi]."
-                    Maintenance:
-                    - If mid < target, target must be in [mid+1, hi]. - If mid> target, target must be in [lo, mid-1].
-                        Both cases keep the target inside our shrinking window! ∎</div>
+            <div class="info">
+                <strong>🧭 Simple:</strong> The "North Star". It's a rule that must be true at the start of every loop
+                iteration. Like checking your compass direction before every step of a hike.
             </div>
         </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Example: Binary Search</h3>
+            <div class="math-block">Invariant: "If the target exists, it is in the range [lo, hi]."
+                Maintenance:
+                - If mid < target, target must be in [mid+1, hi]. - If mid> target, target must be in [lo, mid-1].
+                    Both cases keep the target inside our shrinking window! ∎</div>
         </div>
         </div>
     </section>
@@ -315,16 +327,13 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Proof Techniques",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "v-6MShC82ow" },
-                    { title: "Video 2", channel: "Course Reference", vid: "ZMLFfTX615w" },
-                    { title: "Video 3", channel: "Course Reference", vid: "5QyeWV7hMf8" },
-                    { title: "Video 4", channel: "Course Reference", vid: "eF6zYNzlZKQ" },
-                    { title: "Video 5", channel: "Course Reference", vid: "2ZzuZvz33X0" },
-                    { title: "Video 6", channel: "Course Reference", vid: "tvnOWIoeeaU" },
-                    { title: "Video 7", channel: "Course Reference", vid: "PIwGFrJcXJY" },
-                    { title: "Video 8", channel: "Course Reference", vid: "M3sLfYwBfHE" }
+                    { title: "Direct Proofs", channel: "TrevTutor", vid: "YFZzLQN5qOU" },
+                    { title: "Proof by Contrapositive", channel: "TrevTutor", vid: "16-mCg0D75s" },
+                    { title: "Proof by Contradiction", channel: "TrevTutor", vid: "sRDwsfNDXak" },
+                    { title: "Mathematical Induction", channel: "TrevTutor", vid: "QJ_80WnN02Q" },
+                    { title: "Loop Invariants", channel: "Udacity", vid: "8WGFcgI_PXY" }
                 ]
             }
         ];

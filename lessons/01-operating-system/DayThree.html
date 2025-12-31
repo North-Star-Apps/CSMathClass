@@ -48,7 +48,7 @@
         <div class="hero-meta">
             <div class="meta-item">~50 min read</div>
             <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">10 video lessons</div>
+            <div class="meta-item">6 video lessons</div>
         </div>
     </header>
 
@@ -175,27 +175,32 @@ result = <span class="code-function">g</span>(<span class="code-function">f</spa
                             f(x) = √x
                             Domain: x ≥ 0 (can't take square root of negative)
                             Range: y ≥ 0 (square roots are non-negative)</div>
+                        <div class="info">
+                            <strong>🎟️ Simple:</strong> Think of the Domain as the VIP Guest List (only these numbers
+                            get in) and the Range as the Photo Album (only these pictures come out).
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Finding domain restrictions</h3>
-                        <div class="rule"><strong>Look for:</strong><br>• Division by zero (denominator ≠ 0)<br>• Square
-                            roots of negatives (radicand ≥ 0)<br>• Logarithms of non-positives (argument > 0)</div>
-                        <div class="math-block">f(x) = 1/(x - 3)
-                            Domain: x ≠ 3 (avoid division by zero)
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">Finding domain restrictions</h3>
+                    <div class="rule"><strong>Look for:</strong><br>• Division by zero (denominator ≠ 0)<br>• Square
+                        roots of negatives (radicand ≥ 0)<br>• Logarithms of non-positives (argument > 0)</div>
+                    <div class="math-block">f(x) = 1/(x - 3)
+                        Domain: x ≠ 3 (avoid division by zero)
 
-                            g(x) = √(x - 2)
-                            Domain: x ≥ 2 (radicand must be ≥ 0)
+                        g(x) = √(x - 2)
+                        Domain: x ≥ 2 (radicand must be ≥ 0)
 
-                            h(x) = √(x - 1) / (x - 4)
-                            Domain: x ≥ 1 AND x ≠ 4</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS parallel: Type systems</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">TypeScript</span><span
-                                    class="code-label">Types are domain/range declarations</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment">// Domain: string, Range: number</span>
+                        h(x) = √(x - 1) / (x - 4)
+                        Domain: x ≥ 1 AND x ≠ 4</div>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">CS parallel: Type systems</h3>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">TypeScript</span><span class="code-label">Types
+                                are domain/range declarations</span></div>
+                        <div class="code-content">
+                            <pre><span class="code-comment">// Domain: string, Range: number</span>
 <span class="code-keyword">function</span> <span class="code-function">parseAge</span>(input: <span class="code-type">string</span>): <span class="code-type">number</span> {
     <span class="code-keyword">return</span> parseInt(input, <span class="code-number">10</span>);
 }
@@ -206,58 +211,68 @@ result = <span class="code-function">g</span>(<span class="code-function">f</spa
 <span class="code-keyword">function</span> <span class="code-function">sqrt</span>(x: <span class="code-type">PositiveNumber</span>): <span class="code-type">number</span> {
     <span class="code-keyword">return</span> Math.sqrt(x);
 }</pre>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+    </div>
+    </section>
 
-            <section class="section" id="inverse">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Inverse Functions</h2>
+    <section class="section" id="inverse">
+        <div class="section-header">
+            <div class="section-number">Section 3</div>
+            <h2 class="section-title">Inverse Functions</h2>
+        </div>
+        <div class="section-body">
+            <div class="subsection">
+                <h3 class="subsection-title">What is an inverse?</h3>
+                <div class="math-block">If f(x) = y, then f⁻¹(y) = x
+
+                    The inverse "undoes" the function:
+                    f⁻¹(f(x)) = x
+                    f(f⁻¹(x)) = x</div>
+                <div class="info">
+                    <strong>↩️ Simple:</strong> An inverse function is the "Undo" button. If f(x) ties your shoes,
+                    f⁻¹(x) unties them. If you type 'A', f turns it to 'B'. f⁻¹ takes 'B' and turns it back to 'A'.
                 </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">What is an inverse?</h3>
-                        <div class="math-block">If f(x) = y, then f⁻¹(y) = x
+            </div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Finding an inverse</h3>
+            <div class="rule"><strong>Method:</strong><br>1. Replace f(x) with y<br>2. Swap x and y<br>3.
+                Solve for y<br>4. Replace y with f⁻¹(x)</div>
+            <div class="math-block">Find inverse of f(x) = 2x + 3:
 
-                            The inverse "undoes" the function:
-                            f⁻¹(f(x)) = x
-                            f(f⁻¹(x)) = x</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Finding an inverse</h3>
-                        <div class="rule"><strong>Method:</strong><br>1. Replace f(x) with y<br>2. Swap x and y<br>3.
-                            Solve for y<br>4. Replace y with f⁻¹(x)</div>
-                        <div class="math-block">Find inverse of f(x) = 2x + 3:
+                1. y = 2x + 3
+                2. x = 2y + 3 (swap)
+                3. x - 3 = 2y
+                y = (x - 3)/2
+                4. f⁻¹(x) = (x - 3)/2
 
-                            1. y = 2x + 3
-                            2. x = 2y + 3 (swap)
-                            3. x - 3 = 2y
-                            y = (x - 3)/2
-                            4. f⁻¹(x) = (x - 3)/2
+                Verify: f(f⁻¹(x)) = 2((x-3)/2) + 3 = x - 3 + 3 = x ✓</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">One-to-one requirement</h3>
+            <div class="warning"><strong>Important:</strong> Only one-to-one functions have inverses. A
+                function is one-to-one if different inputs give different outputs (passes horizontal line
+                test).</div>
+            <div class="math-block">f(x) = x² is NOT one-to-one (f(2) = f(-2) = 4)
+                So x² has no inverse over all reals.
 
-                            Verify: f(f⁻¹(x)) = 2((x-3)/2) + 3 = x - 3 + 3 = x ✓</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">One-to-one requirement</h3>
-                        <div class="warning"><strong>Important:</strong> Only one-to-one functions have inverses. A
-                            function is one-to-one if different inputs give different outputs (passes horizontal line
-                            test).</div>
-                        <div class="math-block">f(x) = x² is NOT one-to-one (f(2) = f(-2) = 4)
-                            So x² has no inverse over all reals.
-
-                            But if we restrict domain to x ≥ 0:
-                            f(x) = x² (x ≥ 0) → f⁻¹(x) = √x</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application: Encryption</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span
-                                    class="code-label">Encrypt/Decrypt are inverse functions</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Simple Caesar cipher</span>
+                But if we restrict domain to x ≥ 0:
+                f(x) = x² (x ≥ 0) → f⁻¹(x) = √x</div>
+            <div class="info">
+                <strong>🔒 Simple:</strong> A function is One-to-One if every output comes from a *unique* input. Like
+                Social Security Numbers—no two people have the same one.
+            </div>
+        </div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">CS application: Encryption</h3>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Encrypt/Decrypt
+                        are inverse functions</span></div>
+                <div class="code-content">
+                    <pre><span class="code-comment"># Simple Caesar cipher</span>
 <span class="code-keyword">def</span> <span class="code-function">encrypt</span>(text, shift):
     <span class="code-keyword">return</span> <span class="code-string">''</span>.join(<span class="code-function">chr</span>((<span class="code-function">ord</span>(c) - <span class="code-number">97</span> + shift) % <span class="code-number">26</span> + <span class="code-number">97</span>) <span class="code-keyword">for</span> c <span class="code-keyword">in</span> text)
 
@@ -269,47 +284,51 @@ encrypted = <span class="code-function">encrypt</span>(msg, <span class="code-nu
 decrypted = <span class="code-function">decrypt</span>(encrypted, <span class="code-number">3</span>)  <span class="code-comment"># "hello"</span>
 
 <span class="code-comment"># decrypt(encrypt(x)) = x ← inverse property!</span></pre>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </section>
+            </div>
+        </div>
+        </div>
+    </section>
 
-            <section class="section" id="composition">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Function Composition</h2>
+    <section class="section" id="composition">
+        <div class="section-header">
+            <div class="section-number">Section 4</div>
+            <h2 class="section-title">Function Composition</h2>
+        </div>
+        <div class="section-body">
+            <div class="subsection">
+                <h3 class="subsection-title">Definition</h3>
+                <div class="math-block">(f ∘ g)(x) = f(g(x))
+
+                    "f composed with g" means: first apply g, then apply f.
+
+                    If f(x) = x² and g(x) = x + 1:
+                    (g ∘ f)(x) = g(f(x)) = g(x²) = x² + 1
+
+                    Note: f ∘ g ≠ g ∘ f in general!</div>
+                <div class="info">
+                    <strong>🏭 Simple:</strong> It's an assembly line. Raw material (x) goes into Machine G, gets shaped
+                    into g(x). Then that semi-finished product drops immediately into Machine F, coming out as f(g(x)).
                 </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">(f ∘ g)(x) = f(g(x))
+            </div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Evaluating compositions</h3>
+            <div class="math-block">Given f(x) = 2x and g(x) = x - 3:
 
-                            "f composed with g" means: first apply g, then apply f.
+                (f ∘ g)(5) = f(g(5)) = f(2) = 4
+                (g ∘ f)(5) = g(f(5)) = g(10) = 7
 
-                            If f(x) = x² and g(x) = x + 1:
-                            (f ∘ g)(x) = f(g(x)) = f(x + 1) = (x + 1)²
-                            (g ∘ f)(x) = g(f(x)) = g(x²) = x² + 1
-
-                            Note: f ∘ g ≠ g ∘ f in general!</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Evaluating compositions</h3>
-                        <div class="math-block">Given f(x) = 2x and g(x) = x - 3:
-
-                            (f ∘ g)(5) = f(g(5)) = f(2) = 4
-                            (g ∘ f)(5) = g(f(5)) = g(10) = 7
-
-                            Find (f ∘ g)(x):
-                            (f ∘ g)(x) = f(g(x)) = f(x - 3) = 2(x - 3) = 2x - 6</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">CS application: Pipelines</h3>
-                        <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Data
-                                    pipelines = function composition</span></div>
-                            <div class="code-content">
-                                <pre><span class="code-comment"># Individual transformation functions</span>
+                Find (f ∘ g)(x):
+                (f ∘ g)(x) = f(g(x)) = f(x - 3) = 2(x - 3) = 2x - 6</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">CS application: Pipelines</h3>
+            <div class="code-block">
+                <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Data
+                        pipelines = function composition</span></div>
+                <div class="code-content">
+                    <pre><span class="code-comment"># Individual transformation functions</span>
 <span class="code-keyword">def</span> <span class="code-function">clean</span>(data): <span class="code-keyword">return</span> data.strip().lower()
 <span class="code-keyword">def</span> <span class="code-function">tokenize</span>(data): <span class="code-keyword">return</span> data.split()
 <span class="code-keyword">def</span> <span class="code-function">count</span>(tokens): <span class="code-keyword">return</span> <span class="code-function">len</span>(tokens)
@@ -324,88 +343,89 @@ decrypted = <span class="code-function">decrypt</span>(encrypted, <span class="c
     <span class="code-keyword">return</span> reduce(<span class="code-keyword">lambda</span> f, g: <span class="code-keyword">lambda</span> x: f(g(x)), funcs)
 
 word_count = <span class="code-function">compose</span>(count, tokenize, clean)</pre>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="section" id="gotchas">
+        <div class="section-header">
+            <div class="section-number">Section 5</div>
+            <h2 class="section-title">Common Gotchas</h2>
+        </div>
+        <div class="section-body">
+            <div class="warning"><strong>1. f⁻¹(x) ≠ 1/f(x)</strong><br>The inverse notation f⁻¹ does NOT mean
+                reciprocal! f⁻¹ is the inverse function, 1/f is the reciprocal.</div>
+            <div class="warning"><strong>2. Composition order matters</strong><br>(f ∘ g)(x) = f(g(x)), not
+                g(f(x)). Read right to left: apply g first, then f.</div>
+            <div class="warning"><strong>3. Not all functions have inverses</strong><br>x² doesn't have an
+                inverse over all reals because f(2) = f(-2). Must restrict domain.</div>
+            <div class="warning"><strong>4. Domain of composition</strong><br>For (f ∘ g)(x), the output of g
+                must be in the domain of f.</div>
+            <div class="warning"><strong>5. Inverse swaps domain and range</strong><br>Domain of f = Range of
+                f⁻¹, and vice versa.</div>
+        </div>
+    </section>
+
+    <section class="section" id="videos">
+        <div class="section-header">
+            <div class="section-number">Section 6</div>
+            <h2 class="section-title">Video Lessons</h2>
+        </div>
+        <div class="section-body">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title" id="videoTitle">Select a video</div>
+                        <div class="video-meta" id="videoMeta"></div>
                     </div>
                 </div>
-            </section>
+                <div class="video-list" id="videoList"></div>
+            </div>
+        </div>
+    </section>
 
-            <section class="section" id="gotchas">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Common Gotchas</h2>
-                </div>
-                <div class="section-body">
-                    <div class="warning"><strong>1. f⁻¹(x) ≠ 1/f(x)</strong><br>The inverse notation f⁻¹ does NOT mean
-                        reciprocal! f⁻¹ is the inverse function, 1/f is the reciprocal.</div>
-                    <div class="warning"><strong>2. Composition order matters</strong><br>(f ∘ g)(x) = f(g(x)), not
-                        g(f(x)). Read right to left: apply g first, then f.</div>
-                    <div class="warning"><strong>3. Not all functions have inverses</strong><br>x² doesn't have an
-                        inverse over all reals because f(2) = f(-2). Must restrict domain.</div>
-                    <div class="warning"><strong>4. Domain of composition</strong><br>For (f ∘ g)(x), the output of g
-                        must be in the domain of f.</div>
-                    <div class="warning"><strong>5. Inverse swaps domain and range</strong><br>Domain of f = Range of
-                        f⁻¹, and vice versa.</div>
-                </div>
-            </section>
-
-            <section class="section" id="videos">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Video Lessons</h2>
-                </div>
-                <div class="section-body">
-                    <div class="video-container">
-                        <div class="video-player">
-                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-                            <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video</div>
-                                <div class="video-meta" id="videoMeta"></div>
-                            </div>
-                        </div>
-                        <div class="video-list" id="videoList"></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="practice">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Practice Problems</h2>
-                </div>
-                <div class="section-body">
-                    <p>Type your answer. Use standard notation: sqrt(x), x>=2, etc.</p>
-                    <div class="quiz-controls">
-                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                        <button class="btn" id="btnRevealAll">Reveal All</button>
-                        <button class="btn" id="btnClear">Clear Inputs</button>
-                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
-                    </div>
-                    <div id="quizContainer"></div>
-                </div>
-            </section>
-        </main>
+    <section class="section" id="practice">
+        <div class="section-header">
+            <div class="section-number">Section 7</div>
+            <h2 class="section-title">Practice Problems</h2>
+        </div>
+        <div class="section-body">
+            <p>Type your answer. Use standard notation: sqrt(x), x>=2, etc.</p>
+            <div class="quiz-controls">
+                <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                <button class="btn" id="btnRevealAll">Reveal All</button>
+                <button class="btn" id="btnClear">Clear Inputs</button>
+                <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+            </div>
+            <div id="quizContainer"></div>
+        </div>
+    </section>
+    </main>
     </div>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Function Fundamentals",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "l3XzepN03KQ" },
-                    { title: "Video 2", channel: "Course Reference", vid: "Z8j5RDOibV4" },
-                    { title: "Video 3", channel: "Course Reference", vid: "oKqtgz2peTI" },
-                    { title: "Video 4", channel: "Course Reference", vid: "vA-55wZtLeE" },
-                    { title: "Video 5", channel: "Course Reference", vid: "fNk_zzaMoSs" },
-                    { title: "Video 6", channel: "Course Reference", vid: "i7idZfS8t8w" },
-                    { title: "Video 7", channel: "Course Reference", vid: "Z5MnP9da4EM" },
-                    { title: "Video 8", channel: "Course Reference", vid: "xGOQYTo9AKY" },
-                    { title: "Video 9", channel: "Course Reference", vid: "HFPlKQGChpE" }
+                    { title: "What is a Function?", channel: "Math Antics", vid: "52tpYl2tT_Q" },
+                    { title: "Introduction to Functions", channel: "Khan Academy", vid: "2k4E03-sA_k" },
+                    { title: "Introduction to Functions (Eddie Woo)", channel: "Eddie Woo", vid: "Vd3P2a3j_z0" }
+                ]
+            },
+            {
+                title: "Advanced Concepts",
+                items: [
+                    { title: "Domain and Range", channel: "Organic Chemistry Tutor", vid: "cO_R_5b0Xw4" },
+                    { title: "Inverse Functions", channel: "NancyPi", vid: "9b2rIeF59C4" },
+                    { title: "Function Composition", channel: "Professor Leonard", vid: "9N2rYl2gQ0g" }
                 ]
             }
         ];
         initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day3'], storageKey: 'day3_v1' });
     </script>
-</body>
 </body>
 
 </html>

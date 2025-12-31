@@ -79,6 +79,23 @@ window.QUESTIONS_DATA = {
     { "id": 19, "topic": "Examples", "prompt": "Encrypt and decrypt are ___ functions of each other", "answer": ["inverse"], "display": "Inverse" },
     { "id": 20, "topic": "Basics", "prompt": "Type hints like (x: int) -> str are kinda like declaring ___ → range", "answer": ["domain"], "display": "Domain" }
   ],
+  "day4": [
+    { "id": 1, "topic": "Definitions", "prompt": "A proof that proceeds directly from assumptions to conclusion is a ___ proof.", "answer": ["direct"], "display": "Direct" },
+    { "id": 2, "topic": "Logic", "prompt": "The contrapositive of 'If P, then Q' is 'If not Q, then ___'.", "answer": ["not p", "!p", "notp"], "display": "Not P" },
+    { "id": 3, "topic": "Logic", "prompt": "True or False: A statement and its contrapositive are logically equivalent.", "answer": ["true", "t"], "display": "True" },
+    { "id": 4, "topic": "Contradiction", "prompt": "To prove P by contradiction, you assume ___ and derive a contradiction.", "answer": ["not p", "!p", "negation of p"], "display": "Not P (Negation)" },
+    { "id": 5, "topic": "Induction", "prompt": "The first step of mathematical induction is the ___ case.", "answer": ["base"], "display": "Base" },
+    { "id": 6, "topic": "Induction", "prompt": "In the inductive step, you assume P(k) is true. This assumption is called the Inductive ___.", "answer": ["hypothesis"], "display": "Hypothesis" },
+    { "id": 7, "topic": "Invariants", "prompt": "A condition that remains true before and after each loop iteration is a loop ___.", "answer": ["invariant"], "display": "Invariant" },
+    { "id": 8, "topic": "Definitions", "prompt": "An integer n is even if n = ___ for some integer k.", "answer": ["2k"], "display": "2k" },
+    { "id": 9, "topic": "Definitions", "prompt": "An integer n is odd if n = ___ for some integer k.", "answer": ["2k+1", "2k + 1"], "display": "2k + 1" },
+    { "id": 10, "topic": "Latin", "prompt": "Q.E.D. stands for 'quod erat ___'.", "answer": ["demonstrandum"], "display": "Demonstrandum" },
+    { "id": 11, "topic": "Acronyms", "prompt": "WLOG stands for 'Without Loss of ___'.", "answer": ["generality"], "display": "Generality" },
+    { "id": 12, "topic": "Logic", "prompt": "To disprove 'For all x, P(x)', you only need one ___.", "answer": ["counterexample", "counter-example"], "display": "Counterexample" },
+    { "id": 13, "topic": "Examples", "prompt": "True or False: The sum of two odd numbers is always odd.", "answer": ["false", "f"], "display": "False (It's even!)" },
+    { "id": 14, "topic": "Formulas", "prompt": "Sum of 1 + 2 + ... + n = ?", "answer": ["n(n+1)/2", "n^2/2 + n/2"], "display": "n(n+1)/2" },
+    { "id": 15, "topic": "Invariants", "prompt": "For binary search, the invariant is that the target must be in the window [lo, ___].", "answer": ["hi", "high"], "display": "hi" }
+  ],
   "day5": [
     {
       "id": 1,

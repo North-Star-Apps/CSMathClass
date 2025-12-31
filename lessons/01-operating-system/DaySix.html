@@ -42,8 +42,8 @@
             justification. This builds the habit of rigorous thinking that separates good engineers from great ones.</p>
         <div class="hero-meta">
             <div class="meta-item">~45 min practice</div>
-            <div class="meta-item">20 questions</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">20 practice problems</div>
+            <div class="meta-item">4 video lessons</div>
         </div>
     </header>
 
@@ -118,6 +118,11 @@
                         <strong>The Idea:</strong> Every even number is just a collection of couples/pairs. If you
                         combine two collections of pairs, you still have only pairs! No singles left over.
                     </div>
+                    <div class="info">
+                        <strong>👯 Simple:</strong> It's a couples' party. Even numbers are groups of couples. If you
+                        invite one group of couples (2m) and another group of couples (2n), everyone is still matched
+                        up. No third wheels (odd numbers).
+                    </div>
                     <div class="step-box">
                         <div class="step-row step-header">
                             <div class="step-left">Step</div>
@@ -166,6 +171,10 @@
                             the grass is dry, it's not raining." This is the <strong>contrapositive</strong>. To prove
                             this claim, we instead prove <em>"If $n$ is odd, then $n^2$ is odd."</em>
                         </div>
+                        <div class="info">
+                            <strong>🔄 Simple:</strong> The Switcheroo. Proving "Rain → Wet" is hard? Prove "Dry → No
+                            Rain" instead. Same logic, easier path.
+                        </div>
                         <div class="step-box">
                             <div class="step-row">
                                 <div class="step-left"><span class="step-num">1.</span>Assume $n$ is odd.</div>
@@ -206,11 +215,13 @@
                     <div class="section-body">
                         <p><strong>Claim:</strong> $1 + 2 + \dots + n = \frac{n(n+1)}{2}$.</p>
                         <div class="info">
-                            <strong>The Domino Effect:</strong> You only need to prove two things:
-                            <ol>
-                                <li>The first domino falls (<strong>Base Case</strong>).</li>
-                                <li>If any domino falls, the next one MUST fall (<strong>Inductive Step</strong>).</li>
+                            <li>The first domino falls (<strong>Base Case</strong>).</li>
+                            <li>If any domino falls, the next one MUST fall (<strong>Inductive Step</strong>).</li>
                             </ol>
+                        </div>
+                        <div class="info">
+                            <strong>DOMINOES.</strong> Just remember dominoes. You knock over the first one. The spacing
+                            between them (the Inductive Step) ensures the wave continues forever.
                         </div>
                         <div class="step-box">
                             <div class="step-row">
@@ -407,13 +418,12 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "Example Walkthroughs",
                 items: [
-                    { title: "Video 1", channel: "Course Reference", vid: "L-bdLhx20Tk" },
-                    { title: "Video 2", channel: "Course Reference", vid: "lm5ePH15hMo" },
-                    { title: "Video 3", channel: "Course Reference", vid: "LmpAntNjPj0" },
-                    { title: "Video 4", channel: "Course Reference", vid: "wblW_M_HVQ8" },
-                    { title: "Video 5", channel: "Course Reference", vid: "Xk8Q4fAbpLs" }
+                    { title: "Sum of Evens Proof", channel: "MathIsPower4U", vid: "z-D6C8T5A4E" },
+                    { title: "Sqrt(2) is Irrational", channel: "The Organic Chemistry Tutor", vid: "d9M4L68u0F8" },
+                    { title: "Induction Example", channel: "TrevTutor", vid: "QJ_80WnN02Q" },
+                    { title: "Paradox: All Horses same color", channel: "Numberphile", vid: "D8VZqxcu0I0" }
                 ]
             }
         ];
