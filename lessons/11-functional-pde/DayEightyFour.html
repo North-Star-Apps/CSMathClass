@@ -258,20 +258,13 @@ print(f"Residual norm: {np.linalg.norm(b - A@x):.2e}")
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "btnCheckAll" },
-            { title: "Video 2", channel: "Course Reference", vid: "stats-label" },
-            { title: "Video 3", channel: "Course Reference", vid: "main-layout" },
-            { title: "Video 4", channel: "Course Reference", vid: "stats-value" },
-            { title: "Video 5", channel: "Course Reference", vid: "themeToggle" },
-            { title: "Video 6", channel: "Course Reference", vid: "code-header" },
-            { title: "Video 7", channel: "Course Reference", vid: "video-title" },
-            { title: "Video 8", channel: "Course Reference", vid: "statCorrect" }
-            ]
-        }
-    ];
+            {
+                title: "Lesson Videos",
+                items: [
+                    { title: "Video 7", channel: "Course Reference", vid: "video-title" }
+                ]
+            }
+        ];
         const QUESTIONS = [
             { topic: "Iterative", prompt: "Iterative methods are preferred for large ___ matrices.", answer: "sparse" },
             { topic: "Krylov", prompt: "Krylov subspace is span of {b, Ab, ..., ___}.", answer: "A^kb", altAnswers: ["A^k-1b"] },

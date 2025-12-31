@@ -2,22 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Day 16: Multiple Integrals & Change of Variables</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-  <link rel="stylesheet" href="../../lessons/shared-styles.css">
-  <script src="../../lessons/questions-data.js"></script>
-  <script src="../../lessons/shared-scripts.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 16: Multiple Integrals & Change of Variables</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
-<nav class="nav">
+    <nav class="nav">
         <div class="nav-inner">
             <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
@@ -39,7 +42,7 @@
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>Day 16 · Multivariable Calculus</div>
-        
+
         <p class="hero-desc">From double integrals to Maxwell's equations. The complete toolkit for calculus in 3D.</p>
         <div class="hero-meta">
             <div class="meta-item">~80 min read</div>
@@ -105,6 +108,12 @@
                         <div class="formula-box">
                             <div class="formula-label">Double Integral over Region R</div>
                             <div class="formula-main">∫∫_R f(x,y) dA = lim Σ f(xᵢ,yⱼ) ΔA</div>
+                        </div>
+                        <div class="info">
+                            <strong>🍪 Simple:</strong> The Cookie Cutter.
+                            <br>Imagine a sheet of dough with uneven thickness ($f(x,y)$).
+                            <br>The Region $R$ is the shape of your cookie cutter.
+                            <br>The double integral is the <strong>volume</strong> of the dough inside that cutter.
                         </div>
                     </div>
                     <div class="subsection">
@@ -185,6 +194,13 @@
                         <div class="rule"><strong>Key insight:</strong> |det(J)| measures how much area changes under
                             the transformation. A small rectangle duv in uv-space becomes a parallelogram with area |J|
                             dudv in xy-space.</div>
+                        <div class="info">
+                            <strong>💱 Simple:</strong> Currency Exchange Rate.
+                            <br>When you switch from "rectangular dollars" ($dxdy$) to "polar euros" ($drd\theta$),
+                            you need an exchange rate ($r$) to keep the value (area) correct.
+                            <br>Without it, a small angle change at 100 miles away would seem tiny, but it covers a huge
+                            area!
+                        </div>
                     </div>
                 </div>
             </section>
@@ -320,6 +336,11 @@
                             <div class="formula-main">∫∫_S f dS = "sum f over surface"</div>
                         </div>
                         <p>If f = 1: this gives surface area.</p>
+                        <div class="info">
+                            <strong>🕸️ Simple:</strong> Flux is like a fishing net in a river.
+                            <br>If the water (field) flows parallel to the net strings, you catch nothing (0 flux).
+                            <br>If it hits the net head-on, you catch maximum water (max flux).
+                        </div>
                     </div>
                     <div class="subsection">
                         <h3 class="subsection-title">Flux integral</h3>
@@ -376,17 +397,17 @@
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-          <div class="video-container">
-            <div class="video-player">
-              <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-              <div class="video-info">
-                <div class="video-title" id="videoTitle">Select a video</div>
-                <div class="video-meta" id="videoMeta"></div>
-              </div>
-            </div>
-            <div class="video-list" id="videoList"></div>
-          </div>
-        </div>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
             </section>
 
             <section class="section" id="practice">
@@ -406,21 +427,26 @@
             </section>
         </main>
     </div>
-<script>
-      const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "ofTb57aZHZs" },
-            { title: "Video 2", channel: "Course Reference", vid: "Za-mHVT8Ee0" },
-            { title: "Video 3", channel: "Course Reference", vid: "hP73xrHllbM" },
-            { title: "Video 4", channel: "Course Reference", vid: "HZGCoVF3YvM" },
-            { title: "Video 5", channel: "Course Reference", vid: "O2L2Uv9pdDA" }
-            ]
-        }
-    ];
-      initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day16'], storageKey: 'day16_v1' });
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Double Integrals",
+                items: [
+                    { title: "Intro to Double Integrals", channel: "Professor Leonard", vid: "r9o_c_35-x4" },
+                    { title: "Double Integrals Explained", channel: "The Organic Chemistry Tutor", vid: "_W3aVWsMp14" },
+                    { title: "Double Integral 1", channel: "Khan Academy", vid: "85zGYB-34jQ" }
+                ]
+            },
+            {
+                title: "Advanced Concepts",
+                items: [
+                    { title: "Polar Coordinates Double Integral", channel: "PatrickJMT", vid: "H8P-2gXhD_M" }
+                ]
+            }
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day16'], storageKey: 'day16_v1' });
     </script>
 </body>
 </body>
+
 </html>
