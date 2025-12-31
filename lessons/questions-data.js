@@ -121,6 +121,84 @@ window.QUESTIONS_DATA = {
         "circular"
       ],
       "display": "Circular"
+    },
+    {
+      "id": 13,
+      "topic": "Structure",
+      "prompt": "A mathematical statement that is believed to be true but not yet proven is a ___.",
+      "answer": [
+        "conjecture"
+      ],
+      "display": "Conjecture"
+    },
+    {
+      "id": 14,
+      "topic": "Claims",
+      "prompt": "What is the negation of 'For all x, P(x)'? (use symbols)",
+      "answer": [
+        "exists x, not p(x)",
+        "∃x, ¬P(x)"
+      ],
+      "display": "∃x, ¬P(x)"
+    },
+    {
+      "id": 15,
+      "topic": "Style",
+      "prompt": "True or False: In a high-quality proof, you should explain your reasoning in sentences, not just symbols.",
+      "answer": [
+        "true",
+        "t"
+      ],
+      "display": "True"
+    },
+    {
+      "id": 16,
+      "topic": "Definitions",
+      "prompt": "A prime number is an integer > 1 whose only divisors are 1 and ___.",
+      "answer": [
+        "itself",
+        "n"
+      ],
+      "display": "itself"
+    },
+    {
+      "id": 17,
+      "topic": "Structure",
+      "prompt": "Which is usually a smaller, helper result: a Lemma or a Theorem?",
+      "answer": [
+        "lemma"
+      ],
+      "display": "Lemma"
+    },
+    {
+      "id": 18,
+      "topic": "Error",
+      "prompt": "Skipping a step because it 'seems obvious' is a common source of logical ___.",
+      "answer": [
+        "errors",
+        "bugs",
+        "flaws"
+      ],
+      "display": "Errors/Flaws"
+    },
+    {
+      "id": 19,
+      "topic": "Style",
+      "prompt": "What does 'WLOG' stand for in math writing?",
+      "answer": [
+        "without loss of generality"
+      ],
+      "display": "Without Loss of Generality"
+    },
+    {
+      "id": 20,
+      "topic": "Claims",
+      "prompt": "A statement like 'If P then Q' is called a ___ statement.",
+      "answer": [
+        "conditional",
+        "implication"
+      ],
+      "display": "Conditional / Implication"
     }
   ],
   "day4": [
@@ -272,6 +350,55 @@ window.QUESTIONS_DATA = {
         "strong"
       ],
       "display": "Strong"
+    },
+    {
+      "id": 16,
+      "topic": "Notation",
+      "prompt": "What is the contrapositive of P → Q?",
+      "answer": [
+        "¬q → ¬p",
+        "not q implies not p"
+      ],
+      "display": "¬Q → ¬P"
+    },
+    {
+      "id": 17,
+      "topic": "Invariants",
+      "prompt": "If a loop invariant holds and the loop terminates, it helps prove loop ___.",
+      "answer": [
+        "correctness"
+      ],
+      "display": "Correctness"
+    },
+    {
+      "id": 18,
+      "topic": "Strong",
+      "prompt": "In strong induction, we assume P(1) AND P(2) ... AND P(k) to prove ___.",
+      "answer": [
+        "p(k+1)",
+        "p(k + 1)"
+      ],
+      "display": "P(k+1)"
+    },
+    {
+      "id": 19,
+      "topic": "Contradiction",
+      "prompt": "To prove 'There is no largest prime', assume there IS a largest prime and find a ___.",
+      "answer": [
+        "contradiction",
+        "impossibility"
+      ],
+      "display": "Contradiction"
+    },
+    {
+      "id": 20,
+      "topic": "Apply",
+      "prompt": "Proving that a recursive function like factorial(n) is correct is done via ___.",
+      "answer": [
+        "induction",
+        "mathematical induction"
+      ],
+      "display": "Induction"
     }
   ],
   "day1": [
@@ -344,6 +471,79 @@ window.QUESTIONS_DATA = {
       "prompt": "What is -1 mod 5? (computer science modulo)",
       "answer": "4",
       "display": "4"
+    },
+    {
+      "id": 11,
+      "topic": "Symbols",
+      "prompt": "What is the symbol for 'there exists'?",
+      "answer": "∃",
+      "display": "∃"
+    },
+    {
+      "id": 12,
+      "topic": "Symbols",
+      "prompt": "What does ∀ stand for?",
+      "answer": [
+        "for all",
+        "for every"
+      ],
+      "display": "For all / For every"
+    },
+    {
+      "id": 13,
+      "topic": "Sets",
+      "prompt": "If S = {1, 2, 3}, what is |S| (the size)?",
+      "answer": "3",
+      "display": "3"
+    },
+    {
+      "id": 14,
+      "topic": "Sets",
+      "prompt": "Is {1} ⊆ {1, 2}? (yes/no)",
+      "answer": "yes",
+      "display": "Yes"
+    },
+    {
+      "id": 15,
+      "topic": "Logic",
+      "prompt": "If P is true, what is ¬P?",
+      "answer": "false",
+      "display": "False"
+    },
+    {
+      "id": 16,
+      "topic": "Logic",
+      "prompt": "True or False: x ∈ A ∪ B means x is in A AND x is in B.",
+      "answer": "false",
+      "display": "False (That's intersection)"
+    },
+    {
+      "id": 17,
+      "topic": "Arithmetic",
+      "prompt": "What is 10 | 100? (yes/no)",
+      "answer": "yes",
+      "display": "Yes (10 * 10 = 100)"
+    },
+    {
+      "id": 18,
+      "topic": "Arithmetic",
+      "prompt": "What is 20 mod 6?",
+      "answer": "2",
+      "display": "2"
+    },
+    {
+      "id": 19,
+      "topic": "Algebra",
+      "prompt": "Can you always divide in a Field? (yes/no)",
+      "answer": "yes",
+      "display": "Yes (except by 0)"
+    },
+    {
+      "id": 20,
+      "topic": "Algebra",
+      "prompt": "Is the set of even integers {..., -2, 0, 2, ...} a Ring or a Field?",
+      "answer": "ring",
+      "display": "Ring"
     }
   ],
   "day6": [

@@ -12,31 +12,6 @@
     rel="stylesheet">
   <style>
     :root {
-      --bg: #fafaf9;
-      --surface: #ffffff;
-      --surface-alt: #f5f5f4;
-      --surface-hover: #f0efed;
-      --border: #e7e5e4;
-      --border-strong: #d6d3d1;
-      --text: #1c1917;
-      --text-secondary: #57534e;
-      --text-muted: #78716c;
-      --accent: #8b5cf6;
-      --accent-light: #ede9fe;
-      --accent-dark: #7c3aed;
-      --accent-glow: rgba(139, 92, 246, 0.15);
-      --success: #16a34a;
-      --success-bg: #dcfce7;
-      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --radius: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
-      --font-serif: 'Source Serif 4', Georgia, serif;
-      --font-sans: 'DM Sans', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    [data-theme="dark"] {
       --bg: #0c0c0f;
       --surface: #16161a;
       --surface-alt: #1c1c21;
@@ -52,6 +27,31 @@
       --accent-glow: rgba(167, 139, 250, 0.2);
       --success: #4ade80;
       --success-bg: #14532d;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --font-serif: 'Source Serif 4', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --surface-alt: #f5f5f4;
+      --surface-hover: #f0efed;
+      --border: #e7e5e4;
+      --border-strong: #d6d3d1;
+      --text: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #78716c;
+      --accent: #8b5cf6;
+      --accent-light: #ede9fe;
+      --accent-dark: #7c3aed;
+      --accent-glow: rgba(139, 92, 246, 0.15);
+      --success: #16a34a;
+      --success-bg: #dcfce7;
     }
 
     * {
@@ -552,7 +552,7 @@
       }
     }
   </style>
-  <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+  <script>(function () { const t = localStorage.getItem('math_cs_theme') || 'dark'; document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
 <body>

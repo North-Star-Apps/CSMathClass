@@ -9,12 +9,12 @@ function initThemeToggle() {
     if (!themeToggle) return;
 
     function updateThemeIcon() {
-        const theme = document.documentElement.getAttribute('data-theme');
-        themeToggle.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        themeToggle.innerHTML = theme === 'light' ? moonIcon : sunIcon;
     }
 
     themeToggle.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme');
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('math_cs_theme', next);

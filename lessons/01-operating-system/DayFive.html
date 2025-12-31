@@ -2,28 +2,31 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Day 5: Writing Proofs — Definitions, Claims, and Structure</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
-  <link rel="stylesheet" href="../../lessons/shared-styles.css">
-  <script src="../../lessons/questions-data.js"></script>
-  <script src="../../lessons/shared-scripts.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 5: Writing Proofs — Definitions, Claims, and Structure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
-<nav class="nav">
+    <nav class="nav">
         <div class="nav-inner">
             <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
                 </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 12 complete</span>
+            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -38,13 +41,13 @@
     <header class="hero">
         <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 7 · Foundation</div>
-        
+            </svg>Day 5 · Foundation</div>
+
         <p class="hero-desc">Good proofs are like good code: structured, clear, and verifiable. Learn the standard
             format that mathematicians and computer scientists use to communicate rigorous arguments.</p>
         <div class="hero-meta">
             <div class="meta-item">~40 min read</div>
-            <div class="meta-item">12 practice problems</div>
+            <div class="meta-item">20 practice problems</div>
             <div class="meta-item">6 video lessons</div>
         </div>
     </header>
@@ -82,20 +85,43 @@
                     <h2 class="section-title">Why Proof Writing Matters in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>Writing proofs is like writing documentation for your logical reasoning. Just as code needs
-                        structure (functions, modules, classes), proofs need structure (definitions, claims, steps).</p>
-                    <div class="rule"><strong>Key insight:</strong> A well-structured proof is readable, verifiable, and
-                        maintainable—just like good code.</div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">The parallel to code</h3>
-                        <ul>
-                            <li><strong>Definitions</strong> = Type declarations and interfaces</li>
-                            <li><strong>Claims/Theorems</strong> = Function signatures (what you promise to deliver)
-                            </li>
-                            <li><strong>Proof</strong> = Implementation (how you deliver it)</li>
-                            <li><strong>QED</strong> = Return statement / tests passing</li>
-                        </ul>
+                    <div class="complex-only">
+                        <p>Writing proofs is like writing documentation for your logical reasoning. Just as code needs
+                            structure (functions, modules, classes), proofs need structure (definitions, claims, steps).
+                        </p>
+                        <div class="rule"><strong>Key insight:</strong> A well-structured proof is readable, verifiable,
+                            and
+                            maintainable—just like good code.</div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">The parallel to code</h3>
+                            <ul>
+                                <li><strong>Definitions</strong> = Type declarations and interfaces</li>
+                                <li><strong>Claims/Theorems</strong> = Function signatures (what you promise to deliver)
+                                </li>
+                                <li><strong>Proof</strong> = Implementation (how you deliver it)</li>
+                                <li><strong>QED</strong> = Return statement / tests passing</li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <div class="simple-only">
+                        <p>Think of writing a proof like writing a <strong>Recipe</strong> or <strong>Rules for a
+                                Game</strong>. If your rules are messy, nobody knows how to play. If your recipe is
+                            vague, the cake ruins.</p>
+                        <div class="info">
+                            <strong>The "Code" Connection:</strong>
+                            <br>In programming, you don't just write <code>print(x)</code> and Hope it works. You define
+                            your variables first. A proof is the same—it's just "Documentation" for your thinking!
+                        </div>
+                        <div class="rule">
+                            <strong>Why bother?</strong>
+                            <ul>
+                                <li>It stops you from making "logical bugs."</li>
+                                <li>It helps other people (and future you) understand why your logic is correct.</li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="code-block">
                         <div class="code-header"><span class="code-lang">Comparison</span><span class="code-label">Proof
                                 structure ≈ Code structure</span></div>
@@ -120,34 +146,62 @@
                     <h2 class="section-title">The Standard Proof Structure</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The four parts</h3>
-                        <div class="math-block">1. DEFINITIONS — State precisely what terms mean
-                            2. CLAIM/THEOREM — State exactly what you will prove
-                            3. PROOF — The logical argument
-                            4. QED — Signal that the proof is complete (∎ or □ or QED)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Complete example</h3>
-                        <div class="proof-box">
-                            <div class="proof-label">Definition</div>
-                            <div class="proof-content">An integer n is <strong>even</strong> if n = 2k for some integer
-                                k.<br>An integer n is <strong>odd</strong> if n = 2k + 1 for some integer k.</div>
+                    <div class="complex-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The four parts</h3>
+                            <div class="math-block">1. DEFINITIONS — State precisely what terms mean
+                                2. CLAIM/THEOREM — State exactly what you will prove
+                                3. PROOF — The logical argument
+                                4. QED — Signal that the proof is complete (∎ or □ or QED)</div>
                         </div>
-                        <div class="proof-box">
-                            <div class="proof-label">Theorem</div>
-                            <div class="proof-content">The sum of two even integers is even.</div>
-                        </div>
-                        <div class="proof-box">
-                            <div class="proof-label">Proof</div>
-                            <div class="proof-content">
-                                Let a and b be even integers.<br>
-                                By definition, a = 2m for some integer m, and b = 2n for some integer n.<br>
-                                Then a + b = 2m + 2n = 2(m + n).<br>
-                                Since m + n is an integer, a + b has the form 2k where k = m + n.<br>
-                                Therefore, by definition, a + b is even.
+                        <div class="subsection">
+                            <h3 class="subsection-title">Complete example</h3>
+                            <div class="proof-box">
+                                <div class="proof-label">Definition</div>
+                                <div class="proof-content">An integer n is <strong>even</strong> if n = 2k for some
+                                    integer
+                                    k.<br>An integer n is <strong>odd</strong> if n = 2k + 1 for some integer k.</div>
                             </div>
-                            <div class="proof-qed">∎</div>
+                            <div class="proof-box">
+                                <div class="proof-label">Theorem</div>
+                                <div class="proof-content">The sum of two even integers is even.</div>
+                            </div>
+                            <div class="proof-box">
+                                <div class="proof-label">Proof</div>
+                                <div class="proof-content">
+                                    Let a and b be even integers.<br>
+                                    By definition, a = 2m for some integer m, and b = 2n for some integer n.<br>
+                                    Then a + b = 2m + 2n = 2(m + n).<br>
+                                    Since m + n is an integer, a + b has the form 2k where k = m + n.<br>
+                                    Therefore, by definition, a + b is even.
+                                </div>
+                                <div class="proof-qed">∎</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="simple-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The 4-Step Sandwich</h3>
+                            <p>Every proof should look like a sandwich. Bread on top, meat in the middle, bread on the
+                                bottom.</p>
+                            <div class="rule">
+                                <ol>
+                                    <li><strong>The Dictionary (Definitions):</strong> Say what your words mean so
+                                        there's no confusion.</li>
+                                    <li><strong>The Promise (Claim):</strong> State exactly what you are going to prove.
+                                    </li>
+                                    <li><strong>The Work (Proof):</strong> Show the step-by-step logic.</li>
+                                    <li><strong>The Mic Drop (QED):</strong> A tiny square (∎) that says "I'm done, and
+                                        I
+                                        was right."</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Why the square?</strong> Mathematicians are cool and like to use <strong>∎</strong>
+                            at the end of a proof. It stands for <em>"Quod Erat Demonstrandum"</em> (which is Latin for
+                            "Which was to be demonstrated"). In Simple Mode: "See? Told ya!"
                         </div>
                     </div>
                 </div>
@@ -159,24 +213,53 @@
                     <h2 class="section-title">Writing Good Definitions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">What makes a good definition</h3>
-                        <div class="rule"><strong>A good definition is:</strong><br>• Precise — no ambiguity<br>•
-                            Complete — covers all cases<br>• Minimal — no redundant conditions<br>• Usable — easy to
-                            apply in proofs</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition patterns</h3>
-                        <div class="math-block"><strong>Existential:</strong> "X is Y if there exists Z such that..."
-                            Example: n is even if there exists an integer k such that n = 2k.
-
-                            <strong>Universal:</strong> "X is Y if for all Z, ..."
-                            Example: f is continuous if for all ε > 0, there exists δ > 0...
-
-                            <strong>Recursive:</strong> Base case + recursive case
-                            Example: 0! = 1, and n! = n × (n-1)! for n > 0.
+                    <div class="complex-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">What makes a good definition</h3>
+                            <div class="rule"><strong>A good definition is:</strong><br>• Precise — no ambiguity<br>•
+                                Complete — covers all cases<br>• Minimal — no redundant conditions<br>• Usable — easy to
+                                apply in proofs</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Definition patterns</h3>
+                            <div class="math-block"><strong>Existential:</strong> "X is Y if there exists Z such
+                                that..."
+                                Example: n is even if there exists an integer k such that n = 2k.
+                                <br><br>
+                                <strong>Universal:</strong> "X is Y if for all Z, ..."
+                                Example: f is continuous if for all ε > 0, there exists δ > 0...
+                                <br><br>
+                                <strong>Recursive:</strong> Base case + recursive case
+                                Example: 0! = 1, and n! = n × (n-1)! for n > 0.
+                            </div>
                         </div>
                     </div>
+
+                    <div class="simple-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The "Identity Card"</h3>
+                            <p>A <strong>Definition</strong> is like an ID card for a math concept. It should tell you
+                                <em>exactly</em> who they are without any guessing.
+                            </p>
+                            <div class="rule">
+                                <strong>Common Patterns:</strong>
+                                <ul>
+                                    <li><strong>The "Exists" Type:</strong> "A person is a Driver if they have a
+                                        license." (There exists a license).</li>
+                                    <li><strong>The "For All" Type:</strong> "A room is Empty if <em>everyone</em> is
+                                        gone." (For all people, they are not here).</li>
+                                    <li><strong>The "Loop" Type (Recursive):</strong> "A family is you + your parents +
+                                        <em>their</em> families."
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Tip:</strong> Don't try to prove a definition. It's just a name we agreed on. You
+                            don't prove that "Blue" is "Blue"—you just use the word!
+                        </div>
+                    </div>
+
                     <div class="subsection">
                         <h3 class="subsection-title">CS parallel: Type definitions</h3>
                         <div class="code-block">
@@ -203,40 +286,63 @@
                     <h2 class="section-title">Stating Claims and Theorems</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The hierarchy</h3>
-                        <div class="math-block"><strong>Theorem:</strong> A major result, often the main goal
-                            <strong>Lemma:</strong> A helper result used to prove theorems
-                            <strong>Corollary:</strong> An easy consequence of a theorem
-                            <strong>Proposition:</strong> A result of medium importance
-                            <strong>Claim:</strong> An informal assertion (often inside a proof)
+                    <div class="complex-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The hierarchy</h3>
+                            <div class="math-block"><strong>Theorem:</strong> A major result, often the main goal
+                                <strong>Lemma:</strong> A helper result used to prove theorems
+                                <strong>Corollary:</strong> An easy consequence of a theorem
+                                <strong>Proposition:</strong> A result of medium importance
+                                <strong>Claim:</strong> An informal assertion (often inside a proof)
+                            </div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Writing precise claims</h3>
+                            <div class="warning"><strong>Bad:</strong> "Even numbers plus even numbers are
+                                even."<br><strong>Good:</strong> "For all integers a and b, if a is even and b is even,
+                                then
+                                a + b is even."</div>
+                            <p>A precise claim should:</p>
+                            <ul>
+                                <li>Quantify all variables (for all, there exists)</li>
+                                <li>Specify the domain (integers, reals, etc.)</li>
+                                <li>Make the logical structure explicit (if...then)</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Common claim patterns</h3>
+                            <div class="math-block"><strong>Universal:</strong> For all x in S, P(x).
+                                "Every prime > 2 is odd."
+                                <br><br>
+                                <strong>Existential:</strong> There exists x in S such that P(x).
+                                "There exists a prime between n and 2n."
+                                <br><br>
+                                <strong>Conditional:</strong> If P, then Q.
+                                "If n² is even, then n is even."
+                                <br><br>
+                                <strong>Biconditional:</strong> P if and only if Q.
+                                "n is even iff n² is even."
+                            </div>
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Writing precise claims</h3>
-                        <div class="warning"><strong>Bad:</strong> "Even numbers plus even numbers are
-                            even."<br><strong>Good:</strong> "For all integers a and b, if a is even and b is even, then
-                            a + b is even."</div>
-                        <p>A precise claim should:</p>
-                        <ul>
-                            <li>Quantify all variables (for all, there exists)</li>
-                            <li>Specify the domain (integers, reals, etc.)</li>
-                            <li>Make the logical structure explicit (if...then)</li>
-                        </ul>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common claim patterns</h3>
-                        <div class="math-block"><strong>Universal:</strong> For all x in S, P(x).
-                            "Every prime > 2 is odd."
 
-                            <strong>Existential:</strong> There exists x in S such that P(x).
-                            "There exists a prime between n and 2n."
-
-                            <strong>Conditional:</strong> If P, then Q.
-                            "If n² is even, then n is even."
-
-                            <strong>Biconditional:</strong> P if and only if Q.
-                            "n is even iff n² is even."
+                    <div class="simple-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The "Goal Posts"</h3>
+                            <p>In math, we have different names for "Truths" depending on how big they are.</p>
+                            <div class="rule">
+                                <ul>
+                                    <li><strong>Theorem:</strong> The Big Boss. The main thing you're proving.</li>
+                                    <li><strong>Lemma:</strong> The Side-kick. A smaller truth that helps you win the
+                                        Big Boss.</li>
+                                    <li><strong>Corollary:</strong> The "Freebie." Something that becomes obviously true
+                                        once you win the Boss.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Simple Rule for Success:</strong> A good claim is like a good function name. It
+                            should say exactly what's going in (If...) and exactly what's coming out (Then...).
                         </div>
                     </div>
                 </div>
@@ -245,24 +351,71 @@
             <section class="section" id="writing">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Writing the Proof Body</h2>
+                    <h2 class="section-title">Writing the Proof</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Start with a roadmap</h3>
-                        <div class="rule"><strong>Opening line should state your approach:</strong><br>"We proceed by
-                            induction on n."<br>"We prove the contrapositive."<br>"Suppose for contradiction
-                            that..."<br>"Let a and b be arbitrary even integers."</div>
+                    <div class="complex-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The narrative flow</h3>
+                            <p>A proof is a narrative. Use full sentences and connecting words to guide the reader.</p>
+                            <div class="rule">
+                                <strong>Connecting words:</strong>
+                                <ul>
+                                    <li>"Let..." (Introducing variables)</li>
+                                    <li>"Since..." (Justifying a step with a previous fact)</li>
+                                    <li>"Substituting..." (Showing algebraic steps)</li>
+                                    <li>"If... then..." (Logical implication)</li>
+                                    <li>"Wait, we have a contradiction..." (Proof by contradiction)</li>
+                                    <li>"Therefore..." / "Hence..." (Concluding a sub-point)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Level of detail</h3>
+                            <div class="info">Write for your peers, not for a calculator. You can skip trivial
+                                arithmetic,
+                                but you must never skip logical steps. If a peer would ask "Why?", you need more detail.
+                            </div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Start with a roadmap</h3>
+                            <div class="rule"><strong>Opening line should state your approach:</strong><br>"We proceed
+                                by
+                                induction on n."<br>"We prove the contrapositive."<br>"Suppose for contradiction
+                                that..."<br>"Let a and b be arbitrary even integers."</div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Justify every step</h3>
+                            <div class="math-block">Each step should have a reason:
+                                - "by definition"
+                                - "by assumption"
+                                - "by the inductive hypothesis"
+                                - "by Theorem 2.3"
+                                - "since a = 2k"
+                                - "by algebra"</div>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Justify every step</h3>
-                        <div class="math-block">Each step should have a reason:
-                            - "by definition"
-                            - "by assumption"
-                            - "by the inductive hypothesis"
-                            - "by Theorem 2.3"
-                            - "since a = 2k"
-                            - "by algebra"</div>
+
+                    <div class="simple-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">The "Explain it to a Friend" Rule</h3>
+                            <p>Don't just write math symbols. Talk to the reader!</p>
+                            <div class="rule">
+                                <strong>The "Traffic Signs" of Math:</strong>
+                                <ul>
+                                    <li><strong>"Let..."</strong> means "I'm making a new character in my story."</li>
+                                    <li><strong>"Since..."</strong> means "Here's the evidence for what I'm about to
+                                        say."
+                                    </li>
+                                    <li><strong>"Therefore..."</strong> means "And that's why this is true."</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>How much detail?</strong> If your friend can follow along without getting stuck,
+                            you're doing great. If they have to scratch their head and say "How did you get that?", add
+                            one more line of explanation.
+                        </div>
                     </div>
                     <div class="subsection">
                         <h3 class="subsection-title">Proof template</h3>
@@ -315,29 +468,81 @@
             <section class="section" id="style">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Style Guide for Proofs</h2>
+                    <h2 class="section-title">The Mathematician's Style Guide</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Do's</h3>
-                        <ul>
-                            <li><strong>Write in complete sentences.</strong> "Let n be an integer." not "n = integer"
-                            </li>
-                            <li><strong>Define variables before using them.</strong> "Let ε > 0." before using ε</li>
-                            <li><strong>Be explicit about assumptions.</strong> "Assume P(k) holds for some k ≥ 1."</li>
-                            <li><strong>Use transitional words.</strong> "Then", "Therefore", "Hence", "Thus", "Since"
-                            </li>
-                            <li><strong>End with a clear conclusion.</strong> "Therefore, the claim holds."</li>
-                        </ul>
+                    <div class="complex-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">Common pitfalls</h3>
+                            <div class="warning">
+                                <ul>
+                                    <li><strong>Circular reasoning:</strong> Assuming the conclusion as a step.</li>
+                                    <li><strong>Undefined variables:</strong> Using "x" without saying "Let x be an
+                                        integer."</li>
+                                    <li><strong>Proof by example:</strong> Proving P(3) and claiming P(n) is true for
+                                        all
+                                        n.</li>
+                                    <li><strong>Symbols as verbs:</strong> Don't start a sentence with a symbol like
+                                        "x=2." Write "The value x equals 2."</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">The "Peer Review" Checklist</h3>
+                            <ul>
+                                <li>Did I define every variable before using it?</li>
+                                <li>Is every step justified by a definition, theorem, or algebra?</li>
+                                <li>Did I state the conclusion clearly?</li>
+                                <li>Is the layout clean? (Equations on their own lines)</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Do's</h3>
+                            <ul>
+                                <li><strong>Write in complete sentences.</strong> "Let n be an integer." not "n =
+                                    integer"
+                                </li>
+                                <li><strong>Define variables before using them.</strong> "Let ε > 0." before using ε
+                                </li>
+                                <li><strong>Be explicit about assumptions.</strong> "Assume P(k) holds for some k ≥ 1."
+                                </li>
+                                <li><strong>Use transitional words.</strong> "Then", "Therefore", "Hence", "Thus",
+                                    "Since"
+                                </li>
+                                <li><strong>End with a clear conclusion.</strong> "Therefore, the claim holds."</li>
+                            </ul>
+                        </div>
+                        <div class="subsection">
+                            <h3 class="subsection-title">Don'ts</h3>
+                            <div class="warning">
+                                <strong>Don't use undefined variables.</strong> Always introduce before use.<br><br>
+                                <strong>Don't skip steps.</strong> What's obvious to you may not be to readers.<br><br>
+                                <strong>Don't prove by example.</strong> Showing P(5) doesn't prove "for all n".<br><br>
+                                <strong>Don't assume what you're proving.</strong> Circular reasoning is
+                                invalid.<br><br>
+                                <strong>Don't forget edge cases.</strong> Handle n = 0, empty sets, etc.
+                            </div>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Don'ts</h3>
-                        <div class="warning">
-                            <strong>Don't use undefined variables.</strong> Always introduce before use.<br><br>
-                            <strong>Don't skip steps.</strong> What's obvious to you may not be to readers.<br><br>
-                            <strong>Don't prove by example.</strong> Showing P(5) doesn't prove "for all n".<br><br>
-                            <strong>Don't assume what you're proving.</strong> Circular reasoning is invalid.<br><br>
-                            <strong>Don't forget edge cases.</strong> Handle n = 0, empty sets, etc.
+
+                    <div class="simple-only">
+                        <div class="subsection">
+                            <h3 class="subsection-title">How to NOT Fail</h3>
+                            <div class="warning">
+                                <strong>Avoid these "Logical Traps":</strong>
+                                <ul>
+                                    <li><strong>The "Because I Said So":</strong> Don't skip steps. Every step needs a
+                                        reason.</li>
+                                    <li><strong>The "Mystery Guest":</strong> Don't use <code>x</code> if you haven't
+                                        told us what <code>x</code> is. Is it a person? A number? A cat?</li>
+                                    <li><strong>The "One Example":</strong> Just because it works for the number 5
+                                        doesn't mean it works for every number in the universe.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Golden Rule:</strong> If you read your proof out loud, it should sound like a normal
+                            English story, not a secret code.
                         </div>
                     </div>
                     <div class="subsection">
@@ -359,17 +564,17 @@
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-          <div class="video-container">
-            <div class="video-player">
-              <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-              <div class="video-info">
-                <div class="video-title" id="videoTitle">Select a video</div>
-                <div class="video-meta" id="videoMeta"></div>
-              </div>
-            </div>
-            <div class="video-list" id="videoList"></div>
-          </div>
-        </div>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
             </section>
 
             <section class="section" id="practice">
@@ -390,17 +595,28 @@
             </section>
         </main>
     </div>
-<script>
-      const VIDEO_GROUPS = [
-        {
-          title: "Lesson Videos",
-          items: [
-            { title: "Video 1", channel: "Course Reference", vid: "video_placeholder_5_1" }
-          ]
-        }
-      ];
-      initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day5'], storageKey: 'day5_v1' });
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Core Concepts",
+                items: [
+                    { title: "How to Write Proofs", channel: "Socratica", vid: "brU5yLm9DZM" },
+                    { title: "Mathematical Writing Tips", channel: "Trefor Bazett", vid: "L-bdLhx20Tk" },
+                    { title: "Mathematical Notation", channel: "The Math Sorcerer", vid: "M6xp4B9jqZg" }
+                ]
+            },
+            {
+                title: "Practical Guide",
+                items: [
+                    { title: "Reading & Writing Math", channel: "Dr. Peyam", vid: "D2xYjiL8yyE" },
+                    { title: "First Proof Examples", channel: "Trefor Bazett", vid: "KRLmjJyqGFM" },
+                    { title: "Common Proof Mistakes", channel: "NancyPi", vid: "YBbBbY4heGM" }
+                ]
+            }
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day5'], storageKey: 'day5_v1' });
     </script>
 </body>
 </body>
+
 </html>
