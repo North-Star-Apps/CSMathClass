@@ -115,6 +115,13 @@
                             eigenvalues.</li>
                         <li>$V^T$: Orthogonal matrix ($A^T A$ eigenvectors). Rows are "Right Singular Vectors".</li>
                     </ul>
+                    <div class="info">
+                        <strong>📸 Simple:</strong> SVD breaks any transformation into 3 simple steps:
+                        <br>1️⃣ <strong>Rotate</strong> (Vᵀ) — align with "natural directions"
+                        <br>2️⃣ <strong>Stretch</strong> (Σ) — scale along those directions
+                        <br>3️⃣ <strong>Rotate</strong> (U) — orient to output space
+                        <br>Like photo editing: first align, then resize, then reposition!
+                    </div>
                 </div>
             </section>
 
@@ -152,6 +159,12 @@
                         $$ A_k = \sum_{i=1}^k \sigma_i u_i v_i^T $$
                     </p>
                     <p>This is used for image compression, data denoisng, and Latent Semantic Indexing.</p>
+                    <div class="info">
+                        <strong>🖼️ Simple:</strong> JPEG-like compression in action!
+                        <br>A 1000×1000 image has 1 million pixels. But keeping only the top 50 singular values gives
+                        you ~100,000 numbers.
+                        <br>10× compression with barely visible quality loss—SVD captures "what matters" in the image.
+                    </div>
                 </div>
             </section>
 
@@ -241,28 +254,16 @@ Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
-        {
-            title: "Lesson Videos",
-            items: [
-            { title: "Video 1", channel: "Course Reference", vid: "fNk_zzaMoSs" },
-            { title: "Video 2", channel: "Course Reference", vid: "XkY2DOUCWMU" },
-            { title: "Video 3", channel: "Course Reference", vid: "2j5Ic2V7wq4" },
-            { title: "Video 4", channel: "Course Reference", vid: "fNk_zzaMoSs" },
-            { title: "Video 5", channel: "Course Reference", vid: "XkY2DOUCWMU" },
-            { title: "Video 6", channel: "Course Reference", vid: "uQhTuRlWMxw" }
-            ]
-        }
-    ];
-        const VIDEOS_REAL = [
             {
                 title: "SVD Deep Dive",
                 items: [
+                    { title: "SVD Intuition", channel: "3Blue1Brown", vid: "fNk_zzaMoSs" },
                     { title: "SVD Overview", channel: "Steve Brunton", vid: "gXbThCXjZFM" },
-                    { title: "Image Compression with SVD", channel: "Steve Brunton", vid: "H7qMMudh3f8" }
+                    { title: "Image Compression with SVD", channel: "Steve Brunton", vid: "H7qMMudh3f8" },
+                    { title: "Low-Rank Approximation", channel: "MIT OCW", vid: "uQhTuRlWMxw" }
                 ]
             }
         ];
-
         const QUESTIONS = [
             { topic: "SVD", prompt: "SVD decomposes A into U, Sigma, and ___.", answer: "v transpose", altAnswers: ["vt", "v^t"] },
             { topic: "Sigma", prompt: "Sigma contains the ___ values.", answer: "singular" },
@@ -270,7 +271,7 @@ Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
             { topic: "Rank", prompt: "The number of non-zero singular values equals the ___ of the matrix.", answer: "rank" },
             { topic: "Approx", prompt: "We can approximate A by keeping the ___ k singular values.", answer: "largest", altAnswers: ["top", "first"] },
         ];
-        initLesson({ videos: VIDEOS_REAL, questions: QUESTIONS, storageKey: 'day26_svd_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day22_svd_v2' });
     </script>
 </body>
 
