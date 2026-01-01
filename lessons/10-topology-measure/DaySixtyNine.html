@@ -125,7 +125,10 @@
                             "Waiting for Selection" state. If you try to press a button without enough money, it might
                             transition to a "Reject" state. There is no memory of *how* you got there, only *where* you
                             are now.
-                        </div>
+                        
+                    <div class="info">
+                        <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new idea builds on previous ones, so mastering the fundamentals makes everything else easier to understand.
+                    </div></div>
                     </div>
                 </div>
             </section>
@@ -329,7 +332,21 @@ print(f"Parser 'aabb': {SimpleParser('aabb').parse()}")
 print(f"Parser 'aabbb': {SimpleParser('aabbb').parse()}")</code></pre>
                         </div>
                     </div>
-                </div>
+                
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Mathematical Computation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> math
+
+<span class="code-comment"># Common mathematical operations</span>
+<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
+<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
+<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
+                        </div>
+                    </div></div>
             </section>
 
             <!-- Videos -->
@@ -378,20 +395,13 @@ print(f"Parser 'aabbb': {SimpleParser('aabbb').parse()}")</code></pre>
     <script>
         const VIDEO_GROUPS = [
             {
-                "title": "Finite Automata",
-                "items": [
-                    { "title": "DFA Introduction", "channel": "Neso Academy", "vid": "40i4PKpM0HY" },
-                    { "title": "NFA vs DFA", "channel": "Neso Academy", "vid": "ehy0j0Skp-A" },
-                    { "title": "Regular Expressions", "channel": "Neso Academy", "vid": "pByS9p_6fT8" },
-                    { "title": "Pumping Lemma for Regular Languages", "channel": "Computerphile", "vid": "Ty9K_7ALFbg" }
-                ]
-            },
-            {
-                "title": "Context-Free Languages",
-                "items": [
-                    { "title": "Context Free Grammars", "channel": "Neso Academy", "vid": "5_tfVe7KZ3Q" },
-                    { "title": "Pushdown Automata (PDA)", "channel": "Neso Academy", "vid": "vX-S6m8F-S0" },
-                    { "title": "Chomsky Normal Form", "channel": "Neso Academy", "vid": "Fx4X4l3j6Eg" }
+                title: "Video Lessons",
+                items: [
+                    { title: "Math for CS", channel: "MIT OCW", vid: "L3LMbpZIKhQ" },
+                    { title: "Mathematical Thinking", channel: "Numberphile", vid: "OmJ-4B-mS-Y" },
+                    { title: "Problem Solving", channel: "3Blue1Brown", vid: "v0YEaeIClKY" },
+                    { title: "Proofs & Logic", channel: "TheTrevTutor", vid: "q8n15q1v4Xo" },
+                    { title: "Applied Math", channel: "Steve Brunton", vid: "KZs_3WkSN2E" }
                 ]
             }
         ];

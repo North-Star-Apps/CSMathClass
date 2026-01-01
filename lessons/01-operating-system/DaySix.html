@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 6: Checkpoint 1</title>
+    <title>Day 6: Checkpoint 1 - Foundation Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,34 +16,67 @@
         onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
     <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/generator-utils.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 35 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 6 · Proof Checkpoint</div>
-
-        <p class="hero-desc">This is a practice day. The goal: take a proof and annotate every single step with its
-            justification. This builds the habit of rigorous thinking that separates good engineers from great ones.</p>
+            </svg>
+            Day 6 · Section 1 Review
+        </div>
+        <h1>Checkpoint 1: The Foundation Check</h1>
+        <p class="hero-desc">
+            You've completed the Mathematical Foundations. Before moving to Precalculus, let's verify your structural
+            integrity.
+            We will review Algebra, Functions, Logic, and Proof Writing.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min practice</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">4 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~100 min review
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                40 checkpoints
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -52,353 +85,481 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#goal" class="toc-link">The Goal</a></li>
-                    <li><a href="#example1" class="toc-link">1. Sum of Evens</a></li>
-                    <li><a href="#example2" class="toc-link">2. Contrapositive</a></li>
-                    <li><a href="#example3" class="toc-link">3. Induction</a></li>
-                    <li><a href="#example4" class="toc-link">4. Algorithm Proof</a></li>
-                    <li><a href="#practice" class="toc-link">5. Your Turn</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
+                    <li><a href="#master-map" class="toc-link">1. Section 1 Master Map</a></li>
+                    <li><a href="#algebra" class="toc-link">2. Algebra & Symbolic Logic</a></li>
+                    <li><a href="#functions" class="toc-link">3. Functions & API Design</a></li>
+                    <li><a href="#logic" class="toc-link">4. Logic & Boolean Algebra</a></li>
+                    <li><a href="#proofs" class="toc-link">5. Proof Systems (Human & Machine)</a></li>
+                    <li><a href="#theoretical" class="toc-link">6. Lambda vs. Turing</a></li>
+                    <li><a href="#challenges" class="toc-link">7. Integrated Challenges</a></li>
+                    <li><a href="#exam" class="toc-link">8. The Final Checkpoint</a></li>
+                    <li><a href="#career" class="toc-link">9. Career Connections</a></li>
+                    <li><a href="#status" class="toc-link">10. Code Status</a></li>
+                    <li><a href="#videos" class="toc-link">11. Video Library</a></li>
+                    <li><a href="#practice" class="toc-link">12. Practice Problems</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Sprint Status</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
 
         <main class="content">
             <div class="checkpoint-banner">
                 <div class="checkpoint-icon">🏁</div>
-                <div class="checkpoint-title">Week 1 Checkpoint</div>
-                <div class="checkpoint-desc">Consolidate Days 1-7. Prove you understand by explaining, not just doing.
+                <div class="checkpoint-title">Checkpoint 1</div>
+                <div class="checkpoint-desc">
+                    Confirming mastery of Days 1-5. Correctness is more important than speed.
                 </div>
             </div>
 
-            <section class="section" id="goal">
+            <!-- Master Map -->
+            <section class="section" id="master-map">
                 <div class="section-header">
-                    <div class="section-number">Section 0</div>
-                    <h2 class="section-title">The Goal: Justify Every Step</h2>
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">The Foundation Master Map</h2>
                 </div>
                 <div class="section-body">
+                    <p>Before we add more bricks, let's look at the architectural blueprint of what you've built this
+                        week. Every concept here is a prerequisite for the high-level CS concepts coming in the next 90
+                        days.</p>
+
                     <div class="rule">
-                        <strong>The "Receipt" Rule:</strong> Just like a store receipt shows exactly what you bought for
-                        every cent spent, a proof shows exactly why every line is true. If you can't justify a step, you
-                        don't fully understand it yet!
+                        <strong>The Conceptual Stack:</strong>
+                        <ul class="list-disc ml-6 mt-4">
+                            <li><strong>Level 1: Variables & Operations (Days 1-2)</strong> — The "Assembly" language of
+                                logic. Manipulation of state.</li>
+                            <li><strong>Level 2: Functions & Inverses (Day 3)</strong> — The "Higher Level"
+                                abstractions. Mapping inputs to outputs.</li>
+                            <li><strong>Level 3: Boolean Logic (Day 4)</strong> — The "Conditional" layer. Decision
+                                making.</li>
+                            <li><strong>Level 4: Proof Systems (Day 5)</strong> — The "Verification" layer. Ensuring the
+                                entire stack is correct.</li>
+                        </ul>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Why this matters</h3>
-                        <div class="info">
-                            <strong>Debugging is Proof-Reading:</strong> Finding a bug is often just finding an
-                            "unjustified assumption" in your code. Good engineers ask <em>"Why does this work?"</em>
-                            instead of just saying <em>"It seems to work."</em>
-                        </div>
-                        <div class="info">
-                            <strong>🏁 Simple:</strong> This day is a pit stop. We aren't learning new racing techniques
-                            today; we are checking the engine. We're going line-by-line to make sure nothing is loose.
-                        </div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">The annotation format</h3>
-                        <p>For each step, ask: "What rule, definition, or prior result justifies this?"</p>
-                        <div class="math-block">Common justifications:
-                            • "by definition of [term]"
-                            • "by assumption"
-                            • "by algebra"
-                            • "by inductive hypothesis"
-                            • "by [theorem name]"</div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="section" id="example1">
-                <div class="section-header">
-                    <div class="section-number">Example 1</div>
-                    <h2 class="section-title">Sum of Two Even Numbers</h2>
-                </div>
-                <div class="section-body">
-                    <p><strong>Claim:</strong> The sum of two even integers is even.</p>
                     <div class="info">
-                        <strong>The Idea:</strong> Every even number is just a collection of couples/pairs. If you
-                        combine two collections of pairs, you still have only pairs! No singles left over.
-                    </div>
-                    <div class="info">
-                        <strong>👯 Simple:</strong> It's a couples' party. Even numbers are groups of couples. If you
-                        invite one group of couples (2m) and another group of couples (2n), everyone is still matched
-                        up. No third wheels (odd numbers).
-                    </div>
-                    <div class="step-box">
-                        <div class="step-row step-header">
-                            <div class="step-left">Step</div>
-                            <div class="step-right">Justification</div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">1.</span>Let $a$ and $b$ be even integers.
-                            </div>
-                            <div class="step-right">Setup: introduce variables</div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">2.</span>$a = 2m$, $b = 2n$ for $m,n \in
-                                \mathbb{Z}$.</div>
-                            <div class="step-right"><strong>By definition</strong> of even</div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">3.</span>$a + b = 2m + 2n$</div>
-                            <div class="step-right"><strong>Substitution</strong></div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">4.</span>$a + b = 2(m + n)$</div>
-                            <div class="step-right"><strong>Algebra</strong> (distributive)</div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">5.</span>$a + b = 2k$ (where $k = m+n$)</div>
-                            <div class="step-right"><strong>Closure</strong> (integer + integer = integer)</div>
-                        </div>
-                        <div class="step-row">
-                            <div class="step-left"><span class="step-num">6.</span>Therefore $a+b$ is even. ∎</div>
-                            <div class="step-right"><strong>By definition</strong> of even (form $2k$)</div>
-                        </div>
+                        <strong>🔌 The "Circuit" Analogy:</strong>
+                        <p>Think of your foundational knowledge as a circuit board. If a single trace (Algebra) is
+                            broken, the power (Logic) won't flow to the components (Functions), and the whole computer
+                            (Program) won't work. Day 6 is our multimeter check.</p>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="example2">
+            <!-- Algebra & Symbolic Logic -->
+            <section class="section" id="algebra">
                 <div class="section-header">
-                    <div class="section-number">Example 2</div>
-                    <h2 class="section-title">Contrapositive Proof</h2>
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Algebra & Symbolic Logic (Days 1-2)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="section-body">
-                        <p><strong>Claim:</strong> If $n^2$ is even, then $n$ is even.</p>
+                    <p>In CS, Algebra isn't just about finding $x$. it's about <strong>Symbolic
+                            Manipulation</strong>—the ability to rewrite an expression into a more efficient or readable
+                        form without changing its value.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The "Compiler" Analogy</h3>
+                        <p>When you simplify $2(x+3) + 4x$ into $6x+6$, you are doing exactly what an <strong>Optimizing
+                                Compiler</strong> does. It takes raw, human-written logic and transforms it into the
+                            most compute-efficient equivalent.</p>
+                    </div>
+
+                    <div class="grid-2col">
                         <div class="info">
-                            <strong>The Strategy:</strong> "If it's raining, the grass is wet" is the same as saying "If
-                            the grass is dry, it's not raining." This is the <strong>contrapositive</strong>. To prove
-                            this claim, we instead prove <em>"If $n$ is odd, then $n^2$ is odd."</em>
+                            <strong>Exponent Laws (Complexity):</strong>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li>$x^a \cdot x^b = x^{a+b}$ (Memory locality)</li>
+                                <li>$(x^a)^b = x^{ab}$ (Nested loops)</li>
+                                <li>$x^{-n} = 1/x^n$ (Inverse proportionality)</li>
+                            </ul>
                         </div>
                         <div class="info">
-                            <strong>🔄 Simple:</strong> The Switcheroo. Proving "Rain → Wet" is hard? Prove "Dry → No
-                            Rain" instead. Same logic, easier path.
-                        </div>
-                        <div class="step-box">
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">1.</span>Assume $n$ is odd.</div>
-                                <div class="step-right">Setup contrapositive</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">2.</span>$n = 2k + 1$</div>
-                                <div class="step-right"><strong>Definition</strong> of odd</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">3.</span>$n^2 = (2k + 1)^2 = 4k^2 + 4k +
-                                    1$</div>
-                                <div class="step-right"><strong>Algebra</strong></div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">4.</span>$n^2 = 2(2k^2 + 2k) + 1$</div>
-                                <div class="step-right"><strong>Algebra</strong> (factor out 2)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">5.</span>$n^2 = 2j + 1$</div>
-                                <div class="step-right"><strong>Substitution</strong> ($j = 2k^2+2k$)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">6.</span>$n^2$ is odd. ∎</div>
-                                <div class="step-right"><strong>Definition</strong> of odd</div>
-                            </div>
+                            <strong>Logarithms (Search):</strong>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li>$\log(ab) = \log a + \log b$</li>
+                                <li>$\log(a/b) = \log a - \log b$</li>
+                                <li><strong>In CS:</strong> $\log n$ is the gold standard for search complexity (Binary
+                                    Search).</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <section class="section" id="example3">
-                <div class="section-header">
-                    <div class="section-number">Example 3</div>
-                    <h2 class="section-title">Induction Proof</h2>
-                </div>
-                <div class="section-body">
-                    <div class="section-body">
-                        <p><strong>Claim:</strong> $1 + 2 + \dots + n = \frac{n(n+1)}{2}$.</p>
-                        <div class="info">
-                            <li>The first domino falls (<strong>Base Case</strong>).</li>
-                            <li>If any domino falls, the next one MUST fall (<strong>Inductive Step</strong>).</li>
-                            </ol>
-                        </div>
-                        <div class="info">
-                            <strong>DOMINOES.</strong> Just remember dominoes. You knock over the first one. The spacing
-                            between them (the Inductive Step) ensures the wave continues forever.
-                        </div>
-                        <div class="step-box">
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">1.</span>Base case: $n=1$. $1 =
-                                    \frac{1(2)}{2}$. ✓</div>
-                                <div class="step-right"><strong>Arithmetic</strong></div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">2.</span>Assume $P(k)$: $1+\dots+k =
-                                    \frac{k(k+1)}{2}$</div>
-                                <div class="step-right"><strong>Inductive Hypothesis</strong></div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">3.</span>Add next term: $(1+\dots+k) +
-                                    (k+1)$</div>
-                                <div class="step-right"><strong>Goal step</strong></div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">4.</span>$= \frac{k(k+1)}{2} + (k+1)$
-                                </div>
-                                <div class="step-right"><strong>By I.H.</strong> (Substituting step 2)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">5.</span>$= (k+1)(\frac{k}{2} + 1) =
-                                    \frac{(k+1)(k+2)}{2}$</div>
-                                <div class="step-right"><strong>Algebra</strong> (Factoring out $k+1$)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">6.</span>Induction complete. ∎</div>
-                                <div class="step-right"><strong>Principle of Induction</strong></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="example4">
-                <div class="section-header">
-                    <div class="section-number">Example 4</div>
-                    <h2 class="section-title">Algorithm Correctness</h2>
-                </div>
-                <div class="section-body">
-                    <div class="section-body">
-                        <p><strong>Claim:</strong> <code>find_max</code> returns the maximum element.</p>
-                        <div class="info">
-                            <strong>The "Checklist" Rule:</strong> For algorithms, we use a checklist to make sure we're
-                            never wrong. If you skip any of these, your code might fail on special cases (like empty
-                            lists).
-                        </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python Lab: Symbolic Refactoring</h3>
                         <div class="code-block">
-                            <div class="code-header"><span class="code-lang">Python</span></div>
+                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">SymPy
+                                    Optimization</span></div>
                             <div class="code-content">
-                                <pre><span class="code-keyword">def</span> <span class="code-function">find_max</span>(arr):
-    result = arr[<span class="code-number">0</span>]
-    <span class="code-keyword">for</span> x <span class="code-keyword">in</span> arr[<span class="code-number">1</span>:]:
-        <span class="code-keyword">if</span> x > result: result = x
-    <span class="code-keyword">return</span> result</pre>
+                                <pre><code class="language-python">from sympy import symbols, simplify, expand
+
+x = symbols('x')
+# Original "Messy" Logic
+expr = (x + 1)**2 - (x - 1)**2
+
+# Let the "Compiler" simplify it
+optimized = simplify(expr)
+print(f"Original: (x+1)^2 - (x-1)^2")
+print(f"Optimized: {optimized}") # Output: 4x
+
+# This transformation saves 3 additions and 2 multiplications!</code></pre>
                             </div>
                         </div>
-                        <div class="step-box">
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">1.</span>Invariant $I$:
-                                    <code>result</code> is max observed so far.
-                                </div>
-                                <div class="step-right"><strong>Strategy</strong></div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">2.</span>Init:
-                                    <code>result = arr[0]</code>
-                                </div>
-                                <div class="step-right"><strong>Initialization</strong> (First item is max of first
-                                    item)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">3.</span>Maintenance: If
-                                    <code>x > result</code>, update.
-                                </div>
-                                <div class="step-right"><strong>Loop logic</strong> (Keeps invariant true)</div>
-                            </div>
-                            <div class="step-row">
-                                <div class="step-left"><span class="step-num">4.</span>Termination: Final
-                                    <code>result</code> is real max.
-                                </div>
-                                <div class="step-right"><strong>Verification</strong> (After seeing all items)</div>
-                            </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Pitfalls: Algebra</h3>
+                        <div class="warning">
+                            <p><strong>The "Freshman's Dream":</strong> $(x+y)^n = x^n + y^n$. This is NEVER true
+                                (except in some fields we won't touch yet). Always expand: $(x+5)^2 = x^2 + 10x + 25$,
+                                not $x^2 + 25$. Skipping the middle term is like skipping a guard clause in an
+                                <code>if</code> statement.
+                            </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="practice">
+            <!-- Functions & API Design -->
+            <section class="section" id="functions">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Functions & API Design (Day 3)</h2>
+                </div>
+                <div class="section-body">
+                    <p>A mathematical function $f: A \to B$ is a promise. In software, we call this an
+                        <strong>Interface</strong> or an <strong>API Contract</strong>.
+                    </p>
+
+                    <div class="card">
+                        <h3>The "Vending Machine" Analogy</h3>
+                        <p>A vending machine is a function. You input a code (Domain), and it outputs a snack (Range).
+                            <br>• <strong>Determinant:</strong> A1 always gives Chips. (Not chips or cookies randomly).
+                            <br>• <strong>Injective:</strong> Every button gives a unique snack.
+                            <br>• <strong>Surjective:</strong> There are no empty coils; every snack is obtainable.
+                        </p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Function Composition as a Pipeline</h3>
+                        <p>In Unix, we use the pipe operator <code>|</code> to compose functions. $f(g(x))$ is exactly
+                            <code>cat file | grep "error"</code>.
+                        </p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">JavaScript</span><span
+                                    class="code-label">Functional Pipeline</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">const add1 = x => x + 1;
+const square = x => x * x;
+
+// Compose: f(g(x))
+const addThenSquare = x => square(add1(x));
+
+console.log(addThenSquare(5)); // (5+1)^2 = 36</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Pitfalls: Functions</h3>
+                        <div class="rule">
+                            <p><strong>Inverse Confusion:</strong> $f^{-1}(x)$ is the inverse function, NOT $1/f(x)$. In
+                                CS, an inverse is an "Undo" button (like decryption), whereas $1/f(x)$ is just a
+                                reciprocal. Confusing them can lead to critical bugs in data reconstruction.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Logic & Boolean Algebra -->
+            <section class="section" id="logic">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Logic & Boolean Algebra (Day 4)</h2>
+                </div>
+                <div class="section-body">
+                    <p>Mathematical logic is the foundation of digital circuitry. Every CPU is just a massive collection
+                        of <code>AND</code>, <code>OR</code>, and <code>NOT</code> gates.</p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>De Morgan's Laws</h3>
+                            <p>$\neg(P \lor Q) \iff \neg P \land \neg Q$
+                                <br>$\neg(P \land Q) \iff \neg P \lor \neg Q$
+                            </p>
+                            <p><strong>Code Parallel:</strong> Refactoring complex <code>if</code> statements.</p>
+                        </div>
+                        <div class="info">
+                            <strong>Logic Gates:</strong>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li><strong>AND:</strong> All inputs must be high.</li>
+                                <li><strong>OR:</strong> At least one input high.</li>
+                                <li><strong>XOR:</strong> Exactly one input high (The "Parity" gate).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Bitwise vs Logical</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Truth
+                                    Table Gen</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python"># Printing a truth table for (P AND Q) OR (NOT R)
+print(f"{'P':<5} {'Q':<5} {'R':<5} | Result")
+for P in [True, False]:
+    for Q in [True, False]:
+        for R in [True, False]:
+            res = (P and Q) or (not R)
+            print(f"{str(P):<5} {str(Q):<5} {str(R):<5} | {res}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Pitfalls: Logic</h3>
+                        <div class="warning">
+                            <p><strong>Affirming the Consequent:</strong> Just because $P \to Q$ is true and $Q$ is
+                                true, it DOES NOT mean $P$ is true.
+                                <br>Example: "If it rains, the grass is wet." The grass is wet. Does it mean it rained?
+                                No! The sprinklers could be on. This is a logic bug that causes countless false
+                                positives in software alerting systems.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proof Systems -->
+            <section class="section" id="proofs">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Your Turn: Annotate These Proofs</h2>
+                    <h2 class="section-title">Proof Systems: Human & Machine (Day 5)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="exercise-box">
-                        <div class="exercise-title">Exercise 1: Product of Odd Numbers</div>
-                        <p><strong>Claim:</strong> The product of two odd integers is odd.</p>
-                        <div class="math-block">Proof:
-                            1. Let a and b be odd integers.
-                            2. Then a = 2m + 1 and b = 2n + 1 for integers m, n.
-                            3. ab = (2m + 1)(2n + 1)
-                            4. ab = 4mn + 2m + 2n + 1
-                            5. ab = 2(2mn + m + n) + 1
-                            6. Let k = 2mn + m + n. This is an integer.
-                            7. So ab = 2k + 1.
-                            8. Therefore ab is odd. ∎</div>
-                        <p><strong>Task:</strong> Write the justification for each step (like the examples above).</p>
-                        <button class="btn btn-primary"
-                            onclick="this.nextElementSibling.classList.toggle('hidden')">Show Solution</button>
-                        <div class="hidden" style="margin-top: 16px;">
-                            <p>1. <strong>Setup</strong> — 2. <strong>Definition of odd</strong> — 3.
-                                <strong>Substitution</strong> — 4. <strong>FOIL/algebra</strong> — 5. <strong>Factor out
-                                    2</strong> — 6. <strong>Closure of integers</strong> — 7.
-                                <strong>Substitution</strong> — 8. <strong>Definition of odd</strong>
-                            </p>
-                        </div>
+                    <p>A proof is a chain of undeniable truths. In modern CS, we distinguish between <strong>Human
+                            Proofs</strong> (convinces people) and <strong>Formal Verification</strong> (convinces
+                        computers).</p>
+
+                    <div class="rule">
+                        <strong>The Toolbench of Truth:</strong>
+                        <ul class="list-decimal ml-6 mt-2">
+                            <li><strong>Direct Proof:</strong> Straight-line execution. $A \to B \to C$.</li>
+                            <li><strong>Contrapositive:</strong> Proving the "Exit Condition". $\neg Q \to \neg P$.</li>
+                            <li><strong>Contradiction:</strong> The "Try-Catch" of math. Assume error, find impossible
+                                state.</li>
+                            <li><strong>Induction:</strong> The "Recursive Call". Prove $P(0)$ and $P(k) \to P(k+1)$.
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="exercise-box">
-                        <div class="exercise-title">Exercise 2: √3 is Irrational</div>
-                        <p><strong>Claim:</strong> √3 is irrational.</p>
-                        <div class="math-block">Proof (by contradiction):
-                            1. Assume √3 is rational.
-                            2. Then √3 = a/b where a,b are integers with no common factors.
-                            3. Squaring: 3 = a²/b², so a² = 3b².
-                            4. Thus 3 | a² (3 divides a²).
-                            5. By a lemma: if 3 | a², then 3 | a.
-                            6. So a = 3k for some integer k.
-                            7. Then (3k)² = 3b², so 9k² = 3b², so b² = 3k².
-                            8. Thus 3 | b² and therefore 3 | b.
-                            9. But then 3 | a and 3 | b, contradicting step 2.
-                            10. Therefore √3 is irrational. ∎</div>
-                        <p><strong>Task:</strong> Identify what type of proof this is and justify each step.</p>
-                        <button class="btn btn-primary"
-                            onclick="this.nextElementSibling.classList.toggle('hidden')">Show Solution</button>
-                        <div class="hidden" style="margin-top: 16px;">
-                            <p><strong>Type: Proof by contradiction</strong></p>
-                            <p>1. <strong>Assume negation</strong> — 2. <strong>Definition of rational</strong> — 3.
-                                <strong>Algebra</strong> — 4. <strong>Definition of divisibility</strong> — 5.
-                                <strong>Lemma</strong> (prime property) — 6. <strong>Definition of divisibility</strong>
-                                — 7. <strong>Substitution + algebra</strong> — 8. <strong>Same lemma</strong> — 9.
-                                <strong>Contradiction with step 2</strong> — 10. <strong>Conclusion from
-                                    contradiction</strong>
-                            </p>
-                        </div>
+                    <div class="info">
+                        <strong>🛠️ Proof Assistants (Lean 4):</strong>
+                        <p>Modern mathematicians use Lean or Coq to write proofs that are compiled and checked by a
+                            computer. This eliminates human error. If the code compiles, the theorem is true.</p>
                     </div>
 
-                    <div class="exercise-box">
-                        <div class="exercise-title">Exercise 3: Find the Error</div>
-                        <p><strong>False "Proof":</strong> All horses are the same color.</p>
-                        <div class="math-block">"Proof" by induction:
-                            1. Base case (n=1): A set of 1 horse trivially has all same color. ✓
-                            2. Inductive step: Assume any set of k horses has all same color.
-                            3. Consider a set of k+1 horses: {h₁, h₂, ..., hₖ, hₖ₊₁}.
-                            4. By I.H., {h₁, ..., hₖ} all have same color.
-                            5. By I.H., {h₂, ..., hₖ₊₁} all have same color.
-                            6. The overlap {h₂, ..., hₖ} connects the colors.
-                            7. So all k+1 horses have same color. ∎</div>
-                        <p><strong>Task:</strong> Find the unjustified step. Where does this "proof" fail?</p>
-                        <button class="btn btn-primary"
-                            onclick="this.nextElementSibling.classList.toggle('hidden')">Show Solution</button>
-                        <div class="hidden" style="margin-top: 16px;">
-                            <p><strong>Error in step 6:</strong> When k=1 (proving for k+1=2), the "overlap" {h₂, ...,
-                                hₖ} = {h₂, ..., h₁} is EMPTY. There's no connection. The inductive step fails at the k=1
-                                → k=2 transition.</p>
-                            <p>This is why explicitly checking the base case AND the first inductive step matters!</p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Pitfalls: Proofs</h3>
+                        <div class="rule">
+                            <p><strong>Proof by Example:</strong> Proving $P(1), P(2),$ and $P(3)$ does NOT prove $P(n)$
+                                for all $n$. This is <strong>Inductive Testing</strong>, not <strong>Mathematical
+                                    Induction</strong>. In CS, this is the difference between a unit test (example) and
+                                a formal verification (proof).</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="videos">
+            <!-- Theoretical Foundations -->
+            <section class="section" id="theoretical">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Review Videos</h2>
+                    <h2 class="section-title">Lambda Calculus vs. Turing Machines</h2>
+                </div>
+                <div class="section-body">
+                    <p>Computer science was born from two different mathematical models of "Computation." They were
+                        proven to be equivalent, but they birthed two different ways of thinking about code.</p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>The Turing Machine (State)</h3>
+                            <p>A physical-like machine with a tape and a head.
+                                <br>• <strong>Focus:</strong> Mutable state, loops, steps.
+                                <br>• <strong>Legacy:</strong> C, Java, Python (Imperative).
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Lambda Calculus (Logic)</h3>
+                            <p>A mathematical system of pure functions.
+                                <br>• <strong>Focus:</strong> Transformation, recursion, immutability.
+                                <br>• <strong>Legacy:</strong> Haskell, Lisp, React (Functional).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The "Church-Turing" Thesis</h3>
+                        <p>Anything that can be computed can be computed by both models. This is the <strong>Universal
+                                Law of Computation</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Integrated Challenges -->
+            <section class="section" id="challenges">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Integrated Code Challenges</h2>
+                </div>
+                <div class="section-body">
+                    <p>Math is a sport; you can't learn it by watching from the sidelines. Try to solve these logic
+                        puzzles using the tools we've built.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Challenge A: The FizzBuzz of Logic</h3>
+                        <p>Write a Python function that takes three booleans $(P, Q, R)$ and returns <code>True</code>
+                            only if exactly two of them are true.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">XOR
+                                    Puzzle</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">def logic_challenge(P, Q, R):
+    # Hint: (P and Q and not R) or ...
+    return (P + Q + R) == 2 # The "Math" shortcut!
+
+# Test it
+print(logic_challenge(True, True, False)) # True
+print(logic_challenge(True, True, True))  # False</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Challenge B: The Recursive Sum</h3>
+                        <p>Implement the formula $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$ in two ways: iteratively and
+                            recursively. Verify they match.</p>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">JavaScript</span><span
+                                    class="code-label">Verification</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">const iterativeSum = n => {
+    let s = 0;
+    for (let i = 1; i <= n; i++) s += i;
+    return s;
+};
+
+const formulaSum = n => (n * (n + 1)) / 2;
+
+console.assert(iterativeSum(100) === formulaSum(100), "Logic Error!");</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam -->
+            <section class="section" id="exam">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">The Final Checkpoint (Exam)</h2>
+                </div>
+                <div class="section-body">
+                    <p>This is the gateway to Section 2. You must achieve at least 80% accuracy before proceeding to
+                        Precalculus.</p>
+                    <div class="warning">
+                        <strong>⚠️ Note:</strong> These questions combine multiple days of knowledge. Take your time.
+                    </div>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+
+            <!-- Career Connections -->
+            <section class="section" id="career">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Career Connections: Why This Pays</h2>
+                </div>
+                <div class="section-body">
+                    <p>Why did we spend a week on "High School Math"? Because at the highest levels of Silicon Valley
+                        and Research, this is the "Secret Sauce."</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Staff Engineer @ Big Tech</h3>
+                            <p><strong>Required Skill:</strong> Complexity Analysis.
+                                <br>Knowing if an algorithm is $O(n^2)$ vs $O(n \log n)$ saves companies millions in
+                                cloud costs. This is just <strong>Logarithms + Algebra</strong>.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Security & Cryptography</h3>
+                            <p><strong>Required Skill:</strong> Number Theory & Functions.
+                                <br>Encryption relies on <strong>One-Way Functions</strong> (Easy to calculate $f(x)$,
+                                hard to find $f^{-1}(y)$).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Status -->
+            <section class="section" id="status">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Foundation Status & Roadmap</h2>
+                </div>
+                <div class="section-body">
+                    <p>You have now completed the first major milestone of this curriculum. Here is your updated
+                        "Developer Inventory" and where we are heading next.</p>
+                    <div class="grid-2col">
+                        <div class="info">
+                            <strong>Skills Decoded (Section 1):</strong>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li><strong>Algebra:</strong> Complexity analysis & Symbolic optimization.</li>
+                                <li><strong>Functions:</strong> API Design & Data transformations.</li>
+                                <li><strong>Logic:</strong> Boolean algebra & Switch-case logic.</li>
+                                <li><strong>Proofs:</strong> Continuous verification & Code correctness.</li>
+                            </ul>
+                        </div>
+                        <div class="rule">
+                            <strong>The Roadmap Ahead:</strong>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li><strong>Section 2: Precalculus</strong> — Focus on Growth (logarithmic vs
+                                    exponential).</li>
+                                <li><strong>Section 3: Calculus</strong> — Focus on Rates of Change (optimization).</li>
+                                <li><strong>Section 4: Statistics</strong> — Focus on Data & Uncertainty.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Final Section 1 Tip</h3>
+                        <div class="card">
+                            <p>"The best programmers are not the ones who write the most lines of code, but the ones who
+                                understand the logic behind the lines they write." — Math is the shortcut to that
+                                understanding.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Video Library (Best of Section 1)</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
@@ -413,24 +574,231 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Practice Problems -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 12</div>
+                    <h2 class="section-title">The "Trial by Fire" Exercises</h2>
+                </div>
+                <div class="section-body">
+                    <p>Before you move to Section 2, try these high-level synthesis problems. They combine everything
+                        we've learned this week.</p>
+
+                    <div class="subsection">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Concept</th>
+                                    <th>The Challenge</th>
+                                    <th>Difficulty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Algebra + Logic</strong></td>
+                                    <td>Simplify the Boolean Expression for a "Half Adder" circuit.</td>
+                                    <td>Hard</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Functions</strong></td>
+                                    <td>Identify the Domain and Range for $f(x) = \sqrt{x - 4}$.</td>
+                                    <td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Induction</strong></td>
+                                    <td>Prove that $2^n > n$ for all $n \geq 1$.</td>
+                                    <td>Medium</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lambda</strong></td>
+                                    <td>Explain the difference between call-by-value and call-by-name.</td>
+                                    <td>Hard</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Verification</strong></td>
+                                    <td>Write a Hoare Triple for an array swap operation.</td>
+                                    <td>Expert</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Synthesizing the Foundation</h3>
+                        <p>Real-world engineering isn't siloed. You might use <strong>Algebra</strong> to simplify a
+                            <strong>Function</strong>'s internal logic, then use <strong>Boolean Logic</strong> to
+                            handle edge cases, and finally write a <strong>Proof</strong> (or a test) to verify it
+                            works. This is the "Full Stack" of Mathematical Thinking.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Takeaways -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 13</div>
+                    <h2 class="section-title">Section 1 Summary & Next Steps</h2>
+                </div>
+                <div class="section-body">
+                    <p>Congratulations! You've just completed the most difficult mental hurdle: shifting from
+                        "calculating" to "reasoning."</p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Section 1 Check-Off</h3>
+                            <p>• I can manipulate variables efficiently.
+                                <br>• I understand mapping and contracts.
+                                <br>• I can think in binary and logic gates.
+                                <br>• I know how to verify my work with rigor.
+                            </p>
+                        </div>
+                        <div class="info">
+                            <h3>Coming Up: Precalculus</h3>
+                            <p>Next week, we move into Section 2. We'll explore the geometry of functions, the power of
+                                trigonometry, and the behavior of limits. Get ready for Day 7.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Historical Context -->
+                <section class="section" id="history">
+                    <div class="section-header">
+                        <div class="section-number">Section 14</div>
+                        <h2 class="section-title">The Crisis of Foundations (1900-1930)</h2>
+                    </div>
+                    <div class="section-body">
+                        <p>Building the foundation of CS wasn't easy. It involved a massive intellectual war between the
+                            greatest minds of the 20th century.</p>
+
+                        <div class="grid-2col">
+                            <div class="card">
+                                <h3>David Hilbert</h3>
+                                <p>Wanted to prove that ALL of math was consistent, complete, and decidable. He wanted a
+                                    "Master Algorithm" for truth.</p>
+                            </div>
+                            <div class="card">
+                                <h3>Kurt Gödel</h3>
+                                <p>Destroyed Hilbert's dream with the <strong>Incompleteness Theorems</strong>. He
+                                    proved that in any sufficiently complex system, there are true statements that
+                                    cannot be proven.</p>
+                            </div>
+                        </div>
+
+                        <div class="subsection">
+                            <h3 class="subsection-title">Alan Turing & The Halting Problem</h3>
+                            <p>Turing took Gödel's logic and applied it to machines. He proved that you cannot write a
+                                program that can tell if any OTHER program will ever stop. This is why we can't have a
+                                perfect "infinite loop detector" in our compilers.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Master Exam Tips -->
+                <section class="section" id="exam-tips">
+                    <div class="section-header">
+                        <div class="section-number">Section 15</div>
+                        <h2 class="section-title">Foundation Master Exam Tips</h2>
+                    </div>
+                    <div class="section-body">
+                        <p>The exam below is the culmination of your first week. Use these high-level strategies to
+                            ensure a 100% score.</p>
+
+                        <div class="rule">
+                            <strong>The "Engineer's Rubric":</strong>
+                            <ul class="list-decimal ml-6 mt-4">
+                                <li><strong>State Your Variables:</strong> Never start a problem without defining what
+                                    $x$ or $P$ stands for.</li>
+                                <li><strong>Check Your Types:</strong> Is the output a Number, a Boolean, or a Set?
+                                    Confusing types is the #1 cause of exam failure.</li>
+                                <li><strong>Look for the Edge:</strong> In logic and functions, the "Zero" and "Null"
+                                    cases are where the most interesting things happen.</li>
+                        </div>
+                </section>
+
+                <!-- Master Review Checklist -->
+                <section class="section" id="checklist">
+                    <div class="section-header">
+                        <div class="section-number">Section 16</div>
+                        <h2 class="section-title">The "DayOne" Mastery Checklist</h2>
+                    </div>
+                    <div class="section-body">
+                        <p>Before you click "Check All" on the exam, verify you have internalized these fundamental
+                            patterns. If you can't explain these to a peer, you aren't ready for Section 2.</p>
+
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Logic & Proofs</strong>
+                                <ul class="list-disc ml-6 mt-2">
+                                    <li><strong>I understand</strong> that $P \to Q$ is ONLY false if $P$ is true and
+                                        $Q$ is false.</li>
+                                    <li><strong>I can</strong> identify the difference between a direct proof and a
+                                        proof by contradiction.</li>
+                                    <li><strong>I know</strong> how to use the "Domino Analogy" for induction.</li>
+                                </ul>
+                            </div>
+                            <div class="rule">
+                                <strong>Algebra & Functions</strong>
+                                <ul class="list-disc ml-6 mt-2">
+                                    <li><strong>I can</strong> simplify multi-variable expressions using SymPy or
+                                        manually.</li>
+                                    <li><strong>I know</strong> that a function is injective if every input has a unique
+                                        output.</li>
+                                    <li><strong>I understand</strong> that $\log_2(n)$ is the number of times you can
+                                        divide $n$ by 2.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <strong>🚀 Pro Tip:</strong>
+                            <p>Mathematics is like a language. You don't learn Spanish by reading a dictionary; you
+                                learn it by speaking. Don't just read these sections—implement the Python code and solve
+                                the quiz until you get 100%.</p>
+                        </div>
+                    </div>
+                </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Example Walkthroughs",
+                title: "Section 1 Masterclass",
                 items: [
-                    { title: "Sum of Evens Proof", channel: "MathIsPower4U", vid: "z-D6C8T5A4E" },
-                    { title: "Sqrt(2) is Irrational", channel: "The Organic Chemistry Tutor", vid: "d9M4L68u0F8" },
-                    { title: "Induction Example", channel: "TrevTutor", vid: "QJ_80WnN02Q" },
-                    { title: "Paradox: All Horses same color", channel: "Numberphile", vid: "D8VZqxcu0I0" },
-                    { title: "Recursion 'Superpower'", channel: "Computerphile", vid: "Mv9NEXX1VHc" },
-                    { title: "Towers of Hanoi (Recursion)", channel: "Numberphile", vid: "8lhxIOAfD4k" }
+                    { title: "The Map of Mathematics", channel: "Domain of Science", vid: "OmJ-4B-mS-Y" },
+                    { title: "How to Read Math", channel: "Dominic Walliman", vid: "p2A52g15R8" },
+                    { title: "Why Study Math for CS?", channel: "Computerphile", vid: "R_CdfY6uP9U" },
+                    { title: "Discrete Math for CS", channel: "Harvard University", vid: "dBn6YqYfW8w" }
+                ]
+            },
+            {
+                title: "Logic & Proof Foundations",
+                items: [
+                    { title: "Logic Gates & Truth Tables", channel: "Crash Course CS", vid: "gI-qXk7XojA" },
+                    { title: "Mathematical Induction", channel: "Eddie Woo", vid: "wblW_M_R08E" },
+                    { title: "Proof by Contradiction", channel: "3Blue1Brown", vid: "u_mC435UC38" },
+                    { title: "De Morgan's Laws", channel: "Neso Academy", vid: "K6_6sXw-1qE" }
+                ]
+            },
+            {
+                title: "Theoretical Frontiers",
+                items: [
+                    { title: "The Halting Problem", channel: "Veritasium", vid: "92WHN-pAFCs" },
+                    { title: "Lambda Calculus vs Turing", channel: "Computerphile", vid: "eis11j_iGMs" },
+                    { title: "The Art of Logarithms", channel: "3Blue1Brown", vid: "cEvgcoyzvB4" },
+                    { title: "What is a Function?", channel: "Socratica", vid: "fO026z7jWWA" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day6'], storageKey: 'day6_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day6'] || [],
+            storageKey: 'day6_v3'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

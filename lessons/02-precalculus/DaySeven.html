@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 7: Functions & Graphs — Polynomials, Rational, Piecewise</title>
+    <title>Day 7: Functions & Graphs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,55 +16,66 @@
         onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
     <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/generator-utils.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 40 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 7 · Precalculus</div>
-
-        <p class="hero-desc">The foundation of calculus and algorithm analysis. Master how functions change, from the
-            steady climb of polynomials to the sudden jumps of piecewise definitions. This is the language of Big-O.</p>
+            </svg>
+            Day 7 · Precalculus
+        </div>
+        <h1>Functions & Graphs</h1>
+        <p class="hero-desc">
+            Visualizing data is the first step to understanding it.
+            From asymptotes (memory leaks) to log scales (algorithm analysis), graphs tell the story of your code's
+            performance.
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~75 min read
+                ~95 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                9 video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -75,14 +86,19 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#polynomial" class="toc-link">1. Polynomial Functions</a></li>
-                    <li><a href="#piecewise" class="toc-link">2. Piecewise Functions</a></li>
-                    <li><a href="#rational" class="toc-link">3. Rational Functions</a></li>
-                    <li><a href="#exponential" class="toc-link">4. Exponential & Logarithmic</a></li>
-                    <li><a href="#growth" class="toc-link">5. Growth & Scale</a></li>
-                    <li><a href="#gotchas" class="toc-link">6. Common Gotchas</a></li>
-                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
+                    <li><a href="#families" class="toc-link">1. Function Families & APIs</a></li>
+                    <li><a href="#composition" class="toc-link">2. Composite Functions (Pipelines)</a></li>
+                    <li><a href="#transformations" class="toc-link">3. Visual Transformations</a></li>
+                    <li><a href="#inverses" class="toc-link">4. Inverse Functions (The Undo Button)</a></li>
+                    <li><a href="#rational" class="toc-link">5. Rational Functions (Asymptotes)</a></li>
+                    <li><a href="#piecewise" class="toc-link">6. Piecewise Functions (Switch Cases)</a></li>
+                    <li><a href="#symmetry" class="toc-link">7. Symmetry (Even vs. Odd)</a></li>
+                    <li><a href="#logscale" class="toc-link">8. Log-Log Plots (Big O Lab)</a></li>
+                    <li><a href="#python" class="toc-link">9. Python Visualization</a></li>
+                    <li><a href="#advanced" class="toc-link">10. Optimization Gaps</a></li>
+                    <li><a href="#summary" class="toc-link">11. Summary & Roadmap</a></li>
+                    <li><a href="#videos" class="toc-link">12. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">13. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -101,144 +117,338 @@
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Function Types Matter in CS</h2>
+                    <h2 class="section-title">Why Graphs Matter in CS</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        Every algorithm you write has a performance characteristic that can be described as a function.
-                        Understanding polynomials, exponentials, and logarithms is the foundation of Big-O analysis.
+                        You rarely solve specific equations in CS. Instead, you analyze "Trends".
+                        Is the memory usage linear ($y=x$) or exponential ($y=e^x$)?
+                        Does the database latency blow up at a certain load (Asymptotes)?
+                        Graphs give you the intuition for system behavior.
                     </p>
-                    <div class="rule">
-                        <strong>The Core Principle:</strong> Functions are the language of relationship. Polynomials
-                        model physics, rational functions model rates, piecewise functions model logic, and exponentials
-                        determine whether your code will finish before the heat death of the universe.
-                    </div>
                     <div class="info">
-                        <strong>☕ Simple:</strong> A function is like a coffee machine. You put in beans (input x), and
-                        it gives you coffee (output y). The "type" of function describes HOW the machine transforms
-                        beans to coffee. A polynomial is a predictable grinder. An exponential is a machine that doubles
-                        your coffee with every button press—sounds great until you're drowning in espresso!
+                        <span class="info-icon">📈</span>
+                        <strong>Analogy: The Heart Monitor</strong>
+                        <br>Looking at raw numbers (x, y coordinates) is like listening to a heartbeat once a minute.
+                        <br>Looking at the GRAPH is like seeing the EKG trace. You spot the irregularities immediately.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Function Families -->
+            <section class="section" id="families">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Function Families & APIs</h2>
+                </div>
+                <div class="section-body">
+                    <p>In CS, a function is a <strong>Map</strong>. It takes one set of values (Domain/Input) and maps
+                        them to another set (Range/Output). Think of these as typed API parameters.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Domain & Input Sanitization</h3>
+                        <p>In math, you can't divide by zero. In CS, you can't process a negative index. The
+                            <strong>Domain</strong> of your function is the set of "Safe Inputs."
+                        </p>
+                        <div class="rule">
+                            <strong>Validation Rule:</strong> Before executing $f(x)$, any robust system must verify
+                            that $x \in \text{Domain}(f)$. This prevents runtime exceptions like
+                            <code>NullPointer</code> or <code>ArithmeticException</code>.
+                        </div>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Linear ($y=mx+b$)</h3>
+                            <p><strong>Look:</strong> Constant slope.</p>
+                            <p><strong>CS:</strong> Single-pass loops. Processing an <code>Array</code>. 1:1 mapping.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Quadratic ($y=x^2$)</h3>
+                            <p><strong>Look:</strong> Curving acceleration.</p>
+                            <p><strong>CS:</strong> Nested loops. Comparison sorts (Bubble/Selection).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Exponential ($y=a^x$)</h3>
+                            <p><strong>Look:</strong> Vertical takeoff.</p>
+                            <p><strong>CS:</strong> Brute-forcing passwords. Tree depth grows. $O(2^n)$.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Logarithmic ($y=\log x$)</h3>
+                            <p><strong>Look:</strong> Rapid start, infinite slowdown.</p>
+                            <p><strong>CS:</strong> Binary search. Quicksort partitions. $O(\log n)$.</p>
+                        </div>
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">Where you'll use this</h3>
-                        <ul>
-                            <li><strong>Algorithm Analysis:</strong> O(n²) vs O(n log n) are polynomial comparisons</li>
-                            <li><strong>Graphics:</strong> Bezier curves are polynomials, color gamma is exponential
-                            </li>
-                            <li><strong>Machine Learning:</strong> Activation functions, loss landscapes</li>
-                            <li><strong>Cryptography:</strong> Discrete logarithms underpin RSA and Diffie-Hellman</li>
-                            <li><strong>Database Indexing:</strong> B-trees give O(log n) lookups</li>
-                        </ul>
+                        <h3 class="subsection-title">Python: Benchmarking Growth</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Growth Comparison</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import math
+
+def compare_growth(n):
+    return {
+        "linear": n,
+        "quadratic": n**2,
+        "logarithmic": math.log2(n) if n > 0 else 0,
+        "exponential": 2**n if n < 100 else "INF"
+    }
+
+print(f"{'N':<5} | {'Lin':<10} | {'Quad':<10} | {'Log':<10}")
+for n in [10, 20, 30]:
+    g = compare_growth(n)
+    print(f"{n:<5} | {g['linear']:<10} | {g['quadratic']:<10} | {g['logarithmic']:<10.2f}")</code></pre>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Function
-                                types determine algorithm scalability</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># These functions ALL return ~1000 for n=1000</span>
-<span class="code-comment"># But watch what happens at n=1,000,000:</span>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Glossary of Growth Trends</h3>
+                        <div class="info">
+                            <p>Use this table to translate between mathematical growth and real-world software
+                                performance.</p>
+                        </div>
+                        <table class="roadmap-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt); text-align: left;">
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Complexity</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Logic Name</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Visual Behavior</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Scaling Verdict</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">$O(1)$</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Constant</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Flat line. No change for
+                                        $N$.</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Perfect</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">$O(\log n)$</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Logarithmic</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Slow growth. Near
+                                        horizontal.</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">High Scalability</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">$O(n)$</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Linear</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Steady diagonal (45
+                                        degrees).</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Industry Standard</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">$O(n^2)$</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Quadratic</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Curving upward.
+                                        Acceleration.</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Danger Zone</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">$O(2^n)$</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Exponential</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Vertical takeoff.
+                                        Impossible N.</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Catastrophic</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
 
-<span class="code-keyword">def</span> <span class="code-function">constant</span>(n):   <span class="code-keyword">return</span> <span class="code-number">1000</span>        <span class="code-comment"># 1000</span>
-<span class="code-keyword">def</span> <span class="code-function">logarithmic</span>(n): <span class="code-keyword">return</span> math.log2(n) * <span class="code-number">100</span>  <span class="code-comment"># ~2000</span>
-<span class="code-keyword">def</span> <span class="code-function">linear</span>(n):      <span class="code-keyword">return</span> n            <span class="code-comment"># 1,000,000</span>
-<span class="code-keyword">def</span> <span class="code-function">quadratic</span>(n):   <span class="code-keyword">return</span> n ** <span class="code-number">2</span>       <span class="code-comment"># 1,000,000,000,000</span>
-<span class="code-keyword">def</span> <span class="code-function">exponential</span>(n): <span class="code-keyword">return</span> <span class="code-number">2</span> ** n       <span class="code-comment"># 10^301029 (UNIVERSE ENDS)</span>
+            <!-- Composite Functions -->
+            <section class="section" id="composition">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Composite Functions (Pipelines)</h2>
+                </div>
+                <div class="section-body">
+                    <p>Composition is the act of passing the output of one function as the input to another: $(f \circ
+                        g)(x) = f(g(x))$.</p>
 
-<span class="code-comment"># This is why we obsess over Big-O!</span></pre>
+                    <div class="info">
+                        <strong>🚀 The Pipeline Analogy:</strong>
+                        <br>In Unix, this is the <code>|</code> pipe. <code>cat file | grep "error"</code> is a
+                        composite function.
+                        <br><code>$f(g(x)) = \text{grep}( \text{cat}(x) )$</code>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">JavaScript: Functional Decorators</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">JavaScript</span><span
+                                    class="code-label">Pipe
+                                    Helper</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">const add1 = (x) => x + 1;
+const square = (x) => x * x;
+
+// Manual composition
+const f_of_g = (x) => square(add1(x));
+
+// High-order pipe
+const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);
+
+const optimized = pipe(add1, square);
+console.log(optimized(5)); // (5+1)^2 = 36</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Polynomial Functions -->
-            <section class="section" id="polynomial">
+            <!-- Transformations -->
+            <section class="section" id="transformations">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Polynomial Functions</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Visual Transformations</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition & Structure</h3>
-                        <div class="math-block">P(x) = aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀
+                    <p>Mathematical transformations are the basis for all 2D/3D graphics. Every time you scale a window
+                        or pan a map, you are applying transformations to a function $f(x)$.</p>
 
-                            where aₙ ≠ 0 and n is a non-negative integer (the degree)</div>
-                        <div class="info">
-                            <strong>🏗️ Simple:</strong> A polynomial is like building a LEGO tower. Each term (like
-                            3x²)
-                            is a block. The "degree" is the height of your tallest tower. Just like taller towers
-                            dominate the skyline, higher-degree terms dominate when x gets big.
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Key Properties</h3>
-                        <ul>
-                            <li><strong>Degree:</strong> The highest power determines end behavior and max roots</li>
-                            <li><strong>Roots:</strong> A degree-n polynomial has at most n real roots</li>
-                            <li><strong>Continuity:</strong> Polynomials are smooth everywhere (no holes or jumps)</li>
-                            <li><strong>End behavior:</strong> Even degree = both ends same direction; Odd degree =
-                                opposite</li>
-                        </ul>
-                    </div>
-
-                    <div class="two-col">
-                        <div class="math-block">
-                            <strong>Even Degree (x², x⁴)</strong>
-                            Both ends go same way
-                            Positive lead coeff → both up ↗↗
-                            Negative lead coeff → both down ↘↘
-                        </div>
-                        <div class="math-block">
-                            <strong>Odd Degree (x, x³, x⁵)</strong>
-                            Ends go opposite ways
-                            Positive lead → down-left, up-right ↙↗
-                            Negative lead → up-left, down-right ↖↘
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">The "Power Level" Rule</h3>
+                    <div class="grid-2col">
                         <div class="rule">
-                            <strong>Dominance Law:</strong> As x → ∞, the highest-degree term dominates completely.
-                            All other terms become noise.
+                            <strong>The Transformation Sheet:</strong>
+                            <br>• $f(x) + k$: <strong>Vertical Shift</strong> (Lift/Drop).
+                            <br>• $f(x - h)$: <strong>Horizontal Shift</strong> (Lag/Lead).
+                            <br>• $a \cdot f(x)$: <strong>Vertical Stretch</strong> (Amplitude).
+                            <br>• $f(b \cdot x)$: <strong>Horizontal Squeeze</strong> (Frequency).
                         </div>
-                        <div class="math-block">f(x) = 5x³ + 1000x² + 999999x + 10000000
-
-                            For large x: f(x) ≈ 5x³
-
-                            At x = 1000: 5x³ = 5,000,000,000
-                            1000x² = 1,000,000,000
-                            The x³ term is 5× bigger!</div>
                         <div class="info">
-                            <strong>🚀 Simple:</strong> In a race to infinity, a Degree-3 rocket ALWAYS beats a Degree-2
-                            rocket, no matter how much fuel the Degree-2 starts with. This is why O(n³) algorithms
-                            will eventually be beaten by O(n²) algorithms, given enough data.
+                            <span class="info-icon">🎚️</span>
+                            <strong>Analogy: The Soundboard</strong>
+                            <br>Think of a sine wave (sound).
+                            <br>• Shift Up = DC Offset.
+                            <br>• Shift Left = Phase Delay.
+                            <br>• Vertical Stretch = Volume (Amplitude).
+                            <br>• Horizontal Squeeze = Pitch (Frequency).
                         </div>
                     </div>
 
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span
-                                class="code-label">Polynomial evaluation using NumPy</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Transform Visualizer</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Shifting
+                                    x^2</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="code-comment"># Coefficients for 3x³ - 2x² + 5x - 7</span>
-coeffs = [<span class="code-number">3</span>, -<span class="code-number">2</span>, <span class="code-number">5</span>, -<span class="code-number">7</span>]  <span class="code-comment"># highest degree first</span>
+x = np.linspace(-5, 5, 100)
+f_x = x**2
 
-<span class="code-comment"># Create polynomial object</span>
-p = np.poly1d(coeffs)
+# Transformed: g(x) = 2(x-2)^2 + 3
+g_x = 2 * (x - 2)**2 + 3
 
-<span class="code-comment"># Evaluate at x = 2</span>
-<span class="code-function">print</span>(p(<span class="code-number">2</span>))  <span class="code-comment"># 3(8) - 2(4) + 5(2) - 7 = 24 - 8 + 10 - 7 = 19</span>
+plt.figure(figsize=(8, 4))
+plt.plot(x, f_x, '--', label="Original f(x)=x^2")
+plt.plot(x, g_x, label="Transformed g(x)=2x(x-2)^2+3")
+plt.grid(True)
+plt.legend()
+plt.title("Visualizing Transformations")
+plt.show()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-<span class="code-comment"># Find roots (where p(x) = 0)</span>
-roots = np.roots(coeffs)
-<span class="code-function">print</span>(<span class="code-string">"Roots:"</span>, roots)
+            <!-- Inverse Functions -->
+            <section class="section" id="inverses">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Inverse Functions (The Undo Button)</h2>
+                </div>
+                <div class="section-body">
+                    <p>An inverse function $f^{-1}(x)$ undoes the action of $f(x)$. If $f$ maps $x \to y$, then $f^{-1}$
+                        maps $y \to x$.</p>
 
-<span class="code-comment"># Polynomial arithmetic</span>
-q = np.poly1d([<span class="code-number">1</span>, <span class="code-number">2</span>])  <span class="code-comment"># x + 2</span>
-<span class="code-function">print</span>(<span class="code-string">"p * q ="</span>, p * q)  <span class="code-comment"># Multiply polynomials</span></pre>
+                    <div class="info">
+                        <strong>🔑 Security & Cryptography:</strong>
+                        <br>Encryption is a function $f(\text{plain}) = \text{cipher}$.
+                        <br>Decryption is exactly the <strong>Inverse function</strong> $f^{-1}(\text{cipher}) =
+                        \text{plain}$.
+                        <br>In CS, we look for "One-Way Functions": easy to compute, but impossible to find the inverse.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Symbolic Inverses</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span class="code-label">SymPy
+                                    Solver</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">from sympy import symbols, solve
+
+x, y = symbols('x y')
+# Define f(x) = 2x + 5
+f_expr = 2*x + 5
+
+# Set y = f(x) and solve for x to find inverse function g(y)
+inv = solve(y - f_expr, x)[0]
+print(f"Inverse function is: {inv}") # (y - 5)/2</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rational Functions -->
+            <section class="section" id="rational">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Rational Functions & Asymptotes</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        A Rational Function is a ratio of polynomials: $f(x) = \frac{P(x)}{Q(x)}$.
+                        Interesting things happen when $Q(x) = 0$.
+                    </p>
+                    <div class="warning">
+                        <strong>Vertical Asymptote (The Wall):</strong>
+                        <br>When the denominator hits zero, the value shoots to $\infty$.
+                        <br><strong>CS Context:</strong> This is a crash. Division by zero. Infinite loop. Memory
+                        exhaustion.
+                    </div>
+
+                    <div class="info">
+                        <strong>Horizontal Asymptote (The Limit):</strong>
+                        <br>As $x \to \infty$, what does the function do?
+                        <br>If degree(P) < degree(Q), it goes to 0. <br>If degree(P) == degree(Q), it goes to ratio of
+                            coefficients.
+                            <br><strong>CS Context:</strong> Steady state. Max throughput of a server.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Handling Discontinuities</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Masking
+                                    Asymptotes</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-5, 5, 400)
+y = 1 / (x - 2)
+
+# Mask the large values near the asymptote for a cleaner plot
+y[np.abs(y) > 10] = np.nan
+
+plt.plot(x, y)
+plt.axvline(x=2, color='r', linestyle='--', label="Vertical Asymptote")
+plt.axhline(y=0, color='g', linestyle='--', label="Horizontal Asymptote")
+plt.title("Rational Function: 1 / (x-2)")
+plt.legend()
+plt.show()</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,335 +457,282 @@ q = np.poly1d([<span class="code-number">1</span>, <span class="code-number">2</
             <!-- Piecewise Functions -->
             <section class="section" id="piecewise">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Piecewise Functions</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Piecewise Functions (Switch Cases)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The "If/Else" of Math</h3>
-                        <p>A piecewise function uses different formulas for different parts of the domain. This is
-                            literally the mathematical version of if/else statements!</p>
-                        <div class="math-block">f(x) = { x² if x < 0 { x + 1 if x ≥ 0</div>
-                                <div class="info">
-                                    <strong>🍽️ Simple:</strong> A piecewise function is like a restaurant menu. Order
-                                    appetizers
-                                    (x < $10)? Small plates. Order entrees ($10 ≤ x < $30)? Main dishes. Order premium
-                                        (x ≥ $30)? Chef's table. Different rules for different ranges! </div>
-                                </div>
+                    <p>A Piecewise function uses different formulas for different parts of its domain. This is the
+                        mathematical version of an <code>if/else</code> or <code>switch/case</code> block.</p>
 
-                                <div class="subsection">
-                                    <h3 class="subsection-title">Key Piecewise Functions in CS</h3>
-                                    <div class="two-col">
-                                        <div class="math-block">
-                                            <strong>Absolute Value</strong>
-                                            |x| = { -x if x < 0 { x if x ≥ 0 </div>
-                                                <div class="math-block">
-                                                    <strong>ReLU (ML Activation)</strong>
-                                                    ReLU(x) = { 0 if x < 0 { x if x ≥ 0=max(0, x) </div>
-                                                </div>
-                                                <div class="info">
-                                                    <strong>🧠 CS Connection:</strong> ReLU (Rectified Linear Unit) is
-                                                    THE most important
-                                                    piecewise function in deep learning. It's simple but
-                                                    revolutionary—it lets neural
-                                                    networks learn non-linear patterns while being computationally
-                                                    cheap.
-                                                </div>
-                                        </div>
+                    <div class="rule">
+                        <strong>The Absolute Value Function:</strong>
+                        <br>$|x| = \begin{cases} x & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{cases}$ </div>
 
+                            <div class="info">
+                                <strong>🎮 Game Dev Context:</strong>
+                                <br>Collision detection or AI state machines often use piecewise functions.
+                                If distance < 10, "Attack" ; else if distance < 50, "Follow" ; else "Idle" . </div>
+
+                                    <div class="subsection">
+                                        <h3 class="subsection-title">Python: Plotting Piecewise Logic</h3>
                                         <div class="code-block">
                                             <div class="code-header"><span class="code-lang">Python</span><span
-                                                    class="code-label">Piecewise functions in code</span></div>
+                                                    class="code-label">np.select</span></div>
                                             <div class="code-content">
-                                                <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+                                                <pre><code class="language-python">x = np.linspace(-10, 10, 100)
 
-<span class="code-comment"># Method 1: Simple if/else</span>
-<span class="code-keyword">def</span> <span class="code-function">piecewise_simple</span>(x):
-    <span class="code-keyword">if</span> x < <span class="code-number">0</span>:
-        <span class="code-keyword">return</span> x ** <span class="code-number">2</span>
-    <span class="code-keyword">else</span>:
-        <span class="code-keyword">return</span> x + <span class="code-number">1</span>
+# Functional logic: f(x) = x^2 if x < 0, else 2x
+conditions = [x < 0, x >= 0]
+functions = [lambda x: x**2, lambda x: 2*x]
+y = np.piecewise(x, conditions, functions)
 
-<span class="code-comment"># Method 2: NumPy piecewise (vectorized)</span>
-<span class="code-keyword">def</span> <span class="code-function">piecewise_vectorized</span>(x):
-    <span class="code-keyword">return</span> np.piecewise(
-        x,
-        [x < <span class="code-number">0</span>, x >= <span class="code-number">0</span>],
-        [<span class="code-keyword">lambda</span> x: x**<span class="code-number">2</span>, <span class="code-keyword">lambda</span> x: x + <span class="code-number">1</span>]
-    )
-
-<span class="code-comment"># ReLU - the foundation of modern AI</span>
-<span class="code-keyword">def</span> <span class="code-function">relu</span>(x):
-    <span class="code-keyword">return</span> np.maximum(<span class="code-number">0</span>, x)
-
-<span class="code-comment"># Step function (Heaviside)</span>
-<span class="code-keyword">def</span> <span class="code-function">step</span>(x):
-    <span class="code-keyword">return</span> np.where(x >= <span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">0</span>)</pre>
+plt.plot(x, y)
+plt.title("Piecewise Function Visualization")
+plt.show()</code></pre>
                                             </div>
                                         </div>
-
-                                        <div class="subsection">
-                                            <h3 class="subsection-title">Continuity at Boundaries</h3>
-                                            <div class="warning">
-                                                <strong>Watch the Jumps:</strong> Piecewise functions can be
-                                                discontinuous at their
-                                                boundary points. Check if the left and right limits match!
-                                            </div>
-                                            <div class="math-block">f(x) = { x² if x < 2 { 3x - 2 if x ≥ 2 At x=2: Left
-                                                    limit: lim(x→2⁻) x²=4 Right limit: lim(x→2⁺) 3x-2=4 f(2)=3(2) - 2=4
-                                                    All three match → Continuous at x=2 ✓</div>
-                                            </div>
-                                        </div>
+                                    </div>
+                            </div>
             </section>
 
-            <!-- Rational Functions -->
-            <section class="section" id="rational">
+            <!-- Symmetry -->
+            <section class="section" id="symmetry">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Rational Functions</h2>
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Symmetry (Even vs. Odd)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">R(x) = P(x) / Q(x)
+                    <p>Recognizing symmetry allows engineers to cut computation time in half. If a function is
+                        symmetric, you only need to calculate half the values!</p>
 
-                            A ratio of two polynomials where Q(x) ≠ 0</div>
-                        <div class="info">
-                            <strong>🚧 Simple:</strong> A rational function is like a road with invisible fences.
-                            The denominator creates "no-go zones" where division by zero would occur. The graph
-                            gets infinitely close to these fences but never crosses them—these are asymptotes!
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Even Functions</h3>
+                            <p><strong>Rule:</strong> $f(x) = f(-x)$</p>
+                            <p><strong>Look:</strong> Reflection across Y-axis.</p>
+                            <p><strong>Example:</strong> $x^2$, $\cos(x)$.</p>
                         </div>
+                        <div class="card">
+                            <h3>Odd Functions</h3>
+                            <p><strong>Rule:</strong> $f(-x) = -f(x)$</p>
+                            <p><strong>Look:</strong> 180° Rotation about Origin.</p>
+                            <p><strong>Example:</strong> $x^3$, $\sin(x)$.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>⚡ Optimization:</strong>
+                        <br>In Signal Processing (DSP), knowing the symmetry of a signal helps optimize the **Fourier
+                        Transform**. Calculating only half the points reduces CPU cycles by 50%.
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">Types of Asymptotes</h3>
-                        <div class="rule">
-                            <strong>Vertical Asymptotes:</strong> Occur at x-values where denominator = 0 (and
-                            numerator ≠ 0). The graph shoots to ±∞.
-                        </div>
-                        <div class="rule">
-                            <strong>Horizontal Asymptotes:</strong> The y-value the function approaches as x → ±∞.
-                            Compare degrees of numerator and denominator.
-                        </div>
-                        <div class="math-block">For R(x) = P(x)/Q(x):
+                        <h3 class="subsection-title">Python: Symmetry Checker</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Automated
+                                    Check</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">def check_symmetry(func, range_x=10):
+    for x in range(1, range_x):
+        if func(x) != func(-x):
+            break
+    else:
+        return "Even"
+        
+    for x in range(1, range_x):
+        if func(-x) != -func(x):
+            break
+    else:
+        return "Odd"
+        
+    return "Neither"
 
-                            deg(P) < deg(Q): H.A. at y=0 deg(P)=deg(Q): H.A. at y=(lead coeff of P)/(lead coeff of Q)
-                                deg(P)> deg(Q): No H.A. (oblique/slant asymptote instead)</div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Holes vs Asymptotes</h3>
-                        <div class="info">
-                            <strong>🕳️ Simple:</strong> When both numerator and denominator are zero at the same
-                            x-value, you get a "hole" (removable discontinuity), not an asymptote. It's like
-                            a pothole in the road—you could fill it in, but someone left it empty.
-                        </div>
-                        <div class="math-block">f(x) = (x² - 4) / (x - 2) = (x+2)(x-2) / (x-2) = x + 2
-
-                            But only for x ≠ 2!
-                            At x = 2, there's a HOLE at point (2, 4)</div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Finding
-                                asymptotes programmatically</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">from</span> sympy <span class="code-keyword">import</span> symbols, Rational, limit, oo, solve, denom
-
-x = symbols(<span class="code-string">'x'</span>)
-
-<span class="code-comment"># Define rational function: (2x² + 3x - 5) / (x² - 4)</span>
-f = (<span class="code-number">2</span>*x**<span class="code-number">2</span> + <span class="code-number">3</span>*x - <span class="code-number">5</span>) / (x**<span class="code-number">2</span> - <span class="code-number">4</span>)
-
-<span class="code-comment"># Find vertical asymptotes (where denominator = 0)</span>
-vertical = solve(denom(f), x)
-<span class="code-function">print</span>(<span class="code-string">"Vertical asymptotes at x ="</span>, vertical)  <span class="code-comment"># [-2, 2]</span>
-
-<span class="code-comment"># Find horizontal asymptote (limit as x → ∞)</span>
-h_asymptote = limit(f, x, oo)
-<span class="code-function">print</span>(<span class="code-string">"Horizontal asymptote at y ="</span>, h_asymptote)  <span class="code-comment"># 2</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Exponential & Logarithmic -->
-            <section class="section" id="exponential">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Exponential & Logarithmic Functions</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Exponential Functions</h3>
-                        <div class="math-block">f(x) = bˣ where b > 0 and b ≠ 1
-
-                            Common bases:
-                            • e ≈ 2.718 (natural exponential - growth/decay)
-                            • 2 (binary - CS applications)
-                            • 10 (scientific notation)</div>
-                        <div class="info">
-                            <strong>📈 Simple:</strong> Exponential growth is like a rumor spreading. Day 1: you
-                            tell 2 friends. Day 2: they each tell 2 friends (4 total). Day 3: 8. Day 10: 1024.
-                            Day 30: over a billion! This is why viruses spread so fast—and why O(2ⁿ) algorithms
-                            are almost always impractical.
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Logarithmic Functions</h3>
-                        <div class="rule">
-                            <strong>Key Insight:</strong> Logarithms are the INVERSE of exponentials.
-                            If bˣ = y, then logᵦ(y) = x
-                        </div>
-                        <div class="math-block">Logarithm Laws:
-                            log(xy) = log(x) + log(y) (product → sum)
-                            log(x/y) = log(x) - log(y) (quotient → difference)
-                            log(xⁿ) = n·log(x) (power → multiply)</div>
-                        <div class="info">
-                            <strong>🌲 Simple:</strong> If exponentials are about "how big does it get?",
-                            logarithms answer "how many times did we split?" log₂(1024) = 10 because you
-                            need to halve 1024 exactly 10 times to get to 1. This is why binary search
-                            is O(log n)—each step cuts the problem in half!
-                        </div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span
-                                class="code-label">Logarithms in algorithm analysis</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
-
-<span class="code-comment"># How many binary search steps for n elements?</span>
-<span class="code-keyword">def</span> <span class="code-function">binary_search_steps</span>(n):
-    <span class="code-keyword">return</span> math.ceil(math.log2(n))
-
-<span class="code-function">print</span>(<span class="code-string">"1000 elements:"</span>, binary_search_steps(<span class="code-number">1000</span>))     <span class="code-comment"># 10 steps</span>
-<span class="code-function">print</span>(<span class="code-string">"1,000,000 elements:"</span>, binary_search_steps(<span class="code-number">1_000_000</span>))  <span class="code-comment"># 20 steps!</span>
-
-<span class="code-comment"># Double the data, add ONE step. That's the power of O(log n).</span>
-
-<span class="code-comment"># Different bases in CS:</span>
-n = <span class="code-number">1024</span>
-<span class="code-function">print</span>(<span class="code-string">"log₂(1024) ="</span>, math.log2(n))    <span class="code-comment"># 10 (binary trees)</span>
-<span class="code-function">print</span>(<span class="code-string">"log₁₀(1024) ="</span>, math.log10(n))  <span class="code-comment"># ~3 (orders of magnitude)</span>
-<span class="code-function">print</span>(<span class="code-string">"ln(1024) ="</span>, math.log(n))       <span class="code-comment"># ~6.9 (natural, for calculus)</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Growth & Scale -->
-            <section class="section" id="growth">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Growth & Scale (The CS Connection)</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The Growth Hierarchy</h3>
-                        <div class="rule">
-                            <strong>The Golden Order:</strong> For large n:
-                            1 < log n < √n < n < n log n < n² < n³ < 2ⁿ < n! < nⁿ </div>
-                                <table>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Big-O</th>
-                                        <th>n=10</th>
-                                        <th>n=100</th>
-                                        <th>n=1000</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Constant</td>
-                                        <td>O(1)</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Logarithmic</td>
-                                        <td>O(log n)</td>
-                                        <td>3</td>
-                                        <td>7</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Linear</td>
-                                        <td>O(n)</td>
-                                        <td>10</td>
-                                        <td>100</td>
-                                        <td>1000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Linearithmic</td>
-                                        <td>O(n log n)</td>
-                                        <td>30</td>
-                                        <td>700</td>
-                                        <td>10000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quadratic</td>
-                                        <td>O(n²)</td>
-                                        <td>100</td>
-                                        <td>10000</td>
-                                        <td>1000000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Exponential</td>
-                                        <td>O(2ⁿ)</td>
-                                        <td>1024</td>
-                                        <td>10³⁰</td>
-                                        <td>10³⁰¹</td>
-                                    </tr>
-                                </table>
-                                <div class="warning">
-                                    <strong>The Wall:</strong> Anything O(2ⁿ) or worse is generally intractable for
-                                    n > 30-50. This is the boundary between "solvable" and "universe ends first."
-                                </div>
-                        </div>
-
-                        <div class="subsection">
-                            <h3 class="subsection-title">Real-World Algorithm Examples</h3>
-                            <div class="info">
-                                <strong>📊 Growth Mapping:</strong>
-                                <ul>
-                                    <li>O(1): Hash table lookup, array indexing</li>
-                                    <li>O(log n): Binary search, balanced BST operations</li>
-                                    <li>O(n): Linear search, single loop over data</li>
-                                    <li>O(n log n): Merge sort, heap sort, FFT</li>
-                                    <li>O(n²): Bubble sort, nested loops</li>
-                                    <li>O(2ⁿ): Naive recursive Fibonacci, brute-force subsets</li>
-                                </ul>
+# Test it
+print(f"x^2 is: {check_symmetry(lambda x: x**2)}")
+print(f"x^3 is: {check_symmetry(lambda x: x**3)}")</code></pre>
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
 
-            <!-- Common Gotchas -->
-            <section class="section" id="gotchas">
+            <!-- Log Plots -->
+            <section class="section" id="logscale">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Common Gotchas</h2>
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Log-Log Plots</h2>
                 </div>
                 <div class="section-body">
-                    <div class="warning"><strong>1. Degree ≠ Coefficient</strong><br>3x² has degree 2, not 3. The
-                        degree is the exponent, not the multiplier.</div>
-                    <div class="warning"><strong>2. Logarithm of Zero/Negative</strong><br>log(0) and log(-5) are
-                        undefined in real numbers. Always check domain!</div>
-                    <div class="warning"><strong>3. Asymptote ≠ Never Cross</strong><br>Horizontal asymptotes CAN
-                        be crossed by the function; vertical asymptotes cannot.</div>
-                    <div class="warning"><strong>4. Base Matters for Logs</strong><br>log₂(8) = 3, but log₁₀(8) ≈ 0.9.
-                        The base changes the answer completely!</div>
-                    <div class="warning"><strong>5. n² vs 2ⁿ</strong><br>These look similar but are DRAMATICALLY
-                        different. n² = 100 for n=10; 2ⁿ = 1024 for n=10. At n=20: n²=400, 2ⁿ=1,048,576!</div>
+                    <p>
+                        When data spans orders of magnitude (like $10$ requests vs $1,000,000$ requests), linear plots
+                        are useless.
+                        Everything looks like zero except the last point.
+                    </p>
+                    <div class="rule">
+                        <strong>The Power of Log-Log:</strong>
+                        <br>On a log-log plot (taking log of both axes), <strong>Power Laws become Straight
+                            Lines</strong>.
+                        <br>If $y = x^2$, then $\log y = \log(x^2) = 2 \log x$.
+                        <br>This is a line with slope 2!
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🕵️</span>
+                        <strong>Big O Detective:</strong>
+                        <br>Run your algorithm for N=10, 100, 1000.
+                        <br>Plot Time vs N on Log-Log paper.
+                        <br>Step 3: Measure the slope.
+                        <br>• Slope 1 → O(n)
+                        <br>• Slope 2 → O(n²)
+                        <br>• Slope 0 → O(1)
+                    </div>
                 </div>
             </section>
 
-            <!-- Video Lessons -->
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Visualizing in Python (The Lab)</h2>
+                </div>
+                <div class="section-body">
+                    <p>Using `matplotlib` to see the invisible.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Log-Log Plotting</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Simulate input sizes N
+N = np.array([10, 100, 1000, 10000, 100000])
+
+# Algorithms
+t_linear = N * 0.001           # O(n)
+t_quad = (N ** 2) * 0.000001   # O(n^2)
+
+# Create Log-Log plot
+plt.figure(figsize=(10, 6))
+plt.loglog(N, t_linear, label='Linear O(n)', marker='o')
+plt.loglog(N, t_quad, label='Quadratic O(n^2)', marker='x')
+
+plt.grid(True, which="both", ls="-")
+plt.xlabel('Input Size (N)')
+plt.ylabel('Time (seconds)')
+plt.title('Algorithm Complexity on Log-Log Scale')
+plt.legend()
+plt.show()
+
+# Observe: The "curve" of n^2 becomes a straight line with steeper slope!
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Optimization Gaps -->
+            <section class="section" id="advanced">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Optimization Gaps</h2>
+                </div>
+                <div class="section-body">
+                    <p>In high-performance computing, we often care about how functions behave in the gaps—where data is
+                        sparse or precision is critical.</p>
+
+                    <div class="warning">
+                        <strong>Floating Point Precision:</strong>
+                        <br>Graphs look smooth, but computers are discrete. For extremely large or small values,
+                        functions like $e^x$ can suffer from "Underflow" or "Overflow".
+                        <br><strong>Solution:</strong> Use Log-space calculations to keep numbers manageable.
+                    </div>
+
+                    <div class="info">
+                        <strong>The "Hot Spot" Rule:</strong>
+                        <br>If a function has a steep slope (high derivative), your sampling density must increase in
+                        that region to avoid aliasing in graphics or numerical errors in physics engines.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Summary & Mastery Checklist</h2>
+                </div>
+                <div class="section-body">
+                    <p>Functions and graphs are the "sensors" of your code. They tell you when the system is healthy and
+                        when it's about to red-line.</p>
+
+                    <div class="rule">
+                        <strong>The "DayOne" Mastery Checklist:</strong>
+                        <br>• [ ] I can identify Big O trends (Lin, Quad, Exp, Log) on a graph.
+                        <br>• [ ] I can explain why log-log plots are necessary for high-scale data.
+                        <br>• [ ] I can perform basic shifts (up/down/left/right) on parent functions.
+                        <br>• [ ] I can find vertical asymptotes by inspecting where the denominator is zero.
+                        <br>• [ ] I understand that Inverses are the mathematical "Undo" or "Decrypt" key.
+                        <br>• [ ] I can identify Piecewise functions as mathematical if/else blocks.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Strategic Roadmap</h3>
+                        <div class="info">
+                            <p>Here is how the concepts you learned today apply to your career as an engineer:</p>
+                        </div>
+                        <table class="roadmap-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt); text-align: left;">
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Concept</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">CS Analogy</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">Industrial Use</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Composition</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Unix Pipeline</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Functional Programming /
+                                        Data Processing</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Asymptotes</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Brick Wall</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Resource Exhaustion /
+                                        Memory Leaks</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Transformations</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">CSS Scaling</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Game Graphics / UI
+                                        Responsiveness</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Inverses</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Decryption</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border);">Cryptography /
+                                        Reversible Logic</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info">
+                        <strong>Next Up:</strong> Day 8: Trigonometry. We'll explore the math of **Rotations** and
+                        **Waves**.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 12</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -592,14 +749,13 @@ n = <span class="code-number">1024</span>
                 </div>
             </section>
 
-            <!-- Practice Problems -->
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 8</div>
+                    <div class="section-number">Section 13</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <p>Test your understanding of function types and their growth characteristics.</p>
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -611,32 +767,45 @@ n = <span class="code-number">1024</span>
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Precalculus",
+                title: "Core Concepts",
                 items: [
-                    { title: "Polynomial Functions", channel: "Organic Chemistry Tutor", vid: "MTvP7S-u_yI" },
-                    { title: "Piecewise Functions", channel: "Organic Chemistry Tutor", vid: "Ufw28_vscBY" },
-                    { title: "Rational Functions & Asymptotes", channel: "Organic Chemistry Tutor", vid: "q7R_6mC8L98" },
-                    { title: "Exponential Functions Intro", channel: "The Math Sorcerer", vid: "8m_S6_C_yL0" },
-                    { title: "Logarithmic Functions Intro", channel: "Brian McLogan", vid: "Z5m6v5T8b6U" }
+                    { title: "Transformation of Functions", channel: "Professor Leonard", vid: "E-nQygpBcd4" },
+                    { title: "Domain and Range", channel: "Organic Chemistry Tutor", vid: "Ky0q39Y2rFw" },
+                    { title: "Graphing Piecewise Functions", channel: "Brian McLogan", vid: "S1zM6S7g300" },
+                    { title: "Inverse Functions Introduction", channel: "Mario's Math Tutoring", vid: "ukpHe9m93Ww" }
                 ]
             },
             {
-                title: "Growth & CS Complexity",
+                title: "Advanced Visualization",
                 items: [
-                    { title: "Polynomial vs Exponential", channel: "Simplilearn", vid: "S2m_Mt8e_XQ" },
-                    { title: "Big O Notation Explained", channel: "Michael Sambol", vid: "V6mKVRU1evU" },
-                    { title: "Scaling Laws of Computing", channel: "Computerphile", vid: "6Uat_3X6Uf4" },
-                    { title: "Algorithmic Growth Rates", channel: "MIT OCW", vid: "NHuS-V76_YI" }
+                    { title: "Logarithms and Scales", channel: "Vihart", vid: "N-7tcTIrers" },
+                    { title: "Understanding Log-Log Plots", channel: "Khan Academy", vid: "sbnj0c5a2KA" },
+                    { title: "Rational Functions & Asymptotes", channel: "Brian McLogan", vid: "qJ-tX1X7gXQ" },
+                    { title: "Composite Functions Explained", channel: "Organic Chemistry Tutor", vid: "zbeH_F7T20U" }
+                ]
+            },
+            {
+                title: "CS Applications",
+                items: [
+                    { title: "Matplotlib Crash Course", channel: "Programming with Mosh", vid: "6Glow_MvS8Y" },
+                    { title: "Big O Analysis & Data Density", channel: "Gaurav Sen", vid: "V_9B_2sM3d8" },
+                    { title: "Symmetry in Signal Processing", channel: "DSP Guru", vid: "9J8r6R7pB00" },
+                    { title: "How Computers View Graphs", channel: "Computerphile", vid: "fNoNfSmiAkw" }
                 ]
             }
         ];
+
         initLesson({
-            videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day7'], storageKey: 'day7_v2'
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day7'] || [],
+            storageKey: 'day7_v2'
         });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

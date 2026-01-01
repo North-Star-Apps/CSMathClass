@@ -4,13 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 98: Flashcard Review</title>
+    <title>Day 98: Meta-Learning & Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/exam-logic.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
@@ -28,7 +34,7 @@
             height: 300px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.6s;
+            transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
             cursor: pointer;
             box-shadow: var(--shadow-md);
         }
@@ -57,6 +63,7 @@
         .card-back {
             background: var(--surface-alt);
             transform: rotateY(180deg);
+            border: 1px solid var(--accent);
         }
 
         .card-topic {
@@ -65,18 +72,21 @@
             letter-spacing: 0.05em;
             color: var(--text-muted);
             margin-bottom: 16px;
+            font-family: var(--font-mono);
         }
 
         .card-content {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
             line-height: 1.5;
+            color: var(--text);
         }
 
         .card-hint {
             font-size: 13px;
             color: var(--text-muted);
             margin-top: 24px;
+            opacity: 0.7;
         }
 
         .controls {
@@ -90,15 +100,28 @@
             max-width: 600px;
             margin: 0 auto 40px;
             text-align: center;
+            padding: 24px;
+            background: var(--surface-alt);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
         }
 
         select {
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
             background: var(--surface);
             color: var(--text);
             font-size: 16px;
+            margin-right: 8px;
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            select {
+                margin-bottom: 8px;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -106,7 +129,12 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">Back to Curriculum</a>
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
             <div class="nav-progress">Day 98</div>
             <button class="theme-toggle" id="themeToggle"></button>
         </div>
@@ -119,28 +147,31 @@
             </svg>
             Day 98 · Final Review
         </div>
-        <h1>Flashcard Review</h1>
-        <p class="hero-desc">Spaced repetition is key to mastery. Select a section to review randomized concepts.</p>
+        <h1>Meta-Learning & Flashcards</h1>
+        <p class="hero-desc">
+            Learning isn't just about reading; it's about retrieving. Understanding the science of memory (Spaced
+            Repetition, Active Recall) and implementing it in code (Anki's Algorithm).
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~60 min review
+                ~45 min read + Review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                2,500+ total questions
+                Unlimited Practice
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Spaced Repetition
+                6 video lessons
             </div>
         </div>
     </header>
@@ -150,97 +181,286 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#review" class="toc-link active">1. Flashcards</a></li>
-                    <li><a href="#mindset" class="toc-link">2. Review Mindset</a></li>
-                    <li><a href="#cs" class="toc-link">3. Why This Matters in CS</a></li>
+                    <li><a href="#app" class="toc-link">1. Flashcard App</a></li>
+                    <li><a href="#active-recall" class="toc-link">2. Active Recall</a></li>
+                    <li><a href="#forgetting-curve" class="toc-link">3. Forgetting Curve</a></li>
+                    <li><a href="#algorithm" class="toc-link">4. The Algorithm (SM-2)</a></li>
+                    <li><a href="#interleaving" class="toc-link">5. Interleaving</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
                 <div class="toc-title">Session Stats</div>
-                <div class="stats-row"><span class="stats-label">Reviewed</span><span class="stats-value"
+                <div class="stats-row"><span class="stats-label">Cards Reviewed</span><span class="stats-value"
                         id="statReviewed">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
             </div>
         </aside>
 
         <main class="content">
-            <div class="section-select" id="review">
-                <select id="sectionSelect">
-                    <option value="">Select a Section...</option>
-                </select>
-                <button class="btn btn-primary" id="btnStart" style="margin-left: 8px;">Start Review</button>
-            </div>
-
-            <div id="gameArea" style="display:none;">
-                <div class="flashcard-container">
-                    <div class="flashcard" id="flashcard">
-                        <div class="card-face card-front">
-                            <div class="card-topic" id="cardTopic">Topic</div>
-                            <div class="card-content" id="cardFront">Question?</div>
-                            <div class="card-hint">Click to flip</div>
-                        </div>
-                        <div class="card-face card-back">
-                            <div class="card-topic">Answer</div>
-                            <div class="card-content" id="cardBack">Answer!</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <button class="btn" id="btnPrev">Previous</button>
-                    <button class="btn btn-primary" id="btnNext">Next Card</button>
-                </div>
-                <p style="text-align: center; margin-top: 16px; color: var(--text-muted);" id="counter">0 / 0</p>
-            </div>
-
-            <!-- Mindset -->
-            <section class="section" id="mindset">
+            <!-- App -->
+            <section class="section" id="app">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Review Mindset</h2>
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Flashcard App</h2>
                 </div>
                 <div class="section-body">
-                    <p>The final days are for <strong>refinement</strong>. You have the knowledge; now you must ensure
-                        it can be retrieved instantly under pressure.</p>
-
-                    <div class="info">
-                        <span class="info-icon">⚔️</span>
-                        <div>
-                            <strong>The Refining the Sword Analogy:</strong> For 97 days, you have been forging the
-                            blade. You've hammered the steel (the math) and tempered it (the code). Day 98 is the
-                            **final polishing**. A dull sword can still cut, but a sharp one cuts with zero resistance.
-                            You want the math to feel like it's "at your fingertips."
-                        </div>
+                    <p>Select a section to review concepts from that specific module, or randomize everything.</p>
+                    <div class="section-select">
+                        <select id="sectionSelect">
+                            <option value="">Choose a Topic...</option>
+                        </select>
+                        <button class="btn btn-primary" id="btnStart">Start Session</button>
                     </div>
 
+                    <div id="gameArea" style="display:none;">
+                        <div class="flashcard-container">
+                            <div class="flashcard" id="flashcard">
+                                <div class="card-face card-front">
+                                    <div class="card-topic" id="cardTopic">Topic</div>
+                                    <div class="card-content" id="cardFront">Question?</div>
+                                    <div class="card-hint">Click or Press Space to Flip</div>
+                                </div>
+                                <div class="card-face card-back">
+                                    <div class="card-topic">Answer</div>
+                                    <div class="card-content" id="cardBack">Answer!</div>
+                                    <div class="card-hint">Use Arrow Keys (← Prev, → Next)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="controls">
+                            <button class="btn" id="btnPrev">Previous</button>
+                            <button class="btn btn-primary" id="btnNext">Next Card</button>
+                        </div>
+                        <p style="text-align: center; margin-top: 16px; color: var(--text-muted);" id="counter">0 / 0
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Recall -->
+            <section class="section" id="active-recall">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Active Recall</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Most people study by "passive review" (rereading notes). This is scientifically proven to be the
+                        <strong>least effective</strong> method of learning.
+                        Active Recall means retrieving information from memory without cues.
+                    </p>
                     <div class="info">
-                        <span class="info-icon">🎭</span>
+                        <span class="info-icon">❄️</span>
                         <div>
-                            <strong>The Performance Review Analogy:</strong> Think of this as the final dress rehearsal
-                            before the curtain rises. Musicians don't learn the notes on stage; they learn them so well
-                            in the practice room that they can focus on the **interpretation** on stage. You are
-                            automating the "notes" of math so you can focus on the "music" of problem-solving.
+                            <strong>Analogy: The Snowpath</strong>
+                            <br>
+                            Imagine your brain as a forest covered in fresh snow.
+                            <br><strong>Formation:</strong> Learning something new is like walking through the snow
+                            once. You leave a faint trail.
+                            <br><strong>Decay:</strong> If you don't return, fresh snow falls (forgetting) and covers
+                            the tracks.
+                            <br><strong>Active Recall:</strong> Walking the same path again. Re-reading is like flying
+                            over it in a helicopter—you see the path, but you don't clear the snow. <em>Retrieving</em>
+                            requires the effort of walking it, which packs the snow down harder, making it a permanent
+                            highway.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- CS -->
-            <section class="section" id="cs">
+            <!-- Forgetting Curve -->
+            <section class="section" id="forgetting-curve">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Why This Matters in CS</h2>
+                    <h2 class="section-title">The Forgetting Curve</h2>
                 </div>
                 <div class="section-body">
-                    <p><strong>Cache Warming:</strong> In high-performance systems, we "warm the cache" by loading the
-                        most important data into RAM before the first request hits. Reviewing flashcards is
-                        <strong>warming your mental cache</strong>. When the exam (the request) hits, you don't want to
-                        be fetching from the "disk" of long-term memory; you want the data in L1 cache (active recall).
+                    <p>
+                        Hermann Ebbinghaus (1885) discovered that memory decays exponentially.
+                        <br>You forget ~50% of what you learned within 1 hour, and ~70% within 24 hours.
                     </p>
+                    <div class="rule">
+                        <strong>Spaced Repetition:</strong>
+                        To halt decay, you must review. But <em>when</em>?
+                        <br>Reviewing too soon is inefficient (snow is already packed).
+                        <br>Reviewing too late is hard (snow has covered the track).
+                        <br><strong>Optimal Time:</strong> Just as you are about to forget.
+                    </div>
+                    <div class="info">
+                        <span class="info-icon">🪣</span>
+                        <div>
+                            <strong>Analogy: The Leaky Bucket</strong>
+                            <br>
+                            Your brain is a bucket with a hole. Knowledge (water) leaks out constantly.
+                            <br>You can keep refilling it constantly (cramming), or you can patch the hole (spaced
+                            repetition).
+                            <br>Each successful retrieval acts like a patch, making the leak slower.
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <p><strong>Regression Testing:</strong> Every time you learn something new, you risk forgetting
-                        something old. Spaced repetition is your <strong>regression suite</strong> for your brain. It
-                        ensures that the new "features" you've added (Day 97) haven't broken the "legacy code" (Day 1).
+            <!-- Algorithm -->
+            <section class="section" id="algorithm">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">The Algorithm (SM-2)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        How does software like Anki decide when to show you a card? It uses the <strong>SuperMemo-2
+                            (SM-2)</strong> algorithm.
+                        It tracks an "Ease Factor" (EF) and an "Interval" (I).
                     </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Anki's SM-2 Implementation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def calculate_next_interval(quality, prev_interval, ease_factor):
+    """
+    quality: 0-5 scale (0=blackout, 5=perfect)
+    prev_interval: days since last review
+    ease_factor: multiplier (starts at 2.5)
+    """
+    
+    # 1. Update Ease Factor based on performance
+    # If quality is low, ease factor drops (interval grows slower)
+    # If quality is high, ease factor rises
+    new_ef = ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
+    if new_ef < 1.3:
+        new_ef = 1.3 # Minimum floor
+
+    # 2. Calculate next interval
+    if quality < 3:
+        # Failed recall: reset to day 1
+        new_interval = 1 
+    else:
+        if prev_interval == 0:
+            new_interval = 1
+        elif prev_interval == 1:
+            new_interval = 6
+        else:
+            new_interval = round(prev_interval * new_ef)
+
+    return new_interval, new_ef
+
+# Example Simulation
+ef = 2.5
+interval = 0
+history = [4, 3, 5, 4, 5] # User grades over time
+
+print(f"Start: I={interval}, EF={ef}")
+for day, grade in enumerate(history):
+    interval, ef = calculate_next_interval(grade, interval, ef)
+    print(f"Review {day+1} (Grade {grade}): Next review in {interval} days (EF={ef:.2f})")
+</code></pre>
+                        </div>
+                    </div>
+                    <p>
+                        Notice the exponential growth. If you keep getting it right, the interval explodes: 1 -> 6 -> 15
+                        -> 38 -> 100 days.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Interleaving -->
+            <section class="section" id="interleaving">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Interleaving</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Should you study "Math, Math, Math" then "CS, CS, CS" (Blocked)?
+                        <br>Or mixing them "Math, CS, Math, CS" (Interleaved)?
+                    </p>
+                    <div class="rule">
+                        <strong>Research says: Interleaving wins.</strong>
+                        <br>While blocked practice feels easier (you get into a "groove"), interleaving forces your
+                        brain to constantly reload context.
+                        This context-switching difficulty *is* the learning.
+                    </div>
+                    <div class="info">
+                        <span class="info-icon">🏋️</span>
+                        <div>
+                            <strong>Analogy: The Gym</strong>
+                            <br>
+                            Blocked Practice is like doing 100 bicep curls in a row. By rep 50, your form degrades and
+                            you're just using momentum.
+                            <br>Interleaving is like a circuit: Squats, then Bench, then Curls. You recover, then hit
+                            the muscle fresh again with perfect form/intensity.
+                            <br>The Flashcard App above allows you to select "Random" to force this Interleaving effect.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mnemonics -->
+            <section class="section" id="mnemonics">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Mnemonics & Memory Palaces</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Spaced Repetition handles <em>retention</em>. Mnemonics handle <em>encoding</em>.
+                        If you can't get information IN, you can't keep it.
+                    </p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Method of Loci (Memory Palace)</h3>
+                        <p>
+                            Ancient Greeks memorized hours of speeches by visualizing a physical space (a palace) and
+                            placing "objects" (ideas) in specific rooms.
+                        </p>
+                        <div class="info">
+                            <span class="info-icon">🏛️</span>
+                            <div>
+                                <strong>CS Connection: Pointers & Address Spaces</strong>
+                                <br>
+                                A Memory Palace is literally an array of pointers.
+                                <br><code>Room[0] = "Introduction"</code>
+                                <br><code>Room[1] = "Key Argument A"</code>
+                                <br>Your brain's "Spatial Navigation" hardware is O(1) access. Hacking this hardware
+                                allows O(1) retrieval of complex lists.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Acronyms & Chunking</h3>
+                        <p>
+                            <strong>Chunking:</strong> Breaking a long string (01101010) into bytes (6A).
+                            <br>We do this naturally (phone numbers).
+                            <br>In Math, "Integration by Parts" is a chunk. You don't memorize the steps; you memorize
+                            the chunk "L-I-A-T-E".
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -248,83 +468,152 @@
 
     <script>
         initThemeToggle();
-        initSimpleMode();
 
-        // Populate Select
+        // Populate Select from Logic
         const select = document.getElementById('sectionSelect');
-        // We need specific ordering?
-        // Sort keys
-        const keys = Object.keys(window.SECTION_MAP || {}).sort();
+        const labels = window.SECTION_LABELS || {};
+        const keys = Object.keys(labels).sort();
+
         keys.forEach(k => {
+            if (k === '98-review') return; // Don't allow selecting review itself broadly? Or maybe yes.
             const opt = document.createElement('option');
             opt.value = k;
-            opt.textContent = window.SECTION_LABELS?.[k] || k;
+            opt.textContent = labels[k];
             select.appendChild(opt);
         });
 
+        // Add "All" option
+        const allOpt = document.createElement('option');
+        allOpt.value = "ALL";
+        allOpt.textContent = "🔀 All Sections (Mental Chaos Mode)";
+        select.insertBefore(allOpt, select.firstChild.nextSibling);
+
         let cards = [];
         let currentIdx = 0;
+        let stats = { total: 0, correct: 0 };
 
         const cardEl = document.getElementById('flashcard');
         const topicEl = document.getElementById('cardTopic');
         const frontEl = document.getElementById('cardFront');
         const backEl = document.getElementById('cardBack');
         const counterEl = document.getElementById('counter');
+        const gameArea = document.getElementById('gameArea');
 
         document.getElementById('btnStart').addEventListener('click', () => {
             const section = select.value;
-            if (!section) return alert("Please select a section");
+            if (!section) return alert("Please select a topic!");
 
-            cards = window.EXAM_LOGIC.getFlashcards(section);
-            if (cards.length === 0) return alert("No questions found for this section yet!");
+            // Logic to fetch cards
+            if (section === "ALL") {
+                // Fetch random from all
+                let allQs = [];
+                // We need to call logic for each section?
+                // Or define a new helper. 
+                // exam-logic.js has getAllQuestions() but it's internal?
+                // Let's use getTest() logic basically.
+                cards = window.EXAM_LOGIC.getTest(); // 5% of everything
+                // Or maybe getExam() for 10%
+                if (cards.length > 50) cards = cards.slice(0, 50); // Limit to 50
+            } else {
+                cards = window.EXAM_LOGIC.getFlashcards(section);
+            }
+
+            if (!cards || cards.length === 0) return alert("No cards found for this section. (Did you fill in questions-data.js?)");
 
             currentIdx = 0;
+            stats = { total: 0, correct: 0 };
+            // Reset stats UI
+            document.getElementById('statReviewed').textContent = "0";
+            document.getElementById('statCorrect').textContent = "0";
+
             showCard();
-            document.getElementById('gameArea').style.display = 'block';
+            gameArea.style.display = 'block';
+
+            // Scroll to game
+            gameArea.scrollIntoView({ behavior: 'smooth' });
         });
 
-        cardEl.addEventListener('click', () => {
+        cardEl.addEventListener('click', flipCard);
+
+        document.body.addEventListener('keydown', (e) => {
+            if (gameArea.style.display === 'none') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+            }
+            if (e.code === 'ArrowRight') nextCard();
+            if (e.code === 'ArrowLeft') prevCard();
+        });
+
+        function flipCard() {
             cardEl.classList.toggle('flipped');
-        });
+        }
 
-        document.getElementById('btnNext').addEventListener('click', () => {
+        document.getElementById('btnNext').addEventListener('click', nextCard);
+        document.getElementById('btnPrev').addEventListener('click', prevCard);
+
+        function nextCard() {
             if (currentIdx < cards.length - 1) {
                 currentIdx++;
                 cardEl.classList.remove('flipped');
                 setTimeout(showCard, 200);
-            } else {
-                alert("Deck complete!");
-            }
-        });
 
-        document.getElementById('btnPrev').addEventListener('click', () => {
+                // Track 'attempted' simply by iterating
+                stats.total = Math.max(stats.total, currentIdx);
+                updateStats();
+            } else {
+                alert("Deck complete! Great work.");
+            }
+        }
+
+        function prevCard() {
             if (currentIdx > 0) {
                 currentIdx--;
                 cardEl.classList.remove('flipped');
                 setTimeout(showCard, 200);
             }
-        });
+        }
 
         function showCard() {
             const q = cards[currentIdx];
-            topicEl.textContent = q.topic;
-            frontEl.textContent = q.prompt;
-            backEl.textContent = q.display || q.answer;
+            topicEl.textContent = q.topic || "General";
+            frontEl.innerHTML = renderMath(q.prompt);
+            backEl.innerHTML = renderMath(q.display || q.answer);
             counterEl.textContent = `${currentIdx + 1} / ${cards.length}`;
+
+            // Re-render math
+            renderMathInElement(frontEl, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });
+            renderMathInElement(backEl, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });
+        }
+
+        function renderMath(text) {
+            // Basic protection if text is array
+            if (Array.isArray(text)) return text.join(", ");
+            return text;
+        }
+
+        function updateStats() {
+            document.getElementById('statReviewed').textContent = currentIdx + 1;
+            // Correctness is subjective in flashcards, so we just track reviewed count
         }
     </script>
     <script>
         const VIDEO_GROUPS = [
             {
-                "title": "Spaced Repetition & Mastery",
-                "items": [
-                    { "title": "How to remember anything", "channel": "Ali Abdaal", "vid": "pT_vO8N2h5s" },
-                    { "title": "The Science of Better Learning", "channel": "Sprouts", "vid": "v0YEaeIClKY" }
+                title: "The Science of Learning",
+                items: [
+                    { title: "Learning How to Learn", channel: "Barbara Oakley", vid: "O96fE1E-rf8" },
+                    { title: "Spaced Repetition", channel: "Ali Abdaal", vid: "Z-zNHHpXoMM" },
+                    { title: "The First 20 Hours", channel: "Josh Kaufman", vid: "5MgBikgcWnY" },
+                    { title: "Study Less Study Smart", channel: "Marty Lobdell", vid: "IlU-zDU6aQ0" },
+                    { title: "Active Recall", channel: "Ali Abdaal", vid: "ukLnPbIffxE" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, storageKey: 'day98_discipline_v1' });
+
+        initLesson({ videos: VIDEO_GROUPS, storageKey: 'day98_meta_v2' });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

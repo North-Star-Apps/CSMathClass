@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 22: Inner Product Spaces & Spectral Theorem</title>
+    <title>Day 22: Systems of Equations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,13 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 22 · Linear Algebra Sequence
+            Day 22 · The Algorithm of Algebra
         </div>
-        <h1>Singular Value Decomposition</h1>
+        <h1>Systems of Equations</h1>
         <p class="hero-desc">
-            The "Fundamental Theorem of Linear Algebra". Decomposing any matrix into rotation, scaling, and rotation.
+            Solving $Ax = b$ is the most common problem in engineering.
+            From calculating circuit currents to balancing chemical equations, it all comes down to finding the
+            intersection of hyperplanes.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,20 +61,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -73,12 +84,16 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#svd-def" class="toc-link">1. SVD Definition</a></li>
-                    <li><a href="#geometry" class="toc-link">2. Geometry of SVD</a></li>
-                    <li><a href="#approximation" class="toc-link">3. Low-Rank Approximation</a></li>
-                    <li><a href="#python" class="toc-link">4. Python Image Compression</a></li>
-                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#why" class="toc-link">Why This Matters</a></li>
+                    <li><a href="#gaussian" class="toc-link">1. Gaussian Elimination</a></li>
+                    <li><a href="#matrix-view" class="toc-link">2. The Matrix View</a></li>
+                    <li><a href="#cs-reality" class="toc-link">3. CS: Computability</a></li>
+                    <li><a href="#worked-examples" class="toc-link">4. Worked Examples</a></li>
+                    <li><a href="#application" class="toc-link">5. Application: Circuits</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: Intersection</a></li>
+                    <li><a href="#summary" class="toc-link">7. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">9. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -93,129 +108,338 @@
         </aside>
 
         <main class="content">
-            <!-- SVD Def -->
-            <section class="section" id="svd-def">
+            <!-- Why This Matters -->
+            <section class="section" id="why">
+                <div class="section-header">
+                    <div class="section-number">Section 0</div>
+                    <h2 class="section-title">The Universal Solvent</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Almost every physics simulation ends up solving a "System of Linear Equations".
+                        <br>• Circuits (Kirchhoff's Laws)
+                        <br>• Structures (Forces on a Bridge)
+                        <br>• Economies (Input-Output Models)
+                    </p>
+                </div>
+            </section>
+
+            <!-- Gaussian -->
+            <section class="section" id="gaussian">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Decomposition</h2>
+                    <h2 class="section-title">Gaussian Elimination</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        Every matrix $A$ (even rectangular ones) can be factored into:
+                        The "High School Method" (Substitution) works for 2 variables but explodes in complexity for
+                        larger systems.
+                        <br><strong>Gaussian Elimination</strong> is the systematic algorithm used by computers to solve
+                        linear systems of any size.
                     </p>
-                    <div class="formula-box">
-                        <div class="formula-label">SVD</div>
-                        <div class="formula-main">
-                            $A = U \Sigma V^T$
-                        </div>
-                    </div>
-                    <ul>
-                        <li>$U$: Orthogonal matrix ($AA^T$ eigenvectors). Columns are "Left Singular Vectors",</li>
-                        <li>$\Sigma$: Diagonal matrix of "Singular Values" ($\sigma_i \ge 0$). Sq roots of $A^T A$
-                            eigenvalues.</li>
-                        <li>$V^T$: Orthogonal matrix ($A^T A$ eigenvectors). Rows are "Right Singular Vectors".</li>
-                    </ul>
-                    <div class="info">
-                        <strong>📸 Simple:</strong> SVD breaks any transformation into 3 simple steps:
-                        <br>1️⃣ <strong>Rotate</strong> (Vᵀ) — align with "natural directions"
-                        <br>2️⃣ <strong>Stretch</strong> (Σ) — scale along those directions
-                        <br>3️⃣ <strong>Rotate</strong> (U) — orient to output space
-                        <br>Like photo editing: first align, then resize, then reposition!
-                    </div>
-                    <div class="info">
-                        <strong>🌈 Simple:</strong> The Prism.
-                        <br>SVD is like a prism that takes "white light" (confused data matrix) and splits it into its
-                        pure component colors (Singular Vectors) and their intensities (Singular Values).
-                    </div>
-                </div>
-            </section>
-
-            <!-- Geometry -->
-            <section class="section" id="geometry">
-                <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Geometric Interpretation</h2>
-                </div>
-                <div class="section-body">
+                    <div class="subsection-header">The Goal: Triangular Form</div>
                     <p>
-                        1. $V^T$ <strong>rotates</strong> space to align basis with singular vectors.
-                        <br>2. $\Sigma$ <strong>stretches</strong> space along axes by factors $\sigma_i$.
-                        <br>3. $U$ <strong>rotates</strong> the result back to the standard orientation.
+                        We want to eliminate variables column by column until the matrix forms a triangle (Row Echelon
+                        Form).
+                        Once triangular, we can solve the last equation easily and work backwards.
                     </p>
                     <div class="rule">
-                        Any linear transformation sends the unit sphere to a hyper-ellipse.
-                        The lengths of the ellipse axes are the singular values.
+                        <strong>The 3 Elementary Row Operations:</strong>
+                        <p>These operations change the equations but <em>preserve the solution set</em> (the
+                            intersection point remains the same).</p>
+                        <ol>
+                            <li><strong>Swap Rows:</strong> Change the order of equations (e.g., to put a non-zero
+                                number in the pivot position).</li>
+                            <li><strong>Scale Row:</strong> Multiply an entire equation by a non-zero constant ($3x=6
+                                \implies x=2$).</li>
+                            <li><strong>Row Combination:</strong> Add a multiple of one row to another ($R_2 = R_2 -
+                                3R_1$). This is the "elimination" step.</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection-header">Why Swap Rows? (Partial Pivoting)</div>
+                    <p>
+                        Computer arithmetic is not perfect. If a pivot is very small (e.g., $0.000001$), dividing by it
+                        amplifies errors.
+                        <br><strong>Strategy:</strong> Always swap rows to put the <em>largest possible absolute
+                            value</em> in the pivot position.
+                        This minimizes numerical error.
+                    </p>
+
+                    <div class="subsection-header">Phase 1: Forward Elimination</div>
+                    <p>
+                        We use the top-left entry (Pivot) to kill all entries below it.
+                        <br>Then we move to the next pivot (diagonal down) and repeat.
+                        <br>The result is an <strong>Upper Triangular Matrix ($U$)</strong>.
+                    </p>
+                    <div class="math-block">
+                        $$
+                        \begin{bmatrix}
+                        \mathbf{2} & 1 & 1 \\
+                        4 & -6 & 0 \\
+                        -2 & 7 & 2
+                        \end{bmatrix}
+                        \xrightarrow{R_2 = R_2 - 2R_1}
+                        \begin{bmatrix}
+                        \mathbf{2} & 1 & 1 \\
+                        0 & \mathbf{-8} & -2 \\
+                        0 & 8 & 3
+                        \end{bmatrix}
+                        $$
+                    </div>
+
+                    <div class="subsection-header">Phase 2: Back Substitution</div>
+                    <p>
+                        Once we reach the bottom ($z = \text{value}$), we substitute it up into the previous equation to
+                        find $y$, and so on.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Matrix View -->
+            <section class="section" id="matrix-view">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">The Matrix View (Ax = b)</h2>
+                </div>
+                <div class="section-body">
+                    <p>We write systems as a single matrix equation $A \vec{x} = \vec{b}$.</p>
+                    <div class="info">
+                        <strong>The Augmented Matrix $[A|b]$</strong>
+                        <p> To perform row operations efficiently, we glue $b$ to the side of $A$. Any operation on $A$
+                            must also happen to $b$.</p>
+                        <div class="math-block">
+                            $$
+                            \left[
+                            \begin{array}{cc|c}
+                            3 & 1 & 9 \\
+                            1 & 2 & 8
+                            \end{array}
+                            \right]
+                            $$
+                        </div>
+                    </div>
+
+                    <div class="subsection-header">The Two Pictures</div>
+                    <div class="grid-2-col">
+                        <div class="col">
+                            <strong>Row Picture (Intersection)</strong>
+                            <p>Each row is a plane. We are looking for the single point where all planes satisfy their
+                                equations simultaneously.</p>
+                        </div>
+                        <div class="col">
+                            <strong>Column Picture (Combination)</strong>
+                            <p>
+                                Are the columns of A capable of reaching the target vector b?
+                                <br>$$ x_1 \vec{v}_1 + x_2 \vec{v}_2 + \dots = \vec{b} $$
+                                If b is outside the "Span" of the columns, there is no solution.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="subsection-header">Possible Outcomes</div>
+                    <p>Just like lines in 2D, planes in 3D can interact in 3 ways:</p>
+                    <ul>
+                        <li><strong>One Unique Solution:</strong> Planes intersect at a single point (Matrix is
+                            Invertible/Full Rank).</li>
+                        <li><strong>No Solution (Inconsistent):</strong> Planes are parallel but distinct (e.g., $0=1$
+                            row).</li>
+                        <li><strong>Infinite Solutions (Dependent):</strong> Planes intersect along a line or coincide
+                            entirely. We have "Free Variables".</li>
+                    </ul>
+
+                    <div class="subsection-header">Inverse vs. Solve</div>
+                    <p>
+                        Mathematically, $\vec{x} = A^{-1} \vec{b}$.
+                        <br>Computationally, we almost <strong>NEVER</strong> calculate $A^{-1}$ explicitly.
+                        <br>We perform Gaussian Elimination on $[A|b]$ directly to get $\vec{x}$. It is numerically more
+                        stable (less rounding error).
+                    </p>
+                </div>
+            </section>
+
+            <!-- CS Reality -->
+            <section class="section" id="cs-reality">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">CS: Computability & Stability</h2>
+                </div>
+                <div class="section-body">
+                    <p>Why don't we just find the formula for the inverse and use it?</p>
+                    <div class="warning">
+                        <span class="warning-icon">⚠️</span>
+                        <strong>The Complexity Trap ($O(N^3)$ vs $O(N!)$)</strong>
+                        <p>
+                            <strong>Cramer's Rule</strong> (using determinants) has factorial complexity $O(N!)$. For a
+                            20x20 matrix, it would take <strong>millions of years</strong>.
+                            <br><strong>Gaussian Elimination</strong> is $O(N^3)$. For 20x20, it takes milliseconds.
+                        </p>
+                    </div>
+                    <div class="subsection-header">Numerical Stability</div>
+                    <p>
+                        In computers, numbers are not exact (floating point). If you divide by a tiny pivot (e.g.,
+                        $10^{-9}$), errors explode.
+                        <br>The <strong>Condition Number</strong> measures this. If high, the matrix is
+                        "Ill-Conditioned" (nearly singular).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="section" id="worked-examples">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Worked Examples</h2>
+                </div>
+                <div class="section-body">
+                    <div class="example-box">
+                        <div class="example-header">Example 1: A Unique Solution</div>
+                        <p>Solve the system:</p>
+                        <div class="math-block">
+                            $$
+                            \begin{aligned}
+                            x + y &= 5 \\
+                            2x - y &= 4
+                            \end{aligned}
+                            $$
+                        </div>
+                        <p><strong>Step 1: Augmented Matrix</strong></p>
+                        <div class="math-block">
+                            $$ \begin{bmatrix} 1 & 1 & | & 5 \\ 2 & -1 & | & 4 \end{bmatrix} $$
+                        </div>
+                        <p><strong>Step 2: Eliminate $x$ in Row 2</strong> ($R_2 = R_2 - 2R_1$)</p>
+                        <div class="math-block">
+                            $$ \begin{bmatrix} 1 & 1 & | & 5 \\ 0 & -3 & | & -6 \end{bmatrix} $$
+                        </div>
+                        <p><strong>Step 3: Back Substitution</strong></p>
+                        <p>From $R_2$: $-3y = -6 \implies y = 2$.
+                            <br>Substitute into $R_1$: $x + (2) = 5 \implies x = 3$.
+                            <br><strong>Solution: (3, 2).</strong>
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Approximation -->
-            <section class="section" id="approximation">
+            <!-- Application -->
+            <section class="section" id="application">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Low Rank Approximation</h2>
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Application: Chemical Balance</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Theorem (Eckart-Young): The best rank-$k$ approximation of $A$ (in Frobenius norm) is obtained
-                        by keeping only the largest $k$ singular values.
-                    </p>
-                    <p>
-                        $$ A_k = \sum_{i=1}^k \sigma_i u_i v_i^T $$
-                    </p>
-                    <p>This is used for image compression, data denoisng, and Latent Semantic Indexing.</p>
+                    <p>Balancing reactions is just solving a homogeneous linear system.</p>
                     <div class="info">
-                        <strong>🖼️ Simple:</strong> JPEG-like compression in action!
-                        <br>A 1000×1000 image has 1 million pixels. But keeping only the top 50 singular values gives
-                        you ~100,000 numbers.
-                        <br>10× compression with barely visible quality loss—SVD captures "what matters" in the image.
+                        <strong>Combustion of Propane</strong>
+                        <p>$$ a C_3H_8 + b O_2 \to c CO_2 + d H_2O $$</p>
+                        <p>
+                            This gives a system $Ax=0$. We find the smallest integer solution (in the Null Space).
+                            <br>Result: 1, 5, 3, 4.
+                        </p>
                     </div>
-                    <div class="info">
-                        <strong>🎚️ Simple:</strong> The Music Equalizer.
-                        <br>Low-rank approximation is like turning down the "hiss" (noise) on a track while keeping said
-                        bass/vocals (signal).
-                        <br>You remove the small singular values (noise) and keep the big ones (music).
+
+                    <div class="subsection-header">Resistor Circuit (Kirchhoff)</div>
+                    <p>
+                        We have 3 loops with currents $I_1, I_2, I_3$. The sum of voltage drops is zero.
+                    </p>
+                    <div class="math-block">
+                        $$
+                        \begin{cases}
+                        10 - 2I_1 - 4(I_1 - I_2) = 0 \\
+                        -4(I_2 - I_1) - 2I_2 - 2(I_2 - I_3) = 0 \\
+                        -2(I_3 - I_2) - 4I_3 = 0
+                        \end{cases}
+                        $$
                     </div>
+                    <p>
+                        Rearranging gives a clean $3 \times 3$ system $RI = V$.
+                    </p>
                 </div>
             </section>
 
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Image Compression</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: Intersection Viz</h2>
                 </div>
                 <div class="section-body">
-                    <p>Images are matrices. We can compress them using SVD.</p>
+                    <p>Let's visualize the intersection of two lines (system of 2 equations).</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">SVD Compression</span>
+                            <span class="code-label">Solving & Plotting</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="code-comment"># Create a dummy 5x5 image (gradient)</span>
-Image = np.array([
-    [<span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">0</span>, <span class="code-number">0</span>],
-    [<span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">0</span>, <span class="code-number">0</span>],
-    [<span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">10</span>, <span class="code-number">0</span>, <span class="code-number">0</span>],
-    [<span class="code-number">2</span>,  <span class="code-number">2</span>,  <span class="code-number">2</span>, <span class="code-number">5</span>, <span class="code-number">5</span>],
-    [<span class="code-number">2</span>,  <span class="code-number">2</span>,  <span class="code-number">2</span>, <span class="code-number">5</span>, <span class="code-number">5</span>]
-])
+# System:
+# 1x + 1y = 5  => y = 5 - x
+# 2x - 1y = 4  => y = 2x - 4
 
-<span class="code-comment"># Compute SVD</span>
-U, S, Vt = np.linalg.svd(Image)
-<span class="code-function">print</span>(<span class="code-string">"Singular values:"</span>, S) 
-<span class="code-comment"># Prob has 2 non-zero singular values because Rank is 2</span>
+# 1. Analytic Solution
+A = np.array([[1, 1], [2, -1]])
+b = np.array([5, 4])
+sol = np.linalg.solve(A, b) # [3. 2.]
 
-<span class="code-comment"># Reconstruct with Rank 1</span>
-<span class="code-comment"># S is a vector, need diagonal matrix</span>
-k = <span class="code-number">1</span>
-Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
+# 2. Visualization
+x = np.linspace(0, 5, 100)
+y1 = 5 - x
+y2 = 2*x - 4
 
-<span class="code-function">print</span>(<span class="code-string">"\nRank 1 Approximation:"</span>)
-<span class="code-function">print</span>(np.around(Recon, <span class="code-number">1</span>))</pre>
+plt.plot(x, y1, label='x + y = 5')
+plt.plot(x, y2, label='2x - y = 4')
+plt.plot(sol[0], sol[1], 'ro', label='Solution (3,2)')
+
+plt.grid(True)
+plt.legend()
+plt.title("System Geometry: Intersection")
+plt.show()
+
+# 3. Benchmark: Inversion vs Solve
+import time
+
+N = 2000
+BigA = np.random.rand(N, N)
+Bigb = np.random.rand(N)
+
+# Method 1: Solve (Fast & Stable)
+t0 = time.time()
+np.linalg.solve(BigA, Bigb)
+print(f"Solve time: {time.time()-t0:.4f}s") # ~0.15s
+
+# Method 2: Inverse (Slow & Unstable)
+t0 = time.time()
+# np.linalg.inv(BigA) @ Bigb  # Uncomment to test (slower!)
+print(f"Inv time: {time.time()-t0:.4f}s") # ~0.60s (3-4x slower)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Summary</h2>
+                </div>
+                <div class="section-body">
+                    <div class="key-takeaways">
+                        <div class="takeaway">
+                            <h3 class="takeaway-title">The Universal Solver</h3>
+                            <p>Gaussian Elimination (Ref + Back Sub) is the standard algorithm for solving $Ax=b$. It is
+                                $O(N^3)$, causing scalability issues for huge systems.</p>
+                        </div>
+                        <div class="takeaway">
+                            <h3 class="takeaway-title">Inverse vs Solve</h3>
+                            <p>Never compute $A^{-1}$ explicitly in code. Use `np.linalg.solve(A, b)`. It is faster and
+                                more stable.</p>
+                        </div>
+                        <div class="takeaway">
+                            <h3 class="takeaway-title">Geometric intuition</h3>
+                            <p>Solving a system is finding the intersection of hyperplanes. If they don't intersect, no
+                                solution. If they overlap, infinite solutions.</p>
                         </div>
                     </div>
                 </div>
@@ -224,17 +448,15 @@ Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -246,7 +468,7 @@ Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 9</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -262,28 +484,44 @@ Recon = np.matrix(U[:, :k]) * np.diag(S[:k]) * np.matrix(Vt[:k, :])
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "SVD Deep Dive",
+                title: "The Algorithm",
                 items: [
-                    { title: "SVD Intuition", channel: "3Blue1Brown", vid: "fNk_zzaMoSs" },
-                    { title: "SVD Overview", channel: "Steve Brunton", vid: "gXbThCXjZFM" },
-                    { title: "Image Compression with SVD", channel: "Steve Brunton", vid: "H7qMMudh3f8" },
-                    { title: "Low-Rank Approximation", channel: "MIT OCW", vid: "uQhTuRlWMxw" }
+                    { title: "Gaussian Elimination", channel: "Organic Chemistry Tutor", vid: "2j5Ic2V7wq4" },
+                    { title: "Row Echelon Form", channel: "The Math Sorcerer", vid: "ZK3CJt2R-u4" },
+                    { title: "Reduced Row Echelon Form", channel: "Khan Academy", vid: "biW3JO9Y9O8" },
+                    { title: "Back Substitution", channel: "PatrickJMT", vid: "KwA7T4-jP8c" }
+                ]
+            },
+            {
+                title: "Theory & Intuition",
+                items: [
+                    { title: "Inverse Matrices (Geometric)", channel: "3Blue1Brown", vid: "uQhTuRlWMxw" },
+                    { title: "Singular Matrices", channel: "Numberphile", vid: "jtsP1lXp_tU" },
+                    { title: "Rank of a Matrix", channel: "Kimberly Brehm", vid: "H7tWwA1c3d0" },
+                    { title: "Homogeneous Systems", channel: "Dr. Trefor Bazett", vid: "Vq7zG2gG2t0" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Balancing Chemical Eq", channel: "Khan Academy", vid: "2Jv8Yq2A3yU" },
+                    { title: "Kirchhoff's Laws", channel: "Doc Schuster", vid: "WBk23x3t5qQ" },
+                    { title: "Computational Complexity", channel: "Computerphile", vid: "M4O7f4J0T3k" },
+                    { title: "Floating Point Danger", channel: "Tom Scott", vid: "PZRI1IfStY0" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "SVD", prompt: "SVD decomposes A into U, Sigma, and ___.", answer: "v transpose", altAnswers: ["vt", "v^t"] },
-            { topic: "Sigma", prompt: "Sigma contains the ___ values.", answer: "singular" },
-            { topic: "Ortho", prompt: "U and V are ___ matrices.", answer: "orthogonal", altAnswers: ["orthonormal"] },
-            { topic: "Rank", prompt: "The number of non-zero singular values equals the ___ of the matrix.", answer: "rank" },
-            { topic: "Approx", prompt: "We can approximate A by keeping the ___ k singular values.", answer: "largest", altAnswers: ["top", "first"] },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day22_svd_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day22'] || [],
+            storageKey: 'day22_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

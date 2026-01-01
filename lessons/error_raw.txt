@@ -1,0 +1,8 @@
+C:\Users\avery\Desktop\Free CS Math\CSMathClass\lessons\questions-data.js:607
+                                                              "prompt": "det([[2,3],
+                                                                        ^^^^^^^^^^^^
+
+SyntaxError: Invalid or unexpected token
+    at checkSyntax (node:internal/main/check_syntax:74:5)
+
+Node.js v22.14.0

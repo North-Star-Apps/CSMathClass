@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 30: Graph Traversal & Correctness</title>
+    <title>Day 30: Graph Theory Introduction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 30 · Discrete Math
+            Day 30 · The Internet of Things
         </div>
-        <h1>Trees & Advanced Graphs</h1>
+        <h1>Graph Theory</h1>
         <p class="hero-desc">
-            Navigating the networks. From hierarchical trees to the four-color map theorem.
+            Graph Theory is the study of connections.
+            From Social Networks to Road Maps to the Internet itself, practically every complex system is a Graph.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -73,13 +83,14 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#paths" class="toc-link">1. Paths & Cycles</a></li>
-                    <li><a href="#trees" class="toc-link">2. Trees</a></li>
-                    <li><a href="#planarity" class="toc-link">3. Planar Graphs</a></li>
-                    <li><a href="#coloring" class="toc-link">4. Graph Coloring</a></li>
-                    <li><a href="#python" class="toc-link">5. Python Coloring</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#language" class="toc-link">1. The Language of Graphs</a></li>
+                    <li><a href="#types" class="toc-link">2. Taxonomies & Traits</a></li>
+                    <li><a href="#connectivity" class="toc-link">3. Paths & Connectivity</a></li>
+                    <li><a href="#famous" class="toc-link">4. Famous Problems</a></li>
+                    <li><a href="#storage" class="toc-link">5. Matrix vs List</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: NetworkX</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -94,116 +105,176 @@
         </aside>
 
         <main class="content">
-            <!-- Paths -->
-            <section class="section" id="paths">
+            <!-- Definition -->
+            <section class="section" id="language">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Connectivity</h2>
+                    <h2 class="section-title">The Language of Graphs</h2>
                 </div>
                 <div class="section-body">
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Path:</strong> A sequence of non-repeating vertices connected by edges.
-                        </div>
-                        <div class="list-item">
-                            <strong>Cycle:</strong> A path that starts and ends at the same vertex.
-                            <br><em>Example: Triangle (A-B-C-A).</em>
-                        </div>
-                        <div class="list-item">
-                            <strong>Eulerian Path:</strong> Visits every EDGE exactly once. Exists iff graph is
-                            connected and has 0 or 2 odd degree vertices.
-                        </div>
-                        <div class="list-item">
-                            <strong>Hamiltonian Path:</strong> Visits every VERTEX exactly once. (Hard problem!)
-                        </div>
-                    </div>
+                    <p>A Graph $G = (V, E)$ consists of:</p>
                     <div class="info">
-                        <strong>🚶 Simple:</strong> Think of paths like walking routes:
-                        <br>• <strong>Path</strong>: Walking from your house to the store without retracing steps.
-                        <br>• <strong>Cycle</strong>: A loop walk that ends back at home.
-                        <br>• <strong>Eulerian</strong>: Walking every street in town exactly once (mailman's route).
-                        <br>• <strong>Hamiltonian</strong>: Visiting every house exactly once (salesman's route).
+                        <strong>Vertices ($V$):</strong> The "Things" (People, Cities, Computers). Also called Nodes.
+                        <br><strong>Edges ($E$):</strong> The "Relationships" (Friendships, Roads, Cables).
+                    </div>
+                    <div class="subsection">
+                        <h3>Degree of a Node</h3>
+                        <p>
+                            The number of edges connected to a node.
+                            <br>In directed graphs, we split this into <strong>In-Degree</strong> (arrows entering) and
+                            <strong>Out-Degree</strong> (arrows leaving).
+                        </p>
+                    </div>
+                    <div class="rule">
+                        <strong>The Handshaking Lemma:</strong>
+                        <br>In any undirected graph, the sum of all degrees is exactly $2|E|$.
+                        <br>$$ \sum_{v \in V} \text{deg}(v) = 2 \cdot |E| $$
+                        <br><em>Why?</em> Because every edge connects two nodes, so it gets counted twice.
+                        <br><em>Corollary:</em> The number of people who have shaken hands an odd number of times must
+                        be even.
                     </div>
                 </div>
             </section>
 
-            <!-- Trees -->
-            <section class="section" id="trees">
+            <!-- Types -->
+            <section class="section" id="types">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Trees</h2>
+                    <h2 class="section-title">Taxonomies & Traits</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        A <strong>Tree</strong> is a connected graph with no cycles.
-                    </div>
-                    <p>Properties of a tree with $n$ vertices:</p>
-                    <ul>
-                        <li>Has exactly $n-1$ edges.</li>
-                        <li>There is a unique path between any two vertices.</li>
-                        <li>Removing any edge disconnects the graph.</li>
-                        <li>Adding any edge creates a cycle.</li>
-                    </ul>
-                    <div class="info">
-                        <strong>🌳 Simple:</strong> A tree is like a family tree—everyone is connected, but there are no
-                        "loops"
-                        (you can't be your own ancestor!). There's exactly one way to get from any person
-                        to any other person by following parent-child relationships.
-                    </div>
-                </div>
-            </section>
-
-            <!-- Planarity -->
-            <section class="section" id="planarity">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Planar Graphs</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        A graph is <strong>planar</strong> if it can be drawn without edges crossing.
-                    </p>
-                    <div class="formula-box">
-                        <div class="formula-label">Euler's Formula</div>
-                        <div class="formula-main">
-                            $v - e + f = 2$
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Undirected vs Directed</h3>
+                            <p><strong>Undirected:</strong> Two-way (Marriage).</p>
+                            <p><strong>Directed:</strong> One-way (Crush).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Weighted vs Unweighted</h3>
+                            <p><strong>Weighted:</strong> Edges have cost (Distance, Latency).</p>
+                            <p><strong>Unweighted:</strong> All edges are equal (1 hop).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Cyclic vs Acyclic</h3>
+                            <p><strong>Cyclic:</strong> You can loop back to where you started.</p>
+                            <p><strong>Acyclic:</strong> Impossible to loop (Time, Dependencies).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Sparse vs Dense</h3>
+                            <p><strong>Sparse:</strong> $|E| \approx |V|$ (Social Networks).</p>
+                            <p><strong>Dense:</strong> $|E| \approx |V|^2$ (Complete Graphs).</p>
                         </div>
                     </div>
-                    <p>Where $f$ is the number of faces (regions bounded by edges, including the outer infinite region).
-                    </p>
                     <div class="info">
-                        <strong>Kuratowski's Theorem:</strong> A graph is non-planar iff it contains a subgraph
-                        homeomorphic to $K_5$ or $K_{3,3}$.
-                    </div>
-                    <div class="info">
-                        <strong>🗺️ Simple:</strong> Can you draw it on paper without crossing lines?
-                        <br>Think of circuit boards—engineers try to route wires without crossings (cheaper to
-                        manufacture!).
-                        <br>Maps are always planar: countries share borders but their regions don't "overlap."
+                        <strong>Spotlight: The DAG</strong>
+                        <br>A **Directed Acyclic Graph** is crucial in CS.
+                        <br>It represents causal dependencies.
+                        <br>• Course Prerequisites.
+                        <br>• Compiler Build Steps (Makefiles).
+                        <br>• Git Commit History.
                     </div>
                 </div>
             </section>
 
-            <!-- Coloring -->
-            <section class="section" id="coloring">
+            <!-- Connectivity -->
+            <section class="section" id="connectivity">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Graph Coloring</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Paths & Connectivity</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Assigning colors to vertices such that no two adjacent vertices share the same color.
-                        The <strong>Chromatic Number</strong> $\chi(G)$ is the minimum colors needed.
-                    </p>
-                    <div class="rule">
-                        <strong>Four Color Theorem:</strong> Every planar graph can be colored with at most 4 colors.
+                    <p>A graph is <strong>Connected</strong> if there is a path between any two nodes.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Component</h3>
+                            <p>An island of connected nodes.</p>
+                            <p>If you remove an edge and the number of components increases, that edge is a
+                                <strong>Bridge</strong>.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Strongly Connected</h3>
+                            <p>(In Directed Graphs)</p>
+                            <p>You can get from A to B <em>AND</em> B to A.</p>
+                            <p>The entire Internet is (mostly) one giant Strongly Connected Component.</p>
+                        </div>
                     </div>
-                    <p>Applications: Register allocation in compilers, scheduling.</p>
-                    <div class="info">
-                        <strong>🎨 Simple:</strong> Imagine a university scheduling exams. Students taking multiple
-                        courses
-                        can't have those exams at the same time (conflict = edge). Colors = time slots.
-                        The Four Color Theorem says any map only needs 4 colors so neighboring countries differ!
+                </div>
+            </section>
+
+            <!-- Famous Problems -->
+            <section class="section" id="famous">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Famous Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="example">
+                        <h3>1. The Seven Bridges of Königsberg</h3>
+                        <p>
+                            Can you cross all 7 bridges exactly once and return home?
+                            <br>Euler proved it impossible (1736). This birthed Graph Theory.
+                            <br><strong>Condition:</strong> For an Euler Cycle, every node must have an **Even Degree**.
+                        </p>
+                    </div>
+                    <div class="example">
+                        <h3>2. The Traveling Salesman</h3>
+                        <p>
+                            Visit every **City** (Node) exactly once with minimum cost.
+                            <br>This is NP-Hard. For 50 cities, it takes the age of the universe to solve perfectly.
+                        </p>
+                    </div>
+                    <div class="example">
+                        <h3>3. Graph Coloring</h3>
+                        <p>
+                            Can you color a map with 4 colors so no neighbors are same?
+                            <br>Yes (Four Color Theorem). Used in Register Allocation for Compilers.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Storage -->
+            <section class="section" id="storage">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Representation: Matrix vs List</h2>
+                </div>
+                <div class="section-body">
+                    <p>How do we store a graph in a computer? The choice depends on Density.</p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Adjacency Matrix</th>
+                                <th>Adjacency List</th>
+                            </tr>
+                            <tr>
+                                <td>Structure</td>
+                                <td>2D Grid ($N \times N$)</td>
+                                <td>Dictionary of Lists</td>
+                            </tr>
+                            <tr>
+                                <td>Space</td>
+                                <td>$O(V^2)$ (Huge for large V)</td>
+                                <td>$O(V + E)$ (Efficient)</td>
+                            </tr>
+                            <tr>
+                                <td>Check Edge (u, v)</td>
+                                <td>$O(1)$ (Instant)</td>
+                                <td>$O(\text{deg}(u))$ (Slow)</td>
+                            </tr>
+                            <tr>
+                                <td>Iterate Neighbors</td>
+                                <td>$O(V)$ (Scan row)</td>
+                                <td>$O(\text{deg}(u))$ (Fast)</td>
+                            </tr>
+                            <tr>
+                                <td>Best For</td>
+                                <td>Dense Graphs</td>
+                                <td>Sparse Graphs (Most real/web graphs)</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </section>
@@ -211,68 +282,88 @@
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Greedy Coloring</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: NetworkX</h2>
                 </div>
                 <div class="section-body">
-                    <p>Finding the exact chromatic number is NP-Hard. We use heuristics like greedy coloring.</p>
+                    <p>While dictionaries are fine for small graphs, real engineers use <code>networkx</code>.</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Greedy Coloring Implementaton</span>
+                            <span class="code-label">Analyzing a Graph</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">greedy_color</span>(graph):
-    <span class="code-comment"># graph is dict: vertex -> list of neighbors</span>
-    colors = {}
-    
-    <span class="code-comment"># Order vertices (e.g., by degree descending)</span>
-    nodes = <span class="code-function">sorted</span>(graph.keys(), key=<span class="code-keyword">lambda</span> x: <span class="code-function">len</span>(graph[x]), reverse=<span class="code-keyword">True</span>)
-    
-    <span class="code-keyword">for</span> node <span class="code-keyword">in</span> nodes:
-        neighbor_colors = {colors.get(neigh) <span class="code-keyword">for</span> neigh <span class="code-keyword">in</span> graph[node]}
-        
-        <span class="code-comment"># Find first available color (0, 1, 2...)</span>
-        color = <span class="code-number">0</span>
-        <span class="code-keyword">while</span> color <span class="code-keyword">in</span> neighbor_colors:
-            color += <span class="code-number">1</span>
-            
-        colors[node] = color
-        
-    <span class="code-keyword">return</span> colors
+                            <pre><code class="language-python">import networkx as nx
 
-G = {
-    <span class="code-string">'A'</span>: [<span class="code-string">'B'</span>, <span class="code-string">'C'</span>, <span class="code-string">'D'</span>],
-    <span class="code-string">'B'</span>: [<span class="code-string">'A'</span>, <span class="code-string">'C'</span>],
-    <span class="code-string">'C'</span>: [<span class="code-string">'A'</span>, <span class="code-string">'B'</span>, <span class="code-string">'D'</span>],
-    <span class="code-string">'D'</span>: [<span class="code-string">'A'</span>, <span class="code-string">'C'</span>]
-}
+# Create a Graph
+G = nx.Graph() # Undirected
+# G = nx.DiGraph() # Directed
 
-coloring = greedy_color(G)
-<span class="code-function">print</span>(coloring)
-<span class="code-comment"># Possible output: {'A': 0, 'C': 1, 'B': 2, 'D': 2} (3 colors used)</span>
-<span class="code-comment"># K4 needs 4, but this is a diamond shape? (B-A-D, B-C-D, A-C). </span>
-<span class="code-comment"># Wait A connects to B,C,D. C connects to A,B,D. </span>
-<span class="code-comment"># A and C are connected to everything. They will force distinct colors.</span></pre>
+# Add nodes and edges
+G.add_edge("Alice", "Bob")
+G.add_edge("Alice", "Charlie")
+G.add_edge("Alice", "David")
+G.add_edge("Bob", "David")
+
+print(f"Nodes: {G.number_of_nodes()}")
+print(f"Edges: {G.number_of_edges()}")
+
+# Degrees
+print(f"Alice's Degree: {G.degree['Alice']}") # 3
+
+# Check path
+has_path = nx.has_path(G, "Bob", "Charlie")
+print(f"Path Bob->Charlie? {has_path}") # True (via Alice)
+
+# Shortest Path
+path = nx.shortest_path(G, "Bob", "Charlie")
+print(f"Shortest Route: {path}") # ['Bob', 'Alice', 'Charlie']
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Adjacency List Implementation (Manual)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">class Graph:
+    def __init__(self):
+        self.adj = {} # Dictionary
+
+    def add_edge(self, u, v):
+        if u not in self.adj: self.adj[u] = []
+        if v not in self.adj: self.adj[v] = []
+        
+        self.adj[u].append(v)
+        self.adj[v].append(u) # Undirected
+
+    def get_neighbors(self, u):
+        return self.adj.get(u, [])
+
+# Usage
+g = Graph()
+g.add_edge("Z", "A")
+print(g.get_neighbors("Z")) # ['A']
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
+
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -284,7 +375,7 @@ coloring = greedy_color(G)
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -300,22 +391,44 @@ coloring = greedy_color(G)
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
-    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Graph Theory II",
+                title: "Graph Theory Foundations",
                 items: [
-                    { title: "Euler vs Hamiltonian Paths", channel: "Organic Chemistry Tutor", vid: "7s-cx9nOQm8" },
-                    { title: "Planar Graphs & Euler's Formula", channel: "TrevTutor", vid: "wnYQPqXk8Kk" },
-                    { title: "Four Color Theorem", channel: "Numberphile", vid: "NgbK43jB4rQ" },
-                    { title: "Tree Properties", channel: "TheTrevTutor", vid: "T6350fDcd3I" },
-                    { title: "Graph Coloring Algorithms", channel: "MIT OCW", vid: "C_W7xXm-ZqM" }
+                    { title: "Intro to Graph Theory", channel: "Reducible", vid: "LFKZLXVO-Dg" },
+                    { title: "Graph Types Explained", channel: "Base CS", vid: "2i6H8G6n-4E" },
+                    { title: "Bridges of Königsberg", channel: "Numberphile", vid: "nZwSo4vfw6c" },
+                    { title: "Graphs and Connectivity", channel: "TrevTutor", vid: "WCA7yWj0Pyg" }
+                ]
+            },
+            {
+                title: "Algorithms & Applications",
+                items: [
+                    { title: "Dijkstra's Algorithm", channel: "Computerphile", vid: "GazC3A4OQTE" },
+                    { title: "A* Pathfinding", channel: "Computerphile", vid: "ySN5Wnu88nE" },
+                    { title: "Traveling Salesman Problem", channel: "Computerphile", vid: "GiDsjIBOVoA" },
+                    { title: "Social Network Analysis", channel: "Computerphile", vid: "2U8p6E0-zM0" }
+                ]
+            },
+            {
+                title: "Advanced Topics",
+                items: [
+                    { title: "Undecidability - Tangent", channel: "Numberphile", vid: "OpC-EWJ-ie4" },
+                    { title: "The Four Color Theorem", channel: "Numberphile", vid: "NgbK43jB4rQ" },
+                    { title: "P vs NP", channel: "Hackerdashery", vid: "YX40hbAHx3s" },
+                    { title: "NetworkX Tutorial", channel: "Keith Galli", vid: "0KCS7db7N7M" }
                 ]
             }
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day30'], storageKey: 'day30_trees_v1' });
+        ];
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day30'] || [],
+            storageKey: 'day30_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

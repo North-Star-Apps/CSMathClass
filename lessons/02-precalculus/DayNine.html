@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 9: Trigonometry & The Unit Circle</title>
+    <title>Day 9: Complex Numbers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,33 +22,59 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 9 · Precalculus Foundation</div>
-
-        <p class="hero-desc">Trigonometry is the study of cycles. From rotating a character in a game to processing
-            audio waves, understanding the Unit Circle is essential for anything that spins or oscillates.</p>
+            </svg>
+            Day 9 · The 2D Number Line
+        </div>
+        <h1>Complex Numbers</h1>
+        <p class="hero-desc">
+            Imaginary numbers are not imaginary. They are defined rotation.
+            Understanding $\sqrt{-1}$ is the key to mastering vectors, fractals, and quantum computing.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">6 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~105 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                40 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -58,13 +84,19 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#radians" class="toc-link">1. Radians vs Degrees</a></li>
-                    <li><a href="#unitcircle" class="toc-link">2. The Unit Circle</a></li>
-                    <li><a href="#sincos" class="toc-link">3. Sin, Cos, Tan</a></li>
-                    <li><a href="#identities" class="toc-link">4. Pythagorean Identity</a></li>
-                    <li><a href="#code" class="toc-link">5. Trigonometry in Code</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#basics" class="toc-link">1. The Definition: $i$ as Rotation</a></li>
+                    <li><a href="#plane" class="toc-link">2. The Complex Plane (Argand)</a></li>
+                    <li><a href="#arithmetic" class="toc-link">3. Arithmetic: Shifts vs Rotations</a></li>
+                    <li><a href="#euler" class="toc-link">4. Euler's Formula: The Merge</a></li>
+                    <li><a href="#demoivre" class="toc-link">5. De Moivre's Theorem</a></li>
+                    <li><a href="#roots" class="toc-link">6. Roots of Unity (FFT Symmetry)</a></li>
+                    <li><a href="#quaternions" class="toc-link">7. Beyond 2D: Quaternions</a></li>
+                    <li><a href="#quantum" class="toc-link">8. Quantum: The Bloch Sphere</a></li>
+                    <li><a href="#fractals" class="toc-link">9. Python: Fractal Geometry</a></li>
+                    <li><a href="#signals" class="toc-link">10. Python: Signal Processing</a></li>
+                    <li><a href="#summary" class="toc-link">11. Summary & Complexity</a></li>
+                    <li><a href="#videos" class="toc-link">12. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">13. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -79,168 +111,621 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Trigonometry Matters</h2>
+                    <h2 class="section-title">Why Complex Numbers Matter in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>It's not just about triangles. In Computer Science, Trigonometry is the math of
-                        <strong>rotation</strong> and <strong>waves</strong>.</p>
-                    <div class="rule">
-                        <strong>Key Applications:</strong>
-                        <ul>
-                            <li><strong>Graphics:</strong> Calculating coordinates for 3D rotations, lighting, and
-                                cameras.</li>
-                            <li><strong>Game Dev:</strong> Determining the angle to a target (atan2) or moving an object
-                                in a direction.</li>
-                            <li><strong>Signal Processing:</strong> All audio and image compression (JPEG, MP3) relies
-                                on decomposing signals into Sine waves (Fourier Transform).</li>
-                        </ul>
+                    <p>
+                        The term "Imaginary" is perhaps the worst branding in the history of science. These numbers are
+                        as real as the ground you stand on—they just happen to live on a different axis. In Computer
+                        Science, we don't use them to solve "imaginary" problems; we use them to solve
+                        <strong>Rotational</strong>
+                        and <strong>Wave-based</strong> problems.
+                    </p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Power of the Imaginary</h3>
+                        <p>Without complex numbers, your digital world would collapse. They are the hidden engine
+                            behind:</p>
+                        <div class="grid-2col">
+                            <div class="card">
+                                <h3>1. Quantum Superposition</h3>
+                                <p>A Qubit isn't just 0 or 1. It is a <strong>Complex State Vector</strong>. The
+                                    interference that makes quantum computers fast is pure complex arithmetic.</p>
+                            </div>
+                            <div class="card">
+                                <h3>2. 3D Rotation (Quaternions)</h3>
+                                <p>Ever wondered how a game camera stays smooth? Complex numbers (and their 4D cousins,
+                                    Quaternions) prevent the dreaded "Gimbal Lock".</p>
+                            </div>
+                            <div class="card">
+                                <h3>3. Signal Processing</h3>
+                                <p>Turning raw air pressure into an MP3 file requires the Fourier Transform, which is
+                                    mathematically impossible to express efficiently without $i$.</p>
+                            </div>
+                            <div class="card">
+                                <h3>4. Fractal Geometry</h3>
+                                <p>The infinite complexity of the Mandelbrot set arises solely from the simple
+                                    repetition of $z^2 + c$ in the complex plane.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="radians">
+            <!-- The Definition -->
+            <section class="section" id="basics">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Radians vs Degrees</h2>
+                    <h2 class="section-title">The Definition: $i$ as Rotation</h2>
                 </div>
                 <div class="section-body">
-                    <p>Degrees (360°) are arbitrary. Radians are natural.</p>
+                    <p>In algebra, we define $i = \sqrt{-1}$. But in Computer Science, it's better to think of it as a
+                        <strong>Unit Vector of Rotation</strong>.
+                    </p>
+                    <div class="rule">
+                        <strong>The Core Identity:</strong>
+                        <br>$$ i^2 = -1 $$
+                        This looks like a paradox, but on a graph, it just means two 90° turns equals a 180° flip.
+                    </div>
+
                     <div class="info">
-                        <strong>🍕 Simple:</strong> Degrees are like cutting a pizza into 360 tiny slices because "that
-                        sounds nice." Radians are measuring the crust. 1 Radian is when the length of the crust (arc)
-                        equals the length of your slice (radius).
-                    </div>
-                    <div class="math-block">
-                        360^\circ = 2\pi \text{ radians} \approx 6.28 \text{ radians}
-                    </div>
-                    <div class="warning">
-                        <strong>Coder's Note:</strong> All standard math libraries (`Math.sin()`, `numpy.sin()`) take
-                        input in <strong>Radians</strong>, not degrees. Keep this in mind or your character will spin
-                        wildly!
+                        <span class="info-icon">🔄</span>
+                        <strong>Analogy: The Radar Dish</strong>
+                        <br>Multiplying a number by $i$ is like telling a radar dish to rotate 90° counter-clockwise.
+                        <br>• $1 \times i = i$ (Points Up)
+                        <br>• $i \times i = -1$ (Points Left)
+                        <br>• $-1 \times i = -i$ (Points Down)
+                        <br>• $-i \times i = 1$ (Points Right - Back to Start)
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="unitcircle">
+            <!-- The Plane -->
+            <section class="section" id="plane">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">The Unit Circle</h2>
+                    <h2 class="section-title">The Complex Plane (Argand)</h2>
                 </div>
                 <div class="section-body">
-                    <p>The Unit Circle is a circle with radius 1 centered at (0,0). It is the "Master Map" for all
-                        trigonometry.</p>
-                    <div class="rule">
-                        <strong>The Coordinates:</strong> Any point $(x, y)$ on the circle corresponds to an angle
-                        $\theta$:
-                        <ul>
-                            <li>$x = \cos(\theta)$</li>
-                            <li>$y = \sin(\theta)$</li>
-                        </ul>
-                    </div>
-                    <div class="info">
-                        <strong>🎡 Simple:</strong> Imagine a Ferris Wheel with radius 1.
-                        <ul>
-                            <li><strong>Cosine</strong> is how far *left or right* you are from the center.</li>
-                            <li><strong>Sine</strong> is how *high or low* you are from the center.</li>
-                        </ul>
-                    </div>
+                    <p>Instead of a 1D line, we now have a 2D plane where the X-axis is "Real" and the Y-axis is
+                        "Imaginary".</p>
                     <div class="math-block">
-                        \text{At } 0^\circ (0 \text{ rad}): (1, 0) \implies \cos(0)=1, \sin(0)=0
-                        \newline
-                        \text{At } 90^\circ (\pi/2 \text{ rad}): (0, 1) \implies \cos(\pi/2)=0, \sin(\pi/2)=1
+                        $$ z = a + bi $$
+                        • $a$ (Real): The horizontal coordinate.
+                        • $b$ (Imaginary): The vertical coordinate.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Polar Coordinates (Magnitude & Phase)</h3>
+                        <p>While $a+bi$ is good for adding, <strong>Polar Form</strong> is better for rotation.</p>
+                        <div class="math-block">
+                            • Magnitude ($r$): $|z| = \sqrt{a^2 + b^2}$ (Distance from center).
+                            <br>• Angle ($\theta$): $\text{atan2}(b, a)$ (Direction).
+                        </div>
+                        <div class="info">
+                            In Python, you can get these easily using <code>abs(z)</code> and
+                            <code>cmath.phase(z)</code>.
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Polar Form Conversion</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import cmath
+
+z = 3 + 4j
+
+# Get magnitude and phase
+mag = abs(z)  # 5.0
+phase = cmath.phase(z)  # 0.927 radians
+
+print(f"Magnitude: {mag}")
+print(f"Phase (rad): {phase:.3f}")
+print(f"Phase (deg): {cmath.phase(z) * 180 / 3.14159:.1f}°")
+
+# Convert BACK to rectangular (a + bi)
+z_back = cmath.rect(mag, phase)
+print(f"Back to z: {z_back:.2f}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">💡</span>
+                        <strong>Analogy: The Projector Shadow</strong>
+                        <br>Imagine a point spinning on a circle in 3D. If you shine a light on it from the side,
+                        its shadow traces a sine wave. The complex number is the full 2D position; the Real part is
+                        just the shadow on the wall.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="sincos">
+            <!-- Arithmetic -->
+            <section class="section" id="arithmetic">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Sin, Cos, Tan</h2>
+                    <h2 class="section-title">Arithmetic: Shifts vs Rotations</h2>
                 </div>
                 <div class="section-body">
-                    <p>These functions map an angle (input) to a ratio (output).</p>
-                    <div class="subsection">
-                        <h3 class="subsection-title">SOH CAH TOA</h3>
-                        <ul>
-                            <li><strong>Sin</strong>e = <strong>O</strong>pposite / <strong>H</strong>ypotenuse (On Unit
-                                Circle: $y$)</li>
-                            <li><strong>Cos</strong>ine = <strong>A</strong>djacent / <strong>H</strong>ypotenuse (On
-                                Unit Circle: $x$)</li>
-                            <li><strong>Tan</strong>gent = <strong>O</strong>pposite / <strong>A</strong>djacent (Slope:
-                                $y/x$)</li>
-                        </ul>
+                    <p>Operations in the complex plane have clear geometric consequences:</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Addition = Shifting</h3>
+                            <p>Adding $(a+bi)$ to $(c+di)$ is like dragging an object in 2D space. It's just vector
+                                addition.</p>
+                            <p><code>z1 + z2 = (a+c) + (b+d)i</code></p>
+                        </div>
+                        <div class="card">
+                            <h3>Multiplication = Scaling/Rotating</h3>
+                            <p>Multiplying a complex number <strong>scales</strong> its magnitude and
+                                <strong>adds</strong> its angle to the other.
+                            </p>
+                            <p>This is why rotation in 3D engines is so linked to complex math.</p>
+                        </div>
                     </div>
+
                     <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span
-                                class="code-label">Calculating Position</span></div>
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Complex Math Essentials</span>
+                        </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
+                            <pre><code class="language-python">import cmath
 
-<span class="code-comment"># Want to move 5 units at a 45 degree angle</span>
-radius = <span class="code-number">5</span>
-angle_deg = <span class="code-number">45</span>
-angle_rad = math.radians(angle_deg) <span class="code-comment"># Convert first!</span>
+z1 = 1 + 1j # Magnitude √2, Angle 45°
+z2 = 0 + 1j # Magnitude 1, Angle 90°
 
-x_pos = radius * math.cos(angle_rad)
-y_pos = radius * math.sin(angle_rad)
+# Adding = Translation
+print(f"z1 + z2 = {z1 + z2}") # (1+2j)
 
-<span class="code-comment"># This gives us the exact vector to move!</span></pre>
+# Multiplying = Rotation
+z3 = z1 * z2 
+# Expected: Magnitude √2, Angle 45+90 = 135°
+print(f"z1 * z2 = {z3}") # (-1+1j)
+print(f"New Mag: {abs(z3):.2f}")
+print(f"New Angle: {math.degrees(cmath.phase(z3))}") # 135.0</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="identities">
+            <!-- Euler -->
+            <section class="section" id="euler">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Pythagorean Identity</h2>
+                    <h2 class="section-title">Euler's Formula: The Merge</h2>
                 </div>
                 <div class="section-body">
-                    <p>Since the Unit Circle coordinates form a right triangle with the radius (hypotenuse) of 1, the
-                        Pythagorean Theorem ($a^2 + b^2 = c^2$) gives us the most important identity in Trig:</p>
+                    <p>The most beautiful equation in mathematics is the bridge between <strong>Arithmetic</strong> and
+                        <strong>Geometry</strong>.
+                    </p>
                     <div class="math-block">
-                        \sin^2(\theta) + \cos^2(\theta) = 1
+                        $$ e^{ix} = \cos(x) + i\sin(x) $$
                     </div>
                     <div class="info">
-                        <strong>What this means:</strong> No matter what angle you choose, the square of the
-                        x-coordinate plus the square of the y-coordinate always sums to 1. This "normalizes" vectors in
-                        graphics.
+                        <strong>The Intuition:</strong>
+                        <br>Imagine $e^x$ as continuous growth. If you multiply that growth by $i$, the growth is pushed
+                        sideways. If you grow sideways continuously, you don't expand—you <strong>rotate</strong>.
+                        <br>• $x$ is your angle (in radians).
+                        <br>• $e^{ix}$ is your position on the <strong>Unit Circle</strong>.
+                    </div>
+
+                    <div class="rule">
+                        <strong>Euler's Identity:</strong>
+                        <br>When $x = \pi$:
+                        <br>$$ e^{i\pi} + 1 = 0 $$
+                        It combines the five most fundamental constants in one line.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="code">
+            <!-- De Moivre -->
+            <section class="section" id="demoivre">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Trigonometry in Code</h2>
+                    <h2 class="section-title">De Moivre's Theorem: Powers of Rotation</h2>
                 </div>
                 <div class="section-body">
-                    <p>Beyond triangles, we use standard functions to create smooth, oscillating motion.</p>
+                    <p>Calculating $(a+bi)^n$ by hand using FOIL is a nightmare. Using rotations, it becomes a single
+                        multiplication.</p>
+                    <div class="math-block">
+                        $$ (\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta) $$
+                    </div>
+                    <div class="card">
+                        <h3>Why this is an Optimization</h3>
+                        <p>In a 3D engine, if you want to rotate an object by 5° a total of 100 times, you don't need
+                            to perform 100 matrix multiplications. You just calculate the final angle ($500^\circ$)
+                            once using De Moivre.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roots of Unity -->
+            <section class="section" id="roots">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Roots of Unity (FFT Symmetry)</h2>
+                </div>
+                <div class="section-body">
+                    <p>How do we solve $z^n = 1$? In real numbers, there are only one or two solutions. In complex
+                        numbers, there are <strong>always $n$ solutions</strong>, and they form a perfect polygon on
+                        the circle.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>The "Circle of Bits"</h3>
+                            <p>For $n=4$, the solutions are $1, i, -1, -i$.</p>
+                            <p>For $n=8$, they are the corners of an octagon.</p>
+                        </div>
+                        <div class="card">
+                            <h3>CS Connection: The FFT</h3>
+                            <p>The Fast Fourier Transform (FFT) works because these roots are
+                                <strong>symmetrical</strong>.
+                                We can "divide and conquer" the signal because the complex values cancel each other out
+                                perfectly in the calculation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Visualizing Roots of Unity</h3>
+                        <p>We can plot all $n$ roots of $z^n = 1$ using Euler's formula: $\omega_k = e^{2\pi i k/n}$.
+                        </p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Plotting the 8th Roots of Unity</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+n = 8  # Number of roots
+k = np.arange(n)
+roots = np.exp(2j * np.pi * k / n)
+
+# Plot
+fig, ax = plt.subplots(figsize=(5, 5))
+circle = plt.Circle((0, 0), 1, fill=False, color='gray')
+ax.add_patch(circle)
+ax.scatter(roots.real, roots.imag, s=100, c='red', zorder=5)
+for i, r in enumerate(roots):
+    ax.annotate(f"ω{i}", (r.real, r.imag), fontsize=10)
+ax.set_aspect('equal')
+ax.set_title(f"The {n}th Roots of Unity")
+plt.show()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🌀</span>
+                        <strong>Analogy: The Heartbeat of Signals</strong>
+                        <br>Think of each root of unity as a "phase" in a repeating cycle. Just like a heartbeat has
+                        a consistent rhythm, these roots represent evenly spaced moments in a periodic signal.
+                        The FFT uses this symmetry to decompose any signal into these fundamental "heartbeats."
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quaternions -->
+            <section class="section" id="quaternions">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Beyond 2D: Quaternions & SLERP</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Complex numbers ($a+bi$) handle 2D rotation. To handle 3D rotation without the math breaking
+                        (Gimbal Lock), game engines use <strong>Quaternions</strong>.
+                    </p>
+                    <div class="rule">
+                        <strong>Quaternions ($w + xi + yj + zk$):</strong>
+                        <br>We use three imaginary units: $i, j, k$.
+                        <br>$$ i^2 = j^2 = k^2 = ijk = -1 $$
+                        While complex numbers rotate on a circle, Quaternions rotate on a <strong>4D sphere</strong>
+                        (hypersphere).
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">SLERP: Smooth Rotation</h3>
+                        <p>If you want a spaceship to turn smoothly from one direction to another, you don't use
+                            Linear Interpolation (LERP), which cuts corners. You use <strong>Spherical Linear
+                                Interpolation (SLERP)</strong>.</p>
+                        <div class="info">
+                            SLERP ensures the rotation speed is constant and follows the shortest path on the sphere.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Using Quaternions</h3>
+                        <p>Modern libraries like <code>scipy</code> provide quaternion-like tooling, or you can use
+                            <code>numpy-quaternion</code> for pure quaternion math.
+                        </p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Simple Quaternion Rotation</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">from scipy.spatial.transform import Rotation as R
+import numpy as np
+
+# Define a 90-degree rotation around the Z-axis
+r = R.from_euler('z', 90, degrees=True)
+
+# Get the quaternion representation [x, y, z, w]
+quat = r.as_quat()
+print(f"Quaternion: {quat}")  # [0, 0, 0.707, 0.707]
+
+# Apply to a vector [1, 0, 0]
+v = np.array([1, 0, 0])
+v_rotated = r.apply(v)
+print(f"Rotated Vector: {v_rotated}")  # [0, 1, 0]</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Gimbal Lock:</strong> Using Euler angles (Roll/Pitch/Yaw) instead of Quaternions
+                        works until two rotation axes align. When this happens, you lose a degree of freedom and get
+                        weird snapping behavior. Quaternions never have this problem.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quantum -->
+            <section class="section" id="quantum">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Quantum: The Bloch Sphere</h2>
+                </div>
+                <div class="section-body">
+                    <p>In classical computing, a bit is 0 or 1. In quantum computing, a <strong>Qubit</strong> is a
+                        linear combination of both, represented as complex numbers.</p>
+                    <div class="math-block">
+                        $$ |\psi\rangle = \alpha|0\rangle + \beta|1\rangle $$
+                        Where $\alpha$ and $\beta$ are <strong>Complex Amplitudes</strong>.
+                    </div>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Superposition</h3>
+                            <p>The probability of measuring a 0 is $|\alpha|^2$. These probabilities must add to 1.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Phase (The Magic)</h3>
+                            <p>Because $\alpha$ and $\beta$ are complex, they have a <strong>Phase</strong>. When two
+                                qubits
+                                interact, their phases can cancel out (Destructive Interference) or add up
+                                (Constructive),
+                                allowing us to "calculate all paths" at once.</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Bloch Sphere (Visualizing State)</h3>
+                        <p>The Bloch Sphere is a 3D visualization where the "North Pole" is $|0\rangle$,
+                            the "South Pole" is $|1\rangle$, and every point on the surface is a possible complex state
+                            of the qubit.</p>
+                        <div class="info">
+                            <strong>Geographic Analogy:</strong>
+                            <br>• North Pole = Definitely 0.
+                            <br>• South Pole = Definitely 1.
+                            <br>• Equator = 50/50 superposition (like a fair coin mid-flip).
+                            <br>• Longitude = The Phase of the amplitudes.
+                        </div>
+                    </div>
+
                     <div class="code-block">
-                        <div class="code-header"><span class="code-lang">JavaScript</span><span
-                                class="code-label">Oscillation (Game Loop)</span></div>
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Simulating a Qubit Measurement</span>
+                        </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">function</span> <span class="code-function">update</span>(time) {
-    <span class="code-comment">// Create a smooth "breathing" effect</span>
-    <span class="code-comment">// sin() oscillates between -1 and 1</span>
-    <span class="code-keyword">let</span> scale = <span class="code-number">1.0</span> + <span class="code-number">0.1</span> * Math.sin(time);
-    
-    player.setScale(scale);
-    
-    <span class="code-comment">// Floating up and down</span>
-    player.y = baseHeight + <span class="code-number">10</span> * Math.sin(time * <span class="code-number">2</span>);
-}</pre>
+                            <pre><code class="language-python">import numpy as np
+
+# Define a qubit in superposition: (|0⟩ + |1⟩) / √2
+alpha = 1 / np.sqrt(2)
+beta = 1 / np.sqrt(2)
+
+# Probabilities of measuring 0 and 1
+prob_0 = np.abs(alpha)**2
+prob_1 = np.abs(beta)**2
+print(f"P(0) = {prob_0:.2f}, P(1) = {prob_1:.2f}")  # 0.50, 0.50
+
+# Simulate a measurement
+outcome = np.random.choice([0, 1], p=[prob_0, prob_1])
+print(f"Measurement: {outcome}")  # Either 0 or 1</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- Fractals -->
+            <section class="section" id="fractals">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Python: Fractal Geometry (Julia Sets)</h2>
+                </div>
+                <div class="section-body">
+                    <p>The beauty of complex numbers is that they can generate infinite complexity from a single line
+                        of code. The Mandelbrot set and Julia sets are both defined by the same recurrence:</p>
+                    <div class="math-block">
+                        $$ z_{n+1} = z_n^2 + c $$
+                    </div>
+                    <div class="info">
+                        <strong>The Escape Test:</strong>
+                        <br>For every point on the plane, we run this loop. If the magnitude $|z|$ exceeds 2, the number
+                        "escapes" to infinity. If it stays bounded, it is part of the set.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Julia Set Generator</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def julia_set(c, h, w, max_iter=100):
+    # Create a grid of complex numbers
+    y, x = np.ogrid[-1.5:1.5:h*1j, -1.5:1.5:w*1j]
+    z = x + y*1j
+    
+    # Initialize the image
+    img = np.zeros(z.shape, dtype=float)
+    
+    for i in range(max_iter):
+        mask = np.abs(z) <= 10
+        z[mask] = z[mask]**2 + c
+        img[mask] += 1
+        
+    return img
+
+# Change c to morph the fractal!
+c = complex(-0.8, 0.156) 
+plt.imshow(julia_set(c, 500, 500), cmap='magma')
+plt.axis('off')
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signal Processing -->
+            <section class="section" id="signals">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Python: Signal Processing (FFT Basics)</h2>
+                </div>
+                <div class="section-body">
+                    <p>In Day 8, we saw the Fourier Transform as a concept. In code, the Fourier Transform is
+                        implemented
+                        using <strong>Complex Arrays</strong>.</p>
+                    <div class="rule">
+                        <strong>The Complex Frequency:</strong>
+                        <br>A signal isn't just a list of numbers; it's a sum of complex exponentials $e^{i\omega t}$.
+                        Using <code>np.fft</code>, we move from the Time Domain (samples) to the Frequency Domain
+                        (complex spectrum).
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Spectrum Analysis</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+# Create a signal: 10Hz sine wave + 50Hz noise
+t = np.linspace(0, 1, 1000)
+signal = np.sin(2 * np.pi * 10 * t) + 0.5 * np.sin(2 * np.pi * 50 * t)
+
+# Perform Fast Fourier Transform (FFT)
+fft_result = np.fft.fft(signal)
+
+# fft_result contains complex numbers!
+# The magnitude is the 'volume' of that frequency.
+# The phase (angle) is the 'timing' of that frequency.
+print(f"Sample complex frequency: {fft_result[10]}")
+print(f"Volume at 10Hz: {np.abs(fft_result[10])}")</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Summary: The Engine of Rotation</h2>
+                </div>
+                <div class="section-body">
+                    <p>Complex numbers are the ultimate abstraction for anything that cycles, spins, or oscillates.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Key Takeaways</h3>
+                            <ul>
+                                <li>$i$ is the operator for 90° rotation.</li>
+                                <li>Euler's Formula ($e^{ix}$) turns growth into cycles.</li>
+                                <li>Quaternions are for 3D rotation without Gimbal Lock.</li>
+                                <li>Complex Amplitudes are the language of Quantum Bits.</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Why We Study This</h3>
+                            <p>You can simulate a physics engine using vectors, but complex numbers make the math
+                                smaller, faster, and less prone to overflow errors. They are the "native language"
+                                of modern engineering.</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Glossary of Complex Concepts</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Term</th>
+                                    <th>Definition</th>
+                                    <th>CS Parallel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Modulus</strong></td>
+                                    <td>Distance from origin $|z|$.</td>
+                                    <td>Signal Amplitude / Vector Length.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Conjugate</strong></td>
+                                    <td>Flipping the sign of $i$ ($a-bi$).</td>
+                                    <td>Phase Reversal / Normal Inverting.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Unit Circle</strong></td>
+                                    <td>Circle with radius 1.</td>
+                                    <td>Lookup Table for rotations.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Quaternions</strong></td>
+                                    <td>4D extension of complex numbers.</td>
+                                    <td>High-performance 3D rotation engine.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Gotchas</h3>
+                        <ul class="gotcha-list">
+                            <li><strong>$j$ vs $i$:</strong> Engineering (and Python) uses $j$ because $i$ is reserved
+                                for Current. Don't let <code>1j</code> confuse you!</li>
+                            <li><strong>Radian Default:</strong> Most complex math libraries expect radians, not
+                                degrees. Always convert before using <code>cmatch.exp()</code>.</li>
+                            <li><strong>Gimbal Lock:</strong> If you use Euler angles (roll/pitch/yaw) instead of
+                                Quaternions for 3D, your rotations will eventually "stack" and lock up.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>Day 10 Checkpoint:</strong> Congratulations! You've finished the Precalculus section.
+                        Tomorrow, we begin <strong>Calculus</strong>—where we take these static formulas and make them
+                        dance with limits and change.
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 12</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -257,9 +742,10 @@ y_pos = radius * math.sin(angle_rad)
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 13</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -274,27 +760,45 @@ y_pos = radius * math.sin(angle_rad)
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Imaginary Numbers",
                 items: [
-                    { title: "Unit Circle Animation", channel: "ProjectMathematics", vid: "R0_w4Q1T67g" },
-                    { title: "Radians Explained", channel: "Maths Is Fun", vid: "SLSTS-EvOx4" },
-                    { title: "Basic Trig Functions", channel: "Organic Chemistry Tutor", vid: "zU02b72cv6E" }
+                    { title: "Imaginary Numbers are Real", channel: "Welch Labs", vid: "T647CGsuOVU" },
+                    { title: "Complex Number Arithmetic", channel: "Khan Academy", vid: "SP-YJe7Vldo" },
+                    { title: "Visualizing Euler's Formula", channel: "3Blue1Brown", vid: "mvmuCPvRoWQ" },
+                    { title: "Euler's Identity", channel: "Mathologer", vid: "v0YEaeIClKY" }
                 ]
             },
             {
-                title: "Applications",
+                title: "CS & Quantum Applications",
                 items: [
-                    { title: "Trigonometry for Game Dev", channel: "Dan Zaidan", vid: "N3bF_h5y6cQ" },
-                    { title: "Why Radians Matter", channel: "3Blue1Brown", vid: "CGd340o1yG0" }
+                    { title: "Quaternions & 3D Rotation", channel: "3Blue1Brown", vid: "d4EgbgTm0Bg" },
+                    { title: "Foundations of Quantum Computing", channel: "Quantum Camp", vid: "n_Pz27N1L30" },
+                    { title: "Why Complex Numbers for Quantum?", channel: "MinutePhysics", vid: "ALc8C6Vav_k" },
+                    { title: "Complex Numbers in Gamedev", channel: "Infallible Code", vid: "9_e7G_yH_oM" }
+                ]
+            },
+            {
+                title: "Fractals & Signals",
+                items: [
+                    { title: "The Mandelbrot Set", channel: "Numberphile", vid: "NGMRB4O922I" },
+                    { title: "Julia Sets and Chaos", channel: "Veritasium", vid: "ovJcsL7vyrk" },
+                    { title: "The Fast Fourier Transform", channel: "Veritasium", vid: "nmgFG7PUHfo" },
+                    { title: "Discrete Fourier Transform", channel: "3Blue1Brown", vid: "spUNpyF58BY" }
                 ]
             }
         ];
-        // Note: 'day9' in questions-data.js needs to be updated to match Trig topics!
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day9'], storageKey: 'day9_trig_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day9'] || [],
+            storageKey: 'day9_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

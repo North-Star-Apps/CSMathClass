@@ -109,7 +109,10 @@
                             • (r + s)x = rx + sx
                             • r(sx) = (rs)x
                             • 1x = x
-                        </div>
+                        
+                    <div class="info">
+                        <strong>🎲 Simple:</strong> Probability is like weather forecasting. A 70% chance of rain doesn't mean it will rain 70% of the day—it means if we had 100 identical days, about 70 would have rain.
+                    </div></div>
                         <div class="math-block">
                             KEY DIFFERENCE:
                             Scalars may not have inverses!
@@ -184,7 +187,21 @@ pts = np.array(points)
 <span class="code-function">print</span>(<span class="code-string">"Note: Not a vector space (cannot scale by 0.5)!"</span>)</pre>
                         </div>
                     </div>
-                </div>
+                
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Mathematical Computation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> math
+
+<span class="code-comment"># Common mathematical operations</span>
+<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
+<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
+<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
+                        </div>
+                    </div></div>
             </section>
 
             <!-- Videos -->
@@ -233,13 +250,16 @@ pts = np.array(points)
     <script>
         const VIDEO_GROUPS = [
             {
-                "title": "Lesson Videos",
-                "items": [
-                    {
-                        "title": "What is a Module?",
-                        "vid": "1wz6y7R0k4Y"
-                    }
+                title: "Core Concepts",
+                items: [
+                    { title: "Statistics Fundamentals", channel: "StatQuest", vid: "qBigTkBLU6g" },
+                    { title: "Probability Explained", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Bayes Theorem", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Normal Distribution", channel: "Khan Academy", vid: "mtbJbDwqWLE" },
+                    { title: "Hypothesis Testing", channel: "StatQuest", vid: "0oc49DyA3hU" }
                 ]
+            }
+        ]
             }
         ];
         initLesson({ videos: VIDEOS_REAL, questions: window.QUESTIONS_DATA['day54'], storageKey: 'day54_alg3_v1' });

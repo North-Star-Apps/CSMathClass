@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 10: Recurrences — Unrolling, Guess-and-Check & Master Theorem</title>
+    <title>Day 10: Checkpoint 2 - Precalculus Review</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,33 +22,59 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 10 · Algorithm Analysis</div>
-
-        <p class="hero-desc">Recursive algorithms have recursive running times. We use Recurrence Relations to model
-            this complexity, and the Master Theorem to solve them instantly.</p>
+            </svg>
+            Day 10 · Section 2 Review
+        </div>
+        <h1>Checkpoint 2: Precalculus</h1>
+        <p class="hero-desc">
+            You've built the machinery: Functions (Graphs), Trigonometry (Circles), and Complex Numbers (Rotation).
+            Calculus is the study of <i>change</i>, and these are the tools we will use to measure it.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">5 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~85 min review
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                30 checkpoints
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                5 key videos
+            </div>
         </div>
     </header>
 
@@ -57,17 +83,16 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#basics" class="toc-link">1. Recurrence Basics</a></li>
-                    <li><a href="#unrolling" class="toc-link">2. Unrolling Method</a></li>
-                    <li><a href="#master" class="toc-link">3. The Master Theorem</a></li>
-                    <li><a href="#examples" class="toc-link">4. Common Examples</a></li>
-                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#visuals" class="toc-link">1. Graphing (Review)</a></li>
+                    <li><a href="#trig" class="toc-link">2. Trig (Review)</a></li>
+                    <li><a href="#complex" class="toc-link">3. Complex (Review)</a></li>
+                    <li><a href="#exam" class="toc-link">4. Mini Exam</a></li>
+                    <li><a href="#status" class="toc-link">5. Code Status</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Library</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
+                <div class="toc-title">Sprint Status</div>
                 <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
                         id="statAttempted">0</span></div>
                 <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
@@ -78,178 +103,133 @@
         </aside>
 
         <main class="content">
-            <section class="section" id="why">
-                <div class="section-header">
-                    <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Recurrences Matter</h2>
+            <div class="checkpoint-banner">
+                <div class="checkpoint-icon">🏁</div>
+                <div class="checkpoint-title">Checkpoint 2</div>
+                <div class="checkpoint-desc">
+                    Confirming mastery of Days 7-10. Ready for Calculus?
                 </div>
-                <div class="section-body">
-                    <p>When an algorithm calls itself, we can't just count the lines of code. We need a mathematical way
-                        to express "the time it takes is the time for the subproblems plus the glue code."</p>
-                    <div class="info">
-                        <strong>🪆 Simple:</strong> Imagine a Matryoshka doll. You open the big doll (O(1) work) and
-                        find a smaller doll (recursive call). To know the total size of the set, you need a formula that
-                        sums up the work of opening every doll until you reach the tiny solid one (base case).
-                    </div>
-                </div>
-            </section>
+            </div>
 
-            <section class="section" id="basics">
+            <!-- Visuals -->
+            <section class="section" id="visuals">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Recurrence Basics</h2>
+                    <h2 class="section-title">Graphing & Functions Review</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Anatomy of a Recurrence</h3>
-                        <div class="math-block">T(n) = a \cdot T(n/b) + f(n)
-                            \newline
-                            \text{Where:}
-                            \newline
-                            • T(n) = \text{Time to solve problem of size } n
-                            \newline
-                            • a = \text{Number of subproblems}
-                            \newline
-                            • n/b = \text{Size of each subproblem}
-                            \newline
-                            • f(n) = \text{Work done outside recursive calls (merge/divide)}</div>
-                    </div>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Mapping
-                                Code to Math</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">merge_sort</span>(arr):
-    n = <span class="code-function">len</span>(arr)
-    <span class="code-keyword">if</span> n <= <span class="code-number">1</span>: <span class="code-keyword">return</span> arr
-    
-    <span class="code-comment"># Two recursive calls (a=2)</span>
-    <span class="code-comment"># Each is half size (b=2)</span>
-    left = <span class="code-function">merge_sort</span>(arr[:n//2])
-    right = <span class="code-function">merge_sort</span>(arr[n//2:])
-    
-    <span class="code-comment"># Merge takes O(n) work (f(n)=n)</span>
-    <span class="code-keyword">return</span> <span class="code-function">merge</span>(left, right)
-
-<span class="code-comment"># T(n) = 2T(n/2) + n</span></pre>
+                    <p>The visual language of code analysis.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Scales</h3>
+                            <p><strong>Linear:</strong> Constant growth ($y=x$).</p>
+                            <p><strong>Log-Log:</strong> Power Laws (Polynomails) become lines. Used for Big O.</p>
+                            <p><strong>Semi-Log:</strong> Exponentials become lines. Used for Moore's Law.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Asymptotes</h3>
+                            <p><strong>Vertical:</strong> The "Crash". Division by zero. $x \to c$.</p>
+                            <p><strong>Horizontal:</strong> The "Limit" ($x \to \infty$). Steady state capacity.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="unrolling">
+            <!-- Trig -->
+            <section class="section" id="trig">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">The Unrolling Method</h2>
+                    <h2 class="section-title">Trig Review (Cycles)</h2>
                 </div>
                 <div class="section-body">
-                    <p>Also called the "Substitution Method" or "recursion tree method". You expand the T(n) definition
-                        repeatedly until you see a pattern.</p>
-                    <div class="info">
-                        <strong>🪞 Simple:</strong> The Mirror Tunnel.
-                        <br>Stand between two mirrors. You see infinite reflections getting smaller and smaller.
-                        <br>Unrolling is just counting how many reflections you see before they become too small to
-                        distinguish (base case).
-                    </div>
-                    <div class="math-block">
-                        T(n) = T(n/2) + 1 \quad (\text{Binary Search})
-                        \newline
-                        Step 1: T(n) = [T(n/4) + 1] + 1 = T(n/4) + 2
-                        \newline
-                        Step 2: T(n) = [T(n/8) + 1] + 2 = T(n/8) + 3
-                        \newline
-                        ...
-                        \newline
-                        Step k: T(n) = T(n/2^k) + k
+                    <p>The circle of life (and signals).</p>
+                    <div class="rule">
+                        <strong>The Big 3 Concepts:</strong>
+                        <br>1. <strong>Unit Circle:</strong> Cosine is X, Sine is Y. That's it.
+                        <br>2. <strong>Identity:</strong> $\sin^2 + \cos^2 = 1$. (Distance is 1).
+                        <br>3. <strong>Dot Product:</strong> A measure of "Parallelism" or Similarity using Cosine.
                     </div>
                     <div class="info">
-                        <strong>The trick:</strong> When does it stop? When the input size becomes 1 (base case).
-                        \newline
-                        Set $n/2^k = 1 \implies n = 2^k \implies k = \log_2 n$.
-                        \newline
-                        Substitute $k$ back in: $T(n) = T(1) + \log n = O(\log n)$.
+                        <strong>Python Tip:</strong> Audio processing (FFT) converts Time Domain (Sample array) to
+                        Frequency Domain (Magnitude array).
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="master">
+            <!-- Complex -->
+            <section class="section" id="complex">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">The Master Theorem</h2>
+                    <h2 class="section-title">Complex Review (Rotation)</h2>
                 </div>
                 <div class="section-body">
-                    <p>Instead of unrolling every time, use the "cheat sheet" for Divide & Conquer recurrences.</p>
-                    <div class="formula-box">
-                        <div class="formula-label">Master Theorem</div>
-                        <div class="formula-main">T(n) = aT(n/b) + f(n)</div>
-                    </div>
-                    <p>Compare the recursive work $n^{\log_b a}$ vs the non-recursive work $f(n)$.</p>
-                    <div class="info">
-                        <strong>👔 Simple: The Manager's Dilemma</strong>
-                        <ul>
-                            <li><strong>Case 1 (Recursion Wins):</strong> The sub-teams are growing too fast. The work
-                                at the leaves (bottom) dominates. $T(n) = O(n^{\log_b a})$.</li>
-                            <li><strong>Case 2 (Tie):</strong> The work is balanced at every level. Multiply by depth
-                                ($\log n$). $T(n) = O(n^{\log_b a} \log n)$.</li>
-                            <li><strong>Case 3 (Root Wins):</strong> The manager does the most work. The top level
-                                dominates. $T(n) = O(f(n))$.</li>
-                        </ul>
-                        <br><strong>🏭 Simple:</strong> Imagine a factory.
-                        <br>Case 1: The workers (leaves) are so slow that adding more layers of management doesn't
-                        matter. Total time = Time of workers.
-                        <br>Case 3: The CEO (root) is so slow that the workers are waiting. Total time = Time of CEO.
+                    <p>The "Geometrical" numbers.</p>
+                    <div class="code-block">
+                        <div class="code-header"><span class="code-lang">Cheat Sheet</span><span
+                                class="code-label">Complex Power</span></div>
+                        <div class="code-content">
+                            • Addition: Translation (vector add)
+                            • Multiplication: Rotation + Scaling
+                            • i: 90 degree rotate
+                            • e^(ix): Circular rotate (Euler)
+                            • Quaternions: 3D rotate
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="examples">
+            <!-- Exam -->
+            <section class="section" id="exam">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Common Examples</h2>
+                    <h2 class="section-title">Mini Exam</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Merge Sort</h3>
-                        <div class="math-block">T(n) = 2T(n/2) + n
-                            \newline
-                            a=2, b=2, f(n)=n
-                            \newline
-                            Compare n^{\log_2 2} = n^1 \text{ vs } n.
-                            \newline
-                            They are equal! (Case 2: The Tie)
-                            \newline
-                            Result: O(n \log n)</div>
+                    <p>Test your knowledge. No hints.</p>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Binary Search</h3>
-                        <div class="math-block">T(n) = 1T(n/2) + 1
-                            \newline
-                            a=1, b=2, f(n)=1
-                            \newline
-                            Compare n^{\log_2 1} = n^0 = 1 \text{ vs } 1.
-                            \newline
-                            Equal! (Case 2)
-                            \newline
-                            Result: O(1 \cdot \log n) = O(\log n)</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Matrix Multiplication (Strassen)</h3>
-                        <div class="math-block">T(n) = 7T(n/2) + n^2
-                            \newline
-                            a=7, b=2, f(n)=n^2
-                            \newline
-                            Compare n^{\log_2 7} \approx n^{2.81} \text{ vs } n^2.
-                            \newline
-                            Recursion wins! (Case 1)
-                            \newline
-                            Result: O(n^{\log_2 7}) \approx O(n^{2.81})</div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+
+            <!-- Status -->
+            <section class="section" id="status">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Status Check</h2>
+                </div>
+                <div class="section-body">
+                    <p>You have now completed Section 2. Here is your inventory:</p>
+                    <div class="grid-2col">
+                        <div class="rule">
+                            <strong>Skills Acquired:</strong>
+                            <ul class="list-disc ml-6">
+                                <li>Function Transformations</li>
+                                <li>Log Scales (Visualizing Complexity)</li>
+                                <li>The Unit Circle (Trig Intuition)</li>
+                                <li>Fourier Transform Basics</li>
+                                <li>Complex Arithmetic & Plane</li>
+                                <li>Euler's Formula ($e^{ix}$)</li>
+                            </ul>
+                        </div>
+                        <div class="info">
+                            <strong>Next Up: Section 3 (Calculus)</strong>
+                            <br>The main event. Limits, Derivatives, and Integrals.
+                            <br>Day 11: Limits & Continuity.
+                        </div>
                     </div>
                 </div>
             </section>
 
+            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Video Lessons</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Video Library (Best of Section 2)</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
@@ -264,44 +244,30 @@
                     </div>
                 </div>
             </section>
-
-            <section class="section" id="practice">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Practice Problems</h2>
-                </div>
-                <div class="section-body">
-                    <div class="quiz-controls">
-                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                        <button class="btn" id="btnRevealAll">Reveal All</button>
-                        <button class="btn" id="btnClear">Clear Inputs</button>
-                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
-                    </div>
-                    <div id="quizContainer"></div>
-                </div>
-            </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Section 2 Highlights",
                 items: [
-                    { title: "Recursion Tree Method", channel: "Michael Sambol", vid: "4p1WqREIJq8" },
-                    { title: "Master Theorem Explained", channel: "Gate Smashers", vid: "KB1XnUKJVFQ" },
-                    { title: "Recurrence Relations", channel: "TrevTutor", vid: "R2j9j9fNfJM" }
-                ]
-            },
-            {
-                title: "Worked Examples",
-                items: [
-                    { title: "Master Theorem Examples", channel: "Neso Academy", vid: "m4yVlPqeZwo" },
-                    { title: "Solving Recurrences", channel: "Kimberly Brehm", vid: "S4f24H2s35E" }
+                    { title: "Visualizing Functions", channel: "Professor Leonard", vid: "E-nQygpBcd4" },
+                    { title: "The Unit Circle", channel: "Khan Academy", vid: "et8u36-k7aU" },
+                    { title: "Euler's Formula", channel: "3Blue1Brown", vid: "mvmuCPvRoWQ" },
+                    { title: "Complex Numbers in 3D", channel: "Welch Labs", vid: "T647CGsuOVU" },
+                    { title: "Fourier Series Visualized", channel: "SmarterEveryDay", vid: "ds0cmAV-Yek" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day10'], storageKey: 'day10_recur_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day10'] || [],
+            storageKey: 'day10_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

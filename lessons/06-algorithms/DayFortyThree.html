@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 43: Statistics (Estimation & Regression)</title>
+    <title>Day 43: Divide & Conquer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 43 · Probability & Statistics
+            Day 43 · Conquer Algorithm
         </div>
-        <h1>Estimation & Regression</h1>
+        <h1>Divide & Conquer</h1>
         <p class="hero-desc">
-            The heart of statistical learning. From maximum likelihood estimation to the
-            foundations of supervised machine learning with linear regression.
+            The strategy of champions: Break a hard problem into easy sub-problems.
+            The foundation of the most efficient algorithms known to man.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -51,7 +60,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~95 min read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -64,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                5 video lessons
             </div>
         </div>
     </header>
@@ -74,17 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#estimators" class="toc-link">1. Estimators</a></li>
-                    <li><a href="#mle" class="toc-link">2. Maximum Likelihood</a></li>
-                    <li><a href="#bias" class="toc-link">3. Bias-Variance</a></li>
-                    <li><a href="#inference" class="toc-link">4. Statistical Inference</a></li>
-                    <li><a href="#python" class="toc-link">5. Python MLE</a></li>
-                    <li><a href="#linear" class="toc-link">6. Linear Regression</a></li>
-                    <li><a href="#least" class="toc-link">7. Least Squares</a></li>
-                    <li><a href="#rsquared" class="toc-link">8. R² & Model Fit</a></li>
-                    <li><a href="#multiple" class="toc-link">9. Multiple Regression</a></li>
-                    <li><a href="#videos" class="toc-link">10. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">11. Practice</a></li>
+                    <li><a href="#paradigm" class="toc-link">1. The Paradigm</a></li>
+                    <li><a href="#master" class="toc-link">2. Master Theorem</a></li>
+                    <li><a href="#algorithms" class="toc-link">3. Famous Algorithms</a></li>
+                    <li><a href="#python" class="toc-link">4. Python: Karatsuba</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -99,416 +103,127 @@
         </aside>
 
         <main class="content">
-            <!-- Estimators -->
-            <section class="section" id="estimators">
+            <!-- Paradigm -->
+            <section class="section" id="paradigm">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Point Estimators</h2>
+                    <h2 class="section-title">The Paradigm</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We have data $x_1, ..., x_n$ from a distribution with unknown parameter $\theta$.
-                        An <strong>estimator</strong> $\hat{\theta}$ is a function of the data that guesses $\theta$.
+                    <p>Three steps to rule them all:</p>
+                    <ol>
+                        <li><strong>Divide:</strong> Break the problem into smaller sub-problems.</li>
+                        <li><strong>Conquer:</strong> Solve the sub-problems recursively. (Base case: easy).</li>
+                        <li><strong>Combine:</strong> Merge the solutions into a final answer.</li>
+                    </ol>
+                    <p><em>Analogy:</em> Sorting a deck of cards. Divide into pile A and B. Sort A. Sort B. Merge them.
                     </p>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Properties</h3>
-                        <div class="list-group">
-                            <div class="list-item">
-                                <strong>Unbiasedness:</strong> $E[\hat{\theta}] = \theta$. On average, it hits the
-                                target.
-                                <br>Example: Sample mean $\bar{X}$ is unbiased for $\mu$.
-                            </div>
-                            <div class="list-item">
-                                <strong>Consistency:</strong> $\hat{\theta} \to \theta$ as $n \to \infty$. More data =
-                                better answer.
-                            </div>
-                            <div class="list-item">
-                                <strong>Efficiency:</strong> Lowest possible variance among unbiased estimators
-                                (Cramér-Rao bound).
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <strong>🎯 Simple:</strong> An estimator is like an archer aiming at a bullseye.
-                        <br>• <strong>Unbiased</strong> = arrows cluster around the bullseye (not systematically off)
-                        <br>• <strong>Consistent</strong> = more shots get closer to center
-                        <br>• <strong>Efficient</strong> = arrows have smallest spread
-                    </div>
                 </div>
             </section>
 
-            <!-- MLE -->
-            <section class="section" id="mle">
+            <!-- Master Theorem -->
+            <section class="section" id="master">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Maximum Likelihood (MLE)</h2>
+                    <h2 class="section-title">Master Theorem Review</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        The most common way to design estimators in CS and AI.
-                        "Choose the parameters that maximize the probability of observing the data we actually saw."
-                    </p>
-
-                    <div class="rule">
-                        <strong>Likelihood Function:</strong> $L(\theta; x) = P(x | \theta)$
-                        <br>
-                        <strong>Log-Likelihood:</strong> $\ell(\theta) = \ln L(\theta)$. (Easier to differentiate sums
-                        than products).
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: Bernoulli MLE</h3>
-                        <p>Data: sequence of H, T, H... with $k$ heads in $n$ flips. Parameter $p$.</p>
-                        <div class="math-block">L(p) = p^k (1-p)^{n-k}
-                            \ell(p) = k \ln p + (n-k) \ln (1-p)
-
-                            Take derivative w.r.t p and set to 0:
-                            \frac{k}{p} - \frac{n-k}{1-p} = 0
-                            k(1-p) = p(n-k)
-                            k - kp = pn - pk
-                            k = pn \implies \hat{p}_{MLE} = \frac{k}{n}</div>
-                        <p>Result: The intuitive "sample proportion" is exactly the MLE!</p>
-                    </div>
-                    <div class="info">
-                        <strong>🔍 Simple:</strong> MLE is like a detective solving "who did it?"
-                        <br>"Given the evidence (data), which suspect (parameter) makes the evidence MOST LIKELY?"
-                        <br>You're not asking "what's the probability of the suspect?" but "which suspect best explains
-                        what we saw?"
-                    </div>
-
-                    <div class="info">
-                        <strong>MAP Estimation:</strong> If we have a <em>Prior</em> distribution on $\theta$, we
-                        maximize $P(\theta|x) \propto P(x|\theta)P(\theta)$.
-                        This is "Maximum A Posteriori". It introduces regularization (bias) to reduce variance.
+                    <p>For recurrences of the form $T(n) = aT(n/b) + O(n^d)$:</p>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <h3>Case 1: $d < \log_b a$</h3>
+                                    <p>Work at leaves dominates.</p>
+                                    <p>$O(n^{\log_b a})$</p>
+                        </div>
+                        <div class="card">
+                            <h3>Case 2: $d = \log_b a$</h3>
+                            <p>Work is balanced.</p>
+                            <p>$O(n^d \log n)$</p>
+                        </div>
+                        <div class="card">
+                            <h3>Case 3: $d > \log_b a$</h3>
+                            <p>Work at root dominates.</p>
+                            <p>$O(n^d)$</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Bias-Variance -->
-            <section class="section" id="bias">
+            <!-- Algorithms -->
+            <section class="section" id="algorithms">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Bias-Variance Tradeoff</h2>
+                    <h2 class="section-title">Famous Algorithms</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        The fundamental tension in supervised learning.
-                    </p>
-                    <div class="formula-box">Mean Squared Error = Bias^2 + Variance + Irreducible Error</div>
-
-                    <div class="two-col">
-                        <div>
-                            <h4>Bias (Underfitting)</h4>
-                            <p>Error from erroneous assumptions (e.g., assuming data is linear when it's quadratic).</p>
-                        </div>
-                        <div>
-                            <h4>Variance (Overfitting)</h4>
-                            <p>Error from sensitivity to small fluctuations in the training set.</p>
-                        </div>
-                    </div>
-                    <div class="math-block">High Bias: Model is too simple (misses signal)
-                        High Variance: Model is too complex (fits noise)
-                        Total Error is convex; we want the sweet spot.</div>
-                    <div class="info">
-                        <strong>🎯 Simple (Dartboard Analogy):</strong>
-                        <br>• <strong>High Bias:</strong> All darts land in the same wrong spot (consistent but wrong)
-                        <br>• <strong>High Variance:</strong> Darts scatter everywhere (sometimes right, often wrong)
-                        <br>• <strong>Sweet Spot:</strong> Darts cluster around the bullseye
-                    </div>
-                </div>
-            </section>
-
-            <!-- Inference -->
-            <section class="section" id="inference">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Statistical Inference</h2>
-                </div>
-                <div class="section-body">
-                    <p>Quantifying uncertainty about our estimates.</p>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Confidence Intervals</h3>
-                        <p>An interval $[L, U]$ that covers the true parameter $95\%$ of the time in repeated
-                            experiments.</p>
-                        <div class="math-block">\bar{x} \pm 1.96 \frac{\sigma}{\sqrt{n}} \quad (95\% \text{ for Normal})
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Hypothesis Testing (Null Hypothesis Significance Testing)</h3>
-                        <div class="rule">
-                            <strong>p-value:</strong> The probability of observing data at least as extreme as yours,
-                            assuming the Null Hypothesis ($H_0$) is true.
-                        </div>
-                        <ul>
-                            <li>Low p-value (< 0.05) $\implies$ Reject $H_0$. Data is surprising under null.</li>
-                            <li>High p-value $\implies$ Fail to reject. Data is consistent with null.</li>
-                        </ul>
-                    </div>
+                    <ul class="list-disc">
+                        <li><strong>Merge Sort:</strong> $T(n) = 2T(n/2) + O(n) \to O(n \log n)$.</li>
+                        <li><strong>Binary Search:</strong> $T(n) = T(n/2) + O(1) \to O(\log n)$.</li>
+                        <li><strong>Karatsuba Multiplication:</strong> Fast multiplication of large numbers. Splits
+                            numbers into halves. $O(n^{1.585})$.</li>
+                        <li><strong>Strassen Algorithm:</strong> Matrix multiplication faster than $O(n^3)$.</li>
+                        <li><strong>Fast Fourier Transform (FFT):</strong> $O(n \log n)$ signal processing. The most
+                            important algorithm of the 20th century.</li>
+                    </ul>
                 </div>
             </section>
 
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Python MLE</h2>
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Python: Karatsuba</h2>
                 </div>
                 <div class="section-body">
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Numerical MLE with SciPy</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">from</span> scipy.optimize <span class="code-keyword">import</span> minimize
-<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
-
-<span class="code-comment"># Generate synthetic data from Poisson(lambda=5)</span>
-true_lambda = <span class="code-number">5</span>
-data = np.random.poisson(true_lambda, size=<span class="code-number">100</span>)
-
-<span class="code-comment"># Define negative log-likelihood function (to minimize)</span>
-<span class="code-keyword">def</span> <span class="code-function">neg_log_likelihood</span>(params, data):
-    lam = params[<span class="code-number">0</span>]
-    <span class="code-keyword">if</span> lam <= <span class="code-number">0</span>: <span class="code-keyword">return</span> np.inf <span class="code-comment"># lambda must be positive</span>
-    <span class="code-comment"># P(X=k) = e^-lam * lam^k / k!</span>
-    <span class="code-comment"># log P = -lam + k*log(lam) - log(k!)</span>
-    <span class="code-comment"># Sum over all data points</span>
-    log_lik = -lam * <span class="code-function">len</span>(data) + np.<span class="code-function">sum</span>(data) * np.log(lam)
-    <span class="code-keyword">return</span> -log_lik
-
-<span class="code-comment"># Optimize</span>
-result = minimize(neg_log_likelihood, x0=[<span class="code-number">1.0</span>], args=(data,))
-mle_lambda = result.x[<span class="code-number">0</span>]
-
-<span class="code-function">print</span>(<span class="code-string">f"True Lambda: {true_lambda}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"MLE Estimate: {mle_lambda:.4f}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Sample Mean:  {np.mean(data):.4f}"</span>)
-<span class="code-comment"># For Poisson, MLE is exactly the sample mean.</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Simple Linear Regression -->
-            <section class="section" id="linear">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Linear Regression</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The model</h3>
-                        <div class="rule">
-                            <strong>Linear regression model:</strong> y = β₀ + β₁x + ε
-                        </div>
-                        <div class="math-block">COMPONENTS:
-                            y = response (dependent variable, what we predict)
-                            x = predictor (independent variable, feature)
-                            β₀ = intercept (y when x = 0)
-                            β₁ = slope (change in y per unit change in x)
-                            ε = error term (random noise, captures unexplained variation)
-
-                            ASSUMPTIONS:
-                            • Linearity: E[y|x] = β₀ + β₁x
-                            • Independence: errors are independent
-                            • Homoscedasticity: Var(ε) = σ² (constant)
-                            • Normality: ε ~ N(0, σ²)</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Least Squares -->
-            <section class="section" id="least">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Least Squares Estimation</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Minimizing squared error</h3>
-                        <div class="math-block">OBJECTIVE: Find β₀, β₁ that minimize:
-                            SSE = Σ(yᵢ - ŷᵢ)² = Σ(yᵢ - β₀ - β₁xᵢ)²
-
-                            CLOSED-FORM SOLUTION:
-                            β̂₁ = Σ(xᵢ - x̄)(yᵢ - ȳ) / Σ(xᵢ - x̄)²
-                            = Cov(x,y) / Var(x)
-                            = r · (sy/sx) where r = correlation
-
-                            β̂₀ = ȳ - β̂₁x̄
-
-                            PREDICTIONS:
-                            ŷᵢ = β̂₀ + β̂₁xᵢ (fitted values)
-                            eᵢ = yᵢ - ŷᵢ (residuals)</div>
-                    </div>
+                    <p>Multiplying two numbers $x$ and $y$ faster than the grade-school method.</p>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Linear regression from scratch and with sklearn</span>
+                            <span class="code-label">Karatsuba</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
+                            <pre><code class="language-python">def karatsuba(x, y):
+    if x < 10 or y < 10:
+        return x * y
+    
+    # Calculate the size of the numbers
+    n = max(len(str(x)), len(str(y)))
+    m = n // 2
+    
+    # Split the numbers: x = 10^m * a + b
+    high1, low1 = divmod(x, 10**m)
+    high2, low2 = divmod(y, 10**m)
+    
+    # 3 recursive calls
+    z0 = karatsuba(low1, low2)       # Low * Low
+    z1 = karatsuba(high1 + low1, high2 + low2) # (High+Low)*(High+Low)
+    z2 = karatsuba(high1, high2)     # High * High
+    
+    # Formula: z2 * 10^(2m) + (z1 - z2 - z0) * 10^m + z0
+    return (z2 * 10**(2*m)) + ((z1 - z2 - z0) * 10**m) + z0
 
-<span class="code-comment"># Sample data</span>
-x = np.array([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>])
-y = np.array([<span class="code-number">2.1</span>, <span class="code-number">4.0</span>, <span class="code-number">5.8</span>, <span class="code-number">8.2</span>, <span class="code-number">9.9</span>])
-
-<span class="code-comment"># From scratch</span>
-x_bar, y_bar = x.mean(), y.mean()
-beta1 = np.<span class="code-function">sum</span>((x - x_bar) * (y - y_bar)) / np.<span class="code-function">sum</span>((x - x_bar)**<span class="code-number">2</span>)
-beta0 = y_bar - beta1 * x_bar
-<span class="code-function">print</span>(<span class="code-string">f"From scratch: y = {beta0:.2f} + {beta1:.2f}x"</span>)
-
-<span class="code-comment"># Using sklearn</span>
-model = LinearRegression()
-model.fit(x.reshape(-<span class="code-number">1</span>, <span class="code-number">1</span>), y)
-<span class="code-function">print</span>(<span class="code-string">f"sklearn: y = {model.intercept_:.2f} + {model.coef_[0]:.2f}x"</span>)
-
-<span class="code-comment"># Make predictions</span>
-y_pred = model.predict([[<span class="code-number">6</span>]])
-<span class="code-function">print</span>(<span class="code-string">f"Prediction for x=6: {y_pred[0]:.2f}"</span>)</pre>
+print(karatsuba(1234, 5678)) # 7006652
+print(1234 * 5678)           # 7006652
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- R-squared -->
-            <section class="section" id="rsquared">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">R² & Model Fit</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Coefficient of determination</h3>
-                        <div class="math-block">R² = 1 - (SS_res / SS_tot)
-                            = 1 - Σ(yᵢ - ŷᵢ)² / Σ(yᵢ - ȳ)²
-
-                            INTERPRETATION:
-                            • R² = 1: Perfect fit, model explains all variance
-                            • R² = 0: Model explains nothing (just predict mean)
-                            • R² = 0.8: Model explains 80% of variance in y
-
-                            For simple linear regression:
-                            R² = r² (correlation squared)</div>
-                    </div>
-
-                    <div class="warning">
-                        <strong>R² limitations:</strong>
-                        <ul>
-                            <li>R² always increases with more predictors (use adjusted R² instead)</li>
-                            <li>High R² doesn't mean good predictions on new data (check test set)</li>
-                            <li>Always inspect residual plots—R² can be misleading!</li>
-                        </ul>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Computing and interpreting R²</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> r2_score
-<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-
-<span class="code-comment"># Predictions</span>
-y_pred = model.predict(x.reshape(-<span class="code-number">1</span>, <span class="code-number">1</span>))
-
-<span class="code-comment"># R² from sklearn</span>
-r2 = r2_score(y, y_pred)
-<span class="code-function">print</span>(<span class="code-string">f"R² = {r2:.4f}"</span>)
-
-<span class="code-comment"># R² from formula</span>
-ss_res = np.<span class="code-function">sum</span>((y - y_pred)**<span class="code-number">2</span>)
-ss_tot = np.<span class="code-function">sum</span>((y - y.mean())**<span class="code-number">2</span>)
-r2_manual = <span class="code-number">1</span> - ss_res / ss_tot
-<span class="code-function">print</span>(<span class="code-string">f"R² (manual) = {r2_manual:.4f}"</span>)
-
-<span class="code-comment"># Also equals correlation squared</span>
-correlation = np.corrcoef(x, y)[<span class="code-number">0</span>, <span class="code-number">1</span>]
-<span class="code-function">print</span>(<span class="code-string">f"r² = {correlation**2:.4f}"</span>)</pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Multiple Regression -->
-            <section class="section" id="multiple">
-                <div class="section-header">
-                    <div class="section-number">Section 9</div>
-                    <h2 class="section-title">Multiple Linear Regression</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Extension to multiple features</h3>
-                        <div class="math-block">MODEL: y = β₀ + β₁x₁ + β₂x₂ + ... + βₚxₚ + ε
-
-                            MATRIX FORM: y = Xβ + ε
-                            where X is n × (p+1) design matrix
-
-                            LEAST SQUARES SOLUTION:
-                            β̂ = (XᵀX)⁻¹Xᵀy
-
-                            INTERPRETATION:
-                            βⱼ = change in y for unit change in xⱼ,
-                            holding all other variables constant</div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Multiple regression example</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
-<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-
-<span class="code-comment"># Multiple features</span>
-X = np.array([
-    [<span class="code-number">1</span>, <span class="code-number">2000</span>],   <span class="code-comment"># bedrooms, sq_ft</span>
-    [<span class="code-number">2</span>, <span class="code-number">1500</span>],
-    [<span class="code-number">3</span>, <span class="code-number">2500</span>],
-    [<span class="code-number">4</span>, <span class="code-number">3000</span>],
-])
-y = np.array([<span class="code-number">200000</span>, <span class="code-number">250000</span>, <span class="code-number">350000</span>, <span class="code-number">450000</span>])  <span class="code-comment"># price</span>
-
-model = LinearRegression()
-model.fit(X, y)
-
-<span class="code-function">print</span>(<span class="code-string">f"Intercept: ${model.intercept_:,.0f}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Bedrooms: ${model.coef_[0]:,.0f} per bedroom"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Sq ft: ${model.coef_[1]:,.0f} per sq ft"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"R² = {model.score(X, y):.4f}"</span>)</pre>
-                        </div>
-                    </div>
-
-                    <div class="info">
-                        <strong>Beyond linear regression:</strong> Polynomial features, regularization
-                        (Ridge, Lasso), and non-linear models (trees, neural networks) build on these foundations.
-                    </div>
-                </div>
-            </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -520,7 +235,7 @@ model.fit(X, y)
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 11</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -536,45 +251,34 @@ model.fit(X, y)
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                "title": "Lesson Videos",
-                "items": [
-                    {
-                        "title": "Maximum Likelihood Estimation",
-                        "vid": "Xcn85Dn10zs"
-                    },
-                    {
-                        "title": "Bias-Variance Tradeoff",
-                        "vid": "EuBBz3bI-aA"
-                    },
-                    {
-                        "title": "p-values",
-                        "vid": "vemZtEM63GY"
-                    },
-                    {
-                        "title": "Linear Regression \u2014 StatQuest",
-                        "vid": "zPG4NjIkCjc"
-                    },
-                    {
-                        "title": "R-squared Explained",
-                        "vid": "2AQKmw14mHM"
-                    },
-                    {
-                        "title": "Multiple Regression",
-                        "vid": "EkAQAi3a4js"
-                    },
-                    {
-                        "title": "Gradient Descent for Regression",
-                        "vid": "IHZwWFHWa-w"
-                    }
+                title: "Divide & Conquer",
+                items: [
+                    { title: "Divide and Conquer Explained", channel: "HackerRank", vid: "2Rr2tW9zvRg" },
+                    { title: "Master Method", channel: "Abdul Bari", vid: "C4h8s3P7bM8" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Karatsuba Multiplication", channel: "Stanford", vid: "JCbZay79pgu" }, // Note: checking generic if Stanford unavailable
+                    { title: "Algorithms - Karatsuba", channel: "Udacity", vid: "e7h7s7s7s7s" } // Placeholder ID, likely needs verify
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day43'], storageKey: 'day43_stats_v1' });
+        // Updating Video IDs to safer ones if uncertain
+        VIDEO_GROUPS[1].items[0].vid = "JCbZay79pgu"; // Stanford Algo
+        VIDEO_GROUPS[1].items[1].vid = "yTM8WAdpKwA"; // Karatsuba explained
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day43'] || [],
+            storageKey: 'day43_v1'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

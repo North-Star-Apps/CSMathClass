@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 20: Orthogonality & Least Squares</title>
+    <title>Day 20: Matrix Operations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,33 +22,59 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 20 · Linear Algebra</div>
-
-        <p class="hero-desc">The geometry of perpendicularity and finding the "best fit" solution when exact ones don't
-            exist. The foundation of Machine Learning regression.</p>
+            </svg>
+            Day 20 · The Grid
+        </div>
+        <h1>Matrix Operations</h1>
+        <p class="hero-desc">
+            A Matrix is not just a box of numbers. It is a Machine that transforms space.
+            It is how we move objects in 3D, how we query databases, and how Neural Layers process data.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~45 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">5 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~95 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                40 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -57,13 +83,17 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#dot-product" class="toc-link">1. Dot Product</a></li>
-                    <li><a href="#orthogonality" class="toc-link">2. Orthogonality</a></li>
-                    <li><a href="#projections" class="toc-link">3. Projections</a></li>
-                    <li><a href="#least-squares" class="toc-link">4. Least Squares</a></li>
-                    <li><a href="#python" class="toc-link">5. Python Fitting</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#definition" class="toc-link">1. Matrices as Data</a></li>
+                    <li><a href="#transform" class="toc-link">2. Matrices as Functions</a></li>
+                    <li><a href="#multiplication" class="toc-link">3. Matrix Multiplication</a></li>
+                    <li><a href="#geometric" class="toc-link">4. Geometric Transforms</a></li>
+                    <li><a href="#homogeneous" class="toc-link">5. Homogeneous Coords</a></li>
+                    <li><a href="#graphics" class="toc-link">6. CS: MVP Pipeline</a></li>
+                    <li><a href="#inverse" class="toc-link">7. Inverse Transforms</a></li>
+                    <li><a href="#numpy" class="toc-link">8. Python: Viz</a></li>
+                    <li><a href="#summary" class="toc-link">9. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">10. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">11. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -78,129 +108,334 @@
         </aside>
 
         <main class="content">
-            <section class="section" id="dot-product">
+            <!-- Definition (Data View) -->
+            <section class="section" id="definition">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Dot Product</h2>
+                    <h2 class="section-title">Matrices as Data</h2>
                 </div>
                 <div class="section-body">
-                    <p>The dot product (or inner product) is defined as:</p>
-                    <div class="math-block">
-                        $\vec{u} \cdot \vec{v} = u^T v = \sum u_i v_i = ||u|| ||v|| \cos \theta$
+                    <p>In Data Science, a Matrix is just a Spreadsheet or a Table.</p>
+                    <div class="card">
+                        <h3>Example: User Data ($X$)</h3>
+                        <table>
+                            <tr>
+                                <th>User</th>
+                                <th>Age</th>
+                                <th>Income</th>
+                                <th>Signups</th>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>25</td>
+                                <td>50k</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td>30</td>
+                                <td>80k</td>
+                                <td>5</td>
+                            </tr>
+                        </table>
+                        <p>
+                            This is a $2 \times 3$ Matrix (2 Rows, 3 Columns).
+                            <br>Row = A Sample (User). Values are $[25, 50, 2]$.
+                            <br>Column = A Feature (Age). Values are $[25, 30]^T$.
+                        </p>
                     </div>
-                    <div class="rule">
-                        <strong>Key Properties:</strong>
-                        <br>Length (Norm): $||v|| = \sqrt{v \cdot v}$
-                        <br>Angle: $\cos \theta = \frac{u \cdot v}{||u|| ||v||}$
-                    </div>
-                    <div class="info">
-                        <strong>🎯 Simple:</strong> The dot product measures "how much" two vectors point in the same
-                        direction.
-                        <br>• If they're parallel, it's large.
-                        <br>• If they're perpendicular, it's zero.
-                        <br>Think of it as "overlap" or "similarity".
-                    </div>
-                </div>
-            </section>
 
-            <section class="section" id="orthogonality">
-                <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Orthogonality</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule">
-                        Two vectors are <strong>Orthogonal</strong> if their dot product is 0.
-                        <br>$\vec{u} \perp \vec{v} \iff \vec{u} \cdot \vec{v} = 0$
-                    </div>
-                    <p><strong>Orthonormal Basis:</strong> A basis where all vectors are unit length AND mutually
-                        orthogonal. This is the "nicest" kind of basis (like the standard $\hat{i}, \hat{j}, \hat{k}$).
-                    </p>
-                    <div class="info">
-                        <strong>📐 Gram-Schmidt Process:</strong> An algorithm to convert ANY basis into an orthonormal
-                        basis. Essential for numerical stability.
-                    </div>
-                    <div class="info">
-                        <strong>💻 CS Connection:</strong> Orthogonality is crucial in signal processing (Fourier
-                        basis), computer graphics (camera orientation), and PCA (principal components).
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="projections">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Projections</h2>
-                </div>
-                <div class="section-body">
-                    <p>Projecting a vector $b$ onto a line defined by $a$:</p>
-                    <div class="formula-box">
-                        <div class="formula-label">Projection Formula</div>
-                        <div class="formula-main">$\text{proj}_a b = \frac{a \cdot b}{a \cdot a} a$</div>
-                    </div>
-                    <p>The error vector $e = b - p$ is always orthogonal to the subspace.</p>
-                    <div class="info">
-                        <strong>🔦 Simple:</strong> Imagine shining a flashlight straight down onto a tilted stick.
-                        <br>The shadow on the ground is the projection.
-                        <br>The "error" is how far the stick sticks up from the ground.
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="least-squares">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Least Squares</h2>
-                </div>
-                <div class="section-body">
-                    <p>When $Ax=b$ has no exact solution (more equations than variables), we find the "best" approximate
-                        solution $\hat{x}$.</p>
-                    <div class="formula-box">
-                        <div class="formula-label">Normal Equation</div>
-                        <div class="formula-main">$A^T A \hat{x} = A^T b$</div>
-                    </div>
-                    <p>This minimizes the squared error $||Ax - b||^2$. This is the mathematical basis of <strong>Linear
-                            Regression</strong>.</p>
-                    <div class="info">
-                        <strong>📈 Simple:</strong> You have 100 data points, but you want to draw ONE line through
-                        them.
-                        <br>No perfect line exists. Least Squares finds the line that is "least wrong" overall.
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Python Regression</h2>
-                </div>
-                <div class="section-body">
-                    <p>Using Least Squares to fit a line to data points.</p>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Linear
-                                Regression</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-
-<span class="code-comment"># Data points (x, y)</span>
-X = np.array([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>])
-Y = np.array([<span class="code-number">6</span>, <span class="code-number">5</span>, <span class="code-number">7</span>, <span class="code-number">10</span>])
-
-<span class="code-comment"># Construct Matrix A (columns: x values, then 1s for intercept)</span>
-A = np.vstack([X, np.ones(<span class="code-function">len</span>(X))]).T
-
-<span class="code-comment"># Solve using numpy's least squares</span>
-m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span class="code-number">0</span>]
-
-<span class="code-function">print</span>(<span class="code-string">f"Best fit line: y = {m:.2f}x + {c:.2f}"</span>)</pre>
+                    <div class="subsection">
+                        <h3>Types of Matrices</h3>
+                        <div class="grid-2col">
+                            <div class="info">
+                                <strong>Square Matrix:</strong> Rows = Columns ($n \times n$).
+                                <br>Examples: $2 \times 2$, $3 \times 3$.
+                                <br>Required for many operations like Determinants.
+                            </div>
+                            <div class="info">
+                                <strong>Identity Matrix ($I$):</strong>
+                                <br>Only 1s on the diagonal, 0s elsewhere.
+                                <br>Acts like the number "1". $A \cdot I = A$.
+                            </div>
+                            <div class="info">
+                                <strong>Zero Matrix:</strong>
+                                <br>All zeros. Acts like the number "0".
+                            </div>
+                            <div class="info">
+                                <strong>Transpose ($A^T$):</strong>
+                                <br>Flip rows and columns.
+                                <br>Row 1 becomes Column 1.
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="videos">
+            <!-- Transform (Function View) -->
+            <section class="section" id="transform">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Matrices as Functions</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In Graphics and Game Dev, a Matrix is a machine that moves points.
+                        <br><strong>Input Vector $\to$ [Matrix] $\to$ Output Vector.</strong>
+                    </p>
+                    <div class="math-block">
+                        $$ \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} =
+                        \begin{bmatrix} 2x \\ 2y \end{bmatrix} $$
+                    </div>
+                    <p>This matrix doubles the size of everything. It is a "Scaling" matrix.</p>
+
+                    <div class="rule">
+                        <strong>The "Basis Vector" Trick:</strong>
+                        <br>To understand ANY matrix, just see where it sends $\hat{i}$ (1,0) and $\hat{j}$ (0,1).
+                        <br>• The <strong>First Column</strong> is where $\hat{i}$ lands.
+                        <br>• The <strong>Second Column</strong> is where $\hat{j}$ lands.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Multiplication -->
+            <section class="section" id="multiplication">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Matrix Multiplication</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Multiplying two matrices ($A \times B$) isn't just calculation.
+                        It is <strong>Function Composition</strong> ($f(g(x))$).
+                        It means "Apply transformation B, then Apply transformation A".
+                    </p>
+                    <div class="warning">
+                        <strong>Order Matters!</strong>
+                        <br>$A \times B$ is NOT the same as $B \times A$.
+                        <br>Rotating then Moving is different from Moving then Rotating.
+                        <br>(Matrix multiplication is <strong>Non-Commutative</strong>).
+                    </div>
+
+                    <div class="info">
+                        <strong>The Complexity Trap:</strong>
+                        <br>Multiplying two $N \times N$ matrices naively takes $N^3$ operations.
+                        <br>For $N=1000$, that's 1 Billion operations.
+                        <br>This is why we need GPUs!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Geometric Transformations (New) -->
+            <section class="section" id="geometric">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Geometric Transformations</h2>
+                </div>
+                <div class="section-body">
+                    <p>We build complex animations using these lego blocks:</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Scale</h3>
+                            <p>$$ \begin{bmatrix} s_x & 0 \\ 0 & s_y \end{bmatrix} $$</p>
+                            <p>Stretches space along axes.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Rotation (2D)</h3>
+                            <p>$$ \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}
+                                $$</p>
+                            <p>Rotates counter-clockwise by $\theta$.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Shear</h3>
+                            <p>$$ \begin{bmatrix} 1 & k \\ 0 & 1 \end{bmatrix} $$</p>
+                            <p>Slants the grid (Italics text).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Reflection</h3>
+                            <p>$$ \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix} $$</p>
+                            <p>Flips over Y-axis.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Homogeneous Coordinates (New) -->
+            <section class="section" id="homogeneous">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Homogeneous Coordinates (The 4x4 Trick)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        <strong>Problem:</strong> Translation (Moving) is NOT a linear transformation!
+                        Moving $(0,0)$ to $(5,5)$ is impossible with just a $2 \times 2$ matrix multiplication (because
+                        $M \times \vec{0} = \vec{0}$).
+                    </p>
+                    <div class="rule">
+                        <strong>The Solution: Add a dimension!</strong>
+                        <br>To move in 2D, use 3D matrices.
+                        <br>To move in 3D, use 4D matrices.
+                        <br>We add a "1" at the end of every vector: $(x, y, z) \to (x, y, z, 1)$.
+                    </div>
+                    <div class="math-block">
+                        $$ \text{Translation} = \begin{bmatrix} 1 & 0 & 0 & tx \\ 0 & 1 & 0 & ty \\ 0 & 0 & 1 & tz \\ 0
+                        & 0 & 0 & 1 \end{bmatrix} $$
+                    </div>
+                </div>
+            </section>
+
+            <!-- Graphics Pipeline -->
+            <section class="section" id="graphics">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
+                    <h2 class="section-title">CS: The MVP Pipeline</h2>
+                </div>
+                <div class="section-body">
+                    <p>Every 3D game uses a chain of matrices to draw characters. This is the "Vertex Shader".</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-label">The Formula</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-text">gl_Position = Projection * View * Model * vec4(position, 1.0);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-label">Coordinate Systems Flow</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-text">   [Local Space]   (e.g., A 3D model centered at 0,0)
+         |
+    [Model Matrix]  (Move it into the scene)
+         |
+         v
+   [World Space]   (All objects in their proper place)
+         |
+     [View Matrix]   (Move the world relative to camera)
+         |
+         v
+    [View Space]    (Everything relative to the eye)
+         |
+  [Projection Matrix] (Squish 3D depth into 2D screen)
+         |
+         v
+    [Clip Space]    (Ready for Rasterization!)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>The Stages</h3>
+                        <p>1. <strong>Model Matrix:</strong> Move the character from Local (0,0) to World coordinates.
+                        </p>
+                        <p>2. <strong>View Matrix:</strong> Move the entire world so the Camera is at (0,0).</p>
+                        <p>3. <strong>Projection Matrix:</strong> Squish the 3D frustum into a 2D box (Perspective
+                            divide).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inverse Transforms -->
+            <section class="section" id="inverse">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Inverse Transformations</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        If a Matrix $A$ moves a point from $x$ to $y$, the <strong>Inverse Matrix</strong> $A^{-1}$
+                        moves it back from $y$ to $x$.
+                    </p>
+                    <div class="math-block">
+                        $$ A \cdot \vec{x} = \vec{y} \;\;\implies\;\; \vec{x} = A^{-1} \cdot \vec{y} $$
+                    </div>
+                    <div class="grid-2col">
+                        <div class="info">
+                            <strong>Undo Button:</strong>
+                            <br>Inverse is the mathematical "Cmd+Z".
+                        </div>
+                        <div class="warning">
+                            <strong>Singular Matrices:</strong>
+                            <br>Some transforms result in data loss (squishing 2D into a line).
+                            <br>You cannot "undo" this. These matrices have NO inverse.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Numpy -->
+            <section class="section" id="numpy">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Python: Transformations</h2>
+                </div>
+                <div class="section-body">
+                    <p>Key Idea: Matrix Multiplcation is done with <code>@</code> or <code>np.matmul</code>.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Applying Transforms</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Define a square (4 corner points)
+# Columns are points: (0,0), (1,0), (1,1), (0,1)
+points = np.array([
+    [0, 1, 1, 0, 0],
+    [0, 0, 1, 1, 0]
+])
+
+# 2. Create a Shear Matrix (Slant)
+k = 1.5 # Shear factor
+shear = np.array([
+    [1, k],
+    [0, 1]
+])
+
+# 3. Apply Transform
+# (2x2) @ (2x5) -> (2x5)
+transformed = shear @ points 
+
+# 4. Plot
+plt.plot(points[0, :], points[1, :], 'b--', label='Original')
+plt.plot(transformed[0, :], transformed[1, :], 'r-', label='Sheared')
+plt.axis('equal')
+plt.legend()
+plt.title(f"Shear Transformation (k={k})")
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Summary</h2>
+                </div>
+                <div class="section-body">
+                    <ul class="list-disc">
+                        <li><strong>Data View:</strong> Matrices are spreadsheets ($N \times M$).</li>
+                        <li><strong>Function View:</strong> Matrices are machines that Warp Space.</li>
+                        <li><strong>Composition:</strong> $A \times B$ means "Do B, then Do A". Order matters.</li>
+                        <li><strong>Homogeneous:</strong> Add a "1" dimension to enable Translations (4x4 Matrices).
+                        </li>
+                        <li><strong>Linearity:</strong> Grid lines remain parallel and evenly spaced after
+                            transformation.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -217,9 +452,10 @@ m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 11</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -234,26 +470,45 @@ m, c = np.linalg.lstsq(A, Y, rcond=<span class="code-keyword">None</span>)[<span
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Core Intuition",
                 items: [
-                    { title: "Dot Product & Duality", channel: "3Blue1Brown", vid: "LyGKycYT2v0" },
-                    { title: "Cross Product", channel: "3Blue1Brown", vid: "eu6i7WJeinw" },
-                    { title: "Projections", channel: "Organic Chemistry Tutor", vid: "H9BWrYFzyqw" }
+                    { title: "Linear Transformations", channel: "3Blue1Brown", vid: "kYB8IZa5AuE" },
+                    { title: "Matrix Multiplication", channel: "3Blue1Brown", vid: "XkY2DOUCWMU" },
+                    { title: "Visualizing Matrices", channel: "3Blue1Brown", vid: "Ip3X9LOh2dk" },
+                    { title: "Intuitive Guide", channel: "BetterExplained", vid: "rowWM-MijXU" }
                 ]
             },
             {
-                title: "Applications",
+                title: "Computer Graphics",
                 items: [
-                    { title: "Least Squares", channel: "Khan Academy", vid: "PaFPbb66DxQ" },
-                    { title: "Linear Regression", channel: "Course Reference", vid: "Y_Ac6KiQ1t0" }
+                    { title: "MVP Matrices Explained", channel: "LearnOpenGL", vid: "Do_vEId67II" },
+                    { title: "Homogeneous Coordinates", channel: "Computerphile", vid: "PvEl63SWouY" },
+                    { title: "How 3D Rendering Works", channel: "Acerola", vid: "cvcAjgMUPUA" },
+                    { title: "Vertex Shader Math", channel: "The Cherno", vid: "4w7AL5ukM74" }
+                ]
+            },
+            {
+                title: "Advanced & ML",
+                items: [
+                    { title: "Neural Networks (Matrices)", channel: "3Blue1Brown", vid: "aircAruvnKk" },
+                    { title: "Sparse Matrices", channel: "Computerphile", vid: "Lhef_jxxMJc" },
+                    { title: "Inverse Matrices", channel: "Khan Academy", vid: "Am3g2y3B3ho" },
+                    { title: "Determinant Intuition", channel: "3Blue1Brown", vid: "Ip3X9LOh2dk" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day20'], storageKey: 'day20_orth_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day20'] || [],
+            storageKey: 'day20_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

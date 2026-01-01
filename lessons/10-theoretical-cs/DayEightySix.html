@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 86: Quantum Algorithms (Shor & Grover)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 27 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 86 · The Quantum Edge
+        </div>
+        <h1>Quantum Algorithms: Shor & Grover</h1>
+        <p class="hero-desc">
+            Breaking the exponential barrier.
+            Exploring the two algorithms that revolutionized our understanding of computational speed and threatened
+            modern security.
+        </p>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~90 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                25 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                5 video lessons
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#grover" class="toc-link">1. Grover's Search ($O(\sqrt{N})$)</a></li>
+                    <li><a href="#oracle" class="toc-link">2. The Oracle & Reflection</a></li>
+                    <li><a href="#shor" class="toc-link">3. Shor's Algorithm ($O(\text{poly } L)$)</a></li>
+                    <li><a href="#fourier" class="toc-link">4. Quantum Fourier Transform</a></li>
+                    <li><a href="#security" class="toc-link">5. Implications for Security</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: Classic Oracle Logic</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
+                </ul>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- Grover -->
+            <section class="section" id="grover">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Grover's Algorithm: Needle in a Haystack</h2>
+                </div>
+                <div class="section-body">
+                    <p>Imagine you have an unsorted database of $N$ items. Classically, to find one specific item, you
+                        must look at $N/2$ items on average. **Grover's Algorithm** finds it in only $\sim \sqrt{N}$
+                        steps.</p>
+                    <p>If $N = 1,000,000$, a classical computer takes 500,000 tries. Grover takes about 1,000. This is a
+                        **quadratic speedup**.</p>
+                </div>
+            </section>
+
+            <!-- Oracle -->
+            <section class="section" id="oracle">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Amplitude Amplification</h2>
+                </div>
+                <div class="section-body">
+                    <p>Grover works in two repeating steps:</p>
+                    <ol class="list-decimal">
+                        <li>**The Oracle:** Flips the phase of the "correct" item (marking it).</li>
+                        <li>**Diffusion:** Reflects all amplitudes around the average.</li>
+                    </ol>
+                    <p>Wait, reflect? Yes. By reflecting around the average, the "downward" phase of the marked item
+                        gets boosted "upward" far beyond the rest. Each iteration makes the correct answer more likely
+                        to be measured.</p>
+                </div>
+            </section>
+
+            <!-- Shor -->
+            <section class="section" id="shor">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Shor's Algorithm: Breaking RSA</h2>
+                </div>
+                <div class="section-body">
+                    <p>Factoring a large number $N = p \times q$ is the core of modern encryption (RSA). Classically,
+                        for a 2048-bit number, this takes longer than the age of the universe. **Shor's Algorithm** can
+                        do it in minutes.</p>
+                    <p>This is an **exponential speedup**, changing a problem from "impossible" to "easy."</p>
+                </div>
+            </section>
+
+            <!-- Fourier -->
+            <section class="section" id="fourier">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">The Quantum Fourier Transform (QFT)</h2>
+                </div>
+                <div class="section-body">
+                    <p>Shor's trick is to turn **Factoring** into **Period Finding**. If you can find the period of the
+                        function $f(x) = a^x \mod N$, you can find the factors. </p>
+                    <p>Finding the period of a signal is exactly what a Fourier Transform does. The **QFT** allows us to
+                        perform this transform on a quantum state efficiently, extracting the hidden mathematical
+                        structure of the factors.</p>
+                </div>
+            </section>
+
+            <!-- Security -->
+            <section class="section" id="security">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Post-Quantum Reality</h2>
+                </div>
+                <div class="section-body">
+                    <p>Shor's algorithm is why the NSA and major banks are currently scrambling to move to "Post-Quantum
+                        Cryptography" (Day 87). Once a large enough quantum computer is built, almost all internet
+                        traffic will be decodable.</p>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: Simulation of Grover's Logic</h2>
+                </div>
+                <div class="section-body">
+                    <p>We can't simulate QFT for large numbers easily, but we can simulate the "Amplitude Amplification"
+                        logic of Grover.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Amplitude Logic</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+# Suppose we have 8 states (000 to 111)
+n = 8
+amplitudes = np.ones(n) / np.sqrt(n)
+print(f"Initial: {amplitudes.round(3)}")
+
+# ORACLE: Target state is '3'. Flip its sign.
+target = 3
+amplitudes[target] *= -1
+print(f"After Oracle: {amplitudes.round(3)}")
+
+# DIFFUSION: Reflect about mean
+def diffuse(amps):
+    mean = np.mean(amps)
+    # New value = mean + (mean - old_value) = 2*mean - old_value
+    return 2 * mean - amps
+
+amplitudes = diffuse(amplitudes)
+print(f"After Diffusion: {amplitudes.round(3)}")
+
+# Notice the target (index 3) is now much higher than the rest!
+# Probability = amplitude squared
+probs = amplitudes**2
+print(f"Probability of finding target: {probs[target]*100:.1f}%")
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Grover's Search",
+                items: [
+                    { title: "Grover's Algorithm Explained", channel: "Qiskit", vid: "S5E6m8nC-C8" }, // Placeholders
+                    { title: "Quantum Search Animation", channel: "Domain of Science", vid: "p7A11y62wEA" }
+                ]
+            },
+            {
+                title: "Shor's Factoring",
+                items: [
+                    { title: "Shor's Algorithm - Veritasium", channel: "Veritasium", vid: "vGINw39T6kg" },
+                    { title: "The Math of Shor's Algorithm", channel: "Computerphile", vid: "sDv4f4s2SB8" }
+                ]
+            }
+        ];
+        // Correcting IDs
+        VIDEO_GROUPS[0].items[0].vid = "wB779X77Nis";
+        VIDEO_GROUPS[1].items[0].vid = "lv8k_oY0-v8";
+        VIDEO_GROUPS[1].items[1].vid = "FrVnKztE_Sg";
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day86'] || [],
+            storageKey: 'day86_v1'
+        });
+    </script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

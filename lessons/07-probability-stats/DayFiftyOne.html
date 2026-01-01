@@ -11,6 +11,12 @@
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
@@ -40,10 +46,11 @@
             </svg>
             Day 51 · Numerical Analysis
         </div>
-        <h1>Floating-Point Arithmetic</h1>
+        <h1>Numerical Foundations</h1>
         <p class="hero-desc">
-            Computers don't do real math; they do finite approximations. Understanding
-            IEEE 754, machine epsilon, and the dangers of catastrophic cancellation.
+            Computers are fast, but they are terrible at "real" math. They round, they truncate, and they crash. Learn
+            the art of approximation, the dangers of floating-point arithmetic, and how to find roots without exact
+            formulas.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -51,20 +58,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~1 hour read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                20 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                6 video lessons
             </div>
         </div>
     </header>
@@ -74,13 +81,15 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#representation" class="toc-link">1. IEEE 754 Representation</a></li>
-                    <li><a href="#special" class="toc-link">2. Special Values</a></li>
-                    <li><a href="#errors" class="toc-link">3. Sources of Error</a></li>
-                    <li><a href="#stability" class="toc-link">4. Stability Algorithms</a></li>
-                    <li><a href="#python" class="toc-link">5. Bit-Level Analysis</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#intro" class="toc-link">1. The Digital Approximation</a></li>
+                    <li><a href="#ieee754" class="toc-link">2. IEEE 754 Standard</a></li>
+                    <li><a href="#errors" class="toc-link">3. Rounding & Error</a></li>
+                    <li><a href="#stability" class="toc-link">4. Stability & Conditioning</a></li>
+                    <li><a href="#roots" class="toc-link">5. Root Finding 101</a></li>
+                    <li><a href="#newton" class="toc-link">6. Newton's Method</a></li>
+                    <li><a href="#python" class="toc-link">7. Python Visuals</a></li>
+                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">9. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -95,84 +104,79 @@
         </aside>
 
         <main class="content">
-            <!-- Representation -->
-            <section class="section" id="representation">
+            <!-- Intro -->
+            <section class="section" id="intro">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">IEEE 754 Standard</h2>
+                    <h2 class="section-title">The Digital Approximation</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        Real numbers are infinite. Computers are finite. To bridge this gap, we use
-                        scientific notation in binary: $\pm 1.mantissa \times 2^{exponent}$.
+                        In Pure Math, we deal with $\mathbb{R}$ (Real Numbers). They are infinitely dense, continuous,
+                        and exact. $\pi$ is exactly $\pi$.
                     </p>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">The Bit Layout</h3>
-                        <div class="math-block">Value = (-1)^S \times (1 + M) \times 2^{E - Bias}</div>
-
-                        <div class="two-col">
-                            <div>
-                                <h4>Single Precision (32-bit)</h4>
-                                <ul>
-                                    <li><strong>Sign (S):</strong> 1 bit</li>
-                                    <li><strong>Exponent (E):</strong> 8 bits (Bias 127)</li>
-                                    <li><strong>Mantissa (M):</strong> 23 bits</li>
-                                    <li>Precision: ~7.2 decimal digits</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4>Double Precision (64-bit)</h4>
-                                <ul>
-                                    <li><strong>Sign (S):</strong> 1 bit</li>
-                                    <li><strong>Exponent (E):</strong> 11 bits (Bias 1023)</li>
-                                    <li><strong>Mantissa (M):</strong> 52 bits</li>
-                                    <li>Precision: ~15.9 decimal digits</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info">
-                        <strong>Implicit Leading Bit:</strong> We don't store the "1" before the decimal point.
-                        It is assumed. This buys us one extra bit of precision.
-                    </div>
-                    <div class="info">
-                        <strong>Scientific Notation Simple:</strong> Think of it like a car odometer that only has 8
-                        digits.
-                        <br>You can represent huge distances (by saying "x 10^something") but you lose track of the
-                        inches.
-                        <br>At 1,000,000 miles, adding 1 inch doesn't even move the dial. That's floating point!
+                    <p>
+                        In Computer Science, we deal with $\mathbb{F}$ (Floating Point Numbers). They are finite,
+                        discrete, and riddled with holes. $\pi$ is `3.141592653589793`.
+                    </p>
+                    <div class="warning">
+                        <strong>The Patriot Missile Failure (1991):</strong>
+                        <br>
+                        The Patriot missile system used 24-bit precision to store time in tenths of a second.
+                        <br>
+                        $1/10 = 0.00011001100..._2$ (Binary repeating decimal).
+                        <br>
+                        After 100 hours of operation, the rounding error accumulated to ~0.34 seconds.
+                        <br>
+                        For a missile traveling at Mach 5, 0.34 seconds is ~600 meters. The missile missed an incoming
+                        SCUD, resulting in 28 casualties.
                     </div>
                 </div>
             </section>
 
-            <!-- Special Values -->
-            <section class="section" id="special">
+            <!-- IEEE 754 -->
+            <section class="section" id="ieee754">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Special Values</h2>
+                    <h2 class="section-title">IEEE 754 Standard</h2>
                 </div>
                 <div class="section-body">
-                    <p>The standard reserves certain exponent patterns for non-numbers.</p>
+                    <p>
+                        How do we store "scientific notation" in bits?
+                        $$ Value = (-1)^S \times (1.M) \times 2^{E - Bias} $$
+                    </p>
+                    <div class="two-col">
+                        <div>
+                            <h4>Double Precision (64-bit)</h4>
+                            <ul>
+                                <li><strong>Sign (1 bit):</strong> +/-</li>
+                                <li><strong>Exponent (11 bits):</strong> Range ~10^{-308} to 10^{308}</li>
+                                <li><strong>Mantissa (52 bits):</strong> Precision ~15-17 decimal digits</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Special Values</h4>
+                            <ul>
+                                <li><strong>Infinity:</strong> Exp=All 1s, Mantissa=0. (e.g. 1/0)</li>
+                                <li><strong>NaN:</strong> Exp=All 1s, Mantissa!=0. (e.g. 0/0)</li>
+                                <li><strong>Subnormal:</strong> Exp=0. Allows tiny numbers near zero.</li>
+                            </ul>
+                        </div>
+                    </div>
 
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Zero (0.0, -0.0):</strong> Exponent = 0, Mantissa = 0.
-                            Note that signed zero exists! `1.0 / -0.0 = -Infinity`.
-                        </div>
-                        <div class="list-item">
-                            <strong>Infinity (+inf, -inf):</strong> Exponent = All 1s, Mantissa = 0.
-                            Result of overflow or division by zero. `inf + 5 = inf`.
-                        </div>
-                        <div class="list-item">
-                            <strong>NaN (Not a Number):</strong> Exponent = All 1s, Mantissa ≠ 0.
-                            Result of `0/0`, `inf - inf`, `sqrt(-1)`.
-                            <strong>Warning:</strong> `NaN != NaN` is true.
-                        </div>
-                        <div class="list-item">
-                            <strong>Subnormal Numbers:</strong> Exponent = 0, Mantissa ≠ 0.
-                            Allows "gradual underflow" near zero, but fewer significant digits.
+                    <div class="info">
+                        <span class="info-icon">🚗</span>
+                        <div>
+                            <strong>Analogy: The Broken Odometer</strong>
+                            <br>
+                            Imagine a car odometer that only has 8 digits. It can represent `99,999,999` miles or
+                            `0.0000001` miles.
+                            <br>
+                            But if you have `10,000,000` miles and drive `1` inch, the odometer doesn't move. The "1
+                            inch" is lost because the scale is too large.
+                            <br>
+                            Floating point numbers have "dynamic range". The gaps between representable numbers get
+                            larger as the numbers get larger.
                         </div>
                     </div>
                 </div>
@@ -186,123 +190,188 @@
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">1. Rounding Error</h3>
+                        <h3>Machine Epsilon ($\epsilon$)</h3>
                         <p>
-                            Most real numbers (like 0.1) have infinite repeating binary representations.
-                            Truncating them creates an error up to <strong>Machine Epsilon ($\epsilon_{mach}$)</strong>.
+                            Machine Epsilon is the smallest number such that $1.0 + \epsilon \neq 1.0$.
+                            For 64-bit float, $\epsilon \approx 2.22 \times 10^{-16}$.
+                            Any change smaller than this relative to 1.0 is ignored.
                         </p>
-                        <div class="math-block">0.1 + 0.2 = 0.30000000000000004
-                            (Because 0.1 is 0.0001100110011...)</div>
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">2. Catastrophic Cancellation</h3>
-                        <div class="warning">
-                            <strong>Critical:</strong> Subtracting two nearly equal float numbers destroys precision.
-                            If $a \approx b$, then $a-b$ leaves only the "garbage" noise bits at the end.
+                        <h3>Catastrophic Cancellation</h3>
+                        <p>
+                            Subtracting two large, nearly equal numbers is the most dangerous operation in numerics.
+                        </p>
+                        <div class="math-block">
+                            a = 1.23456789
+                            <br>b = 1.23456788
+                            <br>a - b = 0.00000001
                         </div>
-                        <div class="math-block">Example: Quadratic Formula
-                            x = \frac{-b + \sqrt{b^2 - 4ac}}{2a}
-                            If b^2 >> 4ac, then \sqrt{b^2 - 4ac} \approx b.
-                            Numerator becomes -b + b (cancellation!).
-                            <div class="info">
-                                <strong>SigFigs Simple:</strong> Catastrophic Cancellation is losing your Significant
-                                Figures.
-                                <br>1.234567 - 1.234566 = 0.000001
-                                <br>You started with 7 digits of precision, but the result has only 1! The rest is just
-                                noise.
-                            </div>
-                        </div>
+                        <p>
+                            We started with 9 significant digits. We ended with 1 significant digit. The rest of the
+                            bits in the result will be garbage/noise. This can destabilize an entire simulation.
+                        </p>
                     </div>
+                </div>
             </section>
 
             <!-- Stability -->
             <section class="section" id="stability">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Numerically Stable Algorithms</h2>
+                    <h2 class="section-title">Stability & Conditioning</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Summation</h3>
-                        <p>Adding $10^6$ small numbers to a large number one by one causes precision loss.</p>
-                        <div class="rule">
-                            <strong>Kahan Summation Algorithm:</strong> Keeps a separate running "compensation" variable
-                            to
-                            track small errors and add them back in the next step.
-                        </div>
+                    <p>
+                        When solving a problem $f(x) = y$, two things can go wrong:
+                    </p>
+                    <ol>
+                        <li><strong>Ill-Conditioned Problem:</strong> The problem itself is sensitive. A tiny change in
+                            input $x$ leads to a huge change in answer $y$. (e.g., finding roots of $(x-1)^{20}$).</li>
+                        <li><strong>Unstable Algorithm:</strong> The problem is fine, but your method accumulates error.
+                        </li>
+                    </ol>
+
+                    <div class="info">
+                        <strong>Analogy: Balancing a Pencil</strong>
+                        <br>
+                        Balancing a sharp pencil on its tip is an <strong>Ill-Conditioned Problem</strong>. Even perfect
+                        physics leads to it falling.
+                        <br>
+                        Stacking bricks is a well-conditioned problem. But if you stack them using a trembling robot
+                        hand (Rounding Error), the pile might fall. That is an <strong>Unstable Algorithm</strong>.
                     </div>
 
                     <div class="subsection">
-                        <h3 class="subsection-title">Log-Sum-Exp</h3>
-                        <p>In ML, calculating probabilities often involves softmax: $\frac{e^{x_i}}{\sum e^{x_j}}$.</p>
+                        <h3>Condition Number $\kappa$</h3>
                         <p>
-                            If $x_i$ is large, $e^{x_i}$ overflows.
-                            <strong>Trick:</strong> Subtract max(x) from all inputs.
-                            $$\frac{e^{x_i - M}}{\sum e^{x_j - M}}$$
-                            This keeps numbers in a safe range without changing the ratio.
+                            Measures how much output error is amplified relative to input error.
+                            $$ \text{Relative Output Error} \approx \kappa \times \text{Relative Input Error} $$
+                            If $\kappa$ is large ($10^{10}$), your answer is garbage because computers always have small
+                            input errors ($\epsilon$).
                         </p>
                     </div>
+                </div>
+            </section>
+
+            <!-- Roots -->
+            <section class="section" id="roots">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Root Finding 101</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        There is no formula for roots of polynomials degree 5+ (Abel-Ruffini). We must use iterative
+                        algorithms to approximations.
+                    </p>
+                    <div class="subsection">
+                        <h3>Bisection Method</h3>
+                        <p>
+                            The "Binary Search" of math.
+                            <br>1. Find $a, b$ such that $f(a)$ and $f(b)$ have opposite signs.
+                            <br>2. Check midpoint $c = (a+b)/2$.
+                            <br>3. Replace $a$ or $b$ to keep the sign change.
+                            <br>4. Repeat.
+                            <br><strong>Convergence:</strong> Linear (gain 1 bit of precision per step). Slow but
+                            robust.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton -->
+            <section class="section" id="newton">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Newton's Method</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        If we know the derivative $f'(x)$, we can go faster. We approximate the curve as a tangent line
+                        and find where the line hits zero.
+                    </p>
+                    <div class="formula-box">
+                        $$ x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} $$
+                    </div>
+                    <p>
+                        <strong>Convergence:</strong> Quadratic. The number of correct digits <em>doubles</em> every
+                        step (1, 2, 4, 8, 16...).
+                        <br><strong>Risk:</strong> If $f'(x) \approx 0$, it shoots off to infinity (Instability).
+                    </p>
                 </div>
             </section>
 
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Bit-Level Analysis</h2>
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Python Visuals</h2>
                 </div>
                 <div class="section-body">
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Inspecting Float Bits</span>
+                            <span class="code-label">IEEE 754 Inspector</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> struct
-<span class="code-keyword">import</span> math
+                            <pre><code class="language-python">import struct
 
-<span class="code-keyword">def</span> <span class="code-function">float_to_binary</span>(num):
-    <span class="code-comment"># Pack float into 4 bytes (f) or 8 bytes (d)</span>
-    <span class="code-comment"># '!' = Network (Big-Endian), 'f' = float32</span>
-    <span class="code-comment"># Here we use 'd' for double (Python float)</span>
-    packed = struct.pack(<span class="code-string">'!d'</span>, num)
-    <span class="code-comment"># Unpack as integers to see bits</span>
-    integers = struct.unpack(<span class="code-string">'!Q'</span>, packed)[<span class="code-number">0</span>]
-    <span class="code-comment"># Format as 64-bit binary</span>
-    <span class="code-keyword">return</span> <span class="code-string">f"{integers:064b}"</span>
+def float_digits(n):
+    # Pack float into 8 bytes (double precision)
+    packed = struct.pack('!d', n)
+    # Unpack as integer to view bits
+    integers = struct.unpack('!Q', packed)[0]
+    bits = f"{integers:064b}"
+    
+    sign = bits[0]
+    exponent = bits[1:12]
+    mantissa = bits[12:]
+    
+    print(f"Value: {n}")
+    print(f"Bits:  {sign} {exponent} {mantissa}")
+    return bits
 
-<span class="code-comment"># 1. Inspecting 0.1</span>
-bits = <span class="code-function">float_to_binary</span>(<span class="code-number">0.1</span>)
-<span class="code-function">print</span>(<span class="code-string">f"0.1 bits: {bits}"</span>)
-<span class="code-comment"># Sign(1) Exponent(11) Mantissa(52)</span>
-s = bits[<span class="code-number">0</span>]
-e = bits[<span class="code-number">1</span>:<span class="code-number">12</span>]
-m = bits[<span class="code-number">12</span>:]
-<span class="code-function">print</span>(<span class="code-string">f"S={s} E={e} M={m[:10]}..."</span>)
+float_digits(0.1)
+float_digits(0.2)
+# Notice: 0.1 + 0.2 != 0.3 pattern
+</code></pre>
+                        </div>
+                    </div>
 
-<span class="code-comment"># 2. Catastrophic Cancellation</span>
-a = <span class="code-number">1.0</span> + <span class="code-number">1e-15</span>
-b = <span class="code-number">1.0</span>
-<span class="code-function">print</span>(<span class="code-string">f"\nanive diff: {a - b}"</span>) <span class="code-comment"># Correct-ish</span>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Newton's Method</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def newton_method(f, df, x0, tol=1e-10, max_iter=20):
+    x = x0
+    print(f"{'Iter':<5} {'x':<20} {'f(x)':<20}")
+    print("-" * 50)
+    
+    for i in range(max_iter):
+        y = f(x)
+        if abs(y) < tol:
+            print(f"Converged to {x} in {i} iterations.")
+            return x
+            
+        dy = df(x)
+        if dy == 0:
+            print("Derivative zero. Failed.")
+            return None
+            
+        x_new = x - y / dy
+        print(f"{i:<5} {x:.10f}          {y:.5e}")
+        x = x_new
+        
+    print("Did not converge.")
+    return x
 
-a2 = <span class="code-number">1.0</span> + <span class="code-number">1e-16</span> <span class="code-comment"># Below epsilon for double? Close.</span>
-<span class="code-function">print</span>(<span class="code-string">f"tiny diff:  {a2 - b}"</span>)
-
-<span class="code-comment"># 3. Kahan Summation</span>
-<span class="code-keyword">def</span> <span class="code-function">kahan_sum</span>(input_vals):
-    <span class="code-function">sum</span> = <span class="code-number">0.0</span>
-    c = <span class="code-number">0.0</span> <span class="code-comment"># compensation</span>
-    <span class="code-keyword">for</span> x <span class="code-keyword">in</span> input_vals:
-        y = x - c
-        t = <span class="code-function">sum</span> + y
-        c = (t - <span class="code-function">sum</span>) - y
-        <span class="code-function">sum</span> = t
-    <span class="code-keyword">return</span> <span class="code-function">sum</span>
-
-vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</span>
-<span class="code-function">print</span>(<span class="code-string">f"\nKahan Sum: {kahan_sum(vals)}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Naive Sum: {sum(vals)}"</span>)</pre>
+# Solve x^2 - 2 = 0 (Find sqrt(2))
+newton_method(lambda x: x**2 - 2, lambda x: 2*x, 1.5)
+</code></pre>
                         </div>
                     </div>
                 </div>
@@ -311,7 +380,7 @@ vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</sp
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -333,7 +402,7 @@ vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</sp
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 9</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -352,21 +421,29 @@ vals = [<span class="code-number">0.1</span>] * <span class="code-number">10</sp
     <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
     <script>
-
         const VIDEO_GROUPS = [
             {
                 title: "Floating Point",
                 items: [
-                    { title: "Floating Point Numbers - Computerphile", channel: "Computerphile", vid: "PZRI1IfStY0" },
-                    { title: "Binary Fractions", channel: "Computerphile", vid: "Hl4fI82U9tU" },
-                    { title: "IEEE 754 Standard", channel: "Computerphile", vid: "p8u_k2LIZyo" },
-                    { title: "Catastrophic Cancellation", channel: "TurnOffTheLights", vid: "XGlTfI-F414" }
+                    { title: "Floating Point Numbers", channel: "Computerphile", vid: "PZRI1IfStY0" },
+                    { title: "Why 0.1 + 0.2 != 0.3", channel: "Derivados", vid: "448k8qRb5vY" }
+                ]
+            },
+            {
+                title: "Algorithms",
+                items: [
+                    { title: "Newton's Method", channel: "3Blue1Brown", vid: "-RdOwhmqP5s" },
+                    { title: "Newton's Fractal", channel: "3Blue1Brown", vid: "-RdOwhmqP5s" },
+                    { title: "Numerical Stability", channel: "MIT OpenCourseWare", vid: "VpP7u2y5r4Y" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day51'], storageKey: 'day51_num_v1' });
 
+        // This lesson is about Numerical Analysis (Day 51)
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day51'] || [], storageKey: 'day51_numerics' });
     </script>
+    <script>hljs.highlightAll();</script>
+    <script>renderMathInElement(document.body, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });</script>
 </body>
 
 </html>

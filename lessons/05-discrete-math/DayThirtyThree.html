@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 33: Trees, Tries & Graphs</title>
+    <title>Day 33: Logic & Boolean Algebra</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,24 +47,33 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 33 · Algorithms
+            Day 33 · The Language of Silicon
         </div>
-        <h1>Trees, Tries & Graphs</h1>
-        <p class="hero-desc">Hierarchical structures for fast search, priority queues, and prefix matching.</p>
+        <h1>Logic & Boolean Algebra</h1>
+        <p class="hero-desc">
+            At the bottom of every computer, there are no numbers. Only True and False.
+            Boolean Algebra is the physics of the digital world.
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~75 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                40 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
             </div>
         </div>
     </header>
@@ -65,16 +83,15 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#basics" class="toc-link">1. Tree Basics</a></li>
-                    <li><a href="#bst" class="toc-link">2. Binary Search Trees</a></li>
-                    <li><a href="#heap" class="toc-link">3. Heaps</a></li>
-                    <li><a href="#trie" class="toc-link">4. Tries</a></li>
-                    <li><a href="#basics-graph" class="toc-link">5. Graph Basics</a></li>
-                    <li><a href="#adjlist" class="toc-link">6. Adjacency List</a></li>
-                    <li><a href="#adjmatrix" class="toc-link">7. Adjacency Matrix</a></li>
-                    <li><a href="#comparison" class="toc-link">8. Comparison</a></li>
-                    <li><a href="#videos" class="toc-link">9. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">10. Practice</a></li>
+                    <li><a href="#propositions" class="toc-link">1. Propositions</a></li>
+                    <li><a href="#operators" class="toc-link">2. Logical Operators</a></li>
+                    <li><a href="#implications" class="toc-link">3. Implications</a></li>
+                    <li><a href="#equivalences" class="toc-link">4. Equivalences</a></li>
+                    <li><a href="#predicates" class="toc-link">5. Quantifiers ($\forall, \exists$)</a></li>
+                    <li><a href="#circuits" class="toc-link">6. Circuits & Applications</a></li>
+                    <li><a href="#python" class="toc-link">7. Python: Bitwise Logic</a></li>
+                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">9. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -89,271 +106,258 @@
         </aside>
 
         <main class="content">
-            <section class="section" id="basics">
+            <!-- Propositions -->
+            <section class="section" id="propositions">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Tree Basics</h2>
+                    <h2 class="section-title">Propositions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Tree:</strong> Connected acyclic graph with n nodes and n-1 edges.</div>
-                    <div class="math-block"> root
-                        / \
-                        child child
-                        / \
-                        leaf leaf
-
-                        Terminology:
-                        • Root: top node (no parent)
-                        • Leaf: node with no children
-                        • Height: longest path from root to leaf
-                        • Depth: path length from root to node</div>
-                    <div class="info">
-                        <strong>Family Simple:</strong> A tree is like a family tree.
-                        <br>Root = great-grandparent. Leaves = youngest generation (no children yet).
-                        <br>Edges = parent-child relationships. Height = how many generations!
+                    <p>
+                        A <strong>Proposition</strong> is a sentence that is definitely True or definitely False.
+                    </p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Valid Propositions</h3>
+                            <p>• "The sky is blue." (True)</p>
+                            <p>• "2 + 2 = 5." (False)</p>
+                        </div>
+                        <div class="card">
+                            <h3>Not Propositions</h3>
+                            <p>• "Hello." (No truth value)</p>
+                            <p>• "x + 2 = 5." (Values depends on x)</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="bst">
+            <!-- Operators -->
+            <section class="section" id="operators">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Binary Search Trees</h2>
+                    <h2 class="section-title">Logical Operators (Gates)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>BST Property:</strong> Left subtree < Node < Right subtree</div>
-                            <div class="math-block">BST Operations (balanced):
-                                Search: O(log n)
-                                Insert: O(log n)
-                                Delete: O(log n)
-
-                                Unbalanced BST degrades to O(n)!</div>
-
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <span class="code-lang">Python</span>
-                                    <span class="code-label">BST search</span>
-                                </div>
-                                <div class="code-content">
-                                    <pre><span class="code-keyword">def</span> <span class="code-function">search</span>(root, target):
-    <span class="code-keyword">if</span> <span class="code-keyword">not</span> root:
-        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
-    <span class="code-keyword">if</span> target == root.val:
-        <span class="code-keyword">return</span> root
-    <span class="code-keyword">elif</span> target < root.val:
-        <span class="code-keyword">return</span> search(root.left, target)
-    <span class="code-keyword">else</span>:
-        <span class="code-keyword">return</span> search(root.right, target)</pre>
-                                </div>
-                            </div>
-
-                            <div class="warning"><strong>Self-balancing trees:</strong> AVL, Red-Black guarantee O(log
-                                n) height.</div>
+                    <p>Every computer chip is built from these atomic operations. They are the "Lego bricks" of
+                        computation.</p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Symbol</th>
+                                <th>Logic</th>
+                                <th>Meaning</th>
+                            </tr>
+                            <tr>
+                                <td><strong>AND</strong></td>
+                                <td>$p \land q$</td>
+                                <td>True only if <strong>BOTH</strong> are True.</td>
+                                <td>"Series Circuit"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>OR</strong></td>
+                                <td>$p \lor q$</td>
+                                <td>True if <strong>AT LEAST ONE</strong> is True.</td>
+                                <td>"Parallel Circuit"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NOT</strong></td>
+                                <td>$\neg p$</td>
+                                <td>Flips the value (T $\to$ F).</td>
+                                <td>"Inverter"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>XOR</strong></td>
+                                <td>$p \oplus q$</td>
+                                <td>True if inputs are <strong>DIFFERENT</strong>.</td>
+                                <td>"Exclusive OR"</td>
+                            </tr>
+                        </table>
                     </div>
+                </div>
             </section>
 
-            <section class="section" id="heap">
+            <!-- Implications -->
+            <section class="section" id="implications">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Heaps</h2>
+                    <h2 class="section-title">Implications (Conditionals)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="two-col">
-                        <div class="subsection">
-                            <h3 class="subsection-title">Min-Heap</h3>
-                            <div class="math-block">Parent ≤ Children
-                                Root = minimum
-                                peek: O(1)
-                                push: O(log n)
-                                pop: O(log n)</div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Max-Heap</h3>
-                            <div class="math-block">Parent >= Children
-                                Root = maximum
-                                Used in heapsort</div>
-                            <div class="info">
-                                <strong>VIP Simple:</strong> A heap is like a VIP line at a club.
-                                <br>Min-heap: lowest number (highest priority) gets served first.
-                                <br>When you add someone, they bubble up to their rightful place in line!
-                            </div>
-                        </div>
+                    <p>The core of mathematical proofs. The statement $P \implies Q$ ("If P, then Q").</p>
+                    <div class="info">
+                        <strong>The Promise Analogy:</strong>
+                        <br>"If it rains ($P$), I will bring an umbrella ($Q$)."
+                        <br>The promise is broken (False) <strong>ONLY</strong> if it rains ($P=\top$) and I have NO
+                        umbrella ($Q=\bot$).
+                        <br>If it doesn't rain ($P=\bot$), the promise stands (Vacuously True).
                     </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Using heapq (min-heap)</span>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Derived Forms</h3>
+                            <p><strong>Converse:</strong> $Q \implies P$ (Not equivalent)</p>
+                            <p><strong>Inverse:</strong> $\neg P \implies \neg Q$ (Not equivalent)</p>
+                            <p><strong>Contrapositive:</strong> $\neg Q \implies \neg P$ (Equivalent!)</p>
                         </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> heapq
-
-h = []
-heapq.heappush(h, <span class="code-number">5</span>)
-heapq.heappush(h, <span class="code-number">2</span>)
-heapq.heappush(h, <span class="code-number">8</span>)
-
-<span class="code-function">print</span>(h[<span class="code-number">0</span>])         <span class="code-comment"># 2 (min)</span>
-<span class="code-function">print</span>(heapq.heappop(h))  <span class="code-comment"># 2</span></pre>
+                        <div class="card">
+                            <h3>Biconditional ($P \iff Q$)</h3>
+                            <p>"P if and only if Q".</p>
+                            <p>True when P and Q have the <strong>SAME</strong> truth value.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="trie">
+            <!-- Equivalences -->
+            <section class="section" id="equivalences">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Tries (Prefix Trees)</h2>
+                    <h2 class="section-title">Logical Equivalence & De Morgan</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Trie:</strong> Tree for storing strings where each node is a character.
-                    </div>
-                    <div class="math-block">Insert "cat", "car", "card":
-                        root
-                        |
-                        c
-                        |
-                        a
-                        / \
-                        t r
-                        |
-                        d
-
-                        Search/Insert: O(length of string)</div>
-                    <p>Use cases: autocomplete, spell check, IP routing tables.</p>
-                    <div class="info">
-                        <strong>Autocomplete Simple:</strong> A trie is how your phone predicts words!
-                        <br>Type 'c' - shows cat, car, card. Type 'ca' - narrows to cat, car, card.
-                        <br>Each letter you type walks one step down the tree.
+                    <p>Two statements are <strong>Logically Equivalent</strong> ($\equiv$) if they have identical Truth
+                        Tables.</p>
+                    <div class="card">
+                        <h3>De Morgan's Laws (Breaking Loops)</h3>
+                        <p>How do you negate a group?</p>
+                        <p>1. $\neg(A \land B) \equiv (\neg A) \lor (\neg B)$</p>
+                        <p>2. $\neg(A \lor B) \equiv (\neg A) \land (\neg B)$</p>
+                        <p><strong>Code Tip:</strong> `!(fast && cheap)` == `!fast || !cheap`.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Graph Content (From Day 41) -->
-            <section class="section" id="basics-graph">
+            <!-- Predicates -->
+            <section class="section" id="predicates">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Graph Basics</h2>
+                    <h2 class="section-title">Predicates & Quantifiers</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Graph G = (V, E)</strong> where V = vertices, E = edges</div>
-                    <div class="math-block">Types:
-                        • Directed vs Undirected
-                        • Weighted vs Unweighted
-                        • Cyclic vs Acyclic (DAG)
-                        • Connected vs Disconnected
-
-                        |V| = n (vertices), |E| = m (edges)
-                        Sparse: m ≪ n² Dense: m ≈ n²</div>
+                    <p>Standard logic ($P \lor Q$) is static. <strong>Predicate Logic</strong> introduces variables.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Universal Quantifier ($\forall$)</h3>
+                            <p>"For All" / "Every".</p>
+                            <p>$\forall x, x^2 \ge 0$ (For every real number x, x squared is non-negative).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Existential Quantifier ($\exists$)</h3>
+                            <p>"There Exists" / "For Some".</p>
+                            <p>$\exists x, x^2 = 25$ (There exists a number x such that x squared is 25).</p>
+                        </div>
+                    </div>
+                    <div class="warning">
+                        <strong>Negating Quantifiers:</strong>
+                        <br>$\neg \forall x, P(x) \equiv \exists x, \neg P(x)$ (To disprove "All", find "One
+                        Counterexample").
+                        <br>$\neg \exists x, P(x) \equiv \forall x, \neg P(x)$ (To disprove "Exists", show "None").
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="adjlist">
+            <!-- Circuits -->
+            <section class="section" id="circuits">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Adjacency List</h2>
+                    <h2 class="section-title">Circuits & Applications</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Adjacency List:</strong> For each vertex, store list of neighbors.</div>
-                    <div class="math-block">Space: O(V + E)
-
-                        0: [1, 2]
-                        1: [0, 2, 3]
-                        2: [0, 1]
-                        3: [1]</div>
-
+                    <p>Logic maps directly to hardware.</p>
                     <div class="code-block">
                         <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Adjacency list with dict</span>
+                            <span class="code-lang">Hardware</span>
+                            <span class="code-label">The Half Adder</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-comment"># Using dict of lists</span>
-graph = {
-    <span class="code-number">0</span>: [<span class="code-number">1</span>, <span class="code-number">2</span>],
-    <span class="code-number">1</span>: [<span class="code-number">0</span>, <span class="code-number">2</span>, <span class="code-number">3</span>],
-    <span class="code-number">2</span>: [<span class="code-number">0</span>, <span class="code-number">1</span>],
-    <span class="code-number">3</span>: [<span class="code-number">1</span>]
-}
+                            <pre>
+  Inputs: A, B  ->  Outputs: Sum (S), Carry (C)
 
-<span class="code-comment"># Get neighbors of node 1</span>
-neighbors = graph[<span class="code-number">1</span>]  <span class="code-comment"># [0, 2, 3]</span></pre>
+  1. Sum   = A XOR B  (1+0=1, 1+1=0)
+  2. Carry = A AND B  (1+1 produces Carry)
+                            </pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="adjmatrix">
+            <!-- Python -->
+            <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Adjacency Matrix</h2>
+                    <h2 class="section-title">Python: Bitwise & Logic</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Adjacency Matrix:</strong> 2D array where M[i][j] = 1 if edge exists.
-                    </div>
-                    <div class="math-block">Space: O(V²)
-
-                        0 1 2 3
-                        0 [ 0 1 1 0 ]
-                        1 [ 1 0 1 1 ]
-                        2 [ 1 1 0 0 ]
-                        3 [ 0 1 0 0 ]</div>
+                    <p>Integers are just 32 booleans in a trenchcoat. We can use "Bit Masks" to store efficient
+                        settings.</p>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Adjacency matrix</span>
+                            <span class="code-label">1. Bitwise Permissions System</span>
                         </div>
                         <div class="code-content">
-                            <pre>matrix = [
-    [<span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">1</span>, <span class="code-number">0</span>],
-    [<span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">1</span>],
-    [<span class="code-number">1</span>, <span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">0</span>],
-    [<span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">0</span>]
-]
+                            <pre><code class="language-python"># Define Flags (Powers of 2)
+READ    = 0b001 # 1
+WRITE   = 0b010 # 2
+EXECUTE = 0b100 # 4
 
-<span class="code-comment"># Check edge between 1 and 3</span>
-has_edge = matrix[<span class="code-number">1</span>][<span class="code-number">3</span>] == <span class="code-number">1</span>  <span class="code-comment"># True</span></pre>
+# User Permissions (Read + Execute)
+user_perms = READ | EXECUTE  # 001 | 100 = 101 (5)
+
+print(f"Permissions Value: {user_perms}")
+
+# Check Permission (Masking)
+# We use AND to isolate the bit we care about
+if user_perms & WRITE:
+    print("User can write.")
+else:
+    print("User CANNOT write.")
+
+# Toggle Permission (XOR)
+user_perms = user_perms ^ WRITE # flip the write bit
+print(f"New Permissions: {bin(user_perms)}")
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">2. Short-Circuit Evaluation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def expensive_check():
+    print("Checking database...")
+    return True
+
+# CASE 1: OR
+# If first is True, second is skipped (Short Circuit)
+if True or expensive_check():
+    print("Done (Case 1)")
+
+# CASE 2: AND
+# If first is False, second is skipped
+if False and expensive_check():
+    print("Done (Case 2)")
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="comparison">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">Comparison</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">OPERATION | ADJ LIST | ADJ MATRIX
-                        -------------------|----------|------------
-                        Space | O(V + E) | O(V²)
-                        Add edge | O(1) | O(1)
-                        Remove edge | O(E) | O(1)
-                        Check edge exists | O(degree)| O(1)
-                        Get all neighbors | O(degree)| O(V)
-                        Iterate all edges | O(V + E) | O(V²)</div>
 
-                    <div class="info">
-                        <strong>Use adjacency list</strong> for sparse graphs (most real-world graphs).<br>
-                        <strong>Use adjacency matrix</strong> for dense graphs or when you need fast edge lookup.
-                    </div>
-                </div>
-            </section>
-
+            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -362,9 +366,10 @@ has_edge = matrix[<span class="code-number">1</span>][<span class="code-number">
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 9</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -380,22 +385,44 @@ has_edge = matrix[<span class="code-number">1</span>][<span class="code-number">
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
-    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Trees & Graphs",
+                title: "Mathematical Logic",
                 items: [
-                    { title: "Binary Search Trees", channel: "Abdul Bari", vid: "pYT9F8_LFTM" },
-                    { title: "Heaps & Priority Queues", channel: "Abdul Bari", vid: "H5JubkIy_p8" },
-                    { title: "Tries Explained", channel: "NeetCode", vid: "t0Cq6tVNRBA" },
-                    { title: "Graph Representations", channel: "William Fiset", vid: "eQA-m22wjTQ" }
+                    { title: "Truth Tables Explained", channel: "TrevTutor", vid: "JrdfG6t8dwo" },
+                    { title: "De Morgan's Laws", channel: "Kimberly Brehm", vid: "03oO2v6a_w0" },
+                    { title: "Predicates and Quantifiers", channel: "Kimberly Brehm", vid: "GJQKwJg8U_Q" },
+                    { title: "Logic Gates and Truth Tables", channel: "Organic Chemistry Tutor", vid: "JrR1_I8iNfw" }
+                ]
+            },
+            {
+                title: "Computer Science Logic",
+                items: [
+                    { title: "How Computers Add Numbers (Logic Gates)", channel: "Computerphile", vid: "VBDoT8o4q00" },
+                    { title: "Bitwise Operations Explained", channel: "CS Dojo", vid: "meslY5kkqBg" },
+                    { title: "Boolean Logic & Logic Gates", channel: "CrashCourse", vid: "gI-qXk7XojA" },
+                    { title: "The ALU (Arithmetic Logic Unit)", channel: "CrashCourse", vid: "1I5ZMmrOfnA" }
+                ]
+            },
+            {
+                title: "Applied Logic",
+                items: [
+                    { title: "Karnaugh Maps (K-Map)", channel: "Neso Academy", vid: "RO5alU6PpWA" },
+                    { title: "Logic in SQL (WHERE)", channel: "Caleb Curry", vid: "7Vtl2WggqOg" },
+                    { title: "Short Circuit Evaluation", channel: "Portfolio Courses", vid: "k0nI6Gj_h_U" },
+                    { title: "Necessary vs Sufficient", channel: "Khan Academy", vid: "yvS0qA7hLh0" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day33'], storageKey: 'day33_trees_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day33'] || [],
+            storageKey: 'day33_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

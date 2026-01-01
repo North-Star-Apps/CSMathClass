@@ -237,7 +237,21 @@ d_ham = distance.hamming(v1, v2)
 <span class="code-function">print</span>(<span class="code-string">f"Hamming (% diff): {d_ham}"</span>)</pre>
                         </div>
                     </div>
-                </div>
+                
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Mathematical Computation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> math
+
+<span class="code-comment"># Common mathematical operations</span>
+<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
+<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
+<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
+                        </div>
+                    </div></div>
             </section>
 
             <!-- Videos -->
@@ -286,13 +300,16 @@ d_ham = distance.hamming(v1, v2)
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Metric Spaces",
+                title: "Core Concepts",
                 items: [
-                    { title: "Metric Spaces Introduction", channel: "The Bright Side of Mathematics", vid: "9h6A3I2j8RU" },
-                    { title: "Open Balls and Topology", channel: "TheBrightSideOfMathematics", vid: "u2vWz4ymWmA" },
-                    { title: "Completeness and Cauchy Sequences", channel: "TheBrightSideOfMathematics", vid: "kYl1rZp1Pro" },
-                    { title: "Banach Fixed Point Theorem", channel: "Steve Brunton", vid: "YE4L5m2C7V4" }
+                    { title: "Statistics Fundamentals", channel: "StatQuest", vid: "qBigTkBLU6g" },
+                    { title: "Probability Explained", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Bayes Theorem", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Normal Distribution", channel: "Khan Academy", vid: "mtbJbDwqWLE" },
+                    { title: "Hypothesis Testing", channel: "StatQuest", vid: "0oc49DyA3hU" }
                 ]
+            }
+        ]
             }
         ];
         initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day49'], storageKey: 'day49_metric_v2' });

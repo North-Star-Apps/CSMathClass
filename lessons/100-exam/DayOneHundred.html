@@ -4,13 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 100: The Final Exam</title>
+    <title>Day 100: The Final Exam & Graduation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/exam-logic.js"></script>
     <script src="../../lessons/proctor-logic.js"></script>
@@ -20,7 +26,12 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">Back to Curriculum</a>
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
             <div class="nav-progress">Day 100</div>
             <button class="theme-toggle" id="themeToggle"></button>
         </div>
@@ -33,9 +44,11 @@
             </svg>
             Day 100 · Graduation
         </div>
-        <h1>The Final Exam</h1>
-        <p class="hero-desc">The cumulative challenge. 10% of the curriculum. This is the moment you've worked 100 days
-            for.</p>
+        <h1>The Final Exam & Beyond</h1>
+        <p class="hero-desc">
+            You made it. From Binary to Probability, from Calculus to Complexity.
+            Today marks the end of the beginning.
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -63,100 +76,271 @@
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
-                <div class="toc-title">Exam Status</div>
+                <div class="toc-title">Table of Contents</div>
                 <ul class="toc-list">
-                    <li><a href="#exam" class="toc-link active">1. The Exam</a></li>
-                    <li><a href="#graduation" class="toc-link">2. Beyond Day 100</a></li>
+                    <li><a href="#recap" class="toc-link">1. The Journey</a></li>
+                    <li><a href="#unsolved" class="toc-link">2. Unsolved Mysteries</a></li>
+                    <li><a href="#careers" class="toc-link">3. Career Paths</a></li>
+                    <li><a href="#python" class="toc-link">4. Your Certificate</a></li>
+                    <li><a href="#gol" class="toc-link">5. Game of Life</a></li>
+                    <li><a href="#exam" class="toc-link active">6. The Exam</a></li>
                 </ul>
             </nav>
         </aside>
 
-        <main class="content" id="exam">
-            <div id="startScreen" style="text-align:center; padding: 40px;">
-                <h2>Ready for the Final Exam?</h2>
-                <p>This exam is proctored. You must stay in fullscreen and cannot switch tabs.</p>
-                <button class="btn btn-primary" id="btnStartExam">Start Exam</button>
-            </div>
-
-            <div id="examContent" style="display:none;">
-                <div id="quizContainer"></div>
-                <div style="text-align:center; margin-top:32px;">
-                    <button class="btn btn-primary" id="btnCheckAll">Submit Exam</button>
-                </div>
-            </div>
-
-            <!-- Graduation -->
-            <section class="section" id="graduation">
+        <main class="content">
+            <!-- Recap -->
+            <section class="section" id="recap">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Beyond Day 100</h2>
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">The Journey Recapped</h2>
                 </div>
                 <div class="section-body">
-                    <p>Mathematics and Computer Science are not destinations; they are languages for describing the
-                        universe. Today, you become a fluent speaker.</p>
-
+                    <p>
+                        Reviewing what you have built.
+                    </p>
+                    <ul class="list-disc leading-relaxed ml-6">
+                        <li><strong>Foundations:</strong> Logic, Proofs, and the very nature of Truth.</li>
+                        <li><strong>Calculus:</strong> The mathematics of change (Derivatives) and accumulation
+                            (Integrals).</li>
+                        <li><strong>Linear Algebra:</strong> The language of high-dimensional space and AI.</li>
+                        <li><strong>Algorithms:</strong> How to solve problems efficiently (P vs NP).</li>
+                        <li><strong>Probability:</strong> How to reason under uncertainty.</li>
+                        <li><strong>Topology:</strong> The shape of space itself.</li>
+                    </ul>
                     <div class="info">
-                        <span class="info-icon">🚀</span>
+                        <span class="info-icon">🥋</span>
                         <div>
-                            <strong>The Live Deployment Analogy:</strong> For 99 days, you have been writing code in
-                            your local environment. You've had mentors, textbooks, and practice runs. The Final Exam is
-                            the **Live Deployment**. Once you pass, your "code" (your mind) is running in production.
-                            The stakes are higher, but so is the impact of everything you build.
+                            <strong>Analogy: The Black Belt</strong>
+                            <br>
+                            In martial arts, a First Degree Black Belt does not mean you are a master. It means you have
+                            mastered the <strong>basics</strong> well enough to begin true learning.
+                            <br>Before today, you were learning the alphabet. Now, you can write poetry. This course was
+                            not the destination; it was the tutorial level.
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="info">
-                        <span class="info-icon">🎓</span>
-                        <div>
-                            <strong>The Certification Analogy:</strong> A degree is just a piece of paper; the **actual
-                            skill** is the ability to walk into a room of experts and hold your own. You have earned
-                            that right. You aren't "finished"; you are now **certified to explore**. The real learning
-                            begins now that you have the tools to teach yourself anything.
-                        </div>
-                    </div>
-
+            <!-- Unsolved -->
+            <section class="section" id="unsolved">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">The Frontier (Unsolved Problems)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        You are now equipped to understand the cutting edge. Here lie the dragons.
+                    </p>
                     <div class="subsection">
-                        <h3>Why This Matters in CS</h3>
-                        <p><strong>Zero-Day Readiness:</strong> In cybersecurity, a "Zero-Day" is a threat that has
-                            never been seen before. You can't prepare for it with a specific manual; you prepare for it
-                            by having a <strong>deep, fundamental understanding</strong> of the system. This curriculum
-                            has given you that foundation. No matter how much the industry changes (AI, Quantum,
-                            Bio-computing), the fundamental math remains the same.</p>
+                        <h3 class="subsection-title">P vs NP</h3>
+                        <p>
+                            Can every problem whose solution can be quickly verified also be quickly solved?
+                            <br>If P = NP, then cryptography is broken, we can cure cancer (protein folding), and
+                            perfect optimization is possible.
+                            <br>Most believe P != NP, but we cannot prove it.
+                        </p>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Riemann Hypothesis</h3>
+                        <p>
+                            All non-trivial zeros of the Riemann Zeta function have real part 1/2.
+                            <br>This connects discrete primes to continuous analysis. It is the holy grail of Number
+                            Theory.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Careers -->
+            <section class="section" id="careers">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Career Paths</h2>
+                </div>
+                <div class="section-body">
+                    <p>Where do you go from here?</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card p-4 border rounded">
+                            <h4>Software Engineer</h4>
+                            <p>Builds systems. Uses Algorithms, Databases, Distributed Systems.</p>
+                        </div>
+                        <div class="card p-4 border rounded">
+                            <h4>Data Scientist / AI</h4>
+                            <p>Finds patterns. Uses Linear Algebra, Calculus, Probability, Statistics.</p>
+                        </div>
+                        <div class="card p-4 border rounded">
+                            <h4>Quant Researcher</h4>
+                            <p>Beats the market. Uses Stochastic Calculus, PDEs, Time Series.</p>
+                        </div>
+                        <div class="card p-4 border rounded">
+                            <h4>Academic / Research</h4>
+                            <p>Expands knowledge. Uses Topology, Category Theory, Logic.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python Cert -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Python: Graduation</h2>
+                </div>
+                <div class="section-body">
+                    <p>Run this code to generate your (digital) certificate.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Certificate Generator</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def generate_certificate(name, score):
+    border = "=" * 60
+    
+    print(border)
+    print(f"||{' ' * 56}||")
+    print(f"||{'CERTIFICATE OF COMPLETION'.center(56)}||")
+    print(f"||{' ' * 56}||")
+    print(f"||  This certifies that{' ' * 37}||")
+    print(f"||{name.center(56)}||")
+    print(f"||{' ' * 56}||")
+    print(f"||  Has completed the 100 Day Mathematical CS Course {' ' * 5}||")
+    print(f"||  With a Final Exam Score of: {str(score).center(10)}           ||")
+    print(f"||{' ' * 56}||")
+    print(f"||{' ' * 36} Signed: Cortex ||")
+    print(f"||{' ' * 56}||")
+    print(border)
+
+generate_certificate("Avery Student", "100%")
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game of Life -->
+            <section class="section" id="gol">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Complexity from Simplicity</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        We end with Conway's Game of Life. From simple rules, infinite complexity emerges.
+                        This is the lesson of Computer Science: 0s and 1s can create Universes.
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Conway's Game of Life (Minimal)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import time
+import os
+
+def game_of_life(size=10, generations=5):
+    # Glider pattern
+    grid = set([(1,2), (2,3), (3,1), (3,2), (3,3)])
+    
+    for gen in range(generations):
+        # Calc neighbors
+        neighbors = {}
+        for (x,y) in grid:
+            for dx in [-1,0,1]:
+                for dy in [-1,0,1]:
+                    if dx==0 and dy==0: continue
+                    neighbors[(x+dx, y+dy)] = neighbors.get((x+dx, y+dy), 0) + 1
+        
+        # Apply rules
+        new_grid = set()
+        for cell, count in neighbors.items():
+            if count == 3 or (count == 2 and cell in grid):
+                new_grid.add(cell)
+        grid = new_grid
+        
+        # Render
+        print(f"--- Gen {gen} ---")
+        for x in range(size):
+            line = ""
+            for y in range(size):
+                line += "O" if (x,y) in grid else "."
+            print(line)
+        print()
+
+game_of_life()
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Exam -->
+            <section class="section" id="exam">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">The Final Exam</h2>
+                </div>
+                <div class="section-body">
+                    <div id="startScreen"
+                        style="text-align:center; padding: 40px; background: var(--surface-alt); border-radius: var(--radius);">
+                        <h2>Ready for the Final Exam?</h2>
+                        <p>This exam is proctored. You must stay in fullscreen and cannot switch tabs.</p>
+                        <p>250 Questions. 180 Minutes.</p>
+                        <button class="btn btn-primary" id="btnStartExam">Start Exam</button>
+                    </div>
+
+                    <div id="examContent" style="display:none;">
+                        <div id="quizContainer"></div>
+                        <div style="text-align:center; margin-top:32px;">
+                            <button class="btn btn-primary" id="btnCheckAll">Submit Exam</button>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
+    </div>
 
-        <script>
-            const VIDEO_GROUPS = [
-                {
-                    "title": "Graduation & Beyond",
-                    "items": [
-                        { "title": "Richard Feynman: The Joy of Discovery", "channel": "Muon Ray", "vid": "v2T9nJvg_L0" },
-                        { "title": "The Most Beautiful Equation", "channel": "3Blue1Brown", "vid": "mvmuCPvRoeg" },
-                        { "title": "You Are Not a Software Engineer", "channel": "The Primeagen", "vid": "v2T9nJvg_L0" }
-                    ]
-                }
-            ];
-            initLesson({
-                videos: VIDEO_GROUPS,
-                proctor: { strict: true, noCopy: true },
-                questions: [] // Handled by EXAM_LOGIC
-            });
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "The Big Picture",
+                items: [
+                    { title: "Map of Computer Science", channel: "Domain of Science", vid: "SzJ46YA_RaA" },
+                    { title: "Map of Mathematics", channel: "Domain of Science", vid: "OmJ-4B-mS-Y" },
+                    { title: "The Future of Computing", channel: "Lex Fridman", vid: "z81xJ73gPME" } /* Placeholder for general high level talk */,
+                    { title: "What is a Computer?", channel: "CrashCourse", vid: "tpIctyqH29Q" },
+                    { title: "Godel Escher Bach", channel: "Numberphile", vid: "5i7Q02D43yE" }
+                ]
+            }
+        ];
 
-            // Load exam but hide it initially
-            const questions = window.EXAM_LOGIC.getExam();
-            initQuiz(questions, 'day100_exam_stats');
+        initLesson({
+            videos: VIDEO_GROUPS,
+            proctor: { strict: true, noCopy: true },
+            questions: [] // Handled by EXAM_LOGIC
+        });
 
-            document.getElementById('btnStartExam').addEventListener('click', () => {
-                document.getElementById('startScreen').style.display = 'none';
-                document.getElementById('examContent').style.display = 'block';
-                // Trigger proctor fullscreen if needed
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                }
-            });
-        </script>
+        // Load exam but hide it initially
+        const questions = window.EXAM_LOGIC.getExam();
+        initQuiz(questions, 'day100_exam_stats');
+
+        document.getElementById('btnStartExam').addEventListener('click', () => {
+            document.getElementById('startScreen').style.display = 'none';
+
+            const examContent = document.getElementById('examContent');
+            examContent.style.display = 'block';
+
+            // Scroll to exam
+            examContent.scrollIntoView({ behavior: 'smooth' });
+
+            // Trigger proctor fullscreen if needed
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(e => console.log("Fullscreen denied"));
+            }
+        });
+    </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

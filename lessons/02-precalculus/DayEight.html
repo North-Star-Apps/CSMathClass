@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 8: Function Transformations & Asymptotes</title>
+    <title>Day 8: Trigonometry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,21 +15,30 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,15 +47,35 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 8 · Precalculus Foundation
+            Day 8 · Circles & Signals
         </div>
-        <h1>Transformations & Asymptotes</h1>
-        <p class="hero-desc">Master the visual logic of functions. From shifting and stretching graphs to analyzing the
-            invisible boundaries of asymptotes and growth rates.</p>
+        <h1>Trigonometry</h1>
+        <p class="hero-desc">
+            Trig isn't just about triangles. It's about Circles and Cycles.
+            From 3D rotation in games to JPEG compression and Audio processing, everything periodic is built on Sine and
+            Cosine.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~40 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">8 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~105 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                40 checkpoints
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -56,13 +85,20 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#translations" class="toc-link">1. Translations (Shifting)</a></li>
-                    <li><a href="#scaling" class="toc-link">2. Reflections & Scaling</a></li>
-                    <li><a href="#asymptotes" class="toc-link">3. Asymptotes (Invisible Fences)</a></li>
-                    <li><a href="#symmetry" class="toc-link">4. Even & Odd Symmetry</a></li>
-                    <li><a href="#growth" class="toc-link">5. Growth Rates (The CS Link)</a></li>
-                    <li><a href="#videos" class="toc-link">6. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#unit-circle" class="toc-link">1. The Unit Circle (Coordinates)</a></li>
+                    <li><a href="#radians" class="toc-link">2. Radians: The Natural Unit</a></li>
+                    <li><a href="#graphs" class="toc-link">3. Waves (Amplitude & Frequency)</a></li>
+                    <li><a href="#inverses" class="toc-link">4. Inverse Trig (The LookAt Function)</a></li>
+                    <li><a href="#identities" class="toc-link">5. Identities & Physics Engines</a></li>
+                    <li><a href="#fourier" class="toc-link">6. Fourier (Signal Compression)</a></li>
+                    <li><a href="#polar" class="toc-link">7. Polar Coordinates (Radar)</a></li>
+                    <li><a href="#vectors" class="toc-link">8. Dot Product (Similarity)</a></li>
+                    <li><a href="#law-of-cosines" class="toc-link">9. Law of Cosines & GPS</a></li>
+                    <li><a href="#performance" class="toc-link">10. Performance & Approximations</a></li>
+                    <li><a href="#python" class="toc-link">11. Python Audio Synthesis</a></li>
+                    <li><a href="#summary" class="toc-link">12. Summary & Roadmap</a></li>
+                    <li><a href="#videos" class="toc-link">13. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">14. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -77,272 +113,692 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Transformations Matter</h2>
+                    <h2 class="section-title">Why Trig Matters in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>In computer science, we rarely build things from scratch. We take a base component—a window, an
-                        array, a search algorithm—and <strong>transform</strong> it to fit our needs. Understanding how
-                        mathematical functions shift, stretch, and hit limits is the same skill as understanding how
-                        data scales in a large system.</p>
-                    <div class="info">
-                        <strong>The Programmer's Perspective:</strong>
-                        <p>A transformation is just a "wrapper" function. If <code>f(x)</code> is your base logic, then
-                            <code>f(x - h) + k</code> is simply applying an offset to the input and a bias to the
-                            output. This mindset transforms algebra from "memorization" into "configuration."
-                        </p>
+                    <p>In high school, Trigonometry feels like a collection of triangle identities. In Computer Science,
+                        it is the <strong>Mathematics of Periodicity</strong>. If something repeats, spins, or
+                        oscillates, it uses Trig.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Graphics & Robotics</h3>
+                            <p>Calculating the "LookAt" vector for a camera, rotating a 3D model, or calculating the
+                                joint angles of a robotic arm (Inverse Kinematics).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Data Compression</h3>
+                            <p>JPEG images and MP3 audio don't store raw pixels or sounds. They store <strong>Trig
+                                    coefficients</strong> (Discrete Cosine Transform) to save space.</p>
+                        </div>
+                        <div class="card">
+                            <h3>GPS & Navigation</h3>
+                            <p>Global Positioning Systems use spherical trigonometry to triangulate your exact position
+                                on a curved earth using satellite signal timing.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Machine Learning</h3>
+                            <p><strong>Cosine Similarity</strong> is the standard way to measure how similar two text
+                                documents or vectors are in a Recommendation System.</p>
+                        </div>
                     </div>
+
                     <div class="info">
-                        <strong>🎨 Simple:</strong> Transformations are like Instagram filters. The original picture
-                        (function) is the same, but the filter moves it, flips it, or changes the colors (stretches it)
-                        without creating a whole new image from scratch.
+                        <strong>Industrial Fact:</strong> The <strong>Fast Fourier Transform (FFT)</strong> is estimated
+                        to be running on billions of devices every second, facilitating everything from your 5G
+                        connection to your noise-canceling headphones.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="translations">
+            <!-- The Unit Circle -->
+            <section class="section" id="unit-circle">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Translations (Shifting)</h2>
+                    <h2 class="section-title">The Unit Circle (Coordinates)</h2>
                 </div>
                 <div class="section-body">
-                    <p>Shifting a graph represents a change in the "starting point" (input) or the "baseline" (output).
-                    </p>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Vertical Shift: $f(x) + k$</h3>
-                        <p>Adding $k$ outside the function moves the entire graph <strong>up</strong> (if $k > 0$) or
-                            <strong>down</strong> (if $k < 0$).</p>
-                                <div class="rule">Example: $f(x) = x^2 + 5$ is a parabola shifted 5 units up.</div>
-                                <div class="info">
-                                    <strong>🛗 Simple:</strong> Think of an elevator. The floor layout (the shape of the
-                                    graph)
-                                    doesn't change, you just view it from a higher level.
-                                </div>
+                    <p>Forget SOH CAH TOA for a second. Think <strong>coordinates</strong>. In programming, we rarely
+                        have a physical triangle; we have a position and an angle.</p>
+                    <div class="rule">
+                        <strong>The Definition:</strong>
+                        <br>Draw a circle of Radius 1 at origin (0,0).
+                        <br>Walk angle $\theta$ along the edge counter-clockwise.
+                        <br>• The x-coordinate is $\cos(\theta)$.
+                        <br>• The y-coordinate is $\sin(\theta)$.
                     </div>
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">Horizontal Shift: $f(x - h)$</h3>
-                        <p>Changing the input <strong>inside</strong> the parentheses shifts the graph <strong>left or
-                                right</strong>. This is often counter-intuitive:</p>
-                        <ul>
-                            <li>$f(x - 3)$ shifts the graph <strong>Right</strong> by 3 (delaying the input).</li>
-                            <li>$f(x + 3)$ shifts the graph <strong>Left</strong> by 3 (advancing the input).</li>
-                        </ul>
-                        <div class="info">
-                            <strong>⏰ Simple:</strong> Think of a delayed Live Stream.
-                            <br>If you watch the stream 1 hour late ($t - 1$), the event happens <em>later</em> on your
-                            clock. The timeline shifts to the <strong>right</strong>.
-                        </div>
+                    <div class="info">
+                        <span class="info-icon">🔄</span>
+                        <strong>Analogy: The Radar Dish</strong>
+                        <br>Imagine a radar dish rotating.
+                        <br>• At 0°, it points East $(1, 0)$. Cosine is 1, Sine is 0.
+                        <br>• At 90°, it points North $(0, 1)$. Cosine is 0, Sine is 1.
+                        <br>• As it spins, the $(x, y)$ values oscillate between -1 and 1.
                     </div>
 
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">GUI
-                                Analogy</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># Moving a button in a GUI frame</span>
-<span class="code-keyword">def</span> <span class="code-function">draw_button</span>(x, y):
-    <span class="code-comment"># Logic to draw at (x, y)</span>
-    <span class="code-keyword">pass</span>
-
-<span class="code-comment"># Shifting the baseline (Vertical Translation)</span>
-y_offset = <span class="code-number">50</span>
-draw_button(x, y + y_offset)
-
-<span class="code-comment"># Shifting the input (Horizontal Translation)</span>
-x_offset = <span class="code-number">100</span>
-draw_button(x - x_offset, y)</pre>
-                        </div>
+                    <div class="math-block">
+                        <strong>The Pythagorean Identity:</strong>
+                        <br>Since any point on the circle forms a right triangle with hypotenuse 1:
+                        $$ \cos^2\theta + \sin^2\theta = 1 $$
+                        In game engines, this is used to <strong>Normalize</strong> vectors. If you move diagonally, you
+                        don't want to move faster ($\sqrt{1^2+1^2} = 1.41$) than moving straight (1.0). Trig keeps your
+                        speed constant.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="scaling">
+            <!-- Radians -->
+            <section class="section" id="radians">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Reflections & Scaling</h2>
+                    <h2 class="section-title">Radians: The Natural Unit</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Reflections</h3>
-                        <ul>
-                            <li><strong>$y = -f(x)$</strong>: Reflects across the $x$-axis (flips upside down).</li>
-                            <li><strong>$y = f(-x)$</strong>: Reflects across the $y$-axis (flips left-to-right).</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Vertical Scaling: $a \cdot f(x)$</h3>
-                        <p>Multiplying the output by $a$ stretches or compresses the graph vertically.</p>
-                        <ul>
-                            <li>If $|a| > 1$: <strong>Vertical Stretch</strong> (graph gets taller/steeper).</li>
-                            <li>If $0 < |a| < 1$: <strong>Vertical Compression</strong> (graph gets shorter/flatter).
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Horizontal Scaling: $f(c \cdot x)$</h3>
-                        <p>Multiplying the input by $c$ compresses or stretches the graph horizontally.</p>
-                        <ul>
-                            <li>If $|c| > 1$: <strong>Horizontal Compression</strong> (graph gets narrower).</li>
-                            <li>If $0 < |c| < 1$: <strong>Horizontal Stretch</strong> (graph gets wider).</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="asymptotes">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Asymptotes (Invisible Fences)</h2>
-                </div>
-                <div class="section-body">
-                    <p>Asymptotes represent the values a function approaches but can never (usually) touch. In CS, these
-                        represent the <strong>constraints</strong> or <strong>limits</strong> of a system.</p>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Vertical Asymptotes (VA)</h3>
-                        <p>Occur where the denominator of a rational function is zero (and doesn't cancel out). The
-                            function "explodes" to $\infty$ or $-\infty$.</p>
-                        <div class="info">
-                            <strong>⚡ Simple:</strong> An Electric Fence.
-                            <br>You can get infinitely close to the fence, but you can never actually touch it
-                            (undefined
-                            behavior). The graph shoots up or down trying to avoid contact.
-                        </div>
-                        <div class="math-block">
-                            f(x) = \frac{1}{x - 2} \implies \text{VA at } x = 2
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Horizontal Asymptotes (HA)</h3>
-                        <p>Describe the "end behavior" of a function as $x \to \infty$.</p>
-                        <div class="info">
-                            <strong>The "Degree Duel":</strong> Compare high powers of $D(x)$ and $N(x)$:
-                            <ul>
-                                <li><strong>Bottom Heavy:</strong> $y = 0$ (e.g., $1/x$).</li>
-                                <li><strong>Balanced:</strong> $y = \text{Ratio of coefficients}$ (e.g., $3x/x \to y =
-                                    3$).</li>
-                                <li><strong>Top Heavy:</strong> No HA (goes to infinity).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="symmetry">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Even & Odd Symmetry</h2>
-                </div>
-                <div class="section-body">
-                    <p>Symmetry allows us to avoid redundant work. If we know half the graph, we know the rest.</p>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Even Functions</h3>
-                        <div class="math-block">f(-x) = f(x)</div>
-                        <p>Symmetric across the <strong>y-axis</strong>. Think of $x^2$.</p>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Odd Functions</h3>
-                        <div class="math-block">f(-x) = -f(x)</div>
-                        <p>Symmetric about the <strong>origin</strong> (180° rotation). Think of $x^3$.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="growth">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Growth Rates (The CS Link)</h2>
-                </div>
-                <div class="section-body">
-                    <p>End behavior is the foundation of <strong>Big-O Notation</strong>. We care about which part of a
-                        function "wins" as $x$ gets huge.</p>
+                    <p>Degrees (360°) are an arbitrary human choice based on an ancient calendar. Radians are based on
+                        the circle itself.</p>
                     <div class="rule">
-                        <strong>Hierarchy of Growth:</strong>
-                        <p>$\text{Constant} < \log(n) < \text{Linear} < n \log n < \text{Polynomial} <
-                                \text{Exponential} < \text{Factorial}$</p>
+                        <strong>Definition:</strong> One radian is the angle where the arc length equals the radius.
+                        <br>Since a full circle has circumference $2\pi r$, a full circle is $2\pi$ radians.
+                        <br>• $180^\circ = \pi$ radians.
+                        <br>• $90^\circ = \pi/2$ radians.
                     </div>
-                    <p>In a rational function like $f(x) = \frac{x^3 + 10x^2}{x^2}$, for very large $x$, the $10x^2$ is
-                        irrelevant. The $x^3$ dominates the top, and the $x^2$ dominates the bottom. Thus, the function
-                        behaves like $x^3/x^2 = x$.</p>
-                </div>
-            </section>
 
-            <section class="section" id="videos">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Video Lessons</h2>
-                </div>
-                <div class="section-body">
-                    <div class="video-container">
-                        <div class="video-player">
-                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-                            <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video</div>
-                                <div class="video-meta" id="videoMeta"></div>
+                    <div class="warning">
+                        <strong>Programmer Trap:</strong> Almost every standard library (Python `math`, JS `Math`, C++
+                        `cmath`) expects <strong>Radians</strong>.
+                        <br>Passing degrees into <code>sin()</code> will produce "voodoo" numbers that look right but
+                        are subtly wrong.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Python: Safe Conversion</h3>
+                        <div class="code-block">
+                            <div class="code-header"><span class="code-lang">Python</span><span
+                                    class="code-label">Degree to Radian</span></div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import math
+
+deg = 45
+rad = math.radians(deg) # Or deg * (math.pi / 180)
+
+print(f"Sin(45 deg): {math.sin(rad):.4f}") # 0.7071
+print(f"Wrong Sin: {math.sin(deg):.4f}")    # 0.8509 (interprets 45 as radians!)</code></pre>
                             </div>
                         </div>
-                        <div class="video-list" id="videoList"></div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="practice">
+            <!-- Graphs -->
+            <section class="section" id="graphs">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Practice Problems</h2>
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Waves (Amplitude & Frequency)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="quiz-controls">
-                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                        <button class="btn" id="btnRevealAll">Reveal All</button>
-                        <button class="btn" id="btnClear">Clear Inputs</button>
-                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    <p>If you unroll the Unit Circle over time, you get waves.</p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Anatomy of a Sine Wave (The Code View)</h3>
+                        <div class="math-block">
+                            $$ y(t) = A \cdot \sin(B(x - h)) + k $$
+                        </div>
+                        <div class="grid-2col">
+                            <div class="card">
+                                <h3>$A$: Amplitude (Scale)</h3>
+                                <p>In audio, this is Volume. In graphics, it determines how high/low an object bobs.</p>
+                                <p><code>sprite.y = 100 * sin(t);</code></p>
+                            </div>
+                            <div class="card">
+                                <h3>$B$: Frequency (Speed)</h3>
+                                <p>Related to $2\pi f$. Controls how fast the wave repeats.</p>
+                                <p><code>sprite.x = cos(5 * t);</code></p>
+                            </div>
+                            <div class="card">
+                                <h3>$h$: Phase (Offset)</h3>
+                                <p>Shifts the wave left or right. Used to sync animations.</p>
+                                <p><code>val = sin(t + 1.57); // Shifted by 90°</code></p>
+                            </div>
+                            <div class="card">
+                                <h3>$k$: Vertical Shift (Center)</h3>
+                                <p>Moves the wave up or down on the screen.</p>
+                                <p><code>y = sin(t) + screenCenter;</code></p>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>Note for Programmers:</strong> Math libraries usually take Radians, not Degrees.
+                            <br><code>Math.sin(90)</code> interprets 90 as radians (~14 full rotations).
+                            <br><code>Math.sin(Math.PI / 2)</code> returns 1.0 (Correct).
+                        </div>
                     </div>
-                    <div id="quizContainer"></div>
                 </div>
             </section>
-        </main>
+
+    </div>
+    </section>
+
+    <!-- Inverses -->
+    <section class="section" id="inverses">
+        <div class="section-header">
+            <div class="section-number">Section 4</div>
+            <h2 class="section-title">Inverse Trig (The LookAt Function)</h2>
+        </div>
+        <div class="section-body">
+            <p>If you have the angle, you use <code>sin()</code> to get the position. If you have the position, you use
+                <strong>Inverse Trig</strong> to get the angle.
+            </p>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>ArcSine ($\sin^{-1}$)</h3>
+                    <p>Input: Ratio $(-1 \text{ to } 1)$</p>
+                    <p>Output: Angle</p>
+                </div>
+                <div class="card">
+                    <h3>ArcTangent ($\tan^{-1}$)</h3>
+                    <p>Input: Slope ($y/x$)</p>
+                    <p>Output: Angle</p>
+                </div>
+            </div>
+
+            <div class="warning">
+                <strong>The Programmer's Secret: <code>atan2(y, x)</code></strong>
+                <br>Standard $\tan^{-1}(y/x)$ has two failures:
+                <br>1. Division by zero (if $x=0$).
+                <br>2. Quadrant ambiguity (it can't tell the difference between $-y/-x$ and $y/x$).
+                <br><strong>Solution:</strong> Always use <code>atan2</code>. It handles the signs and the zeros for
+                you.
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Python: Making an Enemy Face the Player</h3>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Direction
+                            Steering</span></div>
+                    <div class="code-content">
+                        <pre><code class="language-python">import math
+
+player_pos = (10, 5)
+enemy_pos = (2, 2)
+
+# Calculate relative vector
+dx = player_pos[0] - enemy_pos[0] # 8
+dy = player_pos[1] - enemy_pos[1] # 3
+
+# Use atan2 to get the angle in radians
+angle_rad = math.atan2(dy, dx)
+angle_deg = math.degrees(angle_rad)
+
+print(f"Enemy must rotate to: {angle_deg:.2f}°")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Identities -->
+    <section class="section" id="identities">
+        <div class="section-header">
+            <div class="section-number">Section 5</div>
+            <h2 class="section-title">Identities & Physics Engines</h2>
+        </div>
+        <div class="section-body">
+            <p>Trigonometric identities aren't just for tests; they are <strong>Performance Optimizations</strong> for
+                real-time systems.</p>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Symmetry</h3>
+                    <p>$\sin(-x) = -\sin(x)$ (Odd)</p>
+                    <p>$\cos(-x) = \cos(x)$ (Even)</p>
+                </div>
+                <div class="card">
+                    <h3>Shift</h3>
+                    <p>$\sin(x + \pi/2) = \cos(x)$</p>
+                    <p>Sine is just Cosine delayed!</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Double Angle Identities (Graphics Hacks)</h3>
+                <p>Calculating $\sin(2x)$ directly is slow in a shader. If you already have $\sin(x)$ and $\cos(x)$, you
+                    can use multiplication instead.</p>
+                <div class="math-block">
+                    $$ \sin(2\theta) = 2 \sin(\theta) \cos(\theta) $$
+                    $$ \cos(2\theta) = \cos^{2}(\theta) - \sin^{2}(\theta) $$
+                </div>
+                <div class="info">
+                    <span class="info-icon">🏎️</span>
+                    <strong>Speed Tip:</strong> Multiplication is several orders of magnitude faster than a library
+                    <code>sin()</code> call. High-performance game engines use these identities to avoid redundant math
+                    across millions of pixels per frame.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fourier -->
+    <section class="section" id="fourier">
+        <div class="section-header">
+            <div class="section-number">Section 6</div>
+            <h2 class="section-title">Fourier & Signal Compression</h2>
+        </div>
+        <div class="section-body">
+            <p>The Fourier Transform is a mathematical bridge. It allows us to view the world either as
+                <strong>Time</strong> (what happened when) or <strong>Frequency</strong> (how fast it repeats).
+            </p>
+            <div class="rule">
+                <strong>The Big Idea:</strong>
+                <br>ANY periodic signal (square wave, heartbeat, voice) can be built by adding up enough Sine
+                waves of different frequencies.
+            </div>
+            <div class="info">
+                <span class="info-icon">🎼</span>
+                <strong>Analogy: The Smoothie (Revisited)</strong>
+                <br>• <strong>Time Domain:</strong> The Smoothie. You taste it all once.
+                <br>• <strong>Frequency Domain:</strong> The Ingredient List. You see exactly what went in.
+                <br>If a sound has a high-pitched hiss, you can find that specific frequency in the "Recipe" and delete
+                it to clean the audio.
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">JPEG & DCT (The Cosine Power)</h3>
+                <p>JPEG images use a cousin of Fourier called the <strong>Discrete Cosine Transform (DCT)</strong>.
+                    Instead of saving colors for every pixel, the computer saves the <strong>frequencies of color
+                        changes</strong>. </p>
+                <div class="rule">
+                    <strong>Compression Rule:</strong> Human eyes are bad at seeing high-frequency details. We save the
+                    low frequencies (general shapes) and throw away the high ones.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Polar Coordinates -->
+    <section class="section" id="polar">
+        <div class="section-header">
+            <div class="section-number">Section 7</div>
+            <h2 class="section-title">Polar Coordinates (Radar)</h2>
+        </div>
+        <div class="section-body">
+            <p>Standard $(x, y)$ coordinates are "Grid-based". Polar coordinates $(r, \theta)$ are "Rotation-based".</p>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Cartesian $(x, y)$</h3>
+                    <p>Good for: Square grids, UI layouts, Spreadsheet math.</p>
+                </div>
+                <div class="card">
+                    <h3>Polar $(r, \theta)$</h3>
+                    <p>Good for: Radar, Particle explosions, Spinning wheels.</p>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Conversion Formula</h3>
+                <div class="math-block">
+                    To convert Polar to Cartesian:
+                    $$ x = r \cdot \cos(\theta) $$
+                    $$ y = r \cdot \sin(\theta) $$
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="vectors">
+        <div class="section-header">
+            <div class="section-number">Section 8</div>
+            <h2 class="section-title">The Dot Product Connection</h2>
+        </div>
+        <div class="section-body">
+            <p>Why do we care about Cosine in Data Science? <strong>Similarity</strong>. How well do two vectors "line
+                up"?</p>
+            <div class="math-block">
+                $$ \vec{A} \cdot \vec{B} = |\vec{A}| |\vec{B}| \cos(\theta) $$
+                If normalized (length 1):
+                $$ \vec{A} \cdot \vec{B} = \cos(\theta) $$
+            </div>
+            <div class="rule">
+                <strong>Cosine Similarity:</strong>
+                <br>• If $\theta = 0$ (Parallel), Dot = 1. (Identical).
+                <br>• If $\theta = 90$ (Perpendicular), Dot = 0. (Zero overlap).
+                <br>• If $\theta = 180$ (Opposite), Dot = -1. (Polar opposites).
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Python: Recommendation Logic</h3>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Vector
+                            Similarity</span></div>
+                    <div class="code-content">
+                        <pre><code class="language-python">import numpy as np
+
+user_a = np.array([1, 0, 1]) # Likes Sci-Fi and Action
+user_b = np.array([1, 0, 0.9]) # Likes Sci-Fi mostly
+
+# Calculate similarity
+dot = np.dot(user_a, user_b)
+norm = np.linalg.norm(user_a) * np.linalg.norm(user_b)
+similarity = dot / norm
+
+print(f"Similarity Score: {similarity:.4f}") # 0.999 (High match!)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Section 8.5: Field of View (FOV) Detection</h3>
+                <p>In game development, how do you know if an enemy can "see" the player? You use the <strong>Dot
+                        Product</strong> to calculate the angle between the enemy's <strong>Forward Vector</strong> and
+                    the <strong>Vector to Player</strong>.</p>
+                <div class="rule">
+                    <strong>The FOV Logic:</strong>
+                    <br>1. Calculate vector $\vec{V} = \text{PlayerPos} - \text{EnemyPos}$.
+                    <br>2. Normalize $\vec{V}$ and $\vec{Forward}$.
+                    <br>3. $\text{dot} = \vec{V} \cdot \vec{Forward}$.
+                    <br>4. If $\text{dot} > \cos(\text{FOV\_Angle}/2)$, the player is visible!
+                </div>
+                <div class="code-block">
+                    <div class="code-header"><span class="code-lang">Python</span><span class="code-label">FOV
+                            Check</span></div>
+                    <div class="code-content">
+                        <pre><code class="language-python">import math
+
+def is_in_fov(enemy_fwd, enemy_pos, player_pos, fov_deg):
+    # Vector from enemy to player
+    v = (player_pos[0] - enemy_pos[0], player_pos[1] - enemy_pos[1])
+    dist = math.sqrt(v[0]**2 + v[1]**2)
+    
+    if dist == 0: return True
+    v_norm = (v[0]/dist, v[1]/dist) # Normalize
+    
+    # Dot Product
+    dot = v_norm[0]*enemy_fwd[0] + v_norm[1]*enemy_fwd[1]
+    
+    # Threshold (half the total FOV arc)
+    threshold = math.cos(math.radians(fov_deg / 2))
+    
+    return dot > threshold
+
+# Enemy looking right (1, 0), player slightly above and right
+print(is_in_fov((1, 0), (0, 0), (5, 2), 90)) # True (Inside 45° half-angle)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Law of Cosines -->
+    <section class="section" id="law-of-cosines">
+        <div class="section-header">
+            <div class="section-number">Section 9</div>
+            <h2 class="section-title">The Law of Cosines & GPS</h2>
+        </div>
+        <div class="section-body">
+            <p>The Pythagorean Theorem only works for right triangles. For everything else, we use the <strong>Law of
+                    Cosines</strong>.</p>
+            <div class="math-block">
+                $$ c^2 = a^2 + b^2 - 2ab \cos(\theta) $$
+            </div>
+            <div class="info">
+                <span class="info-icon">📍</span>
+                <strong>GPS Application: The Haversine Formula</strong>
+                <br>Because the Earth is a sphere, the "Straight Line" distance between two points (Latitude/Longitude)
+                isn't a straight line—it's a <strong>Great Circle</strong> arc.
+                The Haversine formula is essentially the Law of Cosines applied to a sphere.
+            </div>
+            <div class="subsection">
+                <h3 class="subsection-title">Interpolation (LERP) vs SLERP</h3>
+                <p>When animating a camera rotation, a simple <strong>Linear Interpolation (LERP)</strong> makes the
+                    movement look "robotic" and inconsistent. <strong>Spherical Linear Interpolation (SLERP)</strong>
+                    uses trigonometry to ensure the constant angular velocity required for premium cinematography in 3D
+                    engines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance -->
+    <section class="section" id="performance">
+        <div class="section-header">
+            <div class="section-number">Section 10</div>
+            <h2 class="section-title">Performance & Approximations</h2>
+        </div>
+        <div class="section-body">
+            <p>Calculating <code>sin(x)</code> is expensive for a CPU. It's not a single operation like addition. How do
+                computers actually do it?</p>
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Taylor Series Approximation</h3>
+                    <p>Computers approximate trig functions using infinite polynomials.
+                        $$\sin(x) \approx x - \frac{x^3}{3!} + \frac{x^5}{5!}$$
+                        The more terms you calculate, the more accurate the "fit" becomes for your hardware.</p>
+                </div>
+                <div class="card">
+                    <h3>Lookup Tables (LUT)</h3>
+                    <p>In legacy game consoles (NES, GameBoy), the CPU was too slow for high-precision math. Devs
+                        pre-calculated 256 or 360 values of Sine and saved them in a fast Read-Only Array.
+                        <code>val = sineTable[angle];</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Python -->
+    <section class="section" id="python">
+        <div class="section-header">
+            <div class="section-number">Section 11</div>
+            <h2 class="section-title">Python Audio Synthesis</h2>
+        </div>
+        <div class="section-body">
+            <p>Let's make some noise (literally).</p>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">Python</span>
+                    <span class="code-label">Generating a Tone</span>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">import numpy as np
+import simpleaudio as sa # Requires: pip install simpleaudio
+
+# Parameters
+fs = 44100  # 44100 samples per second
+seconds = 3 
+
+# Generate time array
+t = np.linspace(0, seconds, seconds * fs, False)
+
+# Generate Sine Wave (440Hz - Musical Note 'A')
+note = np.sin(440 * 2 * np.pi * t)
+
+# Normalize to 16-bit audio range
+audio = note * (2**15 - 1) / np.max(np.abs(note))
+audio = audio.astype(np.int16)
+
+# Play
+play_obj = sa.play_buffer(audio, 1, 2, fs)
+play_obj.wait_done()
+</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="section" id="summary">
+        <div class="section-header">
+            <div class="section-number">Section 12</div>
+            <h2 class="section-title">Summary & Mastery Checklist</h2>
+        </div>
+        <div class="section-body">
+            <div class="checklist-card">
+                <h3>Critical Skills</h3>
+                <ul class="checklist">
+                    <li><strong>Coordinate Mapping:</strong> Converting $(r, \theta)$ to $(x, y)$ for spatial logic.
+                    </li>
+                    <li><strong>Radian Safety:</strong> Always converting degrees to radians before calling library
+                        functions.</li>
+                    <li><strong>Signal Logic:</strong> Understanding how Amplitude (Volume) and Frequency (Pitch) change
+                        a wave.</li>
+                    <li><strong>Inverse Strategy:</strong> Using <code>atan2</code> instead of <code>atan</code> for
+                        360-degree rotation.</li>
+                    <li><strong>Fourier Concept:</strong> Seeing complex signals as a "smoothie" of simple sine waves.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info">
+                <strong>Strategic Roadmap:</strong> Today was about <strong>Circles</strong>. Tomorrow (Day 9), we merge
+                these circles with <strong>Imaginary Numbers</strong> to unlock Euler's Formula—the ultimate cheat code
+                for 3D rotations and Quantum Computing.
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Trig Gotchas for Programmers</h3>
+                <div class="warning">
+                    <strong>⚠️ Common Pitfalls:</strong>
+                    <br>• <strong>Angle Wrapping:</strong> If you add 10 degrees to 355, you get 365. Many systems
+                    expect 5. Always use <code>angle % 360</code> (or $2\pi$) for safety.
+                    <br>• <strong>The atan vs atan2 Trap:</strong> Never use <code>atan(y/x)</code>. It will crash if
+                    $x=0$ and lose the sign information (quadrant). Always use <code>atan2(y, x)</code>.
+                    <br>• <strong>Float Precision:</strong> <code>sin(pi)</code> rarely returns exactly 0.0 in code; it
+                    returns <code>1.22e-16</code>. Always use a small epsilon (e.g., <code>abs(val) < 0.0001</code>)
+                    when checking for zero.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Glossary of Trig in Code</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Mathematical Role</th>
+                            <th>CS Application</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amplitude</strong></td>
+                            <td>Peak height of the wave.</td>
+                            <td>Volume in audio; Scale in vibrations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frequency</strong></td>
+                            <td>Speed of repetition (Hz).</td>
+                            <td>Pitch in music; Refresh rates in UI.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase</strong></td>
+                            <td>Horizontal offset of the wave.</td>
+                            <td>Timing of animations; Signal interference.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Normalized</strong></td>
+                            <td>Vector with Magnitude = 1.</td>
+                            <td>Direction calculation; Dot product basis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>atan2</strong></td>
+                            <td>4-quadrant arctangent.</td>
+                            <td>Finding the angle to a mouse cursor.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Identity</strong></td>
+                            <td>Equations that are always true.</td>
+                            <td>Optimizing 3D engine math.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info">
+                <strong>Mastery Quote:</strong> "Trigonometry is the study of circles, and circles are the geometry of
+                time. To understand the wave is to understand the heart of the machine." — <em>Digital Math Proverb</em>
+                <br>
+                You are now equipped to build physics engines, compress image data, and detect enemy FOV with precision.
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Videos -->
+    <section class="section" id="videos">
+        <div class="section-header">
+            <div class="section-number">Section 13</div>
+            <h2 class="section-title">Video Lessons</h2>
+        </div>
+        <div class="section-body">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title" id="videoTitle">Select a video</div>
+                        <div class="video-meta" id="videoMeta"></div>
+                    </div>
+                </div>
+                <div class="video-list" id="videoList"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice -->
+    <section class="section" id="practice">
+        <div class="section-header">
+            <div class="section-number">Section 14</div>
+            <h2 class="section-title">Practice Problems</h2>
+        </div>
+        <div class="section-body">
+            <div class="quiz-controls">
+                <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                <button class="btn" id="btnRevealAll">Reveal All</button>
+                <button class="btn" id="btnClear">Clear Inputs</button>
+                <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+            </div>
+            <div id="quizContainer"></div>
+        </div>
+    </section>
+    </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Transformations",
+                title: "Trig Foundations",
                 items: [
-                    { title: "Function Transformations Intro", channel: "Brian McLogan", vid: "V7_uAn95m6A" },
-                    { title: "Shifting and Stretching Graphs", channel: "The Organic Chemistry Tutor", vid: "3f5mrsM_u5o" },
-                    { title: "Parent Functions Review", channel: "NancyPi", vid: "zY0N6wSUpIs" }
+                    { title: "The Unit Circle", channel: "Khan Academy", vid: "et8u36-k7aU" },
+                    { title: "Sine and Cosine Graphs", channel: "Professor Leonard", vid: "P1k8pUfB7V8" },
+                    { title: "Trig Identities Derivation", channel: "3Blue1Brown", vid: "ACw9N8-kF-c" },
+                    { title: "Radians vs Degrees", channel: "Math Antics", vid: "z0-nZXiSRf4" }
                 ]
             },
             {
-                title: "Asymptotes & Symmetry",
+                title: "Applications in Graphics",
                 items: [
-                    { title: "Horizontal & Vertical Asymptotes", channel: "Brian McLogan", vid: "q7R_6mC8L98" },
-                    { title: "Asymptotes Table Method", channel: "NancyPi", vid: "f6YvIBy3T-k" },
-                    { title: "Even and Odd Functions", channel: "The Organic Chemistry Tutor", vid: "PB8Ssh5U9sc" }
+                    { title: "Inverse Trig & Game Dev", channel: "The Coding Train", vid: "q_Dskm81AOA" },
+                    { title: "Rotation Matrices Explained", channel: "3Blue1Brown", vid: "oy79yX2v80c" },
+                    { title: "Vectors & Trig", channel: "Sebastian Lague", vid: "6W88Y8-fV-I" },
+                    { title: "Perspective Projection", channel: "Bisqwit", vid: "hqH9B9_G6n0" }
                 ]
             },
             {
-                title: "Advanced Behavior",
+                title: "Signals & Audio",
                 items: [
-                    { title: "Limits and Asymptotes", channel: "Professor Leonard", vid: "K_nFofpG-O8" },
-                    { title: "Growth Rates: Big O Intro", channel: "Computerphile", vid: "V6mKVRU1evU" }
+                    { title: "Fourier Series Intro", channel: "3Blue1Brown", vid: "r6SGI9DZkKQ" },
+                    { title: "Fast Fourier Transform (FFT)", channel: "Computerphile", vid: "spUNpyF58BY" },
+                    { title: "How JPEG Works", channel: "Branch Education", vid: "0me3nW9wn-Y" },
+                    { title: "Sampling & Nyquist", channel: "Practical Engineering", vid: "vGOn-fJvQTM" }
                 ]
             }
         ];
+
         initLesson({
             videos: VIDEO_GROUPS,
-            questions: window.QUESTIONS_DATA['day8'],
-            storageKey: 'day8_v1'
+            questions: window.QUESTIONS_DATA['day8'] || [],
+            storageKey: 'day8_v2'
         });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

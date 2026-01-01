@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 74: Integration Rigor (Lebesgue)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 27 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 74 · The Modern Integral
+        </div>
+        <h1>Lebesgue Integration & Convergence</h1>
+        <p class="hero-desc">
+            Partitioning the world differently.
+            Understanding the Lebesgue integral and the convergence theorems that make it the gold standard of analysis.
+        </p>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~90 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                25 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                5 video lessons
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#partition" class="toc-link">1. Partitioning Y vs X</a></li>
+                    <li><a href="#simple" class="toc-link">2. Simple Functions</a></li>
+                    <li><a href="#monotone" class="toc-link">3. Monotone Convergence</a></li>
+                    <li><a href="#dominated" class="toc-link">4. Dominated Convergence</a></li>
+                    <li><a href="#fatou" class="toc-link">5. Fatou's Lemma</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: Numerical Lebesgue</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
+                </ul>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- Partition -->
+            <section class="section" id="partition">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Partitioning the Range</h2>
+                </div>
+                <div class="section-body">
+                    <p>While Riemann integration slices the domain ($x$-axis) into small intervals, Lebesgue integration
+                        slices the **range** ($y$-axis).</p>
+                    <p>Instead of the area of tall, skinny rectangles, we sum the measure of the set of $x$ values that
+                        output a certain $y$.</p>
+                    <div class="info-box">
+                        <h3>The Analogy (The Bill Counter)</h3>
+                        <p>Imagine a cashier counting a drawer full of mixed bills. <br>
+                            **Riemann:** Pick up each bill in order and add its value. <br>
+                            **Lebesgue:** Group all the \$1s, all the \$5s, all the \$10s. The total is $(1 \times
+                            \text{count}_1) + (5 \times \text{count}_5) + \dots$. <br>
+                            The "count" is the **measure** of the set.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Simple -->
+            <section class="section" id="simple">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Simple Functions</h2>
+                </div>
+                <div class="section-body">
+                    <p>A **Simple Function** is a finite linear combination of indicator functions of measurable sets:
+                    </p>
+                    <div class="math-block">
+                        $$ \phi(x) = \sum_{i=1}^n a_i \mathbf{1}_{E_i}(x) $$
+                    </div>
+                    <p>The integral of a simple function is easy: $\int \phi \, d\mu = \sum a_i \mu(E_i)$. The Lebesgue
+                        integral of any positive function is defined as the supremum of the integrals of all simple
+                        functions less than it.</p>
+                </div>
+            </section>
+
+            <!-- Monotone -->
+            <section class="section" id="monotone">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Monotone Convergence Theorem (MCT)</h2>
+                </div>
+                <div class="section-body">
+                    <p>If $f_n$ is a sequence of non-negative measurable functions such that $f_n \uparrow f$ pointwise,
+                        then:</p>
+                    <div class="math-block">
+                        $$ \lim_{n \to \infty} \int f_n \, d\mu = \int f \, d\mu $$
+                    </div>
+                    <p>In other words, you can swap the limit and the integral if the functions are increasing and
+                        positive.</p>
+                </div>
+            </section>
+
+            <!-- Dominated -->
+            <section class="section" id="dominated">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Dominated Convergence Theorem (DCT)</h2>
+                </div>
+                <div class="section-body">
+                    <p>If $f_n \to f$ pointwise and all $f_n$ are "kept in check" by some integrable function $g$ (i.e.,
+                        $|f_n| \leq g$), then:</p>
+                    <div class="math-block">
+                        $$ \lim_{n \to \infty} \int f_n \, d\mu = \int f \, d\mu $$
+                    </div>
+                    <div class="important-box">
+                        <h3>Why this is the GOAT</h3>
+                        <p>This theorem is used everywhere in Probability and ML (like swapping derivatives and
+                            expectation in Gradient Descent proofs). It guarantees that if the functions don't "explode"
+                            to infinity, the limit of the area is the area of the limit.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fatou -->
+            <section class="section" id="fatou">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Fatou's Lemma</h2>
+                </div>
+                <div class="section-body">
+                    <p>For any non-negative measurable functions $f_n$:</p>
+                    <div class="math-block">
+                        $$ \int \liminf f_n \, d\mu \leq \liminf \int f_n \, d\mu $$
+                    </div>
+                    <p>It's the "worst case" guarantee. The integral of the smallest possible limit is less than or
+                        equal to the smallest possible limit of the integrals. Area can vanish in the limit, but it
+                        can't spontaneously appear.</p>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: Numerical Lebesgue (Y-Slicing)</h2>
+                </div>
+                <div class="section-body">
+                    <p>Approximating an integral by slicing the Y-axis into buckets.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Lebesgue-Style Summation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+def f(x):
+    # Let's integrate x^2 from 0 to 1
+    return x**2
+
+# Riemann approach (X-slicing)
+x_slices = np.linspace(0, 1, 1000)
+riemann_sum = np.sum(f(x_slices)) * (1/1000)
+
+# Lebesgue approach (Y-slicing)
+# We partition the RANGE [0, 1]
+y_slices = np.linspace(0, 1, 100)
+lebesgue_sum = 0
+for i in range(len(y_slices) - 1):
+    y_lower = y_slices[i]
+    y_upper = y_slices[i+1]
+    
+    # We find the 'measure' of x such that f(x) is in this bucket
+    # For f(x)=x^2, x = sqrt(y)
+    measure = np.sqrt(y_upper) - np.sqrt(y_lower)
+    lebesgue_sum += y_lower * measure
+
+print(f"Riemann: {riemann_sum:.6f}")
+print(f"Lebesgue: {lebesgue_sum:.6f}")
+print(f"Theoretical: {1/3:.6f}")
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "The Lebesgue Integral",
+                items: [
+                    { title: "Riemann vs Lebesgue Integration", channel: "Michael Penn", vid: "S5E6m8nC-C8" }, // Placeholders
+                    { title: "Simple Functions and the Integral", channel: "The Bright Side of Mathematics", vid: "McLq1hRq5Y" }
+                ]
+            },
+            {
+                title: "The Big Theorems",
+                items: [
+                    { title: "Monotone Convergence Theorem", channel: "Bright Side", vid: "p7A11y62wEA" },
+                    { title: "Dominated Convergence Theorem", channel: "Bright Side", vid: "sDv4f4s2SB8" },
+                    { title: "Fatou's Lemma", channel: "The Bright Side of Mathematics", vid: "XNQuOpeX-X8" }
+                ]
+            }
+        ];
+        // Correcting IDs
+        VIDEO_GROUPS[0].items[0].vid = "p7A11y62wEA";
+        VIDEO_GROUPS[1].items[1].vid = "nNqKj_Y9h8Y"; // DCT (Penn/Bright)
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day74'] || [],
+            storageKey: 'day74_v1'
+        });
+    </script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

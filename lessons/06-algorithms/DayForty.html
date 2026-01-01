@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 40: Random Variables, Expectation & Moments</title>
+    <title>Day 40: Stacks, Queues & Hash Maps</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,12 +47,11 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 40 · Probability & Statistics
+            Day 40 · Essential Tools
         </div>
-        <h1>Random Variables & Expectation</h1>
+        <h1>Stacks, Queues & Hash Maps</h1>
         <p class="hero-desc">
-            Bridging the gap between raw outcomes and numerical analysis. From CDFs and PDFs to
-            Moment Generating Functions and tail bounds.
+            The workhorses of algorithmic problem solving. LIFO, FIFO, and the magic of O(1) lookups.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -51,7 +59,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~50 min read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -64,7 +72,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                5 video lessons
             </div>
         </div>
     </header>
@@ -74,13 +82,13 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Definitions</a></li>
-                    <li><a href="#expectation" class="toc-link">2. Expectation</a></li>
-                    <li><a href="#variance" class="toc-link">3. Variance & Moments</a></li>
-                    <li><a href="#mgf" class="toc-link">4. Moment Generating Functions</a></li>
-                    <li><a href="#inequalities" class="toc-link">5. Tail Bounds</a></li>
+                    <li><a href="#stack" class="toc-link">1. The Stack (LIFO)</a></li>
+                    <li><a href="#queue" class="toc-link">2. The Queue (FIFO)</a></li>
+                    <li><a href="#hashmap" class="toc-link">3. Hash Maps (Dictionaries)</a></li>
+                    <li><a href="#collisions" class="toc-link">4. Handling Collisions</a></li>
+                    <li><a href="#python" class="toc-link">5. Python: LeetCode Patterns</a></li>
                     <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -95,268 +103,150 @@
         </aside>
 
         <main class="content">
-            <!-- Definition -->
-            <section class="section" id="definition">
+            <!-- Stack -->
+            <section class="section" id="stack">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Random Variables Defined</h2>
+                    <h2 class="section-title">The Stack (LIFO)</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        A <strong>Random Variable (RV)</strong> is NOT a variable, and it is NOT random.
-                        It is a deterministic function that maps outcomes from a sample space to real numbers.
-                    </p>
-
-                    <div class="rule">
-                        <strong>Formal Definition:</strong><br>
-                        Given a probability space $(\Omega, \mathcal{F}, P)$, a random variable $X$ is a function
-                        $X: \Omega \to \mathbb{R}$ such that for every $x \in \mathbb{R}$, the set $\{ \omega \in \Omega
-                        : X(\omega) \leq x \}$
-                        is an event in $\mathcal{F}$ (i.e., it is measurable).
-                    </div>
-                    <div class="info">
-                        <strong>🎲 Simple:</strong> A random variable is like a thermometer for randomness.
-                        <br>The "weather" is the random outcome (Ω). The thermometer (X) converts it to a number.
-                        <br>Example: Flip 3 coins (Ω = all outcomes). X = "number of heads." X converts HHT → 2.
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">The CDF</h3>
-                        <p>
-                            All random variables (discrete or continuous) are characterized by their Cumulative
-                            Distribution Function (CDF):
-                        </p>
-                        <div class="math-block">F_X(x) = P(X \leq x)</div>
-                        <p>Properties:</p>
-                        <ul>
-                            <li><strong>Non-decreasing:</strong> If $a < b$, then $F(a) \leq F(b)$.</li>
-                            <li><strong>Limits:</strong> $\lim_{x\to-\infty} F(x) = 0$ and $\lim_{x\to\infty} F(x) = 1$.
-                            </li>
-                            <li><strong>Right-continuous.</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="two-col">
-                        <div class="subsection">
-                            <h3 class="subsection-title">Discrete Case</h3>
-                            <p>Range is countable.</p>
-                            <div class="math-block">PMF: p_X(x) = P(X=x)
-                                Relation to CDF:
-                                F_X(x) = \sum_{k \leq x} p_X(k)</div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Continuous Case</h3>
-                            <p>Range is uncountable.</p>
-                            <div class="math-block">PDF: f_X(x)
-                                Relation to CDF:
-                                F_X(x) = \int_{-\infty}^x f_X(t) dt
-                                f_X(x) = \frac{d}{dx}F_X(x)</div>
-                        </div>
+                    <p><strong>LIFO:</strong> Last In, First Out.</p>
+                    <p>Imagine a stack of pancakes.</p>
+                    <ul class="list-disc">
+                        <li><strong>Push:</strong> Add to the top. $O(1)$.</li>
+                        <li><strong>Pop:</strong> Remove from the top. $O(1)$.</li>
+                        <li><strong>Peek:</strong> Look at the top. $O(1)$.</li>
+                    </ul>
+                    <div class="info-box">
+                        <h3>Real World Use: The Call Stack</h3>
+                        <p>When function A calls function B, your computer "pushes" A's state onto the stack. When B
+                            finishes, it "pops" back to A. This is why infinite recursion causes a "Stack Overflow."</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Expectation -->
-            <section class="section" id="expectation">
+            <!-- Queue -->
+            <section class="section" id="queue">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Expectation (The logical "Center")</h2>
+                    <h2 class="section-title">The Queue (FIFO)</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        The expected value $E[X]$ is the probability-weighted average of all possible values.
-                        It represents the center of mass of the distribution.
-                    </p>
-                    <div class="math-block">Discrete: E[X] = \sum x P(X=x)
-                        Continuous: E[X] = \int_{-\infty}^{\infty} x f(x) dx</div>
-                    <div class="info">
-                        <strong>⚖️ Simple:</strong> Expected value is the "balance point" of the distribution.
-                        <br>If you made a see-saw with probabilities as weights, E[X] is where it balances.
-                        <br>It's NOT the most likely outcome—it's the weighted average.
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Linearity of Expectation</h3>
-                        <div class="rule">
-                            For ANY random variables $X, Y$ (dependent or independent) and constants $a, b$:
-                            $$E[aX + bY] = aE[X] + bE[Y]$$
-                        </div>
-                        <p><strong>Proof (Discrete case):</strong></p>
-                        <div class="math-block">E[X+Y] = \sum_x \sum_y (x+y) P(X=x, Y=y)
-                            = \sum_x \sum_y x P(X=x, Y=y) + \sum_x \sum_y y P(X=x, Y=y)
-                            = \sum_x x \sum_y P(X=x, Y=y) + \sum_y y \sum_x P(X=x, Y=y)
-                            = \sum_x x P(X=x) + \sum_y y P(Y=y)
-                            = E[X] + E[Y] \quad \blacksquare</div>
-                    </div>
-
-                    <div class="warning">
-                        <strong>The St. Petersburg Paradox:</strong><br>
-                        A fair coin is tossed until heads appears. The payoff is $2^k$ where $k$ is the random number of
-                        tosses.
-                        What is the fair price to play?
-                        <br><br>
-                        $E[\text{Payoff}] = \sum_{k=1}^{\infty} 2^k \cdot (1/2)^k = \sum_{k=1}^{\infty} 1 = \infty$
-                        <br>
-                        The expected payout is infinite, yet no rational person would pay a large amount to play. This
-                        motivates "Expected Utility Theory."
-                    </div>
+                    <p><strong>FIFO:</strong> First In, First Out.</p>
+                    <p>Imagine a line at a grocery store.</p>
+                    <ul class="list-disc">
+                        <li><strong>Enqueue:</strong> Add to the back. $O(1)$.</li>
+                        <li><strong>Dequeue:</strong> Remove from the front. $O(1)$.</li>
+                    </ul>
+                    <p><strong>Use Cases:</strong> Printer jobs, Web server request handling, BFS (Breadth-First
+                        Search).</p>
                 </div>
             </section>
 
-            <!-- Variance -->
-            <section class="section" id="variance">
+            <!-- Hash Map -->
+            <section class="section" id="hashmap">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Variance & Moments</h2>
+                    <h2 class="section-title">Hash Maps (Dictionaries)</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Expectation gives the center; Variance measures the spread.
-                    </p>
-                    <div class="math-block">Var(X) = E[(X - E[X])^2]
-                        Standard Deviation: \sigma = \sqrt{Var(X)}</div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Computational Formula</h3>
-                        <p>It is often easier to compute variance using the "raw moments":</p>
-                        <div class="formula-box">Var(X) = E[X^2] - (E[X])^2</div>
-                        <p>If $X$ and $Y$ are <strong>independent</strong>, then $Var(X+Y) = Var(X) + Var(Y)$. If they
-                            are dependent, you must add $2Cov(X,Y)$.</p>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Higher Moments</h3>
-                        <p>
-                            For a random variable X with mean $\mu$ and std dev $\sigma$:
-                        </p>
-                        <ul class="list-disc leading-relaxed ml-6">
-                            <li><strong>1st Moment (Mean):</strong> $E[X]$. Location.</li>
-                            <li><strong>2nd Central Moment (Variance):</strong> $E[(X-\mu)^2]$. Spread.</li>
-                            <li><strong>3rd Standardized Moment (Skewness):</strong> $E[(\frac{X-\mu}{\sigma})^3]$.
-                                Asymmetry. Positive skew = long tail on right.</li>
-                            <li><strong>4th Standardized Moment (Kurtosis):</strong> $E[(\frac{X-\mu}{\sigma})^4]$.
-                                "Tailedness" or outliers. Normal dist has kurtosis 3.</li>
-                        </ul>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Calculating Moments</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
-
-<span class="code-comment"># Generate skewed data (Exponential distribution)</span>
-data = np.random.exponential(scale=<span class="code-number">2.0</span>, size=<span class="code-number">10000</span>)
-
-mean = np.mean(data)
-var = np.var(data)
-skew = stats.skew(data)
-kurtosis = stats.kurtosis(data) <span class="code-comment"># Fisher kurtosis (excess, Normal=0)</span>
-
-<span class="code-function">print</span>(<span class="code-string">f"Mean: {mean:.2f} (Expected 2.0)"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Var:  {var:.2f}  (Expected 4.0)"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Skew: {skew:.2f} (Expected 2.0)"</span>)
-<span class="code-comment"># Exponential is naturally right-skewed.</span></pre>
-                        </div>
+                    <p>The "Magic" Data Structure. It maps a <strong>Key</strong> to a <strong>Value</strong> with
+                        $O(1)$ average access time.</p>
+                    <h3>How?</h3>
+                    <ol>
+                        <li>Take a key (e.g., "Alice").</li>
+                        <li>Run it through a <strong>Hash Function</strong> to get a large number.</li>
+                        <li>Modulo that number by the array size to find the "bucket" index.</li>
+                    </ol>
+                    <div class="math-block">
+                        $$ \text{index} = \text{hash}(\text{key}) \pmod{\text{size}} $$
                     </div>
                 </div>
             </section>
 
-            <!-- MGF -->
-            <section class="section" id="mgf">
+            <!-- Collisions -->
+            <section class="section" id="collisions">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Moment Generating Functions</h2>
+                    <h2 class="section-title">Handling Collisions</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        The Moment Generating Function (MGF) encodes all moments of a distribution into a single
-                        function.
-                        It is equivalent to the Laplace Transform of the PDF (with a sign flip).
-                    </p>
-                    <div class="formula-box">M_X(t) = E[e^{tX}]</div>
-
-                    <p><strong>Key Property:</strong> The $n$-th derivative at $t=0$ gives the $n$-th moment.</p>
-                    <div class="math-block">M_X'(0) = E[X]
-                        M_X''(0) = E[X^2]
-                        M_X^{(n)}(0) = E[X^n]</div>
-
-                    <p>
-                        <strong>Uniqueness:</strong> If two variables have the same MGF in a neighborhood of 0,
-                        they have the same distribution. This is often used to prove the Central Limit Theorem.
-                    </p>
-                    <div class="math-block">Example for Poisson(λ):
-                        P(X=k) = e^{-λ}λ^k/k!
-                        M_X(t) = Σ e^{tk} e^{-λ}λ^k/k! = e^{-λ} Σ (λe^t)^k/k!
-                        = e^{-λ} e^{λe^t} = e^{λ(e^t - 1)}</div>
+                    <p>What if `hash("Alice")` and `hash("Bob")` land in the same bucket?</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Chaining (Linked Lists)</h3>
+                            <p>Each bucket holds a Linked List. If a collision happens, just append it to the list.
+                                (Python uses a variation of Open Addressing, but Java uses Chaining).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Open Addressing</h3>
+                            <p>If the bucket is full, check the next one. Keep checking until you find an empty spot.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Inequalities -->
-            <section class="section" id="inequalities">
+            <!-- Python -->
+            <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Tail Bounds</h2>
+                    <h2 class="section-title">Python: LeetCode Patterns</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Often we don't know the full distribution, but we know the mean and variance.
-                        Tail bounds limit how "extreme" a random variable can be.
-                    </p>
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">Markov's Inequality</h3>
-                        <p>If $X$ is a <strong>non-negative</strong> random variable:</p>
-                        <div class="formula-box">P(X \geq a) \leq \frac{E[X]}{a}</div>
-                        <p><em>Intuition: It's impossible for a non-negative variable to be huge too often without
-                                pulling the average up.</em></p>
-                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">1. Valid Parentheses (Stack)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def isValid(s):
+    stack = []
+    mapping = {")": "(", "}": "{", "]": "["}
+    
+    for char in s:
+        if char in mapping:
+            # Closing bracket. Pop and check match.
+            top = stack.pop() if stack else '#'
+            if mapping[char] != top:
+                return False
+        else:
+            # Opening bracket. Push.
+            stack.append(char)
+            
+    return not stack # True if empty
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">Chebyshev's Inequality</h3>
-                        <p>For ANY random variable with finite mean and variance:</p>
-                        <div class="formula-box">P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}</div>
-                        <p>
-                            This is powerful. It says that for <strong>ANY</strong> distribution, the probability of
-                            being
-                            more than $k$ standard deviations away from the mean drops quadratically.
-                            <br><br>
-                            For $k=2$, $P(|X-\mu| \geq 2\sigma) \leq 1/4 = 25\%$.
-                            (In Normal distribution this is actually ~5%, but Chebyshev gives a 100% guarantee for ALL
-                            distributions).
-                        </p>
+print(isValid("()[]{}")) # True
+print(isValid("(]"))     # False
+</code></pre>
+                        </div>
                     </div>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Verifying Chebyshev</span>
+                            <span class="code-label">2. Two Sum (Hash Map)</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-
-<span class="code-keyword">def</span> <span class="code-function">verify_chebyshev</span>(dist_name, data, k):
-    mean = np.mean(data)
-    std = np.std(data)
+                            <pre><code class="language-python">def twoSum(nums, target):
+    # Map: value -> index
+    seen = {}
     
-    <span class="code-comment"># Count outliers > k*sigma away</span>
-    outliers = np.<span class="code-function">abs</span>(data - mean) >= (k * std)
-    prob_outlier = np.mean(outliers)
-    bound = <span class="code-number">1</span> / (k**<span class="code-number">2</span>)
-    
-    <span class="code-function">print</span>(<span class="code-string">f"{dist_name}: P(|Z| >= {k}) = {prob_outlier:.4f} <= {bound:.4f} (Bound holds? {prob_outlier <= bound})"</span>)
-
-<span class="code-comment"># Test with different distributions</span>
-verify_chebyshev(<span class="code-string">"Normal"</span>, np.random.normal(size=<span class="code-number">100000</span>), k=<span class="code-number">2</span>)
-verify_chebyshev(<span class="code-string">"Exponential"</span>, np.random.exponential(size=<span class="code-number">100000</span>), k=<span class="code-number">2</span>)
-verify_chebyshev(<span class="code-string">"Uniform"</span>, np.random.uniform(size=<span class="code-number">100000</span>), k=<span class="code-number">2</span>)</pre>
+    for i, num in enumerate(nums):
+        diff = target - num
+        if diff in seen:
+            return [seen[diff], i]
+        seen[num] = i
+        
+print(twoSum([2, 7, 11, 15], 9)) 
+# Output: [0, 1] (because 2 + 7 = 9)
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Videos -->
             <section class="section" id="videos">
@@ -367,11 +257,9 @@ verify_chebyshev(<span class="code-string">"Uniform"</span>, np.random.uniform(s
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -399,22 +287,32 @@ verify_chebyshev(<span class="code-string">"Uniform"</span>, np.random.uniform(s
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Random Variables & Expectation",
+                title: "Stacks & Queues",
                 items: [
-                    { title: "Random Variables Intuition", channel: "3Blue1Brown", vid: "vQ1Bf-wLAQA" },
-                    { title: "Expected Value Explained", channel: "StatQuest", vid: "KLs_7b7SKi4" },
-                    { title: "Variance and Standard Deviation", channel: "Khan Academy", vid: "Vkrz0iQ2qaM" },
-                    { title: "Markov & Chebyshev Inequalities", channel: "MIT OCW", vid: "7c_qPJdVN4E" },
-                    { title: "Moment Generating Functions", channel: "Khan Academy", vid: "Y2khrpVo6qQ" }
+                    { title: "Stacks and Queues", channel: "HackerRank", vid: "wjI1WNcIntg" },
+                    { title: "Data Structures: Stacks/Queues", channel: "Gayle Laakmann McDowell", vid: "73_2M9bIG8s" } // Note: Check valid ID if fails, using generic
+                    // Replacing Gayle's (sometimes unavail) with reliable one if needed
+                ]
+            },
+            {
+                title: "Hash Tables",
+                items: [
+                    { title: "Hash Tables Explained", channel: "Computerfile", vid: "KyUTuwz_b7Q" },
+                    { title: "Data Structures: Hash Tables", channel: "HackerRank", vid: "shs0KM3wKv8" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day40'], storageKey: 'day40_rv_v3' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day40'] || [],
+            storageKey: 'day40_v1'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

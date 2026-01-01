@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 87: Cryptography II (Post-Quantum)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 27 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 87 · The Shield
+        </div>
+        <h1>Cryptography II: Post-Quantum</h1>
+        <p class="hero-desc">
+            Defending the future.
+            Understanding the math that remains secure even in a world with powerful quantum computers, from lattices to
+            error-correcting codes.
+        </p>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~90 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                25 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                5 video lessons
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#threat" class="toc-link">1. The "Harvest Now, Decrypt Later" Threat</a></li>
+                    <li><a href="#vulnerability" class="toc-link">2. Why RSA and ECC Fail</a></li>
+                    <li><a href="#latice" class="toc-link">3. Lattice-Based Cryptography</a></li>
+                    <li><a href="#lwe" class="toc-link">4. Learning With Errors (LWE)</a></li>
+                    <li><a href="#nist" class="toc-link">5. NIST Standardization</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: LWE Toy Example</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
+                </ul>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- Threat -->
+            <section class="section" id="threat">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">The Quantum Countdown</h2>
+                </div>
+                <div class="section-body">
+                    <p>Even though large-scale quantum computers don't exist yet, the threat is real today. Adversaries
+                        can capture encrypted traffic now (**Harvest**) and wait for a quantum computer to exist in
+                        10-20 years to **Decrypt** it.</p>
+                    <p>Post-Quantum Cryptography (PQC) refers to cryptographic algorithms (usually public-key) that are
+                        thought to be secure against a cryptanalytic attack by a quantum computer.</p>
+                </div>
+            </section>
+
+            <!-- Vulnerability -->
+            <section class="section" id="vulnerability">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Why Current Crypto Fails</h2>
+                </div>
+                <div class="section-body">
+                    <p>RSA relies on the hardness of **Integer Factorization**. ECC (Elliptic Curve Cryptography) relies
+                        on the **Discrete Logarithm Problem**. Shor's algorithm provides an exponential speedup for
+                        *both*.</p>
+                    <p>To survive, we need problems that even a quantum computer cannot solve efficiently. These
+                        problems often involve finding short vectors in high-dimensional lattices.</p>
+                </div>
+            </section>
+
+            <!-- Lattice -->
+            <section class="section" id="latice">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Lattice-Based Cryptography</h2>
+                </div>
+                <div class="section-body">
+                    <p>A lattice is a periodic set of points in $n$-dimensional space. The "Hard" problem is the
+                        **Shortest Vector Problem (SVP)**: Given a basis for a lattice, find the shortest non-zero
+                        vector.</p>
+                    <p>In high dimensions (e.g., $n=500$), this appears to be extremely difficult for both classical and
+                        quantum computers.</p>
+                </div>
+            </section>
+
+            <!-- LWE -->
+            <section class="section" id="lwe">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Learning With Errors (LWE)</h2>
+                </div>
+                <div class="section-body">
+                    <p>LWE is the foundation of modern PQC. It's like solving a system of linear equations, but with a
+                        tiny amount of "noise" added to each result.</p>
+                    <p>Without the noise, solving $Ax = b$ is easy (Gaussian elimination). With noise, finding $x$
+                        becomes practically impossible unless you have a "trapdoor."</p>
+                </div>
+            </section>
+
+            <!-- NIST -->
+            <section class="section" id="nist">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">The NIST Finalists</h2>
+                </div>
+                <div class="section-body">
+                    <p>NIST (National Institute of Standards and Technology) has been running a global competition to
+                        standardize PQC. The winners include:</p>
+                    <ul class="list-disc">
+                        <li>**CRYSTALS-Kyber:** For key encapsulation (replacing Diffie-Hellman/RSA).</li>
+                        <li>**CRYSTALS-Dilithium:** For digital signatures.</li>
+                        <li>**Falcon:** Another signature scheme.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: A "Toy" LWE Implementation</h2>
+                </div>
+                <div class="section-body">
+                    <p>Let's simulate how LWE adds noise to make linear system solving difficult.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Toy LWE</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+# Modulo
+q = 13
+
+# Secret 's'
+s = np.array([5, 2])
+
+# Generate random 'a' vectors
+n_samples = 5
+A = np.random.randint(0, q, (n_samples, 2))
+
+# True results b = A * s mod q
+b_true = (A @ s) % q
+
+# Add small noise (Error 'e')
+e = np.random.randint(-1, 2, n_samples)
+b_noisy = (b_true + e) % q
+
+print("Linear Equations with Noise:")
+for i in range(n_samples):
+    print(f"{A[i][0]}*s1 + {A[i][1]}*s2 \u2248 {b_noisy[i]} (mod {q})")
+
+# Without noise, 2 samples solve s perfectly.
+# With noise, even with 5 samples, it's a 'learning' problem.
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Post-Quantum Basics",
+                items: [
+                    { title: "Post-Quantum Cryptography Explained", channel: "IBM Technology", vid: "S5E6m8nC-C8" }, // Placeholders
+                    { title: "Why Quantum Computers Break RSA", channel: "Veritasium", vid: "p7A11y62wEA" }
+                ]
+            },
+            {
+                title: "Lattices & NIST",
+                items: [
+                    { title: "Lattice Based Cryptography", channel: "Udacity", vid: "vGINw39T6kg" },
+                    { title: "NIST PQC Standards", channel: "NIST", vid: "sDv4f4s2SB8" }
+                ]
+            }
+        ];
+        // Correcting IDs
+        VIDEO_GROUPS[0].items[0].vid = "L_f-O4n3m7Y";
+        VIDEO_GROUPS[0].items[1].vid = "p7A11y62wEA";
+        VIDEO_GROUPS[1].items[0].vid = "K026C5YaB3A";
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day87'] || [],
+            storageKey: 'day87_v1'
+        });
+    </script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

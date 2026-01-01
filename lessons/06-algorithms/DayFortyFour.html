@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 44: Analysis (Limits & Connectivity)</title>
+    <title>Day 44: Dynamic Programming I</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 44 · Analysis + Rigor
+            Day 44 · Memorization
         </div>
-        <h1>Limits, Continuity & Topology</h1>
+        <h1>Dynamic Programming I</h1>
         <p class="hero-desc">
-            The rigorous foundation of calculus. From epsilon-delta definitions to open sets,
-            closed sets, and the intermediate value theorem.
+            Recursion without repetition.
+            Learn how to turn exponential nightmares into linear dreams using Memoization.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -64,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                5 video lessons
             </div>
         </div>
     </header>
@@ -74,16 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. The Definition</a></li>
-                    <li><a href="#limits" class="toc-link">2. Limit Laws</a></li>
-                    <li><a href="#squeeze" class="toc-link">3. Squeeze Theorem</a></li>
-                    <li><a href="#continuity" class="toc-link">4. Continuity</a></li>
-                    <li><a href="#topology" class="toc-link">5. Topology of R</a></li>
-                    <li><a href="#ivt" class="toc-link">6. Intermediate Value Theorem</a></li>
-                    <li><a href="#python" class="toc-link">7. Python Limits</a></li>
-                    <li><a href="#python-ivt" class="toc-link">8. Python Root Finding</a></li>
-                    <li><a href="#videos" class="toc-link">9. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">10. Practice</a></li>
+                    <li><a href="#concept" class="toc-link">1. The Concept</a></li>
+                    <li><a href="#fibonacci" class="toc-link">2. Example: Fibonacci</a></li>
+                    <li><a href="#approaches" class="toc-link">3. Top-Down vs Bottom-Up</a></li>
+                    <li><a href="#python" class="toc-link">4. Python: Memoization</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -98,239 +103,133 @@
         </aside>
 
         <main class="content">
-            <!-- Definition -->
-            <section class="section" id="definition">
+            <!-- Concept -->
+            <section class="section" id="concept">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Definition</h2>
+                    <h2 class="section-title">The DP Philosophy</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We say $\lim_{x \to c} f(x) = L$ if for every $\epsilon > 0$, there exists a $\delta > 0$ such
-                        that:
-                    </p>
-                    <div class="formula-box">
-                        <div class="formula-main">
-                            $0 < |x - c| < \delta \implies |f(x) - L| < \epsilon$ </div>
-                        </div>
-                        <p>
-                            Intuitively: "No matter how close ($\epsilon$) you want the output to be to $L$, I can find
-                            a proximity ($\delta$) for the input to guarantee it."
-                        </p>
-                        <div class="info">
-                            This was formalized by Weierstrass in the 19th century to put calculus on solid ground.
-                        </div>
-                        <div class="info">
-                            <strong>🎮 Simple:</strong> Think of it as a game. Your friend picks how close (ε) the
-                            output must be to L.
-                            <br>You win if you can pick a range (δ) around c where the function stays within their
-                            bounds.
-                            <br>The limit exists if you can ALWAYS win, no matter how small they choose ε.
-                        </div>
-                    </div>
+                    <p>Dynamic Programming (DP) is just <strong>Recursion + Caching</strong>.</p>
+                    <p>It solves problems that have two properties:</p>
+                    <ol>
+                        <li><strong>Overlapping Subproblems:</strong> You solve the same "mini-problem" over and over
+                            again.</li>
+                        <li><strong>Optimal Substructure:</strong> The solution to the big problem is built from
+                            solutions to the sub-problems.</li>
+                    </ol>
+                    <p><em>Motto:</em> "Those who cannot remember the past are condemned to repeat it."</p>
+                </div>
             </section>
 
-            <!-- Limit Laws -->
-            <section class="section" id="limits">
+            <!-- Fibonacci -->
+            <section class="section" id="fibonacci">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Limit Laws</h2>
+                    <h2 class="section-title">Example: Fibonacci</h2>
                 </div>
                 <div class="section-body">
-                    <p>If limits exist, they behave nicely:</p>
-                    <ul>
-                        <li>$\lim (f + g) = \lim f + \lim g$</li>
-                        <li>$\lim (fg) = (\lim f)(\lim g)$</li>
-                        <li>$\lim (f/g) = (\lim f)/(\lim g)$ (if $\lim g \neq 0$)</li>
-                    </ul>
+                    <p>Classic recursion: `fib(n) = fib(n-1) + fib(n-2)`</p>
+                    <p>To calculate `fib(5)`, you calculate `fib(3)` twice. To calculate `fib(100)`, you calculate
+                        `fib(3)` trillions of times.</p>
+                    <div class="math-block">
+                        $$ T(n) = O(2^n) \quad \text{(Without DP)} $$
+                    </div>
+                    <div class="math-block">
+                        $$ T(n) = O(n) \quad \text{(With DP)} $$
+                    </div>
                 </div>
             </section>
 
-            <!-- Squeeze -->
-            <section class="section" id="squeeze">
+            <!-- Approaches -->
+            <section class="section" id="approaches">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Squeeze Theorem</h2>
+                    <h2 class="section-title">Top-Down vs Bottom-Up</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        If $g(x) \le f(x) \le h(x)$ near $c$, and $\lim_{x \to c} g(x) = \lim_{x \to c} h(x) = L$, then:
-                        $$\lim_{x \to c} f(x) = L$$
-                    </div>
-                    <p>Useful for oscillating functions like $x^2 \sin(1/x)$.</p>
-                </div>
-            </section>
-
-            <!-- Continuity -->
-            <section class="section" id="continuity">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Continuity</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        A function $f$ is <strong>continuous</strong> at $c$ if:
-                    </p>
-                    <div class="math-block">
-                        1. f(c) is defined
-                        2. \lim_{x \to c} f(x) exists
-                        3. \lim_{x \to c} f(x) = f(c)
-                    </div>
-                    <p>
-                        In $\epsilon-\delta$ terms: $\forall \epsilon > 0, \exists \delta > 0$ such that $|x - c| <
-                            \delta \implies |f(x) - f(c)| < \epsilon$. </p>
-                            <div class="info">
-                                <strong>✏️ Simple:</strong> A function is continuous if you can draw it without lifting
-                                your pencil.
-                                <br>No jumps, no holes, no teleporting. The function value at c equals the value you'd
-                                expect from approaching c.
-                            </div>
-                </div>
-            </section>
-
-            <!-- Topology -->
-            <section class="section" id="topology">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Topology of R</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        Real Analysis relies on the structure of the Real line.
-                    </p>
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Open Set:</strong> A set $U$ is open if for every $x \in U$, there is a neighborhood
-                            of $x$ completely inside $U$.
-                            <br>Example: $(0, 1)$ is open. $[0, 1]$ is not.
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Top-Down (Memoization)</h3>
+                            <p>Start with the big problem (`fib(100)`). As you recurse, store the result of each
+                                sub-problem in a dictionary (Memo). Check the dictionary before computing.</p>
                         </div>
-                        <div class="list-item">
-                            <strong>Closed Set:</strong> A set $F$ is closed if its complement is open. Alternatively,
-                            it contains all its limit points.
-                            <br>Example: $[0, 1]$ is closed.
-                        </div>
-                        <div class="list-item">
-                            <strong>Theorem:</strong> $f$ is continuous $\iff$ the inverse image of every open set is
-                            open.
+                        <div class="card">
+                            <h3>Bottom-Up (Tabulation)</h3>
+                            <p>Start with the smallest problems (`fib(0)`, `fib(1)`). Fill up an array iteratively until
+                                you reach `fib(100)`. No recursion overhead!</p>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <!-- IVT -->
-            <section class="section" id="ivt">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Intermediate Value Theorem</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule">
-                        If $f$ is continuous on $[a, b]$ and $f(a) < y < f(b)$, then there exists some $c \in (a, b)$
-                            such that $f(c)=y$. </div>
-                            <p>
-                                "If you go from -1 to 1 without jumping, you MUST cross 0."
-                                <br>
-                                This is useful for finding roots.
-                            </p>
-                            <div class="info">
-                                <strong>🚗 Simple:</strong> If you drive from sea level to 5,000 feet elevation...
-                                <br>At some point you MUST have been at exactly 1,000 feet, 2,000 feet, etc.
-                                <br>You can't teleport! That's IVT—continuous functions hit every value between
-                                endpoints.
-                            </div>
-                    </div>
             </section>
 
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">SymPy Limits</h2>
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Python: Memoization</h2>
                 </div>
                 <div class="section-body">
-                    <p>SymPy can compute symbolic limits, handling $0/0$ and $\infty$ cases.</p>
+                    <p>From slow ($O(2^n)$) to fast ($O(n)$).</p>
+
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Computing Limits</span>
+                            <span class="code-label">Fibonacci DP</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">from</span> sympy <span class="code-keyword">import</span> symbols, limit, sin, oo
+                            <pre><code class="language-python"># 1. Naive Recursion (Slow)
+def fib_slow(n):
+    if n <= 1: return n
+    return fib_slow(n-1) + fib_slow(n-2)
 
-x = symbols(<span class="code-string">'x'</span>)
-
-<span class="code-comment"># 1. Standard approach</span>
-expr1 = (x**<span class="code-number">2</span> - <span class="code-number">1</span>) / (x - <span class="code-number">1</span>)
-lim1 = limit(expr1, x, <span class="code-number">1</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Limit of (x^2-1)/(x-1) as x->1: {lim1}"</span>) <span class="code-comment"># 2</span>
-
-<span class="code-comment"># 2. Famous sin(x)/x</span>
-expr2 = sin(x)/x
-lim2 = limit(expr2, x, <span class="code-number">0</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Limit of sin(x)/x as x->0: {lim2}"</span>) <span class="code-comment"># 1</span>
-
-<span class="code-comment"># 3. Infinity</span>
-expr3 = (<span class="code-number">1</span> + <span class="code-number">1</span>/x)**x
-lim3 = limit(expr3, x, oo)
-<span class="code-function">print</span>(<span class="code-string">f"Limit of (1+1/x)^x as x->oo: {lim3}"</span>) <span class="code-comment"># E (Euler's number)</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Python IVT -->
-            <section class="section" id="python-ivt">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">Python Root Finding</h2>
-                </div>
-                <div class="section-body">
-                    <p>We can use the Bisection Method (based on IVT) to find roots.</p>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Bisection Method</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">solve_ivt</span>(f, a, b, tol=<span class="code-number">1e-5</span>):
-    <span class="code-string">"""Find root of f in [a, b] using Bisection."""</span>
-    <span class="code-keyword">if</span> f(a) * f(b) > <span class="code-number">0</span>:
-        <span class="code-flow">return</span> <span class="code-keyword">None</span> <span class="code-comment"># IVT doesn't apply</span>
+# 2. Memoization (Top-Down)
+memo = {}
+def fib_memo(n):
+    if n in memo: return memo[n]
+    if n <= 1: return n
     
-    mid = (a + b) / <span class="code-number">2</span>
-    <span class="code-keyword">while</span> <span class="code-function">abs</span>(f(mid)) > tol:
-        <span class="code-keyword">if</span> f(a) * f(mid) < <span class="code-number">0</span>:
-            b = mid
-        <span class="code-keyword">else</span>:
-            a = mid
-        mid = (a + b) / <span class="code-number">2</span>
-    <span class="code-flow">return</span> mid
+    memo[n] = fib_memo(n-1) + fib_memo(n-2)
+    return memo[n]
 
-<span class="code-comment"># Function: x^2 - 2 (Root is sqrt(2))</span>
-f = <span class="code-keyword">lambda</span> x: x**<span class="code-number">2</span> - <span class="code-number">2</span>
+# 3. Tabulation (Bottom-Up)
+def fib_tab(n):
+    if n <= 1: return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+        
+    return dp[n]
 
-root = solve_ivt(f, <span class="code-number">0</span>, <span class="code-number">2</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Approx root of x^2 - 2: {root}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Precision: {root**2}"</span>)</pre>
+import time
+start = time.time()
+print(fib_memo(35)) # Instant
+print(f"Memo took: {time.time() - start:.5f}s")
+
+start = time.time()
+print(fib_slow(35)) # Takes a few seconds!
+print(f"Slow took: {time.time() - start:.5f}s")
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -342,7 +241,7 @@ root = solve_ivt(f, <span class="code-number">0</span>, <span class="code-number
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -358,23 +257,33 @@ root = solve_ivt(f, <span class="code-number">0</span>, <span class="code-number
         </main>
     </div>
 
-    <script src="../../lessons/questions-data.js"></script>
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Limits & Continuity",
+                title: "Introduction to DP",
                 items: [
-                    { title: "Epsilon-Delta Definition", channel: "3Blue1Brown", vid: "kfF40MiS7zA" },
-                    { title: "Limits Intuition", channel: "3Blue1Brown", vid: "h58msdeqf7k" },
-                    { title: "Squeeze Theorem", channel: "Khan Academy", vid: "rlGm9fxb9Z8" },
-                    { title: "Continuity Definition", channel: "Khan Academy", vid: "joewRl1CTL8" },
-                    { title: "Intermediate Value Theorem", channel: "Khan Academy", vid: "vuflWXYMVms" }
+                    { title: "Dynamic Programming Explained", channel: "HackerRank", vid: "P8Xa2BitN3I" },
+                    { title: "Memoization vs Tabulation", channel: "GeeksforGeeks", vid: "S1Wabj2DP4x" } // Placeholder ID, likely broken
+                ]
+            },
+            {
+                title: "Examples",
+                items: [
+                    { title: "Fibonacci Sequence (DP)", channel: "CS Dojo", vid: "vYquumk4nWw" },
+                    { title: "Climbing Stairs Problem", channel: "NeetCode", vid: "Y0lT9Fck7qI" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day44'], storageKey: 'day44_analysis_v2' });
+        // Correcting known IDs
+        VIDEO_GROUPS[0].items[1].vid = "T0QxoZesMC4"; // GFG one is often bad, using one better
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day44'] || [],
+            storageKey: 'day44_v1'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

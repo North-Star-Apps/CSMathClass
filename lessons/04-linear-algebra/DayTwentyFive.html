@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 25: Sets & Relations</title>
+    <title>Day 25: Orthogonality & Least Squares</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 25 · Discrete Math
+            Day 25 · Best Fit
         </div>
-        <h1>Relations, Equivalence & Order</h1>
+        <h1>Orthogonality & Least Squares</h1>
         <p class="hero-desc">
-            How things connect. From database keys to task scheduling, relations define the structure of data.
+            In the real world, $Ax=b$ almost never has a perfect solution. Data is noisy.
+            So we settle for the "Least Squares" solution. This is the foundation of Linear Regression.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -73,13 +83,14 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Relations Defined</a></li>
-                    <li><a href="#properties" class="toc-link">2. Properties</a></li>
-                    <li><a href="#equivalence" class="toc-link">3. Equivalence Relations</a></li>
-                    <li><a href="#order" class="toc-link">4. Partial Orders (Posets)</a></li>
-                    <li><a href="#python" class="toc-link">5. Relations in Python</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#definition" class="toc-link">1. Orthogonality</a></li>
+                    <li><a href="#projections" class="toc-link">2. Deep Dive: Projections</a></li>
+                    <li><a href="#normal-equations" class="toc-link">3. The Normal Equation</a></li>
+                    <li><a href="#regression" class="toc-link">4. CS: Linear Regression</a></li>
+                    <li><a href="#python" class="toc-link">5. Python: From Scratch</a></li>
+                    <li><a href="#summary" class="toc-link">6. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -98,115 +109,156 @@
             <section class="section" id="definition">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">What is a Relation?</h2>
+                    <h2 class="section-title">Orthogonality</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        A binary relation $R$ from set $A$ to set $B$ is a subset of the Cartesian product $A \times B$.
-                        If $(a, b) \in R$, we say "a is related to b" ($aRb$).
+                        In Linear Algebra, "Orthogonal" is the fancy word for "Perpendicular".
+                        It is one of the most powerful properties a system can have.
                     </p>
-                    <div class="math-block">Example: "Less than" on {1, 2, 3}
-                        R = {(1,2), (1,3), (2,3)}</div>
-                    <p>
-                        <strong>Functions</strong> are just special types of relations where every $a \in A$ appears
-                        exactly once as a first element.
-                    </p>
-                    <div class="info">
-                        <strong>🕸️ Simple:</strong> The Social Network.
-                        <br>A Relations on People: "Follows".
-                        <br>• (Alice, Bob) is in R if Alice follows Bob.
-                        <br>• Symmetric? Only if everyone follows back.
-                        <br>• Transitive? If A follows B, and B follows C, does A follow C? (Usually no).
-                    </div>>
+                    <div class="card">
+                        <h3>The Dot Product Test</h3>
+                        <p>Two vectors $\vec{u}$ and $\vec{v}$ are orthogonal if and only if:</p>
+                        <div class="math-block">
+                            $$ \vec{u} \cdot \vec{v} = 0 $$
+                        </div>
+                        <p>
+                            <strong>Why?</strong>
+                            <br>Recall that $\vec{u} \cdot \vec{v} = ||\vec{u}|| ||\vec{v}|| \cos(\theta)$.
+                            <br>If the product is 0 (and lengths > 0), then $\cos(\theta) = 0$, so $\theta = 90^\circ$.
+                        </p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Analogy: The Shortest Path</h3>
+                        <p>
+                            Imagine you are walking in a field and you see a long wall (a line). You want to touch the
+                            wall by walking the <strong>shortest possible distance</strong>.
+                        </p>
+                        <p>
+                            Do you walk at a slant? No.
+                            <br>You walk straight towards it, making a <strong>90-degree angle</strong> (Right Angle)
+                            with the wall.
+                        </p>
+                        <div class="info">
+                            <strong>The "Error" is Orthogonal.</strong>
+                            <br>This simple geometric fact—that the shortest path is perpendicular—is the secret behind
+                            Linear Regression, GPS, and JPEG compression.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Orthogonal Subspaces</h3>
+                        <p>
+                            We don't just talk about vectors. We talk about entire "Spaces" being orthogonal.
+                            <br>Example: The floor of your room is a 2D plane (subspace). The corner edge of the wall
+                            going up is a 1D line.
+                            <br>Every vector on the floor is perpendicular to the vertical edge.
+                        </p>
+                        <div class="rule">
+                            <strong>Fundamental Theorem of Linear Algebra (Part 2)</strong>
+                            <p>
+                                The <strong>Row Space</strong> is orthogonal to the <strong>Null Space</strong>.
+                                <br>($Ax=0$ literally means the rows of A are perpendicular to x).
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Properties -->
-            <section class="section" id="properties">
+            <!-- Projections -->
+            <section class="section" id="projections">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Key Properties</h2>
+                    <h2 class="section-title">Deep Dive: Projections</h2>
                 </div>
                 <div class="section-body">
-                    <p>For a relation $R$ on a set $A$ (i.e., $R \subseteq A \times A$):</p>
+                    <p>
+                        Most of the time, $Ax = b$ has <strong>no solution</strong>.
+                        <br>This happens whenever we have more equations than unknowns (e.g., fitting a line to 100
+                        points).
+                    </p>
+                    <div class="warning">
+                        <strong>The Geometric Problem</strong>
+                        <p>
+                            The columns of $A$ span a "Column Space". $b$ is hanging out <em>outside</em> that space.
+                            <br>We can't reach $b$ by combining columns of $A$.
+                        </p>
+                    </div>
 
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Reflexive:</strong> $\forall a \in A, (a,a) \in R$.
-                            <br><em>Example: $\leq$ (since $x \leq x$).</em>
+                    <div class="subsection">
+                        <h3>The Shadow (Projection)</h3>
+                        <p>
+                            Since we can't reach $b$, we settle for the <strong>closest point</strong> in the column
+                            space. Let's call it $\vec{p}$ (for projection).
+                            <br>This $\vec{p}$ is the "Shadow" of $b$ cast directly down onto the plane of $A$.
+                        </p>
+                        <div class="math-block">
+                            $$ \text{Error } \vec{e} = \vec{b} - \vec{p} $$
                         </div>
-                        <div class="list-item">
-                            <strong>Symmetric:</strong> If $(a,b) \in R$, then $(b,a) \in R$.
-                            <br><em>Example: "=" or "is sibling of".</em>
-                        </div>
-                        <div class="list-item">
-                            <strong>Antisymmetric:</strong> If $(a,b) \in R$ and $(b,a) \in R$, then $a=b$.
-                            <br><em>Example: $\leq$ (If $x \le y$ and $y \le x$, then x=y).</em>
-                        </div>
-                        <div class="list-item">
-                            <strong>Transitive:</strong> If $(a,b) \in R$ and $(b,c) \in R$, then $(a,c) \in R$.
-                            <br><em>Example: "Ancestor of".</em>
-                        </div>
+                        <p>
+                            The key insight is that the error vector $\vec{e}$ is <strong>orthogonal</strong> to the
+                            entire plane (Column Space).
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Equivalence -->
-            <section class="section" id="equivalence">
+            <!-- Normal Equation -->
+            <section class="section" id="normal-equations">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Equivalence Relations</h2>
+                    <h2 class="section-title">The Normal Equation</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        An <strong>Equivalence Relation</strong> is Reflexive, Symmetric, and Transitive.
+                    <p>
+                        How do we calculate this "Shadow" $\vec{p}$?
+                        <br>We know the error $b - Ax$ is perpendicular to every column in $A$.
+                    </p>
+                    <div class="math-block">
+                        $$ A^T (\vec{b} - A\hat{x}) = 0 $$
                     </div>
                     <p>
-                        It generalizes the concept of equality. It partitions the set $A$ into disjoint
-                        <strong>Equivalence Classes</strong>.
+                        If we distribute $A^T$:
+                        <br>$$ A^T \vec{b} - A^T A \hat{x} = 0 $$
                     </p>
-                    <div class="math-block">Example: Modulo 3
-                        Integers related if x % 3 == y % 3.
-                        Classes:
-                        [0] = {..., -3, 0, 3, 6, ...}
-                        [1] = {..., -2, 1, 4, 7, ...}
-                        [2] = {..., -1, 2, 5, 8, ...}</div>
-                    <div class="info">
-                        <strong>🧙 Simple:</strong> The Sorting Hat.
-                        <br>An Equivalence Relation sorts every element into a specific "House" (Class).
-                        <br>Every student belongs to exactly one house.
+                    <div class="rule">
+                        <strong>The Golden Formula of Least Squares</strong>
+                        <div class="math-block">
+                            $$ A^T A \hat{x} = A^T \vec{b} $$
+                        </div>
+                        <p>
+                            This is the famous <strong>Normal Equation</strong>.
+                            <br>1. Multiply both sides by $A^T$.
+                            <br>2. Solve for $\hat{x}$.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Order -->
-            <section class="section" id="order">
+            <!-- Regression -->
+            <section class="section" id="regression">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Partial Orders</h2>
+                    <h2 class="section-title">CS: Linear Regression</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        A <strong>Partial Order</strong> is Reflexive, Antisymmetric, and Transitive.
-                    </div>
                     <p>
-                        We call the set a <strong>Poset</strong>. It captures the idea of "precedence" or "hierarchy".
+                        This is the beating heart of Statistics and Machine Learning.
+                        <br>We aren't strictly "solving" equations; we are <strong>optimizing</strong> them.
                     </p>
-                    <div class="info">
-                        <strong>🪜 Simple:</strong> The Corporate Ladder.
-                        <br>"Is Boss Of" relation.
-                        <br>• Reflexive, Antisymmetric, Transitive.
-                    </div>>
                     <div class="subsection">
-                        <h3 class="subsection-title">Hasse Diagrams</h3>
-                        <p>A visual way to represent finite posets. We draw $b$ above $a$ if $a < b$, and connect them
-                                avoiding redundant transitive edges.</p>
-                                <div class="info">
-                                    <strong>Total Order:</strong> A partial order where every pair is comparable (e.g.,
-                                    $\leq$ on Integers).
-                                    <br><strong>Lattice:</strong> A poset where every pair has a Least Upper Bound
-                                    (Join) and Greatest Lower Bound (Meet).
-                                </div>
+                        <h3>Minimizing the Error</h3>
+                        <p>
+                            We want to minimize $||\vec{e}||^2$.
+                            <br>Why squared error? Because it corresponds exactly to Euclidean distance (Pythagoras),
+                            and the math is simpler (derivatives are linear).
+                        </p>
+                        <p>
+                            When you perform a "Line of Best Fit" in Excel or `sklearn.LinearRegression`, the computer
+                            constructs the matrix $A$ (with a column of 1s for the intercept) and solves
+                            $A^T A \hat{x} = A^T b$.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -215,66 +267,90 @@
             <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Relations in Python</h2>
+                    <h2 class="section-title">Python: Regression from Scratch</h2>
                 </div>
                 <div class="section-body">
-                    <p>We can model a relation as a set of tuples or a boolean matrix.</p>
+                    <p>No Scikit-Learn. Let's see the raw Linear Algebra in action.</p>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Analyzing Relation Properties</span>
+                            <span class="code-label">Least Squares</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">is_reflexive</span>(R, A):
-    <span class="code-keyword">for</span> a <span class="code-keyword">in</span> A:
-        <span class="code-keyword">if</span> (a, a) <span class="code-keyword">not in</span> R:
-            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-    <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="code-keyword">def</span> <span class="code-function">is_symmetric</span>(R):
-    <span class="code-keyword">for</span> (a, b) <span class="code-keyword">in</span> R:
-        <span class="code-keyword">if</span> (b, a) <span class="code-keyword">not in</span> R:
-            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-    <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+# 1. Generate Noisy Data
+np.random.seed(42)
+x = 2 * np.random.rand(100, 1)
+# y = 4 + 3x + noise
+y = 4 + 3 * x + np.random.randn(100, 1) 
 
-<span class="code-keyword">def</span> <span class="code-function">is_transitive</span>(R):
-    <span class="code-keyword">for</span> (a, b) <span class="code-keyword">in</span> R:
-        <span class="code-keyword">for</span> (c, d) <span class="code-keyword">in</span> R:
-            <span class="code-comment"># If we have (a,b) and (b,c), we need (a,c)</span>
-            <span class="code-keyword">if</span> b == c <span class="code-keyword">and</span> (a, d) <span class="code-keyword">not in</span> R:
-                <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-    <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+# 2. Build Design Matrix A
+# We need a column of 1s for the intercept (bias)
+# A = [1, x_0]
+#     [1, x_1]
+#     ...
+A = np.c_[np.ones((100, 1)), x]
 
-<span class="code-comment"># Define Set A and Relation R</span>
-A = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>}
-R = {(<span class="code-number">1</span>,<span class="code-number">1</span>), (<span class="code-number">2</span>,<span class="code-number">2</span>), (<span class="code-number">3</span>,<span class="code-number">3</span>), (<span class="code-number">1</span>,<span class="code-number">2</span>), (<span class="code-number">2</span>,<span class="code-number">1</span>)}
+# 3. Solve Normal Equation: (A^T A) x_hat = A^T y
+# x_hat = (A^T A)^-1 A^T y
+theta_best = np.linalg.inv(A.T.dot(A)).dot(A.T).dot(y)
 
-<span class="code-function">print</span>(<span class="code-string">f"Reflexive? {is_reflexive(R, A)}"</span>)  <span class="code-comment"># True</span>
-<span class="code-function">print</span>(<span class="code-string">f"Symmetric? {is_symmetric(R)}"</span>)    <span class="code-comment"># True</span>
-<span class="code-function">print</span>(<span class="code-string">f"Transitive? {is_transitive(R)}"</span>)  <span class="code-comment"># False! (1,2) and (2,1) exist, but (1,1) is needed (it is there)</span>
-<span class="code-comment"># Wait, (1,2) and (2,1) -> needs (1,1) and (2,2). Both are there.</span>
-<span class="code-comment"># Let's verify manually: 1->2, 2->1. Transitive needs 1->1. YES.</span>
-<span class="code-comment"># Actually, transitivity holds for this R.</span></pre>
+print(f"Intercept: {theta_best[0][0]:.2f} (True: 4)")
+print(f"Slope:     {theta_best[1][0]:.2f} (True: 3)")
+
+# 4. Predict new value
+X_new = np.array([[0], [2]])
+X_new_b = np.c_[np.ones((2, 1)), X_new]
+y_predict = X_new_b.dot(theta_best)
+
+# 5. Visualize
+plt.plot(X_new, y_predict, "r-", linewidth=2, label="Predictions")
+plt.plot(x, y, "b.", alpha=0.4, label="Data")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.title("Least Squares Regression (Manual)")
+plt.show()</code></pre>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Summary</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><strong>Orthogonal</strong> means perpendicular (Dot product = 0).</li>
+                        <li><strong>Projections</strong> are the "Shadows" of vectors onto subspaces.</li>
+                        <li>When $Ax=b$ has no solution, we project $b$ onto the Column Space of $A$ to find the
+                            <strong>Least Squares</strong> solution.
+                        </li>
+                        <li>The <strong>Normal Equation</strong> $A^T A \hat{x} = A^T b$ is the algebraic machine that
+                            finds this projection.</li>
+                        <li>This is the foundation of <strong>Linear Regression</strong>.</li>
+                    </ul>
                 </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -286,7 +362,7 @@ R = {(<span class="code-number">1</span>,<span class="code-number">1</span>), (<
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -302,43 +378,43 @@ R = {(<span class="code-number">1</span>,<span class="code-number">1</span>), (<
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Lesson Videos",
+                title: "The Core",
                 items: [
-                    { title: "Video 5", channel: "Course Reference", vid: "5c8Nl7cMjgU" },
-                    { title: "Video 9", channel: "Course Reference", vid: "Equivalence" },
-                    { title: "Video 10", channel: "Course Reference", vid: "equivalence" }
+                    { title: "Dot Products and Duality", channel: "3Blue1Brown", vid: "LyGKycYT2v0" },
+                    { title: "Projections onto Subspaces", channel: "MIT OpenCourseWare", vid: "Y_Ac6KiQ1t0" },
+                    { title: "Least Squares Approximation", channel: "Khan Academy", vid: "MC7l96tW8V8" }
                 ]
-            }
-        ];
-        const VIDEOS_REAL = [
+            },
             {
-                title: "Relations",
+                title: "Deep Dives",
                 items: [
-                    { title: "Properties of Relations", channel: "TrevTutor", vid: "wIqnJ8b6n0g" },
-                    { title: "Equivalence Relations", channel: "TrevTutor", vid: "ecODhVfsZwk" },
-                    { title: "Partial Orders", channel: "TrevTutor", vid: "5c8Nl7cMjgU" }
+                    { title: "Linear Regression Math", channel: "Edureka", vid: "E5RjzSk0fvY" },
+                    { title: "The Normal Equation", channel: "Andrew Ng", vid: "B-J2yNrHacM" },
+                    { title: "Orthogonal Matrices", channel: "Steve Brunton", vid: "8F0FbnNtXCw" },
+                    { title: "Gram-Schmidt Process", channel: "Khan Academy", vid: "TRD5p600100" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Support Vector Machines", channel: "StatQuest", vid: "efR1C6CvhmE" },
+                    { title: "Fourier Series (Projecting functions)", channel: "3Blue1Brown", vid: "r6sGWTCMz2k" },
+                    { title: "QR Decomposition", channel: "Visually Explained", vid: "F5F-i9j5kL0" },
+                    { title: "How GPS Works (Trilateration)", channel: "SciShow", vid: "20188000" }
                 ]
             }
         ];
 
-        const QUESTIONS = [
-            { topic: "Property", prompt: "Reflexive means (a, ___) is in R for all a.", answer: "a" },
-            { topic: "Property", prompt: "Symmetric: If (a,b) in R then (___,a) in R.", answer: "b" },
-            { topic: "Property", prompt: "Transitive: If (a,b) and (b,c) then (___, c).", answer: "a" },
-            { topic: "Equivalence", prompt: "Equivalence relations are Reflexive, Symmetric, and ___.", answer: "transitive" },
-            { topic: "Order", prompt: "Partial Orders are Reflexive, Transitive, and ___.", answer: "antisymmetric" },
-            { topic: "Concept", prompt: "Equivalence relations partition a set into ___ classes.", answer: "equivalence" },
-            { topic: "Poset", prompt: "Diagrams for partial orders are called ___ diagrams.", answer: "hasse" },
-            { topic: "Example", prompt: "The relation '<=' on integers is a ___ order.", answer: "partial" },
-            { topic: "Example", prompt: "The relation 'is sibling of' is ___ (Symmetric/Antisymmetric).", answer: "symmetric" },
-            { topic: "Total", prompt: "In a ___ order, every pair of elements is comparable.", answer: "total" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day29_rel_v2' });
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day25'] || [],
+            storageKey: 'day25_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

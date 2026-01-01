@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 12: Limits & Continuity</title>
+    <title>Day 12: Derivatives</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,33 +22,60 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 12 · Calculus Foundations</div>
-
-        <p class="hero-desc">The concept of the Limit is the gateway to Calculus. It allows us to handle the "infinitely
-            small" and is the rigorous foundation for continuity and derivatives.</p>
+            </svg>
+            Day 12 · Measuring Change
+        </div>
+        <h1>Derivatives</h1>
+        <p class="hero-desc">
+            Limits allow us to calculate Instantaneous Rate of Change.
+            This is the "Velocity" of a function. It's how Physics Engines work, how AI learns (Gradient Descent), and
+            how we predict the future.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">5 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~100 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                40 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -58,12 +85,17 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#intuition" class="toc-link">1. Intuition</a></li>
-                    <li><a href="#definition" class="toc-link">2. Epsilon-Delta</a></li>
-                    <li><a href="#computing" class="toc-link">3. Computing Limits</a></li>
-                    <li><a href="#continuity" class="toc-link">4. Continuity & IVT</a></li>
-                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#definition" class="toc-link">1. The Definition</a></li>
+                    <li><a href="#power" class="toc-link">2. Power Rule</a></li>
+                    <li><a href="#rules" class="toc-link">3. Product & Quotient Rules</a></li>
+                    <li><a href="#chain" class="toc-link">4. Chain Rule</a></li>
+                    <li><a href="#numerical" class="toc-link">5. Numerical Differentiation</a></li>
+                    <li><a href="#physics" class="toc-link">6. CS: Physics Engines</a></li>
+                    <li><a href="#gradient" class="toc-link">7. CS: Gradient Descent (AI)</a></li>
+                    <li><a href="#python" class="toc-link">8. Python Code</a></li>
+                    <li><a href="#summary" class="toc-link">9. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">10. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">11. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -78,135 +110,589 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Limits Matter</h2>
+                    <h2 class="section-title">Why Derivatives Matter in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>Calculus is the study of continuous change. But algebra only handles static values. The Limit is
-                        the tool that bridges this gap, allowing us to ask "what happens as we get arbitrarily close to
-                        a moment in time?"</p>
+                    <p>
+                        "Optimize this function." "Minimize the Loss." "Predict the next frame."
+                        All of these require knowing <strong>which way is DOWN</strong>.
+                        The Derivative points the way.
+                    </p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🧠 Machine Learning</h3>
+                            <p>Neural networks learn by gradient descent.</p>
+                            <p>The derivative of the loss function tells us how to adjust weights.</p>
+                            <p>Billions of derivatives computed per training step!</p>
+                        </div>
+                        <div class="card">
+                            <h3>🎮 Game Engines</h3>
+                            <p>Physics simulations integrate velocity and acceleration.</p>
+                            <p>Collision detection uses normals (derivatives of surfaces).</p>
+                            <p>Animation curves use tangent handles (derivatives!).</p>
+                        </div>
+                        <div class="card">
+                            <h3>📊 Computer Graphics</h3>
+                            <p>Shading uses surface normals (derivatives of geometry).</p>
+                            <p>Anti-aliasing uses texture gradients.</p>
+                            <p>Edge detection = high derivative values in images.</p>
+                        </div>
+                        <div class="card">
+                            <h3>💹 Quantitative Finance</h3>
+                            <p>Option pricing uses "Greeks" (sensitivities).</p>
+                            <p>Delta, Gamma, Theta, Vega are all partial derivatives.</p>
+                            <p>Risk management depends on understanding rate of change.</p>
+                        </div>
+                    </div>
+
                     <div class="info">
-                        <strong>🍕 Simple:</strong> Imagine trying to slice a pizza into more and more slices.
-                        <br>8 slices... 16 slices... 1,000,000 slices.
-                        <br>The limit as the number of slices approaches infinity is that each slice becomes a single
-                        line, and the crust becomes a perfect circle.
+                        <span class="info-icon">🚗</span>
+                        <strong>Analogy: The Speedometer</strong>
+                        <br>Position: "I am at Mile 50."
+                        <br>Derivative (Velocity): "I am going 60mph."
+                        <br>Second Derivative (Acceleration): "I am stepping on the gas."
+                        <br>In a Game Engine, you store Position and Velocity. Each frame, you update Pos += Vel * dt.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="intuition">
+            <!-- Definition -->
+            <section class="section" id="definition">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Intuition</h2>
+                    <h2 class="section-title">The Definition</h2>
                 </div>
                 <div class="section-body">
                     <div class="math-block">
-                        \lim_{x \to c} f(x) = L
+                        $$ f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} $$
+                        This is just "Rise over Run", but the "Run" ($h$) is infinitely small.
                     </div>
-                    <p><strong>Translation:</strong> "As $x$ gets closer and closer (but not equal) to $c$, the value of
-                        $f(x)$ gets closer and closer to $L$."</p>
-                    <div class="rule">
-                        <strong>Left vs Right:</strong>
-                        <br>$\lim_{x \to c^-} f(x)$ (Left-hand limit: approaching from below)
-                        <br>$\lim_{x \to c^+} f(x)$ (Right-hand limit: approaching from above)
-                        <br>The limit exists <strong>IF AND ONLY IF</strong> Left Limit = Right Limit.
+
+                    <div class="info">
+                        <span class="info-icon">📐</span>
+                        <strong>Analogy: The Tangent Line</strong>
+                        <br>Imagine drawing a line that just "touches" a curve at one point.
+                        <br>The derivative is the slope of that line.
+                        <br>If the curve is a hill, the derivative tells you how steep the hill is at that exact spot.
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Lagrange's Notation</h3>
+                            <p>$f'(x)$ (pronounced "f prime of x")</p>
+                            <p>Good for general math and function composition.</p>
+                            <p>Second derivative: $f''(x)$</p>
+                        </div>
+                        <div class="card">
+                            <h3>Leibniz's Notation</h3>
+                            <p>$\frac{dy}{dx}$ (pronounced "dee y by dee x")</p>
+                            <p>Good for Chain Rule and dimensional analysis.</p>
+                            <p>Second derivative: $\frac{d^2y}{dx^2}$</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Higher Derivatives</h3>
+                        <p>You can take the derivative of a derivative:</p>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Physical Meaning:</strong>
+                                <br>• $f(x)$ = Position
+                                <br>• $f'(x)$ = Velocity (how fast)
+                                <br>• $f''(x)$ = Acceleration (how fast is velocity changing)
+                                <br>• $f'''(x)$ = Jerk (how fast is acceleration changing)
+                            </div>
+                            <div class="rule">
+                                <strong>Example:</strong>
+                                <br>$f(x) = x^3$
+                                <br>$f'(x) = 3x^2$
+                                <br>$f''(x) = 6x$
+                                <br>$f'''(x) = 6$
+                                <br>$f''''(x) = 0$ (eventually goes to zero)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Notation Pitfall:</strong>
+                        <br>Don't confuse $f'(x)$ (derivative of f evaluated at x) with $f(x)'$ (not standard notation).
+                        <br>Also, $\frac{d^2y}{dx^2}$ is NOT "d²y divided by d²x²"—it's just notation for the second
+                        derivative.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="definition">
+            <!-- Rules -->
+            <section class="section" id="power">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">The Formal Definition (Epsilon-Delta)</h2>
+                    <h2 class="section-title">The Power Rule</h2>
                 </div>
                 <div class="section-body">
-                    <p>This is the rigorous standard logic.</p>
-                    <div class="formula-box">
-                        <div class="formula-label">Epsilon-Delta Definition</div>
-                        <div class="formula-main">\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } 0 < |x - c| <
-                                \delta \implies |f(x) - L| < \epsilon</div>
+                    <p>You don't use the definition every time. You use shortcuts.</p>
+                    <div class="rule">
+                        <strong>The Power Rule:</strong>
+                        <br>$$ \frac{d}{dx} x^n = n \cdot x^{n-1} $$
+                        <br>Example: Derivative of $x^2$ is $2x$.
+                        <br>Example: Derivative of $x^3$ is $3x^2$.
+                    </div>
+                    <p>This is weirdly effective. It works for polynomials, which approximate almost everything.</p>
+
+                    <div class="info">
+                        <span class="info-icon">💡</span>
+                        <strong>Analogy: The Exponent "Drops Down"</strong>
+                        <br>Think of the exponent as sitting on a shelf. When you take the derivative, it "falls down"
+                        in front
+                        <br>and the shelf gets one level shorter.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Derivatives Table</h3>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Power Functions:</strong>
+                                <br>• $\frac{d}{dx}[x^n] = n \cdot x^{n-1}$
+                                <br>• $\frac{d}{dx}[\sqrt{x}] = \frac{1}{2\sqrt{x}}$
+                                <br>• $\frac{d}{dx}[\frac{1}{x}] = -\frac{1}{x^2}$
+                                <br>• $\frac{d}{dx}[c] = 0$ (constant)
+                            </div>
+                            <div class="rule">
+                                <strong>Exponential & Log:</strong>
+                                <br>• $\frac{d}{dx}[e^x] = e^x$ (special!)
+                                <br>• $\frac{d}{dx}[a^x] = a^x \ln(a)$
+                                <br>• $\frac{d}{dx}[\ln(x)] = \frac{1}{x}$
+                                <br>• $\frac{d}{dx}[\log_a(x)] = \frac{1}{x \ln(a)}$
+                            </div>
                         </div>
-                        <div class="info">
-                            <strong>🎯 Simple: The Target Game</strong>
-                            <ul>
-                                <li><strong>Challenger ($\epsilon$):</strong> Picks a target size epsilon around $L$.
-                                    "You must be within 0.01 of the answer."</li>
-                                <li><strong>Defender ($\delta$):</strong> Must find a range delta around $c$. "Okay, if
-                                    $x$ is within 0.005 of $c$, then $f(x)$ is inside your target."</li>
-                                <li>If the Defender can <em>always</em> win, no matter how small the Challenger makes
-                                    the target, the limit exists.</li>
-                            </ul>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Trigonometric:</strong>
+                                <br>• $\frac{d}{dx}[\sin(x)] = \cos(x)$
+                                <br>• $\frac{d}{dx}[\cos(x)] = -\sin(x)$
+                                <br>• $\frac{d}{dx}[\tan(x)] = \sec^2(x)$
+                            </div>
+                            <div class="rule">
+                                <strong>Inverse Trig:</strong>
+                                <br>• $\frac{d}{dx}[\arcsin(x)] = \frac{1}{\sqrt{1-x^2}}$
+                                <br>• $\frac{d}{dx}[\arctan(x)] = \frac{1}{1+x^2}$
+                            </div>
                         </div>
                     </div>
+
+                    <div class="info">
+                        <span class="info-icon">✨</span>
+                        <strong>Why $e^x$ is Special</strong>
+                        <br>The function $e^x$ is its own derivative! This is why $e$ appears everywhere in math.
+                        <br>It's the natural base for growth and decay, and it makes differential equations much
+                        simpler.
+                    </div>
+                </div>
             </section>
 
-            <section class="section" id="computing">
+            <!-- Product and Quotient Rules -->
+            <section class="section" id="rules">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Computing Limits</h2>
+                    <h2 class="section-title">Product & Quotient Rules</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">1. Direct Substitution</h3>
-                        <p>If the function is nice (continuous), just plug in the number.</p>
-                        <div class="math-block">\lim_{x \to 2} (3x + 1) = 3(2) + 1 = 7</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">2. Factoring (0/0 Case)</h3>
-                        <p>If you get $0/0$, there is a hole in the graph. Factor it out!</p>
-                        <div class="math-block">
-                            \lim_{x \to 2} \frac{x^2 - 4}{x - 2}
-                            \newline
-                            = \lim_{x \to 2} \frac{(x-2)(x+2)}{x-2}
-                            \newline
-                            = \lim_{x \to 2} (x+2) = 4
+                    <p>When functions are multiplied or divided, you need special rules.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Product Rule</h3>
+                            <div class="math-block">
+                                $$ \frac{d}{dx}[f(x) \cdot g(x)] = f'(x)g(x) + f(x)g'(x) $$
+                            </div>
+                            <p><strong>Mnemonic:</strong> "First times derivative of second, plus second times
+                                derivative of first."</p>
+                        </div>
+                        <div class="card">
+                            <h3>Quotient Rule</h3>
+                            <div class="math-block">
+                                $$ \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}
+                                $$
+                            </div>
+                            <p><strong>Mnemonic:</strong> "Lo D-Hi minus Hi D-Lo, over Lo-Lo."</p>
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">3. Limits at Infinity</h3>
-                        <p>Look at the highest power (similar to Big-O!).</p>
-                        <div class="math-block">
-                            \lim_{x \to \infty} \frac{2x^2 + 5}{3x^2 - x}
-                            \newline
-                            = \frac{2}{3} \quad (\text{Since } x^2 \text{ dominates})
-                        </div>
+
+                    <div class="info">
+                        <span class="info-icon">⚙️</span>
+                        <strong>CS Application: Signal Processing</strong>
+                        <br>When analyzing modulated signals (like AM radio), you're effectively taking the derivative
+                        of a product.
+                        <br>The product rule explains why sidebands appear in frequency analysis.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="continuity">
+            <!-- Chain Rule -->
+            <section class="section" id="chain">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Continuity & IVT</h2>
+                    <h2 class="section-title">The Chain Rule (Backpropagation Preview)</h2>
                 </div>
                 <div class="section-body">
+                    <p>The most important rule for AI. It's how derivatives flow through composition.</p>
                     <div class="rule">
-                        <strong>Continuity Checklist:</strong> A function $f$ is continuous at $c$ if:
-                        <ol>
-                            <li>$f(c)$ is defined.</li>
-                            <li>$\lim_{x \to c} f(x)$ exists.</li>
-                            <li>$\lim_{x \to c} f(x) = f(c)$.</li>
-                        </ol>
-                        In plain English: "You can draw it without lifting your pen."
+                        <strong>The Chain Rule:</strong>
+                        <br>$$ \frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x) $$
+                        <br>In Leibniz notation: $\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$
                     </div>
+
+                    <div class="info">
+                        <span class="info-icon">🧠</span>
+                        <strong>Analogy: The Pipeline</strong>
+                        <br>Imagine a factory pipeline: Raw Materials → Station A → Station B → Product.
+                        <br>If you want to know "how does changing raw materials affect the final product?",
+                        <br>you multiply: (effect on A) × (effect of A on B) × (effect of B on Product).
+                        <br>That's the Chain Rule. And that's exactly how <strong>Backpropagation</strong> works in
+                        neural networks!
+                    </div>
+
                     <div class="subsection">
-                        <h3 class="subsection-title">Intermediate Value Theorem (IVT)</h3>
-                        <p>If $f$ is continuous on $[a, b]$, and $f(a) < 0$ and $f(b)> 0$, then there MUST be a point
-                                $c$ where $f(c) = 0$.</p>
-                        <div class="info">
-                            <strong>🌡️ Simple:</strong> If it was 60°F this morning and it's 80°F now, and temperature
-                            changes continuously, then at some exact moment today it was <strong>exactly</strong> 70°F.
-                            It didn't skip from 69 to 71.
+                        <h3 class="subsection-title">Why This Matters for AI</h3>
+                        <p>A neural network is just a giant composed function:</p>
+                        <p>$$ \text{output} = f_n(f_{n-1}(\ldots f_2(f_1(\text{input})))) $$</p>
+                        <p>To train it, we need $\frac{\partial \text{Loss}}{\partial \text{weight}}$.</p>
+                        <p>The Chain Rule lets us compute this by "flowing" the gradient backwards through each layer.
+                        </p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Chain Rule in Action</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python"># Example: f(x) = (x^2 + 1)^3
+# Let u = x^2 + 1, then f = u^3
+# f'(x) = f'(u) * u'(x) = 3u^2 * 2x = 6x(x^2 + 1)^2
+
+def inner(x):
+    return x**2 + 1
+
+def outer(u):
+    return u**3
+
+def chain_derivative(x):
+    u = inner(x)
+    du_dx = 2*x           # derivative of inner
+    df_du = 3 * u**2      # derivative of outer (at u)
+    return df_du * du_dx  # Chain Rule!
+
+print(f"f'(2) = {chain_derivative(2)}")  # 6*2*(4+1)^2 = 12*25 = 300</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="videos">
+            <!-- Numerical -->
+            <section class="section" id="numerical">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Numerical Differentiation</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In a computer, we can't take $h \to 0$. But we can take $h = 0.0001$.
+                        This is called the <strong>Finite Difference Method</strong>.
+                    </p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Forward Difference</h3>
+                            <div class="math-block">
+                                $$ f'(x) \approx \frac{f(x + h) - f(x)}{h} $$
+                            </div>
+                            <p>Simple but has O(h) error.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Central Difference</h3>
+                            <div class="math-block">
+                                $$ f'(x) \approx \frac{f(x + h) - f(x - h)}{2h} $$
+                            </div>
+                            <p>More accurate: O(h²) error.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🔍</span>
+                        <strong>Analogy: The Black Box</strong>
+                        <br>Sometimes you have a function but can't see inside it (like a game physics simulation).
+                        <br>You can still find the derivative by "poking" it: run it with x, run it with x+0.001, check
+                        the difference.
+                    </div>
+
+                    <div class="warning">
+                        <strong>Numerical Pitfall:</strong>
+                        <br>Too large h = poor approximation (truncation error).
+                        <br>Too small h = floating point errors dominate (round-off error).
+                        <br>Sweet spot: h ≈ 10⁻⁵ to 10⁻⁸ for most functions.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Physics -->
+            <section class="section" id="physics">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">CS Application: Game Physics</h2>
+                </div>
+                <div class="section-body">
+                    <p>Every game engine (Unity, Unreal) uses Euler Integration, which is Calculus in reverse.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Euler Integration (Simple)</h3>
+                            <div class="code-block">
+                                <div class="code-header"><span class="code-lang">Pseudocode</span><span
+                                        class="code-label">Update Loop</span></div>
+                                <div class="code-content">
+                                    velocity += acceleration * dt;
+                                    position += velocity * dt;
+                                </div>
+                            </div>
+                            <p>Fast but accumulates error over time.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Verlet Integration (Stable)</h3>
+                            <div class="code-block">
+                                <div class="code-header"><span class="code-lang">Pseudocode</span><span
+                                        class="code-label">Update Loop</span></div>
+                                <div class="code-content">
+                                    new_pos = 2*pos - old_pos + accel*dt²;
+                                    old_pos = pos;
+                                    pos = new_pos;
+                                </div>
+                            </div>
+                            <p>Used in cloth/rope simulations.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🎮</span>
+                        <strong>Analogy: The Game Loop</strong>
+                        <br>Each frame is a tiny "discrete time step" (dt ≈ 1/60 second).
+                        <br>We're approximating continuous motion with discrete updates.
+                        <br>This is the derivative definition in reverse: Δx/Δt instead of dx/dt.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gradient Descent -->
+            <section class="section" id="gradient">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">CS Application: Gradient Descent (AI)</h2>
+                </div>
+                <div class="section-body">
+                    <p>This is how neural networks learn. The derivative tells us which way is "downhill" on the loss
+                        surface.</p>
+                    <div class="rule">
+                        <strong>The Update Rule:</strong>
+                        <br>$$ \theta_{\text{new}} = \theta_{\text{old}} - \alpha \cdot \nabla L(\theta) $$
+                        <br>Where $\alpha$ is the learning rate and $\nabla L$ is the gradient of the loss.
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">⛰️</span>
+                        <strong>Analogy: Rolling Downhill</strong>
+                        <br>Imagine you're blindfolded on a hilly landscape and want to find the lowest point.
+                        <br>You feel the ground around you (compute the gradient).
+                        <br>You take a step in the steepest downhill direction.
+                        <br>Repeat until you can't go any lower. That's gradient descent!
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Learning Rate Too High</h3>
+                            <p>You "overshoot" the minimum and bounce around.</p>
+                            <p>Loss oscillates wildly or explodes.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Learning Rate Too Low</h3>
+                            <p>You take tiny steps and training takes forever.</p>
+                            <p>May get stuck in local minima.</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Gradient Descent from Scratch</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+def gradient_descent(f, df, x0, lr=0.1, epochs=100):
+    """
+    Minimize f(x) starting from x0.
+    df is the derivative of f.
+    """
+    x = x0
+    history = [x]
+    
+    for _ in range(epochs):
+        grad = df(x)      # Compute gradient
+        x = x - lr * grad # Take step downhill
+        history.append(x)
+    
+    return x, history
+
+# Example: Minimize f(x) = (x - 3)^2
+f = lambda x: (x - 3)**2
+df = lambda x: 2*(x - 3)
+
+final_x, history = gradient_descent(f, df, x0=10.0, lr=0.1)
+print(f"Minimum found at x = {final_x:.4f}")  # Should approach 3.0</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Deep Learning Note:</strong>
+                        <br>Real neural networks have millions of parameters, so we compute gradients using
+                        <strong>Automatic Differentiation</strong>
+                        <br>(frameworks like PyTorch/TensorFlow) rather than by hand. The Chain Rule makes this
+                        possible.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Python: Derivatives</h2>
+                </div>
+                <div class="section-body">
+                    <div class="grid-2col">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Numerical (Finite Difference)</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">def derivative(f, x, h=1e-5):
+    """Central difference for accuracy."""
+    return (f(x + h) - f(x - h)) / (2*h)
+
+def f(x):
+    return x**2
+
+x_val = 3.0
+approx = derivative(f, x_val)
+print(f"f'(3) ≈ {approx:.6f}")  # ~6.0</code></pre>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Symbolic (SymPy)</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">from sympy import symbols, diff, sin, exp
+
+x = symbols('x')
+
+# Power rule
+f1 = x**3
+print(diff(f1, x))  # 3*x**2
+
+# Chain rule automatically
+f2 = sin(x**2)
+print(diff(f2, x))  # 2*x*cos(x**2)
+
+# Complex expression
+f3 = exp(x) * sin(x)
+print(diff(f3, x))  # exp(x)*sin(x) + exp(x)*cos(x)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Visualizing the Derivative</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3, 3, 100)
+y = x**2
+dy = 2*x  # Derivative
+
+plt.figure(figsize=(8, 4))
+plt.plot(x, y, label='f(x) = x²', linewidth=2)
+plt.plot(x, dy, label="f'(x) = 2x", linewidth=2, linestyle='--')
+plt.axhline(y=0, color='gray', linestyle=':', alpha=0.5)
+plt.legend()
+plt.title('Function vs Derivative')
+plt.grid(True, alpha=0.3)
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Summary: The Power of Differentiation</h2>
+                </div>
+                <div class="section-body">
+                    <p>Derivatives measure instantaneous rate of change—the foundation of physics, optimization, and AI.
+                    </p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Glossary of Derivative Concepts</h3>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Core Rules:</strong>
+                                <br>• <strong>Power:</strong> $\frac{d}{dx}x^n = nx^{n-1}$
+                                <br>• <strong>Product:</strong> $(fg)' = f'g + fg'$
+                                <br>• <strong>Quotient:</strong> $(f/g)' = \frac{f'g - fg'}{g^2}$
+                                <br>• <strong>Chain:</strong> $(f(g))' = f'(g) \cdot g'$
+                            </div>
+                            <div class="rule">
+                                <strong>CS Applications:</strong>
+                                <br>• <strong>Physics:</strong> Velocity = d(Position)/dt
+                                <br>• <strong>AI:</strong> Gradient Descent uses $\nabla L$
+                                <br>• <strong>Numerical:</strong> Finite difference methods
+                                <br>• <strong>Optimization:</strong> Find min/max via $f'(x) = 0$
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Gotchas</h3>
+                        <div class="warning">
+                            <strong>Watch Out For:</strong>
+                            <br>• <strong>Chain Rule:</strong> Don't forget the "inner derivative"!
+                            <br>• <strong>Quotient Rule:</strong> Order matters—it's not commutative.
+                            <br>• <strong>Floating Point:</strong> Numerical derivatives have precision limits.
+                            <br>• <strong>Learning Rate:</strong> Too high = explosion, too low = stagnation.
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🎓</span>
+                        <strong>Mastery Quote:</strong>
+                        <br>"The derivative is the slope at a point. In a world of continuous change,
+                        knowing the slope is knowing the future."
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -223,9 +709,10 @@
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 11</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -240,26 +727,45 @@
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Deep Dives",
+                title: "Derivative Fundamentals",
                 items: [
-                    { title: "Limits & Epsilon Delta", channel: "3Blue1Brown", vid: "rjQe_j9e_tM" },
-                    { title: "Continuity Explained", channel: "Khan Academy", vid: "03y9T5Gq5X0" },
-                    { title: "Intermediate Value Theorem", channel: "Organic Chemistry Tutor", vid: "pcUXo7XbRaM" }
+                    { title: "Derivative Visualized", channel: "3Blue1Brown", vid: "S0_qX4VJhMQ" },
+                    { title: "Definition of Derivative", channel: "Professor Leonard", vid: "IDM7-4_JaeM" },
+                    { title: "Power Rule Explained", channel: "Khan Academy", vid: "9vKqVkMqHk0" },
+                    { title: "Product & Quotient Rules", channel: "Organic Chemistry Tutor", vid: "QKXGdpC14Z4" }
                 ]
             },
             {
-                title: "Examples",
+                title: "Advanced Rules",
                 items: [
-                    { title: "Epsilon Delta Visualization", channel: "Math Visuals", vid: "9JMFLzHtljA" },
-                    { title: "Limits at Infinity", channel: "Course Reference", vid: "rX_a2qYtZ1I" }
+                    { title: "Chain Rule Intuition", channel: "3Blue1Brown", vid: "YG15m2VwSjA" },
+                    { title: "Chain Rule Examples", channel: "Professor Leonard", vid: "7Kk_bL0x8BY" },
+                    { title: "Implicit Differentiation", channel: "Khan Academy", vid: "qb40J4N1FA4" },
+                    { title: "Higher Derivatives", channel: "The Organic Chemistry Tutor", vid: "kVU4OQFZS2U" }
+                ]
+            },
+            {
+                title: "CS Applications",
+                items: [
+                    { title: "Gradient Descent Explained", channel: "StatQuest", vid: "sDv4f4s2SB8" },
+                    { title: "Numerical Differentiation", channel: "Steve Brunton", vid: "yZ3pD8F9y5A" },
+                    { title: "Backpropagation (Neural Nets)", channel: "3Blue1Brown", vid: "Ilg3gGewQ5U" },
+                    { title: "Physics Simulation", channel: "Two Minute Papers", vid: "9oHndA4qsqo" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day12'], storageKey: 'day12_limits_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day12'] || [],
+            storageKey: 'day12_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

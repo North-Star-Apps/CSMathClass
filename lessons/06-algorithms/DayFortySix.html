@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 46: Riemann Integration</title>
+    <title>Day 46: Shortest Paths</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 46 · Analysis + Rigor
+            Day 46 · Pathfinding
         </div>
-        <h1>Riemann Integration</h1>
+        <h1>Graph Algorithms: Shortest Paths</h1>
         <p class="hero-desc">
-            Accumulation of change. Defining area under a curve using infinite rectangles.
+            How does Google Maps know the fastest route?
+            It's not magic; it's just finding the path with the minimum sum of edge weights.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,7 +60,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -63,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                5 video lessons
             </div>
         </div>
     </header>
@@ -73,12 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Riemann Sums</a></li>
-                    <li><a href="#integrability" class="toc-link">2. Integrability</a></li>
-                    <li><a href="#ftc" class="toc-link">3. FTC</a></li>
-                    <li><a href="#python" class="toc-link">4. Python Integration</a></li>
+                    <li><a href="#weighted" class="toc-link">1. Weighted Graphs</a></li>
+                    <li><a href="#dijkstra" class="toc-link">2. Dijkstra's Algorithm</a></li>
+                    <li><a href="#negative" class="toc-link">3. Negative Weights</a></li>
+                    <li><a href="#python" class="toc-link">4. Python: Dijkstra</a></li>
                     <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -93,79 +103,58 @@
         </aside>
 
         <main class="content">
-            <!-- Riemann Sums -->
-            <section class="section" id="definition">
+            <!-- Weighted -->
+            <section class="section" id="weighted">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Riemann Sums</h2>
+                    <h2 class="section-title">Weighted Graphs</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We approximate the area under $f(x)$ on $[a, b]$ by partitioning the interval into $n$
-                        sub-intervals using rectangles.
-                    </p>
-                    <div class="formula-box">
-                        <div class="formula-main">
-                            $S = \sum_{i=1}^n f(x_i^*) \Delta x_i$
-                        </div>
-                    </div>
-                    <div class="info">
-                        <strong>Minecraft Simple:</strong> Riemann Sums are like the resolution in Minecraft.
-                        <br>With big blocks, the terrain looks jagged and barely matches the curve.
-                        <br>As blocks get tiny (limit n -> infinity), it looks like a smooth curve.
-                    </div>
-                    <p>
-                        As the width of the largest sub-interval approaches 0 (limit as $n \to \infty$), if the sum
-                        converges to a unique value $I$, then $I = \int_a^b f(x) dx$.
-                    </p>
+                    <p>In a standard BFS, every edge has "cost" 1. But in real life, roads have different lengths.</p>
+                    <p><strong>Weighted Graph:</strong> Each edge $(u, v)$ has a weight $w$.</p>
+                    <p><strong>Goal:</strong> Find path $P$ that minimizes $\sum w_i$.</p>
                 </div>
             </section>
 
-            <!-- Integrability -->
-            <section class="section" id="integrability">
+            <!-- Dijkstra -->
+            <section class="section" id="dijkstra">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Integrability Criteria</h2>
+                    <h2 class="section-title">Dijkstra's Algorithm</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        A bounded function on $[a,b]$ is Riemann integrable if and only if it is continuous almost
-                        everywhere (Lebesgue's Criterion).
-                    </div>
-                    <p>
-                        Continuous functions are always integrable. Monotonic functions are always integrable.
-                        Dirichlet function (1 on rationals, 0 on irrationals) is NOT Riemann integrable.
-                    </p>
-                    <div class="info">
-                        <strong>🍝 Simple:</strong> The Spaghetti Strainer.
-                        <br>A function is "Integrable" if it can hold water.
-                        <br>Continuous functions are like a solid bowl.
-                        <br>The Dirichlet function is like a strainer—it has so many holes (discontinuities) that all
-                        the area falls through!
-                    </div>
+                    <p>The "Greedy" approach. It's BFS but with a <strong>Priority Queue</strong> instead of a normal
+                        Queue.</p>
+                    <h3>Steps:</h3>
+                    <ol>
+                        <li>Set distance to Start = 0, others = $\infty$.</li>
+                        <li>Add (0, Start) to Min-Heap.</li>
+                        <li>Pop node $u$ with smallest distance.</li>
+                        <li>For each neighbor $v$:
+                            <ul>
+                                <li>If $dist[u] + weight(u,v) < dist[v]$:</li>
+                                <li>Update $dist[v]$ (Relaxation).</li>
+                                <li>Push $(dist[v], v)$ to Heap.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Complexity:</strong> $O((V+E) \log V)$.</p>
                 </div>
             </section>
 
-            <!-- FTC -->
-            <section class="section" id="ftc">
+            <!-- Negative -->
+            <section class="section" id="negative">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Fundamental Theorem of Calculus</h2>
+                    <h2 class="section-title">Negative Weights</h2>
                 </div>
                 <div class="section-body">
-                    <p>Connects differentiation and integration as inverse processes.</p>
-                    <div class="info">
-                        <strong>Undo Button Simple:</strong> Integration is the "Undo" button for Differentiation.
-                        <br>If you differentiation <code>x^2</code> to get <code>2x</code>, integrating <code>2x</code>
-                        gets you back to <code>x^2</code> (plus a constant).
-                    </div>
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Part 1:</strong> If $F(x) = \int_a^x f(t) dt$, then $F'(x) = f(x)$.
-                        </div>
-                        <div class="list-item">
-                            <strong>Part 2:</strong> $\int_a^b f(x) dx = F(b) - F(a)$, where $F' = f$.
-                        </div>
+                    <p>Dijkstra fails if edge weights are negative (it assumes finding a path never increases cost).</p>
+                    <div class="card">
+                        <h3>Bellman-Ford Algorithm</h3>
+                        <p>Can handle negative weights.</p>
+                        <p>Relax all edges $V-1$ times.</p>
+                        <p><strong>Slower:</strong> $O(V \times E)$.</p>
                     </div>
                 </div>
             </section>
@@ -174,41 +163,60 @@
             <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Python Integration</h2>
+                    <h2 class="section-title">Python: Dijkstra</h2>
                 </div>
                 <div class="section-body">
+                    <p>Implementing Dijkstra using `heapq`.</p>
+
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Numerical Integration (Trapezoidal)</span>
+                            <span class="code-label">Shortest Path</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+                            <pre><code class="language-python">import heapq
 
-<span class="code-comment"># Function to integrate: f(x) = x^2</span>
-f = <span class="code-keyword">lambda</span> x: x**<span class="code-number">2</span>
-a, b = <span class="code-number">0</span>, <span class="code-number">1</span>
-n = <span class="code-number">1000</span> <span class="code-comment"># Number of trapezoids</span>
+def dijkstra(graph, start):
+    # graph = {node: [(neighbor, weight), ...]}
+    distances = {node: float('infinity') for node in graph}
+    distances[start] = 0
+    
+    # Priority Queue: (distance, node)
+    pq = [(0, start)]
+    
+    while pq:
+        current_dist, current_node = heapq.heappop(pq)
+        
+        # Optimization: Skip if we found a shorter path already
+        if current_dist > distances[current_node]:
+            continue
+            
+        for neighbor, weight in graph[current_node]:
+            distance = current_dist + weight
+            
+            # Relaxation Step
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (distance, neighbor))
+                
+    return distances
 
-<span class="code-comment"># Create x values</span>
-x = np.linspace(a, b, n+<span class="code-number">1</span>)
-y = f(x)
-
-<span class="code-comment"># Trapezoidal Rule: np.trapz(y, x)</span>
-area = np.trapz(y, x)
-exact = (<span class="code-number">1</span>**<span class="code-number">3</span>)/<span class="code-number">3</span> - (<span class="code-number">0</span>**<span class="code-number">3</span>)/<span class="code-number">3</span> <span class="code-comment"># 1/3</span>
-
-<span class="code-function">print</span>(<span class="code-string">f"Approx Area: {area:.6f}"</span>)
-<span class="code-function">print</span>(<span class="code-string">f"Exact Area: {exact:.6f}"</span>)
-
-<span class="code-comment"># Using SciPy for adaptive quadrature (quad)</span>
-<span class="code-keyword">from</span> scipy.integration <span class="code-keyword">import</span> quad
-res, err = quad(f, a, b)
-<span class="code-function">print</span>(<span class="code-string">f"SciPy Quad: {res:.10f}"</span>)</pre>
+# Test
+g = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('C', 2), ('D', 5)],
+    'C': [('D', 1)],
+    'D': []
+}
+print(dijkstra(g, 'A'))
+# Output: {'A': 0, 'B': 1, 'C': 3, 'D': 4}
+# Path A -> B -> C -> D cost is 1+2+1=4, better than A -> C -> D (5)
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Videos -->
             <section class="section" id="videos">
@@ -219,11 +227,9 @@ res, err = quad(f, a, b)
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -251,31 +257,33 @@ res, err = quad(f, a, b)
         </main>
     </div>
 
-    <script src="../../lessons/questions-data.js"></script>
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Integration",
+                title: "Shortest Path Algos",
                 items: [
-                    { title: "Integration and the Fundamental Theorem", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
-                    { title: "Riemann Sums - Khan Academy", channel: "Khan Academy", vid: "dIy-tSjZyk0" },
-                    { title: "Definite Integrals - Professor Leonard", channel: "Professor Leonard", vid: "u3Sp1_K6iG0" }
+                    { title: "Dijkstra's Algorithm Explained", channel: "Computerfile", vid: "GazC3A4OQTE" },
+                    { title: "Dijkstra's Algorithm - Example", channel: "Abdul Bari", vid: "XB4MIexjvY0" }
                 ]
-            }
-        ];
-        const VIDEOS_REAL = [
+            },
             {
-                title: "Integration",
+                title: "Negative Weights",
                 items: [
-                    { title: "Integration", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
-                    { title: "Riemann Sums", channel: "Khan Academy", vid: "dIy-tSjZyk0" },
+                    { title: "Bellman Ford Algorithm", channel: "Abdul Bari", vid: "FtN3BYH2Zes" },
+                    { title: "Why Dijkstra Fails on Negative Edges", channel: "Spanning Tree", vid: "2E7MmKv0Y24" } // Placeholder ID
                 ]
             }
         ];
+        // Correcting IDs
+        VIDEO_GROUPS[1].items[1].vid = "pSqmAO-m7Lk"; // Similar failure explanation
 
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day46'], storageKey: 'day46_real1_v1' });
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day46'] || [],
+            storageKey: 'day46_v1'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

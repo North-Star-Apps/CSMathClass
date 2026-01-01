@@ -16,39 +16,62 @@
         onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
     <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/generator-utils.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 3 · Operating System</div>
-
-        <p class="hero-desc">Functions are the building blocks of programming. Every method you write is a function.
-            Understanding domain, range, inverses, and composition makes you a better programmer.</p>
+            </svg>
+            Day 3 · Foundation
+        </div>
+        <h1>Functions & Inverses</h1>
+        <p class="hero-desc">
+            Functions are the atoms of mathematics and the subroutines of code.
+            Mastering domain, range, injection, surjection, and recursion is mastering the language of logic.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">6 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~90 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                35 practice problems
+            </div>
+            11 video lessons
+        </div>
         </div>
     </header>
 
@@ -58,13 +81,19 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#basics" class="toc-link">1. Function Basics</a></li>
-                    <li><a href="#domain" class="toc-link">2. Domain & Range</a></li>
-                    <li><a href="#inverse" class="toc-link">3. Inverse Functions</a></li>
-                    <li><a href="#composition" class="toc-link">4. Composition</a></li>
-                    <li><a href="#gotchas" class="toc-link">5. Common Gotchas</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
+                    <li class="toc-item"><a href="#functions" class="toc-link">1. Understanding Functions</a></li>
+                    <li class="toc-item"><a href="#vertical-line-test" class="toc-link">2. Vertical Line Test</a></li>
+                    <li class="toc-item"><a href="#domain-range" class="toc-link">3. Domain & Range</a></li>
+                    <li class="toc-item"><a href="#injection-surjection" class="toc-link">4. Injection, Surjection,
+                            Bijection</a></li>
+                    <li class="toc-item"><a href="#inverse" class="toc-link">5. Inverse Functions</a></li>
+                    <li class="toc-item"><a href="#composition" class="toc-link">6. Function Composition</a></li>
+                    <li class="toc-item"><a href="#fp" class="toc-link">7. Functional Programming</a></li>
+                    <li class="toc-item"><a href="#currying" class="toc-link">8. Currying & Partial Application</a></li>
+                    <li class="toc-item"><a href="#recursion" class="toc-link">9. Recursion & Induction</a></li>
+                    <li class="toc-item"><a href="#gotchas" class="toc-link">10. Common Gotchas</a></li>
+                    <li class="toc-item"><a href="#videos" class="toc-link">11. Video Lessons</a></li>
+                    <li class="toc-item"><a href="#practice" class="toc-link">12. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -79,355 +108,715 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
                     <h2 class="section-title">Why Functions Matter in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>In programming, functions are everywhere. A method that takes parameters and returns a value is
-                        exactly the mathematical concept of a function. Understanding the theory helps you write better
-                        code.</p>
-                    <div class="rule"><strong>Key insight:</strong> A function maps each input to exactly one output.
-                        This is why pure functions are predictable and testable.</div>
-                    <div class="info">
-                        <strong>🤖 Simple:</strong> Think of a function like a vending machine. You put a coin in
-                        (input), and you get a specific snack out (output). If you put the same coin in, you always get
-                        the same snack. An inverse function is like a refund button: it takes the snack back and gives
-                        you the coin.
+                    <p>
+                        In programming, functions are everywhere. A method that takes parameters and returns a value is
+                        exactly the mathematical concept of a function.
+                        <br>But beyond standard methods, modern "Functional Programming" (React, Redux, Rust, Haskell)
+                        relies entirely on mathematical function properties like immutability, composition, and purity.
+                    </p>
+                    <div class="rule">
+                        $$ f: A \to B $$
+                        <p>A mapping from set $A$ (Domain) to set $B$ (Codomain). For every $x \in A$, there is a unique
+                            $y \in B$.</p>
                     </div>
+
                     <div class="subsection">
-                        <h3 class="subsection-title">Where you'll use this</h3>
-                        <ul>
-                            <li><strong>Type Systems:</strong> Function signatures are domain → range declarations</li>
-                            <li><strong>Functional Programming:</strong> Composition, currying, higher-order functions
-                            </li>
-                            <li><strong>Encryption:</strong> Encryption and decryption are inverse functions</li>
-                            <li><strong>Data Pipelines:</strong> ETL is function composition: Extract → Transform → Load
-                            </li>
-                            <li><strong>APIs:</strong> Request → Response is a function (input → output)</li>
+                        <h3 class="subsection-title">The "Black Box" Perspective</h3>
+                        <p>In CS, we often treat functions as "Black Boxes." You don't care <em>how</em> the sausages
+                            are
+                            made inside, only that for a specific input, you get a consistent output. This is the basis
+                            of
+                            <strong>API Contracts</strong> and <strong>Unit Testing</strong>.
+                        </p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-label">Functions as first-class citizens</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-javascript">// In JS, we can pass functions into other functions
+const square = x => x * x;
+const cube = x => x * x * x;
+
+function transform(val, fn) {
+    return fn(val);
+}
+
+console.log(transform(5, square)); // 25
+console.log(transform(5, cube));   // 125</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>🚀 Simple Analogy: The Vending Machine</strong>
+                        <p>Think of a function like a vending machine.</p>
+                        <ul class="list-disc ml-6">
+                            <li><strong>Input (Domain)</strong>: The set of valid coins or buttons (A1, B2).</li>
+                            <li><strong>Output (Range)</strong>: The snacks that come out.</li>
+                            <li><strong>Determinism</strong>: If you press "A1", you <em>always</em> get chips. If you
+                                sometimes got a cookie, the machine is broken (non-deterministic).</li>
+                            <li><strong>Inverse</strong>: A "Refund" button that reverses the transaction.</li>
                         </ul>
                     </div>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Functions
-                                in code = mathematical functions</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># Mathematical function: f(x) = x²</span>
-<span class="code-keyword">def</span> <span class="code-function">f</span>(x: <span class="code-type">float</span>) -> <span class="code-type">float</span>:
-    <span class="code-keyword">return</span> x ** <span class="code-number">2</span>
 
-<span class="code-comment"># Domain: all real numbers (float)</span>
-<span class="code-comment"># Range: non-negative reals (x² ≥ 0)</span>
-<span class="code-comment"># Type hint is literally: domain → range</span>
-
-<span class="code-comment"># Composition: g(f(x))</span>
-<span class="code-keyword">def</span> <span class="code-function">g</span>(x): <span class="code-keyword">return</span> x + <span class="code-number">1</span>
-result = <span class="code-function">g</span>(<span class="code-function">f</span>(<span class="code-number">3</span>))  <span class="code-comment"># g(f(3)) = g(9) = 10</span></pre>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Total vs. Partial Functions</h3>
+                        <p>In pure math, we usually deal with <strong>Total Functions</strong> (defined for every input
+                            in the domain). In CS, we often encounter <strong>Partial Functions</strong>—code that might
+                            crash or return `null/undefined` for certain inputs.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">TypeScript</span>
+                                <span class="code-label">Partial functions return 'Option' types</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-typescript">// A partial function: might return a number, might return nothing
+function safeDivide(a: number, b: number): number | null {
+    if (b === 0) return null;
+    return a / b;
+}</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="basics">
+            <!-- Basics -->
+            <section class="section" id="functions">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Function Basics</h2>
+                    <h2 class="section-title">Understanding Functions</h2>
                 </div>
                 <div class="section-body">
                     <div class="subsection">
-                        <h3 class="subsection-title">What is a function?</h3>
-                        <div class="math-block">A function f: A → B maps each element x ∈ A to exactly one element f(x)
-                            ∈ B.
+                        <h3 class="subsection-title">Formal Definition</h3>
+                        <div class="math-block">
+                            A function f: A → B is a relation that assigns to each element x ∈ A exactly one element
+                            f(x) ∈ B.
 
-                            Key requirement: Each input gives exactly ONE output.
-                            (Same input must always give same output)</div>
+                            Notations:
+                            • f(x) = y
+                            • x ↦ y (maps x to y)
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Function notation</h3>
-                        <div class="math-block">f(x) = 2x + 3
-
-                            To evaluate f(5):
-                            f(5) = 2(5) + 3 = 13
-
-                            The function f takes input x and outputs 2x + 3.</div>
+                    <div class="info">
+                        <strong>💡 CS Connection: Hash Maps</strong>
+                        <p>A Hash Map is essentially a discrete function. A key (input) maps to exactly one value
+                            (output). If a key could map to multiple values simultaneously in the same bucket, it would
+                            be
+                            a Multimap (a relation), not a simple Function.</p>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Vertical line test</h3>
-                        <p>A graph represents a function if every vertical line crosses it at most once. Multiple
-                            y-values for one x-value means it's NOT a function.</p>
-                        <div class="info"><strong>Example:</strong> y = x² is a function (parabola passes test). x² + y²
-                            = 1 is NOT a function (circle fails test).</div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Functions in code</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python"># Mathematical function: f(x) = x²
+def f(x: float) -> float:
+    return x ** 2
+
+# This type hint (float -> float) is the Domain -> Range declaration.
+
+# A Pure Function (Mathematical):
+def add(a, b):
+    return a + b  # Always returns same output for same inputs.
+
+# An Impure Function (Not Mathematical):
+import random
+def get_random():
+    return random.random()  # Different output every time!
+</code></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="domain">
+            <!-- Vertical Line Test -->
+            <section class="section" id="vertical-line-test">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Vertical Line Test (Visualizing Functions)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        A graph represents a function if and only if every vertical line crosses it <strong>at most
+                            once</strong>.
+                    </p>
+                    <div class="two-col">
+                        <div class="card">
+                            <h3>y = x²</h3>
+                            <p>Passes the test. Each $x$ has exactly one $y$.</p>
+                        </div>
+                        <div class="card">
+                            <h3>x = y²</h3>
+                            <p>Fails the test. $x=4$ maps to $y=2$ AND $y=-2$. This is a <strong>Relation</strong>,
+                                not a function.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Domain & Range -->
+            <section class="section" id="domain-range">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Domain & Range</h2>
                 </div>
                 <div class="section-body">
+                    <p>The playground rules for the function. If you try to run a function on an input outside its
+                        domain, you get an error (or a crash).</p>
                     <div class="subsection">
-                        <h3 class="subsection-title">Definitions</h3>
-                        <div class="math-block">Domain: Set of all valid inputs (x-values)
-                            Range: Set of all possible outputs (y-values)
-
-                            f(x) = √x
-                            Domain: x ≥ 0 (can't take square root of negative)
-                            Range: y ≥ 0 (square roots are non-negative)</div>
+                        <div class="math-block">
+                            \text{Domain } (D): \text{ The set of all valid inputs } x. \\
+                            \text{Codomain } (C): \text{ The set of all potential outputs (types). } \\
+                            \text{Range } (R): \text{ The set of actual outputs produced } \{f(x) : x \in D\}.
+                        </div>
                         <div class="info">
-                            <strong>🎟️ Simple:</strong> Think of the Domain as the VIP Guest List (only these numbers
-                            get in) and the Range as the Photo Album (only these pictures come out).
+                            <strong>🎟️ Analogy: The Nightclub</strong>
+                            <p>
+                                • <strong>Domain</strong>: The Guest List (Who <em>can</em> get in).<br>
+                                • <strong>Codomain</strong>: The club's capacity (Everyone who <em>could</em> be
+                                inside).<br>
+                                • <strong>Range</strong>: The people actually on the dance floor right now.
+                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="subsection">
-                    <h3 class="subsection-title">Finding domain restrictions</h3>
-                    <div class="rule"><strong>Look for:</strong><br>• Division by zero (denominator ≠ 0)<br>• Square
-                        roots of negatives (radicand ≥ 0)<br>• Logarithms of non-positives (argument > 0)</div>
-                    <div class="math-block">f(x) = 1/(x - 3)
-                        Domain: x ≠ 3 (avoid division by zero)
 
-                        g(x) = √(x - 2)
-                        Domain: x ≥ 2 (radicand must be ≥ 0)
+                    <div class="subsection">
+                        <h3 class="subsection-title">Finding Domain Restrictions (The Crash Conditions)</h3>
+                        <p>In CS, domain restrictions are the edge cases that cause "DivisionByZero" or "NaN" errors.
+                        </p>
+                        <div class="rule">
+                            <strong>The Big Three Restrictions:</strong>
+                            <br>1. <strong>Division by Zero:</strong> Denominator $\neq 0$.
+                            <br>2. <strong>Square Roots:</strong> Inside $\geq 0$.
+                            <br>3. <strong>Logarithms:</strong> Inside $> 0$.
+                        </div>
+                        <div class="math-block">
+                            f(x) = \frac{\sqrt{x - 2}}{x - 5} \\
+                            \text{1. Square root: } x - 2 \geq 0 \Rightarrow x \geq 2. \\
+                            \text{2. Division: } x - 5 \neq 0 \Rightarrow x \neq 5. \\
+                            \text{Domain: } [2, 5) \cup (5, \infty)
+                        </div>
+                    </div>
 
-                        h(x) = √(x - 1) / (x - 4)
-                        Domain: x ≥ 1 AND x ≠ 4</div>
-                </div>
-                <div class="subsection">
-                    <h3 class="subsection-title">CS parallel: Type systems</h3>
                     <div class="code-block">
-                        <div class="code-header"><span class="code-lang">TypeScript</span><span class="code-label">Types
-                                are domain/range declarations</span></div>
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Defensive programming handles domain</span>
+                        </div>
                         <div class="code-content">
-                            <pre><span class="code-comment">// Domain: string, Range: number</span>
-<span class="code-keyword">function</span> <span class="code-function">parseAge</span>(input: <span class="code-type">string</span>): <span class="code-type">number</span> {
-    <span class="code-keyword">return</span> parseInt(input, <span class="code-number">10</span>);
-}
+                            <pre><code class="language-python">import math
 
-<span class="code-comment">// Restricting domain with types</span>
-<span class="code-keyword">type</span> <span class="code-type">PositiveNumber</span> = <span class="code-type">number</span> & { __positive: <span class="code-keyword">true</span> };
+def safe_function(x):
+    # Enforcing domain [2, 5) U (5, inf)
+    if x < 2 or x == 5:
+        raise ValueError("Input outside of function domain!")
+    return math.sqrt(x - 2) / (x - 5)</code></pre>
+                        </div>
+                    </div>
 
-<span class="code-keyword">function</span> <span class="code-function">sqrt</span>(x: <span class="code-type">PositiveNumber</span>): <span class="code-type">number</span> {
-    <span class="code-keyword">return</span> Math.sqrt(x);
-}</pre>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Range in CS: Data Types</h3>
+                        <p>In strongly typed languages like C++ or Java, the <strong>Codomain</strong> is the return
+                            type
+                            (e.g., `uint8_t`), while the <strong>Range</strong> is the set of values the logic actually
+                            returns (e.g., only 0 and 1).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Properties -->
+            <section class="section" id="injection-surjection">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Injection, Surjection, Bijection</h2>
+                </div>
+                <div class="section-body">
+                    <p>These terms define how "tight" the mapping is between Domain and Codomain.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">1. Injective (One-to-One)</h3>
+                        <p>
+                            Distinct inputs map to distinct outputs. <strong>No collisions.</strong>
+                            <br><strong>Visual Test:</strong> Horizontal Line Test (hits at most once).
+                        </p>
+                        <div class="math-block">
+                            \forall a, b \in \text{Domain}, f(a) = f(b) \Rightarrow a = b.
+                        </div>
+                        <div class="info">
+                            <strong>🔒 CS Analogy: Cryptographic Hashes (Ideal)</strong>
+                            <p>A perfect hash function would be injective—every different file gives a different hash.
+                                In reality, because the range is finite and the domain is infinite, we get "collisions."
+                                A
+                                "collision-resistant" hash is <em>practically</em> injective.</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">2. Surjective (Onto)</h3>
+                        <p>
+                            Every element in the Codomain is hit by at least one input. The Range
+                            <strong>equals</strong>
+                            the Codomain.
+                        </p>
+                        <div class="math-block">
+                            \forall y \in \text{Codomain}, \exists x \in \text{Domain} \text{ such that } f(x) = y.
+                        </div>
+                        <div class="info">
+                            <strong>☔ Analogy: Paint Coverage</strong>
+                            <p>If you are painting a wall (Codomain), and you've covered every single spot with at least
+                                one coat of paint, your work is Surjective. If there's a tiny white spot left, it is
+                                not.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">3. Bijective (One-to-One Correspondence)</h3>
+                        <p>
+                            Both Injective AND Surjective. It's a <strong>Perfect Pairing</strong>.
+                            <br>Only Bijective functions have "True Inverses."
+                        </p>
+                        <div class="info">
+                            <strong>🎬 Analogy: Cinema Seating (Sold Out)</strong>
+                            <p>A movie theater where every seat is taken (Surjective) and every person has their own
+                                assigned seat (Injective). This is a Bijection between People and Seats.</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Checking properties</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def is_injective(func, domain):
+    outputs = []
+    for x in domain:
+        y = func(x)
+        if y in outputs:
+            return False # Collision!
+        outputs.append(y)
+    return True
+
+def is_surjective(func, domain, codomain):
+    outputs = set()
+    for x in domain:
+        outputs.add(func(x))
+    return outputs == codomain
+
+# Test cases
+domain = {1, 2, 3}
+codomain = {10, 20, 30}
+f = lambda x: x * 10
+# {1:10, 2:20, 3:30} -> Injective? Yes. Surjective? Yes. Bijective? Yes.
+
+codomain_large = {10, 20, 30, 40}
+# {1:10, 2:20, 3:30} -> Injective? Yes. Surjective? No (Missed 40).
+</code></pre>
                         </div>
                     </div>
                 </div>
-    </div>
-    </section>
+            </section>
 
-    <section class="section" id="inverse">
-        <div class="section-header">
-            <div class="section-number">Section 3</div>
-            <h2 class="section-title">Inverse Functions</h2>
-        </div>
-        <div class="section-body">
-            <div class="subsection">
-                <h3 class="subsection-title">What is an inverse?</h3>
-                <div class="math-block">If f(x) = y, then f⁻¹(y) = x
-
-                    The inverse "undoes" the function:
-                    f⁻¹(f(x)) = x
-                    f(f⁻¹(x)) = x</div>
-                <div class="info">
-                    <strong>↩️ Simple:</strong> An inverse function is the "Undo" button. If f(x) ties your shoes,
-                    f⁻¹(x) unties them. If you type 'A', f turns it to 'B'. f⁻¹ takes 'B' and turns it back to 'A'.
+            <!-- Inverse -->
+            <section class="section" id="inverse">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Inverse Functions</h2>
                 </div>
-            </div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">Finding an inverse</h3>
-            <div class="rule"><strong>Method:</strong><br>1. Replace f(x) with y<br>2. Swap x and y<br>3.
-                Solve for y<br>4. Replace y with f⁻¹(x)</div>
-            <div class="math-block">Find inverse of f(x) = 2x + 3:
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">The "Undo" Button</h3>
+                        <p>An inverse function reverses the mapping. If a function maps $x$ to $y$, the inverse maps $y$
+                            back
+                            to $x$.</p>
+                        <div class="math-block">
+                            \text{If } f(x) = y, \text{ then } f^{-1}(y) = x. \\
+                            \text{Essential Identity: } f^{-1}(f(x)) = x \text{ and } f(f^{-1}(x)) = x.
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Algorithm: Finding the Inverse</h3>
+                        <div class="rule">
+                            <strong>The Formal Recipe:</strong>
+                            <ol class="list-decimal ml-6">
+                                <li>Set $y = f(x)$.</li>
+                                <li><strong>Swap:</strong> Replace every $x$ with $y$, and every $y$ with $x$.</li>
+                                <li><strong>Solve:</strong> Rearrange the equation to isolate $y$.</li>
+                            </ol>
+                        </div>
+                        <div class="card">
+                            <strong>Example Walkthrough: $f(x) = \frac{x+3}{2}$</strong>
+                            <ol class="list-decimal ml-6 mt-2">
+                                <li>$y = \frac{x+3}{2}$</li>
+                                <li>$x = \frac{y+3}{2}$ (Swapped!)</li>
+                                <li>$2x = y + 3 \Rightarrow y = 2x - 3$</li>
+                                <li>$f^{-1}(x) = 2x - 3$</li>
+                            </ol>
+                        </div>
+                    </div>
 
-                1. y = 2x + 3
-                2. x = 2y + 3 (swap)
-                3. x - 3 = 2y
-                y = (x - 3)/2
-                4. f⁻¹(x) = (x - 3)/2
+                    <div class="subsection">
+                        <h3 class="subsection-title">CS Application: Data Serialization</h3>
+                        <p>When you `JSON.stringify()` an object to send it over the network, you are applying a
+                            function.
+                            When the receiver runs `JSON.parse()`, they are applying the <strong>inverse
+                                function</strong>
+                            to get the original data back. If the mapping wasn't bijective (e.g., if two different
+                            objects
+                            mapped to the same string), you'd have data loss!</p>
+                    </div>
 
-                Verify: f(f⁻¹(x)) = 2((x-3)/2) + 3 = x - 3 + 3 = x ✓</div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">One-to-one requirement</h3>
-            <div class="warning"><strong>Important:</strong> Only one-to-one functions have inverses. A
-                function is one-to-one if different inputs give different outputs (passes horizontal line
-                test).</div>
-            <div class="math-block">f(x) = x² is NOT one-to-one (f(2) = f(-2) = 4)
-                So x² has no inverse over all reals.
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Proving Inverse Relationship</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def f(x): return (x + 3) / 2
+def f_inv(x): return 2 * x - 3
 
-                But if we restrict domain to x ≥ 0:
-                f(x) = x² (x ≥ 0) → f⁻¹(x) = √x</div>
-            <div class="info">
-                <strong>🔒 Simple:</strong> A function is One-to-One if every output comes from a *unique* input. Like
-                Social Security Numbers—no two people have the same one.
-            </div>
-        </div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">CS application: Encryption</h3>
-            <div class="code-block">
-                <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Encrypt/Decrypt
-                        are inverse functions</span></div>
-                <div class="code-content">
-                    <pre><span class="code-comment"># Simple Caesar cipher</span>
-<span class="code-keyword">def</span> <span class="code-function">encrypt</span>(text, shift):
-    <span class="code-keyword">return</span> <span class="code-string">''</span>.join(<span class="code-function">chr</span>((<span class="code-function">ord</span>(c) - <span class="code-number">97</span> + shift) % <span class="code-number">26</span> + <span class="code-number">97</span>) <span class="code-keyword">for</span> c <span class="code-keyword">in</span> text)
+test_val = 42
+result = f_inv(f(test_val))
 
-<span class="code-keyword">def</span> <span class="code-function">decrypt</span>(text, shift):
-    <span class="code-keyword">return</span> <span class="code-function">encrypt</span>(text, -shift)  <span class="code-comment"># Inverse!</span>
-
-msg = <span class="code-string">"hello"</span>
-encrypted = <span class="code-function">encrypt</span>(msg, <span class="code-number">3</span>)   <span class="code-comment"># "khoor"</span>
-decrypted = <span class="code-function">decrypt</span>(encrypted, <span class="code-number">3</span>)  <span class="code-comment"># "hello"</span>
-
-<span class="code-comment"># decrypt(encrypt(x)) = x ← inverse property!</span></pre>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <section class="section" id="composition">
-        <div class="section-header">
-            <div class="section-number">Section 4</div>
-            <h2 class="section-title">Function Composition</h2>
-        </div>
-        <div class="section-body">
-            <div class="subsection">
-                <h3 class="subsection-title">Definition</h3>
-                <div class="math-block">(f ∘ g)(x) = f(g(x))
-
-                    "f composed with g" means: first apply g, then apply f.
-
-                    If f(x) = x² and g(x) = x + 1:
-                    (g ∘ f)(x) = g(f(x)) = g(x²) = x² + 1
-
-                    Note: f ∘ g ≠ g ∘ f in general!</div>
-                <div class="info">
-                    <strong>🏭 Simple:</strong> It's an assembly line. Raw material (x) goes into Machine G, gets shaped
-                    into g(x). Then that semi-finished product drops immediately into Machine F, coming out as f(g(x)).
-                </div>
-            </div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">Evaluating compositions</h3>
-            <div class="math-block">Given f(x) = 2x and g(x) = x - 3:
-
-                (f ∘ g)(5) = f(g(5)) = f(2) = 4
-                (g ∘ f)(5) = g(f(5)) = g(10) = 7
-
-                Find (f ∘ g)(x):
-                (f ∘ g)(x) = f(g(x)) = f(x - 3) = 2(x - 3) = 2x - 6</div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">CS application: Pipelines</h3>
-            <div class="code-block">
-                <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Data
-                        pipelines = function composition</span></div>
-                <div class="code-content">
-                    <pre><span class="code-comment"># Individual transformation functions</span>
-<span class="code-keyword">def</span> <span class="code-function">clean</span>(data): <span class="code-keyword">return</span> data.strip().lower()
-<span class="code-keyword">def</span> <span class="code-function">tokenize</span>(data): <span class="code-keyword">return</span> data.split()
-<span class="code-keyword">def</span> <span class="code-function">count</span>(tokens): <span class="code-keyword">return</span> <span class="code-function">len</span>(tokens)
-
-<span class="code-comment"># Composition: count(tokenize(clean(x)))</span>
-<span class="code-keyword">def</span> <span class="code-function">word_count</span>(text):
-    <span class="code-keyword">return</span> <span class="code-function">count</span>(<span class="code-function">tokenize</span>(<span class="code-function">clean</span>(text)))
-
-<span class="code-comment"># Or use a compose helper</span>
-<span class="code-keyword">from</span> functools <span class="code-keyword">import</span> reduce
-<span class="code-keyword">def</span> <span class="code-function">compose</span>(*funcs):
-    <span class="code-keyword">return</span> reduce(<span class="code-keyword">lambda</span> f, g: <span class="code-keyword">lambda</span> x: f(g(x)), funcs)
-
-word_count = <span class="code-function">compose</span>(count, tokenize, clean)</pre>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <section class="section" id="gotchas">
-        <div class="section-header">
-            <div class="section-number">Section 5</div>
-            <h2 class="section-title">Common Gotchas</h2>
-        </div>
-        <div class="section-body">
-            <div class="warning"><strong>1. f⁻¹(x) ≠ 1/f(x)</strong><br>The inverse notation f⁻¹ does NOT mean
-                reciprocal! f⁻¹ is the inverse function, 1/f is the reciprocal.</div>
-            <div class="warning"><strong>2. Composition order matters</strong><br>(f ∘ g)(x) = f(g(x)), not
-                g(f(x)). Read right to left: apply g first, then f.</div>
-            <div class="warning"><strong>3. Not all functions have inverses</strong><br>x² doesn't have an
-                inverse over all reals because f(2) = f(-2). Must restrict domain.</div>
-            <div class="warning"><strong>4. Domain of composition</strong><br>For (f ∘ g)(x), the output of g
-                must be in the domain of f.</div>
-            <div class="warning"><strong>5. Inverse swaps domain and range</strong><br>Domain of f = Range of
-                f⁻¹, and vice versa.</div>
-        </div>
-    </section>
-
-    <section class="section" id="videos">
-        <div class="section-header">
-            <div class="section-number">Section 6</div>
-            <h2 class="section-title">Video Lessons</h2>
-        </div>
-        <div class="section-body">
-            <div class="video-container">
-                <div class="video-player">
-                    <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-                    <div class="video-info">
-                        <div class="video-title" id="videoTitle">Select a video</div>
-                        <div class="video-meta" id="videoMeta"></div>
+print(f"Original: {test_val}")
+print(f"Processed: {f(test_val)}")
+print(f"Inversed: {result}")
+assert result == test_val # The 'Undo' works!</code></pre>
+                        </div>
                     </div>
                 </div>
-                <div class="video-list" id="videoList"></div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section class="section" id="practice">
-        <div class="section-header">
-            <div class="section-number">Section 7</div>
-            <h2 class="section-title">Practice Problems</h2>
-        </div>
-        <div class="section-body">
-            <p>Type your answer. Use standard notation: sqrt(x), x>=2, etc.</p>
-            <div class="quiz-controls">
-                <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                <button class="btn" id="btnRevealAll">Reveal All</button>
-                <button class="btn" id="btnClear">Clear Inputs</button>
-                <button class="btn btn-danger" id="btnReset">Reset Stats</button>
-            </div>
-            <div id="quizContainer"></div>
-        </div>
-    </section>
-    </main>
+            <!-- Composition -->
+            <section class="section" id="composition">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Function Composition</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <p>Composition is the act of piping the output of one function into the input of another. This
+                            is
+                            the foundation of modular software design.</p>
+                        <div class="math-block">
+                            (f \circ g)(x) = f(g(x))
+                        </div>
+                        <div class="warning">
+                            <strong>Order Matters: Socks and Shoes</strong>
+                            <p>Generally, $f(g(x)) \neq g(f(x))$.
+                                <br>• $g(x) = \text{Put on socks}$
+                                <br>• $f(x) = \text{Put on shoes}$
+                                <br>Applying $f \circ g$ means socks then shoes (Correct).
+                                <br>Applying $g \circ f$ means shoes then socks (Disaster).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-label">Compose Utility</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-javascript">// A utility to compose N functions
+const compose = (...fns) => (x) => fns.reduceRight((acc, fn) => fn(acc), x);
+
+const addOne = x => x + 1;
+const double = x => x * 2;
+
+// double(addOne(5)) = 12
+const addThenDouble = compose(double, addOne);
+console.log(addThenDouble(5)); </code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Application: Shell Piping</h3>
+                        <p>When you run `cat file.txt | grep "error" | wc -l` in a terminal, you are performing
+                            <strong>function composition</strong>. The output of one process becomes the domain of the
+                            next.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Functional Programming -->
+            <section class="section" id="fp">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Functional Programming (Map, Filter, Reduce)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In CS, we often treat functions as data. This mathematical approach leads to more reliable,
+                        predictable code.
+                    </p>
+
+                    <div class="two-col">
+                        <div class="card">
+                            <h3>1. Map</h3>
+                            <p>Applies $f$ to every element.</p>
+                            <div class="math-block">\text{map}(f, [1, 2, 3]) = [f(1), f(2), f(3)]</div>
+                        </div>
+                        <div class="card">
+                            <h3>2. Filter</h3>
+                            <p>Keeps elements satisfying $P(x)$.</p>
+                            <div class="math-block">\text{filter}(P, [1, 2, 3]) = \{x : P(x) = \text{True}\}</div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Pure Functions & State</h3>
+                        <p>A <strong>Pure Function</strong> is a mathematical function: it has no "side effects." It
+                            doesn't
+                            change variables outside itself or read from a database. This makes code easier to debug and
+                            <strong>parallelize</strong> (because multiple CPUs can run the same function without
+                            interfering).
+                        </p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Procedural vs. Functional</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python"># Procedural (Modifying state)
+total = 0
+for x in [1, 2, 3]:
+    total += x
+
+# Functional (Transforming data)
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, [1, 2, 3])</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Currying -->
+            <section class="section" id="currying">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Currying & Partial Application</h2>
+                </div>
+                <div class="section-body">
+                    <p>Mathematics treats functions of multiple variables f(x, y) as single-variable functions that
+                        return another function. This is named after Haskell Curry.</p>
+
+                    <div class="rule">
+                        $$ f(x, y) \Rightarrow f(x)(y) $$
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <span class="code-label">Currying in practice</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-javascript">// Non-curried
+const add = (a, b) => a + b;
+
+// Curried
+const curriedAdd = a => b => a + b;
+
+// Partial Application: Create a new function "addFive"
+const addFive = curriedAdd(5); 
+
+console.log(addFive(10)); // 15
+console.log(addFive(20)); // 25</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>💡 Why Curry?</strong>
+                        <p>It allows you to "configure" a function once and reuse the specific version later. For
+                            example,
+                            creating a specific `logToDatabase` function from a generic `logger(destination, message)`
+                            function.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recursion -->
+            <section class="section" id="recursion">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Recursion & Induction</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Recursion is the process of a function calling itself to solve a problem. It is the
+                        computational
+                        implementation of <strong>Mathematical Induction</strong>.
+                    </p>
+                    <div class="rule">
+                        <strong>The Golden Rules of Recursion:</strong>
+                        <br>1. <strong>Base Case (The Anchor):</strong> A condition where the function stops calling
+                        itself.
+                        <br>2. <strong>Recursive Step (The Reduction):</strong> Moving toward the base case with a
+                        smaller
+                        version of the problem.
+                    </div>
+
+                    <div class="info">
+                        <strong>🪆 Analogy: The Russian Nesting Doll</strong>
+                        <p>To find the prize in the smallest doll, you must open the current doll (Recursive Step) until
+                            you find one that doesn't open (Base Case).</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Call Stack</h3>
+                        <p>In CS, every recursive call is pushed onto a "Stack." If you forget your base case, the stack
+                            grows until the computer runs out of memory, resulting in the famous <strong>Stack
+                                Overflow</strong>.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Recursion vs Iteration</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python"># Recursive Factorial: f(n) = n * f(n-1)
+def factorial_recursive(n):
+    if n <= 1: return 1 # Base Case
+    return n * factorial_recursive(n - 1) # Recursive Step
+
+# Iterative Factorial (Loop)
+def factorial_iterative(n):
+    res = 1
+    for i in range(2, n + 1):
+        res *= i
+    return res</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Head vs. Tail Recursion</h3>
+                        <p><strong>Tail Recursion</strong> is a special case where the recursive call is the <em>very
+                                last</em> action in the function. Modern compilers can optimize this to be as fast as a
+                            loop!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gotchas -->
+            <section class="section" id="gotchas">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Common Gotchas</h2>
+                </div>
+                <div class="section-body">
+                    <div class="warning">
+                        <strong>1. The Inverse Notation Trap</strong>
+                        <p>$f^{-1}(x)$ means the inverse function, NOT $\frac{1}{f(x)}$. The minus-one is a label, not
+                            an
+                            exponent in this context!</p>
+                    </div>
+                    <div class="warning">
+                        <strong>2. Non-Deterministic "Functions"</strong>
+                        <p>In math, a function MUST be deterministic. In code, `Math.random()` or functions that read
+                            from a changing global variable are not strictly "mathematical functions."</p>
+                    </div>
+                    <div class="warning">
+                        <strong>3. Composition Direction</strong>
+                        <p>$(f \circ g)(x)$ is $f(g(x))$. You evaluate $g$ first. It's read right-to-left.</p>
+                    </div>
+                    <div class="warning">
+                        <strong>4. Floating Point Precision</strong>
+                        <p>In code, `(0.1 + 0.2) === 0.3` is <em>False</em>. Be careful when defining domain ranges with
+                            floats!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 12</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <p>Type your answer. Use standard notation: sqrt(x), x>=2, etc.</p>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Function Fundamentals",
+                title: "Mathematical Foundations",
                 items: [
-                    { title: "What is a Function?", channel: "Math Antics", vid: "52tpYl2tT_Q" },
-                    { title: "Introduction to Functions", channel: "Khan Academy", vid: "2k4E03-sA_k" },
-                    { title: "Introduction to Functions (Eddie Woo)", channel: "Eddie Woo", vid: "Vd3P2a3j_z0" }
+                    { title: "What is a Function?", channel: "Professor Leonard", vid: "52tpYl2tTqk" },
+                    { title: "Domain and Range Essentials", channel: "Organic Chemistry Tutor", vid: "cO_R_5b0Xw4" },
+                    { title: "Vertical Line Test", channel: "Brian McLogan", vid: "0K2F-X7fM8c" },
+                    { title: "Injective, Surjective, Bijective", channel: "Dr. Trefor Bazett", vid: "x-L3B6_J35E" },
+                    { title: "Inverse Functions: The 'Undo' Mapping", channel: "NancyPi", vid: "9b2rIeF59C4" },
+                    { title: "Function Composition", channel: "Professor Leonard", vid: "9N2rYl2gQ0g" }
                 ]
             },
             {
-                title: "Advanced Concepts",
+                title: "Functional Programming & CS",
                 items: [
-                    { title: "Domain and Range", channel: "Organic Chemistry Tutor", vid: "cO_R_5b0Xw4" },
-                    { title: "Inverse Functions", channel: "NancyPi", vid: "9b2rIeF59C4" },
-                    { title: "Function Composition", channel: "Professor Leonard", vid: "9N2rYl2gQ0g" },
-                    { title: "Injective, Surjective, Bijective", channel: "Dr. Trefor Bazett", vid: "x-L3B6_J35E" },
-                    { title: "Map, Filter, Reduce (Functional)", channel: "Computerphile", vid: "cKznzP0K9rc" }
+                    { title: "Recursion Explained with Nesting Dolls", channel: "Coding Garden", vid: "6oDQaB2one8" },
+                    { title: "Map, Filter, Reduce in 10 Minutes", channel: "Web Dev Simplified", vid: "R8rmfD9Y5-c" },
+                    { title: "Currying Explained", channel: "Web Dev Simplified", vid: "vA-55wZtLeE" },
+                    { title: "Total vs Partial Functions", channel: "Wolfram", vid: "vV_t-SjS9_0" },
+                    { title: "Lambda Calculus & Functional Power", channel: "Computerphile", vid: "eis11j_iGMs" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day3'], storageKey: 'day3_v2' });
+
+        // Ensure shared-scripts.js is loaded
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day3'] || [],
+            storageKey: 'day3_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

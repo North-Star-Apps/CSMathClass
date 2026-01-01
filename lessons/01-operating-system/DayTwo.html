@@ -16,6 +16,7 @@
     onload="renderMathInElement(document.body);"></script>
   <link rel="stylesheet" href="../../lessons/shared-styles.css">
   <script src="../../lessons/questions-data.js"></script>
+  <script src="../../lessons/generator-utils.js"></script>
   <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
@@ -55,9 +56,26 @@
       unlock graphics, optimization, algorithm analysis, and code refactoring.
     </p>
     <div class="hero-meta">
-      <div class="meta-item">~95 min read</div>
-      <div class="meta-item">40 practice problems</div>
-      <div class="meta-item">8 video lessons</div>
+      <div class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+        ~95 min read
+      </div>
+      <div class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        20 practice problems
+      </div>
+      <div class="meta-item">
+        <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3" />
+        </svg>
+        11 video lessons
+      </div>
     </div>
   </header>
 
@@ -1020,23 +1038,29 @@ x = <span class="code-function">symbols</span>(<span class="code-string">'x'</sp
   <script>
     const VIDEO_GROUPS = [
       {
-        title: "Systems of Equations",
+        title: "Algebraic Fundamentals",
         items: [
-          { title: "Substitution Method (NancyPi)", channel: "NancyPi", vid: "Y7pWk7H-qK0" },
-          { title: "Elimination Method (NancyPi)", channel: "NancyPi", vid: "XOJgzW4P7T8" },
-          { title: "Solving Systems by Substitution", channel: "Khan Academy", vid: "V7H1oUHXPkg" },
-          { title: "Solving Systems by Elimination", channel: "Khan Academy", vid: "8kPGTx3p0Qo" },
-          { title: "Matrices for Systems", channel: "3Blue1Brown", vid: "kybYaqkpnOw" },
-          { title: "Row Reduced Echelon Form", channel: "The Organic Chemistry Tutor", vid: "biW3S9WQ9U" }
+          { title: "Introduction to the Quadratic Formula", channel: "Khan Academy", vid: "JSwjmTFMDjw" },
+          { title: "Factoring Polynomials - Hard Examples", channel: "Organic Chemistry Tutor", vid: "YtN9_tCaRQc" },
+          { title: "Completing the Square", channel: "Khan Academy", vid: "prx1dBiZh7o" },
+          { title: "Solving Systems by Substitution", channel: "NancyPi", vid: "V7H1oUHXPkg" },
+          { title: "Elimination Method for Systems", channel: "The Organic Chemistry Tutor", vid: "vA-55wZtLeE" }
         ]
       },
       {
-        title: "Quadratics & Polynomials",
+        title: "Systems & Linear Algebra",
         items: [
-          { title: "Introduction to the Quadratic Formula", channel: "Khan Academy", vid: "JSwjmTFMDjw" },
-          { title: "How to Solve Quadratic Equations by Factoring", channel: "Organic Chemistry Tutor", vid: "qeByhZF88rE" },
-          { title: "Factoring Polynomials - Hard Examples", channel: "Organic Chemistry Tutor", vid: "YtN9_tCaRQc" },
-          { title: "Completing the Square", channel: "Khan Academy", vid: "prx1dBiZh7o" }
+          { title: "Visualizing Systems of Equations", channel: "3Blue1Brown", vid: "fNk_zzaMoSs" },
+          { title: "Matrix Equations: Ax = b", channel: "Khan Academy", vid: "J_F7_cWv-zU" },
+          { title: "Solving Systems with Inverse Matrices", channel: "Khan Academy", vid: "W_K_gI06fH8" },
+          { title: "Row Echelon Form & Gaussian Elimination", channel: "Math and Science", vid: "2j5Ic2V7be4" }
+        ]
+      },
+      {
+        title: "Applications in CS",
+        items: [
+          { title: "Linear Systems & Ray Tracing", channel: "The Coding Train", vid: "TOEi6u2_uxI" },
+          { title: "Optimization & Applied Math", channel: "Steve Brunton", vid: "KZs_3WkSN2E" }
         ]
       }
     ];

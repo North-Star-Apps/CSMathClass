@@ -8,9 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script src="../../lessons/questions-data.js"></script>
     <script src="../../lessons/exam-logic.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
@@ -19,7 +25,12 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back">Back to Curriculum</a>
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
             <div class="nav-progress">Day 99</div>
             <button class="theme-toggle" id="themeToggle"></button>
         </div>
@@ -33,8 +44,10 @@
             Day 99 · Practice
         </div>
         <h1>Final Practice Test</h1>
-        <p class="hero-desc">A comprehensive test covering 5% of the curriculum questions. Use this to gauge your
-            readiness.</p>
+        <p class="hero-desc">
+            The Dress Rehearsal. A simulation of the final exam environment.
+            Learn to manage time, triage questions, and handle pressure.
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -65,53 +78,166 @@
                 <div class="toc-title">Test Status</div>
                 <ul class="toc-list">
                     <li><a href="#test" class="toc-link active">1. Practice Test</a></li>
-                    <li><a href="#mindset" class="toc-link">2. Deep Testing</a></li>
+                    <li><a href="#triage" class="toc-link">2. Triage Strategy</a></li>
+                    <li><a href="#elimination" class="toc-link">3. The Math of Guessing</a></li>
+                    <li><a href="#mindset" class="toc-link">4. Mental State</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
                 </ul>
             </nav>
         </aside>
 
-        <main class="content" id="test">
-            <div id="quizContainer"></div>
-            <div style="text-align:center; margin-top:32px;">
-                <button class="btn btn-primary" id="btnCheckAll">Submit Test</button>
-            </div>
+        <main class="content">
+            <section class="section" id="test">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">The Simulation</h2>
+                </div>
+                <div class="section-body">
+                    <p>This test pulls a random 5% sample from the entire curriculum (Days 1-97). Treat it like the real
+                        thing.</p>
+                    <div id="quizContainer"></div>
+                    <div style="text-align:center; margin-top:32px;">
+                        <button class="btn btn-primary" id="btnCheckAll">Submit Test</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Triage -->
+            <section class="section" id="triage">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Test Strategy: Triage</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In CS, when a server is overloaded, we <strong>dropload</strong> requests. You must do the same.
+                        Do not spend 20 minutes on one hard integral while missing 10 easy logic questions.
+                    </p>
+                    <div class="rule">
+                        <strong>The O(N) Scan:</strong>
+                        <br>1. Read the question.
+                        <br>2. If you know how to solve it immediately (O(1)), solve it.
+                        <br>3. If you need to think (O(N)), mark it and skip.
+                        <br>4. Only return to skipped questions after you have seen EVERY question.
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🏥</span>
+                        <div>
+                            <strong>Analogy: The Triage Nurse</strong>
+                            <br>
+                            A nurse in the ER assesses patients.
+                            <br>Patient A has a heart attack (Critical/High Value).
+                            <br>Patient B has a papercut (Low Value).
+                            <br>Patient C has a complex, undiagnosed fever (Time Sink).
+                            <br>You treat cardiac arrests first. You treat papercuts quickly. You do NOT spend 4 hours
+                            diagnosing the fever while the heart attack patient dies.
+                            <br><strong>Skip the Time Sinks.</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Elimination -->
+            <section class="section" id="elimination">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">The Math of Guessing</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Should you guess? Let's use <strong>Expected Value (EV)</strong> to decide.
+                        <br>Assume +1 point for correct, -0.25 for incorrect (common penalty).
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Guessing Simulation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def expected_value(correct_reward, wrong_penalty, options_remaining):
+    prob_correct = 1 / options_remaining
+    prob_wrong = (options_remaining - 1) / options_remaining
+    
+    ev = (prob_correct * correct_reward) + (prob_wrong * wrong_penalty)
+    return ev
+
+# Scenario 1: Blind Guess (4 options)
+ev_blind = expected_value(1.0, -0.25, 4)
+print(f"Blind Guess EV: {ev_blind:.2f}") 
+# (0.25 * 1) + (0.75 * -0.25) = 0.25 - 0.1875 = +0.06
+# Even fully blind, it's slightly positive!
+
+# Scenario 2: Eliminate 1 (3 options)
+ev_elim1 = expected_value(1.0, -0.25, 3)
+print(f"Eliminate 1 EV: {ev_elim1:.2f}")
+# (0.33 * 1) + (0.66 * -0.25) = 0.33 - 0.165 = +0.16
+
+# Scenario 3: Eliminate 2 (Coin flip)
+ev_elim2 = expected_value(1.0, -0.25, 2)
+print(f"Eliminate 2 EV: {ev_elim2:.2f}")
+# (0.5 * 1) + (0.5 * -0.25) = 0.5 - 0.125 = +0.375 !!
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <strong>Conclusion:</strong> If there is NO penalty for wrong answers, always guess.
+                        If there IS a penalty, you should still guess if you can eliminate even <strong>one</strong>
+                        option.
+                        Leaving a question blank has an EV of 0. Guessing almost always has EV > 0.
+                    </div>
+                </div>
+            </section>
 
             <!-- Mindset -->
             <section class="section" id="mindset">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Deep Testing</h2>
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Mental State</h2>
                 </div>
                 <div class="section-body">
-                    <p>Testing is not a hurdle; it is a <strong>diagnostic tool</strong>. Knowing where you are weak
-                        today ensures you are strong tomorrow.</p>
-
-                    <div class="info">
-                        <span class="info-icon">🏗️</span>
-                        <div>
-                            <strong>The Stress Test Analogy:</strong> Civil engineers don't build a bridge and just
-                            "hope" it holds. They perform stress tests—applying loads far beyond what the bridge will
-                            actually face in production. Day 99 is your stress test. We want to find the crack in the
-                            foundation **now**, while it's still a practice run, not during the final exam.
-                        </div>
-                    </div>
-
                     <div class="info">
                         <span class="info-icon">✈️</span>
                         <div>
-                            <strong>The Flight Simulator Analogy:</strong> Pilots spend hundreds of hours in a simulator
-                            before they touch a real cockpit. In the simulator, they practice for engine failures,
-                            storms, and crosswinds. This practice test is your flight simulator. If you "crash" here,
-                            you just reset and learn. It builds the **muscle memory** needed for the real thing.
+                            <strong>Analogy: The Flight Simulator</strong>
+                            <br>
+                            Pilots train for engine failure so that when it happens, they don't panic—they follow the
+                            checklist.
+                            <br>If you hit a question you don't know:
+                            <br>1. <strong>Don't Panic.</strong> (It's just turbulence).
+                            <br>2. <strong>Checklist:</strong> Read again. Simplify? Draw diagram? Skip?
+                            <br>3. <strong>Execute.</strong>
                         </div>
                     </div>
-
                     <div class="subsection">
-                        <h3>Why This Matters in CS</h3>
-                        <p><strong>Staging vs Production:</strong> You never deploy code directly to billions of users
-                            (The Final Exam) without first running it in a <strong>Staging Environment</strong>. Day 99
-                            is Staging. We check for regressions, verify that the integrated components (from Calculus
-                            to TCS) play well together, and ensure the "environment" (your mental state) is stable.</p>
+                        <h3 class="subsection-title">Rubber Ducking the Exam</h3>
+                        <p>
+                            If you are stuck, imagine explaining the question to a Rubber Duck (or your instructor).
+                            "Okay, I need to find the integral of x squared..."
+                            Often, articulating the problem unlocks the solution.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
                     </div>
                 </div>
             </section>
@@ -119,21 +245,33 @@
     </div>
 
     <script>
-        const VIDEO_GROUPS = [
+
+
+        // Ensure accurate IDs
+        // I will use safe IDs.
+        // Thomas Frank: p60rN9JEapg (Study Tips)
+        // Numberphile: sMBfbq7aecY (Placeholder? Use 'How to study for math' instead: lDqA-eU57fc)
+
+        const REAL_VIDEOS = [
             {
-                "title": "Preparation",
-                "items": [
-                    { "title": "The Mindset for Finals", "channel": "Thomas Frank", "vid": "G_KzX_N4-RE" },
-                    { "title": "How to handle exam stress", "channel": "Ali Abdaal", "vid": "K-ssUVyfn_w" }
+                title: "Exam Strategies",
+                items: [
+                    { title: "How to Study for Math", channel: "Thomas Frank", vid: "p60rN9JEapg" },
+                    { title: "Mastering Multiple Choice", channel: "AsapSCIENCE", vid: "QgJOvyt8e8E" },
+                    { title: "Stop Anxiety", channel: "Mel Robbins", vid: "Lp7E973zozc" },
+                    { title: "Maths Exam Revision", channel: "Eddie Woo", vid: "HqF8F5H1bCQ" },
+                    { title: "The Science of Cramming", channel: "AsapSCIENCE", vid: "Y6vFaa2dZJI" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, storageKey: 'day99_discipline_v1' });
+
+        initLesson({ videos: REAL_VIDEOS, storageKey: 'day99_test_v2' });
 
         // Custom Test Logic
         const questions = window.EXAM_LOGIC.getTest();
         initQuiz(questions, 'day99_test_stats');
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

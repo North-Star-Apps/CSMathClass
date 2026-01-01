@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 16: Multiple Integrals & Change of Variables</title>
+    <title>Day 16: Integration Techniques & Monte Carlo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,32 +22,59 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 12 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 16 · Multivariable Calculus</div>
-
-        <p class="hero-desc">From double integrals to Maxwell's equations. The complete toolkit for calculus in 3D.</p>
+            </svg>
+            Day 16 · Solving the Unsolvable
+        </div>
+        <h1>Integration Techniques</h1>
+        <p class="hero-desc">
+            Most integrals in the real world (lighting, airflow, finance) have no formula.
+            So we don't solve them. We simulate them. From <code>random()</code> to Ray Tracing.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~80 min read</div>
-            <div class="meta-item">22 practice problems</div>
-            <div class="meta-item">12 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~135 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                45 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -57,12 +84,17 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#double" class="toc-link">1. Double Integrals</a></li>
-                    <li><a href="#triple" class="toc-link">2. Triple Integrals</a></li>
-                    <li><a href="#change" class="toc-link">3. Change of Variables</a></li>
-                    <li><a href="#polar" class="toc-link">4. Polar & Spherical</a></li>
-                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#analytic" class="toc-link">1. Analytic Techniques</a></li>
+                    <li><a href="#numerical" class="toc-link">2. Advanced Numerical</a></li>
+                    <li><a href="#monte-carlo" class="toc-link">3. Monte Carlo Theory</a></li>
+                    <li><a href="#importance" class="toc-link">4. Importance Sampling</a></li>
+                    <li><a href="#graphics" class="toc-link">5. Graphics: Path Tracing</a></li>
+                    <li><a href="#mcmc" class="toc-link">6. MCMC (Integration in ML)</a></li>
+                    <li><a href="#python" class="toc-link">7. Python Simulations</a></li>
+                    <li><a href="#casestudy" class="toc-link">8. Case Study: Finance</a></li>
+                    <li><a href="#summary" class="toc-link">9. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">10. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">11. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -77,323 +109,542 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Multiple Integrals Matter</h2>
+                    <h2 class="section-title">Why Integration Hardness Matters in CS</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Real-world data is multidimensional.</strong> Computing areas, volumes,
-                        mass, probability over regions requires multiple integration.</div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Applications</h3>
-                        <ul>
-                            <li><strong>Probability:</strong> P(X,Y ∈ Region) = ∫∫ f(x,y) dA</li>
-                            <li><strong>Physics:</strong> Mass = ∫∫∫ ρ(x,y,z) dV</li>
-                            <li><strong>Graphics:</strong> Rendering, volume calculations</li>
-                            <li><strong>Machine Learning:</strong> Marginal distributions, normalizing constants</li>
-                        </ul>
+                    <p>
+                        In differentiation, we have the chain rule. If you can write a computer program, you can
+                        differentiate it automatically (Autodiff).
+                        <strong>Integration does not have a general algorithmic solution.</strong> Many simple functions
+                        are "impossible" to integrate symbolically.
+                    </p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🎮 Realistic Lighting</h3>
+                            <p>To render a single pixel in a movie, you must integrate the light bouncing from every
+                                other surface. This is billions of dimensions of integration.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🤖 Machine Learning</h3>
+                            <p>To calculate the "Evidence" in Bayesian inference, you must integrate over all possible
+                                model parameters. This integral is often the bottleneck of modern AI.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🧪 Scientific Simulation</h3>
+                            <p>Predicting the path of a protein folding or a galaxy involves integrating forces over
+                                time steps.</p>
+                        </div>
+                        <div class="card">
+                            <h3>💼 Options Pricing</h3>
+                            <p>Financial derivatives depend on integrating the probability of every possible future
+                                stock price.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🌀</span>
+                        <strong>Analogy: The Blender</strong>
+                        <br>Differentiation is like taking a photo of a moving gear—you see the instant speed.
+                        <br>Integration is like trying to reconstruct the original fruit from a smoothie.
+                        <br>Unless the fruit was simple, you have to use statistical sampling to "guess" the original
+                        contents.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="double">
+            <!-- Analytic -->
+            <section class="section" id="analytic">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Double Integrals</h2>
+                    <h2 class="section-title">Analytic Techniques (The "Symbolic" Approach)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Double Integral over Region R</div>
-                            <div class="formula-main">∫∫_R f(x,y) dA = lim Σ f(xᵢ,yⱼ) ΔA</div>
+                    <p>
+                        In CS, analytic integration is mostly the domain of <strong>Symbolic Computation</strong> (like
+                        SymPy or Mathematica).
+                        While you rarely solve these by hand in a SWE job, knowing the "Big Three" helps you understand
+                        what a symbolic engine is doing.
+                    </p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>1. U-Substitution</h3>
+                            <p><strong>The Reverse Chain Rule.</strong> If you see a function and its derivative
+                                multiplied together, collapse them.</p>
+                            <p>$\int e^{x^2} (2x) dx \rightarrow \int e^u du$ where $u=x^2$.</p>
                         </div>
-                        <div class="info">
-                            <strong>🍪 Simple:</strong> The Cookie Cutter.
-                            <br>Imagine a sheet of dough with uneven thickness ($f(x,y)$).
-                            <br>The Region $R$ is the shape of your cookie cutter.
-                            <br>The double integral is the <strong>volume</strong> of the dough inside that cutter.
+                        <div class="card">
+                            <h3>2. Integration By Parts</h3>
+                            <p><strong>The Reverse Product Rule.</strong> Used when two unrelated functions are
+                                multiplied (e.g., $x \cdot \sin(x)$).</p>
+                            <p>$\int u \, dv = uv - \int v \, du$</p>
+                        </div>
+                        <div class="card">
+                            <h3>3. Partial Fractions</h3>
+                            <p><strong>Decomposition.</strong> Breaking complex ratios into simple ones. This is the
+                                integration version of "Divide and Conquer."</p>
+                            <p>$\frac{1}{x^2-1} = \frac{1/2}{x-1} - \frac{1/2}{x+1}$</p>
+                        </div>
+                        <div class="card">
+                            <h3>Trig Substitution</h3>
+                            <p><strong>Changing Coordinate Systems.</strong> If you see $\sqrt{1-x^2}$, you map $x$ to
+                                $\sin(\theta)$. This is like changing a problem from Cartesian to Polar space to make it
+                                easier.</p>
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Iterated integrals</h3>
-                        <div class="math-block">For a rectangular region [a,b] × [c,d]:
 
-                            ∫∫_R f(x,y) dA = ∫ₐᵇ ∫_c^d f(x,y) dy dx
-                            = ∫_c^d ∫ₐᵇ f(x,y) dx dy
-
-                            Fubini's Theorem: Order can be switched if f is continuous.</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Non-rectangular regions</h3>
-                        <div class="math-block">Type I: a ≤ x ≤ b, g₁(x) ≤ y ≤ g₂(x)
-                            ∫∫_R f(x,y) dA = ∫ₐᵇ ∫_{g₁(x)}^{g₂(x)} f(x,y) dy dx
-
-                            Type II: c ≤ y ≤ d, h₁(y) ≤ x ≤ h₂(y)
-                            ∫∫_R f(x,y) dA = ∫_c^d ∫_{h₁(y)}^{h₂(y)} f(x,y) dx dy</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example</h3>
-                        <div class="math-block">∫∫_R xy dA where R is 0 ≤ x ≤ 1, 0 ≤ y ≤ x
-
-                            = ∫₀¹ ∫₀ˣ xy dy dx
-                            = ∫₀¹ x[y²/2]₀ˣ dx
-                            = ∫₀¹ x·(x²/2) dx
-                            = ∫₀¹ x³/2 dx
-                            = [x⁴/8]₀¹ = 1/8</div>
+                    <div class="info">
+                        <span class="info-icon">🤖</span>
+                        <strong>CS Note: Reachability vs. Computation</strong>
+                        <br>The "Risch Algorithm" is what computers use to decide if a function <em>can</em> be
+                        integrated analytically.
+                        Most functions used in Gaussian distributions (bell curves) <strong>cannot</strong> be
+                        integrated this way.
+                        That's why we need Sections 2-6!
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="triple">
+            <!-- Numerical -->
+            <section class="section" id="numerical">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Triple Integrals</h2>
+                    <h2 class="section-title">Advanced Numerical Integration</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Setup</h3>
-                        <div class="math-block">∫∫∫_E f(x,y,z) dV
+                    <p>While Riemann sums are fine for simple cases, professional numerical libraries (like SciPy) use
+                        more sophisticated approaches that minimize the number of "Function Evaluations."
+                        <strong>In CS, function evaluation is usually the most expensive part of your code.</strong>
+                    </p>
 
-                            For a box [a,b] × [c,d] × [p,q]:
-                            = ∫ₐᵇ ∫_c^d ∫_p^q f(x,y,z) dz dy dx
-
-                            Volume: ∫∫∫_E 1 dV = Volume(E)</div>
+                    <div class="grid-3col">
+                        <div class="rule">
+                            <strong>1. Trapezoid Rule</strong>
+                            <br>Connect points with straight lines.
+                            <br>$\text{Error} \propto h^2$
+                            <br><small>Robust but slow.</small>
+                        </div>
+                        <div class="rule">
+                            <strong>2. Simpson's Rule</strong>
+                            <br>Connect points with parabolas.
+                            <br>$\text{Error} \propto h^4$
+                            <br><small>Standard for smooth curves.</small>
+                        </div>
+                        <div class="rule">
+                            <strong>3. Gaussian Quadrature</strong>
+                            <br>Variable spacing.
+                            <br>$\text{Error} \propto h^{2n-1}$
+                            <br><small>Optimal for polynomials.</small>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Applications</h3>
-                        <div class="math-block">Mass: M = ∫∫∫_E ρ(x,y,z) dV
 
-                            Center of mass:
-                            x̄ = (1/M) ∫∫∫ x·ρ dV
-                            ȳ = (1/M) ∫∫∫ y·ρ dV
-                            z̄ = (1/M) ∫∫∫ z·ρ dV</div>
+                    <div class="info">
+                        <span class="info-icon">🎯</span>
+                        <strong>Analogy: Selecting a Jury</strong>
+                        <br>Imagine you want to know the "Average Opinion" of a city.
+                        <br>1. <strong>Riemann:</strong> Ask every 10th person on the street (Uniform). This is
+                        wasteful.
+                        <br>2. <strong>Gaussian Quadrature:</strong> Carefully select a small group of "Representative"
+                        citizens who capture the city's diversity perfectly.
+                        <br>You get a much more accurate result with 5 questions than Riemann gets with 100.
+                    </div>
+
+                    <div class="card">
+                        <h3>Why Gaussian Quadrature Wins</h3>
+                        <p>Instead of sampling at $x=0, 0.5, 1.0$, it samples at specific "Magic Numbers" (roots of
+                            Legendre polynomials) like $x \approx 0.1127, 0.5, 0.8872$. By choosing the
+                            <strong>weights</strong> and <strong>locations</strong> together, you double your accuracy
+                            for the same amount of work.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="change">
+            <!-- Monte Carlo -->
+            <section class="section" id="monte-carlo">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Change of Variables</h2>
+                    <h2 class="section-title">Monte Carlo Theory: Integration by Probability</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">The formula</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Change of Variables</div>
-                            <div class="formula-main">∫∫_R f(x,y) dxdy = ∫∫_S f(x(u,v), y(u,v)) |J| dudv</div>
-                        </div>
-                        <p>where J is the Jacobian:</p>
-                        <div class="math-block">J = ∂(x,y)/∂(u,v) = |∂x/∂u ∂x/∂v|
-                            |∂y/∂u ∂y/∂v|</div>
+                    <p>
+                        When you have a 100-dimensional integral (common in Finance and Physics), grid methods (like
+                        Simpson's) fail.
+                        If you sample 10 points per dimension, you need $10^{100}$ points—more than the atoms in the
+                        universe.
+                        This is the <strong>Curse of Dimensionality.</strong>
+                        <br><br>The solution? <strong>Go Random.</strong>
+                    </p>
+
+                    <div class="math-block">
+                        $$ \int_a^b f(x)dx \approx \frac{b-a}{N} \sum_{i=1}^{N} f(X_i) $$
+                        Where $X_i$ are uniform random samples in $[a,b]$.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Why the Jacobian?</h3>
-                        <div class="rule"><strong>Key insight:</strong> |det(J)| measures how much area changes under
-                            the transformation. A small rectangle duv in uv-space becomes a parallelogram with area |J|
-                            dudv in xy-space.</div>
-                        <div class="info">
-                            <strong>💱 Simple:</strong> Currency Exchange Rate.
-                            <br>When you switch from "rectangular dollars" ($dxdy$) to "polar euros" ($drd\theta$),
-                            you need an exchange rate ($r$) to keep the value (area) correct.
-                            <br>Without it, a small angle change at 100 miles away would seem tiny, but it covers a huge
-                            area!
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🎲 The "Dartboard" Logic</h3>
+                            <p>If you don't know the area of a circle, throw 1,000 darts at a square around it. The
+                                percentage of darts that hit the circle tells you the area relative to the square.</p>
                         </div>
+                        <div class="card">
+                            <h3>📉 The Law of Large Numbers</h3>
+                            <p>As $N \rightarrow \infty$, the average of your random samples is guaranteed to converge
+                                to the true integral.</p>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>The Catch: Convergence Speed</strong>
+                        <br>Error $\approx \frac{1}{\sqrt{N}}$.
+                        <br>To get 10x more accuracy (one extra decimal place), you need 100x more samples. This is why
+                        Monte Carlo is "noisy" and slow to get perfect, but it <strong>never</strong> gets hit by the
+                        Curse of Dimensionality.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="polar">
+            <!-- Importance Sampling -->
+            <section class="section" id="importance">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Polar & Spherical Coordinates</h2>
+                    <h2 class="section-title">Importance Sampling: Strategy Over Luck</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Polar coordinates (2D)</h3>
-                        <div class="math-block">x = r cos(θ), y = r sin(θ)
+                    <p>
+                        Standard Monte Carlo samples points <strong>uniformly</strong>. But if your function is zero
+                        almost everywhere and has one giant spike, you'll waste 99% of your samples on the zeroes.
+                        <strong>Importance Sampling</strong> means sampling from a distribution $q(x)$ that matches your
+                        function's shape.
+                    </p>
 
-                            Jacobian: |J| = r
-
-                            ∫∫_R f(x,y) dxdy = ∫∫_S f(r,θ) r dr dθ
-
-                            Use when: circular symmetry, x² + y² appears</div>
+                    <div class="math-block">
+                        $$ I \approx \frac{1}{N} \sum_{i=1}^N \frac{f(x_i)}{q(x_i)} $$
+                        We divide by $q(x_i)$ to "penalize" the regions we sampled more often, keeping the result
+                        <strong>unbiased</strong>.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: Area of circle</h3>
-                        <div class="math-block">Area = ∫∫_{x²+y²≤R²} 1 dxdy
 
-                            In polar: 0 ≤ r ≤ R, 0 ≤ θ ≤ 2π
-
-                            = ∫₀^{2π} ∫₀^R r dr dθ
-                            = ∫₀^{2π} [r²/2]₀^R dθ
-                            = ∫₀^{2π} R²/2 dθ
-                            = πR²</div>
+                    <div class="info">
+                        <span class="info-icon">🔦</span>
+                        <strong>Analogy: The Flashlight in a Dark Room</strong>
+                        <br>Imagine you are looking for your keys in a giant, pitch-black mansion.
+                        <br>1. <strong>Standard Monte Carlo:</strong> Take one step in a completely random direction.
+                        Repeat until you step on keys.
+                        <br>2. <strong>Importance Sampling:</strong> Put a flashlight on the <strong>sofa</strong> and
+                        the <strong>table</strong> (where keys are likely to be). Spend more time looking there.
+                        <br>You still check the whole room, but you focus your effort where it results in "Information"
+                        faster.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Spherical coordinates (3D)</h3>
-                        <div class="math-block">x = ρ sin(φ) cos(θ)
-                            y = ρ sin(φ) sin(θ)
-                            z = ρ cos(φ)
 
-                            ρ = radius, φ = angle from z-axis, θ = angle in xy-plane
-
-                            |J| = ρ² sin(φ)
-
-                            dV = ρ² sin(φ) dρ dφ dθ</div>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Cylindrical coordinates</h3>
-                        <div class="math-block">x = r cos(θ)
-                            y = r sin(θ)
-                            z = z
-
-                            |J| = r
-
-                            dV = r dr dθ dz
-
-                            Use when: cylindrical symmetry</div>
+                    <div class="card">
+                        <h3>Variance Reduction</h3>
+                        <p>Importance Sampling is the primary way we reduce "Noise" in CGI and Financial models. Smaller
+                            variance = faster convergence = cheaper cloud compute bills.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Line Integrals (from Day 19) -->
-            <section class="section" id="line">
+            <!-- Graphics -->
+            <section class="section" id="graphics">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Line Integrals</h2>
+                    <h2 class="section-title">Graphics Application: Path Tracing</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Scalar line integral</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Line Integral of Scalar Function</div>
-                            <div class="formula-main">∫_C f ds = ∫ₐᵇ f(r(t)) |r'(t)| dt</div>
-                        </div>
-                        <p>Integrates f along the curve C. Think: "weighted arc length."</p>
-                        <div class="math-block">If f = 1: ∫_C 1 ds = arc length of C
+                    <p>
+                        Modern game engines (Unreal Engine 5, Ray Tracing) and film renderers (RenderMan) use Monte
+                        Carlo to solve the <strong>Rendering Equation</strong>.
+                    </p>
 
-                            Example: C is unit circle, f = 1
-                            Arc length = ∫₀^{2π} 1 · 1 dt = 2π</div>
+                    <div class="math-block">
+                        $$ L_o = L_e + \int_\Omega f_r L_i \cos \theta d\omega_i $$
+                        Translation: The light coming off a surface = (Emitted light) + (Integral of light bouncing from
+                        <strong>every</strong> other surface in the room).
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Vector line integral (work)</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Line Integral of Vector Field</div>
-                            <div class="formula-main">∫_C F · dr = ∫ₐᵇ F(r(t)) · r'(t) dt</div>
-                        </div>
-                        <p>Computes work done by force F along path C.</p>
-                        <div class="math-block">Physical meaning:
-                            • F · dr = component of force along path × distance
-                            • Sum up these tiny work contributions
 
-                            If F ⊥ path everywhere: work = 0
-                            If F ∥ path everywhere: work = |F| × length</div>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🔍 Recursive Sampling</h3>
+                            <p>To find the light at one pixel, the computer shoots a "Ray." That ray hits a wall, then
+                                bounces. Each bounce is a <strong>Monte Carlo sample</strong> of the room's total
+                                lighting.</p>
+                        </div>
+                        <div class="card">
+                            <h3>✨ The "Grain"</h3>
+                            <p>When you see "grain" or "noise" in a 3D render, you are seeing the raw variance of Monte
+                                Carlo integration. As the engine takes more samples, the grains blend into a smooth
+                                image.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Conservative Fields (from Day 19) -->
-            <section class="section" id="conservative">
+            <!-- MCMC -->
+            <section class="section" id="mcmc">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Conservative Vector Fields</h2>
+                    <h2 class="section-title">MCMC: The Hidden Hero of AI</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="math-block">F is conservative if F = ∇φ for some potential function φ.
+                    <p>
+                        In Machine Learning, we often need to integrate over the "Posterior" distribution. This
+                        distribution is often impossible to sample from directly.
+                        <strong>Markov Chain Monte Carlo (MCMC)</strong> is an algorithm that explores the function by
+                        taking a "Random Walk."
+                    </p>
 
-                            Then: ∫_C F · dr = φ(end) - φ(start)
-
-                            Path independent! Only endpoints matter.</div>
+                    <div class="info">
+                        <span class="info-icon">🐕</span>
+                        <strong>Analogy: The Blindfolded Dog in the Park</strong>
+                        <br>You want to find the "Center of Mass" of a park based on where people are sitting.
+                        <br>1. You let a dog loose.
+                        <br>2. If the dog moves toward a crowded area, it stays there longer.
+                        <br>3. If it moves toward an empty area, it moves away quickly.
+                        <br>4. Over time, the <strong>history of the dog's path</strong> perfectly maps out the crowd
+                        density (the integral).
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Test for conservative</h3>
-                        <div class="math-block">In 2D: F = (P, Q) is conservative if ∂P/∂y = ∂Q/∂x
-                            In 3D: F is conservative if curl(F) = ∇ × F = 0
 
-                            Conservative ⟺ curl-free (in simply connected domains)</div>
+                    <div class="card">
+                        <h3>Metropolis-Hastings</h3>
+                        <p>This is the most famous MCMC algorithm. It uses a "Proposal Step" and an "Acceptance Ratio."
+                            It's basically an integration algorithm that <em>learns</em> where to sample as it goes.</p>
                     </div>
-                    <div class="info"><strong>Key insight:</strong> Gravity is conservative. Friction is not. This is
-                        why energy is conserved in some systems but not others.</div>
                 </div>
             </section>
 
-            <!-- Surface Integrals (from Day 19) -->
-            <section class="section" id="surface">
+            <!-- Python -->
+            <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Surface Integrals</h2>
+                    <h2 class="section-title">Python Simulations</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Scalar surface integral</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Surface Integral (Scalar)</div>
-                            <div class="formula-main">∫∫_S f dS = "sum f over surface"</div>
+                    <div class="grid-2col">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Estimating Pi</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import random
+
+def estimate_pi(n):
+    hits = 0
+    for _ in range(n):
+        x, y = random.random(), random.random()
+        # Check if point is inside unit circle
+        if x*x + y*y <= 1.0:
+            hits += 1
+    return 4 * hits / n
+
+print(f"Pi ≈ {estimate_pi(1000000):.5f}")</code></pre>
+                            </div>
                         </div>
-                        <p>If f = 1: this gives surface area.</p>
-                        <div class="info">
-                            <strong>🕸️ Simple:</strong> Flux is like a fishing net in a river.
-                            <br>If the water (field) flows parallel to the net strings, you catch nothing (0 flux).
-                            <br>If it hits the net head-on, you catch maximum water (max flux).
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Integrating x²</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+
+def mc_integrate(f, a, b, n=100000):
+    xs = np.random.uniform(a, b, n)
+    return (b - a) * np.mean(f(xs))
+
+# Integral of x^2 from 0 to 3 = 9
+result = mc_integrate(lambda x: x**2, 0, 3)
+print(f"∫x² dx = {result:.4f}")</code></pre>
+                            </div>
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Flux integral</h3>
-                        <div class="formula-box">
-                            <div class="formula-label">Flux Through Surface</div>
-                            <div class="formula-main">∫∫_S F · dS = ∫∫_S F · n̂ dS</div>
+
+                    <div class="grid-2col" style="margin-top: 2rem;">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Importance Sampling</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+
+# f(x) has a spike at x=0
+def f(x): return np.exp(-x**2/0.1)
+
+# q(x) is our proposal (Normal distribution)
+def q(x): return np.random.normal(0, 0.2, len(x))
+
+def importance_sample(n=10000):
+    samples = np.random.normal(0, 0.2, n)
+    weights = f(samples) / (np.exp(-samples**2/0.08)) # simplified
+    return np.mean(weights)
+
+print(f"Integral ≈ {importance_sample():.5f}")</code></pre>
+                            </div>
                         </div>
-                        <div class="math-block">Measures how much F "flows through" surface S.
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Simple MCMC (Metropolis)</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
 
-                            n̂ = unit normal to surface
-                            F · n̂ = component of F perpendicular to surface
+def metropolis(target_p, n=10000):
+    x = 0 # current state
+    samples = []
+    for _ in range(n):
+        x_new = x + np.random.normal(0, 0.5)
+        acceptance = min(1, target_p(x_new) / target_p(x))
+        if np.random.random() < acceptance:
+            x = x_new
+        samples.append(x)
+    return np.mean(samples)
 
-                            Examples:
-                            • Water flow through a net
-                            • Electric field through a surface (Gauss's law)</div>
+# Find mean of a Gaussian via Random Walk
+print(f"MCMC Mean: {metropolis(lambda x: np.exp(-x**2), 10000):.4f}")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2col" style="margin-top: 2rem;">
+                        <div class="card">
+                            <h3>🚀 Pro-Tip: NumPy Vectorization</h3>
+                            <p>In all these simulations, notice we use NumPy arrays instead of Python loops where
+                                possible. <code>np.random.uniform</code> is 100x faster than
+                                <code>random.random()</code> in a loop. In numerical integration, speed = more samples =
+                                better accuracy.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Big Theorems (from Day 19) -->
-            <section class="section" id="theorems">
+            <!-- Case Study -->
+            <section class="section" id="casestudy">
                 <div class="section-header">
                     <div class="section-number">Section 8</div>
-                    <h2 class="section-title">The Big Theorems (Overview)</h2>
+                    <h2 class="section-title">Case Study: Pricing Financial Options</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Green's Theorem (2D)</h3>
-                        <div class="math-block">∮_C (P dx + Q dy) = ∫∫_D (∂Q/∂x - ∂P/∂y) dA
+                    <p>
+                        How do banks decide the price of a "Stock Option"?
+                        They need to integrate the probability of all possible future paths of a stock.
+                    </p>
 
-                            Relates line integral around boundary to double integral over region.</div>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>💰 Black-Scholes (Analytic)</h3>
+                            <p>For simple options, we have an exact formula (an analytic integral of a Gaussian). It's
+                                lightning fast but only works for very specific, simple scenarios.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🎲 Monte Carlo (Numerical)</h3>
+                            <p>For complex "Path Dependent" options (e.g., the price depends on the average stock price
+                                over the month), there is no formula. Banks run millions of random stock path
+                                simulations and integrate the results.</p>
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Stokes' Theorem (3D)</h3>
-                        <div class="math-block">∮_C F · dr = ∫∫_S (∇ × F) · dS
 
-                            Relates line integral around boundary to surface integral of curl.</div>
+                    <div class="info">
+                        <span class="info-icon">🏛️</span>
+                        <strong>History Note: The Quants</strong>
+                        <br>The "Quants" on Wall Street are basically applied mathematicians who specialize in
+                        high-dimensional integration.
+                        If you can make a Monte Carlo simulation converge 2x faster, you can save a firm millions in
+                        compute and risk.
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Divergence Theorem</h3>
-                        <div class="math-block">∫∫_S F · dS = ∫∫∫_V (∇ · F) dV
-
-                            Relates flux through closed surface to triple integral of divergence.</div>
-                    </div>
-                    <div class="rule"><strong>Pattern:</strong> All three theorems relate a boundary integral to an
-                        integral over the interior. They're all versions of the Fundamental Theorem of Calculus in
-                        higher dimensions!</div>
                 </div>
             </section>
 
-            <section class="section" id="videos">
+            <!-- Deep Dive -->
+            <section class="section" id="stability">
                 <div class="section-header">
                     <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Deep Dive: Numerical Stability & Precision</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In computer science, we don't have "Real Numbers." We have <strong>Floating Point
+                            Numbers</strong> (IEEE 754). This introduces unique challenges to integration.
+                    </p>
+
+                    <div class="grid-2col">
+                        <div class="rule">
+                            <strong>1. Underflow & Log-Sum-Exp</strong>
+                            <br>In Bayesian ML, you often integrate the product of thousands of small probabilities.
+                            The result is so small the computer rounds it to 0 (Underflow).
+                            <strong>Solution:</strong> Integrate in "Log Space" using the Log-Sum-Exp trick.
+                        </div>
+                        <div class="rule">
+                            <strong>2. Catastrophic Cancellation</strong>
+                            <br>Subtracting two very similar large numbers loses precision.
+                            When summing millions of Monte Carlo samples, the <strong>order</strong> of addition can
+                            actually change the result!
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Kahan Summation</strong>
+                        <br>Numerical libraries use special summation algorithms (like Kahan) that keep a "running
+                        compensation" for rounding errors.
+                        Without this, a 3D render might have tiny "holes" or financial models might drift by a few cents
+                        every million iterations.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Summary: The Integration Toolkit</h2>
+                </div>
+                <div class="section-body">
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🔍 When to use Analytic</h3>
+                            <p>• Function has a known closed form (polynomials, basic trig).<br>• You need an exact
+                                derivative of the integral later.<br>• Symbolic proof is required.</p>
+                        </div>
+                        <div class="card">
+                            <h3>⚡ When to use Numerical (Trapezoid/Simpson)</h3>
+                            <p>• Data is smooth and 1D/2D.<br>• You have equally spaced samples (sensor data).<br>•
+                                Speed is more important than absolute precision.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🎨 When to use Gaussian Quadrature</h3>
+                            <p>• Maximum precision for a fixed number of samples.<br>• You can choose where to sample
+                                (custom software).<br>• The integrand is a high-degree polynomial.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🎲 When to use Monte Carlo</h3>
+                            <p>• High dimensions (>3D).<br>• Complex, discontinuous, or 'weird' shapes (CGI).<br>•
+                                Bayesian inference or Financial path simulations.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🏁</span>
+                        <strong>Key Takeaway:</strong>
+                        Integration in CS is less about "finding the formula" and more about "designing the sampling
+                        strategy."
+                        Whether it's a flashlight in a dark room (Importance Sampling) or a representative jury
+                        (Gaussian Quadrature), the math is the same:
+                        <strong>How do we find the whole by looking at the parts?</strong>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -407,12 +658,31 @@
                         </div>
                         <div class="video-list" id="videoList"></div>
                     </div>
+
+                    <div class="grid-3col" style="margin-top: 2rem;">
+                        <div class="card">
+                            <h4>基础 (Foundations)</h4>
+                            <p>Understand the core logic of Monte Carlo and why "guessing" works for high-dimensional
+                                integration.</p>
+                        </div>
+                        <div class="card">
+                            <h4>图形 (Graphics)</h4>
+                            <p>Deep dive into Path Tracing and how the Rendering Equation is solved in real-time
+                                engines.</p>
+                        </div>
+                        <div class="card">
+                            <h4>高级 (Advanced)</h4>
+                            <p>Master Importance Sampling and MCMC for machine learning and complex simulation tasks.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 12</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -427,26 +697,45 @@
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Double Integrals",
+                title: "Monte Carlo Methods",
                 items: [
-                    { title: "Intro to Double Integrals", channel: "Professor Leonard", vid: "r9o_c_35-x4" },
-                    { title: "Double Integrals Explained", channel: "The Organic Chemistry Tutor", vid: "_W3aVWsMp14" },
-                    { title: "Double Integral 1", channel: "Khan Academy", vid: "85zGYB-34jQ" }
+                    { title: "Intro to Monte Carlo", channel: "MarbleScience", vid: "7ESK5SaP-bc" },
+                    { title: "Computing Pi via Monte Carlo", channel: "Numberphile", vid: "RZBhSi_PwHU" },
+                    { title: "Monte Carlo Simulation", channel: "StatQuest", vid: "OgO1gpXSUzU" },
+                    { title: "Importance Sampling", channel: "Mutual Information", vid: "C3p2wI4RAi8" }
                 ]
             },
             {
-                title: "Advanced Concepts",
+                title: "Ray Tracing & Graphics",
                 items: [
-                    { title: "Polar Coordinates Double Integral", channel: "PatrickJMT", vid: "H8P-2gXhD_M" }
+                    { title: "Ray Tracing Explained", channel: "Computerphile", vid: "9g8CdctxmeU" },
+                    { title: "Global Illumination", channel: "Two Minute Papers", vid: "TYvHEVL1K6E" },
+                    { title: "Path Tracing in Games", channel: "Digital Foundry", vid: "1UZ5Dh7WJGw" },
+                    { title: "Rendering Equation", channel: "Jendrik Illner", vid: "eo_MTI-d28s" }
+                ]
+            },
+            {
+                title: "Numerical Methods",
+                items: [
+                    { title: "Trapezoid & Simpson Rule", channel: "Steve Brunton", vid: "cT4Xif5C7H8" },
+                    { title: "U-Substitution", channel: "Organic Chemistry Tutor", vid: "sdY6IAbJqqk" },
+                    { title: "Integration by Parts", channel: "Professor Leonard", vid: "FwPqYQ3d1j8" },
+                    { title: "Gaussian Quadrature", channel: "Steve Brunton", vid: "JwJQRXC5mGc" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day16'], storageKey: 'day16_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day16'] || [],
+            storageKey: 'day16_v2'
+        });
     </script>
-</body>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

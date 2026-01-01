@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 32: Data Structures & Linked Lists</title>
+    <title>Day 32: Graph Traversal (BFS & DFS)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,12 +47,13 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 32 · Algorithms
+            Day 32 · The Explorer's Guide
         </div>
-        <h1>Data Structures & Linked Lists</h1>
+        <h1>Graph Traversal</h1>
         <p class="hero-desc">
-            The building blocks of efficient algorithms: choosing the right data structure
-            can mean the difference between O(n²) and O(n log n).
+            How do you explore infinite possibilities?
+            BFS (Queue) scans the horizon for the shortest path.
+            DFS (Stack) dives deep to solve puzzles.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -51,20 +61,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~75 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -74,422 +84,250 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#why" class="toc-link">Why Data Structures</a></li>
-                    <li><a href="#arrays" class="toc-link">1. Arrays</a></li>
-                    <li><a href="#singly" class="toc-link">2. Singly Linked</a></li>
-                    <li><a href="#doubly" class="toc-link">3. Doubly Linked</a></li>
-                    <li><a href="#operations" class="toc-link">4. Operations</a></li>
-                    <li><a href="#patterns" class="toc-link">5. Common Patterns</a></li>
-                    <li><a href="#stacks" class="toc-link">6. Stacks & Queues</a></li>
-                    <li><a href="#hashing" class="toc-link">7. Hash Tables</a></li>
-                    <li><a href="#complexity" class="toc-link">8. Complexity Chart</a></li>
-                    <li><a href="#videos" class="toc-link">9. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">10. Practice Problems</a></li>
+                    <li><a href="#concept" class="toc-link">1. The Blind Explorer</a></li>
+                    <li><a href="#bfs" class="toc-link">2. Breadth-First Search</a></li>
+                    <li><a href="#dfs" class="toc-link">3. Depth-First Search</a></li>
+                    <li><a href="#compare" class="toc-link">4. BFS vs DFS</a></li>
+                    <li><a href="#advanced" class="toc-link">5. Advanced Variants</a></li>
+                    <li><a href="#python" class="toc-link">6. Python: Solving Mazes</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
                 </ul>
             </nav>
-
             <div class="stats-card">
                 <div class="toc-title">Your Progress</div>
-                <div class="stats-row">
-                    <span class="stats-label">Attempted</span>
-                    <span class="stats-value" id="statAttempted">0</span>
-                </div>
-                <div class="stats-row">
-                    <span class="stats-label">Correct</span>
-                    <span class="stats-value" id="statCorrect">0</span>
-                </div>
-                <div class="stats-row">
-                    <span class="stats-label">Accuracy</span>
-                    <span class="stats-value" id="statAccuracy">—</span>
-                </div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
             </div>
         </aside>
 
         <main class="content">
-            <!-- Why Data Structures -->
-            <section class="section" id="why">
-                <div class="section-header">
-                    <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Data Structures Matter</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        A data structure is a way of organizing data so that it can be used efficiently.
-                        The choice of data structure often determines the efficiency of an algorithm.
-                    </p>
-
-                    <div class="rule">
-                        <strong>Key Insight:</strong> The right data structure can transform an O(n2) algorithm
-                        into O(n log n) or even O(n). Always choose based on your access patterns.
-                    </div>
-                    <div class="info">
-                        <strong>Library Simple:</strong> Think library vs. pile of books.
-                        <br>Array = numbered shelves (instant access by position, slow to reorganize)
-                        <br>Linked list = books with next book notes (easy to insert, slow to find book 50)
-                        <br>Hash table = catalog system (instant lookup by name!)
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common Operations to Consider</h3>
-                        <ul>
-                            <li><strong>Access:</strong> How fast can we get element i?</li>
-                            <li><strong>Search:</strong> How fast can we find element x?</li>
-                            <li><strong>Insert:</strong> How fast can we add a new element?</li>
-                            <li><strong>Delete:</strong> How fast can we remove an element?</li>
-                        </ul>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Choosing the right structure matters</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># Bad: O(n) lookup in list</span>
-<span class="code-keyword">def</span> <span class="code-function">find_in_list</span>(items, target):
-    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:  <span class="code-comment"># O(n)</span>
-        <span class="code-keyword">if</span> item == target:
-            <span class="code-keyword">return</span> <span class="code-keyword">True</span>
-    <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-
-<span class="code-comment"># Good: O(1) lookup in set</span>
-<span class="code-keyword">def</span> <span class="code-function">find_in_set</span>(items_set, target):
-    <span class="code-keyword">return</span> target <span class="code-keyword">in</span> items_set  <span class="code-comment"># O(1) average!</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Arrays -->
-            <section class="section" id="arrays">
+            <!-- Concept -->
+            <section class="section" id="concept">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Arrays</h2>
+                    <h2 class="section-title">The Concept of Traversal</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Fixed-size Arrays</h3>
-                        <p>Contiguous memory block. O(1) access by index, but O(n) insert/delete.</p>
-                        <div class="math-block">Array[i] address = base + (i x element_size)</div>
-                        <div class="info">
-                            <strong>Train Simple:</strong> Arrays are like train cars on a fixed track.
-                            <br>Linked lists are like a treasure hunt: each node says next clue is at address X.
-                            <br>Adding a car in the middle of a train = nightmare. Adding a clue in a treasure hunt =
-                            easy!
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Dynamic Arrays (Python list, Java ArrayList)</h3>
-                        <p>Automatically resize when full. Amortized O(1) append, O(n) insert at arbitrary position.</p>
-                        <div class="warning">
-                            <strong>Gotcha:</strong> Inserting at the front of a dynamic array is O(n) —
-                            every element must shift. Use a deque if you need fast front insertion.
-                        </div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Array operations and their costs</span>
-                        </div>
-                        <div class="code-content">
-                            <pre>arr = [<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">4</span>, <span class="code-number">5</span>]
-
-<span class="code-comment"># O(1) - Direct access</span>
-x = arr[<span class="code-number">2</span>]        <span class="code-comment"># 3</span>
-
-<span class="code-comment"># O(1) amortized - Append</span>
-arr.append(<span class="code-number">6</span>)    <span class="code-comment"># [1, 2, 3, 4, 5, 6]</span>
-
-<span class="code-comment"># O(n) - Insert at position</span>
-arr.insert(<span class="code-number">0</span>, <span class="code-number">0</span>) <span class="code-comment"># [0, 1, 2, 3, 4, 5, 6] - shifts all!</span>
-
-<span class="code-comment"># O(n) - Search</span>
-idx = arr.index(<span class="code-number">3</span>) <span class="code-comment"># Linear scan to find</span></pre>
-                        </div>
+                    <p>Imagine you are dropped into a maze in the dark. You can only feel the walls and paths connected
+                        to your current location. This is how algorithms "see" graphs.</p>
+                    <div class="info">
+                        <strong>The Golden Rule:</strong>
+                        <br>You MUST keep a list of `Visited` nodes.
+                        <br>Without this, you will run in circles forever (Infinite Loop) in cyclic graphs.
                     </div>
                 </div>
             </section>
 
-            <!-- Linked List Content (From Day 39) -->
-            <section class="section" id="singly">
+            <!-- BFS -->
+            <section class="section" id="bfs">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Singly Linked List</h2>
+                    <h2 class="section-title">Breadth-First Search (BFS)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Node:</strong> Contains data and a pointer to the next node.</div>
-                    <div class="math-block">HEAD → [data|next] → [data|next] → [data|next] → NULL</div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Singly linked list node</span>
+                    <p>BFS explores like ripples in a pond. It visits everything 1 hop away, then 2 hops away, etc.</p>
+                    <div class="rule">
+                        <strong>The Mechanism: Queue (FIFO)</strong>
+                        <br>Imagine a line at a grocery store.
+                        <br>1. <strong>Enqueue</strong> neighbors to the back.
+                        <br>2. <strong>Dequeue</strong> current node from front.
+                        <br>3. This ensures strict "Layer by Layer" processing.
+                    </div>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Superpower</h3>
+                            <p><strong>Shortest Path Guarantee</strong> (in unweighted graphs).</p>
+                            <p>Since it processes by layer, the first time you see the Target, it MUST be via the
+                                shortest route.</p>
                         </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">class</span> <span class="code-type">ListNode</span>:
-    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, val=<span class="code-number">0</span>, next=<span class="code-keyword">None</span>):
-        self.val = val
-        self.next = next
-
-<span class="code-comment"># Create: 1 → 2 → 3</span>
-head = ListNode(<span class="code-number">1</span>)
-head.next = ListNode(<span class="code-number">2</span>)
-head.next.next = ListNode(<span class="code-number">3</span>)</pre>
+                        <div class="card">
+                            <h3>Analogy</h3>
+                            <p>Searching for a lost contact lens on the floor.</p>
+                            <p>You spiral out from where you dropped it.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="doubly">
+            <!-- DFS -->
+            <section class="section" id="dfs">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Doubly Linked List</h2>
+                    <h2 class="section-title">Depth-First Search (DFS)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">NULL ← [prev|data|next] ↔ [prev|data|next] ↔ [prev|data|next] → NULL</div>
-                    <p>Each node has both <span class="math-inline">prev</span> and <span
-                            class="math-inline">next</span> pointers. Enables O(1) delete if you have the node.</p>
-
-                    <div class="two-col">
-                        <div class="subsection">
-                            <h3 class="subsection-title">Advantages</h3>
-                            <ul>
-                                <li>O(1) delete with node reference</li>
-                                <li>Traverse both directions</li>
-                                <li>Easy insertBefore</li>
-                            </ul>
+                    <p>DFS is the "Bold Explorer". It picks a path and runs down it until it hits a dead end.</p>
+                    <div class="rule">
+                        <strong>The Mechanism: Stack (LIFO)</strong>
+                        <br>Like stacking plates. The last one on is the first one off.
+                        <br>Usually implemented via **Recursion** (The System Call Stack).
+                    </div>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Superpower</h3>
+                            <p><strong>Maze Solving</strong> & <strong>Puzzle Games</strong>.</p>
+                            <p>It commits to a decision. If it fails (Dead End), it <strong>Backtracks</strong> to try
+                                another option.</p>
                         </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Disadvantages</h3>
-                            <ul>
-                                <li>Extra memory per node</li>
-                                <li>More complex code</li>
-                                <li>Cache less friendly</li>
-                            </ul>
+                        <div class="card">
+                            <h3>Analogy</h3>
+                            <p>Solving a maze with your hand on the right wall.</p>
+                            <p>You go deep, then turn around when stuck.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="operations">
+            <!-- Compare -->
+            <section class="section" id="compare">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Operations</h2>
+                    <h2 class="section-title">BFS vs DFS</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">OPERATION | SINGLY | DOUBLY
-                        ------------------|---------|--------
-                        Access by index | O(n) | O(n)
-                        Search | O(n) | O(n)
-                        Insert at head | O(1) | O(1)
-                        Insert at tail* | O(n)/O(1)| O(1)
-                        Delete head | O(1) | O(1)
-                        Delete with node | O(n) | O(1)
-
-                        * O(1) if you maintain a tail pointer</div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Insert at head</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">insert_at_head</span>(head, val):
-    new_node = ListNode(val)
-    new_node.next = head  <span class="code-comment"># Point to old head</span>
-    <span class="code-keyword">return</span> new_node       <span class="code-comment"># Return new head</span></pre>
-                        </div>
+                    <p>Both are $O(V + E)$ in time. The difference is <strong>Space</strong> and <strong>Order</strong>.
+                    </p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>BFS (Breadth)</th>
+                                <th>DFS (Depth)</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Structure</strong></td>
+                                <td>Queue</td>
+                                <td>Stack / Recursion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pathfinding</strong></td>
+                                <td>Guarantees <strong>Shortest Path</strong>.</td>
+                                <td>Finds <strong>ANY</strong> path (often long).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Memory</strong></td>
+                                <td>High (Must store entire "Frontier").</td>
+                                <td>Low (Only stores current path).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Loop Risk</strong></td>
+                                <td>Safe (Explores systematically).</td>
+                                <td>Dangerous (Can get lost in infinite paths).</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="patterns">
+            <!-- Advanced -->
+            <section class="section" id="advanced">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Common Patterns</h2>
+                    <h2 class="section-title">Advanced Variants</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Two-pointer (fast/slow)</h3>
-                        <p>Detect cycles, find middle, find nth from end.</p>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Find middle with slow/fast pointers</span>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Bidirectional Search</h3>
+                            <p>
+                                Run two BFS searches simultaneously:
+                                <br>1. Start -> End
+                                <br>2. End -> Start
+                                <br>When they meet, you are done. Much faster ($b^{d/2}$) than standard BFS ($b^d$).
+                            </p>
                         </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">find_middle</span>(head):
-    slow = fast = head
-    <span class="code-keyword">while</span> fast <span class="code-keyword">and</span> fast.next:
-        slow = slow.next
-        fast = fast.next.next
-    <span class="code-keyword">return</span> slow  <span class="code-comment"># slow is at middle</span></pre>
+                        <div class="card">
+                            <h3>Flood Fill</h3>
+                            <p>
+                                The "Paint Bucket" tool in Photoshop.
+                                <br>Essentially BFS/DFS on a grid of pixels.
+                                <br>Start at user click, expand to all same-colored neighbors.
+                            </p>
                         </div>
-                    </div>
-
-                    <div class="warning">
-                        <strong>Dummy head trick:</strong> Use a dummy node before head to simplify edge cases
-                        when head might change.
                     </div>
                 </div>
             </section>
 
-            <!-- Stacks & Queues -->
-            <section class="section" id="stacks">
+            <!-- Code -->
+            <section class="section" id="python">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Stacks & Queues</h2>
+                    <h2 class="section-title">Python: Solving Mazes</h2>
                 </div>
                 <div class="section-body">
-                    <div class="two-col">
-                        <div class="subsection">
-                            <h3 class="subsection-title">Stack (LIFO)</h3>
-                            <div class="math-block">push(x): Add to top
-                                pop(): Remove from top
-                                peek(): View top
-                                All O(1)</div>
-                            <p>Use cases: function calls, undo, parsing parentheses</p>
-                            <div class="info">
-                                <strong>Plates Simple:</strong> Stack = pile of plates.
-                                <br>You can only add to or remove from the TOP.
-                                <br>Last plate on goes first off (LIFO).
-                            </div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Queue (FIFO)</h3>
-                            <div class="math-block">enqueue(x): Add to back
-                                dequeue(): Remove from front
-                                peek(): View front
-                                All O(1)*</div>
-                            <p>Use cases: BFS, task scheduling, buffers</p>
-                        </div>
-                    </div>
-
-                    <div class="info">
-                        <strong>*Note:</strong> Queue with array needs circular buffer for O(1) dequeue,
-                        or use linked list. Python's <span class="math-inline">collections.deque</span> handles this.
-                    </div>
+                    <p>Let's solve a 2D Grid Maze. 0 is open, 1 is a wall. We use BFS to find the shortest exit.</p>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Stack and Queue implementations</span>
+                            <span class="code-label">BFS Maze Solver</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">from</span> collections <span class="code-keyword">import</span> deque
+                            <pre><code class="language-python">from collections import deque
 
-<span class="code-comment"># Stack (use list)</span>
-stack = []
-stack.append(<span class="code-number">1</span>)      <span class="code-comment"># push</span>
-stack.append(<span class="code-number">2</span>)
-top = stack.pop()    <span class="code-comment"># 2</span>
+def solve_maze(maze, start, end):
+    rows, cols = len(maze), len(maze[0])
+    queue = deque([ (start, [start]) ]) # Store (Position, Path)
+    visited = set([start])
+    
+    while queue:
+        (r, c), path = queue.popleft()
+        
+        # Did we reach the end?
+        if (r, c) == end:
+            return path
+        
+        # Explore neighbors (Up, Down, Left, Right)
+        directions = [(-1,0), (1,0), (0,-1), (0,1)]
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            
+            # Check bounds and walls
+            if 0 <= nr < rows and 0 <= nc < cols:
+                if maze[nr][nc] == 0 and (nr, nc) not in visited:
+                    visited.add((nr, nc))
+                    queue.append(((nr, nc), path + [(nr, nc)]))
+    return None
 
-<span class="code-comment"># Queue (use deque)</span>
-queue = deque()
-queue.append(<span class="code-number">1</span>)      <span class="code-comment"># enqueue</span>
-queue.append(<span class="code-number">2</span>)
-front = queue.popleft()  <span class="code-comment"># 1 - O(1)!</span></pre>
+# 0=Path, 1=Wall
+maze_grid = [
+    [0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0],
+    [1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0]
+]
+
+start_pos = (0, 0)
+end_pos = (4, 4)
+
+path = solve_maze(maze_grid, start_pos, end_pos)
+print(f"Shortest Path Steps: {len(path)}")
+print(f"Path: {path}")
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Hash Tables -->
-            <section class="section" id="hashing">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Hash Tables</h2>
-                </div>
-                <div class="section-body">
-                    <div class="rule">
-                        <strong>Hash Table:</strong> Maps keys to values using a hash function.
-                        Average O(1) for insert, delete, and lookup!
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">How it works</h3>
-                        <div class="math-block">1. hash(key) → integer
-                            2. index = hash(key) % table_size
-                            3. Store (key, value) at that index
-                            4. Handle collisions (chaining or probing)</div>
-                    </div>
-
-                    <div class="warning">
-                        <strong>Worst case is O(n)</strong> if many collisions. Good hash functions
-                        and proper load factor (typically &lt; 0.75) keep performance at O(1).
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Python dict is a hash table</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># Python dict = hash table</span>
-counts = {}
-counts[<span class="code-string">"apple"</span>] = <span class="code-number">3</span>    <span class="code-comment"># O(1) insert</span>
-counts[<span class="code-string">"banana"</span>] = <span class="code-number">5</span>
-
-<span class="code-comment"># O(1) lookup</span>
-<span class="code-keyword">print</span>(counts[<span class="code-string">"apple"</span>])  <span class="code-comment"># 3</span>
-
-<span class="code-comment"># O(1) membership test</span>
-<span class="code-keyword">if</span> <span class="code-string">"apple"</span> <span class="code-keyword">in</span> counts:
-    <span class="code-keyword">print</span>(<span class="code-string">"Found!"</span>)
-
-<span class="code-comment"># Set = hash table with only keys</span>
-seen = {<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>}
-<span class="code-keyword">print</span>(<span class="code-number">2</span> <span class="code-keyword">in</span> seen)  <span class="code-comment"># True, O(1)</span></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Complexity Chart -->
-            <section class="section" id="complexity">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">Complexity Comparison</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">
-                        DATA STRUCTURE | ACCESS | SEARCH | INSERT | DELETE
-                        ------------------|---------|---------|---------|--------
-                        Array | O(1) | O(n) | O(n) | O(n)
-                        Dynamic Array | O(1) | O(n) | O(n)* | O(n)
-                        Stack | O(n) | O(n) | O(1) | O(1)
-                        Queue | O(n) | O(n) | O(1) | O(1)
-                        Hash Table | N/A | O(1)† | O(1)† | O(1)†
-                        Linked List | O(n) | O(n) | O(1)‡ | O(1)‡
-
-                        * O(1) amortized for append
-                        † Average case; O(n) worst case
-                        ‡ O(1) if you have the node; O(n) to find it</div>
-                </div>
-            </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Curated explanations from top educators. Click any video to watch.
-                    </p>
-
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -501,105 +339,60 @@ seen = {<span class="code-number">1</span>, <span class="code-number">2</span>, 
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Type your answer and press Check (or hit Enter).
-                    </p>
-
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
                         <button class="btn" id="btnClear">Clear Inputs</button>
                         <button class="btn btn-danger" id="btnReset">Reset Stats</button>
                     </div>
-
                     <div id="quizContainer"></div>
                 </div>
             </section>
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
-    <script src="../../lessons/questions-data.js"></script>
     <script>
-        // Lesson-specific configuration
         const VIDEO_GROUPS = [
             {
-                "title": "Lesson Videos",
-                "items": [
-                    {
-                        "title": "CS50 \u2014 Data Structures",
-                        "vid": "X8h4dq9Hzq8"
-                    },
-                    {
-                        "title": "Data Structures Easy to Advanced",
-                        "vid": "RBSGKlAvoiM"
-                    },
-                    {
-                        "title": "Arrays vs Linked Lists",
-                        "vid": "DyG9S9nAlUM"
-                    },
-                    {
-                        "title": "Dynamic Arrays",
-                        "vid": "tvw4v7FEF1w"
-                    },
-                    {
-                        "title": "Hash Tables Explained",
-                        "vid": "shs0KM3wKv8"
-                    },
-                    {
-                        "title": "Hash Tables in Python",
-                        "vid": "ea8BRGxGmlA"
-                    },
-                    {
-                        "title": "Linked Lists for Beginners",
-                        "vid": "WwfhLC16bis"
-                    },
-                    {
-                        "title": "Linked Lists in Detail",
-                        "vid": "NobHlGUjV3g"
-                    },
-                    {
-                        "title": "Doubly Linked Lists",
-                        "vid": "JdQeNxWCguQ"
-                    }
+                title: "Fundamentals",
+                items: [
+                    { title: "BFS and DFS Explained", channel: "HackerRank", vid: "s-CYnVz-uh4" },
+                    { title: "Breadth-First Search Visualized", channel: "Reducible", vid: "oDqjPvD54Ss" },
+                    { title: "Depth-First Search Visualized", channel: "Reducible", vid: "7fujbpJ0LB4" },
+                    { title: "Stack vs Queue", channel: "Computerphile", vid: "A3zuQjKMWkA" }
+                ]
+            },
+            {
+                title: "Advanced Algos",
+                items: [
+                    { title: "Dijkstra's Algorithm", channel: "Computerphile", vid: "GazC3A4OQTE" },
+                    { title: "A* Pathfinding", channel: "Computerphile", vid: "-L-WgKMFuhE" },
+                    { title: "Flood Fill Algorithm", channel: "Google", vid: "Z9XyK6hZ8fE" },
+                    { title: "Bidirectional Search", channel: "Udacity", vid: "857500350" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Mazes and DFS", channel: "Computerphile", vid: "rop0W4QDOUI" },
+                    { title: "How GPS Works (Graphs)", channel: "Zach Star", vid: "k1wK1lG4jGg" },
+                    { title: "Web Crawling Structure", channel: "Google", vid: "BNHR6IQJGZs" },
+                    { title: "Solving Sudoku with Backtracking", channel: "Computerphile", vid: "G_UYXzGuqvM" }
                 ]
             }
         ];
 
-        const QUESTIONS = [
-            { topic: "Arrays", prompt: "Array access by index is O(___)", answer: "1" },
-            { topic: "Arrays", prompt: "Insert at front of dynamic array is O(___)", answer: "n" },
-            { topic: "Stack", prompt: "Stack follows ___ order (acronym)", answer: "lifo", altAnswers: ["last in first out"] },
-            { topic: "Queue", prompt: "Queue follows ___ order (acronym)", answer: "fifo", altAnswers: ["first in first out"] },
-            { topic: "Hash", prompt: "Hash table average lookup is O(___)", answer: "1" },
-            { topic: "Hash", prompt: "Hash table worst-case lookup is O(___)", answer: "n" },
-            { topic: "Hash", prompt: "Python dict is a ___ table", answer: "hash" },
-            { topic: "Stack", prompt: "Use stack for ___ function calls", answer: "tracking", altAnswers: ["managing", "handling"] },
-            { topic: "Queue", prompt: "BFS uses a ___", answer: "queue" },
-            { topic: "General", prompt: "Set membership test is O(___) average", answer: "1" },
-            { topic: "Singly", prompt: "Access element by index is O(___)", answer: "n" },
-            { topic: "Singly", prompt: "Insert at head is O(___)", answer: "1" },
-            { topic: "Doubly", prompt: "Doubly linked has prev and ___ pointers", answer: "next" },
-            { topic: "Operations", prompt: "Delete with node reference in doubly is O(___)", answer: "1" },
-            { topic: "Operations", prompt: "Delete with node in singly is O(___)", answer: "n" },
-            { topic: "Pattern", prompt: "Fast/slow pointers can detect ___", answer: "cycles", altAnswers: ["cycle", "loop", "loops"] },
-            { topic: "Pattern", prompt: "Fast pointer moves ___ steps per iteration", answer: "2", altAnswers: ["two"] },
-            { topic: "Pattern", prompt: "___ head is a dummy node technique", answer: "dummy", altAnswers: ["sentinel"] },
-            { topic: "Space", prompt: "Doubly linked uses more ___ than singly", answer: "memory", altAnswers: ["space"] },
-            { topic: "General", prompt: "Last node points to ___", answer: "null", altAnswers: ["none", "nil"] },
-        ];
-
-        // Initialize the lesson
         initLesson({
             videos: VIDEO_GROUPS,
-            questions: QUESTIONS,
-            storageKey: 'day32_ds_linked_lists_v1'
+            questions: window.QUESTIONS_DATA['day32'] || [],
+            storageKey: 'day32_v2'
         });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

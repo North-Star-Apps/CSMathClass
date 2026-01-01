@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 14: Integrals</title>
+    <title>Day 14: Optimization & Gradient Descent</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -22,33 +22,59 @@
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 20 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 14 · Integral Calculus</div>
-
-        <p class="hero-desc">Integration is accumulation. It allows us to find the total from the rate of change. It is
-            the area under the curve and the reverse operation of the derivative.</p>
+            </svg>
+            Day 14 · Finding the Bottom
+        </div>
+        <h1>Applied Optimization</h1>
+        <p class="hero-desc">
+            The goal of almost every Machine Learning algorithm is "minimize the error".
+            Calculus gives us the map. Gradient Descent gives us the compass.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~50 min read</div>
-            <div class="meta-item">20 practice problems</div>
-            <div class="meta-item">5 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~130 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                45 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -58,12 +84,19 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#area" class="toc-link">1. Area Under Curve</a></li>
-                    <li><a href="#riemann" class="toc-link">2. Riemann Sums</a></li>
-                    <li><a href="#ftc" class="toc-link">3. Fundamental Theorem</a></li>
-                    <li><a href="#rules" class="toc-link">4. Integration Rules</a></li>
-                    <li><a href="#videos" class="toc-link">5. Videos</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#critical" class="toc-link">1. Critical Points</a></li>
+                    <li><a href="#gradient" class="toc-link">2. Gradient Descent</a></li>
+                    <li><a href="#optimizers" class="toc-link">3. Optimizer Variants</a></li>
+                    <li><a href="#landscape" class="toc-link">4. The Loss Landscape</a></li>
+                    <li><a href="#minima" class="toc-link">5. Local vs Global</a></li>
+                    <li><a href="#convex" class="toc-link">6. Convex & Second-Order</a></li>
+                    <li><a href="#init" class="toc-link">7. Weight Initialization</a></li>
+                    <li><a href="#scaling" class="toc-link">8. Scaling Laws</a></li>
+                    <li><a href="#gpt4" class="toc-link">9. Case Study: GPT-4</a></li>
+                    <li><a href="#python" class="toc-link">10. Python Code</a></li>
+                    <li><a href="#summary" class="toc-link">11. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">12. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">13. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -78,125 +111,632 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
-                    <h2 class="section-title">Why Integrals Matter</h2>
+                    <h2 class="section-title">Why Optimization Matters in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>If the derivative is "velocity", the integral is "displacement" (total distance). In CS, we use
-                        integrals for probability distributions, rendering graphics (accumulation of light), and
-                        analyzing algorithm runtime (summation).</p>
+                    <p>
+                        "Training" an AI model really just means "Adjusting number parameters until the error is low."
+                        This is an Optimization problem.
+                    </p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>🧠 Machine Learning</h3>
+                            <p>Every neural network is trained by minimizing a loss function.</p>
+                            <p>GPT-4: ~1.7 trillion parameters, all found via optimization!</p>
+                        </div>
+                        <div class="card">
+                            <h3>📊 Operations Research</h3>
+                            <p>Supply chain routing, scheduling, resource allocation.</p>
+                            <p>Airlines, Amazon, Google Maps—all optimization at scale.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🎮 Game AI</h3>
+                            <p>Path planning, agent behavior, game balance.</p>
+                            <p>Finding the "best" action given constraints.</p>
+                        </div>
+                        <div class="card">
+                            <h3>💰 Finance</h3>
+                            <p>Portfolio optimization (Markowitz), risk minimization.</p>
+                            <p>Hedge funds run optimizers 24/7.</p>
+                        </div>
+                    </div>
+
                     <div class="info">
-                        <strong>🧱 Simple:</strong> Integration is just adding up mostly-rectangular slices.
-                        <br>Imagine building a wall with bricks. The "rate" is how many bricks you lay per hour. The
-                        "integral" is the total height of the wall after 8 hours.
+                        <span class="info-icon">🎯</span>
+                        <strong>The Core Goal:</strong>
+                        <br>Find the set of inputs $\mathbf{x}^*$ that minimizes output $f(\mathbf{x})$:
+                        <br>$\mathbf{x}^* = \arg\min_{\mathbf{x}} f(\mathbf{x})$
+                        <br>We want to find value where the slope (gradient) is zero.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="area">
+            <!-- Critical Points -->
+            <section class="section" id="critical">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Area Under the Curve</h2>
+                    <h2 class="section-title">Critical Points & The Hessian</h2>
                 </div>
                 <div class="section-body">
-                    <p>The definite integral $\int_a^b f(x) dx$ represents the signed area between the graph of $f(x)$
-                        and the x-axis.</p>
+                    <p>At the very bottom of a valley (minimum) or top of a hill (maximum), the ground is flat.</p>
                     <div class="math-block">
-                        \text{Area} = \int_{x=a}^{x=b} f(x) \, dx
+                        If $f'(x) = 0$, then $x$ is a Critical Point.
                     </div>
+
+                    <div class="grid-2col">
+                        <div class="rule">
+                            <strong>First Derivative Test:</strong>
+                            <br>Find points where $f'(x) = 0$.
+                            <br>Check sign of $f'(x)$ before and after.
+                            <br>• $+-$ to $-$ → Maximum
+                            <br>• $-$ to $+$ → Minimum
+                        </div>
+                        <div class="rule">
+                            <strong>Second Derivative Test:</strong>
+                            <br>If $f'(x) = 0$ AND:
+                            <br>• $f''(x) > 0$ (Concave Up 😊) → <strong>Minimum</strong>
+                            <br>• $f''(x) < 0$ (Concave Down 😞) → <strong>Maximum</strong>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Hessian Matrix (Intuition)</h3>
+                        <p>In multivariable calculus (AI), we don't just have $f''(x)$.
+                            We have a matrix of all second derivatives called the <strong>Hessian</strong> ($H$).</p>
+                        <div class="info">
+                            Think of the Hessian as the "curvature map".
+                            <br>• If all eigenvalues of $H$ are positive: You are in a <strong>Bowl</strong> (Minimum).
+                            <br>• If all are negative: You are on a <strong>Dome</strong> (Maximum).
+                            <br>• If some are $+$ and some $-$: You are on a <strong>Pringles Chip</strong> (Saddle
+                            Point).
+                        </div>
+                    </div>
+
                     <div class="info">
-                        <strong>📹 Simple:</strong> Your car's odometer is an integral.
-                        <br>Speed (velocity) is the rate. The odometer shows the TOTAL distance traveled.
-                        <br>The integral turns "how fast" into "how far."
+                        <span class="info-icon">📍</span>
+                        <strong>Analogy: The Hilltop vs Valley</strong>
+                        <br>Maximum = top of a hill (water flows away from you).
+                        <br>Minimum = bottom of a valley (water flows toward you).
+                        <br>Saddle Point = a mountain pass (downhill in one direction, uphill in another).
+                    </div>
+
+                    <div class="card">
+                        <h3>Taylor Expansion: The Foundation</h3>
+                        <p>Optimization works because we can approximate any complex curve with a simple parabola
+                            locally:</p>
+                        <div class="math-block">
+                            $f(x + \Delta x) \approx f(x) + f'(x)\Delta x + \frac{1}{2}f''(x)(\Delta x)^2$
+                        </div>
+                        <p>Gradient descent uses the first term ($f'$). Advanced optimizers (Newton's method) use the
+                            second term ($f''$) for faster convergence.</p>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="riemann">
+            <!-- Gradient Descent -->
+            <section class="section" id="gradient">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Riemann Sums</h2>
+                    <h2 class="section-title">Gradient Descent</h2>
                 </div>
                 <div class="section-body">
-                    <p>Before integrals, we approximate using rectangles.</p>
-                    <div class="math-block">
-                        \text{Area} \approx \sum_{i=1}^n f(x_i) \Delta x
+                    <p>
+                        We can't always solve $\nabla f = 0$ algebraically (especially for neural nets with billions of
+                        parameters). So we do it numerically.
+                    </p>
+
+                    <div class="info">
+                        <span class="info-icon">⛷️</span>
+                        <strong>Analogy: The Blind Skier</strong>
+                        <br>You are on a mountain. You want to get to the lodge at the bottom.
+                        <br>It's foggy. You can't see the bottom.
+                        <br>Strategy: Feel the ground around you. Which way is downhill? Take a step that way. Repeat.
                     </div>
-                    <p>As the width of the rectangles ($\Delta x$) goes to zero, the sum becomes the Integral.</p>
+
+                    <div class="rule">
+                        <strong>The Update Rule:</strong>
+                        <br>$$ \mathbf{x}_{t+1} = \mathbf{x}_t - \alpha \cdot \nabla f(\mathbf{x}_t) $$
+                        <br>Where $\alpha$ is the <strong>learning rate</strong> (step size).
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Batch Gradient Descent</h3>
+                            <p>Uses <strong>all</strong> training data to compute gradient.</p>
+                            <p>Pros: Stable, smooth convergence.</p>
+                            <p>Cons: Slow for large datasets.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Stochastic Gradient Descent (SGD)</h3>
+                            <p>Uses <strong>one</strong> random sample per step.</p>
+                            <p>Pros: Fast, can escape local minima.</p>
+                            <p>Cons: Noisy, can oscillate.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">📦</span>
+                        <strong>Mini-Batch SGD (The Industry Standard)</strong>
+                        <br>Use a small batch (32-512 samples) per step.
+                        <br>Balance between speed (stochastic) and stability (batch).
+                        <br>This is what PyTorch/TensorFlow do by default.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Optimizer Variants -->
+            <section class="section" id="optimizers">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Optimizer Variants</h2>
+                </div>
+                <div class="section-body">
+                    <p>Vanilla gradient descent often struggles. Modern optimizers add "tricks" to converge faster.</p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Momentum</h3>
+                            <p>Accumulate velocity like a rolling ball.</p>
+                            <p>$v_t = \beta v_{t-1} + \nabla f$</p>
+                            <p>$x_{t+1} = x_t - \alpha v_t$</p>
+                            <p>Escapes local minima, smooths oscillations.</p>
+                        </div>
+                        <div class="card">
+                            <h3>RMSprop</h3>
+                            <p>Adaptive learning rate per parameter.</p>
+                            <p>Divides by running average of squared gradients.</p>
+                            <p>Good for non-stationary objectives.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Adam (Most Popular)</h3>
+                            <p>Combines Momentum + RMSprop.</p>
+                            <p>Bias-corrected estimates of 1st and 2nd moments.</p>
+                            <p>Default choice for deep learning (lr=0.001, β₁=0.9, β₂=0.999).</p>
+                        </div>
+                        <div class="card">
+                            <h3>AdaGrad</h3>
+                            <p>Adapts learning rate based on parameter history.</p>
+                            <p>Good for sparse gradients (NLP, embeddings).</p>
+                            <p>Can decrease learning rate too aggressively.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">⚡</span>
+                        <strong>Analogy: The Marble in a Bowl</strong>
+                        <br><strong>SGD:</strong> Marble slides directly downhill.
+                        <br><strong>Momentum:</strong> Marble rolls with inertia, can overshoot but settles faster.
+                        <br><strong>Adam:</strong> Marble has GPS and adjusts speed per dimension.
+                    </div>
+
                     <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Riemann
-                                Approximation</span></div>
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">PyTorch Optimizers</span>
+                        </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">integral</span>(func, a, b, n):
-    dx = (b - a) / n
-    total_area = <span class="code-number">0</span>
-    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
-        x = a + i * dx
-        total_area += func(x) * dx
-    <span class="code-keyword">return</span> total_area</pre>
+                            <pre><code class="language-python">import torch.optim as optim
+
+# Different optimizers in PyTorch
+sgd = optim.SGD(model.parameters(), lr=0.01)
+momentum = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+adam = optim.Adam(model.parameters(), lr=0.001)
+rmsprop = optim.RMSprop(model.parameters(), lr=0.01)
+
+# Training loop
+for batch in dataloader:
+    optimizer.zero_grad()      # Clear gradients
+    loss = compute_loss(batch) # Forward pass
+    loss.backward()            # Compute gradients (backprop)
+    optimizer.step()           # Update parameters</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="ftc">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Fundamental Theorem of Calculus</h2>
-                </div>
-                <div class="section-body">
-                    <p>The bridge between Derivatives and Integrals. Differentiation and Integration are inverses.</p>
-                    <div class="formula-box">
-                        <div class="formula-label">The Fundamental Theorem</div>
-                        <div class="formula-main">\int_a^b f(x) dx = F(b) - F(a)</div>
-                    </div>
-                    <p>Where $F(x)$ is the anti-derivative of $f(x)$ (i.e., $F'(x) = f(x)$).</p>
-                    <div class="info">
-                        <strong>Example:</strong>
-                        <br>$\int_0^3 2x \, dx$
-                        <br>Anti-derivative of $2x$ is $x^2$.
-                        <br>$F(3) - F(0) = 3^2 - 0^2 = 9$.
-                    </div>
-                    <div class="info">
-                        <strong>↩️ Simple:</strong> The FTC says: "Integration is the undo button for differentiation."
-                        <br>If you know the derivative came from some function F, you can find the integral just by
-                        evaluating F at the endpoints.
-                        <br>No need to add up infinite rectangles!
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" id="rules">
+            <!-- Landscape -->
+            <section class="section" id="landscape">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Integration Rules</h2>
+                    <h2 class="section-title">The Loss Landscape</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Power Rule for Integration</h3>
-                        <div class="math-block">\int x^n dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)</div>
+                    <p>In AI, we visualize the "Error Function" as a terrain. Low points are good models. High points
+                        are bad models.</p>
+
+                    <div class="grid-2col">
+                        <div class="warning">
+                            <strong>Learning Rate Too Small:</strong>
+                            <br>• Slow convergence (many iterations).
+                            <br>• May get stuck in flat regions.
+                            <br>• Wasted compute time.
+                        </div>
+                        <div class="warning">
+                            <strong>Learning Rate Too Large:</strong>
+                            <br>• Overshoots minima.
+                            <br>• Oscillates or diverges.
+                            <br>• Loss explodes instead of decreasing.
+                        </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Common Integrals</h3>
-                        <ul>
-                            <li>$\int e^x dx = e^x + C$</li>
-                            <li>$\int \frac{1}{x} dx = \ln|x| + C$</li>
-                            <li>$\int \cos(x) dx = \sin(x) + C$</li>
-                        </ul>
+
+                    <div class="grid-2col">
+                        <div class="info">
+                            <span class="info-icon">🪜</span>
+                            <strong>Analogy: The Step Ladder</strong>
+                            <br>If you are trying to reach the floor:
+                            <br>• Steps too small: You'll never get there.
+                            <br>• Steps too big: You might jump past the floor into the basement (divergence).
+                        </div>
+                        <div class="info">
+                            <span class="info-icon">🎢</span>
+                            <strong>Analogy: The Slingshot (Momentum)</strong>
+                            <br>Momentum is like pulling a slingshot. If you are in a shallow dip, the energy from your
+                            previous descent "flicks" you out and over the hump, into a deeper valley.
+                        </div>
                     </div>
-                    <div class="warning">
-                        <strong>Don't forget + C!</strong>
-                        <br>Indefinite integrals (no bounds) represent a family of functions, so we add an arbitrary
-                        constant $C$.
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Batch Normalization: Flattening the Terrain</h3>
+                        <p>One of the biggest breakthroughs in deep learning. If every layer has wildly different
+                            scales, the loss landscape looks like a
+                            stretch-out ravioli (hard to optimize). <strong>Batch Norm</strong> re-centers the data at
+                            every layer.</p>
+                        <div class="rule">
+                            <strong>The Math:</strong>
+                            <br>1. Calculate mean $\mu$ and variance $\sigma^2$ of the batch.
+                            <br>2. Normalize: $\hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}$
+                            <br>3. Scale and Shift: $y = \gamma\hat{x} + \beta$
+                        </div>
+                        <p>This makes the landscape "rounder", allowing for <strong>higher learning rates</strong> and
+                            faster training.</p>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">📈</span>
+                        <strong>Learning Rate Schedules:</strong>
+                        <br>• <strong>Constant:</strong> Keep lr fixed (simple but suboptimal).
+                        <br>• <strong>Step Decay:</strong> Drop lr by half every N epochs.
+                        <br>• <strong>Cosine Annealing:</strong> Smooth lr decay following cosine curve.
+                        <br>• <strong>Warmup:</strong> Start small, ramp up, then decay (common in transformers).
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="videos">
+            <!-- Local vs Global -->
+            <section class="section" id="minima">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Local vs Global Minima</h2>
+                </div>
+                <div class="section-body">
+                    <div class="info">
+                        <span class="info-icon">🕳️</span>
+                        <strong>Analogy: Potholes vs Ocean Trench</strong>
+                        <br>Local Minimum = small pothole (you stop, but not at the best spot).
+                        <br>Global Minimum = deepest ocean trench (the true best answer).
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Why Local Minima Are Less Scary</h3>
+                            <p>In high dimensions, most critical points are <strong>saddle points</strong>.</p>
+                            <p>True local minima are rare in neural network landscapes.</p>
+                            <p>SGD noise helps escape shallow local minima.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Escaping Local Minima</h3>
+                            <p><strong>Momentum:</strong> Heavy ball rolls through small bumps.</p>
+                            <p><strong>Random Restarts:</strong> Run optimization multiple times.</p>
+                            <p><strong>Simulated Annealing:</strong> Occasionally take random jumps.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Convex Optimization -->
+            <section class="section" id="convex">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Convex Optimization & Second-Order Methods</h2>
+                </div>
+                <div class="section-body">
+                    <p>Some problems are "easy" to optimize because they have nice properties.</p>
+
+                    <div class="rule">
+                        <strong>Convex Function:</strong>
+                        <br>$f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y)$ for all $\lambda \in
+                        [0,1]$.
+                        <br><strong>Translation:</strong> The line segment between any two points lies above the
+                        function.
+                        <br>A convex function is like a bowl—there's only one minimum (the global one).
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Newton's Method</h3>
+                            <p>Uses the second derivative to take a direct jump to the minimum of a quadratic
+                                approximation.</p>
+                            <p>$x_{t+1} = x_t - [Hf(x_t)]^{-1} \nabla f(x_t)$</p>
+                            <p><strong>Pros:</strong> Converges in 1 step for quadratics!</p>
+                            <p><strong>Cons:</strong> $O(N^3)$ to invert the Hessian matrix.</p>
+                        </div>
+                        <div class="card">
+                            <h3>L-BFGS</h3>
+                            <p>A "Limited Memory" version of BFGS. It approximates the Hessian using only previous
+                                gradients.</p>
+                            <p>Commonly used for small-scale scientific optimization, but not deep learning.</p>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🥣</span>
+                        <strong>Analogy: The Perfect Bowl</strong>
+                        <br>If your loss landscape is a perfect bowl (convex):
+                        <br>• No matter where you start, gradient descent will find the bottom.
+                        <br>• No local minima traps!
+                        <br>Examples: Linear regression, logistic regression, SVM (hinge loss).
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Weight Initialization: Avoiding the Dead Zone</h3>
+                        <p>If your weights are too small, gradients vanish. Too large, and they explode.
+                            The goal is to keep the variance of activations constant across layers.</p>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Xavier (Glorot) Init:</strong>
+                                <br>Used for Sigmoid/Tanh.
+                                <br>$W \sim \mathcal{N}(0, \frac{2}{n_{in} + n_{out}})$
+                            </div>
+                            <div class="rule">
+                                <strong>He (Kaiming) Init:</strong>
+                                <br>Used for ReLU.
+                                <br>$W \sim \mathcal{N}(0, \frac{2}{n_{in}})$
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Non-Convex Reality:</strong>
+                        <br>Neural networks are NOT convex. They have complex landscapes with many saddle points.
+                        <br>But empirically, training still works well with SGD + momentum!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Python: Building Your Own Optimizers</h2>
+                </div>
+                <div class="section-body">
+                    <p>Understanding an optimizer means being able to write it in raw Python.</p>
+
+                    <div class="grid-2col">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">SGD with Mini-Batches</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">import numpy as np
+
+def update_mini_batch(data, params, lr):
+    grad = 0
+    # Simulate gradient sum over a batch
+    for x in data:
+        grad += 2 * (params - target(x)) # Toy gradient
+    
+    # Update rule
+    params = params - lr * (grad / len(data))
+    return params</code></pre>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Adam (Pseudo-Scratch)</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">def adam_step(w, dw, m, v, t, lr=0.001):
+    beta1, beta2, eps = 0.9, 0.999, 1e-8
+    
+    # Momentum (1st moment)
+    m = beta1 * m + (1 - beta1) * dw
+    # Scaling (2nd moment)
+    v = beta2 * v + (1 - beta2) * (dw**2)
+    
+    # Bias correction
+    m_hat = m / (1 - beta1**t)
+    v_hat = v / (1 - beta2**t)
+    
+    # Update
+    w = w - lr * m_hat / (np.sqrt(v_hat) + eps)
+    return w, m, v</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Full Convergence Visualizer</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x): return x**2 + 5 * np.sin(x)
+def df(x): return 2*x + 5 * np.cos(x)
+
+def gradient_descent(start_x, lr, steps):
+    x = start_x
+    history = [x]
+    for _ in range(steps):
+        x = x - lr * df(x)
+        history.append(x)
+    return history
+
+# Run and Plot
+history = gradient_descent(start_x=8.0, lr=0.1, steps=30)
+xs = np.linspace(-10, 10, 200)
+plt.plot(xs, f(xs), label='Loss Landscape')
+plt.plot(history, [f(h) for h in history], 'r-o', label='GD Path')
+plt.title('Non-Convex Optimization')
+plt.legend()
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scaling Laws -->
+            <section class="section" id="scaling">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Scaling Laws & Chinchilla Optimal</h2>
+                </div>
+                <div class="section-body">
+                    <p>Optimization isn't just about the algorithm; it's about the budget. How much data vs how many
+                        parameters?</p>
+
+                    <div class="card">
+                        <h3>The Chinchilla Scaling Law</h3>
+                        <p>DeepMind researchers found that most models are "under-trained".
+                            For every doubling of model size, you should also double the number of training tokens.</p>
+                        <p><strong>Optimization Efficiency:</strong> Training a smaller model for longer is often better
+                            than a large model for less time.</p>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">📏</span>
+                        <strong>Rule of Thumb:</strong>
+                        <br>For optimal compute usage, you need ~20 tokens per parameter.
+                        <br>Llama-3 (8B) used ~15 trillion tokens! That is massive "over-training" to make the model
+                        smarter at a smaller size.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Future -->
+            <section class="section" id="future">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">The Future of Optimization</h2>
+                </div>
+                <div class="section-body">
+                    <p>Current optimization is dominated by gradients, but new frontiers are emerging.</p>
+
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Quantum Optimization</h3>
+                            <p>Quantum Annealing (e.g., D-Wave) can theoretically solve certain complex combinatorial
+                                optimization problems in constant time by tunneling through energy barriers.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Neuromorphic Computing</h3>
+                            <p>Analog chips that optimize locally at the synapse level, mimicking the brain's massive
+                                energy efficiency. No global backprop needed!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Case Study -->
+            <section class="section" id="gpt4">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Case Study: Optimizing a Trillion Parameters</h2>
+                </div>
+                <div class="section-body">
+                    <p>How do OpenAI or Google actually optimize models like GPT-4 or Gemini?</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">1. FP8 and Precision</h3>
+                        <p>Optimizing isn't just math; it's hardware. Moving a trillion numbers in high precision
+                            (64-bit) is too slow.
+                            Modern models use <strong>FP8</strong> (8-bit) or <strong>BFloat16</strong> to speed up
+                            gradient calculations by 10x.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">2. Gradient Accumulation</h3>
+                        <p>If you want a batch size of 4096 but your GPU only fits 4, you run 1024 steps of
+                            forward/backward without updating,
+                            summing the gradients, and then perform <strong>one</strong> update at the end.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">3. The Stability Plateau</h3>
+                        <p>Large models are prone to "Loss Spikes" where the error suddenly jumps to infinity.
+                            Teams use <strong>Gradient Clipping</strong> (limiting the maximum step size) and
+                            <strong>z-loss</strong> stabilization to keep the training from crashing.
+                        </p>
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🏢</span>
+                        <strong>The Training Run:</strong>
+                        <br>Optimizing GPT-4 took months on thousands of H100 GPUs.
+                        <br>A single mistake in the learning rate schedule can waste $10M+ of compute!
+                    </div>
+                </div>
+            </section>
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Summary: Finding the Bottom</h2>
+                </div>
+                <div class="section-body">
+                    <p>Optimization is the heart of machine learning—training = finding parameters that minimize loss.
+                    </p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Glossary</h3>
+                        <div class="grid-2col">
+                            <div class="rule">
+                                <strong>Core Concepts:</strong>
+                                <br>• <strong>Critical Point:</strong> Where $\nabla f = 0$
+                                <br>• <strong>Gradient Descent:</strong> $x_{t+1} = x_t - \alpha \nabla f$
+                                <br>• <strong>Learning Rate:</strong> Step size $\alpha$
+                                <br>• <strong>Convex:</strong> Bowl-shaped, one global minimum
+                            </div>
+                            <div class="rule">
+                                <strong>Optimizers:</strong>
+                                <br>• <strong>SGD:</strong> Simple, noisy, can escape local minima
+                                <br>• <strong>Momentum:</strong> Accumulates velocity
+                                <br>• <strong>Adam:</strong> Adaptive, most popular
+                                <br>• <strong>RMSprop:</strong> Per-parameter learning rates
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning">
+                        <strong>Common Gotchas:</strong>
+                        <br>• <strong>Learning Rate:</strong> Most important hyperparameter. Start with 0.001 for Adam.
+                        <br>• <strong>Overfitting:</strong> Low training loss ≠ good model. Watch validation loss!
+                        <br>• <strong>Vanishing Gradients:</strong> In very deep networks, gradients → 0.
+                    </div>
+
+                    <div class="info">
+                        <span class="info-icon">🎓</span>
+                        <strong>Mastery Quote:</strong>
+                        <br>"Training a neural network is just optimization with a really expensive loss function."
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 12</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -213,9 +753,10 @@
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 13</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -230,26 +771,45 @@
             </section>
         </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Deep Dives",
+                title: "Optimization Fundamentals",
                 items: [
-                    { title: "Integration Essence", channel: "3Blue1Brown", vid: "rfG8ce4nNh0" },
-                    { title: "Riemann Sums", channel: "Khan Academy", vid: "WeVWv_OEJsY" },
-                    { title: "Fundamental Theorem Pt 1", channel: "Khan Academy", vid: "W_E_E1lS7-E" },
-                    { title: "Fundamental Theorem Pt 2", channel: "Khan Academy", vid: "qf1L03G7Qxw" }
+                    { title: "Finding Min and Max", channel: "Professor Leonard", vid: "7J0Jg4-3O8M" },
+                    { title: "Critical Points Explained", channel: "Khan Academy", vid: "c7eN9x_l2W0" },
+                    { title: "Optimization Word Problems", channel: "Organic Chemistry Tutor", vid: "QxbD3HKzkvs" },
+                    { title: "Second Derivative Test", channel: "Professor Leonard", vid: "tGJzPDqhIbY" }
                 ]
             },
             {
-                title: "Techniques",
+                title: "Gradient Descent & ML",
                 items: [
-                    { title: "Indefinite Integrals Intro", channel: "Professor Leonard", vid: "w-2qVdF_Xo4" }
+                    { title: "Gradient Descent Visualized", channel: "3Blue1Brown", vid: "IHZwWFHWa-w" },
+                    { title: "SGD Explained", channel: "StatQuest", vid: "vMh0zPT0tLI" },
+                    { title: "Learning Rate Tuning", channel: "DeepLearning.AI", vid: "QzulmoOg2JE" },
+                    { title: "Batch Normalization", channel: "Computerphile", vid: "dXB-KQYkzNU" }
+                ]
+            },
+            {
+                title: "Advanced Optimizers",
+                items: [
+                    { title: "Momentum Explained", channel: "StatQuest", vid: "9hIRjxNvCqU" },
+                    { title: "Adam Optimizer Deep Dive", channel: "AI Coffee Break", vid: "JXQT_vxqwIs" },
+                    { title: "Learning Rate Schedules", channel: "PyTorch", vid: "4qJaSmvhxi8" },
+                    { title: "Why Momentum Works", channel: "3Blue1Brown", vid: "IHZwWFHWa-w" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day14'], storageKey: 'day14_int_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day14'] || [],
+            storageKey: 'day14_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

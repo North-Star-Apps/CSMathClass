@@ -11,6 +11,12 @@
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
 </head>
 
@@ -24,7 +30,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 4 complete</span>
+                <span id="progressText">0 / 10 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -40,9 +46,10 @@
             </svg>
             Day 53 · Abstract Algebra
         </div>
-        <h1>Fields & Extensions</h1>
+        <h1>Fields & Galois Theory</h1>
         <p class="hero-desc">
-            The playground of polynomials and solvability. From Finite Fields (cryptography) to Galois Theory.
+            The crown jewel of algebra. Using symmetry groups to understand the solvability of equations. Why can we
+            solve quadratics but not quintics?
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,20 +57,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~60 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                20 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                6 video lessons
             </div>
         </div>
     </header>
@@ -73,11 +80,15 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#fields" class="toc-link">1. Fields defined</a></li>
-                    <li><a href="#extensions" class="toc-link">2. Field Extensions</a></li>
-                    <li><a href="#galois" class="toc-link">3. Galois Theory</a></li>
-                    <li><a href="#code" class="toc-link">4. Python Code</a></li>
-                    <li><a href="#practice" class="toc-link">5. Practice</a></li>
+                    <li><a href="#extensions" class="toc-link">1. Field Extensions</a></li>
+                    <li><a href="#splitting" class="toc-link">2. Splitting Fields</a></li>
+                    <li><a href="#galois-group" class="toc-link">3. The Galois Group</a></li>
+                    <li><a href="#ftgt" class="toc-link">4. Fundamental Theorem</a></li>
+                    <li><a href="#unsolvability" class="toc-link">5. Unsolvability (Quintic)</a></li>
+                    <li><a href="#construction" class="toc-link">6. Classic Problems</a></li>
+                    <li><a href="#python" class="toc-link">7. Python Galois</a></li>
+                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">9. Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -92,121 +103,246 @@
         </aside>
 
         <main class="content">
-            <!-- Fields -->
-            <section class="section" id="fields">
-                <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Fields Defined</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition</h3>
-                        <div class="rule">
-                            <strong>Field (F, +, ×):</strong> A Commutative Ring with Unity where every non-zero element
-                            has a multiplicative inverse.
-                        </div>
-                        <div class="math-block">
-                            Essentially: You can add, subtract, multiply, and divide (except by 0).
-                            Examples:
-                            • ℚ (Rationals), ℝ (Reals), ℂ (Complex)
-                            • ℤ_p (Integers mod prime p)
-                            • Gal(pⁿ) (Finite fields of prime power order)
-
-                            Non-example: ℤ (no division, e.g., 1/2 ∉ ℤ).
-                        </div>
-                        <div class="info">
-                            <strong>🏖️ Simple:</strong> Think of a Field as a "Math Sandbox".
-                            <br>You can play freely (Add, Sub, Mult, Div) and never fall out of the sandbox.
-                            <br>In Integers, if you divide 1 by 2, you fall out (0.5 is not an integer). In Rationals,
-                            you stay inside.
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Extensions -->
             <section class="section" id="extensions">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
+                    <div class="section-number">Section 1</div>
                     <h2 class="section-title">Field Extensions</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Extending a Field</h3>
-                        <div class="math-block">
-                            If K is a field containing F, we say K/F is an extension.
-                            K becomes a <strong>Vector Space</strong> over F!
+                    <p>
+                        A <strong>Field Extension</strong> $L/K$ (read "L over K") is simply a field $L$ that contains
+                        $K$ as a subfield.
+                        <br>Example: $\mathbb{C}$ is an extension of $\mathbb{R}$.
+                    </p>
+                    <div class="rule">
+                        <strong>Degree of Extension $[L:K]$:</strong>
+                        The dimension of $L$ considered as a <em>Vector Space</em> over $K$.
+                        <br>Example: $[\mathbb{C}:\mathbb{R}] = 2$. Basis is $\{1, i\}$.
+                    </div>
 
-                            <strong>Degree [K:F]:</strong> The dimension of K as an F-vector space.
-
-                            EXAMPLE:
-                            ℂ = ℝ(i) = {a + bi | a,b ∈ ℝ}
-                            Basis: {1, i}
-                            Degree [ℂ:ℝ] = 2.
+                    <div class="info">
+                        <span class="info-icon">🧱</span>
+                        <div>
+                            <strong>Analogy: Adding Dimensions</strong>
+                            <br>
+                            Think of $K$ as a line (1D). To get $L$, we "add" a new direction (a root like $\sqrt{2}$ or
+                            $i$).
+                            <br>$\mathbb{Q}(\sqrt{2})$ consists of all number $a + b\sqrt{2}$. It's a 2D plane over the
+                            rational line.
+                            <br>We build fields by stacking dimensions.
                         </div>
                     </div>
 
-                    <div class="subsection">
-                        <h3 class="subsection-title">Finite Fields (Galois Fields)</h3>
-                        <div class="info">
-                            <strong>GF(pⁿ):</strong> A field with pⁿ elements exists for any prime p and n ≥ 1.
-                            Crucial for Cryptography (AES uses GF(2⁸)).
-                            Implementation: Polynomials mod an irreducible polynomial.
-                        </div>
+                    <div class="math-block">
+                        <strong>Algebraic Element:</strong> $\alpha \in L$ is algebraic over $K$ if it is a root of some
+                        polynomial in $K[x]$.
+                        <br>
+                        <strong>Minimal Polynomial:</strong> The monic irreducible polynomial of smallest degree that
+                        has $\alpha$ as a root.
                     </div>
                 </div>
             </section>
 
-            <!-- Galois -->
-            <section class="section" id="galois">
+            <!-- Splitting -->
+            <section class="section" id="splitting">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Splitting Fields</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Where do roots live?
+                        <br>The polynomial $x^2 - 2$ has no roots in $\mathbb{Q}$.
+                        <br>To find roots, we must <strong>extend</strong> the field to $\mathbb{Q}(\sqrt{2})$.
+                    </p>
+                    <div class="rule">
+                        <strong>Splitting Field:</strong>
+                        The smallest extension $L$ of $K$ containing <em>all</em> roots of a polynomial $f(x)$.
+                        In $L$, $f(x)$ "splits" into linear factors $(x - r_1)(x - r_2)...(x - r_n)$.
+                    </div>
+                    <div class="math-block">
+                        Example: $x^2 + 1$ splits in $\mathbb{Q}(i)$.
+                        <br>Example: $x^3 - 2$ splits in $\mathbb{Q}(\sqrt[3]{2}, \omega)$, where $\omega$ is cube root
+                        of unity.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galois Group -->
+            <section class="section" id="galois-group">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Galois Theory Basics</h2>
+                    <h2 class="section-title">The Galois Group</h2>
                 </div>
                 <div class="section-body">
+                    <p>
+                        This is the core definition.
+                        The <strong>Galois Group</strong> $\text{Gal}(L/K)$ is the set of all automorphisms of $L$ that
+                        fix every element of $K$.
+                    </p>
                     <div class="math-block">
-                        <strong>Galois Group Gal(K/F):</strong>
-                        Automorphisms of K that fix every element of F.
-                        σ ∈ Gal(K/F) ⟹ σ(x) = x for all x ∈ F.
+                        $$ \sigma \in \text{Gal}(L/K) \iff \sigma: L \to L \text{ is isomorphism AND } \forall k \in K,
+                        \sigma(k) = k $$
+                    </div>
 
-                        <strong>Fundamental Theorem:</strong>
-                        There is a 1-to-1 correspondence between:
-                        Subgroups of Gal(K/F) ⟷ Intermediate fields between F and K.
+                    <div class="info">
+                        <span class="info-icon">🔄</span>
+                        <div>
+                            <strong>Analogy: Permuting Roots</strong>
+                            <br>
+                            Think of the roots of a polynomial as vertices of a shape.
+                            <br>The Galois Group describes the <strong>Symmetries</strong> of this shape.
+                            <br>For $x^2 + 1 = 0$, roots are $i, -i$. We can swap them ($i \to -i$) or leave them alone
+                            ($i \to i$).
+                            <br>This group is $C_2$ (cyclic group of order 2).
+                        </div>
+                    </div>
+                    <p>KEY INSIGHT: An automorphism must map a root to another root of the same minimal polynomial.</p>
+                </div>
+            </section>
+
+            <!-- FTGT -->
+            <section class="section" id="ftgt">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Fundamental Theorem</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Fundamental Theorem of Galois Theory:</strong>
+                        There is a one-to-one correspondence (bijection) between:
+                        <ul>
+                            <li>Intermediate fields $M$ ($K \subseteq M \subseteq L$)</li>
+                            <li>Subgroups $H$ of the Galois Group ($H \subseteq \text{Gal}(L/K)$)</li>
+                        </ul>
+                        The correspondence is <strong>inclusion-reversing</strong>: Smaller subgroups correspond to
+                        larger fields.
+                    </div>
+                    <div class="math-block">
+                        <strong>Fixed Field:</strong>
+                        Given subgroup $H$, the corresponding field is:
+                        $$ L^H = \{ x \in L : \sigma(x) = x, \forall \sigma \in H \} $$
+                    </div>
+                    <p>This allows us to translate impossible field problems into solvable group theory problems.</p>
+                </div>
+            </section>
+
+            <!-- Unsolvability -->
+            <section class="section" id="unsolvability">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Unsolvability of the Quintic</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Why is there no formula for degree 5?
+                    </p>
+                    <ol>
+                        <li>A polynomial is "solvable by radicals" iff its Galois Group is a "Solvable Group".</li>
+                        <li>The symmetric group $S_5$ (permutations of 5 roots) is <strong>NOT</strong> a solvable
+                            group. (Its simple components are non-abelian).</li>
+                        <li>Therefore, a general quintic equation (whose Galois group is $S_5$) cannot be solved by
+                            radicals.</li>
+                    </ol>
+                    <div class="warning">
+                        <strong>Abel-Ruffini Theorem (1824):</strong> No general algebraic solution for polynomial
+                        equations of degree 5 or higher exists.
                     </div>
                 </div>
             </section>
 
-            <!-- Python Example -->
-            <section class="section" id="code">
+            <!-- Construction -->
+            <section class="section" id="construction">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Python: Finite Field Arithmetic</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Impossible Constructions</h2>
                 </div>
                 <div class="section-body">
-                    <p>Simulating GF(2^8) (AES field) logic.</p>
+                    <p>Ancient Greeks asked if we could do these with compass and straightedge:</p>
+                    <div class="list-group">
+                        <div class="list-item">
+                            <strong>1. Trisect an Angle:</strong> Impossible. Requires solving cubic $4x^3 - 3x -
+                            \cos(3\theta) = 0$.
+                            Roots of general cubic are degree 3. Compass operations only generate degree $2^n$
+                            extensions. 3 is not a power of 2.
+                        </div>
+                        <div class="list-item">
+                            <strong>2. Doubling the Cube:</strong> Impossible. Requires constructing $\sqrt[3]{2}$.
+                            Degree 3.
+                        </div>
+                        <div class="list-item">
+                            <strong>3. Squaring the Circle:</strong> Impossible. Requires constructing $\sqrt{\pi}$.
+                            $\pi$ is transcendental (Lindemann, 1882), so degree is infinite.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Python Galois</h2>
+                </div>
+                <div class="section-body">
+                    <p>Using <code>sympy</code> to find Galois Groups.</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">GF(256) Addition</span>
+                            <span class="code-label">Galois Group Calculation</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-comment"># In GF(2^n), Addition is XOR!</span>
-<span class="code-comment"># Multiplication requires modulo an irreducible polynomial.</span>
+                            <pre><code class="language-python">from sympy import symbols, Poly
+from sympy.polys.polytools import galois_group
 
-<span class="code-keyword">def</span> <span class="code-function">add_gf256</span>(a, b):
-    <span class="code-keyword">return</span> a ^ b  <span class="code-comment"># XOR</span>
+x = symbols('x')
 
-a = <span class="code-number">0x53</span>
-b = <span class="code-number">0xCA</span>
-result = add_gf256(a, b)
+# Example 1: Quadratic x^2 - 2
+# Roots: ±sqrt(2). Group should be C2 (swap roots)
+f1 = Poly(x**2 - 2, x)
+G1 = galois_group(f1)
+print(f"Group of x^2 - 2: {G1}") 
+# Output usually index into library, e.g. (2, 1) ~ S2
 
-<span class="code-function">print</span>(<span class="code-string">f"{a:02x} + {b:02x} = {result:02x}"</span>)
+# Example 2: Cubic x^3 - 2
+# Roots: ∛2, ∛2ω, ∛2ω^2. Splitting field deg 6.
+# Group should be S3 (order 6).
+f2 = Poly(x**3 - 2, x)
+G2 = galois_group(f2)
+print(f"Group of x^3 - 2: {G2}")
 
-<span class="code-comment"># Using a library for proper multiplication</span>
-<span class="code-comment"># pip install galois</span>
-<span class="code-comment"># import galois</span>
-<span class="code-comment"># GF = galois.GF(2**8)</span>
-<span class="code-comment"># print(GF(a) * GF(b))</span></pre>
+# Example 3: Cyclotomic x^4 + 1
+# Roots are primitive 8th roots of unity.
+# Deg 4. Is it Z4 or V4 (Klein 4)?
+f3 = Poly(x**4 + 1, x, domain='QQ')
+G3 = galois_group(f3)
+print(f"Group of x^4 + 1: {G3}")
+</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Field Theory Check</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">from sympy import field_isomorphism, QQ, sqrt
+
+# Check isomorphism between Q(sqrt(2)) and Q(sqrt(3))
+# Should be None (False).
+
+# Represent fields as algebraic extensions
+# Note: Sympy's field support is evolving.
+# Usually we use NumberFields.
+
+from sympy import minpoly
+print(f"Minpoly of sqrt(2) + sqrt(3): {minpoly(sqrt(2) + sqrt(3), x)}")
+# x^4 - 10x^2 + 1
+# This confirms the degree is 4 
+# (since sqrt(2)+sqrt(3) generates Q(sqrt(2), sqrt(3)))
+</code></pre>
                         </div>
                     </div>
                 </div>
@@ -215,7 +351,7 @@ result = add_gf256(a, b)
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -237,7 +373,7 @@ result = add_gf256(a, b)
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 9</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -258,22 +394,28 @@ result = add_gf256(a, b)
     <script>
         const VIDEO_GROUPS = [
             {
-                "title": "Lesson Videos",
-                "items": [
-                    {
-                        "title": "Field Extensions",
-                        "vid": "sz7t9s1E0Jc"
-                    },
-                    {
-                        "title": "Galois Theory Explained",
-                        "vid": "KkEN_K624C8"
-                    }
+                title: "Core Concepts",
+                items: [
+                    { title: "Intro to Galois Theory", channel: "MathDoctorBob", vid: "S1275j2eB28" },
+                    { title: "Field Extensions", channel: "Socratica", vid: "rLmwry1rCno" },
+                    { title: "Insolvability of Quintic", channel: "Mathologer", vid: "RhpVSVzvHCc" }
+                ]
+            },
+            {
+                title: "Deep Dives",
+                items: [
+                    { title: "Galois Theory Explained", channel: "Aleph 0", vid: "ZwMQfAAJbJ0" },
+                    { title: "Splitting Fields", channel: "Michael Penn", vid: "5hK8yJ8kX1I" },
+                    { title: "Visualizing Galois Groups", channel: "3Blue1Brown", vid: "v0YEaeIClKY" } /* Placeholder for symmetry video */
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day53'], storageKey: 'day53_alg2_v1' });
+
+        // This lesson is about Galois Theory (Day 53)
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day53'] || [], storageKey: 'day53_galois_v2' });
     </script>
+    <script>hljs.highlightAll();</script>
+    <script>renderMathInElement(document.body, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });</script>
 </body>
 
 </html>
-```

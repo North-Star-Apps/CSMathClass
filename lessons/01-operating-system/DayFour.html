@@ -16,40 +16,66 @@
         onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
     <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/generator-utils.js"></script>
     <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
     <nav class="nav">
         <div class="nav-inner">
-            <a href="../../index.html" class="nav-back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                    stroke="currentColor" stroke-width="2">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M10 12L6 8L10 4" />
-                </svg>Back to Curriculum</a>
-            <div class="nav-progress"><span id="progressText">0 / 15 complete</span>
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 20 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg></button>
+                </svg>
+            </button>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
-            </svg>Day 4 · Proof Habits</div>
-
-        <p class="hero-desc">Proofs are the backbone of algorithm correctness. Every time you argue "this loop
-            terminates" or "this invariant holds," you're doing a proof. Master these techniques to write bulletproof
-            code.</p>
+            </svg>
+            Day 4 · Proof Habits
+        </div>
+        <h1>Direct Proof & Induction</h1>
+        <p class="hero-desc">
+            Proofs are the backbone of algorithm correctness.
+            From Boolean logic to mathematical induction, these tools let you say "My code works" and really mean it.
+        </p>
         <div class="hero-meta">
-            <div class="meta-item">~55 min read</div>
-            <div class="meta-item">15 practice problems</div>
-            <div class="meta-item">5 video lessons</div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~95 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                35 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
+            </div>
         </div>
     </header>
 
@@ -59,13 +85,21 @@
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
                     <li><a href="#why" class="toc-link">Why This Matters</a></li>
-                    <li><a href="#direct" class="toc-link">1. Direct Proof</a></li>
-                    <li><a href="#contrapositive" class="toc-link">2. Contrapositive</a></li>
-                    <li><a href="#contradiction" class="toc-link">3. Contradiction</a></li>
-                    <li><a href="#induction" class="toc-link">4. Induction</a></li>
-                    <li><a href="#invariants" class="toc-link">5. Loop Invariants</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
+                    <li><a href="#logic" class="toc-link">1. Formal Logic & Paradoxes</a></li>
+                    <li><a href="#direct" class="toc-link">2. Direct Proof & Assertions</a></li>
+                    <li><a href="#contrapositive" class="toc-link">3. Contrapositive & Reverse Logic</a></li>
+                    <li><a href="#contradiction" class="toc-link">4. Contradiction & Turing's Paradox</a></li>
+                    <li><a href="#induction" class="toc-link">5. Mathematical Induction</a></li>
+                    <li><a href="#strong-induction" class="toc-link">6. Strong Induction & DP</a></li>
+                    <li><a href="#structural" class="toc-link">7. Structural Induction & Trees</a></li>
+                    <li><a href="#invariants" class="toc-link">8. Loop Invariants & Correctness</a></li>
+                    <li><a href="#modern" class="toc-link">9. Modern Proof Assistants</a></li>
+                    <li><a href="#fallacies" class="toc-link">10. Common Proof Fallacies</a></li>
+                    <li><a href="#summary" class="toc-link">11. Summary & Takeaways</a></li>
+                    <li><a href="#history" class="toc-link">12. A Brief History of Rigor</a></li>
+                    <li><a href="#next" class="toc-link">13. Looking Ahead</a></li>
+                    <li><a href="#videos" class="toc-link">14. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">15. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -80,265 +114,692 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
             <section class="section" id="why">
                 <div class="section-header">
                     <div class="section-number">Section 0</div>
                     <h2 class="section-title">Why Proofs Matter in CS</h2>
                 </div>
                 <div class="section-body">
-                    <p>Every algorithm correctness argument is a proof. When you claim your sorting function works,
+                    <p>
+                        Every algorithm correctness argument is a proof. When you claim your sorting function works,
                         you're implicitly proving it. Understanding proof techniques makes you better at reasoning about
-                        code.</p>
-                    <div class="rule"><strong>Key insight:</strong> Debugging is just proof-reading. You're checking if
-                        your implicit proof of correctness actually holds.</div>
+                        code.
+                    </p>
+                    <div class="rule">
+                        <strong>Key insight:</strong> Debugging is just proof-reading. You're checking if
+                        your implicit proof of correctness actually holds.
+                    </div>
                     <div class="info">
-                        <strong>🕵️ Simple:</strong> Think of a proof like a chain of iron links. If the first link is
-                        solid (your assumptions), and every connection to the next link is welded tight (valid logic),
-                        then the final weight (the conclusion) will definitely hold.
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Where you'll use this</h3>
-                        <ul>
-                            <li><strong>Algorithm Analysis:</strong> Proving correctness, termination, complexity bounds
-                            </li>
-                            <li><strong>Loop Invariants:</strong> Showing loops do what they claim</li>
-                            <li><strong>Recursive Functions:</strong> Induction proves recursion is correct</li>
-                            <li><strong>Security:</strong> Cryptographic security proofs</li>
-                            <li><strong>Type Systems:</strong> Type safety proofs guarantee no runtime type errors</li>
-                        </ul>
-                    </div>
-                    <div class="code-block">
-                        <div class="code-header"><span class="code-lang">Python</span><span class="code-label">Every
-                                algorithm has an implicit proof</span></div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">binary_search</span>(arr, target):
-    <span class="code-string">"""
-    Implicit proof claims:
-    1. If target exists, we find it (correctness)
-    2. Loop terminates (lo eventually meets hi)
-    3. O(log n) time (halving search space)
-    
-    Each claim needs a proof technique!
-    """</span>
-    lo, hi = <span class="code-number">0</span>, <span class="code-function">len</span>(arr) - <span class="code-number">1</span>
-    <span class="code-keyword">while</span> lo <= hi:
-        mid = (lo + hi) // <span class="code-number">2</span>
-        <span class="code-keyword">if</span> arr[mid] == target: <span class="code-keyword">return</span> mid
-        <span class="code-keyword">elif</span> arr[mid] < target: lo = mid + <span class="code-number">1</span>
-        <span class="code-keyword">else</span>: hi = mid - <span class="code-number">1</span>
-    <span class="code-keyword">return</span> -<span class="code-number">1</span></pre>
+                        <span class="info-icon">🕵️</span>
+                        <div>
+                            <strong>Analogy: The Chain</strong>
+                            <br>Think of a proof like a chain of iron links.
+                            <br>• The Anchor: Your Axioms (or Base Case).
+                            <br>• The Links: Your logical steps (If A, then B).
+                            <br>• The Load: Your Conclusion.
+                            <br>If one link is made of "probably" instead of "definitely," the chain snaps.
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="direct">
+            <!-- Formal Logic -->
+            <section class="section" id="logic">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Formal Logic Setup</h2>
+                </div>
+                <div class="section-body">
+                    <p>Before we prove, we must speak the language. Logic deals with <strong>Propositions</strong>:
+                        statements that are True or False.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Truth Tables & Operators</h3>
+                        <div class="math-block">
+                            • AND (∧): True only if both are true.
+                            • OR (∨): True if at least one is true.
+                            • NOT (¬): Flips the value.
+                            • IMPLIES (→): P → Q is False ONLY if P is True and Q is False.
+                        </div>
+                        <div class="info">
+                            <span class="info-icon">💡</span>
+                            <strong>The Promise Analogy for Implication (P → Q)</strong>
+                            <br>Statement: "If you clean your room (P), I will give you $10 (Q)."
+                            <br>• You clean, I pay: True (Kept promise).
+                            <br>• You don't clean, I don't pay: True (Promise stands).
+                            <br>• You don't clean, I pay anyway: True (I'm just generous, I didn't break promise).
+                            <br>• You clean, I DON'T pay: <strong>FALSE</strong> (I broke the promise!).
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Truth Table Generator</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import itertools
+
+def print_truth_table(expression_func, num_vars=2):
+    # Generate all combinations of True/False
+    combinations = list(itertools.product([True, False], repeat=num_vars))
+    
+    header = [f"Var{i}" for i in range(num_vars)] + ["Result"]
+    print(f"{' | '.join(header)}")
+    print("-" * (len(header) * 8))
+    
+    for combo in combinations:
+        result = expression_func(*combo)
+        row = [str(int(val)) for val in combo] + [str(int(result))]
+        print(f"{' | '.join(row)}")
+
+# Example: P -> Q (Implies)
+# Logic: (not P) or Q
+def implies(p, q):
+    return (not p) or q
+
+print("Truth Table for P -> Q")
+print_truth_table(implies, 2)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Logic Paradoxes: Russell's Paradox</h3>
+                        <p>In the early 20th century, Bertrand Russell shook the foundations of mathematics with a
+                            single
+                            question: <strong>Does the set of all sets that do not contain themselves contain
+                                itself?</strong>
+                        </p>
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>If it DOES, then it shouldn't (by definition).</li>
+                            <li>If it DOES NOT, then it must (by definition).</li>
+                        </ul>
+                        <p>This paradox forced mathematicians to develop <strong>Type Theory</strong>, which is the
+                            mathematical basis for programming languages like TypeScript, Swift, and Rust!</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Direct Proof -->
+            <section class="section" id="direct">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
                     <h2 class="section-title">Direct Proof</h2>
                 </div>
                 <div class="section-body">
-                    <p>A <strong>Direct Proof</strong> is the most straightforward way to prove something. You start
-                        with what you know and follow a chain of "If this, then that" until you reach your goal.</p>
+                    <div class="rule">
+                        <strong>The Direct Proof Template:</strong>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li>Assume $P$ is true.</li>
+                            <li>Unpack definitions (e.g., $even \Rightarrow 2k$).</li>
+                            <li>Use algebra/logic to reach $Q$.</li>
+                        </ol>
+                    </div>
+
+                    <div class="info">
+                        <strong>🛡️ CS Connection: Assertions</strong>
+                        <p>In programming, an `assert(P)` statement is you telling the compiler: "I am assuming $P$ is
+                            true here." If your proof is correct, the assertion will never fail. Direct proofs are
+                            exactly
+                            how we reason about <strong>Hoare Logic</strong> in formal verification.</p>
+                    </div>
+
                     <div class="subsection">
-                        <h3 class="subsection-title">The Method (The Recipe)</h3>
-                        <div class="rule"><strong>To prove P → Q:</strong> Assume P is true, apply definitions, and show
-                            Q must follow.</div>
-                        <div class="info">
-                            <strong>Analogy:</strong> Think of it like a train. Each logical step is a segment of track.
-                            If every segment is connected correctly, the train flows perfectly from start to finish.
-                        </div>
-                        <div class="info">
-                            <strong>🚂 Simple:</strong> It's a train track. You start at Station A (Assumption) and lay
-                            down solid rails (logic steps). If the track is unbroken, you *must* arrive at Station B
-                            (Conclusion).
+                        <h3 class="subsection-title">Example: The "Closed Under Addition" Property</h3>
+                        <p>We want to prove that integers are "closed under addition"—specifically, that the sum of two
+                            integers is an integer. Let's try something slightly harder: <strong>The Product of Two Odd
+                                Numbers is Odd.</strong></p>
+                        <div class="math-block">
+                            \text{Let } x, y \in \mathbb{Z} \text{ be odd.} \\
+                            \text{Then } x = 2k+1, y = 2m+1 \text{ for } k, m \in \mathbb{Z}. \\
+                            xy = (2k+1)(2m+1) = 4km + 2k + 2m + 1. \\
+                            xy = 2(2km + k + m) + 1. \\
+                            \text{Since } 2km + k + m \text{ is an integer, } xy \text{ matches the pattern } 2j+1. \\
+                            \therefore xy \text{ is odd. } \blacksquare
                         </div>
                     </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Example: Sum of two even numbers</h3>
-                        <div class="math-block">Claim: Even + Even = Even.
-                            Proof:
-                            1. Let a and b be even. By definition, a = 2m, b = 2n.
-                            2. a + b = 2m + 2n = 2(m + n).
-                            3. Since (m + n) is an integer, the result is of the form 2k.
-                            4. Therefore the sum is even. ∎</div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Simulating the proof</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def is_odd(n): return n % 2 != 0
+
+def test_product_rule(limit):
+    for x in range(1, limit, 2): # Odd x
+        for y in range(1, limit, 2): # Odd y
+            assert is_odd(x * y), f"Found counterexample! {x} * {y} = {x*y}"
+    print("Direct Proof Simulation Verified!")
+
+test_product_rule(100)</code></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
+            <!-- Contrapositive -->
             <section class="section" id="contrapositive">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
+                    <div class="section-number">Section 3</div>
                     <h2 class="section-title">Proof by Contrapositive</h2>
                 </div>
                 <div class="section-body">
-                    <p>Sometimes proving "If A, then B" is hard. But proving <strong>"If NOT B, then NOT A"</strong>
-                        (the Contrapositive) is exactly the same thing.</p>
+                    <p>When $P \to Q$ is mathematically "sticky," we use the logical equivalence: $(P \to Q) \iff (\neg
+                        Q \to \neg P)$.</p>
+                    <div class="info">
+                        <strong>🔄 Analogy: The Smoke and Fire</strong>
+                        <p>Direct: "If there's fire, there is smoke."<br>
+                            Contrapositive: "If there is <strong>no smoke</strong>, there is definitely <strong>no
+                                fire</strong>."</p>
+                    </div>
+
                     <div class="subsection">
-                        <h3 class="subsection-title">The "Switcheroo"</h3>
-                        <strong>Contrapositive:</strong> "If it DOES NOT have four legs, it IS NOT a dog."<br>
-                        If the second one is true, the first one must be too!
+                        <h3 class="subsection-title">Applying to Code: Refactoring Guards</h3>
+                        <p>In clean code, we often use "Guard Clauses" which are effectively contrapositives of the main
+                            logic.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <span class="code-label">Guard Clause as Contrapositive</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-javascript">// Standard: If (isValid) then { process }
+function process(data) {
+    if (isValid(data)) {
+        // complex logic here...
+    }
+}
+
+// Contrapositive Guard: If (NOT isValid) then { RETURN }
+function processClean(data) {
+    if (!isValid(data)) return; // Stop early if condition isn't met
+    // complex logic here...
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Mathematical Example: Divisibility</h3>
+                        <div class="math-block">
+                            \text{Claim: } 3n+2 \text{ is odd } \Rightarrow n \text{ is odd.} \\
+                            \text{Contrapositive: } n \text{ is even } \Rightarrow 3n+2 \text{ is even.} \\
+                            \text{Proof:} \\
+                            \text{Let } n = 2k. \\
+                            3(2k) + 2 = 6k + 2 = 2(3k + 1). \\
+                            \text{Since } 2(3k+1) \text{ is even, the contrapositive is true.} \\
+                            \therefore \text{ The original claim is true. } \blacksquare
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contradiction -->
+            <section class="section" id="contradiction">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Proof by Contradiction</h2>
+                </div>
+                <div class="section-body">
+                    <p>In CS, we use this to prove that something is <strong>impossible</strong> (like the Halting
+                        Problem or finding an efficient solution for NP-Hard problems).</p>
+                    <div class="rule">
+                        <strong>The Ghost in the Machine:</strong>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li>Assume the impossible is possible (Assume $\neg P$).</li>
+                            <li>Follow the logic until you hit a crash/paradox.</li>
+                            <li>Conclude that the original $P$ must be true.</li>
+                        </ol>
                     </div>
                     <div class="info">
-                        <strong>🔄 Simple:</strong> The "Switcheroo". Instead of proving "If it rains, ground is wet",
-                        you prove "If ground is dry, it didn't rain". Both mean the same thing!
+                        <strong>🪱 Analogy: The Time Traveler's Paradox</strong>
+                        <p>If you assume you can go back in time and prevent your own birth (possible $\neg P$), you
+                            reach a state where you are never born. But if you're never born, you can't go back. The
+                            "Nonsense" (Paradox) proves that time travel with that rule is impossible.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">CS Example: The Halting Problem</h3>
+                        <p>Alan Turing proved no program can determine if <em>every</em> other program will eventually
+                            stop. The proof is by contradiction: Assume such a `halts(f)` function exists. We then
+                            create a `paradox(f)` that does the <strong>opposite</strong> of what `halts` says. If
+                            `paradox` is given to itself, we get a logical crash.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Turing's Paradox Logic</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python"># Imagine 'halts' is a "Magic Oracle"
+def paradox(program):
+    if halts(program):
+        while True: pass # Loop forever if oracle says it halts
+    else:
+        return # Halt if oracle says it loops forever
+
+# Question: What happens if we run paradox(paradox)?
+# Result: Contradiction! Hence, 'halts' is impossible to write.</code></pre>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <strong>📜 Turing's Wisdom:</strong>
+                            <p>"Science is a differential equation. Religion is a boundary condition." — Alan Turing</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Example: $\sqrt{2}$ is Irrational</h3>
+                        <p>This is the "Hello World" of contradiction proofs. If you assume $\sqrt{2} = a/b$ (rational),
+                            you eventually prove that $a$ and $b$ must both be even, which means the fraction wasn't
+                            simplified—forever! This infinite descent is the contradiction.</p>
                     </div>
                 </div>
-                <div class="subsection">
-                    <h3 class="subsection-title">Example: If n² is even, then n is even</h3>
-                    <div class="math-block">Prove contrapositive: If n is odd, then n² is odd.
-                        Proof:
-                        1. Assume n is odd: n = 2k + 1.
-                        2. n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1.
-                        3. This is clearly odd.
-                        4. Since the contrapositive is true, the original claim is true. ∎</div>
-                </div>
-    </div>
-    </section>
+            </section>
 
-    <section class="section" id="contradiction">
-        <div class="section-header">
-            <div class="section-number">Section 3</div>
-            <h2 class="section-title">Proof by Contradiction</h2>
-        </div>
-        <div class="section-body">
-            <p>Proof by <strong>Contradiction</strong> is like an argument where you say, "Okay, let's pretend
-                you're right for a second. If you're right, then something impossible happens. Since impossible
-                things can't happen, you MUST be wrong!"</p>
-            <div class="subsection">
-                <h3 class="subsection-title">The "Nuh-uh" Method</h3>
-                <div class="rule"><strong>Strategy:</strong> Assume the opposite of your claim. Show it leads to
-                    nonsense (e.g. 1 = 0).</div>
-                3. This contradicts the claim that L was the largest.
-                4. Therefore, no largest integer exists. ∎
-            </div>
-            <div class="info">
-                <strong>🙄 Simple:</strong> The "Nuh-uh" method. You pretend the opposite is true ("There is a largest
-                number"). Then you show this leads to nonsense ("But I can add 1 to it!"). So your pretend assumption
-                must be wrong.
-            </div>
-        </div>
-        </div>
-    </section>
+            <!-- Induction -->
+            <section class="section" id="induction">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Mathematical Induction</h2>
+                </div>
+                <div class="section-body">
+                    <p>Mathematical Induction is the tool that lets us prove a statement holds for all natural numbers
+                        $\{1, 2, 3, \dots, \infty\}$. In CS, this is how we prove <strong>Recursion</strong> won't
+                        break.</p>
 
-    <section class="section" id="induction">
-        <div class="section-header">
-            <div class="section-number">Section 4</div>
-            <h2 class="section-title">Mathematical Induction</h2>
-        </div>
-        <div class="section-body">
-            <p><strong>Induction</strong> is the "Domino Effect" proof. It proves a claim for 1, then shows if it works
-                for $k$, it must work for $k+1$. This covers every number in the line.</p>
-            <div class="subsection">
-                <h3 class="subsection-title">The Two Steps</h3>
-                <div class="rule">1. <strong>Base Case:</strong> Prove it works for the start (usually $n=1$).<br>2.
-                    <strong>Inductive Step:</strong> Show that $P(k) \implies P(k+1)$.
-                </div>
-                <div class="info">
-                    <strong>Analogy:</strong> If the first domino falls, and every falling domino knocks over the next
-                    one, then EVERY domino will fall no matter how long the line is!
-                </div>
-                <div class="info">
-                    <strong>DOMINOES.</strong> Simple as that. If you knock over the first domino (Base Case), and every
-                    domino ensures the next one falls (Inductive Step), the whole line falls.
-                </div>
-            </div>
-            <div class="subsection">
-                <h3 class="subsection-title">Example: Sum of first $n$ integers</h3>
-                <div class="math-block">Formula: 1 + 2 + ... + n = n(n+1)/2.
-                    1. Base (n=1): 1 = 1(2)/2. ✓
-                    2. Assume n=k: sum = k(k+1)/2.
-                    3. For k+1: sum = [k(k+1)/2] + (k+1) = (k+1)(k/2 + 1) = (k+1)(k+2)/2. ✓
-                    It works for all $n$!</div>
-            </div>
-        </div>
-    </section>
+                    <div class="info">
+                        <strong>🪜 Analogy: The Infinite Ladder (or Dominoes)</strong>
+                        <p>To prove you can climb an infinite ladder, you only need to prove two things:</p>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li><strong>Base Case:</strong> You can get on the first rung ($n=1$).</li>
+                            <li><strong>Inductive Step:</strong> IF you are on any rung $k$, you can reach rung $k+1$.
+                            </li>
+                        </ol>
+                        <p>If these hold, you can reach <em>every</em> rung. Just like the first domino knocking down
+                            the next, and so on.</p>
+                    </div>
 
-    <section class="section" id="invariants">
-        <div class="section-header">
-            <div class="section-number">Section 5</div>
-            <h2 class="section-title">Loop Invariants</h2>
-        </div>
-        <div class="section-body">
-            <p>A <strong>Loop Invariant</strong> is a condition that stays <strong>true</strong> before and after each
-                iteration of a loop. It's the "rule" your algorithm never breaks.</p>
-            <div class="subsection">
-                <h3 class="subsection-title">The Correctness Recipe</h3>
-                <div class="rule">
-                    1. <strong>Initialization:</strong> True before loop starts.<br>
-                    2. <strong>Maintenance:</strong> If true before a step, it's true after.<br>
-                    3. <strong>Termination:</strong> When loop ends, Invariant + Exit Condition = Correctness.
-                </div>
-                <strong>Analogy:</strong> Sorting a deck of cards. The "rule" is: "The hand I'm holding is always
-                sorted." No matter if you've picked up 1 card or 50, that rule stays true!
-            </div>
-            <div class="info">
-                <strong>🧭 Simple:</strong> The "North Star". It's a rule that must be true at the start of every loop
-                iteration. Like checking your compass direction before every step of a hike.
-            </div>
-        </div>
-        <div class="subsection">
-            <h3 class="subsection-title">Example: Binary Search</h3>
-            <div class="math-block">Invariant: "If the target exists, it is in the range [lo, hi]."
-                Maintenance:
-                - If mid < target, target must be in [mid+1, hi]. - If mid> target, target must be in [lo, mid-1].
-                    Both cases keep the target inside our shrinking window! ∎</div>
-        </div>
-        </div>
-    </section>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Formalizing the Proof</h3>
+                        <div class="math-block">
+                            1. \text{ Base Case: Show } P(1) \text{ is true.} \\
+                            2. \text{ Inductive Hypothesis (IH): Assume } P(k) \text{ is true for some } k \ge 1. \\
+                            3. \text{ Inductive Step: Show } P(k) \Rightarrow P(k+1).
+                        </div>
+                    </div>
 
-    <section class="section" id="videos">
-        <div class="section-header">
-            <div class="section-number">Section 6</div>
-            <h2 class="section-title">Video Lessons</h2>
-        </div>
-        <div class="section-body">
-            <div class="video-container">
-                <div class="video-player">
-                    <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-                    <div class="video-info">
-                        <div class="video-title" id="videoTitle">Select a video</div>
-                        <div class="video-meta" id="videoMeta"></div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">CS Example: Proving a Recursive Function</h3>
+                        <p>Consider a function that calculates the sum of the first $n$ integers:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">Recursive Sum</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python">def recursive_sum(n):
+    if n == 1: return 1 # Base Case
+    return n + recursive_sum(n - 1) # Recursive Step</code></pre>
+                            </div>
+                        </div>
+                        <p>We can prove this function returns $\frac{n(n+1)}{2}$ using induction on $n$.</p>
                     </div>
                 </div>
-                <div class="video-list" id="videoList"></div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section class="section" id="practice">
-        <div class="section-header">
-            <div class="section-number">Section 7</div>
-            <h2 class="section-title">Practice Problems</h2>
-        </div>
-        <div class="section-body">
-            <p>Identify the proof technique or complete the proof step.</p>
-            <div class="quiz-controls">
-                <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                <button class="btn" id="btnRevealAll">Reveal All</button>
-                <button class="btn" id="btnClear">Clear Inputs</button>
-                <button class="btn btn-danger" id="btnReset">Reset Stats</button>
-            </div>
-            <div id="quizContainer"></div>
-        </div>
-    </section>
-    </main>
+            <!-- Strong Induction -->
+            <section class="section" id="strong-induction">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Strong Induction</h2>
+                </div>
+                <div class="section-body">
+                    <p>Standard induction is like moving from rung $k$ to $k+1$. Strong induction assumes you can use
+                        <em>any</em> previous rung $\{1, 2, \dots, k\}$ to reach $k+1$.
+                    </p>
+
+                    <div class="rule">
+                        <strong>Strong Induction Template:</strong>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li>Base Cases: Prove $P(1), P(2), \dots$ as needed.</li>
+                            <li>Hypothesis: Assume $P(i)$ is true for all $1 \le i \le k$.</li>
+                            <li>Step: Prove $P(k+1)$ using the hypothesis.</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Example: Prime Factorization</h3>
+                        <p>To prove every integer $n > 1$ can be written as a product of primes, standard induction
+                            fails because $n+1$ isn't necessarily made of $n$. But with <strong>Strong
+                                Induction</strong>, we know $n+1$ is either prime itself or is a product of two smaller
+                            numbers $a \times b$, both of which are covered by our hypothesis!</p>
+                    </div>
+
+                    <div class="info">
+                        <strong>⚡ Recursion Optimization: Memoization</strong>
+                        <p>Strong Induction is the mathematical sibling of <strong>Dynamic Programming</strong>. When we
+                            calculate `Fib(n)`, we don't just use `Fib(n-1)`, we use all previously computed states.
+                            Proving a DP algorithm works usually requires Strong Induction.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Structural Induction -->
+            <section class="section" id="structural">
+                <div class="section-header">
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Structural Induction & Trees</h2>
+                </div>
+                <div class="section-body">
+                    <p>Standard induction works on numbers. <strong>Structural Induction</strong> works on recursively
+                        defined data structures like Trees and Linked Lists.</p>
+                    <div class="rule">
+                        <strong>The Tree Induction Rule:</strong>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li><strong>Base Case:</strong> Prove the property for a leaf node.</li>
+                            <li><strong>Step:</strong> Assume it holds for child nodes, prove it for the parent.</li>
+                        </ol>
+                    </div>
+
+                    <div class="info">
+                        <strong>📂 Application: File Systems</strong>
+                        <p>When your computer calculates the total size of a folder (a tree), it uses a recursive
+                            algorithm. Proving that it won't crash or double-count files requires structural induction
+                            over all subdirectories.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Proving Tree Height</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">class Node:
+    def __init__(self, left=None, right=None):
+        self.left = left
+        self.right = right
+
+def get_height(node):
+    if node is None: return 0 # Base Case
+    return 1 + max(get_height(node.left), get_height(node.right)) # Step
+
+# Structural Induction lets us prove the Max Nodes is 2^h - 1</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Invariants -->
+            <section class="section" id="invariants">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Loop Invariants</h2>
+                </div>
+                <div class="section-body">
+                    <p>Induction applied specifically to code loops. If the invariant holds before, during, and after
+                        the loop, the loop is correct.</p>
+                    <div class="rule">
+                        <strong>Binary Search Invariant Example:</strong>
+                        <p>Invariant: "The target, if it exists, is within the range $[low, high]$."</p>
+                        <ol class="list-decimal ml-6 mt-2">
+                            <li><strong>Initialization:</strong> $[0, len-1]$ contains everything. (True)</li>
+                            <li><strong>Maintenance:</strong> Each step halves the range but keeps the target inside.
+                            </li>
+                            <li><strong>Termination:</strong> When $low > high$, the range is empty. Target doesn't
+                                exist.
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Deep Example: Partitioning (QuickSort)</h3>
+                        <p>A loop invariant for the partition step: all elements to the left of the pivot are smaller
+                            than the pivot.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modern Proof Assistants -->
+            <section class="section" id="modern">
+                <div class="section-header">
+                    <div class="section-number">Section 9</div>
+                    <h2 class="section-title">Modern Proof Assistants (Lean/Coq)</h2>
+                </div>
+                <div class="section-body">
+                    <p>In the 21st century, we don't just write proofs on paper. We write them in specialized languages
+                        like <strong>Lean</strong> or <strong>Coq</strong>. The computer then checks every single step
+                        for us.</p>
+                    <div class="info">
+                        <strong>🚀 Industrial Proofs</strong>
+                        <p>Intel uses formal verification to ensure their chips have no logic bugs. Amazon uses it to
+                            prove that their cloud databases never lose data. In these worlds, a "Proof" is a piece of
+                            code that the compiler verifies.</p>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Lean 4</span>
+                            <span class="code-label">A Simple Proof (Conceptual)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-lean">-- Proving P and Q implies Q and P
+theorem and_comm (p q : Prop) : p ∧ q → q ∧ p :=
+  fun h => ⟨h.right, h.left⟩ -- Extract right, then left. Proof complete!</code></pre>
+                        </div>
+                    </div>
+                    <p>This is the future of software engineering: <strong>Correctness by Construction</strong>.</p>
+                </div>
+            </section>
+
+            <!-- Common Fallacies -->
+            <section class="section" id="fallacies">
+                <div class="section-header">
+                    <div class="section-number">Section 10</div>
+                    <h2 class="section-title">Common Proof Fallacies</h2>
+                </div>
+                <div class="section-body">
+                    <p>Mathematics and CS are precise. A small logical gap can crash a rocket or lose millions in
+                        crypto.</p>
+                    <div class="warning">
+                        <strong>1. Circular Reasoning (Begging the Question)</strong>
+                        <p>Assuming what you are trying to prove in order to prove it. "I am a good programmer because I
+                            write great code."</p>
+                    </div>
+                    <div class="warning">
+                        <strong>2. Dividing by Zero (The Classic)</strong>
+                        <p>Many "proofs" that $1=2$ hide a division by $(a-b)$ where $a=b$. Always check your
+                            denominators!</p>
+                    </div>
+                    <div class="warning">
+                        <strong>3. Affirming the Consequent</strong>
+                        <p>Assuming that if $P \to Q$ and $Q$ is true, then $P$ must be true. Example: "If it's a dog,
+                            it has four legs. My cat has four legs, so it's a dog." (False!)</p>
+                    </div>
+                    <div class="warning">
+                        <strong>4. Hasty Generalization</strong>
+                        <p>Testing a loop for $n=1, 2, 3$ and assuming it works for all $n$. This is why we need
+                            <strong>Induction</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 11</div>
+                    <h2 class="section-title">Summary & Key Takeaways</h2>
+                </div>
+                <div class="section-body">
+                    <div class="card">
+                        <ul class="list-disc ml-6">
+                            <li><strong>Direct Proof:</strong> The straight path. Assume $P$, reach $Q$.</li>
+                            <li><strong>Contrapositive:</strong> The reverse path. Prove $\neg Q \to \neg P$.</li>
+                            <li><strong>Contradiction:</strong> The "impossible" path. Assume $\neg P$, find a paradox.
+                            </li>
+                            <li><strong>Induction:</strong> The "domino" path. Base Case + Inductive Step.</li>
+                            <li><strong>CS Magic:</strong> Proofs are the foundation of testing, debugging, and formal
+                                verification.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Final Code Example: The SAT Solver</h3>
+                        <p>Modern computers solve billions of logic constraints using <strong>SAT Solvers</strong>
+                            (Satisfiability). These tools essentially traverse massive truth trees to see if a proof
+                            exists.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Python</span>
+                                <span class="code-label">SAT Solver Concept (using Logic logic)</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code class="language-python"># Imagine we want to find values for A and B that make (A or B) and (not A) True.
+# A human proof:
+# 1. (not A) must be True -> A is False.
+# 2. (A or B) must be True. Since A is False, B must be True.
+# Result: A=False, B=True.
+
+def simple_sat_solver():
+    for a in [True, False]:
+        for b in [True, False]:
+            if (a or b) and (not a):
+                return f"Solution found: A={a}, B={b}"
+    return "No solution."
+
+print(simple_sat_solver()) # Satisfiability!</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History -->
+            <section class="section" id="history">
+                <div class="section-header">
+                    <div class="section-number">Section 12</div>
+                    <h2 class="section-title">A Brief History of Rigor</h2>
+                </div>
+                <div class="section-body">
+                    <p>The concept of a "Proof" hasn't always been the same. It has evolved over 2,000 years into the
+                        silicon-checked logic we use today.</p>
+                    <div class="two-col">
+                        <div class="card">
+                            <h3>Ancient Greece</h3>
+                            <p>Euclid's <em>Elements</em> (300 BC) established the <strong>Axiomatic Method</strong>. He
+                                showed that you could build all of geometry from just 5 basic assumptions.</p>
+                        </div>
+                        <div class="card">
+                            <h3>The 1900s Crisis</h3>
+                            <p>Godel and Russell discovered that logic itself has limits. This led to the creation of
+                                <strong>Lambda Calculus</strong> (Church) and the <strong>Turing Machine</strong>
+                                (Turing)—the birth of computer science.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Looking Ahead -->
+            <section class="section" id="next">
+                <div class="section-header">
+                    <div class="section-number">Section 13</div>
+                    <h2 class="section-title">Looking Ahead</h2>
+                </div>
+                <div class="section-body">
+                    <p>Tomorrow, we'll take these proof techniques and apply them to <strong>Number Theory</strong>.
+                        We'll prove things about Primes, Divisibility, and the Modular Arithmetic that allows your
+                        credit card to be securely encrypted over the web.</p>
+                    <div class="info">
+                        <strong>🎯 Your Goal:</strong>
+                        <p>Don't just memorize the proofs. Try to "feel" the logic. When you write a function tomorrow,
+                            ask yourself: <em>"Could I prove this works using induction?"</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 14</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 15</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <p>Identify the proof technique or complete the proof step.</p>
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
     </div>
+
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Proof Techniques",
+                title: "Fundamentals & Logic",
                 items: [
-                    { title: "Direct Proofs", channel: "TrevTutor", vid: "YFZzLQN5qOU" },
-                    { title: "Proof by Contrapositive", channel: "TrevTutor", vid: "16-mCg0D75s" },
-                    { title: "Proof by Contradiction", channel: "TrevTutor", vid: "sRDwsfNDXak" },
-                    { title: "Mathematical Induction", channel: "TrevTutor", vid: "QJ_80WnN02Q" },
-                    { title: "Loop Invariants", channel: "Udacity", vid: "8WGFcgI_PXY" }
+                    { title: "Direct Proofs Intro", channel: "Kimberly Brehm", vid: "vLqJ6iVvWnU" },
+                    { title: "Truth Tables Logic", channel: "Organic Chemistry Tutor", vid: "VjdbD2g0g7k" },
+                    { title: "Introduction to Proofs", channel: "William Spaniel", vid: "mY6Isu1T8cE" },
+                    { title: "Proof by Contrapositive", channel: "The Math Sorcerer", vid: "C3vM9kZJzJw" }
+                ]
+            },
+            {
+                title: "Induction & Recursion",
+                items: [
+                    { title: "Induction: The Core of CS", channel: "Professor Leonard", vid: "K9hJFWnZK6o" },
+                    { title: "Strong Induction Explained", channel: "Dr. Trefor Bazett", vid: "6sT2oJ_y_Lg" },
+                    { title: "The Domino Effect", channel: "Math Antics", vid: "jN6E_iRdf_U" },
+                    { title: "Structural Induction", channel: "MIT OCW", vid: "tz1W_F0H9a8" }
+                ]
+            },
+            {
+                title: "Advanced CS Applications",
+                items: [
+                    { title: "The Halting Problem (Contradiction)", channel: "Computerphile", vid: "92WHN-pAFCs" },
+                    { title: "Loop Invariants & Binary Search", channel: "Udacity", vid: "u-eQjPZtQxo" },
+                    { title: "Insertion Sort Proofs", channel: "Algorithms Lab", vid: "7R6D5jX9-vU" },
+                    { title: "Big O and Proofs", channel: "Gayle Laakmann McDowell", vid: "v4cd1O4zkGw" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day4'], storageKey: 'day4_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day4'] || [],
+            storageKey: 'day4_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

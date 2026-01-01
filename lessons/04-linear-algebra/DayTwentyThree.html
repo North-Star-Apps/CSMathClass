@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 23: Checkpoint — Abstract Vectors</title>
+    <title>Day 23: Linear Transformations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 23 · Linear Algebra Sequence
+            Day 23 · Warping Space
         </div>
         <h1>Linear Transformations</h1>
         <p class="hero-desc">
-            Thinking of matrices as functions that warp space. Rotations, shears, and scalings.
+            Stop thinking of matrices as grids of numbers. Start thinking of them as functions that warp space itself.
+            They stretch, rotate, and shear the fabric of the coordinate system.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                12 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -73,13 +83,16 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Definition</a></li>
-                    <li><a href="#matrix-rep" class="toc-link">2. Matrix Representation</a></li>
-                    <li><a href="#examples" class="toc-link">3. Common Transforms</a></li>
-                    <li><a href="#change-basis" class="toc-link">4. Change of Basis</a></li>
-                    <li><a href="#python" class="toc-link">5. Python Graphics</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#visualizing" class="toc-link">1. Visualizing the Grid</a></li>
+                    <li><a href="#basis-vectors" class="toc-link">2. Basis Vectors (The Architects)</a></li>
+                    <li><a href="#catalog" class="toc-link">3. The Visual Dictionary</a></li>
+                    <li><a href="#composition" class="toc-link">4. Composition ($AB \neq BA$)</a></li>
+                    <li><a href="#kernel" class="toc-link">5. Kernel & Dimensional Collapse</a></li>
+                    <li><a href="#graphics" class="toc-link">6. Application: Computergraphics</a></li>
+                    <li><a href="#python" class="toc-link">7. Python: Grid Warp</a></li>
+                    <li><a href="#summary" class="toc-link">8. Summary</a></li>
+                    <li><a href="#videos" class="toc-link">9. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">10. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -94,155 +107,363 @@
         </aside>
 
         <main class="content">
-            <!-- Definition -->
-            <section class="section" id="definition">
+            <!-- Visualizing -->
+            <section class="section" id="visualizing">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">A Functional View</h2>
+                    <h2 class="section-title">Visualizing the Grid</h2>
                 </div>
                 <div class="section-body">
                     <p>
-                        A function $T: V \to W$ is a <strong>Linear Transformation</strong> if it preserves vector
-                        addition and scalar multiplication:
+                        A "Linear" transformation has two rules:
+                        <br>1. Grid lines remain <strong>parallel</strong> and evenly spaced.
+                        <br>2. The <strong>Origin (0,0)</strong> stays fixed.
                     </p>
-                    <div class="math-block">
-                        1. T(u + v) = T(u) + T(v)
-                        2. T(cu) = cT(u)
-                    </div>
-                    <p>Basically: "Grid lines remain parallel and evenly spaced, and the origin stays fixed."</p>
                     <div class="info">
-                        <strong>🖼️ Simple:</strong> The Photoshop Warp.
-                        <br>Think of your vector space as a picture on a rubber sheet.
-                        <br>A Linear Transformation is stretching, skewing, or rotating that sheet.
-                        <br>You CANNOT tear it, fold it, or curve the grid lines.
+                        <strong>Why 'Linear'?</strong>
+                        <p>It preserves lines. If you transform a line, it stays a line. It doesn't curve (like
+                            $y=x^2$).</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Matrix Representation -->
-            <section class="section" id="matrix-rep">
+            <!-- Basis Vectors -->
+            <section class="section" id="basis-vectors">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Matrix Representation</h2>
+                    <h2 class="section-title">Basis Vectors (The Architects)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        Every linear transformation $T$ (on finite-dimensional spaces) can be represented by a matrix
-                        $A$.
-                    </div>
                     <p>
-                        The columns of $A$ are simply the images of the basis vectors.
-                        <br>
-                        $A = [T(e_1) \ T(e_2) \ \dots \ T(e_n)]$
+                        The standard basis vectors define our coordinate system:
+                        <br>$\hat{i} = [1, 0]$ (Right)
+                        <br>$\hat{j} = [0, 1]$ (Up)
                     </p>
+                    <div class="rule">
+                        <strong>The Column Interpretation</strong>
+                        <p>The columns of Matrix A tell you <em>exactly</em> where $\hat{i}$ and $\hat{j}$ land.</p>
+                        <div class="math-block">
+                            $$
+                            A = \begin{bmatrix}
+                            \color{red}{3} & \color{blue}{0} \\
+                            \color{red}{1} & \color{blue}{2}
+                            \end{bmatrix}
+                            $$
+                        </div>
+                        <p>
+                            • Column 1 (Red): $\hat{i}$ lands at $[3, 1]$.
+                            <br>• Column 2 (Blue): $\hat{j}$ lands at $[0, 2]$.
+                            <br>Once you know where these two go, <strong>every other vector</strong> just follows them
+                            ($v = x\hat{i} + y\hat{j}$).
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Examples -->
-            <section class="section" id="examples">
+            <!-- Catalog -->
+            <section class="section" id="catalog">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">2D Examples</h2>
+                    <h2 class="section-title">The Visual Dictionary</h2>
                 </div>
                 <div class="section-body">
-                    <div class="grid-2">
-                        <div class="list-item">
-                            <strong>Scaling:</strong>
-                            $[ k \ 0 ; 0 \ k ]$
+                    <p>Let's build a library of standard 2x2 matrices and see what they do to the "Unit Square".</p>
+
+                    <div class="subsection">
+                        <h3>1. Identity (Do Nothing)</h3>
+                        <div class="math-block">
+                            $$ I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} $$
                         </div>
-                        <div class="list-item">
-                            <strong>Rotation (90 deg):</strong>
-                            $[ 0 \ -1 ; 1 \ 0 ]$
+                        <p>$\hat{i}$ stays at $[1, 0]$. $\hat{j}$ stays at $[0, 1]$. Total boredom.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>2. Uniform Scale (Zoom)</h3>
+                        <div class="math-block">
+                            $$ S = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} $$
                         </div>
-                        <div class="list-item">
-                            <strong>Shear:</strong>
-                            $[ 1 \ k ; 0 \ 1 ]$
+                        <p>Everything doubles in size. Area quadruples ($det = 4$).</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>3. Reflection (Mirror)</h3>
+                        <div class="math-block">
+                            $$ F = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix} $$
                         </div>
-                        <div class="list-item">
-                            <strong>Projection (x-axis):</strong>
-                            $[ 1 \ 0 ; 0 \ 0 ]$
+                        <p>$\hat{i}$ flips to $[-1, 0]$. $\hat{j}$ stays put. This creates a mirror image across the
+                            y-axis.</p>
+                        <p><strong>determinant = -1</strong> (Orientation flip).</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>4. Shear (Italics)</h3>
+                        <div class="math-block">
+                            $$ H = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} $$
+                        </div>
+                        <p>
+                            $\hat{i}$ stays at $[1, 0]$.
+                            <br>$\hat{j}$ moves to $[1, 1]$.
+                            <br>The square becomes a parallelogram (like pushing a stack of books).
+                            <br><strong>Area is preserved</strong> ($det = 1$).
+                        </p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>5. Rotation (90° CCW)</h3>
+                        <div class="math-block">
+                            $$ R = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} $$
+                        </div>
+                        <p>
+                            $\hat{i}$ rotates to $[0, 1]$ (becomes old $\hat{j}$).
+                            <br>$\hat{j}$ rotates to $[-1, 0]$ (becomes negative x).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Composition -->
+            <section class="section" id="composition">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Composition ($AB \neq BA$)</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Applying two transformations is equivalent to <strong>multiplying their matrices</strong>.
+                        But remember: Functions digest form right to left!
+                        <br>$f(g(x))$ means $g$ happens first.
+                        <br>$ABx$ means $B$ happens first.
+                    </p>
+                    <div class="subsection">
+                        <h3>Hand Calculation</h3>
+                        <p>To compute $A \cdot B$, take the <strong>Dot Product</strong> of Rows of A with Columns of B.
+                        </p>
+                        <div class="math-block">
+                            $$
+                            \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+                            \begin{bmatrix} e & f \\ g & h \end{bmatrix} =
+                            \begin{bmatrix} ae+bg & af+bh \\ ce+dg & cf+dh \end{bmatrix}
+                            $$
+                        </div>
+                        <p>
+                            Think of it as: Matrix A acts on <strong>each column</strong> of Matrix B separately.
+                        </p>
+                    </div>
+                    <div class="warning">
+                        <strong>Order Matters!</strong>
+                        <p>
+                            Rotating then Shearing is <strong>NOT</strong> the same as Shearing then Rotating.
+                            <br>Try it with your phone: Rotate 90° Z, then 90° X. Now swap. You end up facing different
+                            ways.
+                            <br>Mathematically: $A \cdot B \neq B \cdot A$.
+                        </p>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Verify Non-Commutativity</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+
+# Rotation (90 degrees)
+R = np.array([[0, -1], [1, 0]])
+
+# Shear
+H = np.array([[1, 1], [0, 1]])
+
+print("Rotate then Shear (H @ R):")
+print(H @ R)
+
+print("\nShear then Rotate (R @ H):")
+print(R @ H)
+
+# They are different!
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Change Basis -->
-            <section class="section" id="change-basis">
+            <!-- Kernel -->
+            <section class="section" id="kernel">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Change of Basis</h2>
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Kernel & Dimensional Collapse</h2>
                 </div>
                 <div class="section-body">
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>The Image (Output)</h3>
+                            <p>The "Range" of the matrix function.</p>
+                            <p>All possible places you can land.</p>
+                            <p>Usually the whole 2D plane, unless you get "squished".</p>
+                        </div>
+                        <div class="card">
+                            <h3>The Kernel (Null Space)</h3>
+                            <p>The set of vectors that map to <strong>Zero</strong>.</p>
+                            <p>If $\det(A) = 0$, the matrix squishes the plane onto a line (Rank 1) or point (Rank 0).
+                            </p>
+                            <p>The stuff that gets squished away is the Kernel. It's "Lost Information".</p>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3>Determinant Deep Dive</h3>
+                        <p>The Determinant isn't just a number; it's the <strong>Area Scale Factor</strong>.</p>
+                        <div class="example-box">
+                            <strong>Meaning of Det(A) values:</strong>
+                            <ul>
+                                <li><strong>Det = 1:</strong> Area preserved (Rotation, Shear).</li>
+                                <li><strong>Det = 2:</strong> Area doubles (Scaling).</li>
+                                <li><strong>Det = 0:</strong> Area becomes zero (Collapse to line/point). Not
+                                    invertible!</li>
+                                <li><strong>Det = -1:</strong> Area flips (Reflection). Concepts like "Left" and "Right"
+                                    swap.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Graphics -->
+            <section class="section" id="graphics">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Application: Computer Graphics</h2>
+                </div>
+                <div class="section-body">
+                    <h3>Homogeneous Coordinates</h3>
                     <p>
-                        If we look at the same transformation in a different basis $B$, the matrix changes to:
-                        $$ M = P^{-1} A P $$
-                        Where $P$ is the change-of-basis matrix (columns are new basis vectors).
-                        Matrices $M$ and $A$ are <strong>Similar</strong>.
+                        A 3x3 matrix can Scale and Rotate 3D points, but it <strong>cannot translate (move)</strong>
+                        them.
+                        Why? Because $linear$ transforms fix the origin ($0 \to 0$).
                     </p>
                     <div class="info">
-                        <strong>🗣️ Simple:</strong> The Universal Translator.
-                        <br>The "Transformation" (Object A) is the same physical movement/idea.
-                        <br>But "Basis 1" speaks English and "Basis 2" speaks Spanish.
-                        <br>$P$ is the dictionary that translates the vector names between languages.
+                        <strong>The 4x4 Trick</strong>
+                        <p>
+                            To move the camera, Game Engines use <strong>4D matrices</strong>!
+                            We add a "w" coordinate (usually 1).
+                            <br>This allows "Shear in 4D" to act as "Translation in 3D".
+                        </p>
                     </div>
+                    <h3>The Pivot Trick (Translate-Rotate-Translate)</h3>
+                    <p>
+                        To rotate an object around its center (not the origin), we compose three matrices:
+                        <br>1. <strong>Translate</strong> center to origin ($T^{-1}$).
+                        <br>2. <strong>Rotate</strong> ($R$).
+                        <br>3. <strong>Translate</strong> back ($T$).
+                        <br>Combined Matrix: $M = T \cdot R \cdot T^{-1}$.
+                    </p>
+                    <h3>Texture Mapping</h3>
+                    <p>
+                        To paint an image onto a 3D triangle, GPUs solve the <strong>Inverse Problem</strong>:
+                        "For this pixel on the screen, which part of the texture image belongs here?"
+                    </p>
                 </div>
             </section>
 
             <!-- Python -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Visualizing Transforms</h2>
+                    <div class="section-number">Section 7</div>
+                    <h2 class="section-title">Python: Grid Warp</h2>
                 </div>
                 <div class="section-body">
-                    <p>We can apply a matrix to a set of points to see the transformation.</p>
+                    <p>Let's visualize exactly how a matrix warps a coordinate grid.</p>
+
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Applying Transformation</span>
+                            <span class="code-label">Visualizing Transforms</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+                            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="code-comment"># Unit Square corners</span>
-points = np.array([
-    [<span class="code-number">0</span>, <span class="code-number">0</span>],
-    [<span class="code-number">1</span>, <span class="code-number">0</span>],
-    [<span class="code-number">1</span>, <span class="code-number">1</span>],
-    [<span class="code-number">0</span>, <span class="code-number">1</span>]
-]).T <span class="code-comment"># 2x4 matrix</span>
+def plot_grid(matrix):
+    # Create a grid of points
+    x = np.linspace(-5, 5, 20)
+    y = np.linspace(-5, 5, 20)
+    X, Y = np.meshgrid(x, y)
+    
+    # Flatten positions to (2, N)
+    original_points = np.vstack([X.flatten(), Y.flatten()])
+    
+    # Apply Matrix Transform: A * v
+    transformed_points = matrix @ original_points
+    
+    # Reshape back to grid for plotting
+    X_new = transformed_points[0, :].reshape(20, 20)
+    Y_new = transformed_points[1, :].reshape(20, 20)
+    
+    plt.figure(figsize=(8, 8))
+    plt.title(f"Transform: {matrix.tolist()}")
+    
+    # Plot distorted grid lines
+    for i in range(20):
+        plt.plot(X_new[i, :], Y_new[i, :], 'b-', alpha=0.3) # Horizontal lines
+        plt.plot(X_new[:, i], Y_new[:, i], 'b-', alpha=0.3) # Vertical lines
+        
+    # Plot Basis Vectors (Where i and j land)
+    origin = np.zeros(2)
+    i_hat = matrix @ np.array([1, 0])
+    j_hat = matrix @ np.array([0, 1])
+    
+    plt.arrow(0, 0, i_hat[0], i_hat[1], color='r', width=0.1, label='i_hat')
+    plt.arrow(0, 0, j_hat[0], j_hat[1], color='g', width=0.1, label='j_hat')
+    
+    plt.axis('equal')
+    plt.grid(True, alpha=0.1)
+    plt.legend()
+    plt.show()
 
-<span class="code-comment"># Shear Matrix</span>
-k = <span class="code-number">1.5</span>
-Shear = np.array([
-    [<span class="code-number">1</span>, k],
-    [<span class="code-number">0</span>, <span class="code-number">1</span>]
+# Example: Shear Matrix
+M = np.array([
+    [1, 1],
+    [0, 1]
 ])
-
-<span class="code-comment"># Transform</span>
-transformed_points = Shear @ points
-
-<span class="code-function">print</span>(<span class="code-string">"Original (columns):\n"</span>, points)
-<span class="code-function">print</span>(<span class="code-string">"Transformed:\n"</span>, transformed_points)</pre>
+plot_grid(M)</code></pre>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="section" id="summary">
+                <div class="section-header">
+                    <div class="section-number">Section 8</div>
+                    <h2 class="section-title">Summary</h2>
+                </div>
+                <div class="section-body">
+                    <ul>
+                        <li><strong>Matrices are Actions:</strong> They are functions that warp space.</li>
+                        <li><strong>Columns = Destinations:</strong> The columns tell you where basis vectors $\hat{i}$
+                            and $\hat{j}$ go.</li>
+                        <li><strong>Grid Lines Stick Together:</strong> "Linear" means lines remain parallel and the
+                            Origin is fixed.</li>
+                        <li><strong>Determinant:</strong> A single number describing Area Scaling. 0 = Collapse,
+                            Negative = Flip.</li>
+                        <li><strong>Composition:</strong> $AB$ means "Apply B then A". Order matters ($AB \neq BA$).
+                        </li>
+                        <li><strong>Graphics:</strong> Uses 4x4 Matrices (Homogeneous Coordinates) to enable
+                            Translation.</li>
+                        <li><strong>Inverses:</strong> $A^{-1}$ restores the grid. No inverse exists if $det(A)=0$.</li>
+                    </ul>
                 </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 9</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -254,7 +475,7 @@ transformed_points = Shear @ points
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 10</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -270,27 +491,49 @@ transformed_points = Shear @ points
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Visualizing Matrices",
+                title: "The Essence",
                 items: [
                     { title: "Linear Transformations", channel: "3Blue1Brown", vid: "kYB8IZa5AuE" },
+                    { title: "Matrix Multiplication as Composition", channel: "3Blue1Brown", vid: "XkY2DOUCWMU" }
+                ]
+            },
+            {
+                title: "Deep Dives",
+                items: [
+                    { title: "Visualizing the Kernel", channel: "Khan Academy", vid: "9g2f2F_1e9U" },
                     { title: "Change of Basis", channel: "3Blue1Brown", vid: "P2LTAUO1TdA" },
-                    { title: "Matrices as Transforms", channel: "Khan Academy", vid: "TnV5a1c3rHg" }
+                    { title: "Eigenvectors and Eigenvalues", channel: "3Blue1Brown", vid: "PFDu9oVAE-g" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Affine Transformations in Vision", channel: "Computerphile", vid: "E3Phj6J287o" },
+                    { title: "3D Computer Graphics Math", channel: "Computerphile", vid: "sIT5D54yY5w" },
+                    { title: "Homogeneous Coordinates", channel: "Udacity", vid: "PvEl63mWfVE" },
+                    { title: "Texture Mapping", channel: "Computerphile", vid: "T8fSg7tW0K4" },
+                    { title: "Image Warping with Homographies", channel: "First Principles", vid: "l_qjO4cM74o" }
+                ]
+            },
+            {
+                title: "Advanced",
+                items: [
+                    { title: "Singular Value Decomposition (SVD)", channel: "Steve Brunton", vid: "gXbThCXjZFM" },
+                    { title: "Groups and Symmetries", channel: "Socratica", vid: "m7deDfaYlZc" }
                 ]
             }
         ];
-        const QUESTIONS = [
-            { topic: "Linearity", prompt: "T(u+v) must equal ___.", answer: "t(u)+t(v)", altAnswers: ["t(u) + t(v)"] },
-            { topic: "Origin", prompt: "A linear transformation must map the origin to the ___.", answer: "origin", altAnswers: ["zero vector"] },
-            { topic: "ColSpace", prompt: "Columns of the matrix A are the images of the ___ vectors.", answer: "basis" },
-            { topic: "Similar", prompt: "Similar matrices represent the same ___ in different bases.", answer: "transformation", altAnswers: ["map", "operator"] },
-            { topic: "Det", prompt: "The determinant of a rotation matrix is ___.", answer: "1" },
-        ];
-        initLesson({ videos: VIDEO_GROUPS, questions: QUESTIONS, storageKey: 'day23_trans_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day23'] || [],
+            storageKey: 'day23_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

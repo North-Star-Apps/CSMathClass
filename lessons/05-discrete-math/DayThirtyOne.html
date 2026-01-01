@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 31: Number Theory Basics</title>
+    <title>Day 31: Trees & Hierarchies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 31 · Discrete Math
+            Day 31 · The Shape of Data
         </div>
-        <h1>Complete Number Theory</h1>
+        <h1>Trees & Hierarchies</h1>
         <p class="hero-desc">
-            The queen of mathematics. From basic divisibility to RSA encryption. The full toolkit for analyzing
-            integers.
+            A Tree is a Graph with no cycles.
+            It is the natural structure for hierarchies: File Systems, HTML (DOM), Company Orgs, and JSON.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -51,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~100 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                18 practice problems
+                40 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                12 video lessons
             </div>
         </div>
     </header>
@@ -74,237 +83,271 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#divisibility" class="toc-link">1. Divisibility</a></li>
-                    <li><a href="#modular" class="toc-link">2. Modular Arithmetic</a></li>
-                    <li><a href="#primes" class="toc-link">3. Primes</a></li>
-                    <li><a href="#gcd" class="toc-link">4. Euclidean Algorithm</a></li>
-                    <li><a href="#inverse" class="toc-link">5. Modular Inverse</a></li>
-                    <li><a href="#rsa" class="toc-link">6. RSA Encryption</a></li>
-                    <li><a href="#python" class="toc-link">7. Python Number Theory</a></li>
-                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">9. Practice</a></li>
-                </ul>
-            </nav>
-            <div class="stats-card">
-                <div class="toc-title">Your Progress</div>
-                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
-                        id="statAttempted">0</span></div>
-                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
-                        id="statCorrect">0</span></div>
-                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
-                        id="statAccuracy">—</span></div>
-            </div>
+                    <nav class="toc">
+                        <div class="toc-title">On this page</div>
+                        <ul class="toc-list">
+                            <li><a href="#anatomy" class="toc-link">1. The Anatomy of a Tree</a></li>
+                            <li><a href="#domjson" class="toc-link">2. The DOM and JSON</a></li>
+                            <li><a href="#binary" class="toc-link">3. Binary Search Trees (BST)</a></li>
+                            <li><a href="#traversal" class="toc-link">4. Tree Traversal</a></li>
+                            <li><a href="#advanced" class="toc-link">5. Advanced Trees</a></li>
+                            <li><a href="#python" class="toc-link">6. Python: Recursion</a></li>
+                            <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                            <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
+                        </ul>
+                    </nav>
+                    <div class="stats-card">
+                        <div class="toc-title">Your Progress</div>
+                        <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                                id="statAttempted">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                                id="statCorrect">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                                id="statAccuracy">—</span></div>
+                    </div>
         </aside>
 
         <main class="content">
-            <!-- Divisibility -->
-            <section class="section" id="divisibility">
+            <!-- Definition -->
+            <section class="section" id="anatomy">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Divisibility</h2>
+                    <h2 class="section-title">The Anatomy of a Tree</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule">
-                        We say $a$ divides $b$ ($a \mid b$) if there exists an integer $k$ such that $b = ak$.
+                    <p>
+                        A Tree is a graph that is **Connected** and **Acyclic** with a single **Root** node.
+                    </p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Key Terms</h3>
+                            <p><strong>Root:</strong> The single top node.</p>
+                            <p><strong>Child:</strong> A node directly below another.</p>
+                            <p><strong>Leaf:</strong> A node with NO children.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Metrics</h3>
+                            <p><strong>Depth:</strong> Distance from Root (Root is 0).</p>
+                            <p><strong>Height:</strong> Distance from deepest Leaf (Leaf is 0).</p>
+                        </div>
                     </div>
-                    <p>Properties:</p>
-                    <ul>
-                        <li>If $a \mid b$ and $b \mid c$, then $a \mid c$.</li>
-                        <li>If $a \mid b$ and $a \mid c$, then $a \mid (mb + nc)$ for any integers $m, n$.</li>
-                    </ul>
-                    <div class="math-block">The Division Algorithm:
-                        For any integer a and b > 0, there exist unique q and r such that:
-                        a = bq + r, where 0 ≤ r < b</div>
-                    </div>
+                </div>
             </section>
 
-            <!-- Modular -->
-            <section class="section" id="modular">
+            <!-- DOM -->
+            <section class="section" id="domjson">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Modular Arithmetic</h2>
+                    <h2 class="section-title">The DOM and JSON</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Clock arithmetic. We say $a \equiv b \pmod m$ if $m \mid (a-b)$.
-                        Alternatively, $a$ and $b$ have the same remainder when divided by $m$.
-                    </p>
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Addition:</strong> $(a + b) \pmod m = ((a \pmod m) + (b \pmod m)) \pmod m$.
+                    <p>The entire web is built on trees.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>HTML (DOM)</h3>
+                            <pre class="ascii-art">
+   HTML
+  /    \
+HEAD   BODY
+ |    /  \
+TITLE DIV  P
+                            </pre>
+                            <p><code>document.querySelector</code> traverses this tree.</p>
                         </div>
-                        <div class="list-item">
-                            <strong>Multiplication:</strong> $(a \cdot b) \pmod m = ((a \pmod m) \cdot (b \pmod m))
-                            \pmod m$.
+                        <div class="card">
+                            <h3>JSON</h3>
+                            <pre><code class="language-json">{
+  "user": {
+    "name": "Alice",
+    "friends": ["Bob", "Eve"]
+  }
+}</code></pre>
+                            <p>Nested Objects = Trees.</p>
                         </div>
-                        <div class="list-item">
-                            <strong>Exponentiation:</strong> Fast Modular Exponentiation allows computing large powers
-                            efficiently.
-                        </div>
-                    </div>
-                    <div class="info">
-                        <strong>⏰ Simple:</strong> Modular arithmetic is "clock math."
-                        <br>On a 12-hour clock: 10 + 5 = 3 (not 15). We "wrap around" after 12.
-                        <br>That's exactly what mod does: 15 mod 12 = 3.
                     </div>
                 </div>
             </section>
 
-            <!-- Primes -->
-            <section class="section" id="primes">
+            <!-- Binary -->
+            <section class="section" id="binary">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Prime Numbers</h2>
+                    <h2 class="section-title">Binary Search Trees (BST)</h2>
                 </div>
                 <div class="section-body">
+                    <p>A binary tree where every node follows a strict ordering rule.</p>
                     <div class="rule">
-                        A prime $p > 1$ has only divisors 1 and $p$.
-                        <br>
-                        <strong>Fundamental Theorem of Arithmetic:</strong> Every integer > 1 is a unique product of
-                        primes.
+                        <strong>The BST Property:</strong>
+                        <br>For any node $X$:
+                        <br>All values in **Left Subtree** < $X$. <br>All values in **Right Subtree** > $X$.
                     </div>
-                    <p>
-                        There are infinitely many primes (Euclid's proof).
-                        <br>
-                        The <strong>Prime Number Theorem</strong> says $\pi(x) \approx x / \ln x$, where $\pi(x)$ is the
-                        count of primes $\le x$.
-                    </p>
-                    <div class="info">
-                        <strong>🧱 Simple:</strong> Primes are the "atoms" of numbers.
-                        <br>Just as every molecule is made of atoms, every number is made of primes.
-                        <br>12 = 2 × 2 × 3. You can't break primes down further—they're fundamental!
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Search Complexity</h3>
+                            <p><strong>Balanced:</strong> $O(\log N)$ (Halving search space).</p>
+                            <p><strong>Skewed:</strong> $O(N)$ (Basically a Linked List).</p>
+                        </div>
+                        <div class="card">
+                            <h3>Self-Balancing</h3>
+                            <p>Real databases use AVL or Red-Black trees to stay balanced automatically.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- GCD (from Day 32) -->
-            <section class="section" id="gcd">
+            <!-- Traversal -->
+            <section class="section" id="traversal">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Euclidean Algorithm</h2>
+                    <h2 class="section-title">Tree Traversal</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        To find $GCD(a, b)$:
-                        <br>
-                        If $b=0$, return $a$.
-                        <br>
-                        Else, return $GCD(b, a \pmod b)$.
-                    </p>
-                    <div class="rule">
-                        <strong>Bézout's Identity:</strong> There exist integers $x, y$ such that $ax + by = GCD(a, b)$.
-                        We find them using the <strong>Extended Euclidean Algorithm</strong>.
+                    <p>How do you visit every node? There are 3 main Depth-First strategies.</p>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <h3>Pre-Order</h3>
+                            <p>(Root, Left, Right)</p>
+                            <p><strong>Use:</strong> Copying a tree.</p>
+                        </div>
+                        <div class="card">
+                            <h3>In-Order</h3>
+                            <p>(Left, Root, Right)</p>
+                            <p><strong>Use:</strong> Getting sorted data from a BST.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Post-Order</h3>
+                            <p>(Left, Right, Root)</p>
+                            <p><strong>Use:</strong> Deleting a tree (Children first).</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Inverse (from Day 32) -->
-            <section class="section" id="inverse">
+            <!-- Advanced -->
+            <section class="section" id="advanced">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Modular Inverse</h2>
+                    <h2 class="section-title">Advanced Trees</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We want to solve $ax \equiv 1 \pmod m$.
-                        <br>
-                        The solution exists <strong>if and only if</strong> $GCD(a, m) = 1$.
-                        <br>
-                        The inverse $x$ is the coefficient found by Extended Euclid.
-                    </p>
-                    <div class="math-block">Example: Find inverse of 3 mod 7.
-                        3 * 5 = 15 = 2 * 7 + 1.
-                        So 3 * 5 ≡ 1 mod 7.
-                        Inverse is 5.</div>
-                </div>
-            </section>
-
-            <!-- RSA (from Day 32) -->
-            <section class="section" id="rsa">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">RSA Encryption</h2>
-                </div>
-                <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Key Generation</h3>
-                        <ol>
-                            <li>Pick two large primes $p, q$.</li>
-                            <li>Compute $n = pq$ and $\phi(n) = (p-1)(q-1)$.</li>
-                            <li>Choose public exponent $e$ such that $GCD(e, \phi(n)) = 1$ (usually 65537).</li>
-                            <li>Compute private key $d$ such that $ed \equiv 1 \pmod{\phi(n)}$.</li>
-                        </ol>
-                    </div>
-                    <div class="subsection">
-                        <h3 class="subsection-title">Encryption / Decryption</h3>
-                        <ul>
-                            <li><strong>Encrypt:</strong> $C = M^e \pmod n$</li>
-                            <li><strong>Decrypt:</strong> $M = C^d \pmod n$</li>
-                        </ul>
-                        <p>Security relies on the difficulty of factoring $n$ back into $p$ and $q$.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Min-Heaps</h3>
+                            <p>Root is always the Minimum.</p>
+                            <p>Used for Priority Queues.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Tries (Prefix Trees)</h3>
+                            <p>Stores strings by character.</p>
+                            <p>Used for Autocomplete.</p>
+                        </div>
                     </div>
                     <div class="info">
-                        <strong>🔐 Simple:</strong> RSA is like a special padlock.
-                        <br>• Anyone can LOCK it (encrypt with public key)
-                        <br>• Only YOU have the key to UNLOCK it (decrypt with private key)
-                        <br>Breaking RSA = figuring out the secret combination from just the locked box (factoring huge
-                        numbers).
+                        <strong>The B-Tree:</strong>
+                        <br>Used by SQL Databases/Filesystems.
+                        <br>Nodes have thousands of children to match Disk Block sizes.
+                        <br>Minimizes slow disk reads.
                     </div>
                 </div>
             </section>
 
-            <!-- Python -->
+            <!-- Code -->
             <section class="section" id="python">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Python Number Ops</h2>
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Python: Recursion</h2>
                 </div>
                 <div class="section-body">
-                    <p>Python handles arbitrarily large integers, making it great for number theory.</p>
+                    <p>Trees are recursive structures. A folder contains folders. A JSON object contains objects.</p>
+
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Primes & Modulo</span>
+                            <span class="code-label">1. Recursive Directory Size</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
+                            <pre><code class="language-python"># A mock file system (JSON)
+fs = {
+    "name": "root",
+    "type": "folder",
+    "children": [
+        {"name": "file1.txt", "type": "file", "size": 10},
+        {"name": "documents", "type": "folder", "children": [
+            {"name": "resume.pdf", "type": "file", "size": 20},
+            {"name": "notes.txt", "type": "file", "size": 5}
+        ]}
+    ]
+}
 
-<span class="code-comment"># Check prime (naive)</span>
-<span class="code-keyword">def</span> <span class="code-function">is_prime</span>(n):
-    <span class="code-keyword">if</span> n < <span class="code-number">2</span>: <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">2</span>, <span class="code-function">int</span>(n**<span class="code-number">0.5</span>) + <span class="code-number">1</span>):
-        <span class="code-keyword">if</span> n % i == <span class="code-number">0</span>:
-            <span class="code-keyword">return</span> <span class="code-keyword">False</span>
-    <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+def get_total_size(node):
+    # Base Case: It's a file
+    if node["type"] == "file":
+        return node.get("size", 0)
+    
+    # Recursive Step: Sum directly + children
+    total = node.get("size", 0) # Some folders have metadata size
+    for child in node.get("children", []):
+        total += get_total_size(child)
+    
+    return total
 
-<span class="code-function">print</span>(<span class="code-string">f"Is 2017 prime? {is_prime(2017)}"</span>)
+print(f"Total Size: {get_total_size(fs)} MB")
+# 10 + 20 + 5 = 35
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">2. Parsing JSON (The Web Tree)</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import json
 
-<span class="code-comment"># Modular Exponentiation: (base^exp) % mod</span>
-<span class="code-comment"># pow(base, exp, mod) is efficient O(log exp)</span>
-val = <span class="code-function">pow</span>(<span class="code-number">5</span>, <span class="code-number">100000</span>, <span class="code-number">2017</span>)
-<span class="code-function">print</span>(<span class="code-string">f"5^100000 mod 2017 = {val}"</span>)
+data = """
+{
+    "id": 1,
+    "name": "Alice",
+    "posts": [
+        {"id": 101, "title": "Hello World"},
+        {"id": 102, "title": "Trees are cool"}
+    ]
+}
+"""
 
-<span class="code-comment"># GCD</span>
-<span class="code-function">print</span>(<span class="code-string">f"GCD(48, 18) = {math.gcd(48, 18)}"</span>)</pre>
+root = json.loads(data)
+
+def print_keys(node, depth=0):
+    indent = "  " * depth
+    if isinstance(node, dict):
+        for key, value in node.items():
+            print(f"{indent}{key}")
+            print_keys(value, depth + 1)
+    elif isinstance(node, list):
+        for item in node:
+            print_keys(item, depth + 1)
+
+print("JSON Keys Structure:")
+print_keys(root)
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 8</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -316,7 +359,7 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -332,23 +375,44 @@ val = <span class="code-function">pow</span>(<span class="code-number">5</span>,
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
-    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Number Theory",
+                title: "Tree Fundamentals",
                 items: [
-                    { title: "Divisibility", channel: "TrevTutor", vid: "SRm6191R9Qo" },
-                    { title: "Modular Arithmetic", channel: "Organic Chemistry Tutor", vid: "RcAb5vBz3Hg" },
-                    { title: "Euclidean Algorithm", channel: "TrevTutor", vid: "p5gn2hj51hs" },
-                    { title: "RSA Encryption Explained", channel: "Computerphile", vid: "JD72Ry60eSA" },
-                    { title: "Prime Numbers", channel: "3Blue1Brown", vid: "3ZJD1tXQp6Q" }
+                    { title: "Trees and Graphs", channel: "HackerRank", vid: "oSWTXtMglKE" },
+                    { title: "Binary Search Trees", channel: "CS Dojo", vid: "pYT9F8_LFTM" },
+                    { title: "Tree Traversal (Pre/In/Post)", channel: "HackerRank", vid: "9RHO6jU--GU" },
+                    { title: "Heaps and Priority Queues", channel: "HackerRank", vid: "t0Cq6tVNRBA" }
+                ]
+            },
+            {
+                title: "Real World Applications",
+                items: [
+                    { title: "The DOM Tree Explained", channel: "Traversy Media", vid: "F1anRyL37lE" },
+                    { title: "File Systems (Hierarchy)", channel: "Computerphile", vid: "4G558uapCqA" },
+                    { title: "Tries (Prefix Trees)", channel: "HackerRank", vid: "zIjfhVPRZKc" },
+                    { title: "B-Trees in Databases", channel: "Computerphile", vid: "aZjYr87r1b8" }
+                ]
+            },
+            {
+                title: "Advanced Concepts",
+                items: [
+                    { title: "Red-Black Trees", channel: "Michael Sambol", vid: "qvZGUFHWChY" },
+                    { title: "AVL Trees", channel: "Computerphile", vid: "jDM6_TnYIqE" },
+                    { title: "Huffman Coding (Compression)", channel: "Computerphile", vid: "umTbIV9DK2o" },
+                    { title: "Merkle Trees (Blockchain)", channel: "Computerphile", vid: "fB41w3JcR7U" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day31'], storageKey: 'day31_num_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day31'] || [],
+            storageKey: 'day31_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

@@ -137,12 +137,30 @@ function initQuiz(questions, storageKey) {
     container.innerHTML = "";
 
     questions.forEach((q, i) => {
+        // Store original data if not already stored
+        if (!q._original) q._original = { prompt: q.prompt, answer: q.answer, display: q.display };
+
         const div = document.createElement("div");
         div.className = "question";
+        div.dataset.index = i;
+        renderQuestionContent(div, q, i);
+        container.appendChild(div);
+    });
+
+    function renderQuestionContent(div, q, i) {
         div.innerHTML = `
       <div class="question-header">
-        <span class="question-num">Q${i + 1}</span>
-        <span class="question-topic">${q.topic || ''}</span>
+        <div class="question-header-left">
+          <span class="question-num">Q${i + 1}</span>
+          <span class="question-topic">${q.topic || ''}</span>
+        </div>
+        ${q.generate ? `
+          <button class="btn-icon btn-refresh" title="Generate new variation" aria-label="Refresh question">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+            </svg>
+          </button>
+        ` : ''}
       </div>
       <div class="question-prompt">${q.prompt}</div>
       <div class="question-input-row">
@@ -157,15 +175,18 @@ function initQuiz(questions, storageKey) {
         const result = div.querySelector(".question-result");
         const btnCheck = div.querySelector(".btn-check");
         const btnShow = div.querySelector(".btn-show");
+        const btnRefresh = div.querySelector(".btn-refresh");
 
         btnCheck.addEventListener("click", () => {
             const userAnswer = normalizeAnswer(input.value);
-            const correctAnswer = normalizeAnswer(q.answer);
+            // Handle multiple possible answers
+            const correctAnswers = Array.isArray(q.answer) ? q.answer : [q.answer];
+            const normalizedCorrect = correctAnswers.map(normalizeAnswer);
             const altAnswers = (q.altAnswers || []).map(normalizeAnswer);
 
             quizStats.attempted++;
 
-            if (userAnswer === correctAnswer || altAnswers.includes(userAnswer)) {
+            if (normalizedCorrect.includes(userAnswer) || altAnswers.includes(userAnswer)) {
                 quizStats.correct++;
                 quizStats.sessionCorrect++;
                 input.classList.remove("incorrect");
@@ -186,11 +207,37 @@ function initQuiz(questions, storageKey) {
         });
 
         btnShow.addEventListener("click", () => {
-            result.innerHTML = `<div class="question-answer">Answer: ${q.answer}</div>`;
+            const displayAns = q.display || (Array.isArray(q.answer) ? q.answer[0] : q.answer);
+            result.innerHTML = `<div class="question-answer">Answer: ${displayAns}</div>`;
         });
 
-        container.appendChild(div);
-    });
+        if (btnRefresh) {
+            btnRefresh.addEventListener("click", () => {
+                const newData = q.generate();
+                // Update local question object but preserve the generate function
+                q.prompt = newData.prompt;
+                q.answer = newData.answer;
+                q.display = newData.display || (Array.isArray(newData.answer) ? newData.answer[0] : newData.answer);
+                q.altAnswers = newData.altAnswers || [];
+
+                // Re-render this specific question's content
+                renderQuestionContent(div, q, i);
+
+                // Re-render math if any
+                if (window.renderMathInElement) {
+                    window.renderMathInElement(div, {
+                        delimiters: [
+                            { left: "$$", right: "$$", display: true },
+                            { left: "$", right: "$", display: false },
+                            { left: "\\(", right: "\\)", display: false },
+                            { left: "\\[", right: "\\]", display: true }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            });
+        }
+    }
 
     // Setup controls
     document.getElementById("btnCheckAll")?.addEventListener("click", () => {

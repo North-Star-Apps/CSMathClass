@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 35: Dynamic Programming</title>
+    <title>Day 35: Cryptography (RSA)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 27 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,24 +47,33 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 35 · Algorithms
+            Day 35 · The Lock and The Key
         </div>
-        <h1>Dynamic Programming</h1>
-        <p class="hero-desc">Solving complex problems by breaking them into overlapping subproblems.</p>
+        <h1>Cryptography & RSA</h1>
+        <p class="hero-desc">
+            How can two strangers communicate secretly in a crowded room?
+            Public Key Cryptography is the foundation of internet privacy (HTTPS).
+        </p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~50 min read
+                ~105 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                40 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                12 video lessons
             </div>
         </div>
     </header>
@@ -65,12 +83,13 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#concept" class="toc-link">1. Core Concept</a></li>
-                    <li><a href="#approaches" class="toc-link">2. Top-Down vs Bottom-Up</a></li>
-                    <li><a href="#examples" class="toc-link">3. Classic Examples</a></li>
-                    <li><a href="#patterns" class="toc-link">4. Common Patterns</a></li>
-                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                    <li><a href="#trust" class="toc-link">1. The Trust Problem</a></li>
+                    <li><a href="#rsa-math" class="toc-link">2. RSA Mathematics</a></li>
+                    <li><a href="#signatures" class="toc-link">3. Digital Signatures</a></li>
+                    <li><a href="#hashing" class="toc-link">4. Hashing & Salting</a></li>
+                    <li><a href="#python" class="toc-link">5. Python: Full RSA</a></li>
+                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -85,160 +104,207 @@
         </aside>
 
         <main class="content">
-            <section class="section" id="concept">
+            <!-- Trust -->
+            <section class="section" id="trust">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Core Concept</h2>
+                    <h2 class="section-title">The Trust Problem</h2>
                 </div>
                 <div class="section-body">
-                    <div class="rule"><strong>Two key properties:</strong> Optimal Substructure + Overlapping
-                        Subproblems</div>
-                    <div class="math-block">OPTIMAL SUBSTRUCTURE:
-                        Optimal solution contains optimal solutions to subproblems
-
-                        OVERLAPPING SUBPROBLEMS:
-                        Same subproblems solved multiple times
-                        → Cache/memoize results to avoid recomputation</div>
-
-                    <div class="warning"><strong>DP vs Greedy:</strong> Greedy makes one choice per step. DP explores
-                        all choices and picks optimal.</div>
-                    <div class="info">
-                        <strong>Notes Simple:</strong> DP is like being a smart student who takes notes.
-                        <br>Dumb approach: Solve fib(50) by computing fib(49) + fib(48), which both recompute fib(47)...
-                        <br>Smart approach: Write down each answer as you compute it. Never solve the same problem
-                        twice!
+                    <p>Cryptography is the study of secure communication in the presence of adversaries (Alice, Bob, and
+                        Eve).</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Symmetric (The House Key)</h3>
+                            <p><strong>One Key</strong> locks and unlocks.</p>
+                            <p>PRO: Very fast (AES).</p>
+                            <p>CON: How do you share the key safely?</p>
+                        </div>
+                        <div class="card">
+                            <h3>Asymmetric (The Padlock)</h3>
+                            <p><strong>Two Keys</strong>: Public (Lock) & Private (Key).</p>
+                            <p>PRO: No need to hide the lock.</p>
+                            <p>CON: Slow. CPU intensive.</p>
+                        </div>
+                    </div>
+                    <div class="rule">
+                        <strong>Diffie-Hellman Key Exchange (The Paint Analogy):</strong>
+                        <br>How can two people agree on a secret color in public without revealing it?
+                        <br>1. Public: Agree on "Yellow".
+                        <br>2. Alice mixes "Red" (Private) + "Yellow" = "Orange".Sends "Orange".
+                        <br>3. Bob mixes "Blue" (Private) + "Yellow" = "Green". Sends "Green".
+                        <br>4. Alice adds "Red" to "Green" -> Brown.
+                        <br>5. Bob adds "Blue" to "Orange" -> Brown.
+                        <br>Result: Both have "Brown", but Eve only saw Orange and Green.
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="approaches">
+            <!-- RSA -->
+            <section class="section" id="rsa-math">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Top-Down vs Bottom-Up</h2>
+                    <h2 class="section-title">RSA Mathematics</h2>
                 </div>
                 <div class="section-body">
-                    <div class="two-col">
-                        <div class="subsection">
-                            <h3 class="subsection-title">Top-Down (Memoization)</h3>
-                            <div class="math-block">• Recursive approach
-                                • Cache results as computed
-                                • Natural to write
-                                • May have stack overhead</div>
-                        </div>
-                        <div class="subsection">
-                            <h3 class="subsection-title">Bottom-Up (Tabulation)</h3>
-                            <div class="math-block">• Iterative approach
-                                • Build table from base cases
-                                • Often more efficient
-                                • Explicit iteration order</div>
-                        </div>
+                    <p>Security based on Number Theory: <strong>Factoring large numbers is hard.</strong></p>
+                    <div class="math-block">
+                        $$ C = M^e \pmod n $$
+                        $$ M = C^d \pmod n $$
                     </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Fibonacci: Both approaches</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-comment"># Top-down (memoization)</span>
-<span class="code-keyword">def</span> <span class="code-function">fib_memo</span>(n, memo={}):
-    <span class="code-keyword">if</span> n <= <span class="code-number">1</span>: <span class="code-keyword">return</span> n
-    <span class="code-keyword">if</span> n <span class="code-keyword">not in</span> memo:
-        memo[n] = fib_memo(n-<span class="code-number">1</span>) + fib_memo(n-<span class="code-number">2</span>)
-    <span class="code-keyword">return</span> memo[n]
+                    <div class="rule">
+                        <strong>Key Generation Protocol:</strong>
+                        <br>1. Choose two large primes $p$ and $q$.
+                        <br>2. Compute $n = p \times q$. (Public Modulus).
+                        <br>3. Compute Euler's Totient $\phi(n) = (p-1)(q-1)$.
+                        <br>4. Choose public exponent $e$ such that $1 < e < \phi(n)$ and $GCD(e, \phi(n))=1$. <br>5.
+                            Compute private key $d$ such that $d \times e \equiv 1 \pmod{\phi(n)}$. (Modular Inverse).
+                    </div>
                     <div class="info">
-                        <strong>🧠 Simple:</strong> The Trivia Champion.
-                        <br>Memoization is like remembering the answer to a trivia question.
-                        <br>First time: You have to think hard (compute).
-                        <br>Second time: You just recall the answer instantly (cache lookup).
-                    </div>
-
-<span class="code-comment"># Bottom-up (tabulation)</span>
-<span class="code-keyword">def</span> <span class="code-function">fib_tab</span>(n):
-    <span class="code-keyword">if</span> n <= <span class="code-number">1</span>: <span class="code-keyword">return</span> n
-    dp = [<span class="code-number">0</span>] * (n + <span class="code-number">1</span>)
-    dp[<span class="code-number">1</span>] = <span class="code-number">1</span>
-    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(<span class="code-number">2</span>, n + <span class="code-number">1</span>):
-        dp[i] = dp[i-<span class="code-number">1</span>] + dp[i-<span class="code-number">2</span>]
-    <span class="code-keyword">return</span> dp[n]</pre>
-                        </div>
+                        <strong>Why is this secure?</strong>
+                        <br>To find $d$, Eve needs $\phi(n)$.
+                        <br>To find $\phi(n)$, Eve needs to factor $n$ into $p$ and $q$.
+                        <br>If $n$ is 4096 bits, factoring takes billions of years (classically).
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="examples">
+            <!-- Signatures -->
+            <section class="section" id="signatures">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Classic Examples</h2>
+                    <h2 class="section-title">Digital Signatures & Certificates</h2>
                 </div>
                 <div class="section-body">
-                    <div class="math-block">CLASSIC DP PROBLEMS:
-                        • Fibonacci: dp[i] = dp[i-1] + dp[i-2]
-                        • Climbing Stairs: same as Fib
-                        • Coin Change: dp[i] = min(dp[i-coin]) + 1
-                        • Longest Common Subsequence (LCS)
-                        • Longest Increasing Subsequence (LIS)
-                        • 0/1 Knapsack: dp[i][w] = max(take, skip)
-                        • Edit Distance: min insertions/deletions/subs</div>
-                    <div class="info">
-                        <strong>🎒 Simple:</strong> The 0/1 Knapsack.
-                        <br>You are a thief with a backpack that holds 10kg.
-                        <br>You see items with different values and weights.
-                        <br>Greedy (pick most valuable) fails if it's heavy.
-                        <br>DP checks every combination: "If I take this, what's the best I can do with the remaining
-                        space?"
+                    <p>RSA doesn't just keep secrets; it proves <strong>identity</strong>.</p>
+                    <div class="card">
+                        <h3>Signing a Document</h3>
+                        <p>1. Alice writes a message.</p>
+                        <p>2. Alice hashes the message (Creates a fingerprint).</p>
+                        <p>3. Alice encrypts the HASH with her <strong>Private Key</strong>.</p>
+                        <p>4. Anyone can decrypt it with her Public Key.</p>
+                        <p>Result: If it decrypts, Alice MUST have written it. This is <strong>Non-Repudiation</strong>.
+                        </p>
                     </div>
+                    <div class="warning">
+                        <strong>Man-in-the-Middle (MITM) Attack:</strong>
+                        <br>Eve sits between Alice and Bob. She gives her public key to Alice (pretending to be Bob) and
+                        to Bob (pretending to be Alice). She decrypts, reads, re-encrypts.
+                        <br><strong>Solution: Certificate Authorities (CA).</strong> A trusted 3rd party (DigiCert,
+                        Let's Encrypt) digitally signs Google's Public Key. Your browser trusts the CA, so it trusts
+                        Google.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hashing -->
+            <section class="section" id="hashing">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Hashing & Salting</h2>
+                </div>
+                <div class="section-body">
+                    <p>A hash function maps data of arbitrary size to fixed-size values.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Properties</h3>
+                            <p>1. <strong>Deterministic:</strong> Same input = Same output.</p>
+                            <p>2. <strong>One-Way:</strong> Can't reverse (Un-blend smoothie).</p>
+                            <p>3. <strong>Avalanche:</strong> Change 1 bit -> Totally different hash.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Algorithms</h3>
+                            <p><strong>MD5:</strong> Broken. Do not use.</p>
+                            <p><strong>SHA-256:</strong> Standard. Secure.</p>
+                            <p><strong>Bcrypt:</strong> Slow (Good for passwords).</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <strong>Salting Passwords:</strong>
+                        <br>Never store passwords in plain text. Store `Hash(password + random_salt)`.
+                        <br>This prevents <strong>Rainbow Table</strong> attacks (precomputed lists of hashes for
+                        "password123").
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Python: Full RSA</h2>
+                </div>
+                <div class="section-body">
+                    <p>Implementing a toy RSA class with key generation.</p>
 
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Coin Change</span>
+                            <span class="code-label">Toy RSA Class</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">def</span> <span class="code-function">coin_change</span>(coins, amount):
-    dp = [<span class="code-keyword">float</span>(<span class="code-string">'inf'</span>)] * (amount + <span class="code-number">1</span>)
-    dp[<span class="code-number">0</span>] = <span class="code-number">0</span>
-    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(<span class="code-number">1</span>, amount + <span class="code-number">1</span>):
-        <span class="code-keyword">for</span> coin <span class="code-keyword">in</span> coins:
-            <span class="code-keyword">if</span> coin <= i:
-                dp[i] = min(dp[i], dp[i - coin] + <span class="code-number">1</span>)
-    <span class="code-keyword">return</span> dp[amount] <span class="code-keyword">if</span> dp[amount] != <span class="code-keyword">float</span>(<span class="code-string">'inf'</span>) <span class="code-keyword">else</span> -<span class="code-number">1</span></pre>
+                            <pre><code class="language-python">import random
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+# Extended Euclidean Algorithm to find modular inverse
+def mod_inverse(e, phi):
+    def extended_gcd(a, b):
+        if a == 0:
+            return b, 0, 1
+        d, x1, y1 = extended_gcd(b % a, a)
+        x = y1 - (b // a) * x1
+        y = x1
+        return d, x, y
+
+    _, x, _ = extended_gcd(e, phi)
+    return (x % phi + phi) % phi
+
+class RSA:
+    def __init__(self, p, q):
+        self.n = p * q
+        self.phi = (p - 1) * (q - 1)
+        self.e = 65537 # Common choice (2^16 + 1)
+        self.d = mod_inverse(self.e, self.phi)
+        
+    def encrypt(self, message_int):
+        return pow(message_int, self.e, self.n)
+        
+    def decrypt(self, ciphertext_int):
+        return pow(ciphertext_int, self.d, self.n)
+
+# Usage
+rsa = RSA(61, 53) # Small primes for demo
+print(f"Public Key: (e={rsa.e}, n={rsa.n})")
+print(f"Private Key: (d={rsa.d})")
+
+msg = 123
+encrypted = rsa.encrypt(msg)
+decrypted = rsa.decrypt(encrypted)
+
+print(f"Original: {msg} -> Encrypted: {encrypted} -> Decrypted: {decrypted}")
+</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section" id="patterns">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Common Patterns</h2>
-                </div>
-                <div class="section-body">
-                    <div class="math-block">DP PATTERNS:
-                        1. Linear DP: dp[i] depends on dp[i-1], dp[i-2], etc.
-                        2. Grid DP: dp[i][j] for 2D problems
-                        3. Interval DP: dp[i][j] for ranges
-                        4. Tree DP: DP on tree structures
-                        5. Bitmask DP: State as bitmask for subsets
 
-                        SPACE OPTIMIZATION:
-                        If dp[i] only needs dp[i-1], use just 2 variables!</div>
-                </div>
-            </section>
-
+            <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -247,9 +313,10 @@
                 </div>
             </section>
 
+            <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -265,22 +332,44 @@
         </main>
     </div>
 
-    <script src="../../lessons/shared-scripts.js"></script>
-    <script src="../../lessons/questions-data.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Dynamic Programming",
+                title: "RSA Mechanics",
                 items: [
-                    { title: "DP Introduction", channel: "Abdul Bari", vid: "jgiZlGzXMBw" },
-                    { title: "Memoization vs Tabulation", channel: "NeetCode", vid: "sSno9rV8Rhg" },
-                    { title: "Coin Change Problem", channel: "NeetCode", vid: "H9bfqozjoqs" },
-                    { title: "0/1 Knapsack", channel: "Abdul Bari", vid: "8LusJS5-AGo" }
+                    { title: "Public Key Cryptography (Diffie-Hellman)", channel: "Computerphile", vid: "YEBfamv-_do" },
+                    { title: "RSA Encryption Algorithm", channel: "Eddie Woo", vid: "4zahvcJ9glg" },
+                    { title: "The RSA Algorithm Explained", channel: "Khan Academy", vid: "nasciq7kP9s" },
+                    { title: "Prime Numbers & RSA", channel: "Numberphile", vid: "lE-8QuBDkkw" }
+                ]
+            },
+            {
+                title: "Security & Attacks",
+                items: [
+                    { title: "How HTTPS Works", channel: "Tom Scott", vid: "j9HgXLX6r_4" },
+                    { title: "Digital Signatures", channel: "Computerphile", vid: "s22eJ1eVOrE" },
+                    { title: "Man in the Middle Attack", channel: "Computerphile", vid: "-enHjpIgir0" },
+                    { title: "Hashing Algorithms (SHA-2)", channel: "Computerphile", vid: "DMtFhACPnTY" }
+                ]
+            },
+            {
+                title: "Advanced Crypto",
+                items: [
+                    { title: "Elliptic Curve Cryptography", channel: "Computerphile", vid: "NF1pwjL9-DE" },
+                    { title: "Zero Knowledge Proofs", channel: "Computerphile", vid: "HUs1bH85X9I" },
+                    { title: "Will Quantum Computers Break RSA?", channel: "Veritasium", vid: "-UrdExQW0cs" },
+                    { title: "Password Salting", channel: "Computerphile", vid: "8ZtInClXe1Q" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day35'], storageKey: 'day35_dp_v2' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day35'] || [],
+            storageKey: 'day35_v2'
+        });
     </script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>
