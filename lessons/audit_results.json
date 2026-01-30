@@ -203,8 +203,8 @@
     "day": 8,
     "file": "DayEight.html",
     "videos": 10,
-    "questions": 6,
-    "generateFunctions": 6,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 105,
@@ -212,18 +212,16 @@
       "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "LOW_QUESTIONS: 6 questions (need 20-40)"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "02-precalculus"
   },
   {
     "day": 8,
     "file": "DayEighteen.html",
     "videos": 12,
-    "questions": 6,
-    "generateFunctions": 6,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
@@ -233,7 +231,6 @@
     "hasAnalogies": false,
     "deficiencies": [
       "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "LOW_QUESTIONS: 6 questions (need 20-40)",
       "NO_SIMPLE_ANALOGIES"
     ],
     "passed": false,
@@ -243,8 +240,8 @@
     "day": 8,
     "file": "DayEightyNine.html",
     "videos": 4,
-    "questions": 6,
-    "generateFunctions": 6,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
@@ -254,9 +251,7 @@
     "hasAnalogies": false,
     "deficiencies": [
       "LOW_VIDEOS: 4 videos (need 5-10)",
-      "LOW_QUESTIONS: 6 questions (need 20-40)",
-      "VIDEO_MISMATCH: claims 5, has 4",
-      "QUESTION_MISMATCH: claims 25, has 6"
+      "VIDEO_MISMATCH: claims 5, has 4"
     ],
     "passed": false,
     "directory": "11-applied-mastery"
