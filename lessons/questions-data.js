@@ -836,218 +836,34 @@ const questionsData = {
       "prompt": "Metropolis-Hastings accepts a proposal with probability $\\min(1, P(x_{new})/P(x_{old}))$. This preserves the ___ distribution.",
       "answer": ["stationary", "target", "posterior"],
       "display": "Stationary (Target)"
-    },
-    {
-      "id": 45,
-      "topic": "Conclusion",
-      "prompt": "Numerical integration is the bedrock of 'Solving the ____'.",
-      "answer": ["unsolvable"],
-      "display": "Unsolvable"
     }
   ],
   "day17": [
-    {
-      "id": 1,
-      "topic": "Partial Deriv",
-      "prompt": "Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^2y + 5y^3$.",
-      "answer": ["2xy"],
-      "display": "$2xy$",
-      "generate": function () {
-        const a = GenUtils.randomInt(2, 6);
-        const b = GenUtils.randomInt(2, 6);
-        return {
-          prompt: `Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^{${a}}y + ${b}y^3$.`,
-          answer: [`${a}x^{${a - 1}}y`],
-          display: `${a}x^{${a - 1}}y`
-        };
-      }
-    },
-    {
-      "id": 2,
-      "topic": "Partial Deriv",
-      "prompt": "Find $\\frac{\\partial f}{\\partial y}$ if $f(x, y) = x^2y + 5y^3$.",
-      "answer": ["x^2 + 15y^2"],
-      "display": "$x^2 + 15y^2$",
-      "generate": function () {
-        const a = GenUtils.randomInt(2, 6);
-        const b = GenUtils.randomInt(2, 6);
-        return {
-          prompt: `Find $\\frac{\\partial f}{\\partial y}$ if $f(x, y) = x^{${a}}y + ${b}y^2$.`,
-          answer: [`x^{${a}} + ${2 * b}y`],
-          display: `x^{${a}} + ${2 * b}y`
-        };
-      }
-    },
-    {
-      "id": 3,
-      "topic": "Gradient",
-      "prompt": "The gradient vector $\\nabla f$ points in the direction of steepest ____.",
-      "answer": ["ascent", "increase", "uphill"],
-      "display": "Ascent"
-    },
-    {
-      "id": 4,
-      "topic": "Gradient Descent",
-      "prompt": "In ML, we update weights using $w = w - \\eta \\nabla L$. Why the minus sign?",
-      "answer": ["to go downhill", "minimize loss", "descend"],
-      "display": "To go downhill (minimize loss)"
-    },
-    {
-      "id": 5,
-      "topic": "Gradient",
-      "prompt": "Find $\\nabla f$ at $(1, 1)$ for $f(x, y) = x^2 + y^2$.",
-      "answer": ["(2, 2)", "[2, 2]"],
-      "display": "$\\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix}$",
-      "generate": function () {
-        const x = GenUtils.randomInt(1, 5);
-        const y = GenUtils.randomInt(1, 5);
-        return {
-          prompt: `Find $\\nabla f$ at (${x}, ${y}) for $f(x, y) = x^2 + y^2$.`,
-          answer: [`(${2 * x}, ${2 * y})`],
-          display: `\\begin{bmatrix} ${2 * x} \\\\ ${2 * y} \\end{bmatrix}`
-        };
-      }
-    },
-    {
-      "id": 6,
-      "topic": "Directional Deriv",
-      "prompt": "The directional derivative $D_u f$ is the dot product of $\\nabla f$ and ___ vector $u$.",
-      "answer": ["unit", "normalized"],
-      "display": "Unit vector"
-    },
-    {
-      "id": 7,
-      "topic": "Jacobian",
-      "prompt": "The Jacobian matrix is for functions where both input and output are ____.",
-      "answer": ["vectors"],
-      "display": "Vectors"
-    },
-    {
-      "id": 8,
-      "topic": "Hessian",
-      "prompt": "The Hessian matrix contains the second-order ____ derivatives.",
-      "answer": ["partial"],
-      "display": "Partial"
-    },
-    {
-      "id": 9,
-      "topic": "Hessian",
-      "prompt": "If the Hessian is positive-definite at a critical point, it is a local ____.",
-      "answer": ["minimum", "min"],
-      "display": "Minimum"
-    },
-    {
-      "id": 10,
-      "topic": "Jacobian",
-      "prompt": "In Robotics, the Jacobian relates joint speeds to the velocity of the ___.",
-      "answer": ["end-effector", "hand", "gripper"],
-      "display": "End-effector (Hand)"
-    },
-    {
-      "id": 11,
-      "topic": "ML Connection",
-      "prompt": "The 'Loss Landscape' of a neural net is a high-dimensional ____.",
-      "answer": ["surface", "function", "manifold"],
-      "display": "Surface (Manifold)"
-    },
-    {
-      "id": 12,
-      "topic": "Newton's Method",
-      "prompt": "Newton's method for optimization uses the inverse of the ___ matrix.",
-      "answer": ["hessian"],
-      "display": "Hessian"
-    },
-    {
-      "id": 13,
-      "topic": "Partial Deriv",
-      "prompt": "Is $\\frac{\\partial^2 f}{\\partial x \\partial y} = \\frac{\\partial^2 f}{\\partial y \\partial x}$ usually true? (yes/no)",
-      "answer": ["yes", "y", "true"],
-      "display": "Yes (Clairaut's Theorem)"
-    },
-    {
-      "id": 14,
-      "topic": "Gradient",
-      "prompt": "The magnitude of the gradient $|\\nabla f|$ represents the ____ of the slope.",
-      "answer": ["steepness", "slope", "rate"],
-      "display": "Steepness"
-    },
-    {
-      "id": 15,
-      "topic": "Concept",
-      "prompt": "Level sets of $f(x, y) = c$ are always _____ to the gradient vector.",
-      "answer": ["orthogonal", "perpendicular"],
-      "display": "Orthogonal (Perpendicular)"
-    },
-    {
-      "id": 16,
-      "topic": "Chain Rule",
-      "prompt": "Multivariable chain rule for $f(x(t), y(t))$ is $df/dt = (\\partial f/\\partial x)(dx/dt) + (___)(___)$.",
-      "answer": ["(partial f/partial y)(dy/dt)", "df/dy*dy/dt"],
-      "display": "$\\frac{\\partial f}{\\partial y}\\frac{dy}{dt}$"
-    },
-    {
-      "id": 17,
-      "topic": "Optimization",
-      "prompt": "Lagrange Multipliers are used to find extrema under ____.",
-      "answer": ["constraints", "constraint"],
-      "display": "Constraints"
-    },
-    {
-      "id": 18,
-      "topic": "Jacobian",
-      "prompt": "The determinant of the Jacobian represents the local ____ factor of a transformation.",
-      "answer": ["scaling", "area", "volume"],
-      "display": "Scaling (Area/Volume)"
-    },
-    {
-      "id": 19,
-      "topic": "Hessian",
-      "prompt": "A saddle point occurs when the Hessian has both positive and negative ____.",
-      "answer": ["eigenvalues"],
-      "display": "Eigenvalues"
-    },
-    {
-      "id": 20,
-      "topic": "PyTorch",
-      "prompt": "In PyTorch, calling `.backward()` on a scalar loss populates the `.____` attribute of the weights.",
-      "answer": ["grad"],
-      "display": "grad"
-    },
-    {
-      "id": 21,
-      "topic": "Latent Space",
-      "prompt": "Moving through 'Latent Space' in an LLM is like calculating gradients in a high-dimensional ____.",
-      "answer": ["vector space", "manifold"],
-      "display": "Vector Space (Manifold)"
-    },
-    {
-      "id": 22,
-      "topic": "Partial Deriv",
-      "prompt": "If $f = g(x) + h(y)$, then $\\frac{\\partial^2 f}{\\partial x \\partial y} = ___$.",
-      "answer": ["0"],
-      "display": "0"
-    },
-    {
-      "id": 23,
-      "topic": "Gradient",
-      "prompt": "If $\\nabla f = 0$ at a point, it is a _____ point.",
-      "answer": ["critical", "stationary"],
-      "display": "Critical (Stationary)"
-    },
-    {
-      "id": 24,
-      "topic": "Directional Deriv",
-      "prompt": "The directional derivative is maximized when the direction $u$ is parallel to the ___.",
-      "answer": ["gradient", "nabla f"],
-      "display": "Gradient"
-    },
-    {
-      "id": 25,
-      "topic": "Hessian",
-      "prompt": "Second derivative test in 2D uses the determinant of the ____.",
-      "answer": ["hessian", "hessian matrix"],
-      "display": "Hessian Matrix"
-    },
+    { "id": 1, "topic": "Partial Deriv", "prompt": "Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^2y + 5y^3$.", "answer": ["2xy"], "display": "$2xy$", "generate": function () { const a = GenUtils.randomInt(2, 6); const b = GenUtils.randomInt(2, 6); return { prompt: `Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^{${a}}y + ${b}y^3$.`, answer: [`${a}x^{${a - 1}}y`], display: `${a}x^{${a - 1}}y` }; } },
+    { "id": 2, "topic": "Partial Deriv", "prompt": "Find $\\frac{\\partial f}{\\partial y}$ if $f(x, y) = x^2y + 5y^3$.", "answer": ["x^2 + 15y^2"], "display": "$x^2 + 15y^2$", "generate": function () { const a = GenUtils.randomInt(2, 6); const b = GenUtils.randomInt(2, 6); return { prompt: `Find $\\frac{\\partial f}{\\partial y}$ if $f(x, y) = x^{${a}}y + ${b}y^2$.`, answer: [`x^{${a}} + ${2 * b}y`], display: `x^{${a}} + ${2 * b}y` }; } },
+    { "id": 3, "topic": "Gradient", "prompt": "The gradient vector $\\nabla f$ points in the direction of steepest ____.", "answer": ["ascent", "increase", "uphill"], "display": "Ascent", "generate": function () { return { prompt: "Does gradient point to max decrease or increase?", answer: ["increase"], display: "Increase" }; } },
+    { "id": 4, "topic": "Gradient Descent", "prompt": "In ML, we update weights using $w = w - \\eta \\nabla L$. Why the minus sign?", "answer": ["to go downhill", "minimize loss", "descend"], "display": "To go downhill (minimize loss)", "generate": function () { return { prompt: "Ascending the gradient maximizes the function; descending ___ it.", answer: ["minimizes"], display: "Minimizes" }; } },
+    { "id": 5, "topic": "Gradient", "prompt": "Find $\\nabla f$ at $(1, 1)$ for $f(x, y) = x^2 + y^2$.", "answer": ["(2, 2)", "[2, 2]"], "display": "$\\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix}$", "generate": function () { const x = GenUtils.randomInt(1, 5); const y = GenUtils.randomInt(1, 5); return { prompt: `Find $\\nabla f$ at (${x}, ${y}) for $f(x, y) = x^2 + y^2$.`, answer: [`(${2 * x}, ${2 * y})`], display: `\\begin{bmatrix} ${2 * x} \\\\ ${2 * y} \\end{bmatrix}` }; } },
+    { "id": 6, "topic": "Directional Deriv", "prompt": "The directional derivative $D_u f$ is the dot product of $\\nabla f$ and ___ vector $u$.", "answer": ["unit", "normalized"], "display": "Unit vector", "generate": function () { return { prompt: "For directional derivative, vector u must have length ___.", answer: ["1", "one"], display: "1" }; } },
+    { "id": 7, "topic": "Jacobian", "prompt": "The Jacobian matrix is for functions where both input and output are ____.", "answer": ["vectors"], "display": "Vectors", "generate": function () { return { prompt: "Scalar to vector maps have Jacobians, often called curves/___.", answer: ["paths"], display: "Paths" }; } },
+    { "id": 8, "topic": "Hessian", "prompt": "The Hessian matrix contains the second-order ____ derivatives.", "answer": ["partial"], "display": "Partial", "generate": function () { return { prompt: "Hessian is a square matrix of size Nx___.", answer: ["n"], display: "N" }; } },
+    { "id": 9, "topic": "Hessian", "prompt": "If the Hessian is positive-definite at a critical point, it is a local ____.", "answer": ["minimum", "min"], "display": "Minimum", "generate": function () { return { prompt: "Negative-definite Hessian implies a local ___.", answer: ["maximum", "max"], display: "Maximum" }; } },
+    { "id": 10, "topic": "Jacobian", "prompt": "In Robotics, the Jacobian relates joint speeds to the velocity of the ___.", "answer": ["end-effector", "hand", "gripper"], "display": "End-effector (Hand)", "generate": function () { return { prompt: "Singularities occur when the Jacobian loses ___.", answer: ["rank"], display: "Rank" }; } },
+    { "id": 11, "topic": "ML Connection", "prompt": "The 'Loss Landscape' of a neural net is a high-dimensional ____.", "answer": ["surface", "function", "manifold"], "display": "Surface (Manifold)", "generate": function () { return { prompt: "Optimizers navigate the loss ___.", answer: ["landscape", "surface"], display: "Landscape" }; } },
+    { "id": 12, "topic": "Newton's Method", "prompt": "Newton's method for optimization uses the inverse of the ___ matrix.", "answer": ["hessian"], "display": "Hessian", "generate": function () { return { prompt: "Second-order optimization methods use ___ information.", answer: ["curvature", "hessian"], display: "Curvature" }; } },
+    { "id": 13, "topic": "Partial Deriv", "prompt": "Is $\\frac{\\partial^2 f}{\\partial x \\partial y} = \\frac{\\partial^2 f}{\\partial y \\partial x}$ usually true? (yes/no)", "answer": ["yes", "y", "true"], "display": "Yes (Clairaut's Theorem)", "generate": function () { return { prompt: "Mixed partials are equal if the function is ___.", answer: ["smooth", "continuous"], display: "Smooth/Continuous" }; } },
+    { "id": 14, "topic": "Gradient", "prompt": "The magnitude of the gradient $|\\nabla f|$ represents the ____ of the slope.", "answer": ["steepness", "slope", "rate"], "display": "Steepness", "generate": function () { return { prompt: "Zero gradient magnitude implies a ___ point.", answer: ["critical", "flat"], display: "Critical" }; } },
+    { "id": 15, "topic": "Concept", "prompt": "Level sets of $f(x, y) = c$ are always _____ to the gradient vector.", "answer": ["orthogonal", "perpendicular"], "display": "Orthogonal (Perpendicular)", "generate": function () { return { prompt: "Gradient is normal to the ___ set.", answer: ["level"], display: "Level" }; } },
+    { "id": 16, "topic": "Chain Rule", "prompt": "Multivariable chain rule for $f(x(t), y(t))$ is $df/dt = (\\partial f/\\partial x)(dx/dt) + (___)(___)$.", "answer": ["(partial f/partial y)(dy/dt)", "df/dy*dy/dt"], "display": "$\\frac{\\partial f}{\\partial y}\\frac{dy}{dt}$", "generate": function () { return { prompt: "Total derivative adds up contributions from ___ paths.", answer: ["all", "both"], display: "All" }; } },
+    { "id": 17, "topic": "Optimization", "prompt": "Lagrange Multipliers are used to find extrema under ____.", "answer": ["constraints", "constraint"], "display": "Constraints", "generate": function () { return { prompt: "Lagrange multipliers turn constrained optimization into ___ optimization.", answer: ["unconstrained"], display: "Unconstrained" }; } },
+    { "id": 18, "topic": "Jacobian", "prompt": "The determinant of the Jacobian represents the local ____ factor of a transformation.", "answer": ["scaling", "area", "volume"], "display": "Scaling (Area/Volume)", "generate": function () { return { prompt: "If det(J) = 1, the transformation preserves ___.", answer: ["volume", "area"], display: "Volume/Area" }; } },
+    { "id": 19, "topic": "Hessian", "prompt": "A saddle point occurs when the Hessian has both positive and negative ____.", "answer": ["eigenvalues"], "display": "Eigenvalues", "generate": function () { return { prompt: "Indefinite Hessian matrix indicates a ___ point.", answer: ["saddle"], display: "Saddle" }; } },
+    { "id": 20, "topic": "PyTorch", "prompt": "In PyTorch, calling `.backward()` on a scalar loss populates the `.____` attribute of the weights.", "answer": ["grad"], "display": "grad", "generate": function () { return { prompt: "PyTorch accumulates gradients, so you must zero them with ___.", answer: ["zero_grad", "optimizer.zero_grad()"], display: "zero_grad()" }; } },
+    { "id": 21, "topic": "Latent Space", "prompt": "Moving through 'Latent Space' in an LLM is like calculating gradients in a high-dimensional ____.", "answer": ["vector space", "manifold"], "display": "Vector Space (Manifold)", "generate": function () { return { prompt: "Latent space vector arithmetic allows semantic ___.", answer: ["operations", "algebra"], display: "Operations" }; } },
+    { "id": 22, "topic": "Partial Deriv", "prompt": "If $f = g(x) + h(y)$, then $\\frac{\\partial^2 f}{\\partial x \\partial y} = ___$.", "answer": ["0"], "display": "0", "generate": function () { return { prompt: "Cross derivatives are zero for ___ functions.", answer: ["separable"], display: "Separable" }; } },
+    { "id": 23, "topic": "Gradient", "prompt": "If $\\nabla f = 0$ at a point, it is a _____ point.", "answer": ["critical", "stationary"], "display": "Critical (Stationary)", "generate": function () { return { prompt: "Is every critical point a minimum or maximum?", answer: ["no"], display: "No" }; } },
+    { "id": 24, "topic": "Directional Deriv", "prompt": "The directional derivative is maximized when the direction $u$ is parallel to the ___.", "answer": ["gradient", "nabla f"], "display": "Gradient", "generate": function () { return { prompt: "Directional derivative is zero in direction ___ to gradient.", answer: ["orthogonal", "perpendicular"], display: "Orthogonal" }; } },
+    { "id": 25, "topic": "Hessian", "prompt": "Second derivative test in 2D uses the determinant of the ____.", "answer": ["hessian", "hessian matrix"], "display": "Hessian Matrix", "generate": function () { return { prompt: "D = f_xx f_yy - (f_xy)^2 is the ___ of the Hessian.", answer: ["determinant"], display: "Determinant" }; } },
     { "id": 26, "topic": "ML", "prompt": "Stochastic Gradient Descent (SGD) uses a _____ of data to estimate the gradient.", "answer": ["subset", "minibatch", "batch"], "display": "Subset (Minibatch)", "generate": function () { return { prompt: "Mini-batch gradient descent is a compromise between batch GD and ___ GD.", answer: ["stochastic", "sgd"], display: "Stochastic" }; } },
     { "id": 27, "topic": "Concept", "prompt": "A scalar field f(x, y, z) maps vectors to ____.", "answer": ["scalars", "numbers"], "display": "Scalars", "generate": function () { return { prompt: "Temperature over a room is an example of a ___ field.", answer: ["scalar"], display: "Scalar" }; } },
     { "id": 28, "topic": "Concept", "prompt": "A vector field F(x, y, z) maps vectors to ____.", "answer": ["vectors"], "display": "Vectors", "generate": function () { return { prompt: "Wind velocity is an example of a ___ field.", answer: ["vector"], display: "Vector" }; } },
@@ -1064,6 +880,7 @@ const questionsData = {
     { "id": 39, "topic": "Technique", "prompt": "The 'Automatic Differentiation' in TensorFlow uses the ___ rule of Jacobians.", "answer": ["chain"], "display": "Chain", "generate": function () { return { prompt: "JAX uses ___ -mode automatic differentiation for efficiency.", answer: ["reverse"], display: "Reverse" }; } },
     { "id": 40, "topic": "Conclusion", "prompt": "Multivariable calculus is the bridge between 1D math and real-world ___.", "answer": ["ai", "robotics", "data science"], "display": "AI/Data Science", "generate": function () { return { prompt: "Gradients are fundamental to training ___ networks.", answer: ["neural"], display: "Neural" }; } }
   ],
+
 
   "day18": [
 
