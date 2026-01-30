@@ -4,20 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 50: Multivariable Calculus</title>
+    <title>Day 50: Conditional Probability & Bayes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -30,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -44,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 50 · Analysis & Optimization
+            Day 50 · Bayesian Thinking
         </div>
-        <h1>Multivariable Calculus</h1>
+        <h1>Conditional Probability & Bayes</h1>
         <p class="hero-desc">
-            Breaking free from the number line. We extend calculus to 3D space and beyond, mastering the tools that
-            power Machine Learning (Gradient Descent) and Physics (Vector Fields).
+            How does our knowledge change when we get new data? We explore the mechanics of "given that" and the
+            most powerful formula in information science: Bayes' Theorem.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -57,14 +60,14 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~1.5 hour read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -80,16 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#intro" class="toc-link">1. From Line to Space</a></li>
-                    <li><a href="#partials" class="toc-link">2. Partial Derivatives</a></li>
-                    <li><a href="#gradient" class="toc-link">3. The Gradient Vector</a></li>
-                    <li><a href="#optimization" class="toc-link">4. Optimization</a></li>
-                    <li><a href="#integration" class="toc-link">5. Double Integrals</a></li>
-                    <li><a href="#vectorfields" class="toc-link">6. Vector Fields</a></li>
-                    <li><a href="#ml" class="toc-link">7. ML Connection</a></li>
-                    <li><a href="#python" class="toc-link">8. Python Visuals</a></li>
-                    <li><a href="#videos" class="toc-link">9. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">10. Practice</a></li>
+                    <li><a href="#conditional" class="toc-link">1. Conditional Probability</a></li>
+                    <li><a href="#independence" class="toc-link">2. Independence</a></li>
+                    <li><a href="#bayes" class="toc-link">3. Bayes' Theorem</a></li>
+                    <li><a href="#naive-bayes" class="toc-link">4. Naive Bayes in ML</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -104,304 +103,96 @@
         </aside>
 
         <main class="content">
-            <!-- Intro -->
-            <section class="section" id="intro">
+            <!-- Conditional -->
+            <section class="section" id="conditional">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">From Line to Space</h2>
+                    <h2 class="section-title">Conditional Probability</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Single-variable calculus handles functions $f(x)$ mapping a number to a number (a curve in 2D).
-                        Multivariable calculus handles functions $f(x,y)$ or $f(x,y,z)$ mapping vectors to numbers
-                        (surfaces in 3D) or vectors to vectors (force fields).
-                    </p>
-                    <p>
-                        The fundamental ideas remain the same—derivatives are rates of change, integrals are
-                        accumulations—but "direction" matters now.
-                    </p>
-                    <div class="warning">
-                        <strong>Dimension Curse:</strong> As dimensions increase, things get weird. The "volume" of a
-                        unit sphere concentrates near the surface. But for now, we focus on 3D.
+                    <p>Conditional probability $P(A|B)$ is the probability that event $A$ occurs, <strong>given
+                            that</strong> $B$ has already occurred.</p>
+                    <div class="math-block">
+                        $$ P(A|B) = \frac{P(A \cap B)}{P(B)} $$
+                    </div>
+                    <div class="info">
+                        <strong>🔍 Simple: Shrinking the World</strong>
+                        <br>Normally, we measure $A$ relative to the entire sample space $S$.
+                        <br>In $P(A|B)$, we change our perspective. $B$ is now our <em>entire world</em>. We only care
+                        about the part of $A$ that lives inside $B$.
                     </div>
                 </div>
             </section>
 
-            <!-- Partials -->
-            <section class="section" id="partials">
+            <!-- Independence -->
+            <section class="section" id="independence">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Partial Derivatives</h2>
+                    <h2 class="section-title">Independence</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        How do we find the slope of a mountain? It depends on which way you face.
-                    </p>
-                    <div class="info">
-                        <span class="info-icon">🔪</span>
-                        <div>
-                            <strong>Slicing Analogy:</strong> Imagine a solid cake (the function $z = f(x,y)$).
-                            <br>
-                            To find $\frac{\partial f}{\partial x}$, you take a knife and slice the cake parallel to the
-                            x-axis. You look at the cut face (a 2D curve) and find its slope. You <strong>hold y
-                                constant</strong>.
-                        </div>
+                    <p>Two events $A$ and $B$ are <strong>independent</strong> if the occurrence of one does not change
+                        the probability of the other.</p>
+                    <div class="math-block">
+                        $$ A, B \text{ are independent} \iff P(A \cap B) = P(A)P(B) $$
+                        $$ \iff P(A|B) = P(A) $$
                     </div>
-                    <div class="formula-box">
-                        $$ \frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x+h, y) - f(x,y)}{h} $$
+                    <div class="warning">
+                        <strong>⚠️ Common Pitfall:</strong> "Independence" and "Mutually Exclusive" are NOT the same.
+                        <br>Mutually exclusive means they <em>can't</em> happen together. Independence means they
+                        <em>don't care</em> about each other.
                     </div>
-                    <p>
-                        Example: $f(x,y) = x^2 y$.
-                        <br>$\frac{\partial f}{\partial x} = 2xy$ (Treat $y$ like a constant number, e.g., 5).
-                        <br>$\frac{\partial f}{\partial y} = x^2$ (Treat $x$ like a constant).
-                    </p>
                 </div>
             </section>
 
-            <!-- Gradient -->
-            <section class="section" id="gradient">
+            <!-- Bayes -->
+            <section class="section" id="bayes">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">The Gradient Vector</h2>
+                    <h2 class="section-title">Bayes' Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We can bundle all the partial derivatives into a single vector called the
-                        <strong>Gradient</strong> ($\nabla f$).
-                    </p>
-                    <div class="formula-box">
-                        $$ \nabla f = \left[ \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right] $$
+                    <p>Bayes' Theorem allows us to "reverse" the conditional probability. If we know $P(B|A)$, we can
+                        find $P(A|B)$.</p>
+                    <div class="math-block">
+                        $$ P(A|B) = \frac{P(B|A)P(A)}{P(B)} $$
                     </div>
-
-                    <div class="rule">
-                        <strong>Theorem: Properties of the Gradient</strong>
-                        <ol>
-                            <li><strong>Direction:</strong> $\nabla f$ points in the direction of steepest ascent
-                                (uphill).</li>
-                            <li><strong>Magnitude:</strong> $||\nabla f||$ is the rate of that ascent (slope).</li>
-                            <li><strong>Orthogonality:</strong> $\nabla f$ is perpendicular to level curves (contour
-                                lines).</li>
-                        </ol>
-                    </div>
-
+                    <ul class="list-disc">
+                        <li><strong>$P(A|B)$ (Posterior):</strong> What we believe after seeing evidence $B$.</li>
+                        <li><strong>$P(B|A)$ (Likelihood):</strong> How likely $B$ is, assuming $A$ is true.</li>
+                        <li><strong>$P(A)$ (Prior):</strong> What we believed before seeing evidence.</li>
+                        <li><strong>$P(B)$ (Evidence):</strong> The total probability of seeing evidence $B$.</li>
+                    </ul>
                     <div class="info">
-                        <span class="info-icon">⛰️</span>
-                        <div>
-                            <strong>Analogy: Optimal Hiking</strong>
-                            <br>
-                            You are standing on a foggy mountain. You want to reach the peak as fast as possible.
-                            <br>
-                            - Look at your feet. Which single step takes you highest? That is the
-                            <strong>Gradient</strong> direction.
-                            <br>
-                            - If you want to stay at the same elevation, walk perpendicular to the gradient (Level Set).
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Directional Derivative</h3>
-                        <p>
-                            What if I walk in an arbitrary direction $\vec{u}$ (unit vector)? The slope is simply the
-                            dot product:
-                            $$ D_{\vec{u}}f = \nabla f \cdot \vec{u} $$
-                            This is maximum when $\vec{u}$ aligns with $\nabla f$.
-                        </p>
+                        <strong>🏥 Simple: The Virus Test</strong>
+                        <br>You test positive for a rare virus ($B$). The test is 99% accurate ($P(B|A)$).
+                        <br>Does that mean you have a 99% chance of having the virus?
+                        <br><strong>No!</strong> If the virus only affects 1 in 10,000 people (Prior $P(A)$), most
+                        positives will actually be false alarms from healthy people ($P(B|A^c)$).
                     </div>
                 </div>
             </section>
 
-            <!-- Optimization -->
-            <section class="section" id="optimization">
+            <!-- Naive Bayes -->
+            <section class="section" id="naive-bayes">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Optimization</h2>
+                    <h2 class="section-title">Naive Bayes in Machine Learning</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        Just as $f'(x)=0$ finds peaks/valleys in 1D, $\nabla f = \vec{0}$ finds them in multivariable
-                        calc. These are <strong>Critical Points</strong>.
-                    </p>
-                    <div class="subsection">
-                        <h3>Second Derivative Test: The Hessian</h3>
-                        <p>
-                            To tell if a critical point is a Min, Max, or Saddle, we construct the matrix of second
-                            derivatives (Hessian $H$).
-                        </p>
-                        <div class="math-block">
-                            $$ H = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix} $$
-                        </div>
-                        <ul class="spaced-list">
-                            <li>If $\det(H) > 0$ and $f_{xx} > 0$: <strong>Local Min</strong> (Bowl).</li>
-                            <li>If $\det(H) > 0$ and $f_{xx} < 0$: <strong>Local Max</strong> (Hill).</li>
-                            <li>If $\det(H) < 0$: <strong>Saddle Point</strong> (Pringles chip shape).</li>
-                        </ul>
+                    <p>Naive Bayes is a simple probabilistic classifier. It's called "Naive" because it assumes all
+                        features are independent of each other given the class.</p>
+                    <div class="card">
+                        <h3>Spam Filtering</h3>
+                        <p>To classify an email as spam:</p>
+                        <ol class="list-numbered">
+                            <li>Count words in Spam vs. Inbox.</li>
+                            <li>Calculate $P(\text{word } | \text{ Spam})$.</li>
+                            <li>Use Bayes' Theorem to find $P(\text{Spam } | \text{ "Buy Now Free Money"})$.</li>
+                        </ol>
                     </div>
-
-                    <div class="subsection">
-                        <h3>Lagrange Multipliers</h3>
-                        <p>
-                            To maximize $f(x,y)$ subject to a constraint $g(x,y) = c$, we solve:
-                            $$ \nabla f = \lambda \nabla g $$
-                            This says the level curves of $f$ and $g$ kiss tangentially. We don't cross the constraint
-                            boundary; we slide along it until our "uphill" is blocked perpendicular to the wall.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Integration -->
-            <section class="section" id="integration">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Double Integrals</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        Inverse of the partial derivative. We sum up "volume" under a surface.
-                        $$ \iint_R f(x,y) dA $$
-                    </p>
-                    <div class="rule">
-                        <strong>Fubini's Theorem:</strong> If $f$ is continuous, the order of integration doesn't matter
-                        (usually).
-                        $$ \int_a^b \int_c^d f(x,y) dy dx = \int_c^d \int_a^b f(x,y) dx dy $$
-                    </div>
-
-                    <p>
-                        Sometimes, rectangular coordinates $(x,y)$ are hard (e.g., circles). We switch to <strong>Polar
-                            Coordinates</strong>.
-                        <br>
-                        <strong>Warning:</strong> When changing variables, area stretches!
-                        $$ dA = r dr d\theta $$
-                        That extra $r$ is the <strong>Jacobian Determinant</strong>. It accounts for the fact that polar
-                        wedges get wider further from the origin.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Vector Fields -->
-            <section class="section" id="vectorfields">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Vector Fields: Div & Curl</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        A vector field assigns a vector to every point in space (e.g., Wind velocity, Magnetic field).
-                    </p>
-                    <div class="two-col">
-                        <div>
-                            <h4>Divergence ($\nabla \cdot \vec{F}$)</h4>
-                            <p>
-                                Measures "outward flow" from a point.
-                                <br>Positive: Source (Faucet).
-                                <br>Negative: Sink (Drain).
-                                <br>Zero: Incompressible.
-                            </p>
-                        </div>
-                        <div>
-                            <h4>Curl ($\nabla \times \vec{F}$)</h4>
-                            <p>
-                                Measures "rotation" around a point.
-                                <br>Imagine dropping a paddle wheel in the fluid. Does it spin?
-                                <br>Essential for electromagnetism (Maxwell's Equations).
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ML -->
-            <section class="section" id="ml">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">CS Connection: Gradient Descent</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        This is the engine of modern AI. A Neural Network defines a "Loss Function" $L(\vec{w})$ over
-                        millions of weights. We want to minimize error.
-                    </p>
-                    <p>
-                        We initialize weights randomly, compute the gradient $\nabla L$, and step downhill:
-                        $$ \vec{w}_{new} = \vec{w}_{old} - \alpha \nabla L $$
-                        where $\alpha$ is the learning rate. We repeat this until convergence.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Python -->
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">Python Visuals</h2>
-                </div>
-                <div class="section-body">
-                    <p>Visualizing a 3D surface and its gradient field.</p>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Gradient Descent Simulation</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-
-def f(x, y):
-    return x**2 + y**2
-
-def grad_f(x, y):
-    return np.array([2*x, 2*y])
-
-# Gradient Descent
-path = []
-current_pos = np.array([3.0, 2.0]) # Start point
-alpha = 0.1 # Learning rate
-
-for _ in range(20):
-    path.append(current_pos)
-    gradient = grad_f(current_pos[0], current_pos[1])
-    current_pos = current_pos - alpha * gradient
-
-path = np.array(path)
-
-print(f"Started at: {path[0]}")
-print(f"Ended at:   {path[-1]}")
-print(f"Actual Min: [0. 0.]")
-
-# Note: In a real app, we would plot 'path' over the contour plot of f
-</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Symbolic Partial Derivatives</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">import sympy as sp
-
-x, y = sp.symbols('x y')
-f = x**2 * sp.sin(y)
-
-# Partial wrt x
-fx = sp.diff(f, x)
-# Partial wrt y
-fy = sp.diff(f, y)
-
-print(f"f(x,y) = {f}")
-print(f"df/dx  = {fx}")
-print(f"df/dy  = {fy}")
-
-# Gradient Vector
-grad = [fx, fy]
-print(f"Gradient = {grad}")
-
-# Evaluating at (1, pi/2)
-val = [g.subs({x:1, y:sp.pi/2}) for g in grad]
-print(f"Grad at (1, pi/2): {val}")
-</code></pre>
-                        </div>
+                    <div class="math-block">
+                        $$ P(C | x_1, \dots, x_n) \propto P(C) \prod_{i=1}^n P(x_i | C) $$
                     </div>
                 </div>
             </section>
@@ -409,17 +200,15 @@ print(f"Grad at (1, pi/2): {val}")
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -431,7 +220,7 @@ print(f"Grad at (1, pi/2): {val}")
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 10</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -452,35 +241,36 @@ print(f"Grad at (1, pi/2): {val}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Basics",
+                title: "Bayesian Thinking",
                 items: [
-                    { title: "Multivariable Calculus Intro", channel: "Professor Leonard", vid: "PIU671L5d5I" },
-                    { title: "Partial Derivatives", channel: "Khan Academy", vid: "S5WfZ5JDEls" },
-                    { title: "The Gradient", channel: "3Blue1Brown", vid: "TEB2z7ZlRAw" }
+                    { title: "Bayes Theorem (Intuition)", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "The Bayesian Trap", channel: "Veritasium", vid: "R13BD8qKeTg" },
+                    { title: "Bayes Theorem (Deep Dive)", channel: "StatQuest", vid: "XQo8liI6o0U" }
                 ]
             },
             {
-                title: "Extensions",
+                title: "Conditional Probability",
                 items: [
-                    { title: "Double Integrals", channel: "PatrickJMT", vid: "z5aIV_l4nUE" },
-                    { title: "Lagrange Multipliers", channel: "Michel van Biezen", vid: "ry9cgNx1QV8" },
-                    { title: "Divergence and Curl", channel: "3Blue1Brown", vid: "rB83DpBJQsE" }
+                    { title: "Probability Fundamentals", channel: "StatQuest", vid: "qBigTkBLU6g" },
+                    { title: "Conditional Probability", channel: "Khan Academy", vid: "pYV_f-m072I" }
                 ]
             },
             {
-                title: "Applications",
+                title: "Naive Bayes & ML",
                 items: [
-                    { title: "Gradient Descent in AI", channel: "StatQuest", vid: "sDv4f4s2SB8" },
-                    { title: "Maxwell's Equations", channel: "FloatHeadPhysics", vid: "hFVm1JIy7Nc" }
+                    { title: "Naive Bayes Explained", channel: "Computerphile", vid: "CPqoci0ah_o" },
+                    { title: "Naive Bayes Classifier", channel: "StatQuest", vid: "O2L2Uv9pdDA" },
+                    { title: "Machine Learning: Naive Bayes", channel: "Jabril", vid: "376O7nB-8_E" }
                 ]
             }
         ];
 
-        // This lesson is about Multivariable Calculus
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day50'] || [], storageKey: 'day50_multivar' });
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day50'] || [],
+            storageKey: 'day50_bayes_v1'
+        });
     </script>
-    <script>hljs.highlightAll();</script>
-    <script>renderMathInElement(document.body, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });</script>
 </body>
 
 </html>

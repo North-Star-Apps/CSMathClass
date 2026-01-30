@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 56: Statistics I</title>
+    <title>Day 56: Statistics I (Estimation)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 27 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -47,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 56 · Inferring Truth
+            Day 56 · The Inference Problem
         </div>
-        <h1>Statistics: Estimation</h1>
+        <h1>Statistics I: Estimation</h1>
         <p class="hero-desc">
-            We can never observe the entire universe.
-            How to guess the true parameters of a population with measurably high confidence.
+            How do we guess the properties of an entire population using only a small sample?
+            We move from probability (predicting data from rules) to statistics (inferring rules from data).
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                6 video lessons
             </div>
         </div>
     </header>
@@ -83,13 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#estimation" class="toc-link">1. Point Estimation</a></li>
-                    <li><a href="#intervals" class="toc-link">2. Confidence Intervals</a></li>
-                    <li><a href="#error" class="toc-link">3. Standard Error</a></li>
-                    <li><a href="#bootstrap" class="toc-link">4. Bootstrap Method</a></li>
-                    <li><a href="#python" class="toc-link">5. Python: Bootstrapping</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice Problems</a></li>
+                    <li><a href="#estimators" class="toc-link">1. Point Estimators</a></li>
+                    <li><a href="#mle" class="toc-link">2. Maximum Likelihood (MLE)</a></li>
+                    <li><a href="#intervals" class="toc-link">3. Confidence Intervals</a></li>
+                    <li><a href="#merror" class="toc-link">4. Margin of Error</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -104,119 +103,76 @@
         </aside>
 
         <main class="content">
-            <!-- Estimation -->
-            <section class="section" id="estimation">
+            <!-- Estimators -->
+            <section class="section" id="estimators">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Point Estimation</h2>
+                    <h2 class="section-title">Point Estimators</h2>
                 </div>
                 <div class="section-body">
-                    <p>Using sample data to calculate a single value (a guess) for an unknown population parameter.</p>
+                    <p>An <strong>Estimator</strong> $\hat{\theta}$ is a rule (function of the data) used to guess a
+                        population parameter $\theta$.</p>
                     <ul class="list-disc">
-                        <li><strong>Sample Mean ($\bar{x}$):</strong> Estimator for Population Mean ($\mu$).</li>
-                        <li><strong>Sample Variance ($s^2$):</strong> Estimator for Population Variance ($\sigma^2$).
+                        <li><strong>Unbiased:</strong> $E[\hat{\theta}] = \theta$. On average, the estimator is correct.
                         </li>
+                        <li><strong>Efficiency:</strong> The estimator with the lowest variance is better.</li>
                     </ul>
-                    <p>An estimtor gives us a "point", but points are rarely exactly right. We need a range.</p>
+                    <div class="info">
+                        <strong>🎯 Simple: The Sniper Analogy</strong>
+                        <br>The "bias" is how far the center of your bullet holes is from the bullseye. The "variance"
+                        is how spread out the holes are. A perfect sniper has zero bias and zero variance.
+                    </div>
+                </div>
+            </section>
+
+            <!-- MLE -->
+            <section class="section" id="mle">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">Maximum Likelihood (MLE)</h2>
+                </div>
+                <div class="section-body">
+                    <p><strong>MLE</strong> is the most common way to find estimators. We ask: "Which parameter value
+                        $\theta$ makes the observed data most likely?"</p>
+                    <div class="math-block">
+                        $L(\theta) = P(X_1, X_2, ..., X_n | \theta)$
+                        <br>Find $\theta$ that maximizes $L(\theta)$.
+                    </div>
+                    <div class="info">
+                        <strong>🕵️ Simple: The Likeliest Suspect</strong>
+                        <br>You find a crime scene (data). You have 3 suspects (parameter values). You ask: "If suspect
+                        A were the killer, how likely is it that the room would look exactly like this?" The suspect
+                        with the highest probability is your MLE.
+                    </div>
                 </div>
             </section>
 
             <!-- Intervals -->
             <section class="section" id="intervals">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Confidence Intervals (CI)</h2>
-                </div>
-                <div class="section-body">
-                    <p>A range of values that we are "95% confident" contains the true parameter.</p>
-                    <div class="math-block">
-                        $$ \bar{x} \pm Z \cdot \frac{s}{\sqrt{n}} $$
-                    </div>
-                    <p><em>Meaning:</em> If we repeated this experiment sizes of times, 95% of the calculated intervals
-                        would contain the true $\mu$.</p>
-                </div>
-            </section>
-
-            <!-- Error -->
-            <section class="section" id="error">
-                <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Standard Error (SE)</h2>
+                    <h2 class="section-title">Confidence Intervals</h2>
                 </div>
                 <div class="section-body">
-                    <p>The Standard Deviation of the <em>sampling distribution</em> of a statistic.</p>
+                    <p>Instead of a single number, we provide a <strong>range</strong> of values that likely contains
+                        the true parameter.</p>
+                    <p>A $95\%$ Confidence Interval means: "If we repeated this experiment 100 times, 95 of the
+                        intervals we calculated would contain the true mean."</p>
                     <div class="math-block">
-                        $$ SE = \frac{\sigma}{\sqrt{n}} \approx \frac{s}{\sqrt{n}} $$
+                        $$ CI = \bar{X} \pm Z^* \left(\frac{\sigma}{\sqrt{n}}\right) $$
                     </div>
-                    <p>Basically: How much we expect our sample mean to wiggle if we took another sample.</p>
+                    <ul class="list-disc">
+                        <li><strong>90%:</strong> $Z^* = 1.645$</li>
+                        <li><strong>95%:</strong> $Z^* = 1.96$</li>
+                        <li><strong>99%:</strong> $Z^* = 2.576$</li>
+                    </ul>
                 </div>
             </section>
-
-            <!-- Bootstrap -->
-            <section class="section" id="bootstrap">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">The Bootstrap Method</h2>
-                </div>
-                <div class="section-body">
-                    <p>A computational magic trick. We treat our single sample as a "mini-population".</p>
-                    <ol>
-                        <li>Resample from our data <strong>with replacement</strong>.</li>
-                        <li>Calculate the statistic (e.g., mean) for this new "bootstrap sample".</li>
-                        <li>Repeat 10,000 times.</li>
-                        <li>The distribution of these bootstrap stats approximates the sampling error!</li>
-                    </ol>
-                </div>
-            </section>
-
-            <!-- Python -->
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Python: Bootstrapping</h2>
-                </div>
-                <div class="section-body">
-                    <p>Calculating a 95% CI without complex formulas.</p>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Bootstrap CI</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">import numpy as np
-
-# 1. Original Sample (e.g., heights)
-data = np.array([170, 172, 168, 175, 180, 165, 171, 174])
-original_mean = np.mean(data)
-
-# 2. Bootstrap Loop
-n_iterations = 10000
-boot_means = []
-
-for _ in range(n_iterations):
-    # Resample with replacement
-    sample = np.random.choice(data, size=len(data), replace=True)
-    boot_means.append(np.mean(sample))
-
-# 3. Calculate Confidence Interval
-# Get 2.5th and 97.5th percentiles
-ci_lower = np.percentile(boot_means, 2.5)
-ci_upper = np.percentile(boot_means, 97.5)
-
-print(f"Original Mean: {original_mean:.2f}")
-print(f"95% CI: [{ci_lower:.2f}, {ci_upper:.2f}]")
-</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -236,7 +192,7 @@ print(f"95% CI: [{ci_lower:.2f}, {ci_upper:.2f}]")
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -252,33 +208,32 @@ print(f"95% CI: [{ci_lower:.2f}, {ci_upper:.2f}]")
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Estimation & Intervals",
+                title: "Point Estimation",
                 items: [
-                    { title: "Confidence Intervals Explained", channel: "StatQuest", vid: "TqOeMYtOc1w" }, // StatQuest
-                    { title: "Standard Error", channel: "Khan Academy", vid: "BwYj69LAQOI" } // Verify ID
+                    { title: "MLE Path to Intuition", channel: "StatQuest", vid: "XepXtl9yk6w" },
+                    { title: "Bias vs Variance", channel: "Kimberly Brehm", vid: "Yv8Yg2fJ8pY" }
                 ]
             },
             {
-                title: "Bootstrapping",
+                title: "Confidence Intervals",
                 items: [
-                    { title: "Bootstrapping Main Idea", channel: "StatQuest", vid: "Xz0x-8-cgaQ" }, // StatQuest Bootstrap
-                    { title: "Resampling Methods", channel: "MIT OpenCourseWare", vid: "pM6d7L3Z6E0" } // Placeholder
+                    { title: "Understanding CIs", channel: "StatQuest", vid: "TqOeMYtOc1w" },
+                    { title: "Point Estimates & CIs", channel: "Khan Academy", vid: "vXvYid7-vYg" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[1].items[1].vid = "GcE5qC8b7IE"; // Bootstrapping conceptual
 
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day56'] || [],
-            storageKey: 'day56_v1'
+            storageKey: 'day56_stats_v1'
         });
     </script>
-    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

@@ -68,13 +68,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -136,12 +136,19 @@
                             <p>$26^3 \times 10^3 = 17,576,000$.</p>
                         </div>
                     </div>
-                    <div class="info">
-                        <strong>Visual Proof: The Tree</strong>
-                        <br>Imagine a tree where the root has 3 branches (Starters).
-                        <br>Each of those has 4 branches (Mains).
-                        <br>Each of those has 2 branches (Desserts).
-                        <br>The number of "leaves" is the total count.
+                    <div class="analogy">
+                        <div class="analogy-icon">🔐</div>
+                        <div class="analogy-content">
+                            <div class="analogy-title">Analogy: The Combination Lock</div>
+                            <div class="analogy-text">
+                                <strong>Permutations</strong> are like a <strong>Combination Lock</strong> (represented
+                                by numbers).
+                                <br>• The code 1-2-3 is different from 3-2-1. Order matters.
+                                <br><strong>Combinations</strong> are like a <strong>Fruit Salad</strong>.
+                                <br>• {Apple, Banana, Cherry} is the same as {Cherry, Apple, Banana}. Order doesn't
+                                matter.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -395,16 +402,13 @@ print(f"Probability with {n} people: {success/trials:.2%}")
                 items: [
                     { title: "Pigeonhole Principle", channel: "TED-Ed", vid: "DJiMqbABMYo" },
                     { title: "Birthday Paradox", channel: "Numberphile", vid: "ofTb57aZHZs" },
-                    { title: "Stars and Bars Method", channel: "Trefor Bazett", vid: "gB_5RUVHd_s" },
-                    { title: "Derangements", channel: "Numberphile", vid: "pbXg5EI5t4c" }
+                    { title: "Stars and Bars Method", channel: "Trefor Bazett", vid: "gB_5RUVHd_s" }
                 ]
             },
             {
                 title: "Applications",
                 items: [
-                    { title: "Password Entropy", channel: "Computerphile", vid: "7U-RbOKanYs" },
                     { title: "Lottery Mathematics", channel: "Numberphile", vid: "3WYHtQprLaA" },
-                    { title: "Combinatorics in CS", channel: "CS Dojo", vid: "Y5Rg3xO2e64" },
                     { title: "Python Itertools", channel: "Corey Schafer", vid: "Qu3dThVy6KQ" }
                 ]
             }

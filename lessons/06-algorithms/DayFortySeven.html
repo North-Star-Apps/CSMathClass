@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -110,15 +110,12 @@
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">The Greedy Strategy</h2>
                 </div>
-                <div class="section-body">
-                    <p>Make the locally optimal choice at each step.</p>
-                    <p><strong>Example (Coin Change):</strong> To make 41 cents with fewest coins, take largest first:
-                        25, 10, 5, 1. (Works for standard currency, fails for arbitrary systems).</p>
-                    <div class="warning-box">
-                        <h3>Warning</h3>
-                        <p>Greedy doesn't always work (e.g., Knapsack 0/1 requires DP). But when it works (MST,
-                            Dijkstra), it's very efficient.</p>
-                    </div>
+                <div class="info">
+                    <strong>Simple:</strong>
+                    <br><strong>Greedy:</strong> Like picking only the largest diamonds from a pile first. It works if
+                    you just want the most weight, but might fail if you have a bag with a weight limit (Knapsack).
+                    <br><strong>MST:</strong> Like connecting houses with fiber optic cables. You want everyone
+                    connected, but with the least amount of total cable used.
                 </div>
             </section>
 
@@ -270,21 +267,28 @@ print(uf.find(0) == uf.find(1)) # True
             {
                 title: "MST Algorithms",
                 items: [
-                    { title: "Prim's Algorithm", channel: "Abdul Bari", vid: "4ZlRH0eK-qQ" },
-                    { title: "Kruskal's Algorithm", channel: "Abdul Bari", vid: "4ZlRH0eK-qQ" } // Wait, same ID? Let me fix.
+                    { title: "Prim's Algorithm", vid: "4ZlRH0eK-qQ" },
+                    { title: "Kruskal's Algorithm", vid: "71UQH7Pr9kU" },
+                    { title: "Min Cost (Prim's)", vid: "f7JLOGHSiaQ" },
+                    { title: "Min Cost (Kruskal's)", vid: "v7p3V0B9K3Q" }
                 ]
             },
             {
                 title: "Greedy Strategy",
                 items: [
-                    { title: "Greedy Algorithms Explained", channel: "HackerRank", vid: "3XAQxdTsBSH" }, // Verify ID
-                    { title: "Huffman Coding", channel: "Computerfile", vid: "umTbivyJoiI" }
+                    { title: "Greedy Explained", vid: "H7tshfFpdhU" },
+                    { title: "Fractional Knapsack", vid: "o9u_p2VpLcA" },
+                    { title: "Huffman Coding", vid: "umTbivyJoiI" }
+                ]
+            },
+            {
+                title: "Applications",
+                items: [
+                    { title: "Job Sequencing", vid: "pT767wY6o2k" },
+                    { title: "Optimal Merge Pattern", vid: "HHI67ES8pqE" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[1].vid = "71UQH7Pr9kU"; // Kruskal's correct ID
-        VIDEO_GROUPS[1].items[0].vid = "H7tshfFpdhU"; // Greedy HackerRank
 
         initLesson({
             videos: VIDEO_GROUPS,

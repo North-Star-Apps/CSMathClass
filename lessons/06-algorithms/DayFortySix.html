@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -109,10 +109,12 @@
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">Weighted Graphs</h2>
                 </div>
-                <div class="section-body">
-                    <p>In a standard BFS, every edge has "cost" 1. But in real life, roads have different lengths.</p>
-                    <p><strong>Weighted Graph:</strong> Each edge $(u, v)$ has a weight $w$.</p>
-                    <p><strong>Goal:</strong> Find path $P$ that minimizes $\sum w_i$.</p>
+                <div class="info">
+                    <strong>Simple:</strong>
+                    <br><strong>Dijkstra's:</strong> Like checking for a water leak by pouring colored dye at the
+                    source. The dye will reach the closest points first, and then eventually flow through all paths
+                    until it hits every point. By tracking when the dye first hits each point, you've found the shortest
+                    path.
                 </div>
             </section>
 
@@ -262,20 +264,28 @@ print(dijkstra(g, 'A'))
             {
                 title: "Shortest Path Algos",
                 items: [
-                    { title: "Dijkstra's Algorithm Explained", channel: "Computerfile", vid: "GazC3A4OQTE" },
-                    { title: "Dijkstra's Algorithm - Example", channel: "Abdul Bari", vid: "XB4MIexjvY0" }
+                    { title: "Dijkstra's Explained", vid: "GazC3A4OQTE" },
+                    { title: "Dijkstra's Example", vid: "XB4MIexjvY0" },
+                    { title: "Dijkstra's with Heap", vid: "EFg3u_E6eHU" }
                 ]
             },
             {
                 title: "Negative Weights",
                 items: [
-                    { title: "Bellman Ford Algorithm", channel: "Abdul Bari", vid: "FtN3BYH2Zes" },
-                    { title: "Why Dijkstra Fails on Negative Edges", channel: "Spanning Tree", vid: "2E7MmKv0Y24" } // Placeholder ID
+                    { title: "Bellman Ford Algorithm", vid: "FtN3BYH2Zes" },
+                    { title: "Why Dijkstra Fails", vid: "pSqmAO-m7Lk" },
+                    { title: "Bellman Ford Tutorial", vid: "5eIK3zRtYmE" }
+                ]
+            },
+            {
+                title: "Advanced Algos",
+                items: [
+                    { title: "Floyd Warshall", vid: "oNI0rf2P9No" },
+                    { title: "A* Search Algorithm", vid: "ySN5Wnu88nE" },
+                    { title: "Cheapest Flights (K Stops)", vid: "vWpWoOdyiO8" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[1].items[1].vid = "pSqmAO-m7Lk"; // Similar failure explanation
 
         initLesson({
             videos: VIDEO_GROUPS,

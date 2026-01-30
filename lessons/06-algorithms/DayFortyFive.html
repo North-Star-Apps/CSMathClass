@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -109,13 +109,12 @@
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">2D DP Grids</h2>
                 </div>
-                <div class="section-body">
-                    <p>Often, the state depends on two variables (e.g., $i$ and $j$).</p>
-                    <p>Example: Finding the path with minimum cost in a grid.</p>
-                    <div class="math-block">
-                        $$ dp[i][j] = \text{cost}[i][j] + \min(dp[i-1][j], dp[i][j-1]) $$
-                    </div>
-                    <p>The solution is built by filling a 2D matrix cell by cell.</p>
+                <div class="info">
+                    <strong>Simple:</strong>
+                    <br><strong>2D DP:</strong> Navigating a city with one-way streets. You want to get from the
+                    top-left to the bottom-right. At every intersection, you look at the intersections that lead TO you
+                    and pick the best one. You don't need to know the whole city; you just need to know the best way to
+                    get to your immediate neighbors.
                 </div>
             </section>
 
@@ -249,23 +248,30 @@ print(knapsack(capacity, wts, vals))
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Knapsack Problem",
+                title: "Knapsack Variations",
                 items: [
-                    { title: "0/1 Knapsack Problem", channel: "Abdul Bari", vid: "oTTzNMHM05I" },
-                    { title: "Knapsack Problem Visualized", channel: "CS Dojo", vid: "xOlhR_2QC45" } // Checking if ID valid, using generic if not
+                    { title: "0/1 Knapsack Problem", vid: "oTTzNMHM05I" },
+                    { title: "Knapsack Visualized", vid: "xOlhR_2QC4N" },
+                    { title: "Subset Sum Partition", vid: "IsvocB5Byhw" },
+                    { title: "Target Sum", vid: "dwMInW2J9QD" }
                 ]
             },
             {
-                title: "LCS & Strings",
+                title: "String & Sequence DP",
                 items: [
-                    { title: "Longest Common Subsequence", channel: "Tushar Roy", vid: "NnD96abizww" },
-                    { title: "Edit Distance (Levenshtein)", channel: "Back To Back SWE", vid: "MiqaUmBN9Brad" } // Placeholder
+                    { title: "Longest Common Subsequence", vid: "NnD96abizww" },
+                    { title: "Edit Distance", vid: "MiqaUmBN9Bg" },
+                    { title: "Word Break", vid: "Sx9bi8n88_A" }
+                ]
+            },
+            {
+                title: "Grid & Coins",
+                items: [
+                    { title: "Unique Paths (Grid DP)", vid: "IlE969Meb24" },
+                    { title: "Coin Change", vid: "H9bfqozjoQS" }
                 ]
             }
         ];
-        // Correcting known IDs
-        VIDEO_GROUPS[0].items[1].vid = "xOlhR_2QC4N"; // Correct CS Dojo ID 
-        VIDEO_GROUPS[1].items[1].vid = "MiqaUmBN9Bg"; // Correct B2B SWE ID
 
         initLesson({
             videos: VIDEO_GROUPS,

@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                10 video lessons
             </div>
         </div>
     </header>
@@ -150,17 +150,13 @@
                     <h2 class="section-title">Searching Algorithms</h2>
                 </div>
                 <div class="section-body">
-                    <p>How do we find a needle in a haystack?</p>
-                    <div class="grid-2col">
-                        <div class="card">
-                            <h3>Linear Search ($O(n)$)</h3>
-                            <p>Check every single item. Only option if data is unsorted.</p>
-                        </div>
-                        <div class="card">
-                            <h3>Binary Search ($O(\log n)$)</h3>
-                            <p>Check the middle. Too high? Discard the top half. Too low? Discard the bottom half.
-                                Repeat. <strong>Requires Sorted Data!</strong></p>
-                        </div>
+                    <div class="info">
+                        <strong>Simple:</strong>
+                        <br><strong>Sorting (Merge Sort):</strong> Organizing a messy bookshelf. You split the books
+                        into two piles, organize each pile, and then "merge" them back together in order.
+                        <br><strong>Binary Search:</strong> The "High-Low" game. If I think of a number between 1-100
+                        and you guess 50, I tell you if it's higher or lower. You just threw away 50% of the work in one
+                        second. Every guess doubles your information.
                     </div>
                 </div>
             </section>
@@ -316,30 +312,28 @@ print(f"Index of 6: {binary_search(sorted_nums, 6)}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Sorting Algorithms",
+                title: "Sorting",
                 items: [
-                    { title: "Sorting Visualized", channel: "Timo Bingmann", vid: "kPRA0W1kECg" },
-                    { title: "Quick Sort", channel: "Computerphile", vid: "XE4VP_8Y0BU" },
-                    { title: "Merge Sort", channel: "Reducible", vid: "4VqmGXwpLqc" },
-                    { title: "Bubble Sort", channel: "Michael Sambol", vid: "xli_FI7CuzA" }
+                    { title: "Sorting Visualized", vid: "kPRA0W1kECg" },
+                    { title: "Quick Sort", vid: "XE4VP_8Y0BU" },
+                    { title: "Merge Sort", vid: "4VqmGXwpLqc" },
+                    { title: "Bubble Sort", vid: "xli_FI7CuzA" }
                 ]
             },
             {
-                title: "Searching Algorithms",
+                title: "Searching",
                 items: [
-                    { title: "Binary Search", channel: "HackerRank", vid: "P3YID7liBug" },
-                    { title: "Binary Search Template", channel: "NeetCode", vid: "W9QJ8HaRvJQ" },
-                    { title: "Linear vs Binary", channel: "CS50", vid: "DSffdCT5Cx4" },
-                    { title: "Exponential Search", channel: "Abdul Bari", vid: "BDVYtuWXgXE" }
+                    { title: "Binary Search", vid: "P3YID7liBug" },
+                    { title: "Binary Search Template", vid: "W9QJ8HaRvJQ" },
+                    { title: "Linear vs Binary", vid: "DSffdCT5Cx4" }
                 ]
             },
             {
-                title: "Analysis & Comparison",
+                title: "Analysis",
                 items: [
-                    { title: "When to Use Which Sort", channel: "Reducible", vid: "pnhO8UaCgxg" },
-                    { title: "Heap Sort", channel: "Reducible", vid: "MtQL_ll5KhQ" },
-                    { title: "Counting Sort", channel: "Abdul Bari", vid: "7zuGmKfUt7s" },
-                    { title: "Radix Sort", channel: "Reducible", vid: "LDDaLIfrW4I" }
+                    { title: "Which Sort to Use?", vid: "pnhO8UaCgxg" },
+                    { title: "Heap Sort", vid: "MtQL_ll5KhQ" },
+                    { title: "Radix Sort", vid: "LDDaLIfrW4I" }
                 ]
             }
         ];

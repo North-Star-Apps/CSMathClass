@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -109,16 +109,12 @@
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">The DP Philosophy</h2>
                 </div>
-                <div class="section-body">
-                    <p>Dynamic Programming (DP) is just <strong>Recursion + Caching</strong>.</p>
-                    <p>It solves problems that have two properties:</p>
-                    <ol>
-                        <li><strong>Overlapping Subproblems:</strong> You solve the same "mini-problem" over and over
-                            again.</li>
-                        <li><strong>Optimal Substructure:</strong> The solution to the big problem is built from
-                            solutions to the sub-problems.</li>
-                    </ol>
-                    <p><em>Motto:</em> "Those who cannot remember the past are condemned to repeat it."</p>
+                <div class="info">
+                    <strong>Simple:</strong>
+                    <br><strong>Dynamic Programming:</strong> Writing down the answer to a math problem so you don't
+                    have to calculate it again. If I ask you "What is 100 + 100?", you say 200. If I then ask "What is
+                    100 + 100 + 1?", you don't start from zero; you just add 1 to the 200 you already remember. That's
+                    Memoization.
                 </div>
             </section>
 
@@ -262,20 +258,28 @@ print(f"Slow took: {time.time() - start:.5f}s")
             {
                 title: "Introduction to DP",
                 items: [
-                    { title: "Dynamic Programming Explained", channel: "HackerRank", vid: "P8Xa2BitN3I" },
-                    { title: "Memoization vs Tabulation", channel: "GeeksforGeeks", vid: "S1Wabj2DP4x" } // Placeholder ID, likely broken
+                    { title: "Dynamic Programming Explained", vid: "P8Xa2BitN3I" },
+                    { title: "Memoization vs Tabulation", vid: "T0QxoZesMC4" },
+                    { title: "Why DP is Easy", vid: "asw-S-YI-Yg" },
+                    { title: "5 Simple Steps for DP", vid: "Hdr64lKQ3e4" }
                 ]
             },
             {
-                title: "Examples",
+                title: "Elementary Problems",
                 items: [
-                    { title: "Fibonacci Sequence (DP)", channel: "CS Dojo", vid: "vYquumk4nWw" },
-                    { title: "Climbing Stairs Problem", channel: "NeetCode", vid: "Y0lT9Fck7qI" }
+                    { title: "Fibonacci Sequence", vid: "vYquumk4nWw" },
+                    { title: "Climbing Stairs", vid: "Y0lT9Fck7qI" },
+                    { title: "House Robber", vid: "73r3K0K-SVo" }
+                ]
+            },
+            {
+                title: "In-Depth Tutorials",
+                items: [
+                    { title: "Full DP Course", vid: "oBt53YbR9Kk" },
+                    { title: "Longest Increasing Subsequence", vid: "cjWnW0hdF1Y" }
                 ]
             }
         ];
-        // Correcting known IDs
-        VIDEO_GROUPS[0].items[1].vid = "T0QxoZesMC4"; // GFG one is often bad, using one better
 
         initLesson({
             videos: VIDEO_GROUPS,

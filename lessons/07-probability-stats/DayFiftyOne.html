@@ -4,20 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 51: Numerical Foundations</title>
+    <title>Day 51: Random Variables & Distributions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -30,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -44,13 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 51 · Numerical Analysis
+            Day 51 · Mapping the Unknown
         </div>
-        <h1>Numerical Foundations</h1>
+        <h1>Random Variables & Distributions</h1>
         <p class="hero-desc">
-            Computers are fast, but they are terrible at "real" math. They round, they truncate, and they crash. Learn
-            the art of approximation, the dangers of floating-point arithmetic, and how to find roots without exact
-            formulas.
+            We turn events into numbers. By mapping sample outcomes to the real line, we can use the tools of calculus
+            and algebra to analyze randomness with mathematical precision.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -58,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~1 hour read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                6 video lessons
+                7 video lessons
             </div>
         </div>
     </header>
@@ -81,15 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#intro" class="toc-link">1. The Digital Approximation</a></li>
-                    <li><a href="#ieee754" class="toc-link">2. IEEE 754 Standard</a></li>
-                    <li><a href="#errors" class="toc-link">3. Rounding & Error</a></li>
-                    <li><a href="#stability" class="toc-link">4. Stability & Conditioning</a></li>
-                    <li><a href="#roots" class="toc-link">5. Root Finding 101</a></li>
-                    <li><a href="#newton" class="toc-link">6. Newton's Method</a></li>
-                    <li><a href="#python" class="toc-link">7. Python Visuals</a></li>
-                    <li><a href="#videos" class="toc-link">8. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">9. Practice</a></li>
+                    <li><a href="#rv" class="toc-link">1. What is a Random Variable?</a></li>
+                    <li><a href="#discrete" class="toc-link">2. Discrete RVs & PMF</a></li>
+                    <li><a href="#continuous" class="toc-link">3. Continuous RVs & PDF</a></li>
+                    <li><a href="#cdf" class="toc-link">4. The CDF</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -104,293 +103,108 @@
         </aside>
 
         <main class="content">
-            <!-- Intro -->
-            <section class="section" id="intro">
+            <!-- RV -->
+            <section class="section" id="rv">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Digital Approximation</h2>
+                    <h2 class="section-title">What is a Random Variable?</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        In Pure Math, we deal with $\mathbb{R}$ (Real Numbers). They are infinitely dense, continuous,
-                        and exact. $\pi$ is exactly $\pi$.
-                    </p>
-                    <p>
-                        In Computer Science, we deal with $\mathbb{F}$ (Floating Point Numbers). They are finite,
-                        discrete, and riddled with holes. $\pi$ is `3.141592653589793`.
-                    </p>
-                    <div class="warning">
-                        <strong>The Patriot Missile Failure (1991):</strong>
-                        <br>
-                        The Patriot missile system used 24-bit precision to store time in tenths of a second.
-                        <br>
-                        $1/10 = 0.00011001100..._2$ (Binary repeating decimal).
-                        <br>
-                        After 100 hours of operation, the rounding error accumulated to ~0.34 seconds.
-                        <br>
-                        For a missile traveling at Mach 5, 0.34 seconds is ~600 meters. The missile missed an incoming
-                        SCUD, resulting in 28 casualties.
+                    <p>A <strong>Random Variable</strong> ($X$) is a function that maps outcomes from a sample space to
+                        real numbers.</p>
+                    <div class="math-block">
+                        $$ X: S \to \mathbb{R} $$
+                    </div>
+                    <div class="info">
+                        <strong>💻 Simple: A Payload Function</strong>
+                        <br>Think of the <strong>Sample Space</strong> as the raw API response.
+                        <br>The <strong>Random Variable</strong> is a function you write to extract a specific number
+                        from that response (e.g., `data.price` or `data.items.length`).
                     </div>
                 </div>
             </section>
 
-            <!-- IEEE 754 -->
-            <section class="section" id="ieee754">
+            <!-- Discrete -->
+            <section class="section" id="discrete">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">IEEE 754 Standard</h2>
+                    <h2 class="section-title">Discrete RVs & PMF</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        How do we store "scientific notation" in bits?
-                        $$ Value = (-1)^S \times (1.M) \times 2^{E - Bias} $$
-                    </p>
-                    <div class="two-col">
-                        <div>
-                            <h4>Double Precision (64-bit)</h4>
-                            <ul>
-                                <li><strong>Sign (1 bit):</strong> +/-</li>
-                                <li><strong>Exponent (11 bits):</strong> Range ~10^{-308} to 10^{308}</li>
-                                <li><strong>Mantissa (52 bits):</strong> Precision ~15-17 decimal digits</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Special Values</h4>
-                            <ul>
-                                <li><strong>Infinity:</strong> Exp=All 1s, Mantissa=0. (e.g. 1/0)</li>
-                                <li><strong>NaN:</strong> Exp=All 1s, Mantissa!=0. (e.g. 0/0)</li>
-                                <li><strong>Subnormal:</strong> Exp=0. Allows tiny numbers near zero.</li>
-                            </ul>
-                        </div>
+                    <p>Discrete random variables take on specific, separate values (like integers).</p>
+                    <div class="math-block">
+                        <strong>Probability Mass Function (PMF):</strong>
+                        $$ p(x) = P(X = x) $$
+                        $$ \sum p(x) = 1 $$
                     </div>
-
                     <div class="info">
-                        <span class="info-icon">🚗</span>
-                        <div>
-                            <strong>Analogy: The Broken Odometer</strong>
-                            <br>
-                            Imagine a car odometer that only has 8 digits. It can represent `99,999,999` miles or
-                            `0.0000001` miles.
-                            <br>
-                            But if you have `10,000,000` miles and drive `1` inch, the odometer doesn't move. The "1
-                            inch" is lost because the scale is too large.
-                            <br>
-                            Floating point numbers have "dynamic range". The gaps between representable numbers get
-                            larger as the numbers get larger.
-                        </div>
+                        <strong>🪨 Simple: The Pebble Analogy</strong>
+                        <br>A discrete distribution is like a set of pebbles placed at specific points on a line. The
+                        "weight" of each pebble is its probability.
                     </div>
                 </div>
             </section>
 
-            <!-- Errors -->
-            <section class="section" id="errors">
+            <!-- Continuous -->
+            <section class="section" id="continuous">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Sources of Error</h2>
+                    <h2 class="section-title">Continuous RVs & PDF</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3>Machine Epsilon ($\epsilon$)</h3>
-                        <p>
-                            Machine Epsilon is the smallest number such that $1.0 + \epsilon \neq 1.0$.
-                            For 64-bit float, $\epsilon \approx 2.22 \times 10^{-16}$.
-                            Any change smaller than this relative to 1.0 is ignored.
-                        </p>
+                    <p>Continuous random variables can take any value in an interval (like the temperature or wait
+                        time).</p>
+                    <div class="math-block">
+                        <strong>Probability Density Function (PDF):</strong>
+                        $$ P(a \le X \le b) = \int_a^b f(x) dx $$
+                        $$ \int_{-\infty}^{\infty} f(x) dx = 1 $$
                     </div>
-
-                    <div class="subsection">
-                        <h3>Catastrophic Cancellation</h3>
-                        <p>
-                            Subtracting two large, nearly equal numbers is the most dangerous operation in numerics.
-                        </p>
-                        <div class="math-block">
-                            a = 1.23456789
-                            <br>b = 1.23456788
-                            <br>a - b = 0.00000001
-                        </div>
-                        <p>
-                            We started with 9 significant digits. We ended with 1 significant digit. The rest of the
-                            bits in the result will be garbage/noise. This can destabilize an entire simulation.
-                        </p>
+                    <div class="warning">
+                        <strong>⚠️ Property:</strong> For a continuous RV, the probability of hitting a <em>exact single
+                            point</em> is <strong>zero</strong> ($P(X=x) = 0$). We only measure probability over
+                        intervals (areas).
+                    </div>
+                    <div class="info">
+                        <strong>🍰 Simple: The Cake Analogy</strong>
+                        <br>A continuous distribution is like a cake spread out on the line. You don't ask about the
+                        weight of a 0-width point; you ask about the weight of a <em>slice</em> of the cake.
                     </div>
                 </div>
             </section>
 
-            <!-- Stability -->
-            <section class="section" id="stability">
+            <!-- CDF -->
+            <section class="section" id="cdf">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Stability & Conditioning</h2>
+                    <h2 class="section-title">The Cumulative Distribution Function (CDF)</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        When solving a problem $f(x) = y$, two things can go wrong:
-                    </p>
-                    <ol>
-                        <li><strong>Ill-Conditioned Problem:</strong> The problem itself is sensitive. A tiny change in
-                            input $x$ leads to a huge change in answer $y$. (e.g., finding roots of $(x-1)^{20}$).</li>
-                        <li><strong>Unstable Algorithm:</strong> The problem is fine, but your method accumulates error.
+                    <p>The <strong>CDF</strong> ($F(x)$) tells you the probability that $X$ is <em>less than or equal
+                            to</em> $x$. It works for both discrete and continuous variables.</p>
+                    <div class="math-block">
+                        $$ F(x) = P(X \le x) $$
+                    </div>
+                    <ul class="list-disc">
+                        <li><strong>Range:</strong> $0$ to $1$.</li>
+                        <li><strong>Monotonic:</strong> Always non-decreasing.</li>
+                        <li><strong>Limits:</strong> $\lim_{x \to -\infty} F(x) = 0$ and $\lim_{x \to \infty} F(x) = 1$.
                         </li>
-                    </ol>
-
-                    <div class="info">
-                        <strong>Analogy: Balancing a Pencil</strong>
-                        <br>
-                        Balancing a sharp pencil on its tip is an <strong>Ill-Conditioned Problem</strong>. Even perfect
-                        physics leads to it falling.
-                        <br>
-                        Stacking bricks is a well-conditioned problem. But if you stack them using a trembling robot
-                        hand (Rounding Error), the pile might fall. That is an <strong>Unstable Algorithm</strong>.
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Condition Number $\kappa$</h3>
-                        <p>
-                            Measures how much output error is amplified relative to input error.
-                            $$ \text{Relative Output Error} \approx \kappa \times \text{Relative Input Error} $$
-                            If $\kappa$ is large ($10^{10}$), your answer is garbage because computers always have small
-                            input errors ($\epsilon$).
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Roots -->
-            <section class="section" id="roots">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Root Finding 101</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        There is no formula for roots of polynomials degree 5+ (Abel-Ruffini). We must use iterative
-                        algorithms to approximations.
-                    </p>
-                    <div class="subsection">
-                        <h3>Bisection Method</h3>
-                        <p>
-                            The "Binary Search" of math.
-                            <br>1. Find $a, b$ such that $f(a)$ and $f(b)$ have opposite signs.
-                            <br>2. Check midpoint $c = (a+b)/2$.
-                            <br>3. Replace $a$ or $b$ to keep the sign change.
-                            <br>4. Repeat.
-                            <br><strong>Convergence:</strong> Linear (gain 1 bit of precision per step). Slow but
-                            robust.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Newton -->
-            <section class="section" id="newton">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Newton's Method</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        If we know the derivative $f'(x)$, we can go faster. We approximate the curve as a tangent line
-                        and find where the line hits zero.
-                    </p>
-                    <div class="formula-box">
-                        $$ x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} $$
-                    </div>
-                    <p>
-                        <strong>Convergence:</strong> Quadratic. The number of correct digits <em>doubles</em> every
-                        step (1, 2, 4, 8, 16...).
-                        <br><strong>Risk:</strong> If $f'(x) \approx 0$, it shoots off to infinity (Instability).
-                    </p>
-                </div>
-            </section>
-
-            <!-- Python -->
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Python Visuals</h2>
-                </div>
-                <div class="section-body">
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">IEEE 754 Inspector</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">import struct
-
-def float_digits(n):
-    # Pack float into 8 bytes (double precision)
-    packed = struct.pack('!d', n)
-    # Unpack as integer to view bits
-    integers = struct.unpack('!Q', packed)[0]
-    bits = f"{integers:064b}"
-    
-    sign = bits[0]
-    exponent = bits[1:12]
-    mantissa = bits[12:]
-    
-    print(f"Value: {n}")
-    print(f"Bits:  {sign} {exponent} {mantissa}")
-    return bits
-
-float_digits(0.1)
-float_digits(0.2)
-# Notice: 0.1 + 0.2 != 0.3 pattern
-</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Newton's Method</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">def newton_method(f, df, x0, tol=1e-10, max_iter=20):
-    x = x0
-    print(f"{'Iter':<5} {'x':<20} {'f(x)':<20}")
-    print("-" * 50)
-    
-    for i in range(max_iter):
-        y = f(x)
-        if abs(y) < tol:
-            print(f"Converged to {x} in {i} iterations.")
-            return x
-            
-        dy = df(x)
-        if dy == 0:
-            print("Derivative zero. Failed.")
-            return None
-            
-        x_new = x - y / dy
-        print(f"{i:<5} {x:.10f}          {y:.5e}")
-        x = x_new
-        
-    print("Did not converge.")
-    return x
-
-# Solve x^2 - 2 = 0 (Find sqrt(2))
-newton_method(lambda x: x**2 - 2, lambda x: 2*x, 1.5)
-</code></pre>
-                        </div>
-                    </div>
+                    </ul>
                 </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 8</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -402,7 +216,7 @@ newton_method(lambda x: x**2 - 2, lambda x: 2*x, 1.5)
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 9</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -423,27 +237,35 @@ newton_method(lambda x: x**2 - 2, lambda x: 2*x, 1.5)
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Floating Point",
+                title: "Core Concepts",
                 items: [
-                    { title: "Floating Point Numbers", channel: "Computerphile", vid: "PZRI1IfStY0" },
-                    { title: "Why 0.1 + 0.2 != 0.3", channel: "Derivados", vid: "448k8qRb5vY" }
+                    { title: "Random Variables Intro", channel: "Khan Academy", vid: "3v9w79N7y8U" },
+                    { title: "Discrete vs Continuous", channel: "StatQuest", vid: "vNkwCEY29s8" },
+                    { title: "The PMF & CDF", channel: "The TrevTutor", vid: "6_mH29AIsSw" }
                 ]
             },
             {
-                title: "Algorithms",
+                title: "Continuous Space",
                 items: [
-                    { title: "Newton's Method", channel: "3Blue1Brown", vid: "-RdOwhmqP5s" },
-                    { title: "Newton's Fractal", channel: "3Blue1Brown", vid: "-RdOwhmqP5s" },
-                    { title: "Numerical Stability", channel: "MIT OpenCourseWare", vid: "VpP7u2y5r4Y" }
+                    { title: "Probability Density Functions", channel: "Khan Academy", vid: "7_2fB0U4_38" },
+                    { title: "CDF of Continuous RVs", channel: "Kimberly Brehm", vid: "N6f1oVw1yS0" }
+                ]
+            },
+            {
+                title: "Rigorous Foundation",
+                items: [
+                    { title: "RV Foundations (Stat 110)", channel: "Harvard", vid: "vP7u2y5r4Y" },
+                    { title: "Support and Range", channel: "The TrevTutor", vid: "bCk4Lh_tOAg" }
                 ]
             }
         ];
 
-        // This lesson is about Numerical Analysis (Day 51)
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day51'] || [], storageKey: 'day51_numerics' });
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day51'] || [],
+            storageKey: 'day51_dist_v1'
+        });
     </script>
-    <script>hljs.highlightAll();</script>
-    <script>renderMathInElement(document.body, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }] });</script>
 </body>
 
 </html>

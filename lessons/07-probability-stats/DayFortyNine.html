@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 49: Metric Spaces</title>
+    <title>Day 49: Counting & Probability Space</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 10 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 49 · Analysis + Rigor
+            Day 49 · Foundations of Uncertainty
         </div>
-        <h1>Metric Spaces</h1>
+        <h1>Counting & Probability Space</h1>
         <p class="hero-desc">
-            Generalizing the concept of "distance". Euclidean, Manhattan, and Hamming distances.
+            Everything starts with counting. We build the playground of probability, defining sample spaces, events,
+            and the fundamental axioms that govern randomness.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,7 +60,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -63,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -73,13 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#definition" class="toc-link">1. Definition</a></li>
-                    <li><a href="#examples" class="toc-link">2. Examples</a></li>
-                    <li><a href="#topology" class="toc-link">3. Topology in M</a></li>
-                    <li><a href="#completeness" class="toc-link">4. Completeness</a></li>
-                    <li><a href="#python" class="toc-link">5. Python Distances</a></li>
-                    <li><a href="#videos" class="toc-link">6. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">7. Practice</a></li>
+                    <li><a href="#samplespace" class="toc-link">1. Sample Space & Events</a></li>
+                    <li><a href="#counting" class="toc-link">2. The Art of Counting</a></li>
+                    <li><a href="#axioms" class="toc-link">3. Axioms of Probability</a></li>
+                    <li><a href="#cs-connection" class="toc-link">4. CS: Hashing & Randomness</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -94,180 +103,122 @@
         </aside>
 
         <main class="content">
-            <!-- Definition -->
-            <section class="section" id="definition">
+            <!-- Sample Space -->
+            <section class="section" id="samplespace">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Metric Space Definition</h2>
+                    <h2 class="section-title">Sample Space & Events</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        A pair $(M, d)$ is a metric space if $d: M \times M \to \mathbb{R}$ satisfies:
-                    </p>
-                    <div class="math-block">
-                        1. d(x, y) \ge 0 (Non-negativity)
-                        2. d(x, y) = 0 \iff x = y (Identity)
-                        3. d(x, y) = d(y, x) (Symmetry)
-                        4. d(x, z) \le d(x, y) + d(y, z) (Triangle Inequality)
-                    </div>
+                    <p>To study randomness, we need a mathematical model. We start with the <strong>Sample
+                            Space</strong> ($S$ or $\Omega$).</p>
+                    <ul class="list-disc">
+                        <li><strong>Sample Space ($S$):</strong> The set of all possible outcomes of an experiment.</li>
+                        <li><strong>Event ($E$):</strong> Any subset of the sample space.</li>
+                        <li><strong>Outcome:</strong> A single element of the sample space.</li>
+                    </ul>
                     <div class="info">
-                        <strong>🗺️ Simple:</strong> A metric is just a way to measure "distance" between things.
-                        <br>It could be distance between cities, similarity between documents, or how different two DNA
-                        strings are.
-                        <br>The four rules ensure it behaves like a reasonable "distance"—can't be negative, going A→B→C
-                        can't be shorter than A→C, etc.
+                        <strong>🍕 Simple: The Pizza Analogy</strong>
+                        <br>The <strong>Sample Space</strong> is a whole pizza.
+                        <br>An <strong>Event</strong> is a specific topping (or combination).
+                        <br>Individual <strong>Outcomes</strong> are the tiny atoms of flavor.
+                        <br>Probability is simply the <em>percent of the pizza</em> that a specific event covers.
                     </div>
                 </div>
             </section>
 
-            <!-- Examples -->
-            <section class="section" id="examples">
+            <!-- Counting -->
+            <section class="section" id="counting">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Common Metrics</h2>
+                    <h2 class="section-title">The Art of Counting</h2>
                 </div>
                 <div class="section-body">
-                    <div class="list-group">
-                        <div class="list-item">
-                            <strong>Euclidean ($L_2$):</strong> $\sqrt{\sum (x_i - y_i)^2}$
+                    <p>Probability often reduces to: <em>How many ways can this happen?</em> / <em>Total possible
+                            ways?</em></p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Permutations ($P$)</h3>
+                            <p>Order <strong>matters</strong>.</p>
+                            <p>$$P(n, k) = \frac{n!}{(n-k)!}$$</p>
+                            <p><em>Example: Placing 1st, 2nd, and 3rd in a race.</em></p>
                         </div>
-                        <div class="list-item">
-                            <strong>Manhattan ($L_1$):</strong> $\sum |x_i - y_i|$ (Taxicab definition)
-                        </div>
-                        <div class="list-item">
-                            <strong>Chebyshev ($L_\infty$):</strong> $\max |x_i - y_i|$ (Chess king moves)
-                        </div>
-                        <div class="list-item">
-                            <strong>Discrete Metric:</strong> $d(x, y) = 1$ if $x \neq y$, else 0.
+                        <div class="card">
+                            <h3>Combinations ($C$)</h3>
+                            <p>Order <strong>doesn't</strong> matter.</p>
+                            <p>$$C(n, k) = \binom{n}{k} = \frac{n!}{k!(n-k)!}$$</p>
+                            <p><em>Example: Choosing a team of 3 from 10 players.</em></p>
                         </div>
                     </div>
                     <div class="info">
-                        <strong>🚕 Simple:</strong>
-                        <br>• <strong>Euclidean:</strong> "As the crow flies" — straight-line distance.
-                        <br>• <strong>Manhattan:</strong> "As the taxi drives" — you can only go along streets (no
-                        diagonals).
-                        <br>• <strong>Chebyshev:</strong> "As the chess king moves" — the farthest you need to go in any
-                        ONE direction.
+                        <strong>🔒 Hardware: PINs vs. Lotto</strong>
+                        <br>Your <strong>iPhone PIN</strong> is a <em>Permutation</em>. 1-2-3-4 is different from
+                        4-3-2-1.
+                        <br>A <strong>Lottery Draw</strong> is a <em>Combination</em>. If the numbers are 5-10-15, it
+                        doesn't matter which one came out of the machine first.
                     </div>
                 </div>
             </section>
 
-            <!-- Topology -->
-            <section class="section" id="topology">
+            <!-- Axioms -->
+            <section class="section" id="axioms">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Open Balls & Topology</h2>
+                    <h2 class="section-title">Axioms of Probability</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        We define an <strong>open ball</strong> $B_r(x)$ as $\{y \in M \mid d(x, y) < r\}$. <br>
-                            This allows us to do calculus (limits, continuity, etc.) on abstract sets like strings,
-                            graphs, or functions!
-                    </p>
-                    <div class="info">
-                        <strong>🪐 Simple:</strong> Think of an Open Ball as a "Neighborhood" or "Orbit".
-                        <br>In 2D Euclidean space, it's a circle without the rim.
-                        <br>In the Discrete metric, if $r < 1$, the only thing in your neighborhood is YOU! </div>
+                    <p>Probability isn't just "vibes"; it follows the <strong>Kolmogorov Axioms</strong>:</p>
+                    <ol class="list-numbered">
+                        <li><strong>Non-negativity:</strong> $P(E) \ge 0$ for all $E$.</li>
+                        <li><strong>Unit Measure:</strong> $P(S) = 1$. (Something must happen).</li>
+                        <li><strong>Additivity:</strong> For mutually exclusive events $A$ and $B$, $P(A \cup B) = P(A)
+                            + P(B)$.</li>
+                    </ol>
+                    <div class="math-block">
+                        $$ P(A^c) = 1 - P(A) $$
+                        $$ P(A \cup B) = P(A) + P(B) - P(A \cap B) $$
                     </div>
+                </div>
             </section>
 
-            <!-- Completeness -->
-            <section class="section" id="completeness">
+            <!-- CS Connection -->
+            <section class="section" id="cs-connection">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Completeness</h2>
+                    <h2 class="section-title">CS: Hashing & Randomness</h2>
                 </div>
                 <div class="section-body">
-                    <p>
-                        A metric space is <strong>complete</strong> if every Cauchy sequence converges to a point
-                        <em>within the space</em>.
-                        <br>
-                        $\mathbb{Q}$ (Rationals) is NOT complete (since $\sqrt{2}$ is missing).
-                        $\mathbb{R}$ is complete.
-                    </p>
+                    <p>Why do software engineers care about sample spaces?</p>
+                    <div class="card">
+                        <h3>1. Hash Collisions</h3>
+                        <p>When you store data in a Hash Map, you are mapping a large key space to a smaller array index
+                            space. Probability tells us how often two keys will hit the same index.</p>
+                    </div>
+                    <div class="card">
+                        <h3>2. Randomized Algorithms</h3>
+                        <p>Algorithms like <strong>QuickSort</strong> or <strong>Skip Lists</strong> use a source of
+                            randomness to guarantee good average-case performance, even if the input is malicious.</p>
+                    </div>
                     <div class="info">
-                        <strong>🧩 Simple:</strong> Completeness means "No Punctures".
-                        <br>The Rational numbers line is full of holes (where $\sqrt{2}, \pi, e$ should be).
-                        <br>The Real numbers line fills in all those holes so you can't fall through.
-                    </div>
-                    <div class="rule">
-                        <strong>Banach Fixed Point Theorem (Contraction Mapping):</strong>
-                        A contraction $f: M \to M$ on a complete metric space has a unique fixed point. This proves
-                        solutions to Differential Equations exist!
+                        <strong>🎂 Simple: The Birthday Paradox</strong>
+                        <br>In a room of just 23 people, there is a >50% chance two people share a birthday.
+                        <br>This is why <strong>Hash Collisions</strong> are much more common than people expect!
                     </div>
                 </div>
-            </section>
-
-            <!-- Python -->
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Computing Distances</h2>
-                </div>
-                <div class="section-body">
-                    <p>Using SciPy for various metrics.</p>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Distance Metrics</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
-<span class="code-keyword">from</span> scipy.spatial <span class="code-keyword">import</span> distance
-
-p1 = np.array([<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>])
-p2 = np.array([<span class="code-number">4</span>, <span class="code-number">6</span>, <span class="code-number">8</span>])
-
-<span class="code-comment"># 1. Euclidean</span>
-d_euc = distance.euclidean(p1, p2)
-<span class="code-function">print</span>(<span class="code-string">f"Euclidean: {d_euc:.2f}"</span>)
-
-<span class="code-comment"># 2. Manhattan</span>
-d_man = distance.cityblock(p1, p2)
-<span class="code-function">print</span>(<span class="code-string">f"Manhattan: {d_man}"</span>)
-
-<span class="code-comment"># 3. Chebyshev</span>
-d_cheb = distance.chebyshev(p1, p2)
-<span class="code-function">print</span>(<span class="code-string">f"Chebyshev: {d_cheb}"</span>)
-
-<span class="code-comment"># 4. Hamming (for boolean/categorical vectors)</span>
-v1 = [<span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">1</span>, <span class="code-number">1</span>]
-v2 = [<span class="code-number">1</span>, <span class="code-number">1</span>, <span class="code-number">0</span>, <span class="code-number">1</span>]
-d_ham = distance.hamming(v1, v2)
-<span class="code-function">print</span>(<span class="code-string">f"Hamming (% diff): {d_ham}"</span>)</pre>
-                        </div>
-                    </div>
-                
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Mathematical Computation</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
-
-<span class="code-comment"># Common mathematical operations</span>
-<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
-<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
-<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
-                        </div>
-                    </div></div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -279,7 +230,7 @@ d_ham = distance.hamming(v1, v2)
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 7</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -300,20 +251,36 @@ d_ham = distance.hamming(v1, v2)
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Probability Foundations",
                 items: [
-                    { title: "Statistics Fundamentals", channel: "StatQuest", vid: "qBigTkBLU6g" },
-                    { title: "Probability Explained", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Bayes Theorem", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Normal Distribution", channel: "Khan Academy", vid: "mtbJbDwqWLE" },
-                    { title: "Hypothesis Testing", channel: "StatQuest", vid: "0oc49DyA3hU" }
+                    { title: "Intro to Probability", channel: "MIT 6.042J", vid: "LyU85-Y04Fw" },
+                    { title: "Sample Spaces & Axioms", channel: "Harvard Stat 110", vid: "P7NE4Xm_f8k" },
+                    { title: "Probability Basics", channel: "The TrevTutor", vid: "GUQnN7hUisM" },
+                    { title: "The Kolmogorov Axioms", channel: "Kimberly Brehm", vid: "S_dO7xH7N_M" }
+                ]
+            },
+            {
+                title: "Counting & Combinatorics",
+                items: [
+                    { title: "Permutations & Combinations", channel: "The TrevTutor", vid: "bCxMhncR7PU" },
+                    { title: "Intro to Combinatorics", channel: "Neso Academy", vid: "bCk4Lh_tOAg" },
+                    { title: "Binomial Distributions", channel: "3Blue1Brown", vid: "8idr1WZ1A7Q" }
+                ]
+            },
+            {
+                title: "CS Applications",
+                items: [
+                    { title: "Hash Collisions", channel: "Computerphile", vid: "KN3S-X_nFpM" },
+                    { title: "Probability in CS", channel: "CS Dojo", vid: "pmN9ExDf3yQ" }
                 ]
             }
-        ]
-            }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day49'], storageKey: 'day49_metric_v2' });
 
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day49'] || [],
+            storageKey: 'day49_prob_v1'
+        });
     </script>
 </body>
 

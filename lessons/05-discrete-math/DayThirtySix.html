@@ -67,13 +67,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -166,14 +166,18 @@
                             <h3>DFA (Deterministic)</h3>
                             <p>One path per input.</p>
                             <p>Easy to implement in hardware.</p>
-                            <p>Analogy: Following a recipe step-by-step.</p>
                         </div>
                         <div class="card">
                             <h3>NFA (Non-Deterministic)</h3>
                             <p>Multiple possible next states (or none).</p>
                             <p>Accepts if AT LEAST ONE path works.</p>
-                            <p>Analogy: A maze where you can clone yourself at every fork.</p>
                         </div>
+                    </div>
+                    <div class="info">
+                        <strong>Analogy:</strong>
+                        <br>DFA is like following a recipe step-by-step.
+                        <br>NFA is like a maze where you can clone yourself at every fork; if even one clone reaches the
+                        exit, the machine accepts.
                     </div>
                     <div class="rule">
                         <strong>Power Set Construction:</strong> Any NFA can be converted into an equivalent DFA.
@@ -348,7 +352,6 @@ for s in test_strings:
                 items: [
                     { title: "Finite State Machines", channel: "Computerphile", vid: "vhiiia1_hC4" },
                     { title: "DFA vs NFA", channel: "Neso Academy", vid: "ehy0j0yI9v0" },
-                    { title: "Regular Languages", channel: "Easy Theory", vid: "HRNwxbfdDHw" },
                     { title: "NFA to DFA Conversion", channel: "Neso Academy", vid: "--CSVsFIDlU" }
                 ]
             },
@@ -357,8 +360,7 @@ for s in test_strings:
                 items: [
                     { title: "State Pattern in Games", channel: "Game Maker's Toolkit", vid: "JxI3Eu5DPwE" },
                     { title: "Moore vs Mealy Machines", channel: "Neso Academy", vid: "tAZm9sqYE7g" },
-                    { title: "Finite Automata Visualized", channel: "Reducible", vid: "dE6tHQaFfRc" },
-                    { title: "Digital Logic FSM", channel: "Ben Eater", vid: "tNlVtPQ2Gt" }
+                    { title: "Finite Automata Visualized", channel: "Reducible", vid: "dE6tHQaFfRc" }
                 ]
             },
             {
@@ -366,8 +368,7 @@ for s in test_strings:
                 items: [
                     { title: "Regex in 100 Seconds", channel: "Fireship", vid: "rhzKDrUiJVk" },
                     { title: "How Compilers Work", channel: "Computerphile", vid: "QXjU9qTsYCc" },
-                    { title: "Lexical Analysis", channel: "Neso Academy", vid: "hewCsK-CGOY" },
-                    { title: "Building a Tokenizer", channel: "Tsoding Daily", vid: "N55XNj8KjC4" }
+                    { title: "Lexical Analysis", channel: "Neso Academy", vid: "hewCsK-CGOY" }
                 ]
             }
         ];

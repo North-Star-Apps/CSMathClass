@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -112,15 +112,14 @@
                 </div>
                 <div class="section-body">
                     <p>Think of your computer's RAM as a massive grid of mailboxes, each with a unique ID (address).</p>
-                    <div class="grid-2col">
-                        <div class="card">
-                            <h3>Contiguous (Array)</h3>
-                            <p>You ask for 10 adjacent boxes. Fast because you know exactly where box #7 is.</p>
-                        </div>
-                        <div class="card">
-                            <h3>Scattered (Predicted)</h3>
-                            <p>You ask for one box, and inside it is a note pointing to the next box (pointer).</p>
-                        </div>
+                    <div class="info">
+                        <strong>Simple:</strong>
+                        <br><strong>Array (Egg Carton):</strong> All slots are side-by-side. If you know you want egg
+                        #4, you grab it instantly. But if you want a 13-egg carton, you have to buy a new one and move
+                        all the eggs over.
+                        <br><strong>Linked List (Scavenger Hunt):</strong> Each egg contains the clue (pointer) to where
+                        the next egg is. You can hide eggs anywhere in the house, but you have to follow the trail from
+                        the start to find a specific one.
                     </div>
                 </div>
             </section>
@@ -306,27 +305,24 @@ ll.print_list()
                 title: "Arrays",
                 items: [
                     { title: "Arrays Explained", channel: "CS Dojo", vid: "pmN9ExDf3yQ" },
-                    { title: "Data Structures: Arrays vs Linked Lists", channel: "mycodeschool", vid: "lC-yYCOnN8Q" },
                     { title: "Array vs ArrayList", channel: "Coding with John", vid: "NbYgm0r7u6o" },
-                    { title: "2D Arrays", channel: "Alex Lee", vid: "L4lzL0Ic2P4" }
+                    { title: "Amortized Analysis", channel: "Back To Back SWE", vid: "T7W5E-5mljc" }
                 ]
             },
             {
                 title: "Linked Lists",
                 items: [
                     { title: "Linked Lists in 4 Minutes", channel: "Michael Sambol", vid: "F8AbOfQwl1c" },
-                    { title: "Linked Lists for Technical Interviews", channel: "freeCodeCamp", vid: "Hj_rA0dhr2I" },
+                    { title: "Linked Lists for Interviews", channel: "freeCodeCamp", vid: "Hj_rA0dhr2I" },
                     { title: "Doubly Linked Lists", channel: "HackerRank", vid: "JdQeNxWCguQ" },
                     { title: "Pointers and Memory", channel: "Computerphile", vid: "5VnDaHBi8dM" }
                 ]
             },
             {
-                title: "Comparisons & Applications",
+                title: "Comparisons",
                 items: [
-                    { title: "Arrays vs Linked Lists", channel: "CS Dojo", vid: "lC-yYCOnN8Q" },
-                    { title: "When to Use Each", channel: "Back To Back SWE", vid: "DyGaQv6p3VE" },
-                    { title: "LRU Cache Implementation", channel: "NeetCode", vid: "7ABFKPK2hD4" },
-                    { title: "Skip Lists", channel: "Computerphile", vid: "UGaOXaXAM5M" }
+                    { title: "Arrays vs Linked Lists", channel: "mycodeschool", vid: "lC-yYCOnN8Q" },
+                    { title: "When to Use Each", channel: "Back To Back SWE", vid: "DyGaQv6p3VE" }
                 ]
             }
         ];

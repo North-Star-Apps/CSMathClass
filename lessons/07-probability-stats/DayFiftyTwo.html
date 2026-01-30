@@ -4,14 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 52: Groups & Rings</title>
+    <title>Day 52: Expectation & Variance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
     <link rel="stylesheet" href="../../lessons/shared-styles.css">
-    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
 </head>
 
 <body>
@@ -24,12 +29,16 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 4 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -38,11 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 52 · Abstract Algebra
+            Day 52 · Measuring the Average
         </div>
-        <h1>Groups & Rings</h1>
+        <h1>Expectation & Variance</h1>
         <p class="hero-desc">
-            The study of symmetry and structure: from permuting objects to generalizing arithmetic.
+            What is the "average" outcome of a random process? We quantify the center and the spread of distributions,
+            providing a foundation for risk assessment and data analysis.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -50,7 +60,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~90 min read
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -63,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                Video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -73,11 +83,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#groups" class="toc-link">1. Group Theory</a></li>
-                    <li><a href="#rings" class="toc-link">2. Rings & Ideals</a></li>
-                    <li><a href="#code" class="toc-link">3. Python Example</a></li>
-                    <li><a href="#videos" class="toc-link">4. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">5. Practice</a></li>
+                    <li><a href="#expectation" class="toc-link">1. Expected Value (Mean)</a></li>
+                    <li><a href="#linearity" class="toc-link">2. Linearity of Expectation</a></li>
+                    <li><a href="#variance" class="toc-link">3. Variance & Std Dev</a></li>
+                    <li><a href="#lotus" class="toc-link">4. LOTUS</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -92,157 +103,106 @@
         </aside>
 
         <main class="content">
-            <!-- Group Theory -->
-            <section class="section" id="groups">
+            <!-- Expectation -->
+            <section class="section" id="expectation">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Group Theory</h2>
+                    <h2 class="section-title">Expected Value (Mean)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition of a Group</h3>
-                        <div class="rule">
-                            <strong>Group (G, •):</strong> A set G with operation • satisfying:
-                            1. <strong>Closure:</strong> a • b ∈ G
-                            2. <strong>Associativity:</strong> (a • b) • c = a • (b • c)
-                            3. <strong>Identity:</strong> ∃e such that a • e = e • a = a
-                            4. <strong>Inverses:</strong> ∀a, ∃a⁻¹ such that a • a⁻¹ = e
-                        
+                    <p>The <strong>Expected Value</strong> $E[X]$ is the long-run average of a random variable. It is
+                        the center of gravity of the distribution.</p>
+                    <div class="grid-2col">
+                        <div class="card">
+                            <h3>Discrete</h3>
+                            <p>$$ E[X] = \sum_{x} x P(X=x) $$</p>
+                        </div>
+                        <div class="card">
+                            <h3>Continuous</h3>
+                            <p>$$ E[X] = \int_{-\infty}^{\infty} x f(x) dx $$</p>
+                        </div>
+                    </div>
                     <div class="info">
-                        <strong>🎲 Simple:</strong> Probability is like weather forecasting. A 70% chance of rain doesn't mean it will rain 70% of the day—it means if we had 100 identical days, about 70 would have rain.
-                    </div></div>
-                        <div class="info">
-                            If a • b = b • a for all elements, the group is <strong>Abelian</strong> (commutative).
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Key Examples</h3>
-                        <div class="math-block">
-                            • (ℤ, +): Integers with addition (Abelian, infinite).
-                            • (ℤ_n, +): Integers mod n (Cyclic).
-                            • S_n: Symmetric group of permutations on n items (Non-Abelian for n ≥ 3).
-                            • GL(n, ℝ): Invertible n×n matrices (Non-Abelian).
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Homomorphisms & Quotient Groups</h3>
-                        <div class="math-block">
-                            <strong>Homomorphism:</strong> φ(a • b) = φ(a) • φ(b)
-                            (Structure preserving map)
-
-                            <strong>Normal Subgroup (N ⊴ G):</strong> gNg⁻¹ = N
-                            (Invariant under conjugation)
-
-                            <strong>Quotient Group (G/N):</strong> Group of cosets gN.
-                            "Collapsing" N to identity.
-                        </div>
+                        <strong>⚖️ Simple: The Balance Point</strong>
+                        <br>Imagine placing weights on a plank at different positions. $E[X]$ is the exact spot where
+                        you'd place your finger to keep the plank perfectly level.
                     </div>
                 </div>
             </section>
 
-            <!-- Rings & Ideals -->
-            <section class="section" id="rings">
+            <!-- Linearity -->
+            <section class="section" id="linearity">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Rings & Ideals</h2>
+                    <h2 class="section-title">Linearity of Expectation</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3 class="subsection-title">Definition of a Ring</h3>
-                        <div class="rule">
-                            <strong>Ring (R, +, ×):</strong>
-                            • (R, +) is an Abelian group.
-                            • (R, ×) is associative (and distributive over +).
-                            • If commutative and has 1, it's a "Commutative Ring with Unity".
-                        </div>
-                        <div class="math-block">
-                            Examples:
-                            • ℤ (Integers): The prototype ring.
-                            • ℝ[x]: Polynomials with real coefficients.
-                            • M_n(ℝ): n×n Matrices (Non-commutative ring).
-                        </div>
+                    <p>This is arguably the most powerful property in probability. The expectation of a sum is the sum
+                        of the expectations, <strong>even if the variables are dependent!</strong></p>
+                    <div class="math-block">
+                        $$ E[X + Y] = E[X] + E[Y] $$
+                        $$ E[aX + b] = aE[X] + b $$
                     </div>
-
-                    <div class="subsection">
-                        <h3 class="subsection-title">Ideals & Quotient Rings</h3>
-                        <div class="math-block">
-                            <strong>Ideal (I ⊆ R):</strong> Fun version of Normal Subgroup.
-                            If r ∈ R and x ∈ I, then rx ∈ I (absorbs multiplication).
-
-                            <strong>Quotient Ring (R/I):</strong>
-                            Arithmetic "modulo" the ideal.
-                            Example: ℤ/nℤ is integers mod n.
-                        </div>
+                    <div class="info">
+                        <strong>💰 Simple: The Paycheck Analogy</strong>
+                        <br>If you have two jobs, your total expected income is just the sum of what you expect from Job
+                        A and Job B. It doesn't matter if Job A's hours depend on Job B's; the math still works.
                     </div>
                 </div>
             </section>
 
-            <!-- Python Example -->
-            <section class="section" id="code">
+            <!-- Variance -->
+            <section class="section" id="variance">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Python: Permutation Groups</h2>
+                    <h2 class="section-title">Variance & Std Dev</h2>
                 </div>
                 <div class="section-body">
-                    <p>Using <code>sympy</code> to explore the Symmetric Group S3.</p>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Exploring S3</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">from</span> sympy.combinatorics <span class="code-keyword">import</span> SymmetricGroup
-
-<span class="code-comment"># S3: Permutations of 3 elements</span>
-S3 = SymmetricGroup(<span class="code-number">3</span>)
-
-<span class="code-function">print</span>(<span class="code-string">f"Order of S3: {S3.order()}"</span>) <span class="code-comment"># 3! = 6</span>
-
-<span class="code-comment"># List all elements</span>
-elements = <span class="code-function">list</span>(S3.generate_schreier_sims(af=<span class="code-keyword">True</span>))
-<span class="code-keyword">for</span> p <span class="code-keyword">in</span> elements:
-    <span class="code-function">print</span>(p)
-
-<span class="code-comment"># Check if Abelian</span>
-<span class="code-function">print</span>(<span class="code-string">f"Is Abelian? {S3.is_abelian}"</span>) <span class="code-comment"># False</span>
-
-<span class="code-comment"># Subgroups</span>
-<span class="code-comment"># (Sympy handles large group algebra efficiently)</span></pre>
-                        </div>
+                    <p>Expectation tells us the center; <strong>Variance</strong> ($Var(X)$) tells us the "spread."</p>
+                    <div class="math-block">
+                        $$ Var(X) = E[(X - E[X])^2] $$
+                        $$ Var(X) = E[X^2] - (E[X])^2 $$
                     </div>
-                
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Mathematical Computation</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
+                    <p>The <strong>Standard Deviation</strong> ($\sigma$) is simply $\sqrt{Var(X)}$, which brings the
+                        units back to the same scale as $X$.</p>
+                    <div class="warning">
+                        <strong>⚠️ Note:</strong> Variance is <strong>not</strong> linear. If $X$ and $Y$ are
+                        independent:
+                        <br>$$ Var(X + Y) = Var(X) + Var(Y) $$
+                        <br>$$ Var(aX) = a^2 Var(X) $$
+                    </div>
+                </div>
+            </section>
 
-<span class="code-comment"># Common mathematical operations</span>
-<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
-<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
-<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
-                        </div>
-                    </div></div>
+            <!-- LOTUS -->
+            <section class="section" id="lotus">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">LOTUS</h2>
+                </div>
+                <div class="section-body">
+                    <p>The <strong>Law of the Unconscious Statistician</strong> allows us to calculate the expectation
+                        of a function of a random variable, $g(X)$, without knowing the distribution of $g(X)$ itself.
+                    </p>
+                    <div class="math-block">
+                        $$ E[g(X)] = \sum_{x} g(x) P(X=x) $$
+                    </div>
+                    <p>This is why we can calculate $E[X^2]$ so easily when finding variance.</p>
+                </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
                     <div class="video-container">
                         <div class="video-player">
-                            <iframe id="ytPlayer" src=""
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
                             <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-title" id="videoTitle">Select a video</div>
                                 <div class="video-meta" id="videoMeta"></div>
                             </div>
                         </div>
@@ -254,7 +214,7 @@ elements = <span class="code-function">list</span>(S3.generate_schreier_sims(af=
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 6</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -275,19 +235,34 @@ elements = <span class="code-function">list</span>(S3.generate_schreier_sims(af=
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Expectation & Mean",
                 items: [
-                    { title: "Statistics Fundamentals", channel: "StatQuest", vid: "qBigTkBLU6g" },
-                    { title: "Probability Explained", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Bayes Theorem", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
-                    { title: "Normal Distribution", channel: "Khan Academy", vid: "mtbJbDwqWLE" },
-                    { title: "Hypothesis Testing", channel: "StatQuest", vid: "0oc49DyA3hU" }
+                    { title: "Expected Value", channel: "StatQuest", vid: "szr0ez46n_A" },
+                    { title: "Expectation Intuition", channel: "Khan Academy", vid: "vXvYid7-vYg" },
+                    { title: "Linearity of Expectation", channel: "The TrevTutor", vid: "XNQuOpeX-X8" }
+                ]
+            },
+            {
+                title: "Variance & Spread",
+                items: [
+                    { title: "Variance & Std Dev", channel: "StatQuest", vid: "szr0ez46n_A" },
+                    { title: "Variance Formulas", channel: "Khan Academy", vid: "6JFzI1LaxwE" }
+                ]
+            },
+            {
+                title: "Advanced Properties",
+                items: [
+                    { title: "LOTUS Explained", channel: "The TrevTutor", vid: "XNQuOpeX-X8" },
+                    { title: "Variance of Sums", channel: "Kimberly Brehm", vid: "6jf8Z4oH4pY" }
                 ]
             }
-        ]
-            }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day52'], storageKey: 'day52_alg1_v1' });
+
+        initLesson({
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day52'] || [],
+            storageKey: 'day52_exp_v1'
+        });
     </script>
 </body>
 
