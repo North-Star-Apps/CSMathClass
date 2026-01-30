@@ -94,11 +94,12 @@
     "heroMeta": {
       "readTime": 130,
       "practiceClaim": 45,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 12 videos (need 5-10)",
+      "VIDEO_MISMATCH: claims 10, has 12",
       "QUESTION_MISMATCH: claims 45, has 30"
     ],
     "passed": false,
@@ -148,12 +149,12 @@
     "heroMeta": {
       "readTime": 135,
       "practiceClaim": 45,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 11 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 12, has 11",
+      "VIDEO_MISMATCH: claims 10, has 11",
       "QUESTION_MISMATCH: claims 45, has 35"
     ],
     "passed": false,
@@ -188,13 +189,13 @@
     "heroMeta": {
       "readTime": 100,
       "practiceClaim": 40,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 11 videos (need 5-10)",
       "PARTIAL_GENERATE: 39/40 questions have refresh",
-      "VIDEO_MISMATCH: claims 12, has 11"
+      "VIDEO_MISMATCH: claims 10, has 11"
     ],
     "passed": false,
     "directory": "03-calculus"
@@ -513,20 +514,19 @@
   {
     "day": 11,
     "file": "DayEleven.html",
-    "videos": 11,
+    "videos": 9,
     "questions": 10,
     "generateFunctions": 10,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 100,
       "practiceClaim": 40,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
-      "HIGH_VIDEOS: 11 videos (need 5-10)",
       "LOW_QUESTIONS: 10 questions (need 20-40)",
-      "VIDEO_MISMATCH: claims 12, has 11",
+      "VIDEO_MISMATCH: claims 10, has 9",
       "QUESTION_MISMATCH: claims 40, has 10"
     ],
     "passed": false,
@@ -542,12 +542,13 @@
     "heroMeta": {
       "readTime": 100,
       "practiceClaim": 40,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 12 videos (need 5-10)",
       "LOW_QUESTIONS: 10 questions (need 20-40)",
+      "VIDEO_MISMATCH: claims 10, has 12",
       "QUESTION_MISMATCH: claims 40, has 10"
     ],
     "passed": false,
@@ -563,12 +564,13 @@
     "heroMeta": {
       "readTime": 120,
       "practiceClaim": 45,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 12 videos (need 5-10)",
       "LOW_QUESTIONS: 10 questions (need 20-40)",
+      "VIDEO_MISMATCH: claims 10, has 12",
       "QUESTION_MISMATCH: claims 45, has 10"
     ],
     "passed": false,
@@ -584,12 +586,13 @@
     "heroMeta": {
       "readTime": 135,
       "practiceClaim": 45,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
       "HIGH_VIDEOS: 12 videos (need 5-10)",
       "LOW_QUESTIONS: 6 questions (need 20-40)",
+      "VIDEO_MISMATCH: claims 10, has 12",
       "QUESTION_MISMATCH: claims 45, has 6"
     ],
     "passed": false,
