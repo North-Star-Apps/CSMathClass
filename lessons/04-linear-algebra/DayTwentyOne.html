@@ -68,13 +68,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                10 video lessons
             </div>
         </div>
     </header>
@@ -139,6 +139,21 @@
                             <br>If you transform your right hand with a negative determinant matrix, it becomes a left
                             hand.
                             <br>This is crucial in Physics and 3D Graphics (Normals facing in or out).
+                        </div>
+                    </div>
+
+                    <div class="analogy">
+                        <div class="analogy-icon">🎈</div>
+                        <div class="analogy-content">
+                            <div class="analogy-title">Analogy: The Balloon</div>
+                            <div class="analogy-text">
+                                Think of space as a balloon.
+                                The Determinant is how much you inflate or deflate it.
+                                <br>• Det = 2: Balloon is twice as big.
+                                <br>• Det = 0.5: Balloon is shrunk by half.
+                                <br>• Det = 0: Balloon is completely flat (no volume).
+                                <br>• Det = -1: Balloon is turned inside out.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,7 +401,6 @@ plot_transform(Shear, "Shear Matrix")
                 title: "Calculation & Theory",
                 items: [
                     { title: "Computing Determinants", channel: "Khan Academy", vid: "H9BWrYJFNB4" },
-                    { title: "Rule of Sarrus", channel: "Khan Academy", vid: "0c7dt2sVfcs" },
                     { title: "Finding the Inverse", channel: "Khan Academy", vid: "01c12NaUQDw" },
                     { title: "Matrix Rank", channel: "Khan Academy", vid: "uQhTuRlWMxw" }
                 ]
@@ -396,8 +410,7 @@ plot_transform(Shear, "Shear Matrix")
                 items: [
                     { title: "Solving Linear Systems", channel: "Khan Academy", vid: "VDA2mc4IpOA" },
                     { title: "Condition Number", channel: "Steve Brunton", vid: "s0fE-y0g5Qk" },
-                    { title: "LU Decomposition", channel: "Steve Brunton", vid: "UlWcofkUDDU" },
-                    { title: "Numerical Stability", channel: "Computerphile", vid: "PZRI1IfStY0" }
+                    { title: "LU Decomposition", channel: "Steve Brunton", vid: "UlWcofkUDDU" }
                 ]
             }
         ];
@@ -406,7 +419,7 @@ plot_transform(Shear, "Shear Matrix")
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day21'] || [],
-            storageKey: 'day21_v2'
+            storageKey: 'day21_v3'
         });
     </script>
     <script>hljs.highlightAll();</script>
