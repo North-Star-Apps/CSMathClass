@@ -162,18 +162,17 @@
   {
     "day": 7,
     "file": "DaySeven.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 40,
     "generateFunctions": 39,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 95,
       "practiceClaim": 40,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
       "PARTIAL_GENERATE: 39/40 questions have refresh"
     ],
     "passed": false,
@@ -203,18 +202,17 @@
   {
     "day": 8,
     "file": "DayEight.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 6,
     "generateFunctions": 6,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 105,
       "practiceClaim": null,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
     "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
       "LOW_QUESTIONS: 6 questions (need 20-40)"
     ],
     "passed": false,
@@ -273,13 +271,11 @@
     "heroMeta": {
       "readTime": 105,
       "practiceClaim": 40,
-      "videoClaim": 12
+      "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "VIDEO_MISMATCH: claims 12, has 10"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "02-precalculus"
   },
   {
@@ -503,7 +499,7 @@
   {
     "day": 10,
     "file": "DayTen.html",
-    "videos": 4,
+    "videos": 5,
     "questions": 30,
     "generateFunctions": 30,
     "hasPlaceholders": false,
@@ -514,7 +510,6 @@
     },
     "hasAnalogies": false,
     "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
       "NO_SIMPLE_ANALOGIES"
     ],
     "passed": false,
