@@ -67,7 +67,7 @@ const wordToNum = {
 
 function countVideos(content) {
     // Count items in VIDEO_GROUPS
-    const matches = content.match(/\{\s*title:\s*["'][^"']+["'],\s*channel:\s*["'][^"']+["'],\s*vid:\s*["'][^"']+["']\s*\}/g);
+    const matches = content.match(/\{\s*title:\s*(?:"[^"]*"|'[^']*'),\s*channel:\s*(?:"[^"]*"|'[^']*'),\s*vid:\s*(?:"[^"]*"|'[^']*')\s*\}/g);
     return matches ? matches.length : 0;
 }
 
