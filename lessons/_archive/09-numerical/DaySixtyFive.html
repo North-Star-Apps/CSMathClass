@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 57: Sigma Algebras & Measures</title>
+    <title>Day 65: Conformal Mapping</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -38,10 +38,10 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 57 · Topology & Measure
+            Day 65 · Functional & PDE
         </div>
-        <h1>Measure Theory Basics</h1>
-        <p class="hero-desc">Why length is hard. Sigma-algebras and the Lebesgue Measure.</p>
+        <h1>Residues & Geometry</h1>
+        <p class="hero-desc">Calculating impossible integrals using "Residues". The geometry of maps.</p>
         <div class="hero-meta">
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,12 +71,12 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
-                    <li><a href="#why" class="toc-link">1. The Problem with Length</a></li>
-                    <li><a href="#sigma" class="toc-link">2. Sigma-Algebras</a></li>
-                    <li><a href="#measure" class="toc-link">3. Definition of Measure</a></li>
-                    <li><a href="#lebesgue" class="toc-link">4. Lebesgue Measure</a></li>
-                    <li><a href="#borel" class="toc-link">5. Borel Sets</a></li>
-                    <li><a href="#code" class="toc-link">6. Python: Vitali Set Info</a></li>
+                    <li><a href="#laurent" class="toc-link">1. Laurent Series</a></li>
+                    <li><a href="#residue" class="toc-link">2. Residue Theorem</a></li>
+                    <li><a href="#application" class="toc-link">3. Application: Real Integrals</a></li>
+                    <li><a href="#conformal" class="toc-link">4. Conformal Maps</a></li>
+                    <li><a href="#riemann" class="toc-link">5. Riemann Mapping Thm</a></li>
+                    <li><a href="#code" class="toc-link">6. Python: Residue Calc</a></li>
                     <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
                     <li><a href="#practice" class="toc-link">8. Practice</a></li>
                 </ul>
@@ -93,111 +93,96 @@
         </aside>
 
         <main class="content">
-            <!-- Why -->
-            <section class="section" id="why">
+            <!-- Laurent -->
+            <section class="section" id="laurent">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Problem with Length</h2>
+                    <h2 class="section-title">Laurent Series</h2>
                 </div>
                 <div class="section-body">
-                    <p>We want a function `m(A)` that assigns a "size" to subsets of `\mathbb{R}`. It should satisfy:
-                    </p>
-                    <ol>
-                        <li>`m([a, b]) = b - a` (Matches intuition)</li>
-                        <li>`m(A \cup B) = m(A) + m(B)` if disjoint (Additivity)</li>
-                        <li>Translation Invariance: `m(A + x) = m(A)`</li>
-                    </ol>
-                    <p><strong>Vitali Set Paradox:</strong> Assuming the Axiom of Choice, it is IMPOSSIBLE to define
-                        such a function on <strong>ALL</strong> subsets of `\mathbb{R}`. We must restrict our attention
-                        to "Measurable Sets".</p>
-
+                    <p>If `f` has a singularity at `a` (e.g., `1/z`), we can't use Taylor series. We use <strong>Laurent
+                            Series</strong>:</p>
+                    <div class="math-block">
+                        f(z) = \sum_{n=-\infty}^\infty c_n (z-a)^n
+                    
                     <div class="info">
-                        <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new idea builds
-                        on previous ones, so mastering the fundamentals makes everything else easier to understand.
-                    </div>
+                        <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new idea builds on previous ones, so mastering the fundamentals makes everything else easier to understand.
+                    </div></div>
+                    <p>The coefficient `c_{-1}` is called the <strong>Residue</strong>, `\text{Res}(f, a)`.</p>
                 </div>
             </section>
 
-            <!-- Sigma -->
-            <section class="section" id="sigma">
+            <!-- Residue -->
+            <section class="section" id="residue">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Sigma-Algebras</h2>
+                    <h2 class="section-title">Residue Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p>A <strong>`\sigma`-algebra</strong> `\mathcal{F}` is a collection of subsets of `X` that is safe
-                        for "countable operations".</p>
-                    <div class="div-block">
-                        1. `\emptyset \in \mathcal{F}`<br>
-                        2. Closed under complement: `A \in \mathcal{F} \implies A^c \in \mathcal{F}`<br>
-                        3. Closed under <strong>Countable Unions</strong>: `A_i \in \mathcal{F} \implies
-                        \bigcup_{i=1}^\infty A_i \in \mathcal{F}`
+                    <p>This is the fundamental theorem of integration technique.</p>
+                    <div class="rule">
+                        Theorem: `\oint_\gamma f(z) \, dz = 2\pi i \sum \text{Res}(f, a_k)`
                     </div>
-                    <div class="info">
-                        <strong>📏 Simple:</strong> Think of a Sigma-Algebra as the "Resolution" of a ruler.
-                        <br>• If your ruler only has "inch" marks, you can measure 1 inch, 2 inches, or unions (3
-                        inches).
-                        <br>• You CANNOT measure 0.5 inches. That set is "not measurable" with your current tool.
-                        <br>• The Sigma-Algebra is the collection of ALL things you can possibly measure with your
-                        current
-                        tool.
-                    </div>
-                    <p>The pair `(X, \mathcal{F})` is a Measurable Space.</p>
+                    <p>The integral over a closed loop depends ONLY on the sum of the residues of the singularities
+                        inside the loop.</p>
                 </div>
             </section>
 
-            <!-- Measure -->
-            <section class="section" id="measure">
+            <!-- Application -->
+            <section class="section" id="application">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Definition of Measure</h2>
+                    <h2 class="section-title">Application: Real Integrals</h2>
                 </div>
                 <div class="section-body">
-                    <p>A <strong>Measure</strong> is a function `\mu: \mathcal{F} \to [0, \infty]` such that:</p>
-                    <ol>
-                        <li>`\mu(\emptyset) = 0`</li>
-                        <li><strong>Countable Additivity (`\sigma`-additivity):</strong> If `\{A_i\}` are disjoint:
-                            <div class="math-block">
-                                \mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i)
-                            </div>
-                        </li>
-                    </ol>
-                    <p>Note: We allow `\infty` as a value (e.g., length of `\mathbb{R}`).</p>
+                    <p>We can solve hard Real integrals by "closing the contour" in the complex plane.</p>
+                    <p>Example: `\int_{-\infty}^\infty \frac{1}{1+x^2} dx`.</p>
+                    <ul>
+                        <li>Consider `\oint \frac{1}{1+z^2} dz` over a semicircle.</li>
+                        <li>Singularities at `z = \pm i`. Only `i` is inside the upper semicircle.</li>
+                        <li>Residue at `i` is `1/(2i)`.</li>
+                        <li>Result: `2\pi i \cdot (1/2i) = \pi`. Matches `\arctan(\infty) - \arctan(-\infty)`.</li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- Lebesgue -->
-            <section class="section" id="lebesgue">
+            <!-- Conformal -->
+            <section class="section" id="conformal">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Lebesgue Measure</h2>
+                    <h2 class="section-title">Conformal Maps</h2>
                 </div>
                 <div class="section-body">
-                    <p>The standard measure on `\mathbb{R}`.</p>
-                    <p>It is constructed using <strong>Outer Measure</strong>:</p>
-                    <div class="math-block">
-                        m^*(A) = \inf \left\{ \sum \text{len}(I_k) \mid A \subseteq \bigcup I_k, I_k \text{ are open
-                        intervals} \right\}
+                    <p>A holomorphic bijective map `f: U \to V` is a <strong>Conformal Map</strong>.</p>
+                    <p>It preserves angles. These maps are used in engineering (fluid flow, electrostatics) to transform
+                        complex geometries into simple ones (like a disk).</p>
+                    <p>Solving Laplace's equation `\Delta u = 0` is invariant under conformal maps!</p>
+                    <div class="info">
+                        <strong>🗺️ Simple:</strong> The "Rubber Sheet" Analogy.
+                        <br>• Imagine drawing a grid on a rubber sheet. A <strong>Conformal Map</strong> stretches and
+                        twists the sheet, but <em>locally</em>, every tiny grid square stays a square (it doesn't shear
+                        into a diamond).
+                        <br>• This means if two lines cross at 90° on the original sheet, they still cross at 90° on the
+                        stretched sheet.
+                        <br>• Engineers love this: You can solve air flow around a simple cylinder, then "map" it to an
+                        airplane wing shape, and the physics (angles of flow) stays correct!
                     </div>
-                    <p>A set `A` is <strong>Lebesgue Measurable</strong> if it satisfies the Carathéodory condition:</p>
-                    <div class="math-block">
-                        m^*(E) = m^*(E \cap A) + m^*(E \cap A^c) \quad \forall E \subseteq \mathbb{R}
-                    </div>
-                    <p>(Intuitively: `A` cuts all other sets cleanly).</p>
                 </div>
             </section>
 
-            <!-- Borel -->
-            <section class="section" id="borel">
+            <!-- Riemann -->
+            <section class="section" id="riemann">
                 <div class="section-header">
                     <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Borel Sets</h2>
+                    <h2 class="section-title">Riemann Mapping Theorem</h2>
                 </div>
                 <div class="section-body">
-                    <p>The <strong>Borel `\sigma`-algebra</strong> `\mathcal{B}` is the smallest `\sigma`-algebra
-                        containing all open sets.</p>
-                    <p>Any set you can write down (open, closed, unions of open, etc.) is Borel.</p>
-                    <p>Note: There ARE Lebesgue measurable sets that are NOT Borel sets (subset of measure 0).</p>
+                    <div class="rule">
+                        Theorem: Any non-empty simply connected open proper subset of `\mathbb{C}` is conformally
+                        equivalent to the open unit disk `\mathbb{D}`.
+                    </div>
+                    <p>This is shocking. A square, a star, a blob—they are all "the same" as a circle from the
+                        perspective of Complex Analysis.</p>
                 </div>
             </section>
 
@@ -205,51 +190,51 @@
             <section class="section" id="code">
                 <div class="section-header">
                     <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Python: The Vitali Construction</h2>
+                    <h2 class="section-title">Python: Conformal Visualization</h2>
                 </div>
                 <div class="section-body">
-                    <p>We cannot "compute" non-measurable sets, but we can simulate the equivalence relation that
-                        creates them.</p>
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Rational Equivalence</span>
+                            <span class="code-label">Mapping Geometries</span>
                         </div>
                         <div class="code-content">
                             <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
 
-# Equivalence Relation: x ~ y if x - y is Rational.
-# Vitali Set extracts ONE element from each equivalence class of [0, 1].
+# Visualizing the Joukowsky Transform (Airfoils)
+# f(z) = z + 1/z
 
-def is_equivalent(x, y, tol=1e-9):
-    # Check if x - y is roughly rational (hard for floats!)
-    diff = abs(x - y)
-    # Check if diff * N is integer for some small N
-    for n in range(1, 100):
-        if abs(diff * n - round(diff * n)) < tol:
-            return True, f"{round(diff*n)}/{n}"
-    return False, None
+def joukowsky(z):
+    return z + 1.0/z
 
-x = np.pi - 3 # 0.1415...
-y = np.pi - 2.5 # 0.6415... (diff = 0.5 = 1/2)
+# Define a circle in the Complex plane
+# Shifted circle maps to an airfoil shape
+theta = np.linspace(0, 2*np.pi, 200)
+# Center slightly off (-0.1, 0.1) creates camber + thickness
+center = -0.1 + 0.1j
+# Radius must capture the singularity at z=1 or pass near it
+radius = 1.15
+circle = center + radius * np.exp(1j * theta)
 
-print(f"Checking {x:.4f} vs {y:.4f}")
-equiv, frac = is_equivalent(x, y)
-print(f"Equivalent? {equiv} (Diff is {frac})")
+airfoil = joukowsky(circle)
 
-z = np.sqrt(2) / 2
-print(f"Checking {x:.4f} vs {z:.4f}")
-print(f"Equivalent? {is_equivalent(x, z)[0]}")
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.plot(circle.real, circle.imag)
+plt.title("Z-plane (Circle)")
+plt.axis('equal')
+plt.grid(True)
 
-# Concept: The interval [0, 1] is the disjoint union of 
-# countably many shifted copies of the Vitali Set (by rationals).
-# If V had measure m:
-# Sum of m = 1 (Length of interval)
-# But Sum of constant m is either 0 or Infinity.
-# Contradiction.</code></pre>
+plt.subplot(1, 2, 2)
+plt.plot(airfoil.real, airfoil.imag, 'r')
+plt.title("W-plane (Joukowsky Airfoil)")
+plt.axis('equal')
+plt.grid(True)
+plt.show()</code></pre>
                         </div>
                     </div>
-
+                
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
@@ -263,8 +248,7 @@ print(f"Equivalent? {is_equivalent(x, z)[0]}")
 <span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
 <span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
                         </div>
-                    </div>
-                </div>
+                    </div></div>
             </section>
 
             <!-- Videos -->
@@ -313,34 +297,17 @@ print(f"Equivalent? {is_equivalent(x, z)[0]}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Measure Theory Basics",
+                title: "Video Lessons",
                 items: [
-                    { title: "Sigma Algebras", channel: "The Bright Side of Mathematics", vid: "xZ69KEg7ccU" },
-                    { title: "Measure Theoretic Prob", channel: "Axiom Tutor", vid: "Xo35S35F1_8" },
-                    { title: "Visualizing Measure Theory", channel: "The Bright Side of Mathematics", vid: "JmCjU_J1c_8" },
-                    { title: "Borel Sets", channel: "The Bright Side of Mathematics", vid: "7M73jG58-n8" }
-                ]
-            },
-            {
-                title: "Lebesgue Measure",
-                items: [
-                    { title: "Measure Definition", channel: "The Bright Side of Mathematics", vid: "kY3P95VvQ0U" },
-                    { title: "Lebesgue Measure", channel: "The Bright Side of Mathematics", vid: "EeAmxwb0gnI" },
-                    { title: "Outer Measure", channel: "The Bright Side of Mathematics", vid: "EeAmxwb0gnI" },
-                    { title: "Non-Measurable Sets?", channel: "The Bright Side of Mathematics", vid: "xZ69KEg7ccU" }
-                ]
-            },
-            {
-                title: "Paradoxes",
-                items: [
-                    { title: "The Vitali Set", channel: "Veritasium", vid: "X56zst79Xjg" },
-                    { title: "Vitali Set Construction", channel: "Elliot Nicholson", vid: "hcRZadc5KpI" },
-                    { title: "Math's Strangest Set", channel: "Abide By Reason", vid: "s86-Z-CbaHA" },
-                    { title: "Taste of Abstract Math", channel: "Dedekind Cuts", vid: "hK6C1L2_jE0" }
+                    { title: "Math for CS", channel: "MIT OCW", vid: "L3LMbpZIKhQ" },
+                    { title: "Mathematical Thinking", channel: "Numberphile", vid: "OmJ-4B-mS-Y" },
+                    { title: "Problem Solving", channel: "3Blue1Brown", vid: "v0YEaeIClKY" },
+                    { title: "Proofs & Logic", channel: "TheTrevTutor", vid: "q8n15q1v4Xo" },
+                    { title: "Applied Math", channel: "Steve Brunton", vid: "KZs_3WkSN2E" }
                 ]
             }
         ];
-        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day57'], storageKey: 'day57_measure_v1' });
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day65'], storageKey: 'day65_complex2_v1' });
     </script>
 </body>
 

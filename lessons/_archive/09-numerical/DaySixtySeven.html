@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 67: Modules & Vector Spaces</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../lessons/shared-styles.css">
+    <script>(function () { const t = localStorage.getItem('math_cs_theme') || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', t); })();</script>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../../index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 12L6 8L10 4" />
+                </svg>
+                Back to Curriculum
+            </a>
+            <div class="nav-progress">
+                <span id="progressText">0 / 10 complete</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
+            </svg>
+            Day 67 · Abstract Algebra
+        </div>
+        <h1>Modules & Vector Spaces</h1>
+        <p class="hero-desc">
+            What happens when scalars aren't from a field? Modules generalize vector spaces,
+            providing the language for advanced number theory and homological algebra.
+        </p>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                ~45 min read
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                25 practice problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                Video lessons
+            </div>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <nav class="toc">
+                <div class="toc-title">On this page</div>
+                <ul class="toc-list">
+                    <li><a href="#vectors" class="toc-link">1. Vector Spaces Review</a></li>
+                    <li><a href="#modules" class="toc-link">2. What is a Module?</a></li>
+                    <li><a href="#properties" class="toc-link">3. Properties</a></li>
+                    <li><a href="#apps" class="toc-link">4. Applications</a></li>
+                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">6. Practice</a></li>
+                </ul>
+            </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <!-- Vectors -->
+            <section class="section" id="vectors">
+                <div class="section-header">
+                    <div class="section-number">Section 1</div>
+                    <h2 class="section-title">Vector Spaces Reframed</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Recall that a <strong>Vector Space</strong> $V$ over a field $F$ is a set of vectors that can be
+                        added together and scaled by elements of $F$.
+                    </p>
+                    <div class="math-block">Key Properties:
+                        1. Basis: Every vector space has a basis.
+                        2. Dimension: The size of the basis is unique.
+                        3. Linear Maps: Structure-preserving functions between spaces.
+                    <div class="info">
+                        <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new idea builds on previous ones, so mastering the fundamentals makes everything else easier to understand.
+                    </div></div>
+                </div>
+            </section>
+
+            <!-- Modules -->
+            <section class="section" id="modules">
+                <div class="section-header">
+                    <div class="section-number">Section 2</div>
+                    <h2 class="section-title">The Module</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        A <strong>Module</strong> $M$ is the exact same concept, but the scalars come from a
+                        <strong>Ring</strong> $R$ instead of a field.
+                    </p>
+                    <div class="rule">
+                        <strong>Definition:</strong> An R-module $M$ is an abelian group (under addition) equipped with
+                        an action $R \times M \to M$.
+                    </div>
+                    <div class="info">
+                        <strong>🔌 Simple:</strong> The "Wobbly Lego" Analogy.
+                        <br>• <strong>Vector Space:</strong> Like rigid Legos. If you have 3 blocks, you have exactly 3
+                        blocks. You can always "divide" by a scalar (if you scale by 2, you can scale back by 1/2). It's
+                        structurally perfect.
+                        <br>• <strong>Module:</strong> Like wobbly Legos or clay. Since "scalars" (from a Ring) might
+                        not have inverses (you can't divide by 2 in Integers), you can get "Torsion".
+                        <br>• <strong>Torsion:</strong> Imagine taking a non-zero vector, scaling it by a non-zero
+                        number, and it collapses to ZERO. That's weird! It happens in modules (e.g., modular
+                        arithmetic). Modules are "Vector Spaces with structural defects."
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Why it's harder</h3>
+                        <p>Because rings (like $\mathbb{Z}$) don't have division, modules are "messier" than vector
+                            spaces:</p>
+                        <ul>
+                            <li><strong>No Basis Guarantee:</strong> Not all modules have a basis. Those that do are
+                                called "Free Modules".</li>
+                            <li><strong>Torsion:</strong> You can multiply a non-zero vector by a non-zero scalar and
+                                get 0! (e.g., in $\mathbb{Z}_6$, $2 \cdot 3 = 0$).</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Examples</h3>
+                        <div class="list-group">
+                            <div class="list-item">
+                                <strong>Vector Spaces:</strong> Any vector space implies a field, so every vector space
+                                is a module.
+                            </div>
+                            <div class="list-item">
+                                <strong>Abelian Groups:</strong> Every abelian group is a module over the ring of
+                                integers $\mathbb{Z}$.
+                                <br>Scaling $n \cdot v$ just means adding $v$ to itself $n$ times.
+                            </div>
+                            <div class="list-item">
+                                <strong>Ideal:</strong> Any ideal $I \subseteq R$ is a module over $R$.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Properties -->
+            <section class="section" id="properties">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Comparison</h2>
+                </div>
+                <div class="section-body">
+                    <div class="two-col">
+                        <div>
+                            <h4>Vector Space over Field F</h4>
+                            <ul>
+                                <li>Always has a basis</li>
+                                <li>Isomorphic to $F^n$</li>
+                                <li>No torsion elements</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Module over Ring R</h4>
+                            <ul>
+                                <li>Basis not guaranteed</li>
+                                <li>Can be "finitely generated" but look very different from $R^n$</li>
+                                <li>Can have torsion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Apps -->
+            <section class="section" id="apps">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Applications</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Linear Codes</h3>
+                        <p>
+                            In coding theory, a <strong>linear code</strong> is just a subspace (or submodule) of a
+                            finite vector space.
+                            Parity check matrices generate these submodules.
+                        </p>
+                    </div>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Homological Algebra</h3>
+                        <p>
+                            Used in Algebraic Topology to count "holes" in shapes. The "homology groups" computed are
+                            actually modules over $\mathbb{Z}$.
+                        </p>
+                    </div>
+                
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Mathematical Computation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> math
+
+<span class="code-comment"># Common mathematical operations</span>
+<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
+<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
+<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
+                        </div>
+                    </div></div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src=""
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video to start</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Practice Problems</h2>
+                </div>
+                <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
+                    <div id="quizContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
+    <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Video Lessons",
+                items: [
+                    { title: "Math for CS", channel: "MIT OCW", vid: "L3LMbpZIKhQ" },
+                    { title: "Mathematical Thinking", channel: "Numberphile", vid: "OmJ-4B-mS-Y" },
+                    { title: "Problem Solving", channel: "3Blue1Brown", vid: "v0YEaeIClKY" },
+                    { title: "Proofs & Logic", channel: "TheTrevTutor", vid: "q8n15q1v4Xo" },
+                    { title: "Applied Math", channel: "Steve Brunton", vid: "KZs_3WkSN2E" }
+                ]
+            }
+        ];
+        initLesson({ videos: VIDEO_GROUPS, questions: window.QUESTIONS_DATA['day67'], storageKey: 'day67_mod_v1' });
+    </script>
+</body>
+
+</html>

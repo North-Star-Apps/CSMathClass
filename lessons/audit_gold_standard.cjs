@@ -88,8 +88,8 @@ function getHeroMeta(content) {
 }
 
 function hasSimpleAnalogies(content) {
-    // Check for "Simple:" or "Analogy:" in info blocks
-    const hasSimple = /🍕\s*Simple:|💡\s*Analogy:|📚\s*Simple:|🔭\s*Simple:|🚨\s*Simple:/i.test(content);
+    // Check for "Simple:" or "Analogy:" in info blocks - any emoji is fine
+    const hasSimple = /Simple:|Analogy:/i.test(content);
     const infoBlocks = (content.match(/<div class="info">/g) || []).length;
     return { hasSimple, infoBlocks };
 }
