@@ -67,13 +67,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -129,156 +129,159 @@
                         </p>
                     </div>
 
-                    <div class="subsection">
-                        <h3>Analogy: The Shortest Path</h3>
-                        <p>
-                            Imagine you are walking in a field and you see a long wall (a line). You want to touch the
-                            wall by walking the <strong>shortest possible distance</strong>.
-                        </p>
-                        <p>
-                            Do you walk at a slant? No.
-                            <br>You walk straight towards it, making a <strong>90-degree angle</strong> (Right Angle)
-                            with the wall.
-                        </p>
-                        <div class="info">
-                            <strong>The "Error" is Orthogonal.</strong>
-                            <br>This simple geometric fact—that the shortest path is perpendicular—is the secret behind
-                            Linear Regression, GPS, and JPEG compression.
+                    <div class="analogy">
+                        <div class="analogy-icon">🌑</div>
+                        <div class="analogy-content">
+                            <div class="analogy-title">Analogy: The Shadow</div>
+                            <div class="analogy-text">
+                                Imagine a ball floating above a table.
+                                <br>• The table is a subspace (a plane).
+                                <br>• The ball is the vector $b$ (outside the plane).
+                                <br>• The <strong>Shadow</strong> of the ball on the table is the projection $p$.
+                                <br>• The line from the ball to the shadow is perpendicular (orthogonal) to the table.
+                                This is the shortest path.
+                            </div>
                         </div>
                     </div>
-
-                    <div class="subsection">
-                        <h3>Orthogonal Subspaces</h3>
-                        <p>
-                            We don't just talk about vectors. We talk about entire "Spaces" being orthogonal.
-                            <br>Example: The floor of your room is a 2D plane (subspace). The corner edge of the wall
-                            going up is a 1D line.
-                            <br>Every vector on the floor is perpendicular to the vertical edge.
-                        </p>
-                        <div class="rule">
-                            <strong>Fundamental Theorem of Linear Algebra (Part 2)</strong>
-                            <p>
-                                The <strong>Row Space</strong> is orthogonal to the <strong>Null Space</strong>.
-                                <br>($Ax=0$ literally means the rows of A are perpendicular to x).
-                            </p>
-                        </div>
+                    <div class="info">
+                        <strong>The "Error" is Orthogonal.</strong>
+                        <br>This simple geometric fact—that the shortest path is perpendicular—is the secret behind
+                        Linear Regression, GPS, and JPEG compression.
                     </div>
                 </div>
-            </section>
 
-            <!-- Projections -->
-            <section class="section" id="projections">
-                <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Deep Dive: Projections</h2>
-                </div>
-                <div class="section-body">
+                <div class="subsection">
+                    <h3>Orthogonal Subspaces</h3>
                     <p>
-                        Most of the time, $Ax = b$ has <strong>no solution</strong>.
-                        <br>This happens whenever we have more equations than unknowns (e.g., fitting a line to 100
-                        points).
-                    </p>
-                    <div class="warning">
-                        <strong>The Geometric Problem</strong>
-                        <p>
-                            The columns of $A$ span a "Column Space". $b$ is hanging out <em>outside</em> that space.
-                            <br>We can't reach $b$ by combining columns of $A$.
-                        </p>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>The Shadow (Projection)</h3>
-                        <p>
-                            Since we can't reach $b$, we settle for the <strong>closest point</strong> in the column
-                            space. Let's call it $\vec{p}$ (for projection).
-                            <br>This $\vec{p}$ is the "Shadow" of $b$ cast directly down onto the plane of $A$.
-                        </p>
-                        <div class="math-block">
-                            $$ \text{Error } \vec{e} = \vec{b} - \vec{p} $$
-                        </div>
-                        <p>
-                            The key insight is that the error vector $\vec{e}$ is <strong>orthogonal</strong> to the
-                            entire plane (Column Space).
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Normal Equation -->
-            <section class="section" id="normal-equations">
-                <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">The Normal Equation</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        How do we calculate this "Shadow" $\vec{p}$?
-                        <br>We know the error $b - Ax$ is perpendicular to every column in $A$.
-                    </p>
-                    <div class="math-block">
-                        $$ A^T (\vec{b} - A\hat{x}) = 0 $$
-                    </div>
-                    <p>
-                        If we distribute $A^T$:
-                        <br>$$ A^T \vec{b} - A^T A \hat{x} = 0 $$
+                        We don't just talk about vectors. We talk about entire "Spaces" being orthogonal.
+                        <br>Example: The floor of your room is a 2D plane (subspace). The corner edge of the wall
+                        going up is a 1D line.
+                        <br>Every vector on the floor is perpendicular to the vertical edge.
                     </p>
                     <div class="rule">
-                        <strong>The Golden Formula of Least Squares</strong>
-                        <div class="math-block">
-                            $$ A^T A \hat{x} = A^T \vec{b} $$
-                        </div>
+                        <strong>Fundamental Theorem of Linear Algebra (Part 2)</strong>
                         <p>
-                            This is the famous <strong>Normal Equation</strong>.
-                            <br>1. Multiply both sides by $A^T$.
-                            <br>2. Solve for $\hat{x}$.
+                            The <strong>Row Space</strong> is orthogonal to the <strong>Null Space</strong>.
+                            <br>($Ax=0$ literally means the rows of A are perpendicular to x).
                         </p>
                     </div>
                 </div>
-            </section>
+    </div>
+    </section>
 
-            <!-- Regression -->
-            <section class="section" id="regression">
-                <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">CS: Linear Regression</h2>
-                </div>
-                <div class="section-body">
-                    <p>
-                        This is the beating heart of Statistics and Machine Learning.
-                        <br>We aren't strictly "solving" equations; we are <strong>optimizing</strong> them.
-                    </p>
-                    <div class="subsection">
-                        <h3>Minimizing the Error</h3>
-                        <p>
-                            We want to minimize $||\vec{e}||^2$.
-                            <br>Why squared error? Because it corresponds exactly to Euclidean distance (Pythagoras),
-                            and the math is simpler (derivatives are linear).
-                        </p>
-                        <p>
-                            When you perform a "Line of Best Fit" in Excel or `sklearn.LinearRegression`, the computer
-                            constructs the matrix $A$ (with a column of 1s for the intercept) and solves
-                            $A^T A \hat{x} = A^T b$.
-                        </p>
-                    </div>
-                </div>
-            </section>
+    <!-- Projections -->
+    <section class="section" id="projections">
+        <div class="section-header">
+            <div class="section-number">Section 2</div>
+            <h2 class="section-title">Deep Dive: Projections</h2>
+        </div>
+        <div class="section-body">
+            <p>
+                Most of the time, $Ax = b$ has <strong>no solution</strong>.
+                <br>This happens whenever we have more equations than unknowns (e.g., fitting a line to 100
+                points).
+            </p>
+            <div class="warning">
+                <strong>The Geometric Problem</strong>
+                <p>
+                    The columns of $A$ span a "Column Space". $b$ is hanging out <em>outside</em> that space.
+                    <br>We can't reach $b$ by combining columns of $A$.
+                </p>
+            </div>
 
-            <!-- Python -->
-            <section class="section" id="python">
-                <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Python: Regression from Scratch</h2>
+            <div class="subsection">
+                <h3>The Shadow (Projection)</h3>
+                <p>
+                    Since we can't reach $b$, we settle for the <strong>closest point</strong> in the column
+                    space. Let's call it $\vec{p}$ (for projection).
+                    <br>This $\vec{p}$ is the "Shadow" of $b$ cast directly down onto the plane of $A$.
+                </p>
+                <div class="math-block">
+                    $$ \text{Error } \vec{e} = \vec{b} - \vec{p} $$
                 </div>
-                <div class="section-body">
-                    <p>No Scikit-Learn. Let's see the raw Linear Algebra in action.</p>
+                <p>
+                    The key insight is that the error vector $\vec{e}$ is <strong>orthogonal</strong> to the
+                    entire plane (Column Space).
+                </p>
+            </div>
+        </div>
+    </section>
 
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Python</span>
-                            <span class="code-label">Least Squares</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code class="language-python">import numpy as np
+    <!-- Normal Equation -->
+    <section class="section" id="normal-equations">
+        <div class="section-header">
+            <div class="section-number">Section 3</div>
+            <h2 class="section-title">The Normal Equation</h2>
+        </div>
+        <div class="section-body">
+            <p>
+                How do we calculate this "Shadow" $\vec{p}$?
+                <br>We know the error $b - Ax$ is perpendicular to every column in $A$.
+            </p>
+            <div class="math-block">
+                $$ A^T (\vec{b} - A\hat{x}) = 0 $$
+            </div>
+            <p>
+                If we distribute $A^T$:
+                <br>$$ A^T \vec{b} - A^T A \hat{x} = 0 $$
+            </p>
+            <div class="rule">
+                <strong>The Golden Formula of Least Squares</strong>
+                <div class="math-block">
+                    $$ A^T A \hat{x} = A^T \vec{b} $$
+                </div>
+                <p>
+                    This is the famous <strong>Normal Equation</strong>.
+                    <br>1. Multiply both sides by $A^T$.
+                    <br>2. Solve for $\hat{x}$.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regression -->
+    <section class="section" id="regression">
+        <div class="section-header">
+            <div class="section-number">Section 4</div>
+            <h2 class="section-title">CS: Linear Regression</h2>
+        </div>
+        <div class="section-body">
+            <p>
+                This is the beating heart of Statistics and Machine Learning.
+                <br>We aren't strictly "solving" equations; we are <strong>optimizing</strong> them.
+            </p>
+            <div class="subsection">
+                <h3>Minimizing the Error</h3>
+                <p>
+                    We want to minimize $||\vec{e}||^2$.
+                    <br>Why squared error? Because it corresponds exactly to Euclidean distance (Pythagoras),
+                    and the math is simpler (derivatives are linear).
+                </p>
+                <p>
+                    When you perform a "Line of Best Fit" in Excel or `sklearn.LinearRegression`, the computer
+                    constructs the matrix $A$ (with a column of 1s for the intercept) and solves
+                    $A^T A \hat{x} = A^T b$.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Python -->
+    <section class="section" id="python">
+        <div class="section-header">
+            <div class="section-number">Section 5</div>
+            <h2 class="section-title">Python: Regression from Scratch</h2>
+        </div>
+        <div class="section-body">
+            <p>No Scikit-Learn. Let's see the raw Linear Algebra in action.</p>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">Python</span>
+                    <span class="code-label">Least Squares</span>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. Generate Noisy Data
@@ -314,68 +317,68 @@ plt.ylabel("y")
 plt.legend()
 plt.title("Least Squares Regression (Manual)")
 plt.show()</code></pre>
-                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary -->
+    <section class="section" id="summary">
+        <div class="section-header">
+            <div class="section-number">Section 6</div>
+            <h2 class="section-title">Summary</h2>
+        </div>
+        <div class="section-body">
+            <ul>
+                <li><strong>Orthogonal</strong> means perpendicular (Dot product = 0).</li>
+                <li><strong>Projections</strong> are the "Shadows" of vectors onto subspaces.</li>
+                <li>When $Ax=b$ has no solution, we project $b$ onto the Column Space of $A$ to find the
+                    <strong>Least Squares</strong> solution.
+                </li>
+                <li>The <strong>Normal Equation</strong> $A^T A \hat{x} = A^T b$ is the algebraic machine that
+                    finds this projection.</li>
+                <li>This is the foundation of <strong>Linear Regression</strong>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="section" id="videos">
+        <div class="section-header">
+            <div class="section-number">Section 7</div>
+            <h2 class="section-title">Video Lessons</h2>
+        </div>
+        <div class="section-body">
+            <div class="video-container">
+                <div class="video-player">
+                    <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                    <div class="video-info">
+                        <div class="video-title" id="videoTitle">Select a video</div>
+                        <div class="video-meta" id="videoMeta"></div>
                     </div>
                 </div>
-            </section>
+                <div class="video-list" id="videoList"></div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Summary -->
-            <section class="section" id="summary">
-                <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Summary</h2>
-                </div>
-                <div class="section-body">
-                    <ul>
-                        <li><strong>Orthogonal</strong> means perpendicular (Dot product = 0).</li>
-                        <li><strong>Projections</strong> are the "Shadows" of vectors onto subspaces.</li>
-                        <li>When $Ax=b$ has no solution, we project $b$ onto the Column Space of $A$ to find the
-                            <strong>Least Squares</strong> solution.
-                        </li>
-                        <li>The <strong>Normal Equation</strong> $A^T A \hat{x} = A^T b$ is the algebraic machine that
-                            finds this projection.</li>
-                        <li>This is the foundation of <strong>Linear Regression</strong>.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Videos -->
-            <section class="section" id="videos">
-                <div class="section-header">
-                    <div class="section-number">Section 7</div>
-                    <h2 class="section-title">Video Lessons</h2>
-                </div>
-                <div class="section-body">
-                    <div class="video-container">
-                        <div class="video-player">
-                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
-                            <div class="video-info">
-                                <div class="video-title" id="videoTitle">Select a video</div>
-                                <div class="video-meta" id="videoMeta"></div>
-                            </div>
-                        </div>
-                        <div class="video-list" id="videoList"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Practice -->
-            <section class="section" id="practice">
-                <div class="section-header">
-                    <div class="section-number">Section 8</div>
-                    <h2 class="section-title">Practice Problems</h2>
-                </div>
-                <div class="section-body">
-                    <div class="quiz-controls">
-                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
-                        <button class="btn" id="btnRevealAll">Reveal All</button>
-                        <button class="btn" id="btnClear">Clear Inputs</button>
-                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
-                    </div>
-                    <div id="quizContainer"></div>
-                </div>
-            </section>
-        </main>
+    <!-- Practice -->
+    <section class="section" id="practice">
+        <div class="section-header">
+            <div class="section-number">Section 8</div>
+            <h2 class="section-title">Practice Problems</h2>
+        </div>
+        <div class="section-body">
+            <div class="quiz-controls">
+                <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                <button class="btn" id="btnRevealAll">Reveal All</button>
+                <button class="btn" id="btnClear">Clear Inputs</button>
+                <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+            </div>
+            <div id="quizContainer"></div>
+        </div>
+    </section>
+    </main>
     </div>
 
     <script>
@@ -400,8 +403,6 @@ plt.show()</code></pre>
             {
                 title: "Applications",
                 items: [
-                    { title: "Support Vector Machines", channel: "StatQuest", vid: "efR1C6CvhmE" },
-                    { title: "Fourier Series", channel: "3Blue1Brown", vid: "r6sGWTCMz2k" },
                     { title: "QR Decomposition", channel: "Steve Brunton", vid: "J41Ypt6Mdjw" },
                     { title: "How GPS Works", channel: "Real Engineering", vid: "FU_pY2sTwTA" }
                 ]
