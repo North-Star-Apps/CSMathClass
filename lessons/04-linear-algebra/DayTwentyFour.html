@@ -68,13 +68,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -114,17 +114,20 @@
                     <h2 class="section-title">The Definition</h2>
                 </div>
                 <div class="section-body">
-                    <div class="subsection">
-                        <h3>The "Axle" Analogy</h3>
-                        <p>
-                            Imagine a spinning globe suitable for a classroom.
-                            Every point on the globe is moving (New York is spinning, London is spinning).
-                            <br>But there are two points that are <strong>stationary</strong>: The North and South
-                            Poles.
-                            <br>The vector connecting them is the <strong>Eigenvector</strong> (The Axis of Rotation).
-                            <br>The scalar $\lambda$ tells you if the globe is stretching along that axis (if
-                            $\lambda=1$, it's just spinning).
-                        </p>
+                    <div class="analogy">
+                        <div class="analogy-icon">🌍</div>
+                        <div class="analogy-content">
+                            <div class="analogy-title">Analogy: The Spinning Globe</div>
+                            <div class="analogy-text">
+                                Imagine a spinning globe in a classroom.
+                                <br>• Every point moves (New York, London, Tokyo are all spinning).
+                                <br>• But two points are <strong>stationary</strong>: The North and South Poles.
+                                <br>• The vector connecting them is the <strong>Eigenvector</strong> (The Axis of
+                                Rotation).
+                                <br>• The scalar $\lambda$ says how much it stretches (Here, $\lambda=1$ because it just
+                                spins).
+                            </div>
+                        </div>
                     </div>
                     <div class="math-block">
                         $$ A \vec{v} = \lambda \vec{v} $$
@@ -412,7 +415,6 @@ plt.show()</code></pre>
                 items: [
                     { title: "PageRank Algorithm", channel: "Computerphile", vid: "qxEkY8OScYA" },
                     { title: "PCA Main Ideas", channel: "StatQuest", vid: "FgakZw5KKua8" },
-                    { title: "Spectral Clustering", channel: "StatQuest", vid: "YHz0PHqJD54" },
                     { title: "Eigenfaces", channel: "Computerphile", vid: "_lY74pXWlS8" }
                 ]
             },
@@ -420,7 +422,6 @@ plt.show()</code></pre>
                 title: "Advanced",
                 items: [
                     { title: "Spectral Theorem", channel: "Steve Brunton", vid: "8F0FbnNtXCw" },
-                    { title: "SVD Applications", channel: "Steve Brunton", vid: "gXbThCXjZFM" },
                     { title: "Power Method", channel: "Steve Brunton", vid: "4zS-hAQ8ADI" },
                     { title: "Change of Basis", channel: "3Blue1Brown", vid: "P2LTAUO1TdA" }
                 ]
