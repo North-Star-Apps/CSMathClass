@@ -68,13 +68,13 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                40 practice problems
+                25 practice problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                12 video lessons
+                9 video lessons
             </div>
         </div>
     </header>
@@ -132,14 +132,18 @@
                             <li><strong>$V^T$</strong> (Right Singular Vectors): orthogonal matrix ($n \times n$).</li>
                         </ul>
                     </div>
-                    <div class="subsection">
-                        <h3>Analogy: The Prism</h3>
-                        <p>
-                            Imagine white light hitting a prism. The prism breaks the messy mixed light into pure
-                            spectral components (Red, Green, Blue).
-                            <br>SVD is the mathematical prism. It takes a messy matrix $A$ and breaks it into pure,
-                            independent components ($\sigma_1, \sigma_2, ...$).
-                        </p>
+                    <div class="analogy">
+                        <div class="analogy-icon">💎</div>
+                        <div class="analogy-content">
+                            <div class="analogy-title">Analogy: The Prism</div>
+                            <div class="analogy-text">
+                                Imagine white light hitting a prism.
+                                <br>• The messy mixed light is your original matrix $A$.
+                                <br>• The prism breaks it into pure spectral colors (Red, Green, Blue).
+                                <br>• SVD is the mathematical prism. It breaks $A$ into pure, independent components
+                                ($\sigma_1, \sigma_2, ...$).
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -389,9 +393,7 @@ plt.show()
                 title: "Applications: Data Science",
                 items: [
                     { title: "Recommender Systems", channel: "StatQuest", vid: "Eeg1DEeWUjA" },
-                    { title: "Latent Semantic Analysis", channel: "Victor Lavrenko", vid: "P5mlg91as1c" },
-                    { title: "Pseudoinverse", channel: "Steve Brunton", vid: "PjeOmOz9jSY" },
-                    { title: "Essence of Linear Algebra", channel: "3Blue1Brown", vid: "fNk_zzaMoSs" }
+                    { title: "Pseudoinverse", channel: "Steve Brunton", vid: "PjeOmOz9jSY" }
                 ]
             }
         ];
