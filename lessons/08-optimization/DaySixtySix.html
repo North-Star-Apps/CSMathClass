@@ -112,10 +112,13 @@
                             <strong>Infinite Fields:</strong> $\mathbb{Q}$ (Rationals), $\mathbb{R}$ (Reals),
                             $\mathbb{C}$ (Complex).
                             <br>Note: $\mathbb{Z}$ (Integers) is NOT a field because $1/2 \notin \mathbb{Z}$.
-                        
-                    <div class="info">
-                        <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new idea builds on previous ones, so mastering the fundamentals makes everything else easier to understand.
-                    </div></div>
+
+                            <div class="info">
+                                <strong>🧩 Simple:</strong> Mathematical concepts are like building blocks. Each new
+                                idea builds on previous ones, so mastering the fundamentals makes everything else easier
+                                to understand.
+                            </div>
+                        </div>
                         <div class="list-item">
                             <strong>Finite Fields:</strong> Integers modulo a prime $p$ ($\mathbb{Z}_p$, also denoted
                             $\mathbb{F}_p$ or $GF(p)$).
@@ -239,21 +242,43 @@ p = <span class="code-number">7</span>
                             </p>
                         </div>
                     </div>
-                
+
+
                     <div class="code-block">
                         <div class="code-header">
                             <span class="code-lang">Python</span>
-                            <span class="code-label">Mathematical Computation</span>
+                            <span class="code-label">GF(2^n) Arithmetic (AES style)</span>
                         </div>
                         <div class="code-content">
-                            <pre><span class="code-keyword">import</span> math
+                            <pre><code class="language-python"># Polynomials as bits: x^3 + x + 1 => 1011
+# Addition in Finite Fields of char 2 is just XOR
 
-<span class="code-comment"># Common mathematical operations</span>
-<span class="code-function">print</span>(math.sqrt(<span class="code-number">16</span>))   <span class="code-comment"># 4.0</span>
-<span class="code-function">print</span>(math.log(<span class="code-number">100</span>, <span class="code-number">10</span>))  <span class="code-comment"># 2.0</span>
-<span class="code-function">print</span>(math.factorial(<span class="code-number">5</span>))  <span class="code-comment"># 120</span></pre>
+a = 0b01010111 # 87
+b = 0b10000011 # 131
+
+# 1. Addition
+# No carries! 1+1 = 0
+print(f"Sum: {bin(a ^ b)}")
+
+# 2. Multiplication in GF(2^8)
+# We need an irreducible polynomial (AES uses x^8 + x^4 + x^3 + x + 1)
+AES_MOD = 0x11b # 100011011
+
+def gf_mult(x, y):
+    p = 0
+    for i in range(8):
+        if (y & 1): p ^= x
+        high_bit = x & 0x80
+        x <<= 1
+        if high_bit: x ^= AES_MOD
+        y >>= 1
+    return p & 0xFF
+
+print(f"Product: {gf_mult(a, b)}")
+</code></pre>
                         </div>
-                    </div></div>
+                    </div>
+                </div>
             </section>
 
             <!-- Videos -->
@@ -302,13 +327,27 @@ p = <span class="code-number">7</span>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Video Lessons",
+                title: "Finite Fields",
                 items: [
-                    { title: "Math for CS", channel: "MIT OCW", vid: "L3LMbpZIKhQ" },
-                    { title: "Mathematical Thinking", channel: "Numberphile", vid: "OmJ-4B-mS-Y" },
-                    { title: "Problem Solving", channel: "3Blue1Brown", vid: "v0YEaeIClKY" },
-                    { title: "Proofs & Logic", channel: "TheTrevTutor", vid: "q8n15q1v4Xo" },
-                    { title: "Applied Math", channel: "Steve Brunton", vid: "KZs_3WkSN2E" }
+                    { title: "Finite Fields Explained", channel: "EJ Dansu", vid: "zQo_S3yNa2w" },
+                    { title: "Finite Fields Made Easy", channel: "RH", vid: "ViYlHwb8S5c" },
+                    { title: "Finite Fields in Crypto", channel: "CryptoClear", vid: "3a9U0r8sK6w" }
+                ]
+            },
+            {
+                title: "Galois Theory",
+                items: [
+                    { title: "Galois Theory Simply", channel: "Math Visualized", vid: "a8j9VbF_c8A" },
+                    { title: "Fundamental Theorem", channel: "Aleph 0", vid: "7q0r_yM5p7E" },
+                    { title: "Galois & Finite Fields", channel: "Richard Borcherds", vid: "Wu6fP9IjgqU" }
+                ]
+            },
+            {
+                title: "AES Applications",
+                items: [
+                    { title: "AES Explained", channel: "Computerphile", vid: "O4xNJs5_kN4" },
+                    { title: "AES Encryption", channel: "Neso Academy", vid: "K547f3gX9-w" },
+                    { title: "Galois Fields in AES", channel: "Murshed SK", vid: "x1v2tX4_1g8" }
                 ]
             }
         ];

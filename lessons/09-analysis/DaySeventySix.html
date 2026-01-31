@@ -119,6 +119,12 @@
                     </div>
                     <p>This is exactly like projecting a vector onto an orthogonal basis $\{\sin(nx), \cos(nx)\}$. We
                         are shifting from the **Time Domain** to the **Frequency Domain**.</p>
+                    <div class="info-box">
+                        <h3>The Analogy</h3>
+                        <p><strong>🍹 Simple: The Smoothie.</strong> A function is a mixed smoothie. The Fourier
+                            Transform is the machine that un-mixes it, telling you exactly how much strawberry, banana,
+                            and spinach went into the glass.</p>
+                    </div>
                 </div>
             </section>
 
@@ -279,21 +285,24 @@ plt.show()
             {
                 title: "The Heart of Fourier",
                 items: [
-                    { title: "Fourier Series: The Big Idea", channel: "3Blue1Brown", vid: "S5E6m8nC-C8" }, // Placeholders
+                    { title: "Fourier Series: The Big Idea", channel: "3Blue1Brown", vid: "r6sGWTCMzqc" },
                     { title: "But what is the Fourier Transform?", channel: "3Blue1Brown", vid: "spUNpyF58BY" }
                 ]
             },
             {
                 title: "Applications in CS",
                 items: [
-                    { title: "The Fast Fourier Transform (FFT)", channel: "Reducible", vid: "p7A11y62wEA" },
+                    { title: "The Fast Fourier Transform (FFT)", channel: "Reducible", vid: "h7apO7q16V0" },
                     { title: "Filtering and Signal Processing", channel: "Steve Brunton", vid: "sDv4f4s2SB8" }
+                ]
+            },
+            {
+                title: "Advanced Real Analysis",
+                items: [
+                    { title: "Lp Spaces", channel: "The Bright Side of Mathematics", vid: "0WInlQyIDrE" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "r6sGWTCMzqc"; // Fourier Series
-        VIDEO_GROUPS[1].items[0].vid = "h7apO7q16V0"; // FFT
 
         initLesson({
             videos: VIDEO_GROUPS,

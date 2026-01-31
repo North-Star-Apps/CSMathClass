@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 88: Checkpoint 10 (Curriculum Synthesis)</title>
+    <title>Day 88: Checkpoint 10 (Theoretical CS & Quantum Review)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 27 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -47,13 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 88 · Integration
+            Day 88 · Section 10 Review
         </div>
         <h1>Checkpoint 10: Theoretical CS & Quantum</h1>
         <p class="hero-desc">
-            Synthesizing the models of computation.
-            From the physical tapes of Turing to the probability amplitudes of the Qubit, we review the limits and
-            possibilities of information.
+            From Turing machines to quantum computers—a comprehensive review of
+            computability, complexity theory, and the quantum computing paradigm.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -61,14 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~120 min review
+                ~90 min review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                50 practice problems
+                25 review problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                8 video lessons
             </div>
         </div>
     </header>
@@ -76,56 +81,350 @@
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
-                <div class="toc-title">On this page</div>
+                <div class="toc-title">Review Areas</div>
                 <ul class="toc-list">
-                    <li><a href="#summary" class="toc-link">1. Section Summary</a></li>
-                    <li><a href="#turing-lambda" class="toc-link">2. Turing vs Lambda</a></li>
-                    <li><a href="#complexity" class="toc-link">3. Complexity Hierarchy</a></li>
-                    <li><a href="#quantum-paradigm" class="toc-link">4. The Quantum Paradigm</a></li>
-                    <li><a href="#capstone" class="toc-link">5. Capstone: The Logic of Speed</a></li>
-                    <li><a href="#exam" class="toc-link">6. Section 10 Final Exam</a></li>
+                    <li><a href="#computability" class="toc-link">1. Computability</a></li>
+                    <li><a href="#turing" class="toc-link">2. Turing Machines</a></li>
+                    <li><a href="#complexity" class="toc-link">3. Complexity Theory</a></li>
+                    <li><a href="#lambda" class="toc-link">4. Lambda Calculus</a></li>
+                    <li><a href="#quantum" class="toc-link">5. Quantum Computing</a></li>
+                    <li><a href="#algorithms" class="toc-link">6. Quantum Algorithms</a></li>
+                    <li><a href="#videos" class="toc-link">7. Review Videos</a></li>
+                    <li><a href="#practice" class="toc-link">8. Final Practice</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
 
         <main class="content">
-            <section class="section" id="summary">
+            <!-- Computability -->
+            <section class="section" id="computability">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Map of Theory</h2>
+                    <div class="section-number">Review 1</div>
+                    <h2 class="section-title">Computability Theory</h2>
                 </div>
                 <div class="section-body">
-                    <p>In Section 10, we journeyed through the most fundamental questions in Computer Science:</p>
-                    <ul class="list-disc">
-                        <li>**Computability:** What *can* be calculated? (Turing Machines, Halting Problem).</li>
-                        <li>**Complexity:** How *fast* can it be calculated? (P vs NP, Reductions).</li>
-                        <li>**Functional Foundations:** Logic as computation (Lambda Calculus, Types).</li>
-                        <li>**Certainty:** Proving code correct (Hoare Logic, Model Checking).</li>
-                        <li>**Quantum Computing:** Breaking the classical rules (Qubits, Shor, Grover).</li>
-                    </ul>
+                    <div class="rule">
+                        <strong>Church-Turing Thesis:</strong> Any function that can be "computed"
+                        can be computed by a Turing Machine.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Undecidable Problems</h3>
+                        <ul>
+                            <li><strong>Halting Problem:</strong> No algorithm can determine if an arbitrary TM halts
+                            </li>
+                            <li><strong>Post's Correspondence:</strong> Undecidable matching problem</li>
+                            <li><strong>Rice's Theorem:</strong> Any non-trivial property of TM languages is undecidable
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>🛑 Simple: The Self-Referential Bug Analogy</strong>
+                        <br>The halting problem is like asking: "Will this code ever stop?" If you had a magic
+                        detector, you could feed it code that does the OPPOSITE of what the detector says—
+                        creating a paradox. No detector can exist! It's the ultimate proof that some problems are
+                        fundamentally unsolvable.
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="capstone">
+            <!-- Turing Machines -->
+            <section class="section" id="turing">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Capstone: The Logic of Speed</h2>
+                    <div class="section-number">Review 2</div>
+                    <h2 class="section-title">Turing Machines</h2>
                 </div>
                 <div class="section-body">
-                    <p>Your capstone project for this section is to write a report analyzing the **Interference** effect
-                        in Grover's algorithm. How does it physically map to the mathematical "reflection about the
-                        mean"? Why does this not break the $O(\sqrt{N})$ bound?</p>
+                    <div class="rule">
+                        <strong>Turing Machine Components:</strong>
+                        <ul>
+                            <li><strong>Tape:</strong> Infinite memory, divided into cells</li>
+                            <li><strong>Head:</strong> Reads/writes symbols, moves left/right</li>
+                            <li><strong>States:</strong> Finite control with transition function</li>
+                            <li><strong>Alphabet:</strong> Finite set of tape symbols</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Language Classes</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Class</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Recognizer</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Regular</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">DFA/NFA</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$a^*b^*$</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Context-Free</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">PDA</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$a^n b^n$</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Turing-Decidable</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">TM (halts)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$a^n b^n c^n$</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Turing-Recognizable</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">TM (may loop)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Halting TMs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="exam">
+            <!-- Complexity Theory -->
+            <section class="section" id="complexity">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Section 10 Final Exam</h2>
+                    <div class="section-number">Review 3</div>
+                    <h2 class="section-title">Complexity Theory</h2>
                 </div>
                 <div class="section-body">
-                    <p>This exam covers Days 79-87. Ensure you have mastered the "Verify vs Solve" distinction and the
-                        difference between a Bit and a Qubit.</p>
+                    <div class="rule">
+                        <strong>P vs NP:</strong> The most important open problem in CS!
+                        <ul>
+                            <li><strong>P:</strong> Problems solvable in polynomial time</li>
+                            <li><strong>NP:</strong> Problems verifiable in polynomial time</li>
+                            <li><strong>NP-Complete:</strong> Hardest problems in NP (all NP reduces to them)</li>
+                            <li><strong>NP-Hard:</strong> At least as hard as NP-Complete</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Complexity Hierarchy</h3>
+                        <div class="math-block">
+                            $$ P \subseteq NP \subseteq PSPACE \subseteq EXPTIME $$
+                        </div>
+                        <p>Known: $P \neq EXPTIME$. Unknown: $P \stackrel{?}{=} NP$</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Classic NP-Complete Problems</h3>
+                        <ul>
+                            <li><strong>SAT:</strong> Boolean satisfiability (Cook's Theorem)</li>
+                            <li><strong>3-SAT:</strong> SAT with 3 literals per clause</li>
+                            <li><strong>Clique:</strong> Find k-vertex complete subgraph</li>
+                            <li><strong>Traveling Salesman:</strong> Shortest tour visiting all cities</li>
+                            <li><strong>Subset Sum:</strong> Subset with exact target sum</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>🔐 Simple: The Sudoku Analogy</strong>
+                        <br>P vs NP is like solving vs. checking Sudoku. Checking a filled-in puzzle is easy (NP).
+                        But SOLVING it from scratch might not be (P?). If solving is truly as easy as checking,
+                        then P = NP—and encryption would break. Most experts believe P ≠ NP, but nobody can prove it!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lambda Calculus -->
+            <section class="section" id="lambda">
+                <div class="section-header">
+                    <div class="section-number">Review 4</div>
+                    <h2 class="section-title">Lambda Calculus & Type Theory</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Lambda Calculus Basics:</strong>
+                        <ul>
+                            <li><strong>Variables:</strong> $x$</li>
+                            <li><strong>Abstraction:</strong> $\lambda x. e$ (function definition)</li>
+                            <li><strong>Application:</strong> $(f\, x)$ (function call)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">β-Reduction</h3>
+                        <div class="math-block">
+                            $$ (\lambda x. e)\, v \to_\beta e[x := v] $$
+                        </div>
+                        <p>Substitute argument $v$ for parameter $x$ in body $e$.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Curry-Howard Correspondence</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Logic</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Types</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Proposition</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Type</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Proof</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Program</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$A \to B$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Function type</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$A \land B$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Product type</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quantum Computing -->
+            <section class="section" id="quantum">
+                <div class="section-header">
+                    <div class="section-number">Review 5</div>
+                    <h2 class="section-title">Quantum Computing Fundamentals</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>The Qubit:</strong> Quantum state that can be in superposition
+                        <div class="math-block">
+                            $$ |\psi\rangle = \alpha|0\rangle + \beta|1\rangle, \quad |\alpha|^2 + |\beta|^2 = 1 $$
+                        </div>
+                        Upon measurement, collapses to $|0\rangle$ with prob $|\alpha|^2$ or $|1\rangle$ with prob
+                        $|\beta|^2$.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Quantum Properties</h3>
+                        <ul>
+                            <li><strong>Superposition:</strong> Qubit can be in multiple states simultaneously</li>
+                            <li><strong>Entanglement:</strong> Qubits can be correlated beyond classical limits</li>
+                            <li><strong>Interference:</strong> Amplitudes can add or cancel</li>
+                            <li><strong>No-Cloning:</strong> Cannot copy an unknown quantum state</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Quantum Gates</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Gate</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Effect</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Matrix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Hadamard (H)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Creates superposition
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">
+                                        $\frac{1}{\sqrt{2}}\begin{pmatrix}1 & 1 \\ 1 & -1\end{pmatrix}$</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Pauli-X</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Bit flip (NOT)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$\begin{pmatrix}0 & 1 \\
+                                        1 & 0\end{pmatrix}$</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">CNOT</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Controlled-NOT</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Flips target if control
+                                        is $|1\rangle$</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quantum Algorithms -->
+            <section class="section" id="algorithms">
+                <div class="section-header">
+                    <div class="section-number">Review 6</div>
+                    <h2 class="section-title">Quantum Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                        <thead>
+                            <tr style="background: var(--surface-alt);">
+                                <th style="padding: 10px; border: 1px solid var(--border);">Algorithm</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Problem</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Speedup</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Deutsch-Jozsa</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Is function constant or
+                                    balanced?</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(1)$ vs $O(2^{n-1})$</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);"><strong>Grover's</strong>
+                                </td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Unstructured search</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(\sqrt{N})$ vs $O(N)$</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);"><strong>Shor's</strong></td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Integer factorization</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Poly vs exponential</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info">
+                        <strong>⚠️ Implications:</strong> Shor's algorithm breaks RSA encryption.
+                        This is why post-quantum cryptography is an active research area!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Review 7</div>
+                    <h2 class="section-title">Review Videos</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Review 8</div>
+                    <h2 class="section-title">Final Practice</h2>
+                </div>
+                <div class="section-body">
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -138,25 +437,44 @@
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
     <script>
-        // Checkpoint pulls from all days in section
-        const sectionQuestions = [
-            ...(window.QUESTIONS_DATA['day79'] || []),
-            ...(window.QUESTIONS_DATA['day80'] || []),
-            ...(window.QUESTIONS_DATA['day81'] || []),
-            ...(window.QUESTIONS_DATA['day82'] || []),
-            ...(window.QUESTIONS_DATA['day83'] || []),
-            ...(window.QUESTIONS_DATA['day84'] || []),
-            ...(window.QUESTIONS_DATA['day85'] || []),
-            ...(window.QUESTIONS_DATA['day86'] || []),
-            ...(window.QUESTIONS_DATA['day87'] || []),
-            ...(window.QUESTIONS_DATA['day88'] || [])
+        const VIDEO_GROUPS = [
+            {
+                title: "Computability & Turing",
+                items: [
+                    { title: "Turing Machines Explained", channel: "Computerphile", vid: "dNRDvLACg5Q" },
+                    { title: "The Halting Problem", channel: "Computerphile", vid: "macM_MtS_w4" }
+                ]
+            },
+            {
+                title: "Complexity Theory",
+                items: [
+                    { title: "P vs NP Explained", channel: "Undefined Behavior", vid: "EHp4FPyajKQ" },
+                    { title: "NP-Complete Problems", channel: "Reducible", vid: "e2cF8a5aAhE" }
+                ]
+            },
+            {
+                title: "Lambda Calculus",
+                items: [
+                    { title: "Lambda Calculus Introduction", channel: "Computerphile", vid: "eis11j_iGMs" },
+                    { title: "Types and Programming Languages", channel: "Joscha Bach", vid: "IOiZatlZtGU" }
+                ]
+            },
+            {
+                title: "Quantum Computing",
+                items: [
+                    { title: "Quantum Computing Explained", channel: "Veritasium", vid: "-UlxHPIEVqA" },
+                    { title: "Shor's Algorithm", channel: "MinutePhysics", vid: "lvTqbM5Dq4Q" }
+                ]
+            }
         ];
 
         initLesson({
-            videos: [],
-            questions: sectionQuestions,
-            storageKey: 'day88_v1'
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day88'] || [],
+            storageKey: 'day88_checkpoint_v2'
         });
     </script>
 </body>

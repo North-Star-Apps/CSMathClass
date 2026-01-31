@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 94: Checkpoint 11 (Applied Mastery)</title>
+    <title>Day 94: Checkpoint 11 (Applied Mastery Review)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 27 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -47,13 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 94 · Synthesis
+            Day 94 · Section 11 Review
         </div>
         <h1>Checkpoint 11: Applied Mastery</h1>
         <p class="hero-desc">
-            The power of math in the real world.
-            Reviewing the specialized mathematical tools used in Systems, Databases, Graphics, Finance, and Strategic
-            Games.
+            Mathematical tools in the real world—distributed systems, databases,
+            computer graphics, financial engineering, and game theory.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -61,14 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~120 min review
+                ~90 min review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                50 practice problems
+                25 review problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                8 video lessons
             </div>
         </div>
     </header>
@@ -76,58 +81,302 @@
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
-                <div class="toc-title">On this page</div>
+                <div class="toc-title">Review Areas</div>
                 <ul class="toc-list">
-                    <li><a href="#summary" class="toc-link">1. Section Summary</a></li>
-                    <li><a href="#systems" class="toc-link">2. Systems & Consensus</a></li>
-                    <li><a href="#data-graphics" class="toc-link">3. Data & Graphics</a></li>
-                    <li><a href="#finance-games" class="toc-link">4. Finance & Game Theory</a></li>
-                    <li><a href="#capstone" class="toc-link">5. Capstone: The Multi-Agent Bank</a></li>
-                    <li><a href="#exam" class="toc-link">6. Section 11 Final Exam</a></li>
+                    <li><a href="#systems" class="toc-link">1. Distributed Systems</a></li>
+                    <li><a href="#databases" class="toc-link">2. Database Theory</a></li>
+                    <li><a href="#graphics" class="toc-link">3. Computer Graphics</a></li>
+                    <li><a href="#finance" class="toc-link">4. Financial Math</a></li>
+                    <li><a href="#games" class="toc-link">5. Game Theory</a></li>
+                    <li><a href="#synthesis" class="toc-link">6. Cross-Domain Synthesis</a></li>
+                    <li><a href="#videos" class="toc-link">7. Review Videos</a></li>
+                    <li><a href="#practice" class="toc-link">8. Final Practice</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
 
         <main class="content">
-            <section class="section" id="summary">
+            <!-- Distributed Systems -->
+            <section class="section" id="systems">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">Applied Mathematics in CS</h2>
+                    <div class="section-number">Review 1</div>
+                    <h2 class="section-title">Distributed Systems & Consensus</h2>
                 </div>
                 <div class="section-body">
-                    <p>In Section 11, we moved from the "Why" of math to the "How" of engineering:</p>
-                    <ul class="list-disc">
-                        <li>**Systems:** Reaching consensus with Paxos and Raft.</li>
-                        <li>**Databases:** Relational Algebra as set theory.</li>
-                        <li>**Graphics:** Quaternions for rotation and Projection for depth.</li>
-                        <li>**Finance:** The Black-Scholes PDE for pricing risk.</li>
-                        <li>**Strategy:** Nash Equilibrium and the Prisoner's Dilemma.</li>
+                    <div class="rule">
+                        <strong>CAP Theorem:</strong> In a distributed system, you can only guarantee 2 of 3:
+                        <ul>
+                            <li><strong>Consistency:</strong> All nodes see the same data</li>
+                            <li><strong>Availability:</strong> Every request gets a response</li>
+                            <li><strong>Partition Tolerance:</strong> System works despite network failures</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Consensus Algorithms</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Algorithm</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Key Idea</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Use Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Paxos</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Propose → Accept → Learn
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Foundation for others
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Raft</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Leader election + log
+                                        replication</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">etcd, Consul</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">PBFT</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Byzantine fault
+                                        tolerance</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Blockchain</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info">
+                        <strong>🌐 Simple: The Restaurant Chain Analogy</strong>
+                        <br>CAP is like a restaurant chain. Consistency = all locations have the same menu.
+                        Availability = never "closed for updates." Partition tolerance = keeps working even if
+                        phones between locations go down. Pick 2: you can't have all 3 perfectly!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Database Theory -->
+            <section class="section" id="databases">
+                <div class="section-header">
+                    <div class="section-number">Review 2</div>
+                    <h2 class="section-title">Database Theory</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Relational Algebra Operators:</strong>
+                        <ul>
+                            <li><strong>Selection ($\sigma$):</strong> Filter rows (WHERE clause)</li>
+                            <li><strong>Projection ($\pi$):</strong> Select columns (SELECT clause)</li>
+                            <li><strong>Join ($\bowtie$):</strong> Combine tables on matching keys</li>
+                            <li><strong>Union ($\cup$), Difference ($-$):</strong> Set operations</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Query Optimization</h3>
+                        <p>Key rule: <strong>Push selections down!</strong></p>
+                        <div class="math-block">
+                            $$ \sigma_p(R \bowtie S) \equiv (\sigma_p R) \bowtie S $$
+                        </div>
+                        <p>Filter before joining to reduce intermediate result sizes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Computer Graphics -->
+            <section class="section" id="graphics">
+                <div class="section-header">
+                    <div class="section-number">Review 3</div>
+                    <h2 class="section-title">Computer Graphics Math</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Coordinate Transformations</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Transform</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Matrix</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Effect</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Translation</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">4×4 with $(t_x, t_y,
+                                        t_z)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Move object</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Rotation</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Orthogonal matrix</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Spin object</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Scale</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Diagonal $(s_x, s_y,
+                                        s_z)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Resize object</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Projection</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Perspective matrix</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">3D → 2D</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Quaternions for Rotation:</strong>
+                        <div class="math-block">
+                            $$ q = w + xi + yj + zk, \quad i^2 = j^2 = k^2 = ijk = -1 $$
+                        </div>
+                        <p>Avoid gimbal lock and interpolate smoothly between orientations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Math -->
+            <section class="section" id="finance">
+                <div class="section-header">
+                    <div class="section-number">Review 4</div>
+                    <h2 class="section-title">Financial Mathematics</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Black-Scholes Equation:</strong>
+                        <div class="math-block">
+                            $$ \frac{\partial V}{\partial t} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
+                            + rS\frac{\partial V}{\partial S} - rV = 0 $$
+                        </div>
+                        <ul>
+                            <li>$V$ = option value, $S$ = stock price</li>
+                            <li>$\sigma$ = volatility, $r$ = risk-free rate</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Concepts</h3>
+                        <ul>
+                            <li><strong>Risk-Neutral Pricing:</strong> Price as expected value under Q-measure</li>
+                            <li><strong>Delta Hedging:</strong> Neutralize price risk with $\Delta = \frac{\partial
+                                V}{\partial S}$</li>
+                            <li><strong>Monte Carlo:</strong> Simulate paths for complex derivatives</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Theory -->
+            <section class="section" id="games">
+                <div class="section-header">
+                    <div class="section-number">Review 5</div>
+                    <h2 class="section-title">Game Theory</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Nash Equilibrium:</strong> No player can improve by unilaterally changing strategy.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Classic Games</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Game</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Nash Equilibrium</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Lesson</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Prisoner's Dilemma</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">(Defect, Defect)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Individual rationality ≠
+                                        collective good</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Coordination</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Multiple equilibria</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Standards, protocols
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Matching Pennies</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Mixed: (50%, 50%)</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Zero-sum, randomization
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info">
+                        <strong>CS Application:</strong> Auction design (eBay), mechanism design,
+                        ad bidding (Google), multi-agent systems.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cross-Domain Synthesis -->
+            <section class="section" id="synthesis">
+                <div class="section-header">
+                    <div class="section-number">Review 6</div>
+                    <h2 class="section-title">Cross-Domain Synthesis</h2>
+                </div>
+                <div class="section-body">
+                    <p>Applied Mastery means seeing connections:</p>
+                    <ul>
+                        <li><strong>Consensus + Game Theory:</strong> Byzantine generals = strategic agents</li>
+                        <li><strong>Graphics + Finance:</strong> Both use stochastic PDEs (heat equation)</li>
+                        <li><strong>Databases + Distributed:</strong> ACID guarantees via distributed consensus</li>
                     </ul>
+
+                    <div class="info">
+                        <strong>🎯 Capstone Idea:</strong> Design a distributed options exchange that uses
+                        Raft for consensus, queries with relational algebra, prices with Black-Scholes,
+                        and prevents manipulation with mechanism design.
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="capstone">
+            <!-- Videos -->
+            <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Capstone: The Multi-Agent Bank</h2>
+                    <div class="section-number">Review 7</div>
+                    <h2 class="section-title">Review Videos</h2>
                 </div>
                 <div class="section-body">
-                    <p>Your capstone project for this section is a thought experiment: **Design a Distributed Financial
-                        Exchange.**</p>
-                    <p>How do you use **Paxos** to ensure all nodes agree on the price? How do you use **Black-Scholes**
-                        to price the contracts? How do you use **Game Theory** to ensure traders don't cheat the
-                        auction? Write a high-level architecture diagram and logic flow.</p>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
 
-            <section class="section" id="exam">
+            <!-- Practice -->
+            <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Section 11 Final Exam</h2>
+                    <div class="section-number">Review 8</div>
+                    <h2 class="section-title">Final Practice</h2>
                 </div>
                 <div class="section-body">
-                    <p>This exam covers Days 89-93. It tests your ability to apply abstract math to concrete engineering
-                        bottlenecks.</p>
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -140,21 +389,44 @@
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
     <script>
-        // Checkpoint pulls from all days in section
-        const sectionQuestions = [
-            ...(window.QUESTIONS_DATA['day89'] || []),
-            ...(window.QUESTIONS_DATA['day90'] || []),
-            ...(window.QUESTIONS_DATA['day91'] || []),
-            ...(window.QUESTIONS_DATA['day92'] || []),
-            ...(window.QUESTIONS_DATA['day93'] || []),
-            ...(window.QUESTIONS_DATA['day94'] || [])
+        const VIDEO_GROUPS = [
+            {
+                title: "Distributed Systems",
+                items: [
+                    { title: "Raft Consensus Animated", channel: "The Secret Livelihood", vid: "IujMVjKvWP4" },
+                    { title: "CAP Theorem Explained", channel: "Hussein Nasser", vid: "BHqjEjzAicg" }
+                ]
+            },
+            {
+                title: "Databases & Graphics",
+                items: [
+                    { title: "Relational Algebra", channel: "GateSmashers", vid: "4YilEjkNPrQ" },
+                    { title: "3D Graphics Math", channel: "Freya Holmér", vid: "PNlgMPzj-7Q" }
+                ]
+            },
+            {
+                title: "Finance & Game Theory",
+                items: [
+                    { title: "Black-Scholes Intuition", channel: "PatrickJMT", vid: "5PPxMoJp8qY" },
+                    { title: "Game Theory 101", channel: "William Spaniel", vid: "MHS-htjGgSY" }
+                ]
+            },
+            {
+                title: "Synthesis",
+                items: [
+                    { title: "Math in Real Systems", channel: "Computerphile", vid: "dNRDvLACg5Q" },
+                    { title: "Nash Equilibrium", channel: "Primer", vid: "M3oWYHYoBvk" }
+                ]
+            }
         ];
 
         initLesson({
-            videos: [],
-            questions: sectionQuestions,
-            storageKey: 'day94_v1'
+            videos: VIDEO_GROUPS,
+            questions: window.QUESTIONS_DATA['day94'] || [],
+            storageKey: 'day94_checkpoint_v2'
         });
     </script>
 </body>

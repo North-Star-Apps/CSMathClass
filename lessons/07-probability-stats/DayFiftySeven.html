@@ -51,8 +51,9 @@
         </div>
         <h1>Statistics II: Hypothesis Testing</h1>
         <p class="hero-desc">
-            How do we decide if a discovery is a genuine breakthrough or just a random fluke?
-            We learn the "courtroom" logic of p-values, significance levels, and errors.
+            How do we decide if a discovery is genuine breakthrough or random fluke? We learn the "courtroom"
+            logic of null hypotheses, p-values, significance levels, and the inevitable errors we face when
+            making decisions under uncertainty.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -73,7 +74,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                7 video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -83,12 +84,15 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
+                    <li><a href="#why" class="toc-link">Why Hypothesis Testing?</a></li>
                     <li><a href="#logic" class="toc-link">1. The Core Logic</a></li>
                     <li><a href="#pvalues" class="toc-link">2. P-Values & Alpha</a></li>
-                    <li><a href="#errors" class="toc-link">3. Type I and II Errors</a></li>
-                    <li><a href="#power" class="toc-link">4. Statistical Power</a></li>
-                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
+                    <li><a href="#tests" class="toc-link">3. Common Tests</a></li>
+                    <li><a href="#errors" class="toc-link">4. Type I and II Errors</a></li>
+                    <li><a href="#power" class="toc-link">5. Statistical Power</a></li>
+                    <li><a href="#cs-connection" class="toc-link">6. CS: A/B Testing</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -103,6 +107,47 @@
         </aside>
 
         <main class="content">
+            <!-- Why This Matters -->
+            <section class="section" id="why">
+                <div class="section-header">
+                    <div class="section-number">Section 0</div>
+                    <h2 class="section-title">Why Hypothesis Testing Matters in CS</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        Every day, tech companies make decisions based on data: Did the new feature increase engagement?
+                        Is this drug effective? Is the new algorithm faster? <strong>Hypothesis testing</strong> gives
+                        us a rigorous framework to answer these questions while accounting for random variation.
+                    </p>
+
+                    <div class="rule">
+                        <strong>The Big Idea:</strong> We can never be 100% certain from finite data. Hypothesis testing
+                        quantifies our uncertainty and helps us make principled decisions about when the evidence is
+                        strong enough to act on.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Where you'll use this</h3>
+                        <ul>
+                            <li><strong>A/B Testing:</strong> Deciding if a UI change improves conversion</li>
+                            <li><strong>Machine Learning:</strong> Comparing model performance</li>
+                            <li><strong>Quality Assurance:</strong> Detecting if error rates exceed thresholds</li>
+                            <li><strong>Security:</strong> Anomaly detection for intrusion alerts</li>
+                            <li><strong>Research:</strong> Validating experimental results</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>⚖️ Simple: The Courtroom Analogy</strong>
+                        <br>Think of hypothesis testing like a trial. The defendant ($H_0$) is "presumed innocent."
+                        The prosecutor presents evidence. The jury doesn't determine if the defendant is truly
+                        innocent—they determine if there's enough evidence "beyond reasonable doubt" to reject
+                        that presumption. A "not guilty" verdict doesn't prove innocence; it means insufficient
+                        evidence.
+                    </div>
+                </div>
+            </section>
+
             <!-- Core Logic -->
             <section class="section" id="logic">
                 <div class="section-header">
@@ -110,75 +155,509 @@
                     <h2 class="section-title">The Core Logic</h2>
                 </div>
                 <div class="section-body">
-                    <p>Testing follows a "Presumption of Innocence" (Null Hypothesis $H_0$).</p>
-                    <ul class="list-disc">
-                        <li><strong>Null Hypothesis ($H_0$):</strong> "Nothing is happening." No effect, no change.</li>
-                        <li><strong>Alternative Hypothesis ($H_a$):</strong> "Something is happening." There is an
-                            effect.</li>
-                    </ul>
+                    <p>Hypothesis testing follows a structured, adversarial process:</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Two Hypotheses</h3>
+                        <ul>
+                            <li><strong>Null Hypothesis ($H_0$):</strong> "Nothing is happening." The default
+                                assumption—no effect, no difference, status quo.</li>
+                            <li><strong>Alternative Hypothesis ($H_a$ or $H_1$):</strong> "Something is happening."
+                                The claim we're trying to find evidence for.</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Key Insight:</strong> We never "prove" $H_a$. We collect evidence and decide whether
+                        there's enough to <em>reject</em> $H_0$. The logic is indirect: "If nothing was happening,
+                        it would be very unlikely to see data this extreme. Since we saw it, something probably is
+                        happening."
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Testing Process</h3>
+                        <ol>
+                            <li>State $H_0$ and $H_a$</li>
+                            <li>Choose significance level $\alpha$ (typically 0.05)</li>
+                            <li>Collect data</li>
+                            <li>Calculate a test statistic</li>
+                            <li>Compute the p-value</li>
+                            <li>Compare p-value to $\alpha$ and decide</li>
+                        </ol>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Basic hypothesis test structure</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Example: Testing if a coin is fair</span>
+<span class="code-comment"># H0: p = 0.5 (fair coin)</span>
+<span class="code-comment"># Ha: p != 0.5 (biased coin)</span>
+
+n_flips = <span class="code-number">100</span>
+n_heads = <span class="code-number">65</span>  <span class="code-comment"># Observed heads</span>
+alpha = <span class="code-number">0.05</span>
+
+<span class="code-comment"># Under H0, X ~ Binomial(n=100, p=0.5)</span>
+<span class="code-comment"># Calculate p-value: P(|X - 50| >= |65 - 50|)</span>
+p_value = stats.<span class="code-function">binom_test</span>(n_heads, n_flips, p=<span class="code-number">0.5</span>, alternative=<span class="code-string">'two-sided'</span>)
+
+<span class="code-function">print</span>(<span class="code-string">f"Observed: {n_heads} heads out of {n_flips}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P-value: {p_value:.4f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Decision: {'Reject H0' if p_value < alpha else 'Fail to reject H0'}"</span>)
+<span class="code-comment"># Output: P-value ≈ 0.0035, Reject H0 (coin appears biased)</span></pre>
+                        </div>
+                    </div>
+
                     <div class="info">
-                        <strong>⚖️ Simple: The Courtroom Analogy</strong>
-                        <br>In a trial, the defendant is presumed innocent ($H_0$). The prosecutor ($H_a$) must provide
-                        evidence "beyond a reasonable doubt". If they fail, we don't say the defendant is innocent; we
-                        say "Not Guilty" (Fail to Reject $H_0$).
+                        <strong>🔬 Simple: The Unusual Sighting Analogy</strong>
+                        <br>Imagine you flip a coin 100 times and get 65 heads. If the coin were fair, getting
+                        this extreme result would only happen ~0.35% of the time. That's suspicious enough to
+                        conclude the coin is probably biased. But if you got 52 heads? That happens all the
+                        time with fair coins—not enough evidence to cry foul.
                     </div>
                 </div>
             </section>
 
-            <!-- P-Values -->
+            <!-- P-Values & Alpha -->
             <section class="section" id="pvalues">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
-                    <h2 class="section-title">P-Values & Alpha</h2>
+                    <h2 class="section-title">P-Values & Significance Level</h2>
                 </div>
                 <div class="section-body">
-                    <p>How much evidence is enough? We quantify this with the <strong>p-value</strong>.</p>
+                    <p>The <strong>p-value</strong> is the probability of observing data as extreme (or more extreme)
+                        than what we actually observed, <em>assuming $H_0$ is true</em>.</p>
+
                     <div class="math-block">
-                        $$ p = P(\text{Data} | H_0 \text{ is true}) $$
+                        $$ p\text{-value} = P(\text{data this extreme} \mid H_0 \text{ true}) $$
                     </div>
-                    <p>If $p$ is very small, it means the data we saw is extremely unlikely if "nothing is happening."
-                        Therefore, something must be happening.</p>
-                    <p><strong>Alpha ($\alpha$):</strong> The threshold (usually $0.05$). If $p < \alpha$, we reject the
-                            null.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Interpreting P-Values</h3>
+                        <ul>
+                            <li><strong>Small p-value:</strong> Data is unlikely under $H_0$ → evidence against $H_0$
+                            </li>
+                            <li><strong>Large p-value:</strong> Data is consistent with $H_0$ → no strong evidence
+                                against it</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Decision Rule:</strong>
+                        <ul>
+                            <li>If $p < \alpha$: Reject $H_0$ ("statistically significant")</li>
+                            <li>If $p \geq \alpha$: Fail to reject $H_0$ (not significant)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Significance Level ($\alpha$)</h3>
+                        <p>$\alpha$ is our threshold for "extreme enough." Common choices:</p>
+                        <ul>
+                            <li>$\alpha = 0.05$ (5%): Standard for most research</li>
+                            <li>$\alpha = 0.01$ (1%): More conservative (medical/legal)</li>
+                            <li>$\alpha = 0.10$ (10%): Exploratory analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Computing p-values for different test types</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># One-sample t-test: Is the mean different from a value?</span>
+sample = [<span class="code-number">23</span>, <span class="code-number">25</span>, <span class="code-number">28</span>, <span class="code-number">22</span>, <span class="code-number">26</span>, <span class="code-number">24</span>, <span class="code-number">27</span>, <span class="code-number">29</span>, <span class="code-number">25</span>, <span class="code-number">26</span>]
+hypothesized_mean = <span class="code-number">24</span>
+
+t_stat, p_value = stats.<span class="code-function">ttest_1samp</span>(sample, hypothesized_mean)
+<span class="code-function">print</span>(<span class="code-string">f"One-sample t-test:"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  t-statistic: {t_stat:.3f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  p-value: {p_value:.4f}"</span>)
+
+<span class="code-comment"># Two-sample t-test: Are two groups different?</span>
+group_a = [<span class="code-number">22</span>, <span class="code-number">24</span>, <span class="code-number">25</span>, <span class="code-number">23</span>, <span class="code-number">26</span>]
+group_b = [<span class="code-number">28</span>, <span class="code-number">30</span>, <span class="code-number">27</span>, <span class="code-number">29</span>, <span class="code-number">31</span>]
+
+t_stat, p_value = stats.<span class="code-function">ttest_ind</span>(group_a, group_b)
+<span class="code-function">print</span>(<span class="code-string">f"\nTwo-sample t-test:"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  t-statistic: {t_stat:.3f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  p-value: {p_value:.6f}"</span>)  <span class="code-comment"># Very small → significant!</span></pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>⚠️ Simple: The Rare Disease Analogy</strong>
+                        <br>A p-value of 0.03 means: "If there's truly no effect, data this extreme shows up only
+                        3% of the time." It does NOT mean there's a 97% chance the effect is real! That's a
+                        common misinterpretation. The p-value is about the data's rarity under $H_0$, not the
+                        probability that $H_0$ is false.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Tests -->
+            <section class="section" id="tests">
+                <div class="section-header">
+                    <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Common Statistical Tests</h2>
+                </div>
+                <div class="section-body">
+                    <p>Different situations call for different tests. Here are the workhorses:</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Z-Test (Known Variance)</h3>
+                        <p>For large samples or when population variance is known:</p>
+                        <div class="math-block">
+                            $$ z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} $$
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">T-Test (Unknown Variance)</h3>
+                        <p>For smaller samples when we estimate variance from data:</p>
+                        <div class="math-block">
+                            $$ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} $$
+                        </div>
+                        <p>Uses t-distribution with $n-1$ degrees of freedom.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Chi-Square Test</h3>
+                        <p>For categorical data—testing if observed frequencies match expected:</p>
+                        <div class="math-block">
+                            $$ \chi^2 = \sum \frac{(O_i - E_i)^2}{E_i} $$
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Chi-square test for independence</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Example: Is browser choice independent of operating system?</span>
+<span class="code-comment"># Contingency table: [Chrome, Firefox, Safari] x [Windows, Mac]</span>
+observed = np.<span class="code-function">array</span>([
+    [<span class="code-number">150</span>, <span class="code-number">80</span>, <span class="code-number">20</span>],   <span class="code-comment"># Windows users</span>
+    [<span class="code-number">100</span>, <span class="code-number">60</span>, <span class="code-number">90</span>]    <span class="code-comment"># Mac users</span>
+])
+
+chi2, p_value, dof, expected = stats.<span class="code-function">chi2_contingency</span>(observed)
+
+<span class="code-function">print</span>(<span class="code-string">"Chi-Square Test for Independence"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Chi-square statistic: {chi2:.2f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Degrees of freedom: {dof}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P-value: {p_value:.6f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"\nExpected frequencies (if independent):"</span>)
+<span class="code-function">print</span>(expected.<span class="code-function">round</span>(<span class="code-number">1</span>))
+
+<span class="code-comment"># Small p-value → Browser choice depends on OS</span></pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>🎯 Simple: The Right Tool Analogy</strong>
+                        <br>Choosing the right test is like choosing the right tool. You wouldn't use a hammer
+                        for everything. Z-test is great for large samples. T-test handles small samples with
+                        unknown variance. Chi-square works on categories. Using the wrong test gives misleading
+                        results—like measuring temperature with a ruler.
+                    </div>
                 </div>
             </section>
 
             <!-- Errors -->
             <section class="section" id="errors">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Type I and II Errors</h2>
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Type I and Type II Errors</h2>
                 </div>
                 <div class="section-body">
-                    <p>We can never be $100\%$ certain. We make two types of mistakes:</p>
-                    <table class="table-auto w-full mb-6">
-                        <thead>
-                            <tr class="bg-gray-100 dark:bg-gray-800">
-                                <th class="px-4 py-2 border">Decision</th>
-                                <th class="px-4 py-2 border">H0 is True</th>
-                                <th class="px-4 py-2 border">H0 is False</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="px-4 py-2 border">Reject H0</td>
-                                <td class="px-4 py-2 border text-red-600">Type I Error (False Positive)</td>
-                                <td class="px-4 py-2 border text-green-600">Correct Decision</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-2 border">Fail to Reject</td>
-                                <td class="px-4 py-2 border text-green-600">Correct Decision</td>
-                                <td class="px-4 py-2 border text-red-600">Type II Error (False Negative)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>We can never be certain. Errors are inevitable. Understanding them helps us make informed
+                        trade-offs.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The Error Matrix</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 12px; border: 1px solid var(--border);"></th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">H₀ is True</th>
+                                    <th style="padding: 12px; border: 1px solid var(--border);">H₀ is False</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);"><strong>Reject
+                                            H₀</strong></td>
+                                    <td style="padding: 12px; border: 1px solid var(--border); color: #e53e3e;">Type I
+                                        Error<br>(False Positive)</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border); color: #38a169;">✓
+                                        Correct<br>(True Positive)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px; border: 1px solid var(--border);"><strong>Fail to
+                                            Reject</strong></td>
+                                    <td style="padding: 12px; border: 1px solid var(--border); color: #38a169;">✓
+                                        Correct<br>(True Negative)</td>
+                                    <td style="padding: 12px; border: 1px solid var(--border); color: #e53e3e;">Type II
+                                        Error<br>(False Negative)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Error Definitions</h3>
+                        <ul>
+                            <li><strong>Type I Error ($\alpha$):</strong> Rejecting $H_0$ when it's actually true.
+                                "False alarm." Probability = $\alpha$ (significance level).</li>
+                            <li><strong>Type II Error ($\beta$):</strong> Failing to reject $H_0$ when it's actually
+                                false. "Missed detection."</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>The Trade-off:</strong> Reducing one type of error typically increases the other.
+                        Lowering $\alpha$ (being more careful about false alarms) means higher $\beta$ (more missed
+                        detections). There's no free lunch.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Simulating Type I and Type II errors</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-keyword">def</span> <span class="code-function">simulate_errors</span>(n_simulations, true_mean, hypothesized_mean, n_samples, alpha):
+    <span class="code-string">"""Simulate hypothesis tests to estimate error rates"""</span>
+    rejections = <span class="code-number">0</span>
+    
+    <span class="code-keyword">for</span> _ <span class="code-keyword">in</span> <span class="code-function">range</span>(n_simulations):
+        <span class="code-comment"># Generate data from true distribution</span>
+        sample = np.random.<span class="code-function">normal</span>(true_mean, <span class="code-number">1</span>, n_samples)
+        <span class="code-comment"># Perform t-test against hypothesized mean</span>
+        _, p_value = stats.<span class="code-function">ttest_1samp</span>(sample, hypothesized_mean)
+        <span class="code-keyword">if</span> p_value < alpha:
+            rejections += <span class="code-number">1</span>
+    
+    <span class="code-keyword">return</span> rejections / n_simulations
+
+<span class="code-comment"># Type I Error: H0 is true (both means = 0)</span>
+type_i_rate = <span class="code-function">simulate_errors</span>(<span class="code-number">10000</span>, true_mean=<span class="code-number">0</span>, hypothesized_mean=<span class="code-number">0</span>, n_samples=<span class="code-number">30</span>, alpha=<span class="code-number">0.05</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Type I Error Rate: {type_i_rate:.3f}"</span>)  <span class="code-comment"># Should be ~0.05</span>
+
+<span class="code-comment"># Type II Error: H0 is false (true mean = 0.5, we test against 0)</span>
+type_ii_rate = <span class="code-number">1</span> - <span class="code-function">simulate_errors</span>(<span class="code-number">10000</span>, true_mean=<span class="code-number">0.5</span>, hypothesized_mean=<span class="code-number">0</span>, n_samples=<span class="code-number">30</span>, alpha=<span class="code-number">0.05</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Type II Error Rate: {type_ii_rate:.3f}"</span>)</pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>🚨 Simple: The Fire Alarm Analogy</strong>
+                        <br>Type I Error = Fire alarm goes off but there's no fire (annoying false alarm).
+                        Type II Error = There's a fire but the alarm doesn't sound (dangerous miss).
+                        Making alarms more sensitive reduces missed fires but increases false alarms.
+                        We tune $\alpha$ based on which error is more costly.
+                    </div>
                 </div>
+            </section>
+
+            <!-- Power -->
+            <section class="section" id="power">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Statistical Power</h2>
+                </div>
+                <div class="section-body">
+                    <p><strong>Power</strong> is the probability of correctly rejecting $H_0$ when it's false—the
+                        ability to detect a real effect.</p>
+
+                    <div class="math-block">
+                        $$ \text{Power} = 1 - \beta = P(\text{Reject } H_0 \mid H_0 \text{ is false}) $$
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">What Affects Power?</h3>
+                        <ul>
+                            <li><strong>Sample Size (n):</strong> More data = more power</li>
+                            <li><strong>Effect Size:</strong> Larger true effect = easier to detect</li>
+                            <li><strong>Significance Level ($\alpha$):</strong> Higher $\alpha$ = more power (but more
+                                false positives)</li>
+                            <li><strong>Variance:</strong> Less noise = more power</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>The 80% Convention:</strong> Studies typically aim for power ≥ 80%. This means
+                        we have an 80% chance of detecting a real effect if it exists. Lower power means
+                        high risk of "false negatives"—concluding nothing when something is there.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Power analysis: determining sample size</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">from</span> statsmodels.stats.power <span class="code-keyword">import</span> TTestIndPower
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Power analysis for two-sample t-test</span>
+power_analysis = <span class="code-function">TTestIndPower</span>()
+
+<span class="code-comment"># Parameters</span>
+effect_size = <span class="code-number">0.5</span>    <span class="code-comment"># Medium effect (Cohen's d)</span>
+alpha = <span class="code-number">0.05</span>
+power = <span class="code-number">0.80</span>
+
+<span class="code-comment"># Calculate required sample size per group</span>
+n_per_group = power_analysis.<span class="code-function">solve_power</span>(
+    effect_size=effect_size,
+    alpha=alpha,
+    power=power,
+    alternative=<span class="code-string">'two-sided'</span>
+)
+
+<span class="code-function">print</span>(<span class="code-string">f"To detect effect size = {effect_size}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"With alpha = {alpha} and power = {power}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Required: {np.ceil(n_per_group):.0f} per group ({np.ceil(n_per_group)*2:.0f} total)"</span>)
+
+<span class="code-comment"># How does power change with sample size?</span>
+<span class="code-function">print</span>(<span class="code-string">"\nPower at different sample sizes:"</span>)
+<span class="code-keyword">for</span> n <span class="code-keyword">in</span> [<span class="code-number">20</span>, <span class="code-number">50</span>, <span class="code-number">100</span>, <span class="code-number">200</span>]:
+    p = power_analysis.<span class="code-function">power</span>(effect_size=effect_size, nobs1=n, alpha=alpha)
+    <span class="code-function">print</span>(<span class="code-string">f"  n = {n}: power = {p:.2%}"</span>)</pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>🔍 Simple: The Metal Detector Analogy</strong>
+                        <br>Power is like a metal detector's sensitivity. A powerful detector finds even small
+                        pieces of metal (small effects). A weak detector only finds large objects and misses
+                        the rest. Sample size is like scan time—more time scanning means more likely to find
+                        what's there.
+                    </div>
+                </div>
+            </section>
+
+            <!-- CS Connection -->
+            <section class="section" id="cs-connection">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">CS Application: A/B Testing</h2>
+                </div>
+                <div class="section-body">
+                    <p>A/B testing is hypothesis testing applied to product decisions. Every major tech company
+                        runs thousands of experiments to optimize their products.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">The A/B Testing Framework</h3>
+                        <ul>
+                            <li><strong>Control (A):</strong> Current version (the null hypothesis baseline)</li>
+                            <li><strong>Treatment (B):</strong> New version we're testing</li>
+                            <li><strong>Metric:</strong> What we measure (conversion rate, revenue, engagement)</li>
+                            <li><strong>Decision:</strong> Ship B if it significantly beats A</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Complete A/B test analysis</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-keyword">def</span> <span class="code-function">ab_test_proportions</span>(n_a, conv_a, n_b, conv_b, alpha=<span class="code-number">0.05</span>):
+    <span class="code-string">"""
+    A/B test for conversion rates (proportions).
+    Returns z-statistic, p-value, and practical metrics.
+    """</span>
+    <span class="code-comment"># Conversion rates</span>
+    p_a = conv_a / n_a
+    p_b = conv_b / n_b
+    
+    <span class="code-comment"># Pooled proportion under H0 (no difference)</span>
+    p_pooled = (conv_a + conv_b) / (n_a + n_b)
+    
+    <span class="code-comment"># Standard error</span>
+    se = np.<span class="code-function">sqrt</span>(p_pooled * (<span class="code-number">1</span> - p_pooled) * (<span class="code-number">1</span>/n_a + <span class="code-number">1</span>/n_b))
+    
+    <span class="code-comment"># Z-statistic</span>
+    z = (p_b - p_a) / se
+    
+    <span class="code-comment"># Two-tailed p-value</span>
+    p_value = <span class="code-number">2</span> * (<span class="code-number">1</span> - stats.norm.<span class="code-function">cdf</span>(<span class="code-function">abs</span>(z)))
+    
+    <span class="code-comment"># Practical metrics</span>
+    lift = (p_b - p_a) / p_a * <span class="code-number">100</span>
+    
+    <span class="code-keyword">return</span> {
+        <span class="code-string">'control_rate'</span>: p_a,
+        <span class="code-string">'treatment_rate'</span>: p_b,
+        <span class="code-string">'lift'</span>: lift,
+        <span class="code-string">'z_stat'</span>: z,
+        <span class="code-string">'p_value'</span>: p_value,
+        <span class="code-string">'significant'</span>: p_value < alpha
+    }
+
+<span class="code-comment"># Example: Testing a new checkout button</span>
+result = <span class="code-function">ab_test_proportions</span>(
+    n_a=<span class="code-number">10000</span>, conv_a=<span class="code-number">320</span>,   <span class="code-comment"># Control: 3.2% conversion</span>
+    n_b=<span class="code-number">10000</span>, conv_b=<span class="code-number">380</span>    <span class="code-comment"># Treatment: 3.8% conversion</span>
+)
+
+<span class="code-function">print</span>(<span class="code-string">"A/B Test Results:"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  Control conversion: {result['control_rate']:.2%}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  Treatment conversion: {result['treatment_rate']:.2%}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  Relative lift: {result['lift']:.1f}%"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  P-value: {result['p_value']:.4f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"  Decision: {'Ship Treatment! 🚀' if result['significant'] else 'No significant difference'}"</span>)</pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Common Pitfalls in A/B Testing</h3>
+                        <ul>
+                            <li><strong>Peeking:</strong> Checking results early inflates false positive rate</li>
+                            <li><strong>Multiple Testing:</strong> Testing many variations without correction</li>
+                            <li><strong>Novelty Effects:</strong> Users react differently to "new" things</li>
+                            <li><strong>Simpson's Paradox:</strong> Aggregate results can mislead</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>💰 Simple: The Business Impact Analogy</strong>
+                        <br>If your site gets 1M visitors/month with 3% conversion, and an A/B test shows
+                        a 0.5% lift with p < 0.05, that's 5,000 more conversions per month. Statistical significance
+                            tells you the lift is real; business judgment decides if it's worth the engineering cost to
+                            ship. </div>
+                    </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -198,7 +677,7 @@
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -219,17 +698,26 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Fundamentals",
+                title: "Hypothesis Testing Fundamentals",
                 items: [
                     { title: "Hypothesis Testing Explained", channel: "StatQuest", vid: "0oc49DyA3hU" },
-                    { title: "P-Values: Path to Intuition", channel: "StatQuest", vid: "5Z9IYXfS20U" }
+                    { title: "P-Values: Path to Intuition", channel: "StatQuest", vid: "5Z9OIYA8He8" },
+                    { title: "Null Hypothesis Explained", channel: "Khan Academy", vid: "bf3egy7TQ2Q" }
                 ]
             },
             {
                 title: "Errors & Power",
                 items: [
-                    { title: "Type I and II Errors", channel: "Stats Help", vid: "k8p0bS92J70" },
-                    { title: "Statistical Power", channel: "StatQuest", vid: "7mE06yrV6pA" }
+                    { title: "Type I and Type II Errors", channel: "StatQuest", vid: "Hdbbx7DIweQ" },
+                    { title: "Statistical Power", channel: "StatQuest", vid: "Rsc5znwR5FA" }
+                ]
+            },
+            {
+                title: "Tests & Applications",
+                items: [
+                    { title: "T-tests Explained", channel: "StatQuest", vid: "0Pd3dc1GcHc" },
+                    { title: "Chi-Square Test", channel: "StatQuest", vid: "7_cs1YlZoug" },
+                    { title: "A/B Testing in Tech", channel: "Primer", vid: "DUNk4GPZ9bw" }
                 ]
             }
         ];
@@ -237,7 +725,7 @@
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day57'] || [],
-            storageKey: 'day57_stats_v1'
+            storageKey: 'day57_hypothesis_v2'
         });
     </script>
 </body>

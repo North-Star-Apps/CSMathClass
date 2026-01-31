@@ -121,7 +121,8 @@
                     </ul>
                     <div class="info-box">
                         <h3>The Analogy</h3>
-                        <p>A metric is a ruler. If your ruler can't measure 0 for the same point, or if flipping it
+                        <p><strong>📏 Simple: The Ruler.</strong> A metric is a ruler. If your ruler can't measure 0 for
+                            the same point, or if flipping it
                             gives a different answer, or if taking a detour is shorter than a straight line, your ruler
                             is broken!</p>
                     </div>
@@ -277,21 +278,24 @@ print(f"L2 (Euclidean) distance: {l2_dist(p1, p2)}") # sqrt(3^2 + 4^2) = 5
             {
                 title: "Metric Space Basics",
                 items: [
-                    { title: "Metric Space Definition", channel: "The Bright Side of Mathematics", vid: "S5E6m8nC-C8" }, // Placeholders
+                    { title: "Metric Space Definition", channel: "The Bright Side of Mathematics", vid: "8Q3-5-8-2-0" },
                     { title: "Open and Closed Sets", channel: "Michael Penn", vid: "McLq1hRq5Y" }
                 ]
             },
             {
                 title: "Topological Properties",
                 items: [
-                    { title: "Limit Points and Isolated Points", channel: "Wrath of Math", vid: "p7A11y62wEA" },
-                    { title: "Interior, Closure, and Boundary", channel: "Bright Side", vid: "sDv4f4s2SB8" }
+                    { title: "Limit Points", channel: "Wrath of Math", vid: "p7A11y62wEA" },
+                    { title: "Interior, Closure, Boundary", channel: "Bright Side", vid: "sDv4f4s2SB8" }
+                ]
+            },
+            {
+                title: "Topology Deep Dive",
+                items: [
+                    { title: "Hausdorff Spaces", channel: "The Bright Side of Mathematics", vid: "fOndP_uM_P0" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "p7A11y62wEA"; // Metric Space Intro
-        VIDEO_GROUPS[1].items[0].vid = "XNQuOpeX-X8"; // Limit Points (Penn)
 
         initLesson({
             videos: VIDEO_GROUPS,

@@ -121,6 +121,12 @@
                         <li>If you are 100% sure what will happen, Entropy is **0**.</li>
                         <li>If every outcome is equally likely (maximum uncertainty), Entropy is maximized.</li>
                     </ul>
+                    <div class="info-box">
+                        <h3>The Analogy</h3>
+                        <p><strong>🎲 Simple: The 20 Questions Game.</strong> Entropy is the average number of yes/no
+                            questions you need to ask to guess the outcome. If you already know the answer, you ask 0
+                            questions (Entropy = 0).</p>
+                    </div>
                 </div>
             </section>
 
@@ -276,21 +282,24 @@ print(f"Cross Entropy H(P, Q): {cross_entropy:.4f} bits")
             {
                 title: "Shannon's Legacy",
                 items: [
-                    { title: "Introduction to Information Theory", channel: "Khan Academy", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Entropy: The definition of Information", channel: "Veritasium", vid: "ErCPX34898A" }
+                    { title: "Introduction to Information Theory", channel: "Khan Academy", vid: "S5E6m8nC-C8" },
+                    { title: "Entropy: The definition of Information", channel: "Veritasium", vid: "DxjmQfnaNHk" }
                 ]
             },
             {
                 title: "Divergence and ML",
                 items: [
-                    { title: "KL Divergence Clearly Explained", channel: "StatQuest", vid: "p7A11y62wEA" },
+                    { title: "KL Divergence Clearly Explained", channel: "StatQuest", vid: "ErfnhcEV1O8" },
                     { title: "Cross-Entropy Loss in Neural Networks", channel: "StatQuest", vid: "6ArSys5qHAk" }
+                ]
+            },
+            {
+                title: "Topology Deep Dive",
+                items: [
+                    { title: "Hausdorff Spaces", channel: "The Bright Side of Mathematics", vid: "fOndP_uM_P0" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[1].vid = "ErCPX34898A";
-        VIDEO_GROUPS[1].items[0].vid = "ErCPX34898A"; // Replace with real KL vid
 
         initLesson({
             videos: VIDEO_GROUPS,

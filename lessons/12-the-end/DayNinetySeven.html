@@ -102,6 +102,13 @@
                         <li>**A Graphics Engine:** Using 3D Linear Algebra, Quaternions, and Calculus
                             (Shaders/Integration).</li>
                     </ul>
+
+                    <div class="info">
+                        <strong>🏆 Simple: The Black Belt Analogy</strong>
+                        <br>The capstone is your black belt test. You've learned the individual techniques (katas).
+                        Now you must combine them fluidly in a real fight (project). This proves you don't just
+                        know math—you can WIELD it to build real things.
+                    </div>
                 </div>
             </section>
 
@@ -123,9 +130,29 @@
                 </div>
             </section>
 
-            <section class="section" id="nextsteps">
+            <!-- Videos -->
+            <section class="section" id="videos">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
+                    <h2 class="section-title">Inspirational Videos</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="nextsteps">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
                     <h2 class="section-title">The Infinite Journey</h2>
                 </div>
                 <div class="section-body">
@@ -144,6 +171,37 @@
     </div>
 
     <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "The Beauty of Math",
+                items: [
+                    { title: "The Map of Mathematics", channel: "Domain of Science", vid: "OmJ-4B-mS-Y" },
+                    { title: "How to Think Like a Mathematician", channel: "Tibees", vid: "95E3Fw8m8HE" }
+                ]
+            },
+            {
+                title: "CS Fundamentals",
+                items: [
+                    { title: "What Every Programmer Should Know", channel: "Computerphile", vid: "5_Y9aRLO4Ak" },
+                    { title: "The Future of Computing", channel: "Lex Fridman", vid: "EGPxLwpsKvQ" }
+                ]
+            },
+            {
+                title: "Career Inspiration",
+                items: [
+                    { title: "Advice for CS Students", channel: "Joma Tech", vid: "8-i5Q88lfQQ" },
+                    { title: "Building Your Technical Career", channel: "Healthy Software Developer", vid: "5gDNXMYPLs4" }
+                ]
+            },
+            {
+                title: "Mathematical Proofs",
+                items: [
+                    { title: "How to Read and Do Proofs", channel: "Professor Leonard", vid: "pVSoHInTjzE" },
+                    { title: "Mathematical Thinking", channel: "Insights into Mathematics", vid: "LN7cCW1rSsI" }
+                ]
+            }
+        ];
+
         // Final Exam pulls the most difficult questions from every day
         let finalExamQuestions = [];
         const days = Object.keys(window.QUESTIONS_DATA);
@@ -155,9 +213,9 @@
         });
 
         initLesson({
-            videos: [],
+            videos: VIDEO_GROUPS,
             questions: finalExamQuestions,
-            storageKey: 'day97_v1'
+            storageKey: 'day97_v2'
         });
     </script>
 </body>

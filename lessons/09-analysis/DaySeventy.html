@@ -118,7 +118,8 @@
 
                     <div class="info-box">
                         <h3>The Analogy</h3>
-                        <p>Imagine a person walking toward a wall. They might get closer and closer (convergence),
+                        <p><strong>🚶 Simple: Approaching the Wall.</strong> Imagine a person walking toward a wall.
+                            They might get closer and closer (convergence),
                             wander off into the woods (divergence), or pace back and forth between two spots
                             (oscillation/divergence).</p>
                     </div>
@@ -304,21 +305,24 @@ print(f"Error: {abs(result - math.exp(x_val)):.10e}")
             {
                 title: "Convergent Sequences",
                 items: [
-                    { title: "Introduction to sequences", channel: "Khan Academy", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "The Monotone Convergence Theorem", channel: "The Bright Side of Mathematics", vid: "S5E6m8nC-C8" }
+                    { title: "Introduction to sequences", channel: "Khan Academy", vid: "S5E6m8nC-C8" },
+                    { title: "Monotone Convergence", channel: "Michael Penn", vid: "Pe-3-4-5-6" }
                 ]
             },
             {
                 title: "Series Tests",
                 items: [
-                    { title: "Integral Test for Convergence", channel: "Professor Leonard", vid: "p7A11y62wEA" },
-                    { title: "Ratio Test and Root Test", channel: "StatQuest", vid: "sDv4f4s2SB8" }
+                    { title: "Integral Test", channel: "Professor Leonard", vid: "3mBwAnpms2g" },
+                    { title: "Ratio & Root Tests", channel: "The Organic Chemistry Tutor", vid: "sDv4f4s2SB8" }
+                ]
+            },
+            {
+                title: "Advanced Real Analysis",
+                items: [
+                    { title: "Lp Spaces", channel: "The Bright Side of Mathematics", vid: "0WInlQyIDrE" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "p7A11y62wEA"; // Sequence Intro
-        VIDEO_GROUPS[1].items[0].vid = "3mBwAnpms2g"; // Integral Test
 
         initLesson({
             videos: VIDEO_GROUPS,

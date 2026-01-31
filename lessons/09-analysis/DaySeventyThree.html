@@ -119,7 +119,8 @@
                         simultaneously 1 and 0! We need a better way.</p>
                     <div class="info-box">
                         <h3>The Analogy</h3>
-                        <p>Riemann integration is like counting coins by trying to stack them into neat towers. Measure
+                        <p><strong>⚖️ Simple: Counting vs Weighing.</strong> Riemann integration is like counting coins
+                            by trying to stack them into neat towers. Measure
                             theory is like weighing the coins. Even if the coins are scattered randomly, the weight
                             (measure) remains a valid total.</p>
                     </div>
@@ -270,21 +271,24 @@ cantor_measure(20)
             {
                 title: "Measure Theory Intro",
                 items: [
-                    { title: "What is a Sigma Algebra?", channel: "The Bright Side of Mathematics", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Lebesgue Measure Explained", channel: "Michael Penn", vid: "McLq1hRq5Y" }
+                    { title: "What is a Sigma Algebra?", channel: "The Bright Side of Mathematics", vid: "S5E6m8nC-C8" },
+                    { title: "Lebesgue Measure", channel: "The Bright Side of Mathematics", vid: "McLq1hRq5Y" }
                 ]
             },
             {
                 title: "Pathological Sets",
                 items: [
-                    { title: "The Cantor Set (Measure Zero)", channel: "Numberphile", vid: "p7A11y62wEA" },
-                    { title: "Borel Sets and Measurability", channel: "Wrath of Math", vid: "sDv4f4s2SB8" }
+                    { title: "The Cantor Set", channel: "Numberphile", vid: "i7e7H_m7I3s" },
+                    { title: "Borel Sets", channel: "Wrath of Math", vid: "sDv4f4s2SB8" }
+                ]
+            },
+            {
+                title: "Advanced Real Analysis",
+                items: [
+                    { title: "Lp Spaces", channel: "The Bright Side of Mathematics", vid: "0WInlQyIDrE" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "p7A11y62wEA";
-        VIDEO_GROUPS[1].items[0].vid = "i7e7H_m7I3s"; // Cantor Set
 
         initLesson({
             videos: VIDEO_GROUPS,

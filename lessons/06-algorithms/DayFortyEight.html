@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Checkpoint 6: Algorithms</title>
+    <title>Day 48: Checkpoint 6 (Algorithms & Data Structures Review)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 27 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -47,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 48 · Checkpoint
+            Day 48 · Section 6 Review
         </div>
-        <h1>Checkpoint 6: Algorithmic Thinking</h1>
+        <h1>Checkpoint 6: Algorithms & Data Structures</h1>
         <p class="hero-desc">
-            You've built the toolbox. Now, prove you know how to use it.
-            A comprehensive review of Complexity, Structures, and Algorithms.
+            You've built the toolbox. Now prove you know how to use it. A comprehensive review of
+            complexity analysis, data structures, sorting, searching, graph algorithms, and DP.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -60,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~45 min read
+                ~90 min review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                25 practice problems
+                25 review problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                2 video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -81,11 +81,16 @@
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
-                <div class="toc-title">On this page</div>
+                <div class="toc-title">Review Areas</div>
                 <ul class="toc-list">
-                    <li><a href="#review" class="toc-link">1. The Big Review</a></li>
-                    <li><a href="#decision" class="toc-link">2. Decision Making</a></li>
-                    <li><a href="#exam" class="toc-link">3. The Final Exam</a></li>
+                    <li><a href="#complexity" class="toc-link">1. Complexity Analysis</a></li>
+                    <li><a href="#structures" class="toc-link">2. Data Structures</a></li>
+                    <li><a href="#sorting" class="toc-link">3. Sorting & Searching</a></li>
+                    <li><a href="#graphs" class="toc-link">4. Graph Algorithms</a></li>
+                    <li><a href="#dp" class="toc-link">5. Dynamic Programming</a></li>
+                    <li><a href="#decision" class="toc-link">6. Problem Pattern Guide</a></li>
+                    <li><a href="#videos" class="toc-link">7. Review Videos</a></li>
+                    <li><a href="#practice" class="toc-link">8. Final Practice</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -100,100 +105,442 @@
         </aside>
 
         <main class="content">
-            <!-- Review -->
-            <section class="section" id="review">
+            <!-- Complexity Analysis -->
+            <section class="section" id="complexity">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Big Review</h2>
+                    <div class="section-number">Review 1</div>
+                    <h2 class="section-title">Complexity Analysis (Big O)</h2>
                 </div>
                 <div class="section-body">
-                    <div class="grid-3col">
-                        <div class="card">
-                            <h3>Data Structures</h3>
-                            <ul class="list-disc">
-                                <li><strong>Array/List:</strong> $O(1)$ random access.</li>
-                                <li><strong>Linked List:</strong> $O(1)$ insert/delete (if at node).</li>
-                                <li><strong>Stack/Queue:</strong> LIFO/FIFO control.</li>
-                                <li><strong>Hash Map:</strong> $O(1)$ average lookup.</li>
-                                <li><strong>BST/Heap:</strong> $O(\log n)$ order.</li>
-                                <li><strong>Graph:</strong> Nodes & Edges.</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Algorithms</h3>
-                            <ul class="list-disc">
-                                <li><strong>Sorting:</strong> QuickSort/MergeSort ($n \log n$).</li>
-                                <li><strong>Searching:</strong> Binary Search ($\log n$).</li>
-                                <li><strong>Graph:</strong> BFS/DFS ($V+E$), Dijkstra ($E \log V$).</li>
-                                <li><strong>DP:</strong> Memoization/Tabulation.</li>
-                                <li><strong>Greedy:</strong> Local optima.</li>
-                            </ul>
-                        </div>
-                        <div class="card">
-                            <h3>Paradigms</h3>
-                            <ul class="list-disc">
-                                <li><strong>Brute Force:</strong> Try everything.</li>
-                                <li><strong>Divide & Conquer:</strong> Break it down.</li>
-                                <li><strong>Dynamic Programming:</strong> Don't repeat work.</li>
-                                <li><strong>Greedy:</strong> Take the best now.</li>
-                            </ul>
+                    <div class="rule">
+                        <strong>Big O Hierarchy (slowest to fastest):</strong>
+                        <div class="math-block">
+                            $$ O(n!) \gt O(2^n) \gt O(n^2) \gt O(n \log n) \gt O(n) \gt O(\log n) \gt O(1) $$
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Decision -->
-            <section class="section" id="decision">
-                <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Choosing the Right Tool</h2>
-                </div>
-                <div class="section-body">
-                    <table class="comparison-table">
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
                         <thead>
-                            <tr>
-                                <th>Problem Type</th>
-                                <th>Likely Solution</th>
+                            <tr style="background: var(--surface-alt);">
+                                <th style="padding: 10px; border: 1px solid var(--border);">Complexity</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Name</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Example</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Shortest path in map (weighted)</td>
-                                <td>Dijkstra's</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Constant</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Array access, hash lookup
+                                </td>
                             </tr>
                             <tr>
-                                <td>Shortest path in maze (unweighted)</td>
-                                <td>BFS</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(\log n)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Logarithmic</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Binary search</td>
                             </tr>
                             <tr>
-                                <td>Connect all cities cheaply</td>
-                                <td>MST (Prim/Kruskal)</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Linear</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Single loop, find max</td>
                             </tr>
                             <tr>
-                                <td>Maximize value with capacity</td>
-                                <td>Knapsack DP</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Linearithmic</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Merge sort, heap sort</td>
                             </tr>
                             <tr>
-                                <td>Search in huge sorted data</td>
-                                <td>Binary Search</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(n^2)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Quadratic</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Nested loops, bubble sort
+                                </td>
                             </tr>
                             <tr>
-                                <td>Find duplicate in list</td>
-                                <td>Hash Map / Sorting</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$O(2^n)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Exponential</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Subsets, naive recursion
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info">
+                        <strong>🏃 Simple: The Running Track Analogy</strong>
+                        <br>Big O is like asking "how many laps around a track do I need?" $O(1)$ is standing still—no
+                        matter how big the stadium, you don't move. $O(n)$ is one lap per person. $O(n^2)$ is making
+                        every person run a lap for every other person—crowds get exhausting fast!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Structures -->
+            <section class="section" id="structures">
+                <div class="section-header">
+                    <div class="section-number">Review 2</div>
+                    <h2 class="section-title">Data Structures Cheat Sheet</h2>
+                </div>
+                <div class="section-body">
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px;">
+                        <thead>
+                            <tr style="background: var(--surface-alt);">
+                                <th style="padding: 8px; border: 1px solid var(--border);">Structure</th>
+                                <th style="padding: 8px; border: 1px solid var(--border);">Access</th>
+                                <th style="padding: 8px; border: 1px solid var(--border);">Search</th>
+                                <th style="padding: 8px; border: 1px solid var(--border);">Insert</th>
+                                <th style="padding: 8px; border: 1px solid var(--border);">Delete</th>
+                                <th style="padding: 8px; border: 1px solid var(--border);">Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Array</strong></td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">Random access</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Linked List</strong>
+                                </td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">Frequent insert/delete</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Hash Map</strong>
+                                </td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">—</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">Key-value lookup</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>BST</strong></td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">—</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$*</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">Ordered data</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Heap</strong></td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">Priority queue</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Stack</strong></td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">LIFO, undo, parsing</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid var(--border);"><strong>Queue</strong></td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                <td style="padding: 8px; border: 1px solid var(--border);">FIFO, BFS, scheduling</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 12px; color: var(--text-muted);">* Average case; worst case may differ</p>
+                </div>
+            </section>
+
+            <!-- Sorting & Searching -->
+            <section class="section" id="sorting">
+                <div class="section-header">
+                    <div class="section-number">Review 3</div>
+                    <h2 class="section-title">Sorting & Searching</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Sorting Algorithms</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Algorithm</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Best</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Average</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Worst</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Space</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Stable?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Merge Sort</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">✓</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Quick Sort</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n^2)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(\log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">✗</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Heap Sort</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \log n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">✗</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Bubble Sort</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n^2)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n^2)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(1)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">✓</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Binary Search Pattern:</strong>
+                        <br>Only works on <strong>sorted</strong> data. Repeatedly halve the search space.
+                        <div class="math-block">
+                            $$ \text{Time: } O(\log n), \quad \text{Space: } O(1) $$
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>📚 Simple: The Dictionary Analogy</strong>
+                        <br>Binary search is like finding a word in a physical dictionary. You don't start at page 1—you
+                        open to the middle, see if your word comes before or after, then repeat on the relevant half.
+                        Each step eliminates half the pages!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Graph Algorithms -->
+            <section class="section" id="graphs">
+                <div class="section-header">
+                    <div class="section-number">Review 4</div>
+                    <h2 class="section-title">Graph Algorithms</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Traversal</h3>
+                        <ul>
+                            <li><strong>BFS:</strong> Level-by-level, uses Queue. Good for shortest path (unweighted).
+                            </li>
+                            <li><strong>DFS:</strong> Go deep first, uses Stack/recursion. Good for connectivity,
+                                cycles.</li>
+                            <li>Both are $O(V + E)$ time and space.</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Shortest Paths</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Algorithm</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Complexity</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Use Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">BFS</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(V + E)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Unweighted graphs</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Dijkstra</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(E \log V)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Non-negative weights</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Bellman-Ford</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(VE)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Negative weights</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Minimum Spanning Tree</h3>
+                        <ul>
+                            <li><strong>Prim's:</strong> Greedy, grow tree from a vertex. $O(E \log V)$</li>
+                            <li><strong>Kruskal's:</strong> Sort edges, use Union-Find. $O(E \log E)$</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>🗺️ Simple: The Maze Analogy</strong>
+                        <br>BFS is like water flooding a maze—it spreads evenly in all directions, finding the shortest
+                        path first. DFS is like a curious explorer who goes down one corridor as far as possible
+                        before backtracking. Both explore everything, just in different orders!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Programming -->
+            <section class="section" id="dp">
+                <div class="section-header">
+                    <div class="section-number">Review 5</div>
+                    <h2 class="section-title">Dynamic Programming</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>The Two Key Properties:</strong>
+                        <ul>
+                            <li><strong>Optimal Substructure:</strong> Solution can be built from solutions to
+                                subproblems</li>
+                            <li><strong>Overlapping Subproblems:</strong> Same subproblems solved multiple times</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Classic DP Problems</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Problem</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Complexity</th>
+                                    <th style="padding: 8px; border: 1px solid var(--border);">Pattern</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Fibonacci</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">1D array</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">0/1 Knapsack</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(nW)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">2D: items × capacity</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Longest Common
+                                        Subsequence</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(mn)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">2D: strings</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">Coin Change</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">$O(n \cdot amount)$</td>
+                                    <td style="padding: 8px; border: 1px solid var(--border);">1D array</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info">
+                        <strong>🧠 Simple: The Notebook Analogy</strong>
+                        <br>DP is like solving homework and writing answers in a notebook. When you see the same
+                        subproblem again, you just look it up instead of re-solving. <em>Memoization</em> = writing
+                        answers as you go (top-down). <em>Tabulation</em> = filling in a table systematically
+                        (bottom-up).
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem Pattern Guide -->
+            <section class="section" id="decision">
+                <div class="section-header">
+                    <div class="section-number">Review 6</div>
+                    <h2 class="section-title">Problem Pattern Guide</h2>
+                </div>
+                <div class="section-body">
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+                        <thead>
+                            <tr style="background: var(--surface-alt);">
+                                <th style="padding: 12px; border: 1px solid var(--border);">Problem Type</th>
+                                <th style="padding: 12px; border: 1px solid var(--border);">Go-To Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Shortest path (weighted)
+                                </td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Dijkstra's algorithm</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Shortest path (unweighted)
+                                </td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">BFS</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Connect all nodes cheaply
+                                </td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">MST (Prim/Kruskal)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Maximize value with capacity
+                                </td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Knapsack DP</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Search in sorted data</td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Binary Search</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Find duplicates</td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Hash Map or Sort</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Counting optimal ways</td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Dynamic Programming</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Scheduling with constraints
+                                </td>
+                                <td style="padding: 12px; border: 1px solid var(--border);">Greedy + Sorting</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Exam -->
-            <section class="section" id="exam">
+            <!-- Videos -->
+            <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
-                    <h2 class="section-title">The Final Exam</h2>
+                    <div class="section-number">Review 7</div>
+                    <h2 class="section-title">Review Videos</h2>
                 </div>
                 <div class="section-body">
-                    <p>Test your knowledge of the entire Algorithms section.</p>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice -->
+            <section class="section" id="practice">
+                <div class="section-header">
+                    <div class="section-number">Review 8</div>
+                    <h2 class="section-title">Final Practice</h2>
+                </div>
+                <div class="section-body">
                     <div class="quiz-controls">
                         <button class="btn btn-primary" id="btnCheckAll">Check All</button>
                         <button class="btn" id="btnRevealAll">Reveal All</button>
@@ -206,13 +553,36 @@
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Review",
+                title: "Data Structures Overview",
                 items: [
-                    { title: "Algorithms Course Review", channel: "Harvard CS50", vid: "z-OxzKk3C-g" }, // Generic CS50 idea
-                    { title: "Map of Computer Science", channel: "Domain of Science", vid: "SzJ46YA_RaA" }
+                    { title: "Data Structures Easy to Advanced", channel: "freeCodeCamp", vid: "RBSGKlAvoiM" },
+                    { title: "Big O Notation", channel: "Fireship", vid: "g2o22C3CRfU" }
+                ]
+            },
+            {
+                title: "Sorting & Searching",
+                items: [
+                    { title: "Sorting Algorithms Visualized", channel: "Fireship", vid: "RfXt_qHDEPw" },
+                    { title: "Binary Search in 100 Seconds", channel: "Fireship", vid: "MFhxShGxHWc" }
+                ]
+            },
+            {
+                title: "Graph Algorithms",
+                items: [
+                    { title: "Graph Algorithms Crash Course", channel: "freeCodeCamp", vid: "tWVWeAqZ0WU" },
+                    { title: "Dijkstra's Algorithm", channel: "Computerphile", vid: "GazC3A4OQTE" }
+                ]
+            },
+            {
+                title: "Dynamic Programming",
+                items: [
+                    { title: "Dynamic Programming Explained", channel: "CS Dojo", vid: "vYquumk4nWw" },
+                    { title: "Top 5 DP Patterns", channel: "NeetCode", vid: "mBNrRy2_hVs" }
                 ]
             }
         ];
@@ -220,10 +590,9 @@
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day48'] || [],
-            storageKey: 'day48_v1'
+            storageKey: 'day48_checkpoint_v2'
         });
     </script>
-    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

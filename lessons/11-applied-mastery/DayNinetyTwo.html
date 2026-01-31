@@ -116,7 +116,13 @@
                     <p>An **Option** is a contract that gives you the *right* (but not the obligation) to buy or sell an
                         asset at a specific price (**Strike Price**) on or before a certain date.</p>
                     <p>Financial math's greatest challenge was: **What is this contract worth today?** To answer this,
-                        we need to model how stock prices move over time.</p>
+                    <div class="info-box">
+                        <h3>🚗 Simple: The Insurance Policy</h3>
+                        <p>Buying a "Put Option" on a stock is like buying car insurance. You pay a small fee (premium)
+                            now. If your car (stock) crashes, the insurance pays you the original value. If the car is
+                            fine, you only lost the premium cost. The Black-Scholes formula just calculates what that
+                            fair premium price should be.</p>
+                    </div>
                 </div>
             </section>
 
@@ -274,25 +280,21 @@ print(f"High Volatility Price: ${high_vol:.2f}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Finance Intro",
+                title: "Quantitative Finance",
                 items: [
-                    { title: "Options Trading for Beginners", channel: "Graham Stephan", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Geometric Brownian Motion", channel: "Mathematical Finance", vid: "SRsK-ZXTeZ0" }
+                    { title: "Black-Scholes Formula", channel: "Khan Academy", vid: "pr-uGWjUFMc" },
+                    { title: "What are Options?", channel: "Tastytrade", vid: "7gR792bJgqM" }
                 ]
             },
             {
-                title: "The Model",
+                title: "Mathematical Models",
                 items: [
-                    { title: "The Black-Scholes PDE", channel: "MIT OCW", vid: "vGINw39T6kg" },
-                    { title: "The Greeks Explained", channel: "TD Ameritrade", vid: "sDv4f4s2SB8" }
+                    { title: "Brownian Motion", channel: "3Blue1Brown", vid: "5p2QfJ0pA9I" },
+                    { title: "The Compound Interest Paradox", channel: "Veritasium", vid: "PHe0bXAIuk0" },
+                    { title: "The Greeks Explained", channel: "TD Ameritrade", vid: "8JbV3S6fC_s" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "7PM4rgQuSts";
-        VIDEO_GROUPS[0].items[1].vid = "SStM6uSbc_4";
-        VIDEO_GROUPS[1].items[0].vid = "A5w-dZ93m-4";
-        VIDEO_GROUPS[1].items[1].vid = "8JbV3S6fC_s";
 
         initLesson({
             videos: VIDEO_GROUPS,

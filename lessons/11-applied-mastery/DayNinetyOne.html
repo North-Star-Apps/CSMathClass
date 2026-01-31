@@ -119,7 +119,14 @@
                         <li>**Model Matrix:** Local coordinates $\rightarrow$ World coordinates.</li>
                         <li>**View Matrix:** World coordinates $\rightarrow$ Camera (Eye) coordinates.</li>
                         <li>**Projection Matrix:** Camera coordinates $\rightarrow$ Screen pixels.</li>
-                    </ol>
+                        <div class="info-box">
+                            <h3>📷 Simple: The Camera</h3>
+                            <p>Think of your 3D world as a stage. The objects (actors) have their own local coordinates.
+                                To "film" them, you transform their positions relative to the camera (World Matrix ->
+                                View Matrix). Finally, you flatten the 3D scene onto a 2D film strip (Projection
+                                Matrix). Quaternions are the tripod head that lets you rotate smoothly without getting
+                                stuck.</p>
+                        </div>
                 </div>
             </section>
 
@@ -264,25 +271,21 @@ print(f"90 deg around Y: {np.round(p_new, 2)}") # Should be roughly [0, 0, -1]
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Mathematical Foundations",
+                title: "Rendering Engines",
                 items: [
-                    { title: "The Rendering Pipeline", channel: "Acerola", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Homogeneous Coordinates", channel: "Cem Yuksel", vid: "SRsK-ZXTeZ0" }
+                    { title: "Ray Tracing vs Rasterization", channel: "Techquickie", vid: "9bW4RjF7KjY" },
+                    { title: "How 3D Rendering Works", channel: "Crucial", vid: "QdRL72v_5Hk" }
                 ]
             },
             {
-                title: "Quaternions",
+                title: "Coding Adventure",
                 items: [
-                    { title: "Visualizing Quaternions", channel: "3Blue1Brown", vid: "vGINw39T6kg" },
-                    { title: "Gimbal Lock Explained", channel: "GuerrillaCG", vid: "sDv4f4s2SB8" }
+                    { title: "Coding Adventure: Ray Tracing", channel: "Sebastian Lague", vid: "Qz0KTGYJtUk" },
+                    { title: "Shaders 101", channel: "Acerola", vid: "8nN1MUP2s2Y" },
+                    { title: "Visualizing Quaternions", channel: "3Blue1Brown", vid: "mvmuCpROoNs" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "C8YtdC8mxTU";
-        VIDEO_GROUPS[1].items[0].vid = "zjMuIxRvygQ";
-        VIDEO_GROUPS[1].items[1].vid = "zc8b2Jo7mno";
-
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day91'] || [],

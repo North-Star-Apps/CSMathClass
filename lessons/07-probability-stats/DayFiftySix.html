@@ -169,6 +169,45 @@
                 </div>
             </section>
 
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Python: Statistical Inference</h2>
+                </div>
+                <div class="section-body">
+                    <p>Calculating Confidence Intervals with `scipy`.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Confidence Intervals</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import numpy as np
+import scipy.stats as stats
+
+data = [102, 98, 101, 105, 97, 99, 103, 100, 101, 98]
+n = len(data)
+
+# 1. Point Estimate (Sample Mean)
+x_bar = np.mean(data) # 100.4
+print(f"Point Estimate: {x_bar}")
+
+# 2. 95% Confidence Interval
+# Using t-distribution because n < 30 and sigma unknown
+# sem = Standard Error of Mean = s / sqrt(n)
+standard_error = stats.sem(data)
+ci = stats.t.interval(0.95, df=n-1, loc=x_bar, scale=standard_error)
+
+print(f"95% CI: ({ci[0]:.2f}, {ci[1]:.2f})")
+# Interpretation: We are 95% confident true mean is in this range.
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
@@ -216,6 +255,7 @@
                 title: "Point Estimation",
                 items: [
                     { title: "MLE Path to Intuition", channel: "StatQuest", vid: "XepXtl9yk6w" },
+                    { title: "Maximum Likelihood Explained", channel: "StatQuest", vid: "Dn6b9fCIUpM" },
                     { title: "Bias vs Variance", channel: "Kimberly Brehm", vid: "Yv8Yg2fJ8pY" }
                 ]
             },
@@ -223,7 +263,8 @@
                 title: "Confidence Intervals",
                 items: [
                     { title: "Understanding CIs", channel: "StatQuest", vid: "TqOeMYtOc1w" },
-                    { title: "Point Estimates & CIs", channel: "Khan Academy", vid: "vXvYid7-vYg" }
+                    { title: "Point Estimates & CIs", channel: "Khan Academy", vid: "vXvYid7-vYg" },
+                    { title: "Confidence Interval Example", channel: "Khan Academy", vid: "k1hQA2FqaT0" }
                 ]
             }
         ];

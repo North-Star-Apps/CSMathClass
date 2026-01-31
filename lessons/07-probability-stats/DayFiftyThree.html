@@ -201,6 +201,44 @@
                 </div>
             </section>
 
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Python: Sampling Distributions</h2>
+                </div>
+                <div class="section-body">
+                    <p>Generating random numbers from various distributions.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Random Module</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import random
+import statistics
+
+# 1. Uniform [a, b]
+# Simulating a die roll (continuous)
+u = random.uniform(1, 6)
+
+# 2. Normal (Gaussian)
+# mu=0, sigma=1 (Standard Normal)
+n = random.gauss(0, 1)
+
+# 3. Generating a dataset
+random.seed(42) # Reproducible
+data = [random.gauss(100, 15) for _ in range(1000)] # IQ scores
+
+print(f"Sample Mean: {statistics.mean(data):.1f}") # ~100.0
+print(f"Sample Stdev: {statistics.stdev(data):.1f}") # ~15.0
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">

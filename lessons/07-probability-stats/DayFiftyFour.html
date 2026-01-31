@@ -52,7 +52,8 @@
         <h1>Joint Distributions</h1>
         <p class="hero-desc">
             Randomness rarely happens in isolation. We move beyond single variables to study how multiple random
-            factors interact, overlap, and influence each other.
+            factors interact, overlap, and influence each other—the foundation of multivariate statistics and machine
+            learning.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -73,7 +74,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                6 video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -83,12 +84,15 @@
             <nav class="toc">
                 <div class="toc-title">On this page</div>
                 <ul class="toc-list">
+                    <li><a href="#why" class="toc-link">Why Joint Distributions?</a></li>
                     <li><a href="#joint" class="toc-link">1. Joint PMF & PDF</a></li>
                     <li><a href="#marginal" class="toc-link">2. Marginal Distributions</a></li>
-                    <li><a href="#conditional" class="toc-link">3. Conditional & Independence</a></li>
-                    <li><a href="#covariance" class="toc-link">4. Covariance & Correlation</a></li>
-                    <li><a href="#videos" class="toc-link">5. Video Lessons</a></li>
-                    <li><a href="#practice" class="toc-link">6. Practice Problems</a></li>
+                    <li><a href="#conditional" class="toc-link">3. Conditional Distributions</a></li>
+                    <li><a href="#independence" class="toc-link">4. Independence</a></li>
+                    <li><a href="#covariance" class="toc-link">5. Covariance & Correlation</a></li>
+                    <li><a href="#cs-connection" class="toc-link">6. CS: Multi-Armed Bandits</a></li>
+                    <li><a href="#videos" class="toc-link">7. Video Lessons</a></li>
+                    <li><a href="#practice" class="toc-link">8. Practice Problems</a></li>
                 </ul>
             </nav>
             <div class="stats-card">
@@ -103,92 +107,512 @@
         </aside>
 
         <main class="content">
-            <!-- Joint -->
+            <!-- Why This Matters -->
+            <section class="section" id="why">
+                <div class="section-header">
+                    <div class="section-number">Section 0</div>
+                    <h2 class="section-title">Why Joint Distributions Matter in CS</h2>
+                </div>
+                <div class="section-body">
+                    <p>
+                        In the real world, data points don't live in isolation. A user's <strong>click rate</strong>
+                        depends on both the <strong>ad content</strong> and the <strong>time of day</strong>. A system's
+                        <strong>latency</strong> depends on both <strong>CPU load</strong> and <strong>network
+                            traffic</strong>.
+                        Machine learning models with multiple features are fundamentally reasoning about joint
+                        distributions.
+                    </p>
+
+                    <div class="rule">
+                        <strong>The Big Idea:</strong> A joint distribution captures everything about how two (or more)
+                        random variables behave together. From it, you can derive marginals, conditionals, correlations,
+                        and independence—all the tools you need for multivariate analysis.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Where you'll use this</h3>
+                        <ul>
+                            <li><strong>Machine Learning:</strong> Features are joint RVs; models learn P(Y|X₁, X₂, ...)
+                            </li>
+                            <li><strong>Bayesian Networks:</strong> Graphical models factor joint distributions</li>
+                            <li><strong>A/B Testing:</strong> Analyzing correlated metrics (conversion vs. revenue)</li>
+                            <li><strong>Recommendation Systems:</strong> User-item interaction matrices</li>
+                            <li><strong>Risk Analysis:</strong> Portfolio optimization with correlated assets</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>🎲 Simple: The Dice Table Analogy</strong>
+                        <br>Imagine rolling two dice. Each die alone has 6 outcomes. But <em>together</em>, they form a
+                        6×6 grid of 36 joint outcomes. Some outcomes (like sum=7) are more likely than others (sum=2).
+                        The joint distribution is this entire table—knowing it tells you everything about both dice
+                        <em>and</em> their relationships.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Joint PMF & PDF -->
             <section class="section" id="joint">
                 <div class="section-header">
                     <div class="section-number">Section 1</div>
                     <h2 class="section-title">Joint PMF & PDF</h2>
                 </div>
                 <div class="section-body">
-                    <p>When studying two RVs $X$ and $Y$ simultaneously, we use a <strong>Joint Distribution</strong>.
-                    </p>
-                    <div class="grid-2col">
-                        <div class="card">
-                            <h3>Discrete (PMF)</h3>
-                            <p>$$ p(x, y) = P(X=x, Y=y) $$</p>
+                    <p>When studying two random variables $X$ and $Y$ simultaneously, we use a <strong>Joint
+                            Distribution</strong>.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Discrete Case: Joint PMF</h3>
+                        <p>For discrete RVs, the <strong>Joint Probability Mass Function</strong> gives the probability
+                            of each (x, y) pair:</p>
+                        <div class="math-block">
+                            $$ p_{X,Y}(x, y) = P(X=x \text{ and } Y=y) $$
                         </div>
-                        <div class="card">
-                            <h3>Continuous (PDF)</h3>
-                            <p>$$ P((X,Y) \in A) = \iint_{A} f(x, y) dx dy $$</p>
+                        <div class="rule">
+                            <strong>Requirement:</strong> All probabilities must sum to 1:
+                            $$ \sum_x \sum_y p(x, y) = 1 $$
                         </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Continuous Case: Joint PDF</h3>
+                        <p>For continuous RVs, we use a <strong>Joint Probability Density Function</strong>:</p>
+                        <div class="math-block">
+                            $$ P((X,Y) \in A) = \iint_{A} f_{X,Y}(x, y) \, dx \, dy $$
+                        </div>
+                        <p>The probability that $(X, Y)$ falls in a region is the volume under the surface $f(x,y)$ over
+                            that region.</p>
+                    </div>
+
+                    <div class="info">
+                        <strong>📊 Simple: The Heatmap Analogy</strong>
+                        <br>Think of a joint PDF as a heatmap or topographic map. The "hotter" (taller) a region,
+                        the more likely those (x, y) values are. A mountain peak at (2, 3) means X≈2 and Y≈3 is
+                        the most likely outcome. Valleys are rare events.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Visualizing a bivariate normal distribution</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+<span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> multivariate_normal
+
+<span class="code-comment"># Define a bivariate normal distribution</span>
+mean = [<span class="code-number">0</span>, <span class="code-number">0</span>]
+cov = [[<span class="code-number">1</span>, <span class="code-number">0.5</span>],    <span class="code-comment"># Covariance matrix</span>
+       [<span class="code-number">0.5</span>, <span class="code-number">1</span>]]
+
+<span class="code-comment"># Create grid of points</span>
+x = np.<span class="code-function">linspace</span>(-<span class="code-number">3</span>, <span class="code-number">3</span>, <span class="code-number">100</span>)
+y = np.<span class="code-function">linspace</span>(-<span class="code-number">3</span>, <span class="code-number">3</span>, <span class="code-number">100</span>)
+X, Y = np.<span class="code-function">meshgrid</span>(x, y)
+pos = np.<span class="code-function">dstack</span>((X, Y))
+
+<span class="code-comment"># Evaluate the PDF at each point</span>
+rv = <span class="code-function">multivariate_normal</span>(mean, cov)
+Z = rv.<span class="code-function">pdf</span>(pos)
+
+<span class="code-comment"># Plot as heatmap</span>
+plt.<span class="code-function">contourf</span>(X, Y, Z, levels=<span class="code-number">20</span>, cmap=<span class="code-string">'viridis'</span>)
+plt.<span class="code-function">colorbar</span>(label=<span class="code-string">'Probability Density'</span>)
+plt.<span class="code-function">xlabel</span>(<span class="code-string">'X'</span>)
+plt.<span class="code-function">ylabel</span>(<span class="code-string">'Y'</span>)
+plt.<span class="code-function">title</span>(<span class="code-string">'Joint PDF: Bivariate Normal (ρ=0.5)'</span>)
+plt.<span class="code-function">show</span>()</pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Joint Distribution Table (Discrete Example)</h3>
+                        <p>Consider two binary RVs: $X$ = "Clicked ad" and $Y$ = "Made purchase":</p>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Y=0 (No Purchase)</th>
+                                    <th>Y=1 (Purchased)</th>
+                                    <th>Marginal P(X)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>X=0 (No Click)</strong></td>
+                                    <td>0.50</td>
+                                    <td>0.05</td>
+                                    <td>0.55</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>X=1 (Clicked)</strong></td>
+                                    <td>0.30</td>
+                                    <td>0.15</td>
+                                    <td>0.45</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Marginal P(Y)</strong></td>
+                                    <td>0.80</td>
+                                    <td>0.20</td>
+                                    <td>1.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
 
-            <!-- Marginal -->
+            <!-- Marginal Distributions -->
             <section class="section" id="marginal">
                 <div class="section-header">
                     <div class="section-number">Section 2</div>
                     <h2 class="section-title">Marginal Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <p>The <strong>Marginal Distribution</strong> of $X$ is the distribution of $X$ ignoring $Y$. We
-                        find it by "summing out" (discrete) or "integrating out" (continuous) the variable we don't
-                        want.</p>
+                    <p>The <strong>Marginal Distribution</strong> of $X$ is the distribution of $X$ alone, ignoring $Y$.
+                        We find it by "summing out" (discrete) or "integrating out" (continuous) the other variable.</p>
+
                     <div class="math-block">
-                        $$ p_X(x) = \sum_{y} p(x, y) $$
-                        $$ f_X(x) = \int_{-\infty}^{\infty} f(x, y) dy $$
+                        <strong>Discrete:</strong> $$ p_X(x) = \sum_{y} p_{X,Y}(x, y) $$
+                        <br><br>
+                        <strong>Continuous:</strong> $$ f_X(x) = \int_{-\infty}^{\infty} f_{X,Y}(x, y) \, dy $$
                     </div>
+
                     <div class="info">
                         <strong>👥 Simple: The Shadow Analogy</strong>
-                        <br>If the joint distribution is a 3D blob, the <strong>marginals</strong> are the 2D shadows
-                        cast on the $X$ and $Y$ axes. You lose information about the interaction, but you see the
-                        individual shapes.
+                        <br>If the joint distribution is a 3D mountain, the <strong>marginals</strong> are the 2D
+                        shadows
+                        cast onto the X-axis wall and Y-axis wall. You lose information about how X and Y interact,
+                        but you see each variable's individual shape.
+                    </div>
+
+                    <div class="rule">
+                        <strong>Key Insight:</strong> The marginal distributions can be recovered from the joint,
+                        but you <em>cannot</em> recover the joint from just the marginals (unless X and Y are
+                        independent).
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Computing marginals from a joint probability table</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Joint probability table from our ad example</span>
+joint = np.<span class="code-function">array</span>([
+    [<span class="code-number">0.50</span>, <span class="code-number">0.05</span>],  <span class="code-comment"># X=0: [Y=0, Y=1]</span>
+    [<span class="code-number">0.30</span>, <span class="code-number">0.15</span>]   <span class="code-comment"># X=1: [Y=0, Y=1]</span>
+])
+
+<span class="code-comment"># Marginal of X: sum over Y (columns)</span>
+p_X = joint.<span class="code-function">sum</span>(axis=<span class="code-number">1</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(X=0) = {p_X[0]:.2f}, P(X=1) = {p_X[1]:.2f}"</span>)
+<span class="code-comment"># Output: P(X=0) = 0.55, P(X=1) = 0.45</span>
+
+<span class="code-comment"># Marginal of Y: sum over X (rows)</span>
+p_Y = joint.<span class="code-function">sum</span>(axis=<span class="code-number">0</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(Y=0) = {p_Y[0]:.2f}, P(Y=1) = {p_Y[1]:.2f}"</span>)
+<span class="code-comment"># Output: P(Y=0) = 0.80, P(Y=1) = 0.20</span>
+
+<span class="code-comment"># Verify: marginals should sum to 1</span>
+<span class="code-keyword">assert</span> np.<span class="code-function">isclose</span>(p_X.<span class="code-function">sum</span>(), <span class="code-number">1.0</span>)
+<span class="code-keyword">assert</span> np.<span class="code-function">isclose</span>(p_Y.<span class="code-function">sum</span>(), <span class="code-number">1.0</span>)</pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Conditional -->
+            <!-- Conditional Distributions -->
             <section class="section" id="conditional">
                 <div class="section-header">
                     <div class="section-number">Section 3</div>
-                    <h2 class="section-title">Conditional & Independence</h2>
+                    <h2 class="section-title">Conditional Distributions</h2>
                 </div>
                 <div class="section-body">
-                    <p>Just like events, random variables can be conditional or independent.</p>
+                    <p>The <strong>Conditional Distribution</strong> of $X$ given $Y=y$ tells us how $X$ behaves
+                        when we know the value of $Y$. This is the heart of machine learning prediction.</p>
+
                     <div class="math-block">
-                        <strong>Conditional:</strong>
-                        $$ f(x|y) = \frac{f(x, y)}{f_Y(y)} $$
-                        <br>
-                        <strong>Independence:</strong>
-                        $$ X \perp Y \iff f(x, y) = f_X(x) f_Y(y) $$
+                        <strong>Discrete:</strong> $$ p_{X|Y}(x|y) = \frac{p_{X,Y}(x, y)}{p_Y(y)} $$
+                        <br><br>
+                        <strong>Continuous:</strong> $$ f_{X|Y}(x|y) = \frac{f_{X,Y}(x, y)}{f_Y(y)} $$
+                    </div>
+
+                    <div class="rule">
+                        <strong>The Chain Rule of Probability:</strong>
+                        $$ p(x, y) = p(x|y) \cdot p(y) = p(y|x) \cdot p(x) $$
+                        This lets you decompose joints into conditionals and marginals—essential for Bayesian reasoning.
+                    </div>
+
+                    <div class="info">
+                        <strong>🔍 Simple: The Filter Analogy</strong>
+                        <br>Conditioning is like applying a filter. The full distribution is everyone in a company.
+                        The conditional distribution P(Salary | Department=Engineering) is everyone in a company
+                        <em>filtered to just engineers</em>. The shape changes because you're looking at a subset.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Computing conditional probabilities</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Joint probability table</span>
+joint = np.<span class="code-function">array</span>([
+    [<span class="code-number">0.50</span>, <span class="code-number">0.05</span>],  <span class="code-comment"># X=0: [Y=0, Y=1]</span>
+    [<span class="code-number">0.30</span>, <span class="code-number">0.15</span>]   <span class="code-comment"># X=1: [Y=0, Y=1]</span>
+])
+
+<span class="code-comment"># P(Y|X=1): Given user clicked, what's purchase probability?</span>
+p_X1 = joint[<span class="code-number">1</span>, :].<span class="code-function">sum</span>()  <span class="code-comment"># P(X=1) = 0.45</span>
+p_Y_given_X1 = joint[<span class="code-number">1</span>, :] / p_X1
+<span class="code-function">print</span>(<span class="code-string">f"P(Y=1|X=1) = {p_Y_given_X1[1]:.3f}"</span>)
+<span class="code-comment"># Output: P(Y=1|X=1) = 0.333 (33% of clickers purchase)</span>
+
+<span class="code-comment"># P(X|Y=1): Given purchase, what's click probability?</span>
+p_Y1 = joint[:, <span class="code-number">1</span>].<span class="code-function">sum</span>()  <span class="code-comment"># P(Y=1) = 0.20</span>
+p_X_given_Y1 = joint[:, <span class="code-number">1</span>] / p_Y1
+<span class="code-function">print</span>(<span class="code-string">f"P(X=1|Y=1) = {p_X_given_Y1[1]:.3f}"</span>)
+<span class="code-comment"># Output: P(X=1|Y=1) = 0.750 (75% of purchasers clicked!)</span>
+
+<span class="code-comment"># This asymmetry is crucial for attribution modeling</span></pre>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Covariance -->
-            <section class="section" id="covariance">
+            <!-- Independence -->
+            <section class="section" id="independence">
                 <div class="section-header">
                     <div class="section-number">Section 4</div>
+                    <h2 class="section-title">Independence of Random Variables</h2>
+                </div>
+                <div class="section-body">
+                    <p>Two random variables are <strong>independent</strong> if knowing one tells you nothing about the
+                        other.
+                        This is the strongest form of "no relationship."</p>
+
+                    <div class="math-block">
+                        $$ X \perp Y \iff p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y) \text{ for all } x, y $$
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Equivalent Conditions for Independence</h3>
+                        <ul>
+                            <li>$p(x, y) = p(x) \cdot p(y)$ for all x, y</li>
+                            <li>$p(x|y) = p(x)$ for all x, y</li>
+                            <li>$p(y|x) = p(y)$ for all x, y</li>
+                            <li>$Cov(X, Y) = 0$ <em>(necessary but not sufficient!)</em></li>
+                        </ul>
+                    </div>
+
+                    <div class="warning">
+                        <strong>⚠️ Independence vs. Uncorrelated:</strong>
+                        <br>Independent implies uncorrelated, but uncorrelated does NOT imply independent!
+                        Example: $X \sim Uniform(-1, 1)$ and $Y = X^2$ have $Cov(X,Y) = 0$ but knowing $X$
+                        completely determines $Y$.
+                    </div>
+
+                    <div class="info">
+                        <strong>🎯 Simple: The Fair Coin Analogy</strong>
+                        <br>Two fair coins are independent: knowing the first coin landed heads tells you
+                        nothing about the second. But if someone secretly glues them together, they become
+                        dependent—both always show the same face.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Testing for independence</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-keyword">def</span> <span class="code-function">is_independent</span>(joint, tolerance=<span class="code-number">1e-6</span>):
+    <span class="code-string">"""Check if joint distribution factors into marginals."""</span>
+    p_X = joint.<span class="code-function">sum</span>(axis=<span class="code-number">1</span>)  <span class="code-comment"># Marginal of X</span>
+    p_Y = joint.<span class="code-function">sum</span>(axis=<span class="code-number">0</span>)  <span class="code-comment"># Marginal of Y</span>
+    
+    <span class="code-comment"># Compute P(X) × P(Y) for all pairs</span>
+    product = np.<span class="code-function">outer</span>(p_X, p_Y)
+    
+    <span class="code-comment"># Check if joint ≈ product</span>
+    <span class="code-keyword">return</span> np.<span class="code-function">allclose</span>(joint, product, atol=tolerance)
+
+<span class="code-comment"># Our ad click data</span>
+joint_dependent = np.<span class="code-function">array</span>([[<span class="code-number">0.50</span>, <span class="code-number">0.05</span>], [<span class="code-number">0.30</span>, <span class="code-number">0.15</span>]])
+<span class="code-function">print</span>(<span class="code-string">f"Ad clicks data independent? {is_independent(joint_dependent)}"</span>)
+<span class="code-comment"># Output: False (clicking and purchasing are related!)</span>
+
+<span class="code-comment"># Independent example: two fair coin flips</span>
+joint_coins = np.<span class="code-function">array</span>([[<span class="code-number">0.25</span>, <span class="code-number">0.25</span>], [<span class="code-number">0.25</span>, <span class="code-number">0.25</span>]])
+<span class="code-function">print</span>(<span class="code-string">f"Coin flips independent? {is_independent(joint_coins)}"</span>)
+<span class="code-comment"># Output: True</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Covariance & Correlation -->
+            <section class="section" id="covariance">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
                     <h2 class="section-title">Covariance & Correlation</h2>
                 </div>
                 <div class="section-body">
-                    <p>How do $X$ and $Y$ "vary together"?</p>
-                    <ul class="list-disc">
-                        <li><strong>Covariance:</strong> $Cov(X, Y) = E[(X-E[X])(Y-E[Y])]$.
-                            <ul class="list-disc">
-                                <li>$>0$: $X$ and $Y$ increase together.</li>
-                                <li>$<0$: One increases as the other decreases.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Correlation ($\rho$):</strong> Normalized covariance (range $-1$ to $1$).
-                            <p>$$ \rho = \frac{Cov(X, Y)}{\sigma_X \sigma_Y} $$</p>
-                        </li>
-                    </ul>
+                    <p>Covariance and correlation quantify <em>how</em> two variables move together—do they
+                        rise and fall in sync, or in opposition?</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Covariance</h3>
+                        <div class="math-block">
+                            $$ Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y] $$
+                        </div>
+                        <ul>
+                            <li>$Cov(X, Y) > 0$: X and Y tend to increase together</li>
+                            <li>$Cov(X, Y) < 0$: When X increases, Y tends to decrease</li>
+                            <li>$Cov(X, Y) = 0$: No linear relationship (but maybe nonlinear!)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Correlation (Pearson)</h3>
+                        <p>Correlation normalizes covariance to the range [-1, 1]:</p>
+                        <div class="math-block">
+                            $$ \rho_{X,Y} = \frac{Cov(X, Y)}{\sigma_X \sigma_Y} $$
+                        </div>
+                        <ul>
+                            <li>$\rho = 1$: Perfect positive linear relationship</li>
+                            <li>$\rho = -1$: Perfect negative linear relationship</li>
+                            <li>$\rho = 0$: No linear relationship</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>📈 Simple: The Dance Partners Analogy</strong>
+                        <br>High correlation = synchronized dancers moving together ($\rho \approx 1$).
+                        Opposite correlation = one bows as the other stands ($\rho \approx -1$).
+                        Zero correlation = dancing independently, ignoring each other ($\rho \approx 0$).
+                    </div>
+
+                    <div class="rule">
+                        <strong>Important Properties:</strong>
+                        <ul>
+                            <li>$Cov(X, X) = Var(X)$</li>
+                            <li>$Cov(aX + b, cY + d) = ac \cdot Cov(X, Y)$</li>
+                            <li>$Var(X + Y) = Var(X) + Var(Y) + 2 \cdot Cov(X, Y)$</li>
+                            <li>If $X \perp Y$, then $Var(X + Y) = Var(X) + Var(Y)$</li>
+                        </ul>
+                    </div>
+
                     <div class="warning">
-                        <strong>⚠️ Correlation != Causation:</strong>
-                        <br>Also, $Cov(X, Y) = 0$ implies they are uncorrelated, but <strong>not</strong> necessarily
-                        independent (they could have a non-linear relationship).
+                        <strong>⚠️ Correlation ≠ Causation!</strong>
+                        <br>Ice cream sales and drowning deaths are correlated (both rise in summer),
+                        but ice cream doesn't cause drowning. Always look for lurking variables!
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Computing covariance and correlation</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Sample data: study hours vs. exam score</span>
+study_hours = np.<span class="code-function">array</span>([<span class="code-number">2</span>, <span class="code-number">3</span>, <span class="code-number">5</span>, <span class="code-number">7</span>, <span class="code-number">8</span>, <span class="code-number">10</span>])
+exam_scores = np.<span class="code-function">array</span>([<span class="code-number">50</span>, <span class="code-number">55</span>, <span class="code-number">68</span>, <span class="code-number">76</span>, <span class="code-number">82</span>, <span class="code-number">95</span>])
+
+<span class="code-comment"># Method 1: Manual calculation</span>
+mean_x = study_hours.<span class="code-function">mean</span>()
+mean_y = exam_scores.<span class="code-function">mean</span>()
+cov_manual = ((study_hours - mean_x) * (exam_scores - mean_y)).<span class="code-function">mean</span>()
+<span class="code-function">print</span>(<span class="code-string">f"Covariance (manual): {cov_manual:.2f}"</span>)
+
+<span class="code-comment"># Method 2: NumPy (returns covariance matrix)</span>
+cov_matrix = np.<span class="code-function">cov</span>(study_hours, exam_scores, ddof=<span class="code-number">0</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Covariance (numpy): {cov_matrix[0,1]:.2f}"</span>)
+
+<span class="code-comment"># Correlation coefficient</span>
+corr_matrix = np.<span class="code-function">corrcoef</span>(study_hours, exam_scores)
+<span class="code-function">print</span>(<span class="code-string">f"Correlation: {corr_matrix[0,1]:.3f}"</span>)
+<span class="code-comment"># Output: Correlation ≈ 0.989 (strong positive relationship)</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CS Connection -->
+            <section class="section" id="cs-connection">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">CS Connection: Multi-Armed Bandits & Joint Rewards</h2>
+                </div>
+                <div class="section-body">
+                    <p>In reinforcement learning, the <strong>multi-armed bandit</strong> problem involves
+                        choosing between actions with unknown reward distributions. When rewards are correlated
+                        across arms, understanding joint distributions becomes critical.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Practical Example: A/B Testing with Correlated Metrics</h3>
+                        <p>When running an A/B test, you might track both <strong>click rate</strong> (X) and
+                            <strong>conversion rate</strong> (Y). These metrics are jointly distributed:
+                        </p>
+                        <ul>
+                            <li>Knowing X helps predict Y (conditional distribution)</li>
+                            <li>We care about increasing <em>both</em> metrics</li>
+                            <li>High correlation means improving one often improves the other</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Simulating correlated A/B test metrics</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> multivariate_normal
+
+<span class="code-keyword">def</span> <span class="code-function">simulate_ab_test</span>(n_users, correlation=<span class="code-number">0.6</span>):
+    <span class="code-string">"""Simulate click and conversion rates with correlation."""</span>
+    <span class="code-comment"># Control group: lower mean click & conversion</span>
+    mean_control = [<span class="code-number">0.05</span>, <span class="code-number">0.02</span>]  <span class="code-comment"># [click_rate, conv_rate]</span>
+    
+    <span class="code-comment"># Treatment group: higher means</span>
+    mean_treatment = [<span class="code-number">0.08</span>, <span class="code-number">0.035</span>]
+    
+    <span class="code-comment"># Covariance matrix (correlated metrics)</span>
+    var = <span class="code-number">0.001</span>
+    cov = correlation * var
+    cov_matrix = [[var, cov], [cov, var]]
+    
+    <span class="code-comment"># Sample from bivariate normal (truncated for rates)</span>
+    control = <span class="code-function">multivariate_normal</span>(mean_control, cov_matrix).<span class="code-function">rvs</span>(n_users)
+    treatment = <span class="code-function">multivariate_normal</span>(mean_treatment, cov_matrix).<span class="code-function">rvs</span>(n_users)
+    
+    <span class="code-keyword">return</span> control, treatment
+
+<span class="code-comment"># Run simulation</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+control, treatment = <span class="code-function">simulate_ab_test</span>(<span class="code-number">1000</span>)
+
+<span class="code-function">print</span>(<span class="code-string">"Control group correlation:"</span>, np.<span class="code-function">corrcoef</span>(control.T)[<span class="code-number">0</span>,<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-function">print</span>(<span class="code-string">"Avg click rate - Control:"</span>, control[:,<span class="code-number">0</span>].<span class="code-function">mean</span>().<span class="code-function">round</span>(<span class="code-number">4</span>))
+<span class="code-function">print</span>(<span class="code-string">"Avg click rate - Treatment:"</span>, treatment[:,<span class="code-number">0</span>].<span class="code-function">mean</span>().<span class="code-function">round</span>(<span class="code-number">4</span>))</pre>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <strong>🤖 Simple: The Recommendation System Analogy</strong>
+                        <br>Netflix doesn't just model P(you like action movies). It models the joint
+                        P(you like action movies, your friend likes action movies, it's Friday night).
+                        Understanding these joint patterns powers collaborative filtering.
                     </div>
                 </div>
             </section>
@@ -196,7 +620,7 @@
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Video Lessons</h2>
                 </div>
                 <div class="section-body">
@@ -216,7 +640,7 @@
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 8</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
@@ -237,17 +661,26 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Joint Space",
+                title: "Joint Distributions Fundamentals",
                 items: [
-                    { title: "Joint Distributions", channel: "Harvard Stat 110", vid: "_79v4b_5qYw" },
-                    { title: "Marginal PMFs", channel: "Kimberly Brehm", vid: "j6u6oXW-T-8" }
+                    { title: "Joint Distributions Intro", channel: "Harvard Stat 110", vid: "_79v4b_5qYw" },
+                    { title: "Joint PMFs Explained", channel: "Kimberly Brehm", vid: "j6u6oXW-T-8" },
+                    { title: "Bivariate Distributions", channel: "3Blue1Brown", vid: "XG2XtT6MXCE" }
                 ]
             },
             {
-                title: "Relationship Metrics",
+                title: "Marginals & Conditionals",
+                items: [
+                    { title: "Marginal Distributions", channel: "StatQuest", vid: "IT1KAlNwPa4" },
+                    { title: "Conditional Probabilities", channel: "Khan Academy", vid: "ibINrxJLvlM" }
+                ]
+            },
+            {
+                title: "Covariance & Correlation",
                 items: [
                     { title: "Covariance & Correlation", channel: "StatQuest", vid: "qtaqvPAeEJY" },
-                    { title: "Independence of RVs", channel: "Khan Academy", vid: "vXvYid7-vYg" }
+                    { title: "Independence of RVs", channel: "Khan Academy", vid: "vXvYid7-vYg" },
+                    { title: "Multivariate Gaussian", channel: "Visually Explained", vid: "eho8xH3E6mE" }
                 ]
             }
         ];
@@ -255,7 +688,7 @@
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day54'] || [],
-            storageKey: 'day54_joint_v1'
+            storageKey: 'day54_joint_v2'
         });
     </script>
 </body>

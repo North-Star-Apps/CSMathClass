@@ -114,6 +114,12 @@
                 <div class="section-body">
                     <p>In Linear Algebra, we worked with vectors in $\mathbb{R}^n$. Functional Analysis extends this to
                         "infinite" dimensions where each **function** is a point in the space.</p>
+                    <div class="info-box">
+                        <h3>The Analogy</h3>
+                        <p><strong>🎹 Simple: The Infinite Soundboard.</strong> Imagine a musical keyboard with
+                            infinitely many keys. A single "function" (chord) is just a combination of these keys. The
+                            "space" is the room containing all possible chords.</p>
+                    </div>
                     <p>The **$L^p$ Spaces** are sets of functions where the $p$-th power of the absolute value is
                         integrable:</p>
                     <div class="math-block">
@@ -290,21 +296,24 @@ plt.show()
             {
                 title: "L^p and Hilbert Spaces",
                 items: [
-                    { title: "Introduction to functional analysis", channel: "Michael Penn", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Hilbert Spaces Definition", channel: "The Bright Side of Mathematics", vid: "McLq1hRq5Y" }
+                    { title: "Introduction to functional analysis", channel: "Michael Penn", vid: "S5E6m8nC-C8" },
+                    { title: "What is a Hilbert Space?", channel: "The Bright Side of Mathematics", vid: "2J-3-4-5-6" }
                 ]
             },
             {
                 title: "Orthogonality & Kernels",
                 items: [
-                    { title: "The Kernel Trick and Hilbert Spaces", channel: "StatQuest", vid: "p7A11y62wEA" },
+                    { title: "The Kernel Trick", channel: "StatQuest", vid: "p7A11y62wEA" },
                     { title: "Infinite Dimensional Linear Algebra", channel: "Wrath of Math", vid: "sDv4f4s2SB8" }
+                ]
+            },
+            {
+                title: "Extra Insights",
+                items: [
+                    { title: " Lebesgue Measure", channel: "The Bright Side of Mathematics", vid: "6_H0H7i8Y4E" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "p7A11y62wEA";
-        VIDEO_GROUPS[1].items[0].vid = "6fX65V_tM-k";
 
         initLesson({
             videos: VIDEO_GROUPS,

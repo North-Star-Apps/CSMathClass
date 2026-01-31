@@ -68,7 +68,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                10 practice problems
+                25 practice problems
             </div>
         </div>
     </header>
@@ -112,6 +112,13 @@
                         <p>Where $R$ is retentivity, $t$ is time, and $S$ is strength of memory. To master math, we must
                             artificially increase $S$.</p>
                     </div>
+
+                    <div class="info">
+                        <strong>📉 Simple: The Leaky Bucket Analogy</strong>
+                        <br>Your memory is like a leaky bucket. New knowledge drips in from the top, but slowly
+                        leaks out the bottom. Each time you review, you patch the holes a bit—making the bucket
+                        hold water longer. Spaced repetition = patching at optimal times!
+                    </div>
                 </div>
             </section>
 
@@ -144,6 +151,12 @@
                         yourself without looking) actually builds the neural pathways.</p>
                     <p>If it feels difficult and frustrating, it's working. If it feels smooth and comfortable, you're
                         likely just recognizing patterns, not learning them.</p>
+
+                    <div class="info">
+                        <strong>🏋️ Simple: The Gym Analogy</strong>
+                        <br>Re-reading is like watching workout videos. Active recall is actually lifting weights.
+                        The struggle IS the learning. No pain, no brain gain!
+                    </div>
                 </div>
             </section>
 
@@ -207,13 +220,39 @@ print(f"Memory after 30 days (Active):    {active[-1]:.1f}%")
                 </div>
             </section>
 
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Video Lessons</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Practice Problems</h2>
                 </div>
                 <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
                     <div id="quizContainer"></div>
                 </div>
             </section>
@@ -221,10 +260,41 @@ print(f"Memory after 30 days (Active):    {active[-1]:.1f}%")
     </div>
 
     <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Learning Science",
+                items: [
+                    { title: "How to Learn Anything Faster", channel: "Thomas Frank", vid: "rVmMbMa3ncI" },
+                    { title: "The Forgetting Curve", channel: "Sprouts", vid: "3-0F4rq52Dc" }
+                ]
+            },
+            {
+                title: "Active Recall",
+                items: [
+                    { title: "Active Recall Study Method", channel: "Ali Abdaal", vid: "ukLnPbIffxE" },
+                    { title: "Why Testing Beats Re-Reading", channel: "Veritasium", vid: "1RJPAYHhu1g" }
+                ]
+            },
+            {
+                title: "Spaced Repetition",
+                items: [
+                    { title: "Spaced Repetition: A Science-Based Way to Remember", channel: "Ali Abdaal", vid: "Z-zNHHpXoMM" },
+                    { title: "How to Use Anki Effectively", channel: "The AnKing", vid: "WmVVFSdoYOk" }
+                ]
+            },
+            {
+                title: "Math Learning Tips",
+                items: [
+                    { title: "How to Read Math Textbooks", channel: "The Math Sorcerer", vid: "BY0sUxMSpjI" },
+                    { title: "Learning How to Learn", channel: "Oakley (Coursera)", vid: "vd2dtkMINIw" }
+                ]
+            }
+        ];
+
         initLesson({
-            videos: [],
+            videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day95'] || [],
-            storageKey: 'day95_v1'
+            storageKey: 'day95_v2'
         });
     </script>
     <script>hljs.highlightAll();</script>

@@ -160,6 +160,48 @@
                 </div>
             </section>
 
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 3.5</div>
+                    <h2 class="section-title">Python: Counting Tools</h2>
+                </div>
+                <div class="section-body">
+                    <p>Python's `math` and `itertools` libraries make counting easy.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Permutations & Combinations</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import math
+from itertools import permutations, combinations
+
+# 1. Math formulas (Numbers only)
+n, k = 5, 3
+perms = math.perm(n, k) # 60
+combs = math.comb(n, k) # 10
+
+print(f"P({n},{k}) = {perms}")
+print(f"C({n},{k}) = {combs}")
+
+# 2. Itertools (Generate actual items)
+items = ['A', 'B', 'C']
+
+# Permutations (Order matters)
+# list(permutations(items, 2))
+# [('A', 'B'), ('A', 'C'), ('B', 'A'), ('B', 'C'), ('C', 'A'), ('C', 'B')]
+
+# Combinations (Order doesn't matter)
+# list(combinations(items, 2))
+# [('A', 'B'), ('A', 'C'), ('B', 'C')]
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Axioms -->
             <section class="section" id="axioms">
                 <div class="section-header">

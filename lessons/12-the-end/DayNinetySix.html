@@ -67,7 +67,7 @@
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                100 practice problems
+                25 practice problems
             </div>
         </div>
     </header>
@@ -143,12 +143,39 @@
                 <div class="section-body">
                     <p>Finally, we reached **Theoretical CS**, **Real Analysis**, and **Quantum Computing**. We saw the
                         limits of the Turing model and explored the probability-interference world of the Qubit.</p>
+
+                    <div class="info">
+                        <strong>🗺️ Simple: The Journey Analogy</strong>
+                        <br>You've traveled from the ground floor (bits and sets) through the countryside (algebra and
+                        calculus), across uncertain terrain (probability), through algorithmic forests, and finally
+                        reached the mountain peaks (theory and quantum). You now see how all of CS connects!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos -->
+            <section class="section" id="videos">
+                <div class="section-header">
+                    <div class="section-number">Section 6</div>
+                    <h2 class="section-title">Review Videos</h2>
+                </div>
+                <div class="section-body">
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
 
             <section class="section" id="exam">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
+                    <div class="section-number">Section 7</div>
                     <h2 class="section-title">Global Pre-Exam</h2>
                 </div>
                 <div class="section-body">
@@ -167,6 +194,37 @@
     </div>
 
     <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Math Foundations",
+                items: [
+                    { title: "The Essence of Linear Algebra", channel: "3Blue1Brown", vid: "fNk_zzaMoSs" },
+                    { title: "The Essence of Calculus", channel: "3Blue1Brown", vid: "WUvTyaaNkzM" }
+                ]
+            },
+            {
+                title: "Probability & Statistics",
+                items: [
+                    { title: "Probability Explained", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Statistics Overview", channel: "StatQuest", vid: "xxpc-HPKN28" }
+                ]
+            },
+            {
+                title: "Algorithms & Complexity",
+                items: [
+                    { title: "Big O Notation", channel: "CS Dojo", vid: "v4cd1O4zkGw" },
+                    { title: "P vs NP", channel: "Undefined Behavior", vid: "EHp4FPyajKQ" }
+                ]
+            },
+            {
+                title: "Advanced Topics",
+                items: [
+                    { title: "Quantum Computing Overview", channel: "Veritasium", vid: "-UlxHPIEVqA" },
+                    { title: "Information Theory", channel: "Reducible", vid: "YtebGVx-Fxw" }
+                ]
+            }
+        ];
+
         // Global review pulls from EVERY section
         let globalQuestions = [];
         // Pulling samples from each major section to avoid 2000+ item array lag
@@ -179,9 +237,9 @@
         });
 
         initLesson({
-            videos: [],
+            videos: VIDEO_GROUPS,
             questions: globalQuestions,
-            storageKey: 'day96_v1'
+            storageKey: 'day96_v2'
         });
     </script>
 </body>

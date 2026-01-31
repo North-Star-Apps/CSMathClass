@@ -197,6 +197,51 @@
                 </div>
             </section>
 
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 5</div>
+                    <h2 class="section-title">Python: Naive Bayes</h2>
+                </div>
+                <div class="section-body">
+                    <p>Implementing a simple Bayes calculation.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Bayes Theorem</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">def bayes_theorem(p_a, p_b_given_a, p_b_given_not_a):
+    """
+    Calculates P(A|B) using Bayes' Theorem.
+    P(A): Prior probability of A
+    P(B|A): Likelihood of B given A is true
+    P(B|not A): Likelihood of B given A is false
+    """
+    # Calculate P(B) using Law of Total Probability
+    # P(B) = P(B|A)*P(A) + P(B|not A)*P(not A)
+    p_not_a = 1 - p_a
+    p_b = (p_b_given_a * p_a) + (p_b_given_not_a * p_not_a)
+    
+    # Bayes Formula
+    p_a_given_b = (p_b_given_a * p_a) / p_b
+    return p_a_given_b
+
+# Example: Disease Testing
+# P(Disease) = 0.001 (1 in 1000)
+# P(Pos|Disease) = 0.99 (True Positive Rate)
+# P(Pos|Healthy) = 0.05 (False Positive Rate)
+
+prob = bayes_theorem(0.001, 0.99, 0.05)
+print(f"Probability of disease given positive test: {prob:.4f}")
+# Output: 0.0194 (Only ~2% chance!)
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">

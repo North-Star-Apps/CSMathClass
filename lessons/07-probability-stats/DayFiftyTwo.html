@@ -73,7 +73,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                8 video lessons
+                7 video lessons
             </div>
         </div>
     </header>
@@ -188,6 +188,45 @@
                         $$ E[g(X)] = \sum_{x} g(x) P(X=x) $$
                     </div>
                     <p>This is why we can calculate $E[X^2]$ so easily when finding variance.</p>
+                </div>
+            </section>
+
+            <!-- Python -->
+            <section class="section" id="python">
+                <div class="section-header">
+                    <div class="section-number">Section 4.5</div>
+                    <h2 class="section-title">Python: Stats Basics</h2>
+                </div>
+                <div class="section-body">
+                    <p>Calculating core statistics using Python's built-in library.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <span class="code-label">Mean & Variance</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code class="language-python">import statistics
+
+data = [10, 12, 23, 23, 16, 23, 21, 16]
+
+# 1. Mean (Expected Value)
+# Sum / Count
+mu = statistics.mean(data)
+print(f"Mean: {mu}") # 18.0
+
+# 2. Variance
+# Average squared distance from mean
+var = statistics.variance(data)
+print(f"Variance: {var}") # 24.0
+
+# 3. Standard Deviation
+# Sqrt(Variance) - same units as data
+sigma = statistics.stdev(data)
+print(f"Std Dev: {sigma:.2f}") # 4.90
+</code></pre>
+                        </div>
+                    </div>
                 </div>
             </section>
 

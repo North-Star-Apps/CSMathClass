@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 78: Checkpoint 9 (Deep Math Synthesis)</title>
+    <title>Day 78: Checkpoint 9 (Analysis & Topology Review)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 27 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -47,12 +47,12 @@
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8 0L10 6H16L11 9.5L13 16L8 12L3 16L5 9.5L0 6H6L8 0Z" />
             </svg>
-            Day 78 · Section 9 Recap
+            Day 78 · Section 9 Review
         </div>
         <h1>Checkpoint 9: Analysis & Topology</h1>
         <p class="hero-desc">
-            Synthesizing the rigorous foundations.
-            From the gaps in the real line to the mathematical limits of information itself.
+            Synthesizing the rigorous foundations of modern mathematics—from epsilon-delta limits
+            to measure theory, functional analysis, and information theory.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -60,14 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~120 min review
+                ~90 min review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                30 synthesis problems
+                25 review problems
+            </div>
+            <div class="meta-item">
+                <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                8 video lessons
             </div>
         </div>
     </header>
@@ -75,106 +81,301 @@
     <div class="main-layout">
         <aside class="sidebar">
             <nav class="toc">
-                <div class="toc-title">On this page</div>
+                <div class="toc-title">Review Areas</div>
                 <ul class="toc-list">
-                    <li><a href="#rigor" class="toc-link">1. Rigor Revisited</a></li>
-                    <li><a href="#measure" class="toc-link">2. Measure & Integration</a></li>
-                    <li><a href="#functional" class="toc-link">3. Functional Horizons</a></li>
-                    <li><a href="#information" class="toc-link">4. Information & Limits</a></li>
-                    <li><a href="#project" class="toc-link">5. Analysis Capstone</a></li>
-                    <li><a href="#exam" class="toc-link">6. Section 9 Final Exam</a></li>
+                    <li><a href="#rigor" class="toc-link">1. Real Analysis Foundations</a></li>
+                    <li><a href="#sequences" class="toc-link">2. Sequences & Series</a></li>
+                    <li><a href="#topology" class="toc-link">3. Metric Spaces & Topology</a></li>
+                    <li><a href="#measure" class="toc-link">4. Measure Theory</a></li>
+                    <li><a href="#functional" class="toc-link">5. Functional Analysis</a></li>
+                    <li><a href="#information" class="toc-link">6. Information Theory</a></li>
+                    <li><a href="#videos" class="toc-link">7. Review Videos</a></li>
+                    <li><a href="#practice" class="toc-link">8. Final Practice</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
 
         <main class="content">
-            <!-- Rigor -->
+            <!-- Real Analysis Foundations -->
             <section class="section" id="rigor">
                 <div class="section-header">
-                    <div class="section-number">Section 1</div>
-                    <h2 class="section-title">The Foundation of Rigor</h2>
+                    <div class="section-number">Review 1</div>
+                    <h2 class="section-title">Real Analysis Foundations</h2>
                 </div>
                 <div class="section-body">
-                    <p>We began by fixing the holes in our intuition. The **Completeness Axiom** is what separates a
-                        world of approximations (rationals) from a world of continuous truth (reals). We formalized
-                        limits using **$\epsilon$-$\delta$**, turning "getting close" into a game of mathematical
-                        precision.</p>
-                    <div class="info-box">
-                        <h3>Key Takeaways</h3>
-                        <ul class="list-disc">
-                            <li>**Supremum/Infimum:** The better version of Max/Min.</li>
-                            <li>**Cauchy Sequences:** Why $\mathbb{R}$ is the space where limits actually live.</li>
-                            <li>**Topology:** Using open balls to define "nearness" in any space.</li>
+                    <div class="rule">
+                        <strong>The Completeness Axiom:</strong> Every non-empty set of real numbers
+                        that is bounded above has a least upper bound (supremum) in $\mathbb{R}$.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Definitions</h3>
+                        <ul>
+                            <li><strong>Supremum (sup):</strong> Least upper bound of a set</li>
+                            <li><strong>Infimum (inf):</strong> Greatest lower bound of a set</li>
+                            <li><strong>ε-δ Definition of Limit:</strong> $\lim_{x \to a} f(x) = L$ means:
+                                $\forall \epsilon > 0, \exists \delta > 0$ such that $|x - a| < \delta \Rightarrow |f(x)
+                                    - L| < \epsilon$</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Why It Matters</h3>
+                        <p>The completeness of $\mathbb{R}$ is what separates rationals from reals.
+                            Without it, $\sqrt{2}$ doesn't exist—a major problem for continuous mathematics!</p>
+                    </div>
+
+                    <div class="info">
+                        <strong>🎯 Simple: The Dartboard Analogy</strong>
+                        <br>ε-δ limits are like hitting a dartboard. You say "I want to land within ε of the bullseye."
+                        I reply "Get within δ of your throw point." If I can always find a δ that works for any ε you
+                        give me, the limit exists. We're just formalizing "getting arbitrarily close!"
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sequences & Series -->
+            <section class="section" id="sequences">
+                <div class="section-header">
+                    <div class="section-number">Review 2</div>
+                    <h2 class="section-title">Sequences & Series</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Cauchy Criterion:</strong> A sequence $(a_n)$ converges iff
+                        $\forall \epsilon > 0, \exists N$ such that $m, n > N \Rightarrow |a_m - a_n| < \epsilon$ </div>
+
+                            <div class="subsection">
+                                <h3 class="subsection-title">Convergence Tests (Series)</h3>
+                                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                                    <thead>
+                                        <tr style="background: var(--surface-alt);">
+                                            <th style="padding: 10px; border: 1px solid var(--border);">Test</th>
+                                            <th style="padding: 10px; border: 1px solid var(--border);">Condition</th>
+                                            <th style="padding: 10px; border: 1px solid var(--border);">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">Ratio Test</td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">$\lim
+                                                |a_{n+1}/a_n| = L$</td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">$L < 1$:
+                                                    converges; $L> 1$: diverges</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">Root Test</td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">$\lim
+                                                |a_n|^{1/n} = L$</td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">Same as ratio
+                                                test</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">Comparison</td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">$a_n \leq b_n$
+                                            </td>
+                                            <td style="padding: 10px; border: 1px solid var(--border);">$\sum b_n$
+                                                converges → $\sum a_n$ converges</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+            </section>
+
+            <!-- Metric Spaces & Topology -->
+            <section class="section" id="topology">
+                <div class="section-header">
+                    <div class="section-number">Review 3</div>
+                    <h2 class="section-title">Metric Spaces & Topology</h2>
+                </div>
+                <div class="section-body">
+                    <div class="rule">
+                        <strong>Metric Space $(X, d)$:</strong> Set $X$ with distance function $d: X \times X \to
+                        \mathbb{R}$
+                        <ul>
+                            <li>$d(x, y) \geq 0$ and $d(x, y) = 0 \iff x = y$</li>
+                            <li>$d(x, y) = d(y, x)$ (symmetry)</li>
+                            <li>$d(x, z) \leq d(x, y) + d(y, z)$ (triangle inequality)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Topological Concepts</h3>
+                        <ul>
+                            <li><strong>Open Ball:</strong> $B_r(x) = \{y : d(x,y) < r\}$</li>
+                            <li><strong>Open Set:</strong> Every point has a ball entirely contained in the set</li>
+                            <li><strong>Compact:</strong> Every open cover has a finite subcover (Heine-Borel: closed +
+                                bounded in $\mathbb{R}^n$)</li>
+                            <li><strong>Connected:</strong> Cannot be split into two disjoint open sets</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- Measure -->
+            <!-- Measure Theory -->
             <section class="section" id="measure">
                 <div class="section-header">
-                    <div class="section-number">Section 2</div>
-                    <h2 class="section-title">Measure Theory & Lebesgue</h2>
+                    <div class="section-number">Review 4</div>
+                    <h2 class="section-title">Measure Theory & Integration</h2>
                 </div>
                 <div class="section-body">
-                    <p>We saw that Riemann's "boxes" fail on pathological sets like the rationals. **Lebesgue Measure**
-                        gave us a way to speak about the "size" of any outcome space, enabling modern probability.</p>
-                    <p>The **Dominated Convergence Theorem** is the crown jewel here, allowing us to safely swap limits
-                        and integrals—a fundamental operation in almost every theoretical CS paper.</p>
+                    <div class="rule">
+                        <strong>Lebesgue Measure:</strong> A way to assign "size" to sets that handles
+                        pathological cases where Riemann fails. Key: $\mu([a,b]) = b - a$
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Why Lebesgue > Riemann</h3>
+                        <ul>
+                            <li>Riemann fails on $f(x) = \mathbb{1}_\mathbb{Q}$ (indicator of rationals)</li>
+                            <li>Lebesgue handles this: $\int_0^1 \mathbb{1}_\mathbb{Q} = \mu(\mathbb{Q} \cap [0,1]) = 0$
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Dominated Convergence Theorem</h3>
+                        <p>If $f_n \to f$ pointwise and $|f_n| \leq g$ for integrable $g$, then:</p>
+                        <div class="math-block">
+                            $$ \lim_{n \to \infty} \int f_n = \int \lim_{n \to \infty} f_n = \int f $$
+                        </div>
+                        <p>This is essential for swapping limits and integrals safely.</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Functional -->
+            <!-- Functional Analysis -->
             <section class="section" id="functional">
                 <div class="section-header">
-                    <div class="section-number">Section 3</div>
+                    <div class="section-number">Review 5</div>
                     <h2 class="section-title">Functional Analysis</h2>
                 </div>
                 <div class="section-body">
-                    <p>We treated functions as vectors in **Hilbert Spaces**. This abstraction is the backbone of:</p>
-                    <ul class="list-disc">
-                        <li>**Fourier Analysis:** Decomposing time into frequency.</li>
-                        <li>**Kernel Methods:** Mapping data into infinite dimensions to find patterns.</li>
-                        <li>**Quantum Computing:** Where states are vectors and operations are operators.</li>
-                    </ul>
+                    <div class="rule">
+                        <strong>Hilbert Space:</strong> Complete inner product space. Functions become vectors.
+                        <div class="math-block">
+                            $$ \langle f, g \rangle = \int f(x) \overline{g(x)} \, dx $$
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Applications</h3>
+                        <ul>
+                            <li><strong>Fourier Series:</strong> Decompose signals into orthogonal frequencies</li>
+                            <li><strong>Kernel Methods:</strong> Map data to infinite-dimensional feature spaces</li>
+                            <li><strong>Quantum Computing:</strong> States are vectors, operators are transformations
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Fourier Transform</h3>
+                        <div class="math-block">
+                            $$ \hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i\omega t} \, dt $$
+                        </div>
+                        <p>Converts time domain to frequency domain. Convolution becomes multiplication!</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- Information -->
+            <!-- Information Theory -->
             <section class="section" id="information">
                 <div class="section-header">
-                    <div class="section-number">Section 4</div>
-                    <h2 class="section-title">Information & Entropy</h2>
+                    <div class="section-number">Review 6</div>
+                    <h2 class="section-title">Information Theory</h2>
                 </div>
                 <div class="section-body">
-                    <p>Finally, we quantified "surprise." **Shannon Entropy** and **KL Divergence** aren't just
-                        statistics; they are the fundamental limits of how much we can know, compress, and learn.</p>
+                    <div class="rule">
+                        <strong>Shannon Entropy:</strong> Measures "surprise" or uncertainty
+                        <div class="math-block">
+                            $$ H(X) = -\sum_x p(x) \log_2 p(x) $$
+                        </div>
+                        Units are bits. Maximum when all outcomes equally likely.
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Quantities</h3>
+                        <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                            <thead>
+                                <tr style="background: var(--surface-alt);">
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Quantity</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Formula</th>
+                                    <th style="padding: 10px; border: 1px solid var(--border);">Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Entropy $H(X)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$-\sum p \log p$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Uncertainty of X</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Joint $H(X,Y)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$-\sum p(x,y) \log
+                                        p(x,y)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Combined uncertainty
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Conditional $H(Y|X)$
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$H(X,Y) - H(X)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Uncertainty of Y given X
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Mutual Info $I(X;Y)$
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$H(X) - H(X|Y)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Shared information</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">KL Divergence</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">$\sum p \log(p/q)$</td>
+                                    <td style="padding: 10px; border: 1px solid var(--border);">Distance between
+                                        distributions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- Project -->
-            <section class="section" id="project">
+            <!-- Videos -->
+            <section class="section" id="videos">
                 <div class="section-header">
-                    <div class="section-number">Section 5</div>
-                    <h2 class="section-title">Analysis Capstone: Signal Information</h2>
+                    <div class="section-number">Review 7</div>
+                    <h2 class="section-title">Review Videos</h2>
                 </div>
                 <div class="section-body">
-                    <p>Implement a Python pipeline that:</p>
-                    <ol class="list-decimal">
-                        <li>Generates a complex signal (sum of frequencies).</li>
-                        <li>Calculates the **Entropy** of the time-domain signal.</li>
-                        <li>Calculates the **Fourier Transform** to move to the frequency domain.</li>
-                        <li>Calculates the **Entropy** of the frequency distribution.</li>
-                        <li>Compares the two—where is the information more "concentrated"?</li>
-                    </ol>
+                    <div class="video-container">
+                        <div class="video-player">
+                            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+                            <div class="video-info">
+                                <div class="video-title" id="videoTitle">Select a video</div>
+                                <div class="video-meta" id="videoMeta"></div>
+                            </div>
+                        </div>
+                        <div class="video-list" id="videoList"></div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Exam -->
-            <section class="section" id="exam">
+            <!-- Practice -->
+            <section class="section" id="practice">
                 <div class="section-header">
-                    <div class="section-number">Section 6</div>
-                    <h2 class="section-title">Section 9 Final Exam</h2>
+                    <div class="section-number">Review 8</div>
+                    <h2 class="section-title">Final Practice</h2>
                 </div>
                 <div class="section-body">
                     <div class="quiz-controls">
@@ -189,14 +390,46 @@
         </main>
     </div>
 
+    <script src="../../lessons/questions-data.js"></script>
+    <script src="../../lessons/shared-scripts.js"></script>
     <script>
+        const VIDEO_GROUPS = [
+            {
+                title: "Analysis Foundations",
+                items: [
+                    { title: "Real Analysis Overview", channel: "The Bright Side of Mathematics", vid: "WjJ-kpgps1c" },
+                    { title: "Epsilon-Delta Definition", channel: "3Blue1Brown", vid: "kfF40MiS7zA" }
+                ]
+            },
+            {
+                title: "Topology & Metric Spaces",
+                items: [
+                    { title: "What is Topology?", channel: "Zach Star", vid: "BQvBq3K50G8" },
+                    { title: "Metric Spaces Intro", channel: "The Bright Side of Mathematics", vid: "5NpvlXbuEiI" }
+                ]
+            },
+            {
+                title: "Measure & Integration",
+                items: [
+                    { title: "Measure Theory Overview", channel: "The Bright Side of Mathematics", vid: "ll0YYZb3stE" },
+                    { title: "Lebesgue vs Riemann", channel: "Aleph 0", vid: "PGSH6dQxE-o" }
+                ]
+            },
+            {
+                title: "Information Theory",
+                items: [
+                    { title: "Information Theory Introduction", channel: "Khan Academy", vid: "8sPglCcVR9Q" },
+                    { title: "Entropy Explained", channel: "Reducible", vid: "YtebGVx-Fxw" }
+                ]
+            }
+        ];
+
         initLesson({
-            videos: [],
+            videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day78'] || [],
-            storageKey: 'day78_v1'
+            storageKey: 'day78_checkpoint_v2'
         });
     </script>
-    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

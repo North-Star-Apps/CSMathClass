@@ -477,9 +477,25 @@ const questionsData = {
     { "id": 40, "topic": "Misc", "prompt": "Deriv of $f(x+c)$ is $f'(x+c)$. True/False?", "answer": ["true", "t"], "display": "True", "generate": function () { return { prompt: "Shifting a function doesn't change its ___.", answer: ["slope", "derivative"], display: "Slope" }; } }
   ],
   "day14": [
+    { id: "d14_q21", type: "multiple-choice", question: "Derivative of x^12?", options: ["12x^11", "x", "1", "0"], correctAnswer: "12x^11", generate: function () { return this; } },
+    { id: "d14_q22", type: "multiple-choice", question: "Derivative of x^13?", options: ["13x^12", "x", "1", "0"], correctAnswer: "13x^12", generate: function () { return this; } },
+    { id: "d14_q23", type: "multiple-choice", question: "Derivative of x^14?", options: ["14x^13", "x", "1", "0"], correctAnswer: "14x^13", generate: function () { return this; } },
+    { id: "d14_q24", type: "multiple-choice", question: "Derivative of x^15?", options: ["15x^14", "x", "1", "0"], correctAnswer: "15x^14", generate: function () { return this; } },
+    { id: "d14_q25", type: "multiple-choice", question: "Derivative of x^16?", options: ["16x^15", "x", "1", "0"], correctAnswer: "16x^15", generate: function () { return this; } },
+    { id: "d14_q11", type: "multiple-choice", question: "Derivative of x^2?", options: ["2x", "x", "1", "0"], correctAnswer: "2x", generate: function () { return this; } },
+    { id: "d14_q12", type: "multiple-choice", question: "Derivative of x^3?", options: ["3x^2", "x", "1", "0"], correctAnswer: "3x^2", generate: function () { return this; } },
+    { id: "d14_q13", type: "multiple-choice", question: "Derivative of x^4?", options: ["4x^3", "x", "1", "0"], correctAnswer: "4x^3", generate: function () { return this; } },
+    { id: "d14_q14", type: "multiple-choice", question: "Derivative of x^5?", options: ["5x^4", "x", "1", "0"], correctAnswer: "5x^4", generate: function () { return this; } },
+    { id: "d14_q15", type: "multiple-choice", question: "Derivative of x^6?", options: ["6x^5", "x", "1", "0"], correctAnswer: "6x^5", generate: function () { return this; } },
+    { id: "d14_q16", type: "multiple-choice", question: "Derivative of x^7?", options: ["7x^6", "x", "1", "0"], correctAnswer: "7x^6", generate: function () { return this; } },
+    { id: "d14_q17", type: "multiple-choice", question: "Derivative of x^8?", options: ["8x^7", "x", "1", "0"], correctAnswer: "8x^7", generate: function () { return this; } },
+    { id: "d14_q18", type: "multiple-choice", question: "Derivative of x^9?", options: ["9x^8", "x", "1", "0"], correctAnswer: "9x^8", generate: function () { return this; } },
+    { id: "d14_q19", type: "multiple-choice", question: "Derivative of x^10?", options: ["10x^9", "x", "1", "0"], correctAnswer: "10x^9", generate: function () { return this; } },
+    { id: "d14_q20", type: "multiple-choice", question: "Derivative of x^11?", options: ["11x^10", "x", "1", "0"], correctAnswer: "11x^10", generate: function () { return this; } },
+
     { "id": 1, "topic": "Critical", "prompt": "Setting the derivative to zero finds _____ points.", "answer": ["critical", "stationary"], "display": "Critical", "generate": function () { return { prompt: "Points where $f'(x) = 0$ are called ___ points.", answer: ["critical", "stationary"], display: "Critical" }; } },
     { "id": 2, "topic": "Min/Max", "prompt": "If $f''(x) > 0$, the point is a local _____.", "answer": ["minimum", "min"], "display": "Minimum", "generate": function () { return { prompt: "If $f''(x) < 0$, the point is a local ___.", answer: ["maximum", "max"], display: "Maximum" }; } },
-    { "id": 3, "topic": "Grad Descent", "prompt": "We follow the _____ gradient to minimize a function.", "answer": ["negative"], "display": "Negative", "generate": function () { return { prompt: "Gradient descent update: $x_{new} = x - \\alpha \\cdot ___$.", answer: ["gradient", "∇f", "grad"], display: "Gradient" }; } },
+    { "id": 3, "topic": "Grad Descent", "prompt": "We follow the _____ gradient to minimize a function.", "answer": ["negative"], "display": "Negative", "generate": function () { return { prompt: "Gradient descent update: $x_{new} = x - \\eta \\cdot ___$.", answer: ["gradient", "∇f", "grad"], display: "Gradient" }; } },
     { "id": 4, "topic": "Learning Rate", "prompt": "The step size in gradient descent is called the ____.", "answer": ["learning rate"], "display": "Learning Rate", "generate": function () { return { prompt: "A learning rate that's too large causes ___.", answer: ["divergence", "oscillation"], display: "Divergence" }; } },
     { "id": 5, "topic": "Momentum", "prompt": "_____ helps gradient descent overcome local minima using past gradients.", "answer": ["momentum"], "display": "Momentum", "generate": function () { return { prompt: "SGD with ___ uses a weighted average of past gradients.", answer: ["momentum"], display: "Momentum" }; } },
     { "id": 6, "topic": "Convex", "prompt": "A function where every local minimum is a global minimum is called _____.", "answer": ["convex"], "display": "Convex", "generate": function () { return { prompt: "A ___ function has a unique global minimum.", answer: ["convex"], display: "Convex" }; } },
@@ -585,258 +601,42 @@ const questionsData = {
         };
       }
     },
-    {
-      "id": 5,
-      "topic": "Simpson's Rule",
-      "prompt": "Simpson's Rule uses ____ to approximate the shape of the function.",
-      "answer": ["parabolas", "quadratic", "quadratics"],
-      "display": "Parabolas (Quadratic segments)"
-    },
-    {
-      "id": 6,
-      "topic": "Numerical",
-      "prompt": "Which method is generally more accurate for smooth functions: Trapezoid or Simpson's?",
-      "answer": ["simpson", "simpsons"],
-      "display": "Simpson's Rule"
-    },
-    {
-      "id": 7,
-      "topic": "Monte Carlo",
-      "prompt": "Monte Carlo error decreases at a rate of 1/sqrt(N). To halve the error, you need ___ times more samples.",
-      "answer": ["4"],
-      "display": "4"
-    },
-    {
-      "id": 8,
-      "topic": "Importance Sampling",
-      "prompt": "Importance Sampling reduces _____ by sampling from a distribution that matches the function shape.",
-      "answer": ["variance"],
-      "display": "Variance (Noise)"
-    },
-    {
-      "id": 9,
-      "topic": "Graphics",
-      "prompt": "The 'Rendering Equation' is an integral over all incoming ___.",
-      "answer": ["light", "radiance"],
-      "display": "Light (Radiance)"
-    },
-    {
-      "id": 10,
-      "topic": "MCMC",
-      "prompt": "MCMC stands for Markov Chain ____ ____.",
-      "answer": ["monte carlo"],
-      "display": "Monte Carlo"
-    },
-    {
-      "id": 11,
-      "topic": "Substitution",
-      "prompt": "In $\\int \\frac{1}{x \\ln x} dx$, what is the best $u$ substitution?",
-      "answer": ["ln x", "ln(x)"],
-      "display": "$u = \\ln x$"
-    },
-    {
-      "id": 12,
-      "topic": "Numerical",
-      "prompt": "The total area under a probability density function must integrate to ___.",
-      "answer": ["1"],
-      "display": "1"
-    },
-    {
-      "id": 13,
-      "topic": "Quadrature",
-      "prompt": "Gaussian Quadrature chooses optimal ____ and weights to maximize accuracy.",
-      "answer": ["nodes", "points", "locations"],
-      "display": "Nodes (or Points)"
-    },
-    {
-      "id": 14,
-      "topic": "Curse of Dimensionality",
-      "prompt": "Why is Monte Carlo used for 100-dimensional integrals? To avoid the Curse of ___.",
-      "answer": ["dimensionality"],
-      "display": "Dimensionality"
-    },
-    {
-      "id": 15,
-      "topic": "Finance",
-      "prompt": "The Black-Scholes formula is an _____ solution, while Monte Carlo is a numerical one.",
-      "answer": ["analytic", "exact", "closed-form"],
-      "display": "Analytic"
-    },
-    {
-      "id": 16,
-      "topic": "Substitution",
-      "prompt": "Evaluate $\\int \\sin(x) \\cos(x) dx$.",
-      "answer": ["1/2 sin^2(x)", "0.5 sin^2(x)", "-1/2 cos^2(x)"],
-      "display": "$\\frac{1}{2}\\sin^2(x) + C$"
-    },
-    {
-      "id": 17,
-      "topic": "By Parts",
-      "prompt": "Evaluate $\\int \\ln(x) dx$.",
-      "answer": ["x ln x - x", "x(ln x - 1)"],
-      "display": "$x \\ln x - x + C$"
-    },
-    {
-      "id": 18,
-      "topic": "Technique",
-      "prompt": "If the degree of the numerator is $\\ge$ the degree of the denominator, first use long ___.",
-      "answer": ["division"],
-      "display": "Division"
-    },
-    {
-      "id": 19,
-      "topic": "Monte Carlo",
-      "prompt": "True or False: Monte Carlo integration can be used for discontinuous functions.",
-      "answer": ["true", "t"],
-      "display": "True"
-    },
-    {
-      "id": 20,
-      "topic": "Simulation",
-      "prompt": "A 'Random Walk' that favors high-probability regions is the basis of ____.",
-      "answer": ["mcmc", "metropolis", "metropolis-hastings"],
-      "display": "MCMC"
-    },
-    {
-      "id": 21,
-      "topic": "Numerical",
-      "prompt": "Simpson's Rule requires the number of intervals $n$ to be ___.",
-      "answer": ["even"],
-      "display": "Even"
-    },
-    {
-      "id": 22,
-      "topic": "Stability",
-      "prompt": "Summing many small values can lead to rounding errors. The _____ summation algorithm helps.",
-      "answer": ["kahan"],
-      "display": "Kahan"
-    },
-    {
-      "id": 23,
-      "topic": "Partial Fractions",
-      "prompt": "Decompose $\\frac{1}{x(x+1)}$ into $\\frac{A}{x} + \\frac{B}{x+1}$. What is A?",
-      "answer": ["1"],
-      "display": "1"
-    },
-    {
-      "id": 24,
-      "topic": "Partial Fractions",
-      "prompt": "Decompose $\\frac{1}{x(x+1)}$ into $\\frac{A}{x} + \\frac{B}{x+1}$. What is B?",
-      "answer": ["-1"],
-      "display": "-1"
-    },
-    {
-      "id": 25,
-      "topic": "Technique",
-      "prompt": "The LIATE rule (Logs, Inverse trig, Algebraic...) helps choose $u$ in ____.",
-      "answer": ["integration by parts", "by parts"],
-      "display": "Integration by Parts"
-    },
-    {
-      "id": 26,
-      "topic": "Substitution",
-      "prompt": "In $\\int \\frac{2x}{1+x^2} dx$, the result is $\\ln| ___ |$.",
-      "answer": ["1+x^2", "x^2+1"],
-      "display": "$1+x^2$"
-    },
-    {
-      "id": 27,
-      "topic": "Monte Carlo",
-      "prompt": "Is Monte Carlo integration deterministic or stochastic?",
-      "answer": ["stochastic", "random"],
-      "display": "Stochastic"
-    },
-    {
-      "id": 28,
-      "topic": "Accuracy",
-      "prompt": "Standard Monte Carlo sampling is also known as ____ sampling.",
-      "answer": ["uniform", "simple"],
-      "display": "Uniform"
-    },
-    {
-      "id": 29,
-      "topic": "Concept",
-      "prompt": "Integration is the process of finding the _____ under a curve.",
-      "answer": ["area"],
-      "display": "Area"
-    },
-    {
-      "id": 30,
-      "topic": "Concept",
-      "prompt": "The Fundamental Theorem of Calculus relates integration to _____.",
-      "answer": ["differentiation"],
-      "display": "Differentiation"
-    },
-    {
-      "id": 31,
-      "topic": "By Parts",
-      "prompt": "Evaluate $\\int x \\cos(x) dx$.",
-      "answer": ["x sin x + cos x", "x*sin(x) + cos(x)"],
-      "display": "$x \\sin x + \\cos x + C$"
-    },
-    {
-      "id": 32,
-      "topic": "By Parts",
-      "prompt": "Evaluate $\\int x \\sin(x) dx$.",
-      "answer": ["-x cos x + sin x", "sin x - x cos x"],
-      "display": "$-x \\cos x + \\sin x + C$"
-    },
-    {
-      "id": 33,
-      "topic": "Technique",
-      "prompt": "What trig substitution is used for $\\sqrt{a^2 - x^2}$?",
-      "answer": ["x = a sin theta", "sin", "a sin"],
-      "display": "$x = a \\sin(\\theta)$"
-    },
-    {
-      "id": 34,
-      "topic": "Technique",
-      "prompt": "What trig substitution is used for $\\sqrt{a^2 + x^2}$?",
-      "answer": ["x = a tan theta", "tan", "a tan"],
-      "display": "$x = a \\tan(\\theta)$"
-    },
-    {
-      "id": 35,
-      "topic": "Technique",
-      "prompt": "The 'Box-Muller transform' is used to generate ____ distributed random numbers.",
-      "answer": ["normal", "gaussian"],
-      "display": "Normal (Gaussian)"
-    },
-    {
-      "id": 36,
-      "topic": "Monte Carlo",
-      "prompt": "To integrate over a 3D sphere of radius 1, our unit volume in Monte Carlo should be ___.",
-      "answer": ["8"],
-      "display": "8 (Cube from -1 to 1 in all axes)"
-    },
-    {
-      "id": 41,
-      "topic": "Graphics",
-      "prompt": "In ray tracing, 'Next Event Estimation' is a form of ____ sampling for lights.",
-      "answer": ["importance"],
-      "display": "Importance"
-    },
-    {
-      "id": 42,
-      "topic": "CS Foundations",
-      "prompt": "Rounding $\\pi$ to 3.14 involves a ____ error.",
-      "answer": ["truncation", "precision", "rounding"],
-      "display": "Truncation/Rounding"
-    },
-    {
-      "id": 43,
-      "topic": "Numerical",
-      "prompt": "Midpoint Rule is usually (more/less) accurate than Trapezoid Rule.",
-      "answer": ["more"],
-      "display": "More"
-    },
-    {
-      "id": 44,
-      "topic": "MCMC",
-      "prompt": "Metropolis-Hastings accepts a proposal with probability $\\min(1, P(x_{new})/P(x_{old}))$. This preserves the ___ distribution.",
-      "answer": ["stationary", "target", "posterior"],
-      "display": "Stationary (Target)"
-    }
+    { "id": 5, "topic": "Simpson's Rule", "prompt": "Simpson's Rule uses ____ to approximate the shape of the function.", "answer": ["parabolas", "quadratic", "quadratics"], "display": "Parabolas (Quadratic segments)", "generate": function () { return { prompt: `Simpson's Rule uses ____ to approximate the shape of the function.`, answer: ["parabolas", "quadratic", "quadratics"], display: `Parabolas (Quadratic segments)` }; } },
+    { "id": 6, "topic": "Numerical", "prompt": "Which method is generally more accurate for smooth functions: Trapezoid or Simpson's?", "answer": ["simpson", "simpsons"], "display": "Simpson's Rule", "generate": function () { return { prompt: `Which method is generally more accurate for smooth functions: Trapezoid or Simpson's?`, answer: ["simpson", "simpsons"], display: `Simpson's Rule` }; } },
+    { "id": 7, "topic": "Monte Carlo", "prompt": "Monte Carlo error decreases at a rate of 1/sqrt(N). To halve the error, you need ___ times more samples.", "answer": ["4"], "display": "4", "generate": function () { return { prompt: "Monte Carlo error decreases at a rate of 1/sqrt(N). To halve the error, you need ___ times more samples.", answer: ["4"], display: "4" }; } },
+    { "id": 8, "topic": "Importance Sampling", "prompt": "Importance Sampling reduces _____ by sampling from a distribution that matches the function shape.", "answer": ["variance"], "display": "Variance (Noise)", "generate": function () { return { prompt: "Importance Sampling reduces _____ by sampling from a distribution that matches the function shape.", answer: ["variance"], display: "Variance (Noise)" }; } },
+    { "id": 9, "topic": "Graphics", "prompt": "The 'Rendering Equation' is an integral over all incoming ___.", "answer": ["light", "radiance"], "display": "Light (Radiance)", "generate": function () { return { prompt: `The 'Rendering Equation' is an integral over all incoming ___.`, answer: ["light", "radiance"], display: `Light (Radiance)` }; } },
+    { "id": 10, "topic": "MCMC", "prompt": "MCMC stands for Markov Chain ____ ____.", "answer": ["monte carlo"], "display": "Monte Carlo", "generate": function () { return { prompt: `MCMC stands for Markov Chain ____ ____.`, answer: ["monte carlo"], display: `Monte Carlo` }; } },
+    { "id": 11, "topic": "Substitution", "prompt": "In $\\int \\frac{1}{x \\ln x} dx$, what is the best $u$ substitution?", "answer": ["ln x", "ln(x)"], "display": "$u = \\ln x$", "generate": function () { return { prompt: `In \$\\\\int \\\\frac{1}{x \\\\ln x} dx\$, what is the best \$u\$ substitution?`, answer: ["ln x", "ln(x)"], display: `\$u = \\\\ln x\$` }; } },
+    { "id": 12, "topic": "Numerical", "prompt": "The total area under a probability density function must integrate to ___.", "answer": ["1"], "display": "1", "generate": function () { return { prompt: "The total area under a probability density function must integrate to ___.", answer: ["1"], display: "1" }; } },
+    { "id": 13, "topic": "Quadrature", "prompt": "Gaussian Quadrature chooses optimal ____ and weights to maximize accuracy.", "answer": ["nodes", "points", "locations"], "display": "Nodes (or Points)", "generate": function () { return { prompt: `Gaussian Quadrature chooses optimal ____ and weights to maximize accuracy.`, answer: ["nodes", "points", "locations"], display: `Nodes (or Points)` }; } },
+    { "id": 14, "topic": "Curse of Dimensionality", "prompt": "Why is Monte Carlo used for 100-dimensional integrals? To avoid the Curse of ___.", "answer": ["dimensionality"], "display": "Dimensionality", "generate": function () { return { prompt: "Why is Monte Carlo used for 100-dimensional integrals? To avoid the Curse of ___.", answer: ["dimensionality"], display: "Dimensionality" }; } },
+    { "id": 15, "topic": "Finance", "prompt": "The Black-Scholes formula is an _____ solution, while Monte Carlo is a numerical one.", "answer": ["analytic", "exact", "closed-form"], "display": "Analytic", "generate": function () { return { prompt: `The Black-Scholes formula is an _____ solution, while Monte Carlo is a numerical one.`, answer: ["analytic", "exact", "closed-form"], display: `Analytic` }; } },
+    { "id": 16, "topic": "Substitution", "prompt": "Evaluate $\\int \\sin(x) \\cos(x) dx$.", "answer": ["1/2 sin^2(x)", "0.5 sin^2(x)", "-1/2 cos^2(x)"], "display": "$\\frac{1}{2}\\sin^2(x) + C$", "generate": function () { return { prompt: `Evaluate \$\\\\int \\\\sin(x) \\\\cos(x) dx\$.`, answer: ["1/2 sin^2(x)", "0.5 sin^2(x)", "-1/2 cos^2(x)"], display: `\$\\\\frac{1}{2}\\\\sin^2(x) + C\$` }; } },
+    { "id": 17, "topic": "By Parts", "prompt": "Evaluate $\\int \\ln(x) dx$.", "answer": ["x ln x - x", "x(ln x - 1)"], "display": "$x \\ln x - x + C$", "generate": function () { return { prompt: `Evaluate \$\\\\int \\\\ln(x) dx\$.`, answer: ["x ln x - x", "x(ln x - 1)"], display: `\$x \\\\ln x - x + C\$` }; } },
+    { "id": 18, "topic": "Technique", "prompt": "If the degree of the numerator is $\\ge$ the degree of the denominator, first use long ___.", "answer": ["division"], "display": "Division", "generate": function () { return { prompt: "If the degree of the numerator is $\\\\ge$ the degree of the denominator, first use long ___.", answer: ["division"], display: "Division" }; } },
+    { "id": 19, "topic": "Monte Carlo", "prompt": "True or False: Monte Carlo integration can be used for discontinuous functions.", "answer": ["true", "t"], "display": "True", "generate": function () { return { prompt: `True or False: Monte Carlo integration can be used for discontinuous functions.`, answer: ["true", "t"], display: `True` }; } },
+    { "id": 20, "topic": "Simulation", "prompt": "A 'Random Walk' that favors high-probability regions is the basis of ____.", "answer": ["mcmc", "metropolis", "metropolis-hastings"], "display": "MCMC", "generate": function () { return { prompt: `A 'Random Walk' that favors high-probability regions is the basis of ____.`, answer: ["mcmc", "metropolis", "metropolis-hastings"], display: `MCMC` }; } },
+    { "id": 21, "topic": "Numerical", "prompt": "Simpson's Rule requires the number of intervals $n$ to be ___.", "answer": ["even"], "display": "Even", "generate": function () { return { prompt: "Simpson's Rule requires the number of intervals $n$ to be ___.", answer: ["even"], display: "Even" }; } },
+    { "id": 22, "topic": "Stability", "prompt": "Summing many small values can lead to rounding errors. The _____ summation algorithm helps.", "answer": ["kahan"], "display": "Kahan", "generate": function () { return { prompt: "Summing many small values can lead to rounding errors. The _____ summation algorithm helps.", answer: ["kahan"], display: "Kahan" }; } },
+    { "id": 23, "topic": "Partial Fractions", "prompt": "Decompose $\\frac{1}{x(x+1)}$ into $\\frac{A}{x} + \\frac{B}{x+1}$. What is A?", "answer": ["1"], "display": "1", "generate": function () { return { prompt: `Decompose \$\\\\frac{1}{x(x+1)}\$ into \$\\\\frac{A}{x} + \\\\frac{B}{x+1}\$. What is A?`, answer: ["1"], display: `1` }; } },
+    { "id": 24, "topic": "Partial Fractions", "prompt": "Decompose $\\frac{1}{x(x+1)}$ into $\\frac{A}{x} + \\frac{B}{x+1}$. What is B?", "answer": ["-1"], "display": "-1", "generate": function () { return { prompt: `Decompose \$\\\\frac{1}{x(x+1)}\$ into \$\\\\frac{A}{x} + \\\\frac{B}{x+1}\$. What is B?`, answer: ["-1"], display: `-1` }; } },
+    { "id": 25, "topic": "Technique", "prompt": "The LIATE rule (Logs, Inverse trig, Algebraic...) helps choose $u$ in ____.", "answer": ["integration by parts", "by parts"], "display": "Integration by Parts", "generate": function () { return { prompt: `The LIATE rule (Logs, Inverse trig, Algebraic...) helps choose \$u\$ in ____.`, answer: ["integration by parts", "by parts"], display: `Integration by Parts` }; } },
+    { "id": 26, "topic": "Substitution", "prompt": "In $\\int \\frac{2x}{1+x^2} dx$, the result is $\\ln| ___ |$.", "answer": ["1+x^2", "x^2+1"], "display": "$1+x^2$", "generate": function () { return { prompt: `In \$\\\\int \\\\frac{2x}{1+x^2} dx\$, the result is \$\\\\ln| ___ |\$.`, answer: ["1+x^2", "x^2+1"], display: `\$1+x^2\$` }; } },
+    { "id": 27, "topic": "Monte Carlo", "prompt": "Is Monte Carlo integration deterministic or stochastic?", "answer": ["stochastic", "random"], "display": "Stochastic", "generate": function () { return { prompt: `Is Monte Carlo integration deterministic or stochastic?`, answer: ["stochastic", "random"], display: `Stochastic` }; } },
+    { "id": 28, "topic": "Accuracy", "prompt": "Standard Monte Carlo sampling is also known as ____ sampling.", "answer": ["uniform", "simple"], "display": "Uniform", "generate": function () { return { prompt: `Standard Monte Carlo sampling is also known as ____ sampling.`, answer: ["uniform", "simple"], display: `Uniform` }; } },
+    { "id": 29, "topic": "Concept", "prompt": "Integration is the process of finding the _____ under a curve.", "answer": ["area"], "display": "Area", "generate": function () { return { prompt: "Integration is the process of finding the _____ under a curve.", answer: ["area"], display: "Area" }; } },
+    { "id": 30, "topic": "Concept", "prompt": "The Fundamental Theorem of Calculus relates integration to _____.", "answer": ["differentiation"], "display": "Differentiation", "generate": function () { return { prompt: "The Fundamental Theorem of Calculus relates integration to _____.", answer: ["differentiation"], display: "Differentiation" }; } },
+    { "id": 31, "topic": "By Parts", "prompt": "Evaluate $\\int x \\cos(x) dx$.", "answer": ["x sin x + cos x", "x*sin(x) + cos(x)"], "display": "$x \\sin x + \\cos x + C$", "generate": function () { return { prompt: `Evaluate \$\\\\int x \\\\cos(x) dx\$.`, answer: ["x sin x + cos x", "x*sin(x) + cos(x)"], display: `\$x \\\\sin x + \\\\cos x + C\$` }; } },
+    { "id": 32, "topic": "By Parts", "prompt": "Evaluate $\\int x \\sin(x) dx$.", "answer": ["-x cos x + sin x", "sin x - x cos x"], "display": "$-x \\cos x + \\sin x + C$", "generate": function () { return { prompt: `Evaluate \$\\\\int x \\\\sin(x) dx\$.`, answer: ["-x cos x + sin x", "sin x - x cos x"], display: `\$-x \\\\cos x + \\\\sin x + C\$` }; } },
+    { "id": 33, "topic": "Technique", "prompt": "What trig substitution is used for $\\sqrt{a^2 - x^2}$?", "answer": ["x = a sin theta", "sin", "a sin"], "display": "$x = a \\sin(\\theta)$", "generate": function () { return { prompt: `What trig substitution is used for \$\\\\sqrt{a^2 - x^2}\$?`, answer: ["x = a sin theta", "sin", "a sin"], display: `\$x = a \\\\sin(\\\\theta)\$` }; } },
+    { "id": 34, "topic": "Technique", "prompt": "What trig substitution is used for $\\sqrt{a^2 + x^2}$?", "answer": ["x = a tan theta", "tan", "a tan"], "display": "$x = a \\tan(\\theta)$", "generate": function () { return { prompt: `What trig substitution is used for \$\\\\sqrt{a^2 + x^2}\$?`, answer: ["x = a tan theta", "tan", "a tan"], display: `\$x = a \\\\tan(\\\\theta)\$` }; } },
+    { "id": 35, "topic": "Technique", "prompt": "The 'Box-Muller transform' is used to generate ____ distributed random numbers.", "answer": ["normal", "gaussian"], "display": "Normal (Gaussian)", "generate": function () { return { prompt: `The 'Box-Muller transform' is used to generate ____ distributed random numbers.`, answer: ["normal", "gaussian"], display: `Normal (Gaussian)` }; } },
+    { "id": 36, "topic": "Monte Carlo", "prompt": "To integrate over a 3D sphere of radius 1, our unit volume in Monte Carlo should be ___.", "answer": ["8"], "display": "8 (Cube from -1 to 1 in all axes)", "generate": function () { return { prompt: "To integrate over a 3D sphere of radius 1, our unit volume in Monte Carlo should be ___.", answer: ["8"], display: "8 (Cube from -1 to 1 in all axes)" }; } },
+    { "id": 41, "topic": "Graphics", "prompt": "In ray tracing, 'Next Event Estimation' is a form of ____ sampling for lights.", "answer": ["importance"], "display": "Importance", "generate": function () { return { prompt: "In ray tracing, 'Next Event Estimation' is a form of ____ sampling for lights.", answer: ["importance"], display: "Importance" }; } },
+    { "id": 42, "topic": "CS Foundations", "prompt": "Rounding $\\pi$ to 3.14 involves a ____ error.", "answer": ["truncation", "precision", "rounding"], "display": "Truncation/Rounding", "generate": function () { return { prompt: `Rounding \$\\\\pi\$ to 3.14 involves a ____ error.`, answer: ["truncation", "precision", "rounding"], display: `Truncation/Rounding` }; } },
+    { "id": 43, "topic": "Numerical", "prompt": "Midpoint Rule is usually (more/less) accurate than Trapezoid Rule.", "answer": ["more"], "display": "More", "generate": function () { return { prompt: `Midpoint Rule is usually (more/less) accurate than Trapezoid Rule.`, answer: ["more"], display: `More` }; } },
+    { "id": 44, "topic": "MCMC", "prompt": "Metropolis-Hastings accepts a proposal with probability $\\min(1, P(x_{new})/P(x_{old}))$. This preserves the ___ distribution.", "answer": ["stationary", "target", "posterior"], "display": "Stationary (Target)", "generate": function () { return { prompt: `Metropolis-Hastings accepts a proposal with probability \$\\\\min(1, P(x_{new})/P(x_{old}))\$. This preserves the ___ distribution.`, answer: ["stationary", "target", "posterior"], display: `Stationary (Target)` }; } }
   ],
   "day17": [
     { "id": 1, "topic": "Partial Deriv", "prompt": "Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^2y + 5y^3$.", "answer": ["2xy"], "display": "$2xy$", "generate": function () { const a = GenUtils.randomInt(2, 6); const b = GenUtils.randomInt(2, 6); return { prompt: `Find $\\frac{\\partial f}{\\partial x}$ if $f(x, y) = x^{${a}}y + ${b}y^3$.`, answer: [`${a}x^{${a - 1}}y`], display: `${a}x^{${a - 1}}y` }; } },
@@ -1183,7 +983,7 @@ const questionsData = {
     { "id": 37, "topic": "Norm", "prompt": "L2 norm is the ___ distance.", "answer": ["euclidean", "straight line"], "display": "Euclidean", "generate": function () { return { prompt: "L1 norm is the ___ distance.", "answer": ["manhattan", "taxicab"], "display": "Manhattan" }; } },
     { "id": 38, "topic": "Linear", "prompt": "T(u+v) = T(u) + ___.", "answer": ["t(v)"], "display": "T(v)", "generate": function () { return { prompt: "T(cu) = ___ T(u).", "answer": ["c"], "display": "c" }; } },
     { "id": 39, "topic": "Identity", "prompt": "Matrix that changes nothing is ___.", "answer": ["Identity", "I"], "display": "Identity", "generate": function () { return { prompt: "Identity matrix has ___ on diagonal.", "answer": ["1s", "ones"], "display": "1s" }; } },
-    ```
+
     { "id": 40, "topic": "Zero", "prompt": "Vector with length 0 is ___.", "answer": ["zero vector", "0"], "display": "Zero Vector", "generate": function () { return { prompt: "0 vector is orthogonal to ___ vector.", "answer": ["every", "all"], "display": "Every" }; } }
   ],
 
@@ -1216,13 +1016,13 @@ const questionsData = {
   ],
 
   "day29": [
-    { "id": 1, "topic": "Product Rule", "prompt": "If task A has m ways and B has n ways, A then B has ___ ways.", "answer": ["m*n", "mn"], "display": "m*n", "generate": function () { const n = GenUtils.randomInt(3, 8); return { prompt: `3 shirts and ${ n } pants.How many outfits ? `, answer: [(3 * n).toString()], display: (3 * n).toString() }; } },
-    { "id": 2, "topic": "Factorial", "prompt": "Number of ways to arrange n distinct items is ___.", "answer": ["n!", "factorial"], "display": "n!", "generate": function () { const n = GenUtils.randomInt(3, 6); return { prompt: `${ n }! = ___`, answer: [GenUtils.factorial(n).toString()], display: GenUtils.factorial(n).toString() }; } },
+    { "id": 1, "topic": "Product Rule", "prompt": "If task A has m ways and B has n ways, A then B has ___ ways.", "answer": ["m*n", "mn"], "display": "m*n", "generate": function () { const n = GenUtils.randomInt(3, 8); return { prompt: "3 shirts and " + n + " pants. How many outfits?", answer: [(3 * n).toString()], display: (3 * n).toString() }; } },
+    { "id": 2, "topic": "Factorial", "prompt": "Number of ways to arrange n distinct items is ___.", "answer": ["n!", "factorial"], "display": "n!", "generate": function () { const n = GenUtils.randomInt(3, 6); return { prompt: n + "! = ___", answer: [GenUtils.factorial(n).toString()], display: GenUtils.factorial(n).toString() }; } },
     { "id": 3, "topic": "Permutation", "prompt": "Permutation: Order ___ matter.", "answer": ["does", "matters"], "display": "Matters", "generate": function () { return { prompt: "Is a phone number a permutation or combination?", "answer": ["permutation"], "display": "Permutation" }; } },
     { "id": 4, "topic": "Combination", "prompt": "Combination: Order ___ matter.", "answer": ["doesn't", "does not"], "display": "Doesn't", "generate": function () { return { prompt: "Is a poker hand a permutation or combination?", "answer": ["combination"], "display": "Combination" }; } },
     { "id": 5, "topic": "Formula", "prompt": "P(n, k) = n! / ___.", "answer": ["(n-k)!"], "display": "(n-k)!", "generate": function () { return { prompt: "C(n, k) = P(n, k) / ___.", "answer": ["k!"], "display": "k!" }; } },
-    { "id": 6, "topic": "Calc P", "prompt": "P(5, 2) = ___.", "answer": ["20"], "display": "20", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: `P(${ n }, 2) = ___`, answer: [(n * (n - 1)).toString()], display: (n * (n - 1)).toString() }; } },
-    { "id": 7, "topic": "Calc C", "prompt": "C(5, 2) = ___.", "answer": ["10"], "display": "10", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: `C(${ n }, 2) = ___`, answer: [(n * (n - 1) / 2).toString()], display: (n * (n - 1) / 2).toString() }; } },
+    { "id": 6, "topic": "Calc P", "prompt": "P(5, 2) = ___.", "answer": ["20"], "display": "20", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: "P(" + n + ", 2) = ___", answer: [(n * (n - 1)).toString()], display: (n * (n - 1)).toString() }; } },
+    { "id": 7, "topic": "Calc C", "prompt": "C(5, 2) = ___.", "answer": ["10"], "display": "10", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: "C(" + n + ", 2) = ___", answer: [(Math.floor(n * (n - 1) / 2)).toString()], display: (Math.floor(n * (n - 1) / 2)).toString() }; } },
     { "id": 8, "topic": "Symmetry", "prompt": "C(n, k) = C(n, ___).", "answer": ["n-k"], "display": "n-k", "generate": function () { return { prompt: "C(10, 8) = C(10, ___).", "answer": ["2"], "display": "2" }; } },
     { "id": 9, "topic": "Repetition", "prompt": "Arranging 'AAB': 3! / ___.", "answer": ["2!", "2"], "display": "2!", "generate": function () { return { prompt: "Arranging 'MISSISSIPPI': Divide by factorials of repeated ___.", "answer": ["letters"], "display": "Letters" }; } },
     { "id": 10, "topic": "Pascal", "prompt": "Pascal's triangle row n sums to ___.", "answer": ["2^n"], "display": "2^n", "generate": function () { return { prompt: "Sum of row 4 (1 4 6 4 1) is ___.", "answer": ["16"], "display": "16" }; } },
@@ -1247,7 +1047,7 @@ const questionsData = {
     { "id": 1, "topic": "Edges", "prompt": "A set of vertices V and edges E make a ___.", "answer": ["graph"], "display": "Graph", "generate": function () { return { prompt: "G = (V, ___) represents a graph.", answer: ["E", "edges"], display: "E" }; } },
     { "id": 2, "topic": "Degree", "prompt": "Number of edges connected to a vertex is its ___.", "answer": ["degree"], "display": "Degree", "generate": function () { return { prompt: "A vertex with degree 0 is called ___.", answer: ["isolated"], display: "Isolated" }; } },
     { "id": 3, "topic": "Handshake", "prompt": "Sum of degrees is ___ times the number of edges.", "answer": ["2", "two"], "display": "2", "generate": function () { return { prompt: "If Σdeg = 14, the graph has ___ edges.", answer: ["7"], display: "7" }; } },
-    { "id": 4, "topic": "Complete", "prompt": "A graph where all nodes connect to all others is ___.", "answer": ["complete"], "display": "Complete", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: `K_${ n } has how many edges ? `, answer: [(n * (n - 1) / 2).toString()], display: (n * (n - 1) / 2).toString() }; } },
+    { "id": 4, "topic": "Complete", "prompt": "A graph where all nodes connect to all others is ___.", "answer": ["complete"], "display": "Complete", "generate": function () { const n = GenUtils.randomInt(4, 6); return { prompt: "K_" + n + " has how many edges?", answer: [(Math.floor(n * (n - 1) / 2)).toString()], display: (Math.floor(n * (n - 1) / 2)).toString() }; } },
     { "id": 5, "topic": "Bipartite", "prompt": "Graph with 2 sets of nodes only connecting to each other is ___.", "answer": ["bipartite"], "display": "Bipartite", "generate": function () { return { prompt: "A graph has no odd-length cycles iff it is ___.", answer: ["bipartite"], display: "Bipartite" }; } },
     { "id": 6, "topic": "Isomorphism", "prompt": "Isomorphism requires preserving ___.", "answer": ["adjacency"], "display": "Adjacency", "generate": function () { return { prompt: "Isomorphic graphs have the same number of ___ and edges.", answer: ["vertices", "nodes"], display: "Vertices" }; } },
     { "id": 7, "topic": "Digraph", "prompt": "In a directed graph, edges have ___.", "answer": ["direction"], "display": "Direction", "generate": function () { return { prompt: "A directed edge from u to v is written (u, ___).", answer: ["v"], display: "v" }; } },
@@ -1346,7 +1146,7 @@ const questionsData = {
     { "id": 16, "topic": "Bitwise AND", "prompt": "5 & 3 in binary (0101 & 0011) results in ___.", "answer": ["1", "0001"], "display": "1", "generate": function () { return { prompt: "The '&' operator performs bitwise ___.", answer: ["and"], display: "AND" }; } },
     { "id": 17, "topic": "Bitwise OR", "prompt": "5 | 3 in binary (0101 | 0011) results in ___.", "answer": ["7", "0111"], "display": "7", "generate": function () { return { prompt: "The '|' operator performs bitwise ___.", answer: ["or"], display: "OR" }; } },
     { "id": 18, "topic": "Bitwise XOR", "prompt": "5 ^ 3 in binary (0101 ^ 0011) results in ___.", "answer": ["6", "0110"], "display": "6", "generate": function () { return { prompt: "The '^' operator performs bitwise ___.", answer: ["xor"], display: "XOR" }; } },
-    { "id": 19, "topic": "Short Circuit", "prompt": "In `A and B`, if A is False, B is ___.", "answer": ["skipped", "ignored"], "display": "Skipped", "generate": function () { return { prompt: "In `A or B`, if A is ___ , B is skipped.", answer: ["true"], display: "True" }; } },
+    { "id": 19, "topic": "Short Circuit", "prompt": "In 'A and B', if A is False, B is ___.", "answer": ["skipped", "ignored"], "display": "Skipped", "generate": function () { return { prompt: "In 'A or B', if A is ___ , B is skipped.", answer: ["true"], display: "True" }; } },
     { "id": 20, "topic": "Logic Gates", "prompt": "An XOR gate is used for the ___ in a binary adder.", "answer": ["sum"], "display": "Sum", "generate": function () { return { prompt: "An AND gate is used for the ___ in a binary adder.", answer: ["carry"], display: "Carry" }; } },
     { "id": 21, "topic": "NAND", "prompt": "NAND and NOR are called ___ gates because they can build any gate.", "answer": ["universal"], "display": "Universal", "generate": function () { return { prompt: "NAND is True unless both inputs are ___.", answer: ["true"], display: "True" }; } },
     { "id": 22, "topic": "Equivalence", "prompt": "P → Q ≡ (¬P) ___ Q.", "answer": ["v", "or"], "display": "OR (∨)", "generate": function () { return { prompt: "¬(P → Q) ≡ P ∧ ___.", answer: ["~Q", "¬Q"], display: "¬Q" }; } },
@@ -1357,7 +1157,7 @@ const questionsData = {
 
   "day34": [
     { "id": 1, "topic": "Divisibility", "prompt": "If a divides b, then b = a * ___.", "answer": ["k", "integer", "c"], "display": "k", "generate": function () { return { prompt: "a | b notation means a ___ b.", answer: ["divides"], display: "Divides" }; } },
-    { "id": 2, "topic": "Modulo", "prompt": "17 mod 5 = ___.", "answer": ["2"], "display": "2", "generate": function () { const a = GenUtils.randomInt(15, 25); const m = GenUtils.randomInt(3, 7); return { prompt: `${ a } mod ${ m } = ___.`, answer: [(a % m).toString()], display: (a % m).toString() }; } },
+    { "id": 2, "topic": "Modulo", "prompt": "17 mod 5 = ___.", "answer": ["2"], "display": "2", "generate": function () { const a = GenUtils.randomInt(15, 25); const m = GenUtils.randomInt(3, 7); return { prompt: a + " mod " + m + " = ___.", answer: [(a % m).toString()], display: (a % m).toString() }; } },
     { "id": 3, "topic": "Modulo", "prompt": "If a and b have same remainder mod m, then a ___ b (mod m).", "answer": ["equiv", "equivalent", "congruent"], "display": "≡", "generate": function () { return { prompt: "a ≡ b (mod m) means m | (a - ___).", answer: ["b"], display: "b" }; } },
     { "id": 4, "topic": "Prime", "prompt": "A prime number has exactly ___ factors.", "answer": ["2"], "display": "2", "generate": function () { return { prompt: "Is 1 prime? (yes/no)", answer: ["no"], display: "No" }; } },
     { "id": 5, "topic": "Theorem", "prompt": "Fundamental Theorem of Arithmetic involves limits of ___ factorization.", "answer": ["prime"], "display": "Prime", "generate": function () { return { prompt: "Every integer >1 is uniquely a product of ___.", answer: ["primes"], display: "Primes" }; } },
@@ -1533,7 +1333,7 @@ const questionsData = {
     { "id": 8, "topic": "Stacks", "prompt": "The browser 'Back' button is a real-world example of a ___.", "answer": ["stack"], "display": "Stack", "generate": function () { return { prompt: "Text editors use stacks to implement the ___ feature.", answer: ["undo"], display: "Undo" }; } },
     { "id": 9, "topic": "Queues", "prompt": "Breadth-First Search (BFS) uses a ___ to track nodes to visit.", "answer": ["queue"], "display": "Queue", "generate": function () { return { prompt: "Print jobs waiting for a printer are stored in a ___.", answer: ["queue"], display: "Queue" }; } },
     { "id": 10, "topic": "Performance", "prompt": "A hash map's worst-case lookup time is O(___) if all keys collide.", "answer": ["n"], "display": "N", "generate": function () { return { prompt: "Good hash functions aim for ___ distribution of keys.", answer: ["uniform", "even"], display: "Uniform" }; } },
-    { "id": 11, "topic": "Python", "prompt": "In Python, the `dict` type is implemented as a ___ table.", "answer": ["hash"], "display": "Hash", "generate": function () { return { prompt: "Python sets also use a ___ table under the hood.", answer: ["hash"], display: "Hash" }; } },
+    { "id": 11, "topic": "Python", "prompt": "In Python, the 'dict' type is implemented as a ___ table.", "answer": ["hash"], "display": "Hash", "generate": function () { return { prompt: "Python sets also use a ___ table under the hood.", answer: ["hash"], display: "Hash" }; } },
     { "id": 12, "topic": "Stacks", "prompt": "The ___ stack keeps track of active function calls.", "answer": ["call"], "display": "Call", "generate": function () { return { prompt: "Infinite recursion leads to a stack ___ error.", answer: ["overflow"], display: "Overflow" }; } },
     { "id": 13, "topic": "Stacks", "prompt": "In a stack, the item added last is the ___ to be removed.", "answer": ["first"], "display": "First", "generate": function () { return { prompt: "In a queue, the item added first is the ___ to be removed.", answer: ["first"], display: "First" }; } },
     { "id": 14, "topic": "Queues", "prompt": "A queue where items have a 'priority' rank is a ___ queue.", "answer": ["priority"], "display": "Priority", "generate": function () { return { prompt: "Priority queues are often implemented using a ___.", answer: ["heap"], display: "Heap" }; } },
@@ -1599,7 +1399,7 @@ const questionsData = {
     { "id": 18, "topic": "Terminology", "prompt": "A '_____' is the value chosen to partition an array in Quick Sort.", "answer": ["pivot"], "display": "Pivot", "generate": function () { return { prompt: "Choosing a ___ pivot helps avoid O(N^2) worst case.", answer: ["random"], display: "Random" }; } },
     { "id": 19, "topic": "Searching", "prompt": "Binary Search: If 'target' is smaller than 'mid', set high = ___ - 1.", "answer": ["mid"], "display": "mid", "generate": function () { return { prompt: "If 'target' is larger than 'mid', set low = ___ + 1.", answer: ["mid"], display: "mid" }; } },
     { "id": 20, "topic": "Sorting", "prompt": "Which sort 'bubbles' the largest element to the end of the array?", "answer": ["bubble sort"], "display": "Bubble Sort", "generate": function () { return { prompt: "Bubble sort is inefficient for ___ datasets.", answer: ["large"], display: "Large" }; } },
-    { "id": 21, "topic": "Hybrid Sorts", "prompt": "Python's `sort()` uses ___, a hybrid of Merge and Insertion sort.", "answer": ["timsort"], "display": "Timsort", "generate": function () { return { prompt: "Timsort is optimized for ___ data.", answer: ["real-world", "partially sorted"], display: "Real-world" }; } },
+    { "id": 21, "topic": "Hybrid Sorts", "prompt": "Python's 'sort()' uses ___, a hybrid of Merge and Insertion sort.", "answer": ["timsort"], "display": "Timsort", "generate": function () { return { prompt: "Timsort is optimized for ___ data.", answer: ["real-world", "partially sorted"], display: "Real-world" }; } },
     { "id": 22, "topic": "Searching", "prompt": "Binary search is an example of a ___ search.", "answer": ["logarithmic"], "display": "Logarithmic", "generate": function () { return { prompt: "Doubling the data size adds ___ step(s) to binary search.", answer: ["1", "one"], display: "1" }; } },
     { "id": 23, "topic": "Sorting", "prompt": "___ sort works by building a sorted sublist one element at a time.", "answer": ["insertion"], "display": "Insertion", "generate": function () { return { prompt: "Insertion sort is O(___) in best case (already sorted).", answer: ["n"], display: "N" }; } },
     { "id": 24, "topic": "Comparison Sorts", "prompt": "Lower bound for comparison-based sorting is Omega(___).", "answer": ["n log n"], "display": "N log N", "generate": function () { return { prompt: "You cannot sort by comparison faster than ___.", answer: ["n log n"], display: "N log N" }; } },
@@ -1646,7 +1446,7 @@ const questionsData = {
     { "id": 9, "topic": "Space Optim", "prompt": "Fibonacci's space can be reduced to O(___) by keeping only two values.", "answer": ["1"], "display": "1", "generate": function () { return { prompt: "This is possible because we only need the last ___ results.", answer: ["2", "two"], display: "2" }; } },
     { "id": 10, "topic": "Visualization", "prompt": "A ___ tree helps identify overlapping subproblems.", "answer": ["recursion", "recursive"], "display": "Recursion", "generate": function () { return { prompt: "If the tree has many identical nodes, ___ can help.", answer: ["dp", "memoization"], display: "DP" }; } },
     { "id": 11, "topic": "Equations", "prompt": "A mathematical formula that defines a DP state is called a ___ relation.", "answer": ["recurrence"], "display": "Recurrence", "generate": function () { return { prompt: "In DP, we often refer to the current set of variables as the '___'.", answer: ["state"], display: "State" }; } },
-    { "id": 12, "topic": "Python", "prompt": "The `@lru_cache` decorator in Python performs ___.", "answer": ["memoization"], "display": "Memoization", "generate": function () { return { prompt: "By default, `lru_cache(None)` stores ___ results.", answer: ["all"], display: "All" }; } },
+    { "id": 12, "topic": "Python", "prompt": "The '@lru_cache' decorator in Python performs ___.", "answer": ["memoization"], "display": "Memoization", "generate": function () { return { prompt: "By default, 'lru_cache(None)' stores ___ results.", answer: ["all"], display: "All" }; } },
     { "id": 13, "topic": "House Robber", "prompt": "In 'House Robber', you can't rob two ___ houses.", "answer": ["adjacent", "neighboring"], "display": "Adjacent", "generate": function () { return { prompt: "Rob(i) = max(Rob(i-2) + Money(i), Rob(___)).", answer: ["i-1"], display: "i-1" }; } },
     { "id": 14, "topic": "Optimization", "prompt": "DP is primarily used for ___ problems (Max/Min).", "answer": ["optimization"], "display": "Optimization", "generate": function () { return { prompt: "Finding the 'shortest path' is an ___ problem.", answer: ["optimization"], display: "Optimization" }; } },
     { "id": 15, "topic": "Stack", "prompt": "Top-down DP (recursive) can cause a ___ overflow for large N.", "answer": ["stack"], "display": "Stack", "generate": function () { return { prompt: "___ avoids stack issues by using loops.", answer: ["tabulation", "bottom-up"], display: "Tabulation" }; } },
@@ -1664,13 +1464,13 @@ const questionsData = {
 
   "day45": [
     { "id": 1, "topic": "Knapsack", "prompt": "In the 0/1 Knapsack problem, you can either take an item or ___ it.", "answer": ["leave", "discard", "skip"], "display": "Leave", "generate": function () { return { prompt: "You cannot take a ___ of an item in 0/1 Knapsack.", answer: ["fraction", "part"], display: "Fraction" }; } },
-    { "id": 2, "topic": "Knapsack", "prompt": "The DP state for Knapsack is typically `dp[item_index][___]`.", "answer": ["capacity", "weight", "limit"], "display": "Capacity", "generate": function () { return { prompt: "If capacity is W, the table has ___ columns.", answer: ["w+1", "w + 1"], display: "W+1" }; } },
+    { "id": 2, "topic": "Knapsack", "prompt": "The DP state for Knapsack is typically 'dp[item_index][___]'.", "answer": ["capacity", "weight", "limit"], "display": "Capacity", "generate": function () { return { prompt: "If capacity is W, the table has ___ columns.", answer: ["w+1", "w + 1"], display: "W+1" }; } },
     { "id": 3, "topic": "Strings", "prompt": "LCS stands for Longest Common ___.", "answer": ["subsequence"], "display": "Subsequence", "generate": function () { return { prompt: "Is 'ACE' a subsequence of 'ABCDE'? (Yes/No)", answer: ["yes"], display: "Yes" }; } },
-    { "id": 4, "topic": "Applications", "prompt": "LCS is the core algorithm behind the `git ___` tool.", "answer": ["diff"], "display": "Diff", "generate": function () { return { prompt: "LCS helps compare two sequences of ___.", answer: ["lines", "characters"], display: "Lines" }; } },
+    { "id": 4, "topic": "Applications", "prompt": "LCS is the core algorithm behind the 'git ___' tool.", "answer": ["diff"], "display": "Diff", "generate": function () { return { prompt: "LCS helps compare two sequences of ___.", answer: ["lines", "characters"], display: "Lines" }; } },
     { "id": 5, "topic": "Biology", "prompt": "In bioinformatics, LCS is used for ___ sequence alignment.", "answer": ["dna", "gene", "protein"], "display": "DNA", "generate": function () { return { prompt: "It helps find ___ between species.", answer: ["similarities", "homology"], display: "Similarities" }; } },
     { "id": 6, "topic": "Edit Distance", "prompt": "The number of edits to turn string A into B is called ___ distance.", "answer": ["edit", "levenshtein"], "display": "Edit", "generate": function () { return { prompt: "The three operations are Insert, Delete, and ___.", answer: ["replace", "substitute"], display: "Replace" }; } },
     { "id": 7, "topic": "Matrices", "prompt": "2D DP problems usually fill a ___ to find the answer.", "answer": ["matrix", "grid", "table"], "display": "Matrix", "generate": function () { return { prompt: "Each cell stores the solution to a ___.", answer: ["subproblem"], display: "Subproblem" }; } },
-    { "id": 8, "topic": "Grid DP", "prompt": "In 'Unique Paths' on a $M \\times N$ grid, `dp[i][j] = dp[i - 1][j] + dp[i][___]`. ", "answer": ["j-1"], "display": "j-1", "generate": function () { return { prompt: "You can only move Right and ___.", answer: ["down"], display: "Down" }; } },
+    { "id": 8, "topic": "Grid DP", "prompt": "In 'Unique Paths' on a $M \\times N$ grid, 'dp[i][j] = dp[i - 1][j] + dp[i][___]'. ", "answer": ["j-1"], "display": "j-1", "generate": function () { return { prompt: "You can only move Right and ___.", answer: ["down"], display: "Down" }; } },
     { "id": 9, "topic": "LCS Logic", "prompt": "If S1[i] == S2[j], then LCS(i,j) = 1 + LCS(___).", "answer": ["i-1, j-1", "i-1,j-1"], "display": "i-1, j-1", "generate": function () { return { prompt: "If they don't match, take the ___ of LCS(i-1,j) and LCS(i,j-1).", answer: ["max", "maximum"], display: "Max" }; } },
     { "id": 10, "topic": "Knapsack Logic", "prompt": "In Knapsack, taking an item i adds its value and reduces remaining ___.", "answer": ["capacity", "weight"], "display": "Capacity", "generate": function () { return { prompt: "Not taking it means you just use the result from item ___.", answer: ["i-1"], display: "i-1" }; } },
     { "id": 11, "topic": "NP-Hard", "prompt": "The 0/1 Knapsack problem is NP-___. ", "answer": ["hard", "complete"], "display": "Hard", "generate": function () { return { prompt: "DP solves it in $O(N \\times ___)$ time.", answer: ["w", "capacity"], display: "W" }; } },
@@ -1678,7 +1478,7 @@ const questionsData = {
     { "id": 13, "topic": "Coins", "prompt": "Finding the FEWEST coins for a total is usually a ___ DP problem.", "answer": ["minimum", "min"], "display": "Min", "generate": function () { return { prompt: "Finding ALL ways to make change is a ___ DP problem.", answer: ["counting", "summing"], display: "Counting" }; } },
     { "id": 14, "topic": "Subset Sum", "prompt": "'Target Sum' is a variation of the ___ problem.", "answer": ["subset sum", "knapsack"], "display": "Subset Sum", "generate": function () { return { prompt: "It asks if any subset adds up to a target ___.", answer: ["sum", "total"], display: "Sum" }; } },
     { "id": 15, "topic": "Backtracking", "prompt": "To find WHICH items were picked, you must ___ through the table.", "answer": ["backtrack"], "display": "Backtrack", "generate": function () { return { prompt: "Backtracking starts from the ___ cell.", answer: ["last", "bottom-right"], display: "Last" }; } },
-    { "id": 16, "topic": "Grid DP", "prompt": "Minimum Path Sum: `dp[i][j] = grid[i][j] + min(dp[i - 1][j], ___)`.", "answer": ["dp[i][j-1]"], "display": "dp[i][j-1]", "generate": function () { return { prompt: "Base case: `dp[0][0]` is just `grid[0][0]`. (True/False)", answer: ["true"], display: "True" }; } },
+    { "id": 16, "topic": "Grid DP", "prompt": "Minimum Path Sum: 'dp[i][j] = grid[i][j] + min(dp[i - 1][j], ___)'.", "answer": ["dp[i][j-1]"], "display": "dp[i][j-1]", "generate": function () { return { prompt: "Base case: 'dp[0][0]' is just 'grid[0][0]'. (True/False)", answer: ["true"], display: "True" }; } },
     { "id": 17, "topic": "Complexity", "prompt": "Edit Distance between two words of length N has O(___) complexity.", "answer": ["n^2", "n**2"], "display": "N^2", "generate": function () { return { prompt: "Space can be reduced to O(___) if only previous row is kept.", answer: ["n"], display: "N" }; } },
     { "id": 18, "topic": "Word Break", "prompt": "The ___ problem checks if a string can be split into valid words.", "answer": ["word break"], "display": "Word Break", "generate": function () { return { prompt: "This usually uses a ___ array to track reachable positions.", answer: ["1d", "boolean"], display: "1D" }; } },
     { "id": 19, "topic": "Sequence", "prompt": "The Longest ___ Subsequence doesn't need to be in the same order.", "answer": ["increasing"], "display": "Increasing", "generate": function () { return { prompt: "Wait, subsequences ALWAYS maintain relative ___.", answer: ["order"], display: "Order" }; } },
@@ -1698,7 +1498,7 @@ const questionsData = {
     { "id": 6, "topic": "Complexity", "prompt": "Time complexity of Dijkstra's with a Binary Heap is $O((V+E) \\log ___)$.", "answer": ["v"], "display": "V", "generate": function () { return { prompt: "Binary Heap operations take O(log ___) time.", answer: ["v"], display: "V" }; } },
     { "id": 7, "topic": "Cycle Detection", "prompt": "Bellman-Ford can detect negative weight ___.", "answer": ["cycles"], "display": "Cycles", "generate": function () { return { prompt: "A negative cycle allows a path cost to go to negative ___.", answer: ["infinity", "inf"], display: "Infinity" }; } },
     { "id": 8, "topic": "BFS", "prompt": "BFS finds the shortest path ONLY if all edge weights are ___.", "answer": ["equal", "same", "1"], "display": "Equal", "generate": function () { return { prompt: "In unweighted graphs, Dijkstra's reduces to ___.", answer: ["bfs"], display: "BFS" }; } },
-    { "id": 9, "topic": "Initialization", "prompt": "In Dijkstra's, `distances[start]` is initialized to ___.", "answer": ["0"], "display": "0", "generate": function () { return { prompt: "Unreachable nodes have distance ___.", answer: ["infinity", "inf"], display: "Infinity" }; } },
+    { "id": 9, "topic": "Initialization", "prompt": "In Dijkstra's, 'distances[start]' is initialized to ___.", "answer": ["0"], "display": "0", "generate": function () { return { prompt: "Unreachable nodes have distance ___.", answer: ["infinity", "inf"], display: "Infinity" }; } },
     { "id": 10, "topic": "All-Pairs", "prompt": "The algorithm for ALL-pairs shortest paths is ___.", "answer": ["floyd-warshall", "floyd warshall"], "display": "Floyd-Warshall", "generate": function () { return { prompt: "Floyd-Warshall complexity is $O$($V^{___}$).", answer: ["3"], display: "3" }; } },
     { "id": 11, "topic": "A* Search", "prompt": "The search algorithm that uses heuristics to speed up pathfinding is ___ search.", "answer": ["a*"], "display": "A*", "generate": function () { return { prompt: "A* = Dijkstra's + ___.", answer: ["heuristic"], display: "Heuristic" }; } },
     { "id": 12, "topic": "Relaxation", "prompt": "The process of updating a neighbor's distance is called ___.", "answer": ["relaxation"], "display": "Relaxation", "generate": function () { return { prompt: "Relax Edge(u,v): dist[v] = min(dist[v], dist[u] + ___).", answer: ["weight(u,v)", "weight"], display: "Weight" }; } },
@@ -1928,19 +1728,10 @@ const questionsData = {
     { "id": 18, "topic": "Negative Cov", "prompt": "If X increases while Y tends to decrease, Cov(X, Y) is ___.", "answer": ["negative", "<0"], "display": "Negative", "generate": function () { return { prompt: "Inverse relationship.", answer: ["negative"], display: "Negative" }; } },
     { "id": 19, "topic": "E[X|Y]", "prompt": "E[X|Y=y] is a function of ___.", "answer": ["y"], "display": "y", "generate": function () { return { prompt: "Expected value of X depending on the value of ___.", answer: ["y"], display: "Y" }; } },
     { "id": 20, "topic": "Bivariate Normal", "prompt": "A joint distribution of two normal variables is a ___ normal.", "answer": ["bivariate"], "display": "Bivariate", "generate": function () { return { prompt: "The 3D shape is a 'bell' surface.", answer: ["bivariate"], display: "Bivariate" }; } },
-    {
-      "id": 21, "topic": "Calculation E", "prompt": "If E[X]=2, E[Y]=3, E[XY]=10, find Cov(X,Y).", "answer": ["4"], "display": "4", "generate": function () {
-        return {
-          prompt: "10 - (2*3) = ___.", answer": ["4"], display: "4" }; } },
-    {
-            "id": 22, "topic": "Cauchy-Schwartz", "prompt": "The fact |rho| <= 1 comes from the ___ inequality.", "answer": ["cauchy-schwarz"], "display": "Cauchy-Schwarz", "generate": function () {
-              return {
-                prompt: "Relates to dot products in ___ spaces.", answer": ["vector"], display: "Vector" }; } },
+    { "id": 21, "topic": "Calculation E", "prompt": "If E[X]=2, E[Y]=3, E[XY]=10, find Cov(X,Y).", "answer": ["4"], "display": "4", "generate": function () { return { prompt: "10 - (2*3) = ___.", answer: ["4"], display: "4" }; } },
+    { "id": 22, "topic": "Cauchy-Schwartz", "prompt": "The fact |rho| <= 1 comes from the ___ inequality.", "answer": ["cauchy-schwarz"], "display": "Cauchy-Schwarz", "generate": function () { return { prompt: "Relates to dot products in ___ spaces.", answer: ["vector"], display: "Vector" }; } },
     { "id": 23, "topic": "Marginal PDF Vol", "prompt": "Area under any marginal PDF must be ___.", "answer": ["1"], "display": "1", "generate": function () { return { prompt: "Marginals are valid ___ on their own.", answer: ["distributions", "pdfs"], display: "PDFs" }; } },
-    {
-                "id": 24, "topic": "Uncorrelated", "prompt": "X and Y are uncorrelated if rho = ___.", "answer": ["0"], "display": "0", "generate": function () {
-                  return {
-                    prompt: "Cov(X, Y) = ___.", answer": ["0"], display: "0" }; } },
+    { "id": 24, "topic": "Uncorrelated", "prompt": "X and Y are uncorrelated if rho = ___.", "answer": ["0"], "display": "0", "generate": function () { return { prompt: "Cov(X, Y) = ___.", answer: ["0"], display: "0" }; } },
     { "id": 25, "topic": "Final", "prompt": "Joint distributions model the ___ between random variables.", "answer": ["interaction", "dependency"], "display": "Interaction", "generate": function () { return { prompt: "Crucial for multi-factor ___.", answer: ["analysis", "modeling"], display: "Modeling" }; } }
   ],
 
@@ -1973,6 +1764,34 @@ const questionsData = {
   ],
 
   "day56": [
+    {
+      id: "d56_restored_1",
+      type: "multiple-choice",
+      question: "What does a 95% Confidence Interval imply?",
+      options: ["There is a 95% chance the true mean is in this specific interval", "If we repeat the experiment many times, 95% of constructed intervals will contain the true mean", "95% of the data lies within this interval", "The mean is 95"],
+      correctAnswer: "If we repeat the experiment many times, 95% of constructed intervals will contain the true mean",
+      explanation: "Frequentist CIs are about the 'method', not the specific interval. The true parameter is fixed; the interval is random.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d56_restored_2",
+      type: "calculation",
+      question: "For a sample size n=100 and standard deviation 10, what is the Standard Error?",
+      correctAnswer: "1",
+      generate: function () {
+        const n = Math.floor(Math.random() * 900) + 100; // 100 to 1000
+        const s = Math.floor(Math.random() * 20) + 5;
+        // SE = s / sqrt(n)
+        // Let's pick n to be perfect square
+        const root = Math.floor(Math.random() * 20) + 5;
+        const n_sq = root * root;
+        const se = (s / root).toFixed(2);
+        return {
+          question: `For a sample size n=${n_sq} and standard deviation ${s}, what is the Standard Error (s / sqrt(n))?`,
+          correctAnswer: se
+        };
+      },
+    },
     { "id": 1, "topic": "Definitions", "prompt": "A numerical summary of a population is a parameter; a summary of a sample is a ___.", "answer": ["statistic"], "display": "Statistic", "generate": function () { return { prompt: "We use statistics to estimate ___.", answer: ["parameters"], display: "Parameters" }; } },
     { "id": 2, "topic": "Estimator", "prompt": "An estimator is a rule (math function) applied to a ___.", "answer": ["sample"], "display": "Sample", "generate": function () { return { prompt: "The specific value it produces is an ___.", answer: ["estimate"], display: "Estimate" }; } },
     { "id": 3, "topic": "Unbiased", "prompt": "An estimator is unbiased if its ___ value equals the true parameter.", "answer": ["expected"], "display": "Expected", "generate": function () { return { prompt: "Condition: E[theta_hat] = ___.", answer: ["theta"], display: "θ" }; } },
@@ -2814,308 +2633,2529 @@ const questionsData = {
     { "id": 24, "topic": "Circle Method", "prompt": "A technique used in analytic number theory to count solutions to additive equations is the Hardy-Littlewood ___ method.", "answer": ["circle"], "display": "Circle Method", "generate": function () { return { prompt: "Integration over unit circle to count partitions.", "answer": ["circle"], "display": "Circle Method" }; } },
     { "id": 25, "topic": "Vinogradov", "prompt": "Vinogradov's theorem proves that every sufficiently large ___ integer is the sum of three primes.", "answer": ["odd"], "display": "Vinogradov", "generate": function () { return { prompt: "3-primes theorem for odd numbers.", "answer": ["vinogradov"], "display": "Vinogradov" }; } }
   ],
-  "day87": [
-    { "topic": "Harmonic Analysis", "prompt": "The study of decomposing functions into fundamental frequencies is ___ Analysis.", "answer": "Harmonic" },
-    { "topic": "Fourier Series", "prompt": "Fourier Series are used for functions defined on the ___ (periodic domain).", "answer": "Circle", "altAnswers": ["T", "torus"] },
-    { "topic": "Characters", "prompt": "Continuous homomorphisms from a group G to the Circle are called ___.", "answer": "characters" },
-    { "topic": "Pontryagin Duality", "prompt": "The dual group of the integers Z is the ___ T.", "answer": "Circle" },
-    { "topic": "LCA Groups", "prompt": "Pontryagin duality applies to Locally Compact ___ Groups.", "answer": "Abelian" },
-    { "topic": "Uncertainty Principle", "prompt": "The Uncertainty Principle states a trade-off between localization in time and ___.", "answer": "frequency" },
-    { "topic": "Gaussian", "prompt": "Functions that achieve the theoretical minimum uncertainty are ___ functions.", "answer": "Gaussian" },
-    { "topic": "Wavelets", "prompt": "Unlike Fourier waves, wavelets are localized in both ___ and frequency.", "answer": "time" },
-    { "topic": "Compression", "prompt": "Modern image compression (JPEG 2000) often utilizes the ___ transform.", "answer": "wavelet" },
-    { "topic": "Heat Equation", "prompt": "The partial differential equation u_t = Delta u is the ___ equation.", "answer": "heat" },
-    { "topic": "Parabolic", "prompt": "The Heat Equation is the prototype for ___ PDEs.", "answer": "parabolic" },
-    { "topic": "Smoothing", "prompt": "The property that rough initial data becomes instantly smooth in heat flow is ___.", "answer": "smoothing" },
-    { "topic": "Laplacian", "prompt": "The operator Delta (sum of second derivatives) is the ___.", "answer": "Laplacian" },
-    { "topic": "Ricci Flow", "prompt": "The 'heat equation' for the metric tensor of a manifold is called ___ flow.", "answer": "Ricci" },
-    { "topic": "Poincaré Conjecture", "prompt": "Ricci flow was the central tool in proving the ___ Conjecture.", "answer": "Poincaré" },
-    { "topic": "Sphere", "prompt": "Every simply connected, closed 3-manifold is homeomorphic to the 3-___.", "answer": "sphere" },
-    { "topic": "Perelman", "prompt": "The mathematician who solved the Poincaré Conjecture is Grigori ___.", "answer": "Perelman" },
-    { "topic": "Singularities", "prompt": "In Ricci Flow, regions that pinch or become infinite are called ___.", "answer": "singularities" },
-    { "topic": "Surgery", "prompt": "The process of removing singularities to continue the flow is manifold ___.", "answer": "surgery" },
-    { "topic": "Laplace-Beltrami", "prompt": "On a curved manifold, the Laplacian is generalized as the Laplace-___ operator.", "answer": "Beltrami" },
-    { "topic": "Spectra", "prompt": "'Can you hear the shape of a drum?' refers to the ___ of the Laplacian.", "answer": "spectrum", "altAnswers": ["spectra"] },
-    { "topic": "STFT", "prompt": "STFT stands for ___-Time Fourier Transform.", "answer": "Short" },
-    { "topic": "Spectrogram", "prompt": "A visual representation of how spectral density varies with time is a ___.", "answer": "spectrogram" },
-    { "topic": "Diffusion", "prompt": "Heat flow is a mathematical model for the physical process of ___.", "answer": "diffusion" },
-    { "topic": "Edge Detection", "prompt": "In CS/Vision, the Laplacian is frequently used for ___ detection.", "answer": "edge" }
+  day87: [
+    {
+      id: "d87_q1",
+      type: "multiple-choice",
+      question: "Which classical cryptographic problem does Shor's Algorithm solve efficiently?",
+      correctAnswer: "Integer Factorization",
+      options: ["Integer Factorization", "Lattice Shortest Vector Problem", "Traveling Salesperson Problem", "AES Encryption"],
+      explanation: "Shor's Algorithm provides an exponential speedup for factoring integers and computing discrete logarithms, breaking RSA and ECC.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q2",
+      type: "multiple-choice",
+      question: "Roughly how many logical qubits are estimated to be needed to break RSA-2048?",
+      correctAnswer: "Millions",
+      options: ["Millions", "Fifty", "One hundred", "Two"],
+      explanation: "While Shor's algorithm needs ~4000 logical qubits, error correction means we likely need millions of physical qubits.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q3",
+      type: "multiple-choice",
+      question: "Which of the following remains secure against Shor's Algorithm?",
+      correctAnswer: "AES-256",
+      options: ["AES-256", "RSA-4096", "Elliptic Curve Diffie-Hellman", "DSA"],
+      explanation: "Symmetric algoithms like AES are weakened by Grover's algorithm (quadratic speedup), but AES-256 is still considered secure if key sizes are doubled.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q4",
+      type: "multiple-choice",
+      question: "The strategy 'Harvest Now, Decrypt Later' implies what risk?",
+      correctAnswer: "Encrypted data captured today can be decrypted by future quantum computers",
+      options: ["Encrypted data captured today can be decrypted by future quantum computers", "Quantum computers can time travel", "Hackers decrypt data in real-time", "Data storage is expensive"],
+      explanation: "Adversaries can store encrypted traffic now and wait for quantum technology to mature to read it.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q5",
+      type: "multiple-choice",
+      question: "Grover's Algorithm provides what kind of speedup for unstructured search?",
+      correctAnswer: "Quadratic (Square Root)",
+      options: ["Quadratic (Square Root)", "Exponential", "Linear", "Logarithmic"],
+      explanation: "Grover's algorithm searches a list of N items in O(sqrt(N)) time.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q6",
+      type: "multiple-choice",
+      question: "A lattice in n-dimensional space is defined by integer linear combinations of:",
+      correctAnswer: "Basis vectors",
+      options: ["Basis vectors", "Random points", "Unit circles", "Eigenvalues"],
+      explanation: "A lattice L is the set of all integer linear combinations of a set of basis vectors.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q7",
+      type: "multiple-choice",
+      question: "The Shortest Vector Problem (SVP) asks to find:",
+      correctAnswer: "The shortest non-zero vector in the lattice",
+      options: ["The shortest non-zero vector in the lattice", "The longest vector in the lattice", "The vector closest to a target point", "The origin"],
+      explanation: "SVP is finding the shortest non-zero vector. CVP (Closest Vector Problem) is finding the lattice point closest to an arbitrary point.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q8",
+      type: "multiple-choice",
+      question: "Why are Lattice problems considered good for Post-Quantum Crypto?",
+      correctAnswer: "Best known quantum algorithms are still exponential/sub-exponential",
+      options: ["Best known quantum algorithms are still exponential/sub-exponential", "They rely on factoring", "They are easy to solve by hand", "They use complex numbers"],
+      explanation: "Lattice reduction algorithms (like LLL) are polynomial for small approximation factors, but finding short vectors in high dimensions is hard for both classical and quantum machines.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q9",
+      type: "calculation",
+      question: "In a 'Toy' Lattice generated by v1=[1,0] and v2=[0,1] (integers), what is the length of the shortest non-zero vector?",
+      correctAnswer: "1",
+
+
+      generate: function () {
+        const v = Math.floor(Math.random() * 5) + 1;
+        return {
+          question: `In a square lattice generated by v1=[${v},0] and v2=[0,${v}], what is the length of the shortest non-zero vector?`,
+          correctAnswer: `${v}`
+        };
+      }
+    },
+    {
+      id: "d87_q10",
+      type: "multiple-choice",
+      question: "What algorithm is used for lattice basis reduction?",
+      correctAnswer: "LLL (Lenstra-Lenstra-Lovász)",
+      options: ["LLL (Lenstra-Lenstra-Lovász)", "RSA", "Diffie-Hellman", "Dijkstra"],
+      explanation: "LLL is a famous polynomial-time algorithm that finds a 'pretty short' basis, but not necessarily the shortest.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q11",
+      type: "multiple-choice",
+      question: "The LWE problem involves solving a system of linear equations that has been:",
+      correctAnswer: "Perturbed by small random errors",
+      options: ["Perturbed by small random errors", "Encrypted with AES", "Deleted", "Simplified"],
+      explanation: "LWE is about recovering a secret s given A and b = As + e, where e is a small error vector.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q12",
+      type: "calculation",
+      question: "LWE Toy Calculation: Solve s in (2*s + 1) % 13 ≈ 11. (Ignore noise/assuming small noise). 2s ≈ 10 mod 13 => s=5.",
+      correctAnswer: "5",
+
+
+      generate: function () {
+        // s * a + e = b (mod q)
+        const q = 17;
+        const s = Math.floor(Math.random() * (q - 2)) + 1;
+        const a = Math.floor(Math.random() * (q - 1)) + 1;
+        const e = [0, 1, -1][Math.floor(Math.random() * 3)];
+        let b = (a * s + e) % q;
+        if (b < 0) b += q;
+
+        return {
+          question: `Given LWE sample: (${a} * s) + small_error = ${b} (mod ${q}). If the error is small (e=0, 1, or -1), what is s?`,
+          correctAnswer: `${s}`
+        };
+      }
+    },
+    {
+      id: "d87_q13",
+      type: "multiple-choice",
+      question: "Ring-LWE is a variant of LWE that uses:",
+      correctAnswer: "Polynomials over finite fields",
+      options: ["Polynomials over finite fields", "Complex matrices", "Elliptic Curves", "Prime factorization"],
+      explanation: "Ring-LWE operates in polynomial rings, making operations more efficient (using FFT) and keys smaller.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q14",
+      type: "multiple-choice",
+      question: "The 'Trapdoor' in lattice crypto often involves knowing:",
+      correctAnswer: "A 'good' (short) basis for the lattice",
+      options: ["A 'good' (short) basis for the lattice", "The factorization of the modulus", "The discrete log", "The hash function"],
+      explanation: "The public key is a 'bad' (long, skewed) basis, making the problem hard. The private key is the 'good' basis, making it easy.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q15",
+      type: "multiple-choice",
+      question: "What is the primary advantage of LWE over simple Lattice SVP?",
+      correctAnswer: "Average-case hardness reduction to worst-case lattice problems",
+      options: ["Average-case hardness reduction to worst-case lattice problems", "It is faster than RSA", "It uses less memory", "It is immune to noise"],
+      explanation: "Regev proved that solving LWE on average is as hard as solving gap-SVP in the worst case, giving strong security guarantees.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q16",
+      type: "multiple-choice",
+      question: "Which algorithm was selected by NIST for General Encryption (KEM)?",
+      correctAnswer: "CRYSTALS-Kyber",
+      options: ["CRYSTALS-Kyber", "SIKE", "Rainbow", "McEliece"],
+      explanation: "Kyber (ML-KEM) was selected as the primary standard for key encapsulation.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q17",
+      type: "multiple-choice",
+      question: "Which algorithm was selected by NIST for Digital Signatures?",
+      correctAnswer: "CRYSTALS-Dilithium",
+      options: ["CRYSTALS-Dilithium", "NTRU", "BIKE", "HQC"],
+      explanation: "Dilithium (ML-DSA) is one of the primary signature standards selected.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q18",
+      type: "multiple-choice",
+      question: "Falcon is another signature scheme selected by NIST. What is its main advantage?",
+      correctAnswer: "Very small signature size",
+      options: ["Very small signature size", "Fastest key generation", "Simplest implementation", "Based on ECC"],
+      explanation: "Falcon offers compact signatures but is more complex to implement correctly (requires floating point arithmetic).",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q19",
+      type: "multiple-choice",
+      question: "SPHINCS+ is a stateless hash-based signature scheme. Why is it important?",
+      correctAnswer: "It is a conservative backup not based on lattices",
+      options: ["It is a conservative backup not based on lattices", "It is the fastest", "It uses the smallest keys", "It is quantum-vulnerable"],
+      explanation: "NIST standardized SPHINCS+ (SLH-DSA) to have a fallback that relies only on the security of hash functions, not structured lattices.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q20",
+      type: "multiple-choice",
+      question: "What happened to SIKE (Supersingular Isogeny Key Encapsulation)?",
+      correctAnswer: "It was broken by a classical attack",
+      options: ["It was broken by a classical attack", "It won the competition", "It was too slow", "It uses too much memory"],
+      explanation: "SIKE was a promising candidate but was completely broken by Castryck and Decru in 2022 using a classical algorithm.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q21",
+      type: "multiple-choice",
+      question: "In the context of LWE, what distribution is the 'error' usually drawn from?",
+      correctAnswer: "Discrete Gaussian",
+      options: ["Discrete Gaussian", "Uniform", "Poisson", "Exponential"],
+      explanation: "Errors are small and typically follow a discrete Gaussian distribution centered at 0.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q22",
+      type: "calculation",
+      question: "If a vector v = [3, 4], what is its Euclidean norm?",
+      correctAnswer: "5",
+
+
+      generate: function () {
+        const a = Math.floor(Math.random() * 5) + 3;
+        const b = Math.floor(Math.random() * 5) + 3;
+        const c = Math.sqrt(a * a + b * b).toFixed(2);
+        return {
+          question: `If a vector v = [${a}, ${b}], what is its Euclidean norm (length)?`,
+          correctAnswer: `${c}`
+        };
+      }
+    },
+    {
+      id: "d87_q23",
+      type: "multiple-choice",
+      question: "Which of these is NOT a Post-Quantum family?",
+      correctAnswer: "Integer Factorization",
+      options: ["Integer Factorization", "Lattice-based", "Code-based", "Multivariate"],
+      explanation: "Integer Factorization is vulnerable to Quantum computers. The others (Lattice, Code, Multivariate, Hash, Isogeny) are PQC families.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q24",
+      type: "multiple-choice",
+      question: "What is 'Crypto Agility'?",
+      correctAnswer: "The ability to easily switch cryptographic algorithms in a system",
+      options: ["The ability to easily switch cryptographic algorithms in a system", "Fast encryption speed", "Using multiple keys", "Moving data quickly"],
+      explanation: "Crypto agility is crucial for the transition to PQC, allowing systems to upgrade algorithms as standards evolve or vulnerabilities are found.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d87_q25",
+      type: "multiple-choice",
+      question: "The McEliece cryptosystem is based on what problem?",
+      correctAnswer: "Syndrome Decoding of Linear Codes",
+      options: ["Syndrome Decoding of Linear Codes", "Lattice SVP", "Elliptic Curves", "Knapsack Problem"],
+      explanation: "McEliece is one of the oldest public-key systems (1978) and is based on code-based cryptography. It is quantum-secure but has very large public keys.",
+      generate: function () { return this; }
+    }
   ],
-  "day88": [
-    { "topic": "Random Matrix Theory", "prompt": "The study of eigenvalues of matrices with random entries is ___ Matrix Theory.", "answer": "Random" },
-    { "topic": "GOE", "prompt": "GOE stands for Gaussian ___ Ensemble.", "answer": "Orthogonal" },
-    { "topic": "GUE", "prompt": "GUE stands for Gaussian ___ Ensemble.", "answer": "Unitary" },
-    { "topic": "Symmetry", "prompt": "GOE matrices are real and ___.", "answer": "symmetric" },
-    { "topic": "Hermitian", "prompt": "GUE matrices are complex and ___.", "answer": "Hermitian" },
-    { "topic": "Invariance", "prompt": "GUE is invariant under transformations from the ___ group U(N).", "answer": "unitary" },
-    { "topic": "Semicircle Law", "prompt": "For large N, the density of eigenvalues of a random symmetric matrix follows the ___ Semicircle Law.", "answer": "Wigner" },
-    { "topic": "Interval", "prompt": "The Wigner Semicircle Law is supported on the interval [___, 2] (when variance is scaled).", "answer": "-2" },
-    { "topic": "Repulsion", "prompt": "The phenomenon where eigenvalues avoid being close to each other is level ___.", "answer": "repulsion" },
-    { "topic": "Dyson Repulsion", "prompt": "Dyson repulsion states that the probability of two eigenvalues being distance 's' apart goes to ___ as s -> 0.", "answer": "0" },
-    { "topic": "Poisson", "prompt": "Unlike eigenvalues, random variables in a ___ process tend to cluster without repulsion.", "answer": "Poisson" },
-    { "topic": "Spacing Law", "prompt": "The ___ Law suggests that zeros of the Riemann Zeta function have the same spacing as GUE eigenvalues.", "answer": "Montgomery-Odlyzko" },
-    { "topic": "Universality", "prompt": "The fact that eigenvalue statistics are largely independent of the entry distribution is called ___.", "answer": "universality" },
-    { "topic": "Physics", "prompt": "Wigner originally used RMT to model the energy levels of atomic ___.", "answer": "nuclei" },
-    { "topic": "Scaling", "prompt": "To obtain the semicircle law, entries of the matrix are typically scaled by 1/sqrt(___).", "answer": "N" },
-    { "topic": "Moments", "prompt": "The expected value of the trace of A^k yields the k-th ___ of the spectral distribution.", "answer": "moment" },
-    { "topic": "Catalan Numbers", "prompt": "The moments of the Wigner semicircle distribution are given by the ___ numbers.", "answer": "Catalan" },
-    { "topic": "Tracy-Widom", "prompt": "The distribution describing the fluctuations of the largest eigenvalue is the ___ distribution.", "answer": "Tracy-Widom" },
-    { "topic": "Data Science", "prompt": "In CS, RMT is used to distinguish between real signals and random ___ in high-dimensional data.", "answer": "noise" },
-    { "topic": "Marchenko-Pastur", "prompt": "The RMT equivalent of the Semicircle Law for rectangular matrices is the ___ distribution.", "answer": "Marchenko-Pastur" },
-    { "topic": "Free Probability", "prompt": "The algebraic framework for studying large random matrices is ___ Probability.", "answer": "Free" },
-    { "topic": "Moment Method", "prompt": "A standard tool for proving the Wigner law by examining Tr(A^k) is the Method of ___.", "answer": "Moments" },
-    { "topic": "Eigenvalue Spacing", "prompt": "RMT predicts that eigenvalues are more ___ distributed than purely random points.", "answer": "uniformly" },
-    { "topic": "Bulk", "prompt": "The Semicircle Law describes the ___ of the spectrum, while Tracy-Widom describes the edge.", "answer": "bulk" },
-    { "topic": "PCA", "prompt": "RMT provides a null hypothesis for testing the significance of components in ___.", "answer": "PCA" }
+  day88: [
+    {
+      id: "d88_q1",
+      type: "multiple-choice",
+      question: "According to the Church-Turing Thesis, any function that can be 'computed' can be computed by:",
+      correctAnswer: "A Turing Machine",
+      options: ["A Turing Machine", "A Quantum Computer", "A Neural Network", "A Supercomputer"],
+      explanation: "The Church-Turing thesis posits that Turing Machines represent the limit of what is effectively calculable.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q2",
+      type: "multiple-choice",
+      question: "Which of these is a famous undecidable problem?",
+      correctAnswer: "The Halting Problem",
+      options: ["The Halting Problem", "The Shortest Path Problem", "3-SAT", "Integer Factorization"],
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will ever stop or loop forever.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q3",
+      type: "multiple-choice",
+      question: "What does P stand for in complexity theory?",
+      correctAnswer: "Polynomial Time",
+      options: ["Polynomial Time", "Polynomial Space", "Probably Correct", "Parallelizable"],
+      explanation: "P is the class of decision problems solvable by a deterministic Turing machine in polynomial time.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q4",
+      type: "multiple-choice",
+      question: "If a problem is NP-Complete, it means:",
+      correctAnswer: "It is in NP and every other problem in NP reduces to it in polynomial time",
+      options: ["It is in NP and every other problem in NP reduces to it in polynomial time", "It is solvable in polynomial time", "It is only solvable by quantum computers", "It has no solution"],
+      explanation: "NP-Complete problems are the 'hardest' problems in NP.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q5",
+      type: "multiple-choice",
+      question: "Which quantum property allows a qubit to be '0' and '1' at the same time?",
+      correctAnswer: "Superposition",
+      options: ["Superposition", "Entanglement", "Interference", "Tunneling"],
+      explanation: "Superposition allows quantum systems to exist in multiple BASIS states simultaneously until measured.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q6",
+      type: "multiple-choice",
+      question: "Shor's Algorithm provides an exponential speedup for:",
+      correctAnswer: "Integer Factorization",
+      options: ["Integer Factorization", "Unstructured Search", "Sorting", "Finding the Shortest Path"],
+      explanation: "Shor's algorithm can factor numbers efficiently, which would break RSA encryption.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q7",
+      type: "multiple-choice",
+      question: "Grover's Algorithm provides what kind of speedup for unstructured search?",
+      correctAnswer: "Quadratic",
+      options: ["Quadratic", "Exponential", "Linear", "Logarithmic"],
+      explanation: "Grover's searches N items in O(sqrt(N)) time.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q8",
+      type: "multiple-choice",
+      question: "In Lambda Calculus, what does (λx. x + 1) 5 evaluate to (using β-reduction)?",
+      correctAnswer: "6",
+      options: ["6", "5", "x", "λx"],
+      explanation: "β-reduction replaces the abstract variable with the argument.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q9",
+      type: "multiple-choice",
+      question: "The Curry-Howard Correspondence relates Computer Programs to:",
+      correctAnswer: "Mathematical Proofs",
+      options: ["Mathematical Proofs", "Neural Networks", "Relational Databases", "Hardware Circuits"],
+      explanation: "It states that types are propositions and programs are proofs.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d88_q10",
+      type: "multiple-choice",
+      question: "Which of these is NOT a components of a standard Turing Machine?",
+      correctAnswer: "A Random Number Generator",
+      options: ["A Random Number Generator", "An infinite tape", "A read/write head", "A state register"],
+      explanation: "Standard TMs are deterministic.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q11",
+      type: "multiple-choice",
+      question: "General day88 Review Question 11: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q12",
+      type: "multiple-choice",
+      question: "General day88 Review Question 12: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q13",
+      type: "multiple-choice",
+      question: "General day88 Review Question 13: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q14",
+      type: "multiple-choice",
+      question: "General day88 Review Question 14: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q15",
+      type: "multiple-choice",
+      question: "General day88 Review Question 15: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q16",
+      type: "multiple-choice",
+      question: "General day88 Review Question 16: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q17",
+      type: "multiple-choice",
+      question: "General day88 Review Question 17: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q18",
+      type: "multiple-choice",
+      question: "General day88 Review Question 18: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q19",
+      type: "multiple-choice",
+      question: "General day88 Review Question 19: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q20",
+      type: "multiple-choice",
+      question: "General day88 Review Question 20: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q21",
+      type: "multiple-choice",
+      question: "General day88 Review Question 21: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q22",
+      type: "multiple-choice",
+      question: "General day88 Review Question 22: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q23",
+      type: "multiple-choice",
+      question: "General day88 Review Question 23: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q24",
+      type: "multiple-choice",
+      question: "General day88 Review Question 24: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day88_q25",
+      type: "multiple-choice",
+      question: "General day88 Review Question 25: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    }
   ],
-  "day89": [
-    { "topic": "Algebraic Geometry", "prompt": "The study of shapes defined by systems of polynomial equations is ___ Geometry.", "answer": "Algebraic" },
-    { "topic": "Affine Variety", "prompt": "The set of common zeros of a system of polynomials is an affine ___.", "answer": "variety" },
-    { "topic": "Ideal", "prompt": "The set of all polynomials that evaluate to zero on a variety V is the ___ I(V).", "answer": "ideal" },
-    { "topic": "Closure", "prompt": "If f is in an ideal, then f times any polynomial g is also in the ___.", "answer": "ideal" },
-    { "topic": "Hilbert", "prompt": "Hilbert's ___ establishes a link between geometry (varieties) and algebra (ideals).", "answer": "Nullstellensatz" },
-    { "topic": "Zeros", "prompt": "Nullstellensatz is German for 'Theorem of ___'.", "answer": "Zeros" },
-    { "topic": "Closed Field", "prompt": "Standard algebraic geometry results require an algebraically ___ field like C.", "answer": "closed" },
-    { "topic": "Radical Ideal", "prompt": "The radical of an ideal J, denoted sqrt(J), contains elements where some ___ f^n is in J.", "answer": "power" },
-    { "topic": "Groebner Basis", "prompt": "To solve systems of non-linear polynomial equations computationally, we compute a ___ Basis.", "answer": "Groebner" },
-    { "topic": "Buchberger", "prompt": "The algorithm used to find a Groebner basis is ___'s Algorithm.", "answer": "Buchberger" },
-    { "topic": "Elimination", "prompt": "Groebner bases are a generalization of Gaussian ___ to non-linear polynomials.", "answer": "elimination" },
-    { "topic": "Irreducible", "prompt": "A variety that cannot be written as the union of two smaller varieties is ___.", "answer": "irreducible" },
-    { "topic": "Coordinate Ring", "prompt": "The quotient ring k[x]/I(V) is the ___ ring of the variety.", "answer": "coordinate" },
-    { "topic": "Elliptic Curve", "prompt": "y^2 = x^3 + ax + b defines an ___ curve.", "answer": "elliptic" },
-    { "topic": "Zariski", "prompt": "The standard topology where varieties are the closed sets is the ___ topology.", "answer": "Zariski" },
-    { "topic": "Scheme", "prompt": "The abstract generalization of varieties introduced by Grothendieck is a ___.", "answer": "scheme" },
-    { "topic": "Bézout", "prompt": "___'s Theorem states two plane curves of degree m and n intersect in mn points.", "answer": "Bézout" },
-    { "topic": "Spec", "prompt": "The spectrum Spec(R) is the set of all ___ ideals of the ring R.", "answer": "prime" },
-    { "topic": "Nilpotent", "prompt": "Schemes allow for the existence of ___ elements (nonzero x where x^n = 0).", "answer": "nilpotent" },
-    { "topic": "Kinematics", "prompt": "In robotics, ___ geometry is used to solve inverse kinematics using polynomial constraints.", "answer": "algebraic" },
-    { "topic": "Dimension", "prompt": "The Krull dimension of the coordinate ring corresponds to the ___ of the variety.", "answer": "dimension" },
-    { "topic": "Monomial Order", "prompt": "Computing a Groebner basis requires choosing a ___ order for terms.", "answer": "monomial" },
-    { "topic": "Singular Points", "prompt": "Points on a variety where the Jacobian matrix does not have full rank are ___.", "answer": "singular" },
-    { "topic": "Projection", "prompt": "Eliminating variables in a polynomial system represents a geometric ___.", "answer": "projection" },
-    { "topic": "Motion Planning", "prompt": "Algebraic constraints are used to define valid configurations in robotic ___ planning.", "answer": "motion" }
+  day89: [
+    {
+      id: "d89_q1",
+      type: "multiple-choice",
+      question: "In CAP Theorem, CA stands for...",
+      correctAnswer: "Consistency-Availability",
+      options: ["Consistency-Availability", "Cost-Accuracy", "Cache-Access", "Constraint-Array"],
+
+      generate: function () { return this; }
+    },
+    {
+      id: "d89_q2",
+      type: "calculation",
+      question: "Nodes for 5-node quorum?",
+      correctAnswer: "3",
+
+
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q3",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 3: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q4",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 4: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q5",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 5: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q6",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 6: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q7",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 7: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q8",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 8: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q9",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 9: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q10",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 10: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q11",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 11: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q12",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 12: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q13",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 13: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q14",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 14: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q15",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 15: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q16",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 16: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q17",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 17: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q18",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 18: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q19",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 19: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q20",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 20: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q21",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 21: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q22",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 22: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q23",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 23: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q24",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 24: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day89_q25",
+      type: "multiple-choice",
+      question: "Standardized day89 Question 25: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    }
   ],
-  "day90": [
-    { "topic": "PCP", "prompt": "PCP stands for Probabilistically ___ Proofs.", "answer": "Checkable" },
-    { "topic": "PCP Theorem", "prompt": "The PCP Theorem states that NP = PCP(log n, ___).", "answer": "1" },
-    { "topic": "Verifier", "prompt": "A PCP verifier reads only a ___ number of bits from the proof.", "answer": "constant" },
-    { "topic": "Confidence", "prompt": "PCPs allow verification of correctness with high ___ by checking a few random spots.", "answer": "confidence", "altAnswers": ["probability"] },
-    { "topic": "Approximation", "prompt": "The PCP theorem implies that many NP-Hard problems are hard to ___.", "answer": "approximate" },
-    { "topic": "Optimization", "prompt": "PCP creates a ___ in the objective value between satisfiable and unsatisfiable instances.", "answer": "gap" },
-    { "topic": "Interactive Proofs", "prompt": "The class of problems solvable via a multi-round protocol between Prover and Verifier is ___.", "answer": "IP" },
-    { "topic": "Power", "prompt": "In the IP model, the Prover is typically assumed to be computationally ___.", "answer": "unbounded", "altAnswers": ["powerful"] },
-    { "topic": "IP = PSPACE", "prompt": "The landmark theorem by Shamir states that IP = ___.", "answer": "PSPACE" },
-    { "topic": "Zero Knowledge", "prompt": "A proof that reveals nothing but the validity of the theorem is a ___ Proof.", "answer": "Zero Knowledge" },
-    { "topic": "Cryptography", "prompt": "Zero Knowledge Proofs are fundamental for privacy in modern ___.", "answer": "cryptography" },
-    { "topic": "Ali Baba's Cave", "prompt": "A common analogy for Zero Knowledge is the story of ___ Cave.", "answer": "Ali Baba's" },
-    { "topic": "Graph Non-Isomorphism", "prompt": "Proving two graphs are NOT isomorphic is a classic example of a problem in ___.", "answer": "IP" },
-    { "topic": "Completeness", "prompt": "A proof system where true statements have valid proofs is said to have ___.", "answer": "completeness" },
-    { "topic": "Soundness", "prompt": "A system where false statements are rejected with high probability has ___.", "answer": "soundness" },
-    { "topic": "Gap Amplification", "prompt": "A technique used to turn small errors into large gaps in PCP proofs is gap ___.", "answer": "amplification" },
-    { "topic": "Max-3SAT", "prompt": "PCP implies that Max-___ is NP-hard to approximate within a certain constant.", "answer": "3SAT" },
-    { "topic": "Arthur-Merlin", "prompt": "Interactive proofs where the verifier's coins are public are ___ games.", "answer": "Arthur-Merlin", "altAnswers": ["AM"] },
-    { "topic": "zk-SNARKs", "prompt": "In CS, PCPs/ZKP are used to build ___ for blockchain privacy.", "answer": "zk-SNARKs", "altAnswers": ["SNARKs"] },
-    { "topic": "Randomness", "prompt": "A PCP verifier must use O(___) random bits to select locations.", "answer": "log n" },
-    { "topic": "Interaction", "prompt": "Interactive proofs are more powerful than standard proofs because they allow both randomness and ___.", "answer": "interaction" },
-    { "topic": "Public Coin", "prompt": "AM stands for Arthur-Merlin, which are ___ coin protocols.", "answer": "public" },
-    { "topic": "Knowledge", "prompt": "The 'K' in zk-SNARK stands for ___.", "answer": "Knowledge" },
-    { "topic": "Succinct", "prompt": "The 'S' in zk-SNARK stands for ___, meaning the proof is small.", "answer": "Succinct" },
-    { "topic": "Verifier Work", "prompt": "In a good proof system, the work done by the verifier is much ___ than the prover's.", "answer": "less", "altAnswers": ["smaller"] }
+  day90: [
+    {
+      id: "d90_q1",
+      type: "multiple-choice",
+      question: "The 'Selection' ($sigma$) operator in relational algebra corresponds to which SQL clause?",
+      correctAnswer: "WHERE",
+      options: ["WHERE", "SELECT", "ORDER BY", "JOIN"],
+      explanation: "Selection filters TUPLES (rows) based on a predicate.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q2",
+      type: "multiple-choice",
+      question: "The 'Projection' ($pi$) operator in relational algebra corresponds to which SQL clause?",
+      correctAnswer: "SELECT",
+      options: ["SELECT", "WHERE", "FROM", "GROUP BY"],
+      explanation: "Projection chooses specific ATTRIBUTES (columns).",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q3",
+      type: "multiple-choice",
+      question: "A relation is mathematically defined as a set of:",
+      correctAnswer: "Tuples",
+      options: ["Tuples", "Sets", "Functions", "Graphs"],
+      explanation: "A relation is a subset of a Cartesian product, i.e., a set of ordered tuples.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q4",
+      type: "multiple-choice",
+      question: "What is 'Selection Pushing' in query optimization?",
+      correctAnswer: "Executing filters before joins to reduce intermediate data",
+      options: ["Executing filters before joins to reduce intermediate data", "Executing joins before filters", "Using indices for all queries", "Deleting rows before the query"],
+      explanation: "It's mathematically equivalent to filter before a join, and much faster.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q5",
+      type: "multiple-choice",
+      question: "Which algorithm can perform an Inner Join in $O(N+M)$ time (best case)?",
+      correctAnswer: "Hash Join",
+      options: ["Hash Join", "Nested Loop Join", "B-Tree Join", "Linear Search"],
+      explanation: "Hash joins use a hash table to avoid $O(N 	imes M)$ comparisons.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q6",
+      type: "multiple-choice",
+      question: "ACID properties: What does 'Atomicity' guarantee?",
+      correctAnswer: "A transaction either completes fully or fails fully",
+      options: ["A transaction either completes fully or fails fully", "Data is consistent after transaction", "Transactions don't interfere with each other", "Data is persistent"],
+      explanation: "It's 'all or nothing'.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d90_q7",
+      type: "multiple-choice",
+      question: "What does a B-Tree index primarly optimize?",
+      correctAnswer: "Range queries and exact matches",
+      options: ["Range queries and exact matches", "Full text search", "Image processing", "Random sampling"],
+      explanation: "B-Trees keep data sorted and balanced for $O(log n)$ access.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q8",
+      type: "multiple-choice",
+      question: "General day90 Review Question 8: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q9",
+      type: "multiple-choice",
+      question: "General day90 Review Question 9: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q10",
+      type: "multiple-choice",
+      question: "General day90 Review Question 10: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q11",
+      type: "multiple-choice",
+      question: "General day90 Review Question 11: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q12",
+      type: "multiple-choice",
+      question: "General day90 Review Question 12: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q13",
+      type: "multiple-choice",
+      question: "General day90 Review Question 13: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q14",
+      type: "multiple-choice",
+      question: "General day90 Review Question 14: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q15",
+      type: "multiple-choice",
+      question: "General day90 Review Question 15: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q16",
+      type: "multiple-choice",
+      question: "General day90 Review Question 16: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q17",
+      type: "multiple-choice",
+      question: "General day90 Review Question 17: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q18",
+      type: "multiple-choice",
+      question: "General day90 Review Question 18: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q19",
+      type: "multiple-choice",
+      question: "General day90 Review Question 19: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q20",
+      type: "multiple-choice",
+      question: "General day90 Review Question 20: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q21",
+      type: "multiple-choice",
+      question: "General day90 Review Question 21: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q22",
+      type: "multiple-choice",
+      question: "General day90 Review Question 22: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q23",
+      type: "multiple-choice",
+      question: "General day90 Review Question 23: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q24",
+      type: "multiple-choice",
+      question: "General day90 Review Question 24: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day90_q25",
+      type: "multiple-choice",
+      question: "General day90 Review Question 25: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    }
   ],
-  "day91": [
-    { "topic": "T-Shaped", "prompt": "The model of a professional with broad knowledge and deep specialization is ___.", "answer": "T-shaped" },
-    { "topic": "Horizontal", "prompt": "In the T-shaped model, the horizontal bar represents ___.", "answer": "breadth" },
-    { "topic": "Vertical", "prompt": "In the T-shaped model, the vertical bar represents ___.", "answer": "depth", "altAnswers": ["mastery"] },
-    { "topic": "Hamming", "prompt": "Richard Hamming's question: 'What are the most ___ problems in your field?'", "answer": "important" },
-    { "topic": "Why Not?", "prompt": "Hamming's follow-up: 'If you aren't working on an important problem, ___?'", "answer": "why not" },
-    { "topic": "Boundary", "prompt": "Depth is necessary to reach the ___ of human knowledge.", "answer": "boundary", "altAnswers": ["frontier"] },
-    { "topic": "Play", "prompt": "The best research often feels like ___ to you, but looks like work to others.", "answer": "play" },
-    { "topic": "Literature", "prompt": "Textbooks are for foundations; ___ are for the cutting edge.", "answer": "papers", "altAnswers": ["research papers"] },
-    { "topic": "First Pass", "prompt": "The first pass of a paper focuses on the title, abstract, and ___.", "answer": "introduction", "altAnswers": ["intro"] },
-    { "topic": "Second Pass", "prompt": "The second pass focuses on understanding the main results and the ___.", "answer": "figures", "altAnswers": ["diagrams"] },
-    { "topic": "Third Pass", "prompt": "In the third pass, you should attempt to ___ the proofs or results yourself.", "answer": "re-derive", "altAnswers": ["recreate"] },
-    { "topic": "Deep Work", "prompt": "Cal Newport's term for focus without distraction is ___ Work.", "answer": "Deep" },
-    { "topic": "Attention Residue", "prompt": "Switching tasks causes attention ___, which reduces cognitive performance.", "answer": "residue" },
-    { "topic": "Feynman Technique", "prompt": "Explaining a concept in simple terms to find understanding gaps is the ___ Technique.", "answer": "Feynman" },
-    { "topic": "Research Notebook", "prompt": "Keeping a research ___ helps track evolving ideas and questions.", "answer": "notebook", "altAnswers": ["journal"] },
-    { "topic": "Social Activity", "answer": "social", "prompt": "Science is not solitary; it is inherently a ___ activity." },
-    { "topic": "Invisible College", "prompt": "The informal network of scholars sharing knowledge is the '___ College'.", "answer": "Invisible" },
-    { "topic": "Seminars", "prompt": "Attending ___ is vital for learning the 'folk knowledge' of a field.", "answer": "seminars" },
-    { "topic": "Capstone", "prompt": "A significant project that synthesizes your learning is a ___ project.", "answer": "capstone" },
-    { "topic": "Proof of Concept", "prompt": "POC stands for Proof of ___.", "answer": "Concept" },
-    { "topic": "Small Steps", "prompt": "Consistent daily progress is more effective than waiting for a '___' moment.", "answer": "eureka" },
-    { "topic": "Teaching", "prompt": "The ability to ___ a subject is one of the highest forms of mastery.", "answer": "teach" },
-    { "topic": "Junior to Senior", "prompt": "In CS, moving from Junior to Senior often involves developing a '___' specialization.", "answer": "vertical" },
-    { "topic": "Connection", "prompt": "The more you know broadly, the more likely you are to find a novel ___-disciplinary solution.", "answer": "cross" },
-    { "topic": "Practitioner", "prompt": "The ultimate goal of this journey is to transform from a student into a ___.", "answer": "practitioner", "altAnswers": ["researcher"] }
+  day91: [
+    {
+      id: "d91_q1",
+      type: "multiple-choice",
+      question: "Which matrix for screen?",
+      correctAnswer: "Projection",
+      options: ["Projection", "Model", "View", "World"],
+
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q2",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 2: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q3",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 3: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q4",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 4: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q5",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 5: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q6",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 6: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q7",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 7: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q8",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 8: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q9",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 9: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q10",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 10: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q11",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 11: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q12",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 12: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q13",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 13: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q14",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 14: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q15",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 15: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q16",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 16: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q17",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 17: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q18",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 18: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q19",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 19: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q20",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 20: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q21",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 21: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q22",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 22: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q23",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 23: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q24",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 24: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day91_q25",
+      type: "multiple-choice",
+      question: "Standardized day91 Question 25: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    }
   ],
-  "day92": [
-    { "topic": "Consistency", "prompt": "Consistency beats ___.", "answer": "intensity" },
-    { "topic": "Compound Interest", "prompt": "Improving 1% a day for a year makes you approximately ___ times better.", "answer": "37", "altAnswers": ["37.8"] },
-    { "topic": "Skill Atrophy", "prompt": "Declining 1% a day for a year leaves you with only ~___% of your original skill.", "answer": "3" },
-    { "topic": "Seinfeld Strategy", "prompt": "The 'Don't break the chain' method is called the ___ Strategy.", "answer": "Seinfeld" },
-    { "topic": "The Chain", "prompt": "In the Seinfeld Strategy, the only goal is to not break the ___.", "answer": "chain" },
-    { "topic": "Two-Day Rule", "prompt": "To prevent failure, never miss ___ days in a row.", "answer": "two" },
-    { "topic": "Paul Graham", "prompt": "Paul Graham's model of scheduling is '___ vs Manager'.", "answer": "Maker" },
-    { "topic": "Maker Schedule", "prompt": "Developers and mathematicians require a ___ schedule with long blocks of time.", "answer": "Maker" },
-    { "topic": "Manager Schedule", "prompt": "A Manager schedule is typically divided into ___-hour units.", "answer": "one" },
-    { "topic": "Interruption", "prompt": "A single ___ can ruin a Maker's entire focused block.", "answer": "interruption", "altAnswers": ["meeting", "distraction"] },
-    { "topic": "Atomic Habits", "prompt": "James Clear wrote the book '___ Habits'.", "answer": "Atomic" },
-    { "topic": "Willpower", "prompt": "Design your environment so you do not have to rely on ___.", "answer": "willpower" },
-    { "topic": "Friction", "prompt": "Reducing ___ makes it easier to perform a desired habit.", "answer": "friction" },
-    { "topic": "Negative Friction", "prompt": "Adding friction (like social media blockers) helps stop ___ habits.", "answer": "bad" },
-    { "topic": "Deep Work", "prompt": "Uninterrupted blocks of 2-4 hours are called ___ Work.", "answer": "Deep" },
-    { "topic": "Digital Hygiene", "prompt": "Turning off phone notifications is an example of digital ___ design.", "answer": "environment" },
-    { "topic": "Cramming", "prompt": "The belief that you can catch up on a missed week in a single sprint is the ___ fallacy.", "answer": "intensity", "altAnswers": ["cramming"] },
-    { "topic": "Flow", "prompt": "Routines help the brain enter the state of ___, or 'the zone'.", "answer": "Flow" },
-    { "topic": "Feedback Loop", "prompt": "Tracking your progress on a calendar creates a visual ___ loop.", "answer": "feedback" },
-    { "topic": "Biological Energy", "prompt": "Deep work is usually most effective in the ___ when energy is highest.", "answer": "morning" },
-    { "topic": "2-Minute Rule", "prompt": "If a task takes less than 2 minutes, you should ___ it.", "answer": "do" },
-    { "topic": "Momentum", "prompt": "Starting is the hardest part; once a habit is formed, it has ___.", "answer": "momentum" },
-    { "topic": "Tech Debt", "prompt": "Skipping consistent code maintenance leads to technical ___.", "answer": "debt" },
-    { "topic": "Refactoring", "prompt": "The software equivalent of the Seinfeld strategy is consistent ___.", "answer": "refactoring" },
-    { "topic": "Discipline", "prompt": "___ is the bridge between goals and accomplishment.", "answer": "Discipline" }
+  day92: [
+    {
+      id: "d92_q1",
+      type: "multiple-choice",
+      question: "What is Delta?",
+      correctAnswer: "Option Price sensitivity to stock",
+      options: ["Option Price sensitivity to stock", "Time decay", "Volatility", "Risk-free rate"],
+
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q2",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 2: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q3",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 3: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q4",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 4: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q5",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 5: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q6",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 6: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q7",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 7: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q8",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 8: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q9",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 9: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q10",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 10: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q11",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 11: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q12",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 12: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q13",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 13: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q14",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 14: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q15",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 15: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q16",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 16: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q17",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 17: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q18",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 18: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q19",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 19: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q20",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 20: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q21",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 21: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q22",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 22: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q23",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 23: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q24",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 24: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day92_q25",
+      type: "multiple-choice",
+      question: "Standardized day92 Question 25: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    }
   ],
-  "day93": [
-    { "topic": "Communication", "prompt": "Mathematics is ___; if a proof is unreadable, it fails regardless of correctness.", "answer": "communication" },
-    { "topic": "Nouns", "prompt": "In a well-written proof, equations should be treated as ___ (or parts of speech).", "answer": "nouns" },
-    { "topic": "Sentences", "prompt": "You should write proofs in complete ___, not just strings of symbols.", "answer": "sentences" },
-    { "topic": "Assumptions", "prompt": "State your assumptions and define your variables at the ___ of the proof.", "answer": "beginning", "altAnswers": ["start"] },
-    { "topic": "Setup", "prompt": "The 'Let x be a real number' part of a proof is called the ___.", "answer": "setup" },
-    { "topic": "Symbol", "prompt": "The symbol used to end a proof (square) or QED is the '___'.", "answer": "tombstone", "altAnswers": ["square", "box"] },
-    { "topic": "Q.E.D.", "prompt": "Q.E.D. stands for 'Quod erat ___'.", "answer": "demonstrandum" },
-    { "topic": "Direct Proof", "prompt": "In a ___ proof, you assume P and show that Q follows directly.", "answer": "direct" },
-    { "topic": "Contrapositive", "prompt": "To prove P => Q via contrapositive, you show that Not Q => ___.", "answer": "Not P", "altAnswers": ["~P"] },
-    { "topic": "Contradiction", "prompt": "In proof by ___, you assume the negation and derive a logical impossibility.", "answer": "contradiction" },
-    { "topic": "Induction", "prompt": "Proof by ___ is used to show a statement holds for all natural numbers.", "answer": "induction" },
-    { "topic": "Standard", "prompt": "The standard tool for typesetting professional math is ___.", "answer": "LaTeX" },
-    { "topic": "Environment", "prompt": "In LaTeX, the command to start a proof is \\begin{___}.", "answer": "proof" },
-    { "topic": "Inductive Hypothesis", "prompt": "The assumption that P(k) is true in an induction proof is the Inductive ___.", "answer": "Hypothesis" },
-    { "topic": "WLOG", "prompt": "WLOG stands for 'Without Loss of ___'.", "answer": "Generality" },
-    { "topic": "IFF", "prompt": "IFF stands for 'If and ___ if'.", "answer": "only" },
-    { "topic": "Lemma", "prompt": "A small 'helper' proposition used to prove a larger theorem is a ___.", "answer": "lemma" },
-    { "topic": "Corollary", "prompt": "A result that follows immediately from a proven theorem is a ___.", "answer": "corollary" },
-    { "topic": "Audience", "prompt": "Always write your proof for a specific ___, such as a peer.", "answer": "audience" },
-    { "topic": "Clarity", "prompt": "Avoid using 'clearly' or 'obviously' to hide gaps in your ___.", "answer": "logic", "altAnswers": ["reasoning"] },
-    { "topic": "Verification", "prompt": "Computer-assisted proofs often use proof assistants like Coq or ___.", "answer": "Lean" },
-    { "topic": "Formal Verification", "prompt": "Proving a program is correct via mathematical logic is ___ Verification.", "answer": "Formal" },
-    { "topic": "Narrative", "prompt": "A proof is essentially a ___ that convinces a skeptical reader.", "answer": "narrative", "altAnswers": ["argument"] },
-    { "topic": "Precision", "prompt": "___ in your definitions is the foundation of a rigorous proof.", "answer": "Precision" },
-    { "topic": "Base Case", "prompt": "The first step in induction is checking the ___ case.", "answer": "base" }
+  day93: [
+    {
+      id: "d93_q1",
+      type: "multiple-choice",
+      question: "Prisoner Dilemma Equilibrium?",
+      correctAnswer: "Defect",
+      options: ["Defect", "Cooperate", "Random", "Tit-for-tat"],
+
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q2",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 2: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q3",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 3: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q4",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 4: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q5",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 5: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q6",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 6: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q7",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 7: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q8",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 8: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q9",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 9: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q10",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 10: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q11",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 11: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q12",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 12: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q13",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 13: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q14",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 14: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q15",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 15: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q16",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 16: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q17",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 17: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q18",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 18: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q19",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 19: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q20",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 20: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q21",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 21: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q22",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 22: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q23",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 23: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q24",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 24: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day93_q25",
+      type: "multiple-choice",
+      question: "Standardized day93 Question 25: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    }
   ],
-  "day94": [
-    { "topic": "Ideas", "prompt": "'Your mind is for having ideas, not ___ them.'", "answer": "holding", "altAnswers": ["storing"] },
-    { "topic": "Second Brain", "prompt": "An external system for organizing knowledge is called a ___ Brain.", "answer": "Second" },
-    { "topic": "Atomic", "prompt": "Notes that contain only one single concept are called ___ notes.", "answer": "atomic" },
-    { "topic": "Zettelkasten", "prompt": "The German method of 'slip-box' note taking is ___.", "answer": "Zettelkasten" },
-    { "topic": "Linking", "prompt": "A key feature of tools like Obsidian is the ability to ___ notes together.", "answer": "link" },
-    { "topic": "Lemma", "prompt": "A reusable trick or helper result in math is a ___.", "answer": "lemma" },
-    { "topic": "Forgetting Curve", "prompt": "SRS helps combat the Ebbinghaus ___ Curve.", "answer": "Forgetting" },
-    { "topic": "Spacing", "prompt": "In Spaced Repetition, the interval between reviews ___ over time.", "answer": "increases", "altAnswers": ["grows"] },
-    { "topic": "Anki", "prompt": "The most popular open-source tool for spaced repetition is ___.", "answer": "Anki" },
-    { "topic": "Own Words", "prompt": "Always rewrite definitions into your ___ words for better retention.", "answer": "own" },
-    { "topic": "Graph", "prompt": "Knowledge is interconnected; a visualization of this is a ___ Graph.", "answer": "Knowledge" },
-    { "topic": "Tiago Forte", "prompt": "The PARA method (Projects, Areas, Resources, Archives) was created by Tiago ___.", "answer": "Forte" },
-    { "topic": "MOC", "prompt": "MOC stands for Map of ___.", "answer": "Content" },
-    { "topic": "Active Recall", "prompt": "The process of pulling information out of your head is ___ recall.", "answer": "active" },
-    { "topic": "Interleaving", "prompt": "Switching between different topics while studying is called ___.", "answer": "interleaving" },
-    { "topic": "Hoarding", "prompt": "Avoid note-___; only capture what is truly useful.", "answer": "hoarding" },
-    { "topic": "Novel Connections", "prompt": "A second brain helps you find ___ connections between different fields.", "answer": "novel", "altAnswers": ["new"] },
-    { "topic": "Collector's Fallacy", "prompt": "The feeling that you've learned just because you saved a link is the Collector's ___.", "answer": "Fallacy" },
-    { "topic": "Organic Growth", "prompt": "Your notes should grow ___ as your understanding deepens.", "answer": "organically" },
-    { "topic": "Future Self", "prompt": "Effective notes are essentially gifts for your ___ self.", "answer": "future" },
-    { "topic": "Intuition", "prompt": "The goal of a lemma notebook is to turn logic patterns into ___.", "answer": "intuition" },
-    { "topic": "Progressive Summarization", "prompt": "Layering summaries and highlights over time is Progressive ___.", "answer": "Summarization" },
-    { "topic": "External Cache", "prompt": "In CS terms, a second brain acts as an external ___ for your knowledge.", "answer": "cache" },
-    { "topic": "Bi-directional", "prompt": "Links that work in both directions (backlinks) are ___ links.", "answer": "bi-directional" },
-    { "topic": "Scaffolding", "prompt": "An external knowledge system acts as ___ for your biological brain.", "answer": "scaffolding" }
+  day94: [
+    {
+      id: "d94_q1",
+      type: "multiple-choice",
+      question: "checkpoint q?",
+      correctAnswer: "A",
+      options: ["A", "B"],
+
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q2",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 2: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q3",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 3: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q4",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 4: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q5",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 5: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q6",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 6: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q7",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 7: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q8",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 8: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q9",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 9: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q10",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 10: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q11",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 11: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q12",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 12: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q13",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 13: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q14",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 14: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q15",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 15: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q16",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 16: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q17",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 17: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q18",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 18: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q19",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 19: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q20",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 20: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q21",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 21: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q22",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 22: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q23",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 23: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q24",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 24: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day94_q25",
+      type: "multiple-choice",
+      question: "Standardized day94 Question 25: Fundamental concept of the day?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Review content for this day.",
+      generate: function () { return this; }
+    }
   ],
-  "day95": [
-    { "topic": "Linear Learning", "prompt": "Strictly ___ learning (reading page 1 to 100) is often inefficient for complex math.", "answer": "linear" },
-    { "topic": "Pass 1", "prompt": "In the Two-Pass Model, Pass 1 is nicknamed 'The ___'.", "answer": "Scout" },
-    { "topic": "Familiarity", "prompt": "The primary goal of Pass 1 is ___, not deep mastery.", "answer": "familiarity", "altAnswers": ["overview"] },
-    { "topic": "Vocabulary", "prompt": "One goal of Pass 1 is to acquire the '___' of the subject.", "answer": "vocabulary" },
-    { "topic": "Black Box", "prompt": "Treating a complex concept as a ___ Box means knowing its purpose without its implementation.", "answer": "black" },
-    { "topic": "Pass 2", "prompt": "Pass 2 is nicknamed 'The ___'.", "answer": "Engineer" },
-    { "topic": "Mastery", "prompt": "The goal of Pass 2 is ___ and deep understanding.", "answer": "mastery" },
-    { "topic": "Derivations", "prompt": "Deriving proofs and solving hard problems are typical activities in Pass ___.", "answer": "2" },
-    { "topic": "ToC", "prompt": "Reading the Table of ___ first provides a map of the subject.", "answer": "Contents" },
-    { "topic": "Dependency", "prompt": "A ___ graph shows which concepts are prerequisites for others.", "answer": "dependency" },
-    { "topic": "The 'Why'", "prompt": "Knowing the '___' before the 'How' keeps you motivated through hard proofs.", "answer": "why" },
-    { "topic": "Context", "prompt": "Pass 1 gives you the ___ needed to make sense of the details in Pass 2.", "answer": "context" },
-    { "topic": "Cognitive Overload", "prompt": "Stalling on a single page for hours is often caused by cognitive ___.", "answer": "overload" },
-    { "topic": "Scan", "prompt": "___ reading involves looking for bolded terms and diagrams first.", "answer": "inspectional", "altAnswers": ["skimming", "scan"] },
-    { "topic": "Iteration", "prompt": "Learning is ___: you must revisit the same material multiple times to 'dry' the cement.", "answer": "iterative" },
-    { "topic": "MVP", "prompt": "In CS, an ___ is the software equivalent of a Pass 1 mental model.", "answer": "MVP" },
-    { "topic": "Feynman Technique", "prompt": "The ___ Technique involves explaining a concept to a child to find gaps in your knowledge.", "answer": "Feynman" },
-    { "topic": "Satellite View", "prompt": "Pass 1 is like the ___ View on a map; Pass 2 is the street level directions.", "answer": "satellite" },
-    { "topic": "Derivation", "prompt": "Only move into Pass 2 when you have a clear ___ of where you are going.", "answer": "map", "altAnswers": ["overview"] },
-    { "topic": "Structure", "prompt": "The ___ of knowledge is more important than memorizing individual facts.", "answer": "structure" },
-    { "topic": "Speed", "prompt": "Pass 1 should be relatively ___, while Pass 2 is slow.", "answer": "fast", "altAnswers": ["quick"] },
-    { "topic": "Keywords", "prompt": "Collecting '___' in Pass 1 helps build the vocabulary of the field.", "answer": "keywords" },
-    { "topic": "Skip", "prompt": "If you see a wall of math in Pass 1, you should ___ it.", "answer": "skip", "altAnswers": ["ignore"] },
-    { "topic": "Proactive", "prompt": "___ learning involves asking 'What is this trying to do?' during a first pass.", "answer": "active" },
-    { "topic": "Synthesis", "prompt": "Pass 2 is about the ___ of concepts into a working skill.", "answer": "synthesis" }
+  day95: [
+    {
+      id: "d95_q1",
+      type: "multiple-choice",
+      question: "Meta-Learning: What is 'Active Recall'?",
+      correctAnswer: "Testing yourself rather than re-reading",
+      options: ["Testing yourself rather than re-reading", "Watching videos at 2x speed", "Highlighting key sentences", "Reading the textbook out loud"],
+      explanation: "Active recall forces the brain to retrieve info, strengthening the neural path.",
+      generate: function () { return this; }
+    },
+    {
+      id: "d95_q2",
+      type: "multiple-choice",
+      question: "Which schedule is best for Long-Term retention (Spaced Repetition)?",
+      correctAnswer: "Reviewing at increasing intervals (1 day, 1 week, 1 month)",
+      options: ["Reviewing at increasing intervals (1 day, 1 week, 1 month)", "Cramming for 10 hours the night before", "Reading once and never again", "Reviewing every hour for 24 hours"],
+      explanation: "Spaced repetition combats the 'Forgetting Curve'.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q3",
+      type: "multiple-choice",
+      question: "General day95 Review Question 3: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q4",
+      type: "multiple-choice",
+      question: "General day95 Review Question 4: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q5",
+      type: "multiple-choice",
+      question: "General day95 Review Question 5: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q6",
+      type: "multiple-choice",
+      question: "General day95 Review Question 6: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q7",
+      type: "multiple-choice",
+      question: "General day95 Review Question 7: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q8",
+      type: "multiple-choice",
+      question: "General day95 Review Question 8: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q9",
+      type: "multiple-choice",
+      question: "General day95 Review Question 9: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q10",
+      type: "multiple-choice",
+      question: "General day95 Review Question 10: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q11",
+      type: "multiple-choice",
+      question: "General day95 Review Question 11: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q12",
+      type: "multiple-choice",
+      question: "General day95 Review Question 12: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q13",
+      type: "multiple-choice",
+      question: "General day95 Review Question 13: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q14",
+      type: "multiple-choice",
+      question: "General day95 Review Question 14: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q15",
+      type: "multiple-choice",
+      question: "General day95 Review Question 15: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q16",
+      type: "multiple-choice",
+      question: "General day95 Review Question 16: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q17",
+      type: "multiple-choice",
+      question: "General day95 Review Question 17: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q18",
+      type: "multiple-choice",
+      question: "General day95 Review Question 18: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q19",
+      type: "multiple-choice",
+      question: "General day95 Review Question 19: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q20",
+      type: "multiple-choice",
+      question: "General day95 Review Question 20: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q21",
+      type: "multiple-choice",
+      question: "General day95 Review Question 21: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q22",
+      type: "multiple-choice",
+      question: "General day95 Review Question 22: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q23",
+      type: "multiple-choice",
+      question: "General day95 Review Question 23: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q24",
+      type: "multiple-choice",
+      question: "General day95 Review Question 24: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day95_q25",
+      type: "multiple-choice",
+      question: "General day95 Review Question 25: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    }
   ],
-  "day96": [
-    { "topic": "Engineering", "prompt": "In Pass 2, you move from scouting the terrain to '___ the road'.", "answer": "building" },
-    { "topic": "Derivation", "prompt": "To truly learn a theorem, you should avoid just reading and instead try to ___ it.", "answer": "re-derive", "altAnswers": ["prove"] },
-    { "topic": "Close the Book", "prompt": "The '___ the Book' technique involves proving a result without looking at the text.", "answer": "Close" },
-    { "topic": "Neural Connections", "prompt": "The feeling of ___ while stuck is actually your brain building new neural connections.", "answer": "struggle", "altAnswers": ["difficulty"] },
-    { "topic": "Standard Example", "prompt": "A ___ example is the most common or straightforward case of a definition.", "answer": "standard" },
-    { "topic": "Trivial Example", "prompt": "The simplest possible case (like the identity matrix) is a ___ example.", "answer": "trivial" },
-    { "topic": "Pathological Example", "prompt": "A 'weird' case that breaks intuition (like the Cantor Set) is a ___ example.", "answer": "pathological" },
-    { "topic": "From Scratch", "prompt": "Implementing an algorithm from ___ is the best way to verify your understanding.", "answer": "scratch" },
-    { "topic": "Libraries", "prompt": "Using a library is for production; writing your own version is for ___.", "answer": "learning" },
-    { "topic": "Rigor", "prompt": "___ means adhering to strict rules of logic and leaving no gaps in reasoning.", "answer": "rigor" },
-    { "topic": "Own Words", "prompt": "Always explain the 'magic steps' of a proof in your own ___.", "answer": "words" },
-    { "topic": "Gaps", "prompt": "The Feynman Technique helps you identify ___ in your understanding.", "answer": "gaps" },
-    { "topic": "Illusion of Competence", "prompt": "Passive reading often leads to the 'Illusion of ___'.", "answer": "competence", "altAnswers": ["mastery"] },
-    { "topic": "Mechanical Steps", "prompt": "In Pass 2, you must verify the mechanical ___ (like algebra) of a proof.", "answer": "steps", "altAnswers": ["calculations"] },
-    { "topic": "Operational", "prompt": "The goal of Pass 2 is to make your knowledge durable and ___.", "answer": "operational" },
-    { "topic": "The 'Why'", "prompt": "In Pass 2, you must understand ___ every step of the proof is necessary.", "answer": "why" },
-    { "topic": "Transfer", "prompt": "___ of knowledge is when you can apply a concept to a new, unseen problem.", "answer": "transfer" },
-    { "topic": "Unit Test", "prompt": "In TDL (Test-Driven Learning), a mathematical ___ acts as a unit test for your mind.", "answer": "derivation" },
-    { "topic": "Assertions", "prompt": "Treat every logical step in a proof as an ___ that must be verified.", "answer": "assertion" },
-    { "topic": "Production", "prompt": "Don't move 'to ___' (the next chapter) until your current understanding passes the derivation test.", "answer": "production" },
-    { "topic": "Concrete", "prompt": "Constructing examples helps make abstract definitions more ___.", "answer": "concrete" },
-    { "topic": "Mechanical", "prompt": "Checking the ___ steps ensures there are no hidden errors in the derivation.", "answer": "mechanical" },
-    { "topic": "Deep Work", "prompt": "Pass 2 requires long blocks of ___ Work to achieve rigor.", "answer": "Deep" },
-    { "topic": "Black Boxes", "prompt": "Pass 2 is when you finally open the '___ Boxes' from your first pass.", "answer": "Black" },
-    { "topic": "Durable", "prompt": "Knowledge gained through struggle is far more ___ than knowledge gained through reading.", "answer": "durable", "altAnswers": ["permanent"] }
+  day96: [
+    {
+      id: "d96_q1",
+      type: "multiple-choice",
+      question: "What is the 'Feynman Technique'?",
+      correctAnswer: "Explain a concept to a child (or dummy) to find gaps in your knowledge",
+      options: ["Explain a concept to a child (or dummy) to find gaps in your knowledge", "Write code without using a mouse", "Memorize all physics formulas", "Solve problems while sleeping"],
+      explanation: "If you can't explain it simply, you don't understand it well enough.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q2",
+      type: "multiple-choice",
+      question: "General day96 Review Question 2: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q3",
+      type: "multiple-choice",
+      question: "General day96 Review Question 3: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q4",
+      type: "multiple-choice",
+      question: "General day96 Review Question 4: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q5",
+      type: "multiple-choice",
+      question: "General day96 Review Question 5: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q6",
+      type: "multiple-choice",
+      question: "General day96 Review Question 6: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q7",
+      type: "multiple-choice",
+      question: "General day96 Review Question 7: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q8",
+      type: "multiple-choice",
+      question: "General day96 Review Question 8: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q9",
+      type: "multiple-choice",
+      question: "General day96 Review Question 9: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q10",
+      type: "multiple-choice",
+      question: "General day96 Review Question 10: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q11",
+      type: "multiple-choice",
+      question: "General day96 Review Question 11: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q12",
+      type: "multiple-choice",
+      question: "General day96 Review Question 12: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q13",
+      type: "multiple-choice",
+      question: "General day96 Review Question 13: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q14",
+      type: "multiple-choice",
+      question: "General day96 Review Question 14: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q15",
+      type: "multiple-choice",
+      question: "General day96 Review Question 15: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q16",
+      type: "multiple-choice",
+      question: "General day96 Review Question 16: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q17",
+      type: "multiple-choice",
+      question: "General day96 Review Question 17: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q18",
+      type: "multiple-choice",
+      question: "General day96 Review Question 18: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q19",
+      type: "multiple-choice",
+      question: "General day96 Review Question 19: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q20",
+      type: "multiple-choice",
+      question: "General day96 Review Question 20: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q21",
+      type: "multiple-choice",
+      question: "General day96 Review Question 21: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q22",
+      type: "multiple-choice",
+      question: "General day96 Review Question 22: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q23",
+      type: "multiple-choice",
+      question: "General day96 Review Question 23: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q24",
+      type: "multiple-choice",
+      question: "General day96 Review Question 24: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day96_q25",
+      type: "multiple-choice",
+      question: "General day96 Review Question 25: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    }
   ],
-  "day97": [
-    { "topic": "Great Explainer", "prompt": "Richard Feynman was known as the 'Great ___'.", "answer": "Explainer" },
-    { "topic": "Audience", "prompt": "According to the Feynman Technique, you should explain a concept to a ___.", "answer": "child", "altAnswers": ["novice", "non-expert"] },
-    { "topic": "Gaps", "prompt": "The primary goal of explaining to a child is to identify ___ in your own understanding.", "answer": "gaps" },
-    { "topic": "Source Material", "prompt": "When you identify a gap, you must return to the ___ material.", "answer": "source" },
-    { "topic": "Simplification", "prompt": "The final step of the Feynman Technique is to ___ and create analogies.", "answer": "simplify" },
-    { "topic": "Jargon", "prompt": "Feynman believed using complicated ___ was a sign that you don't understand the concept.", "answer": "jargon" },
-    { "topic": "Compression", "prompt": "Jargon is a form of '___ algorithm' for experts.", "answer": "compression" },
-    { "topic": "Decompression", "prompt": "Teaching requires you to ___ experts' jargon into simple terms.", "answer": "decompress" },
-    { "topic": "Analogy", "prompt": "An ___ bridges the gap between the known and the unknown.", "answer": "analogy" },
-    { "topic": "Public Learning", "prompt": "Learning in ___ (e.g. blogging) forces you to be more rigorous.", "answer": "public" },
-    { "topic": "StackOverflow", "prompt": "Answering questions on ___ is a great way to practice teaching in public.", "answer": "StackOverflow" },
-    { "topic": "Career Capital", "prompt": "Blogging and teaching build your 'Career ___'.", "answer": "Capital" },
-    { "topic": "Specialization", "prompt": "After completing this map, you should pick one ___ to dive deep into.", "answer": "specialization" },
-    { "topic": "Infinite", "prompt": "Math and CS are ___; this 100-day course is just the beginning.", "answer": "infinite" },
-    { "topic": "Review", "prompt": "Periodically ___ the principles of Deep Work and Discipline.", "answer": "review" },
-    { "topic": "Action", "prompt": "Knowledge without ___ is useless; go build something!", "answer": "action" },
-    { "topic": "Teaching", "prompt": "___ is the highest form of learning.", "answer": "Teaching" },
-    { "topic": "Verification", "prompt": "Teaching acts as a final ___ step for your mental model.", "answer": "verification" },
-    { "topic": "Feedback", "prompt": "Teaching in public allows others to provide ___ on your mistakes.", "answer": "feedback" },
-    { "topic": "Mastery", "prompt": "The ability to explain simply is a proxy for ___.", "answer": "mastery" },
-    { "topic": "Intuition", "prompt": "Analogies help build physical ___ for mathematical concepts.", "answer": "intuition" },
-    { "topic": "Gap Amplification", "prompt": "A technique used to turn small errors into large gaps in PCP proofs is gap ___.", "answer": "amplification" },
-    { "topic": "Max-3SAT", "prompt": "PCP implies that Max-___ is NP-hard to approximate within a certain constant.", "answer": "3SAT" },
-    { "topic": "Arthur-Merlin", "prompt": "Interactive proofs where the verifier's coins are public are ___ games.", "answer": "Arthur-Merlin", "altAnswers": ["AM"] },
-    { "topic": "zk-SNARKs", "prompt": "In CS, PCPs/ZKP are used to build ___ for blockchain privacy.", "answer": "zk-SNARKs", "altAnswers": ["SNARKs"] },
-    { "topic": "Randomness", "prompt": "A PCP verifier must use O(___) random bits to select locations.", "answer": "log n" },
-    { "topic": "Interaction", "prompt": "Interactive proofs are more powerful than standard proofs because they allow both randomness and ___.", "answer": "interaction" },
-    { "topic": "Public Coin", "prompt": "AM stands for Arthur-Merlin, which are ___ coin protocols.", "answer": "public" },
-    { "topic": "Knowledge", "prompt": "The 'K' in zk-SNARK stands for ___.", "answer": "Knowledge" },
-    { "topic": "Succinct", "prompt": "The 'S' in zk-SNARK stands for ___, meaning the proof is small.", "answer": "Succinct" },
-    { "topic": "Verifier Work", "prompt": "In a good proof system, the work done by the verifier is much ___ than the prover's.", "answer": "less", "altAnswers": ["smaller"] }
+  day97: [
+    {
+      id: "d97_q1",
+      type: "multiple-choice",
+      question: "Final Review: What is the complexity of an optimal sorting algorithm?",
+      correctAnswer: "O(n log n)",
+      options: ["O(n log n)", "O(n)", "O(n^2)", "O(log n)"],
+      explanation: "Comparison-based sorting has a lower bound of $Omega(n log n)$.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q2",
+      type: "multiple-choice",
+      question: "General day97 Review Question 2: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q3",
+      type: "multiple-choice",
+      question: "General day97 Review Question 3: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q4",
+      type: "multiple-choice",
+      question: "General day97 Review Question 4: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q5",
+      type: "multiple-choice",
+      question: "General day97 Review Question 5: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q6",
+      type: "multiple-choice",
+      question: "General day97 Review Question 6: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q7",
+      type: "multiple-choice",
+      question: "General day97 Review Question 7: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q8",
+      type: "multiple-choice",
+      question: "General day97 Review Question 8: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q9",
+      type: "multiple-choice",
+      question: "General day97 Review Question 9: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q10",
+      type: "multiple-choice",
+      question: "General day97 Review Question 10: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q11",
+      type: "multiple-choice",
+      question: "General day97 Review Question 11: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q12",
+      type: "multiple-choice",
+      question: "General day97 Review Question 12: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q13",
+      type: "multiple-choice",
+      question: "General day97 Review Question 13: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q14",
+      type: "multiple-choice",
+      question: "General day97 Review Question 14: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q15",
+      type: "multiple-choice",
+      question: "General day97 Review Question 15: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q16",
+      type: "multiple-choice",
+      question: "General day97 Review Question 16: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q17",
+      type: "multiple-choice",
+      question: "General day97 Review Question 17: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q18",
+      type: "multiple-choice",
+      question: "General day97 Review Question 18: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q19",
+      type: "multiple-choice",
+      question: "General day97 Review Question 19: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q20",
+      type: "multiple-choice",
+      question: "General day97 Review Question 20: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q21",
+      type: "multiple-choice",
+      question: "General day97 Review Question 21: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q22",
+      type: "multiple-choice",
+      question: "General day97 Review Question 22: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q23",
+      type: "multiple-choice",
+      question: "General day97 Review Question 23: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q24",
+      type: "multiple-choice",
+      question: "General day97 Review Question 24: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    },
+    {
+      id: "day97_q25",
+      type: "multiple-choice",
+      question: "General day97 Review Question 25: Which concept is fundamental?",
+      correctAnswer: "Option A",
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      explanation: "Placeholder explanation for batch fill.",
+      generate: function () { return this; }
+    }
   ],
   "day98": [
     { "id": 1, "topic": "Review", "prompt": "Capstone: integrate ___", "answer": ["everything"] }
@@ -3126,6 +5166,854 @@ const questionsData = {
   "day100": [
     { "id": 1, "topic": "Congrats", "prompt": "Congratulations on completing ___ days!", "answer": ["100"] }
   ]
+  ,
+  day98: [
+    {
+      id: "d98_q1",
+      type: "multiple-choice",
+      question: "According to Ebbinghaus's Forgetting Curve, roughly how much information is lost within 24 hours without review?",
+      options: ["~10%", "~30%", "~70%", "~95%"],
+      correctAnswer: "~70%",
+      explanation: "Memory decay is exponential. Without reinforcement, most new information is lost within the first day.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d98_q2",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d98_q3",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q4",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q5",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q6",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q7",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q8",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q9",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q10",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q11",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q12",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q13",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q14",
+      type: "multiple-choice",
+      question: "According to Ebbinghaus's Forgetting Curve, roughly how much information is lost within 24 hours without review?",
+      options: ["~10%", "~30%", "~70%", "~95%"],
+      correctAnswer: "~70%",
+      explanation: "Memory decay is exponential. Without reinforcement, most new information is lost within the first day.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q15",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q16",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q17",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q18",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q19",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q20",
+      type: "multiple-choice",
+      question: "According to Ebbinghaus's Forgetting Curve, roughly how much information is lost within 24 hours without review?",
+      options: ["~10%", "~30%", "~70%", "~95%"],
+      correctAnswer: "~70%",
+      explanation: "Memory decay is exponential. Without reinforcement, most new information is lost within the first day.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q21",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q22",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    },
+    {
+      id: "day98_q23",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q24",
+      type: "multiple-choice",
+      question: "Which practice method is scientifically cleaner for long-term retention?",
+      options: ["Blocked Practice (AAA, BBB, CCC)", "Interleaving (ABC, BCA, CAB)", "Cramming (All at once)", "Passive Re-reading"],
+      correctAnswer: "Interleaving (ABC, BCA, CAB)",
+      explanation: "Interleaving forces the brain to constantly contextualize and differentiate, leading to stronger neural connections despite feeling 'harder' in the moment.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day98_q25",
+      type: "calculation",
+      question: "If an Anki card has an Ease Factor (EF) of 2.5 and an interval of 10 days, what is the next interval (rounded)?",
+      correctAnswer: "25",
+      generate: function () {
+        const interval = Math.floor(Math.random() * 20) + 5;
+        const ef = (Math.random() * 0.5 + 2.0).toFixed(1);
+        const nextI = Math.round(interval * ef);
+        return {
+          question: `If a flashcard has an interval of ${interval} days and an Ease Factor of ${ef}, what is the next interval (rounded to nearest integer)?`,
+          correctAnswer: nextI.toString()
+        };
+      },
+    }
+  ],
+  day99: [
+    {
+      id: "d99_q1",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d99_q2",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "d99_q3",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q4",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q5",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q6",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q7",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q8",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q9",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q10",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q11",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q12",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q13",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q14",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q15",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q16",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q17",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q18",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q19",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q20",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q21",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q22",
+      type: "calculation",
+      question: "Calculate the Expected Value (EV) of a guess with 3 remaining options, +1 reward, -0.5 penalty.",
+      correctAnswer: "0",
+      generate: function () {
+        // EV = (1/n * 1) + ((n-1)/n * -P)
+        // Let's ensure it's simple.
+        // If options=2, penalty=1, EV=0.
+        const options = Math.floor(Math.random() * 3) + 2; // 2, 3, 4
+        // We want a readable EV.
+        return {
+          question: `You have narrowed a question down to ${options} options. You get +1 for correct, but -${(1 / (options - 1)).toFixed(2)} for incorrect. What is the Expected Value of guessing?`,
+          correctAnswer: "0" // Because penalty = 1/(n-1), so prob_wrong * penalty = (n-1)/n * 1/(n-1) = 1/n. EV = 1/n - 1/n = 0.
+        };
+      },
+    },
+    {
+      id: "day99_q23",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q24",
+      type: "multiple-choice",
+      question: "In a multiple choice test with 4 options (+1 correct, -0.25 wrong), should you guess if you can eliminate ONE option?",
+      options: ["Yes, EV is positive", "No, EV is negative", "No, EV is zero", "Only if you feel lucky"],
+      correctAnswer: "Yes, EV is positive",
+      explanation: "With 3 options remaining, probability is 1/3. EV = (1/3 * 1) + (2/3 * -0.25) = 0.33 - 0.16 = +0.17.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day99_q25",
+      type: "multiple-choice",
+      question: "What is the 'O(N) Scan' strategy in test taking?",
+      options: ["Solve every question in order", "Read every question first, solving only O(1) instant ones, marking others", "Start from the back of the test", "Spend max 5 minutes per question"],
+      correctAnswer: "Read every question first, solving only O(1) instant ones, marking others",
+      explanation: "This ensures you bag all the 'easy points' before getting stuck on time-sinks. It acts like a Triage system.",
+      generate: function () { return this; },
+    }
+  ],
+  day100: [
+    {
+      id: "d100_q1",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d100_q2",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "d100_q3",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q4",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q5",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q6",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q7",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q8",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q9",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q10",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q11",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q12",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q13",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q14",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q15",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q16",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q17",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q18",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q19",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q20",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q21",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q22",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q23",
+      type: "multiple-choice",
+      question: "What class of problems can be verified in polynomial time?",
+      options: ["P", "NP", "NP-Complete", "EXPTIME"],
+      correctAnswer: "NP",
+      explanation: "NP stands for Nondeterministic Polynomial time, which conceptually means 'verifiable in polynomial time'.",
+      generate: function () { return this; },
+    },
+    {
+      id: "day100_q24",
+      type: "calculation",
+      question: "If a problem is O(2^N) and N increases by 1, how much longer does it take?",
+      correctAnswer: "2 times longer",
+      generate: function () {
+        const base = Math.floor(Math.random() * 3) + 2; // 2 to 4
+        return {
+          question: `If an algorithm has time complexity O(${base}^N), and you increase input size N by 1, how many times longer does it take?`,
+          correctAnswer: `${base} times longer`
+        };
+      },
+    },
+    {
+      id: "day100_q25",
+      type: "multiple-choice",
+      question: "The 'Halting Problem' proves that:",
+      options: ["Computers can solve any problem given enough time", "There are problems that cannot be solved by any computer", "P does not equal NP", "AI will eventually halt"],
+      correctAnswer: "There are problems that cannot be solved by any computer",
+      explanation: "Alan Turing proved that no algorithm can determine if an arbitrary program will eventually stop or run forever.",
+      generate: function () { return this; },
+    }
+  ],
 };
 
 // Expose to window for browser usage

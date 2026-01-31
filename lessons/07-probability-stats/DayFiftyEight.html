@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 58: Checkpoint 7 (Review)</title>
+    <title>Day 58: Checkpoint 7 (Probability & Statistics Review)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
                 Back to Curriculum
             </a>
             <div class="nav-progress">
-                <span id="progressText">0 / 20 complete</span>
+                <span id="progressText">0 / 25 complete</span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -49,11 +49,10 @@
             </svg>
             Day 58 · Section 7 Review
         </div>
-        <h1>Checkpoint 7: Probability & Stats</h1>
+        <h1>Checkpoint 7: Probability & Statistics</h1>
         <p class="hero-desc">
-            A comprehensive review of everything from counting sets and Bayes' rule to limit theorems and hypothesis
-            testing.
-            Master the mathematics of uncertainty.
+            A comprehensive review of everything from probability spaces and Bayes' rule to limit theorems
+            and hypothesis testing. Master the mathematics of uncertainty that powers data science and ML.
         </p>
         <div class="hero-meta">
             <div class="meta-item">
@@ -61,20 +60,20 @@
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
                 </svg>
-                ~120 min review
+                ~90 min review
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                20 mix problems
+                25 review problems
             </div>
             <div class="meta-item">
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -84,71 +83,253 @@
             <nav class="toc">
                 <div class="toc-title">Review Areas</div>
                 <ul class="toc-list">
-                    <li><a href="#foundations" class="toc-link">1. Prob Foundations</a></li>
+                    <li><a href="#foundations" class="toc-link">1. Probability Foundations</a></li>
                     <li><a href="#variables" class="toc-link">2. Random Variables</a></li>
-                    <li><a href="#limits" class="toc-link">3. Limit Theorems</a></li>
-                    <li><a href="#inference" class="toc-link">4. Statistical Inference</a></li>
-                    <li><a href="#videos" class="toc-link">5. Review Videos</a></li>
-                    <li><a href="#practice" class="toc-link">6. Final Practice</a></li>
+                    <li><a href="#distributions" class="toc-link">3. Key Distributions</a></li>
+                    <li><a href="#joint" class="toc-link">4. Joint Distributions</a></li>
+                    <li><a href="#limits" class="toc-link">5. Limit Theorems</a></li>
+                    <li><a href="#inference" class="toc-link">6. Statistical Inference</a></li>
+                    <li><a href="#videos" class="toc-link">7. Review Videos</a></li>
+                    <li><a href="#practice" class="toc-link">8. Final Practice</a></li>
                 </ul>
             </nav>
+            <div class="stats-card">
+                <div class="toc-title">Your Progress</div>
+                <div class="stats-row"><span class="stats-label">Attempted</span><span class="stats-value"
+                        id="statAttempted">0</span></div>
+                <div class="stats-row"><span class="stats-label">Correct</span><span class="stats-value"
+                        id="statCorrect">0</span></div>
+                <div class="stats-row"><span class="stats-label">Accuracy</span><span class="stats-value"
+                        id="statAccuracy">—</span></div>
+            </div>
         </aside>
 
         <main class="content">
+            <!-- Probability Foundations -->
             <section class="section" id="foundations">
                 <div class="section-header">
-                    <h2 class="section-title">1. Probability Foundations</h2>
+                    <div class="section-number">Review 1</div>
+                    <h2 class="section-title">Probability Foundations</h2>
                 </div>
                 <div class="section-body">
-                    <p>Remember <strong>Bayes' Theorem</strong>: The tool for updating knowledge based on new evidence.
-                    </p>
-                    <div class="math-block">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Core Axioms (Kolmogorov)</h3>
+                        <ul>
+                            <li>$P(A) \geq 0$ for all events A</li>
+                            <li>$P(\Omega) = 1$ (sample space has probability 1)</li>
+                            <li>$P(A \cup B) = P(A) + P(B)$ for disjoint events</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Bayes' Theorem:</strong> The cornerstone of probabilistic inference.
                         $$ P(A|B) = \frac{P(B|A)P(A)}{P(B)} $$
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Formulas</h3>
+                        <ul>
+                            <li><strong>Complement:</strong> $P(A^c) = 1 - P(A)$</li>
+                            <li><strong>Addition:</strong> $P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+                            <li><strong>Conditional:</strong> $P(A|B) = \frac{P(A \cap B)}{P(B)}$</li>
+                            <li><strong>Independence:</strong> $P(A \cap B) = P(A) \cdot P(B)$</li>
+                        </ul>
+                    </div>
+
+                    <div class="info">
+                        <strong>🔄 Simple: The Medical Test Analogy</strong>
+                        <br>Bayes' Theorem is like updating your beliefs. If a medical test says "positive," you flip
+                        the question: "Given a positive result, what's the chance I'm actually sick?" depends on
+                        both how accurate the test is AND how rare the disease is. That's Bayes!
                     </div>
                 </div>
             </section>
 
+            <!-- Random Variables -->
             <section class="section" id="variables">
                 <div class="section-header">
-                    <h2 class="section-title">2. Random Variables & Distributions</h2>
+                    <div class="section-number">Review 2</div>
+                    <h2 class="section-title">Random Variables & Moments</h2>
                 </div>
                 <div class="section-body">
-                    <p>Discrete vs Continuous. Key stats: <strong>Expectation</strong> (Mean) and
-                        <strong>Variance</strong>.</p>
-                    <ul class="list-disc">
-                        <li><strong>Binomial:</strong> Success counts in fixed trials.</li>
-                        <li><strong>Poisson:</strong> Event counts in fixed time/space.</li>
-                        <li><strong>Normal:</strong> The ultimate attractor for sums.</li>
-                    </ul>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Expectation & Variance</h3>
+                        <div class="math-block">
+                            $$ E[X] = \sum_x x \cdot P(X=x) \quad \text{or} \quad \int_{-\infty}^{\infty} x \cdot f(x)\,
+                            dx $$
+                        </div>
+                        <div class="math-block">
+                            $$ \text{Var}(X) = E[X^2] - (E[X])^2 = E[(X - \mu)^2] $$
+                        </div>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Key Properties:</strong>
+                        <ul>
+                            <li>$E[aX + b] = aE[X] + b$ (linearity)</li>
+                            <li>$\text{Var}(aX + b) = a^2\text{Var}(X)$</li>
+                            <li>$E[X + Y] = E[X] + E[Y]$ (always true)</li>
+                            <li>$\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X,Y)$</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
+            <!-- Key Distributions -->
+            <section class="section" id="distributions">
+                <div class="section-header">
+                    <div class="section-number">Review 3</div>
+                    <h2 class="section-title">Key Distributions</h2>
+                </div>
+                <div class="section-body">
+                    <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;">
+                        <thead>
+                            <tr style="background: var(--surface-alt);">
+                                <th style="padding: 10px; border: 1px solid var(--border);">Distribution</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Mean</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Variance</th>
+                                <th style="padding: 10px; border: 1px solid var(--border);">Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Bernoulli(p)</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$p$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$p(1-p)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Single yes/no trial</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Binomial(n,p)</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$np$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$np(1-p)$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Count of successes</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Poisson($\lambda$)</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$\lambda$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$\lambda$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Events in interval</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Normal($\mu$,$\sigma^2$)
+                                </td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$\mu$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$\sigma^2$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Continuous, symmetric</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Exponential($\lambda$)</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$1/\lambda$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">$1/\lambda^2$</td>
+                                <td style="padding: 10px; border: 1px solid var(--border);">Time until event</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="info">
+                        <strong>🎰 Simple: The Slot Machine Analogy</strong>
+                        <br>Each distribution is a different "game." Bernoulli = one coin flip. Binomial = counting
+                        heads in multiple flips. Poisson = rare jackpots per hour. Normal = height of random people.
+                        Know the game, know the math!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Joint Distributions -->
+            <section class="section" id="joint">
+                <div class="section-header">
+                    <div class="section-number">Review 4</div>
+                    <h2 class="section-title">Joint Distributions</h2>
+                </div>
+                <div class="section-body">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Key Concepts</h3>
+                        <ul>
+                            <li><strong>Marginal:</strong> $p_X(x) = \sum_y p(x, y)$ — "sum out" the other variable</li>
+                            <li><strong>Conditional:</strong> $p(x|y) = p(x, y) / p_Y(y)$</li>
+                            <li><strong>Independence:</strong> $p(x, y) = p_X(x) \cdot p_Y(y)$</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Covariance & Correlation:</strong>
+                        <div class="math-block">
+                            $$ \text{Cov}(X, Y) = E[XY] - E[X]E[Y] $$
+                            $$ \rho_{X,Y} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} \in [-1, 1] $$
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Limit Theorems -->
             <section class="section" id="limits">
                 <div class="section-header">
-                    <h2 class="section-title">3. Limit Theorems</h2>
+                    <div class="section-number">Review 5</div>
+                    <h2 class="section-title">Limit Theorems</h2>
                 </div>
                 <div class="section-body">
-                    <p><strong>LLN:</strong> The average of many trials eventually equals the expected value.</p>
-                    <p><strong>CLT:</strong> The distribution of the average eventually looks Normal, no matter where
-                        you started.</p>
+                    <div class="rule">
+                        <strong>Law of Large Numbers (LLN):</strong>
+                        <br>As sample size $n \to \infty$, the sample mean $\bar{X}_n \to \mu$ (true mean).
+                        <br><em>"Average many trials → Expected value"</em>
+                    </div>
+
+                    <div class="rule">
+                        <strong>Central Limit Theorem (CLT):</strong>
+                        <br>For i.i.d. samples, the standardized sample mean converges to Normal:
+                        $$ \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} N(0, 1) $$
+                        <br><em>"Sum of many things → Bell curve"</em>
+                    </div>
+
+                    <div class="info">
+                        <strong>🎲 Simple: The Galton Board Analogy</strong>
+                        <br>The CLT is like balls falling through a Galton board (peg board). Each ball bounces
+                        randomly left or right at each peg—that's noise. But sum all those random bounces, and
+                        the result is a perfect bell curve! (Rule of thumb: CLT kicks in around $n ≥ 30$.)
+                    </div>
                 </div>
             </section>
 
+            <!-- Statistical Inference -->
             <section class="section" id="inference">
                 <div class="section-header">
-                    <h2 class="section-title">4. Statistical Inference</h2>
+                    <div class="section-number">Review 6</div>
+                    <h2 class="section-title">Statistical Inference</h2>
                 </div>
                 <div class="section-body">
-                    <p><strong>MLE:</strong> Finding the parameter that makes the observed data most likely.</p>
-                    <p><strong>Confidence Intervals:</strong> Estimating a range of values with high certainty.</p>
-                    <p><strong>Hypothesis Testing:</strong> Deciding if an effect is statistically significant ($p <
-                            \alpha$).</p>
+                    <div class="subsection">
+                        <h3 class="subsection-title">Point Estimation</h3>
+                        <ul>
+                            <li><strong>MLE:</strong> Find $\theta$ that maximizes $P(\text{data} | \theta)$</li>
+                            <li><strong>Unbiased:</strong> $E[\hat{\theta}] = \theta$</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Confidence Intervals</h3>
+                        <div class="math-block">
+                            $$ \bar{X} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} $$
+                        </div>
+                        <p>95% CI uses $z_{0.025} = 1.96$</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Hypothesis Testing</h3>
+                        <ul>
+                            <li><strong>p-value:</strong> $P(\text{data this extreme} | H_0)$</li>
+                            <li>If $p < \alpha$, reject $H_0$ (statistically significant)</li>
+                            <li><strong>Type I Error (α):</strong> False positive (rejecting true $H_0$)</li>
+                            <li><strong>Type II Error (β):</strong> False negative (missing real effect)</li>
+                            <li><strong>Power = 1 - β:</strong> Probability of catching a real effect</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <!-- Videos -->
             <section class="section" id="videos">
                 <div class="section-header">
+                    <div class="section-number">Review 7</div>
                     <h2 class="section-title">Review Videos</h2>
                 </div>
                 <div class="section-body">
@@ -168,9 +349,16 @@
             <!-- Practice -->
             <section class="section" id="practice">
                 <div class="section-header">
+                    <div class="section-number">Review 8</div>
                     <h2 class="section-title">Final Practice</h2>
                 </div>
                 <div class="section-body">
+                    <div class="quiz-controls">
+                        <button class="btn btn-primary" id="btnCheckAll">Check All</button>
+                        <button class="btn" id="btnRevealAll">Reveal All</button>
+                        <button class="btn" id="btnClear">Clear Inputs</button>
+                        <button class="btn btn-danger" id="btnReset">Reset Stats</button>
+                    </div>
                     <div id="quizContainer"></div>
                 </div>
             </section>
@@ -182,11 +370,26 @@
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Section 7 Recap",
+                title: "Probability Foundations",
                 items: [
-                    { title: "Statistics Fundamentals", channel: "StatQuest", vid: "qBigTkLYBaE" },
-                    { title: "The Normal Distribution", channel: "3Blue1Brown", vid: "8idr1WZ1A7Q" },
-                    { title: "Everything on Inference", channel: "StatQuest", vid: "0oc49DyA3hU" }
+                    { title: "Bayes' Theorem Visualized", channel: "3Blue1Brown", vid: "HZGCoVF3YvM" },
+                    { title: "Conditional Probability", channel: "Khan Academy", vid: "ibINrxJLvlM" }
+                ]
+            },
+            {
+                title: "Distributions & CLT",
+                items: [
+                    { title: "The Normal Distribution", channel: "3Blue1Brown", vid: "zeJD6dqJ5lo" },
+                    { title: "Central Limit Theorem", channel: "StatQuest", vid: "YAlJCEDH2uY" },
+                    { title: "Probability Distributions", channel: "StatQuest", vid: "oI3hZJqXJR8" }
+                ]
+            },
+            {
+                title: "Statistical Inference",
+                items: [
+                    { title: "Confidence Intervals", channel: "StatQuest", vid: "TqOeMYtOc1w" },
+                    { title: "Hypothesis Testing", channel: "StatQuest", vid: "0oc49DyA3hU" },
+                    { title: "P-values Explained", channel: "StatQuest", vid: "5Z9OIYA8He8" }
                 ]
             }
         ];
@@ -194,7 +397,7 @@
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day58'] || [],
-            storageKey: 'day58_review_v1'
+            storageKey: 'day58_review_v2'
         });
     </script>
 </body>

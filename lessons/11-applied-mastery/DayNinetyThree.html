@@ -116,7 +116,13 @@
                     <p>Game Theory is the study of mathematical models of strategic interaction among rational agents.
                         It's not just about "games" like chess, but about any situation where your success depends on
                         what others do (e.g., pricing products, hiring employees, or network routing).</p>
-                    <p>A game is defined by **Players**, their **Strategies**, and the **Payoffs** (rewards).</p>
+                    <div class="info-box">
+                        <h3>🤝 Simple: The Prisoner's Dilemma</h3>
+                        <p>Two criminals are arrested. If both stay silent, they get 1 year each. If one betrays the
+                            other, the betrayer goes free and the silent one gets 3 years. If BOTH betray, they both get
+                            2 years. Rational self-interest leads them to both betray, resulting in a worse outcome than
+                            if they had cooperated.</p>
+                    </div>
                 </div>
             </section>
 
@@ -288,24 +294,21 @@ print(f"Nash Equilibria indices: {results}")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Core Concepts",
+                title: "Strategic Decision Making",
                 items: [
-                    { title: "Game Theory 101: Introduction", channel: "William Spaniel", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "The Nash Equilibrium", channel: "Yale University", vid: "SRsK-ZXTeZ0" }
+                    { title: "Game Theory: The Science of Decision-Making", channel: "Sprouts", vid: "mScpHTIi-kM" },
+                    { title: "Nash Equilibrium Explained", channel: "Terrified of Calculus", vid: "CwY6j2R4h9o" }
                 ]
             },
             {
-                title: "Classic Games",
+                title: "Deep Dives",
                 items: [
-                    { title: "The Prisoner's Dilemma", channel: "Veritasium", vid: "vGINw39T6kg" },
-                    { title: "Minimax Theorem", channel: "Numberphile", vid: "sDv4f4s2SB8" }
+                    { title: "The Prisoner's Dilemma", channel: "SciShow", vid: "t9Lo2fgxWHw" },
+                    { title: "Game Theory 101: The Basics", channel: "William Spaniel", vid: "NSC4xKzfvMc" },
+                    { title: "Algorithms Explained: Minimax", channel: "Sebastian Lague", vid: "l-hh51ncgDI" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "NSVmOC_5zrE";
-        VIDEO_GROUPS[0].items[1].vid = "Yp_9qH1p5pE";
-        VIDEO_GROUPS[1].items[0].vid = "m9as70Ca6tA";
 
         initLesson({
             videos: VIDEO_GROUPS,

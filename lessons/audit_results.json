@@ -87,7 +87,7 @@
   {
     "day": 6,
     "file": "DaySix.html",
-    "videos": 11,
+    "videos": 10,
     "questions": 35,
     "generateFunctions": 35,
     "hasPlaceholders": false,
@@ -97,11 +97,8 @@
       "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "HIGH_VIDEOS: 11 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 10, has 11"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "01-operating-system"
   },
   {
@@ -141,7 +138,7 @@
   {
     "day": 9,
     "file": "DayNine.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 40,
     "generateFunctions": 40,
     "hasPlaceholders": false,
@@ -151,11 +148,8 @@
       "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 10, has 12"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "02-precalculus"
   },
   {
@@ -230,20 +224,17 @@
     "day": 14,
     "file": "DayFourteen.html",
     "videos": 10,
-    "questions": 10,
-    "generateFunctions": 10,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 130,
-      "practiceClaim": 30,
+      "practiceClaim": 25,
       "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "LOW_QUESTIONS: 10 questions (need 20-40)",
-      "QUESTION_MISMATCH: claims 30, has 10"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "03-calculus"
   },
   {
@@ -268,19 +259,16 @@
     "file": "DaySixteen.html",
     "videos": 10,
     "questions": 40,
-    "generateFunctions": 4,
+    "generateFunctions": 40,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 135,
-      "practiceClaim": 35,
+      "practiceClaim": 40,
       "videoClaim": 10
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "PARTIAL_GENERATE: 4/40 questions have refresh",
-      "QUESTION_MISMATCH: claims 35, has 40"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "03-calculus"
   },
   {
@@ -643,107 +631,296 @@
   {
     "day": 38,
     "file": "DayThirtyEight.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 10
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "06-algorithms"
   },
   {
     "day": 39,
     "file": "DayThirtyNine.html",
-    "videos": 12,
+    "videos": 9,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 9
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "06-algorithms"
   },
   {
     "day": 40,
     "file": "DayForty.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 10
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "06-algorithms"
   },
   {
     "day": 41,
     "file": "DayFortyOne.html",
-    "videos": 12,
+    "videos": 9,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 9
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "06-algorithms"
   },
   {
     "day": 42,
     "file": "DayFortyTwo.html",
-    "videos": 12,
+    "videos": 10,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 10
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "06-algorithms"
   },
   {
     "day": 43,
     "file": "DayFortyThree.html",
-    "videos": 12,
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 44,
+    "file": "DayFortyFour.html",
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 45,
+    "file": "DayFortyFive.html",
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 46,
+    "file": "DayFortySix.html",
+    "videos": 9,
+    "questions": 23,
+    "generateFunctions": 23,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 23,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 47,
+    "file": "DayFortySeven.html",
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 48,
+    "file": "DayFortyEight.html",
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": null,
+      "practiceClaim": null,
+      "videoClaim": 8
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "06-algorithms"
+  },
+  {
+    "day": 49,
+    "file": "DayFortyNine.html",
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 9
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 50,
+    "file": "DayFifty.html",
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 8
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 51,
+    "file": "DayFiftyOne.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 7
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 52,
+    "file": "DayFiftyTwo.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 7
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 53,
+    "file": "DayFiftyThree.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 7
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 54,
+    "file": "DayFiftyFour.html",
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 8
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
+  },
+  {
+    "day": 55,
+    "file": "DayFiftyFive.html",
+    "videos": 5,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
@@ -753,121 +930,407 @@
       "videoClaim": 5
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "HIGH_VIDEOS: 12 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 12"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
   },
   {
-    "day": 44,
-    "file": "DayFortyFour.html",
-    "videos": 4,
+    "day": 56,
+    "file": "DayFiftySix.html",
+    "videos": 6,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 6
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
   },
   {
-    "day": 45,
-    "file": "DayFortyFive.html",
-    "videos": 4,
+    "day": 57,
+    "file": "DayFiftySeven.html",
+    "videos": 8,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
-      "readTime": 90,
+      "readTime": 95,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 8
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
   },
   {
-    "day": 46,
-    "file": "DayFortySix.html",
-    "videos": 4,
-    "questions": 25,
-    "generateFunctions": 25,
+    "day": 58,
+    "file": "DayFiftyEight.html",
+    "videos": 8,
+    "questions": 20,
+    "generateFunctions": 20,
     "hasPlaceholders": false,
     "heroMeta": {
-      "readTime": 90,
-      "practiceClaim": 25,
-      "videoClaim": 5
+      "readTime": null,
+      "practiceClaim": null,
+      "videoClaim": 8
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "07-probability-stats"
   },
   {
-    "day": 47,
-    "file": "DayFortySeven.html",
-    "videos": 4,
-    "questions": 1,
-    "generateFunctions": 1,
-    "hasPlaceholders": false,
-    "heroMeta": {
-      "readTime": 90,
-      "practiceClaim": 25,
-      "videoClaim": 5
-    },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "LOW_QUESTIONS: 1 questions (need 20-40)",
-      "VIDEO_MISMATCH: claims 5, has 4",
-      "QUESTION_MISMATCH: claims 25, has 1"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
-  },
-  {
-    "day": 48,
-    "file": "DayFortyEight.html",
-    "videos": 2,
+    "day": 59,
+    "file": "DayFiftyNine.html",
+    "videos": 7,
     "questions": 25,
     "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 45,
-      "practiceClaim": 20,
-      "videoClaim": 2
+      "practiceClaim": 25,
+      "videoClaim": null
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 2 videos (need 5-10)",
-      "QUESTION_MISMATCH: claims 20, has 25"
-    ],
-    "passed": false,
-    "directory": "06-algorithms"
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
   },
   {
-    "day": 89,
-    "file": "DayEightyNine.html",
-    "videos": 4,
+    "day": 60,
+    "file": "DaySixty.html",
+    "videos": 7,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 95,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 61,
+    "file": "DaySixtyOne.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 50,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 62,
+    "file": "DaySixtyTwo.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 95,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 63,
+    "file": "DaySixtyThree.html",
+    "videos": 7,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 45,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 64,
+    "file": "DaySixtyFour.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 50,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 65,
+    "file": "DaySixtyFive.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 50,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 66,
+    "file": "DaySixtySix.html",
+    "videos": 9,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 50,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 67,
+    "file": "DaySixtySeven.html",
+    "videos": 5,
+    "questions": 29,
+    "generateFunctions": 29,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 45,
+      "practiceClaim": 29,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 68,
+    "file": "DaySixtyEight.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 95,
+      "practiceClaim": 25,
+      "videoClaim": null
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "08-optimization"
+  },
+  {
+    "day": 69,
+    "file": "DaySixtyNine.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 70,
+    "file": "DaySeventy.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 71,
+    "file": "DaySeventyOne.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 72,
+    "file": "DaySeventyTwo.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 73,
+    "file": "DaySeventyThree.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 74,
+    "file": "DaySeventyFour.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 75,
+    "file": "DaySeventyFive.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 76,
+    "file": "DaySeventySix.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 77,
+    "file": "DaySeventySeven.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 78,
+    "file": "DaySeventyEight.html",
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": null,
+      "practiceClaim": null,
+      "videoClaim": 8
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "09-analysis"
+  },
+  {
+    "day": 79,
+    "file": "DaySeventyNine.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
@@ -875,208 +1338,339 @@
       "videoClaim": 5
     },
     "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 80,
+    "file": "DayEighty.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 81,
+    "file": "DayEightyOne.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 82,
+    "file": "DayEightyTwo.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 83,
+    "file": "DayEightyThree.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 84,
+    "file": "DayEightyFour.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 85,
+    "file": "DayEightyFive.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 86,
+    "file": "DayEightySix.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 87,
+    "file": "DayEightySeven.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 88,
+    "file": "DayEightyEight.html",
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": null,
+      "practiceClaim": null,
+      "videoClaim": 8
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
+    "directory": "10-theoretical-cs"
+  },
+  {
+    "day": 89,
+    "file": "DayEightyNine.html",
+    "videos": 5,
+    "questions": 25,
+    "generateFunctions": 25,
+    "hasPlaceholders": false,
+    "heroMeta": {
+      "readTime": 90,
+      "practiceClaim": 25,
+      "videoClaim": 5
+    },
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 90,
     "file": "DayNinety.html",
-    "videos": 4,
+    "videos": 8,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
-      "videoClaim": 5
+      "videoClaim": 8
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 91,
     "file": "DayNinetyOne.html",
-    "videos": 4,
+    "videos": 5,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
       "videoClaim": 5
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 92,
     "file": "DayNinetyTwo.html",
-    "videos": 4,
+    "videos": 5,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
       "videoClaim": 5
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 93,
     "file": "DayNinetyThree.html",
-    "videos": 4,
+    "videos": 5,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 90,
       "practiceClaim": 25,
       "videoClaim": 5
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 4 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "VIDEO_MISMATCH: claims 5, has 4"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 94,
     "file": "DayNinetyFour.html",
-    "videos": 0,
+    "videos": 8,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
-      "practiceClaim": 50,
-      "videoClaim": null
+      "practiceClaim": null,
+      "videoClaim": 8
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 0 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "QUESTION_MISMATCH: claims 50, has 25"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "11-applied-mastery"
   },
   {
     "day": 95,
     "file": "DayNinetyFive.html",
-    "videos": 0,
+    "videos": 8,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 60,
-      "practiceClaim": 10,
+      "practiceClaim": 25,
       "videoClaim": null
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 0 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "QUESTION_MISMATCH: claims 10, has 25"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   },
   {
     "day": 96,
     "file": "DayNinetySix.html",
-    "videos": 0,
+    "videos": 8,
     "questions": 25,
-    "generateFunctions": 0,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
-      "practiceClaim": 100,
+      "practiceClaim": 25,
       "videoClaim": null
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 0 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/25 questions have refresh",
-      "QUESTION_MISMATCH: claims 100, has 25"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   },
   {
     "day": 97,
     "file": "DayNinetySeven.html",
-    "videos": 0,
-    "questions": 31,
-    "generateFunctions": 0,
+    "videos": 8,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
       "practiceClaim": null,
       "videoClaim": null
     },
-    "hasAnalogies": false,
-    "deficiencies": [
-      "LOW_VIDEOS: 0 videos (need 5-10)",
-      "NO_GENERATE_FUNCTIONS: 0/31 questions have refresh"
-    ],
-    "passed": false,
+    "hasAnalogies": true,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   },
   {
     "day": 98,
     "file": "DayNinetyEight.html",
     "videos": 5,
-    "questions": 1,
-    "generateFunctions": 0,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": 45,
       "practiceClaim": null,
-      "videoClaim": 6
+      "videoClaim": 5
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "LOW_QUESTIONS: 1 questions (need 20-40)",
-      "NO_GENERATE_FUNCTIONS: 0/1 questions have refresh",
-      "VIDEO_MISMATCH: claims 6, has 5"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   },
   {
     "day": 99,
     "file": "DayNinetyNine.html",
     "videos": 5,
-    "questions": 1,
-    "generateFunctions": 0,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
@@ -1084,19 +1678,16 @@
       "videoClaim": null
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "LOW_QUESTIONS: 1 questions (need 20-40)",
-      "NO_GENERATE_FUNCTIONS: 0/1 questions have refresh"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   },
   {
     "day": 100,
     "file": "DayOneHundred.html",
     "videos": 5,
-    "questions": 1,
-    "generateFunctions": 0,
+    "questions": 25,
+    "generateFunctions": 25,
     "hasPlaceholders": false,
     "heroMeta": {
       "readTime": null,
@@ -1104,11 +1695,8 @@
       "videoClaim": null
     },
     "hasAnalogies": true,
-    "deficiencies": [
-      "LOW_QUESTIONS: 1 questions (need 20-40)",
-      "NO_GENERATE_FUNCTIONS: 0/1 questions have refresh"
-    ],
-    "passed": false,
+    "deficiencies": [],
+    "passed": true,
     "directory": "12-the-end"
   }
 ]

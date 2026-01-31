@@ -35,10 +35,10 @@ const lessonDirs = [
     '04-linear-algebra',
     '05-discrete-math',
     '06-algorithms',
-    '07-probability',
-    '08-analysis',
-    '09-theoretical-cs',
-    '10-topology-measure',
+    '07-probability-stats',
+    '08-optimization',
+    '09-analysis',
+    '10-theoretical-cs',
     '11-applied-mastery',
     '12-the-end',
     '13-optimization',
@@ -67,7 +67,7 @@ const wordToNum = {
 
 function countVideos(content) {
     // Count items in VIDEO_GROUPS
-    const matches = content.match(/\{\s*title:\s*(?:"[^"]*"|'[^']*'),\s*channel:\s*(?:"[^"]*"|'[^']*'),\s*vid:\s*(?:"[^"]*"|'[^']*')\s*\}/g);
+    const matches = content.match(/\{\s*title:\s*(?:"[^"]*"|'[^']*'),(?:\s*channel:\s*(?:"[^"]*"|'[^']*'),)?\s*vid:\s*(?:"[^"]*"|'[^']*')\s*\}/g);
     return matches ? matches.length : 0;
 }
 

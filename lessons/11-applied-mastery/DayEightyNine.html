@@ -118,6 +118,13 @@
                         messages. How do they all agree on the same value (e.g., "The bank balance is $100")?</p>
                     <p>This is the **Consensus Problem**. It is the heartbeat of Google (Spanner), Amazon (DynamoDB),
                         and Blockchain.</p>
+                    <div class="info-box">
+                        <h3>✉️ Simple: The Messenger Breakdown</h3>
+                        <p>Imagine two generals on opposite hills trying to coordinate an attack. They can only
+                            communicate by sending messengers through a valley full of enemies. If a messenger is
+                            captured, the message is lost. There is NO protocol that guarantees 100% certainty that both
+                            generals agree to attack at the same time.</p>
+                    </div>
                 </div>
             </section>
 
@@ -289,25 +296,21 @@ reach_consensus(cluster, "TX_500_ACK")
     <script>
         const VIDEO_GROUPS = [
             {
-                title: "Consensus Basics",
+                title: "Consensus & Consistency",
                 items: [
-                    { title: "The Byzantine Generals Problem", channel: "Computerphile", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Understanding Paxos", channel: "Tom Seven", vid: "SRsK-ZXTeZ0" }
+                    { title: "CAP Theorem Explained", channel: "IBM Technology", vid: "k-Yaq8AHlFA" },
+                    { title: "Paxos Agreement", channel: "Computerphile", vid: "s8JqcZtvnsM" },
+                    { title: "Raft Consensus Algorithm", channel: "The Secret Lives of Data", vid: "v=YbZ3zDzDnrw" }
                 ]
             },
             {
-                title: "Raft Algorithm",
+                title: "Clock Synchronization",
                 items: [
-                    { title: "Raft Explained Visually", channel: "Secret Lives of Data", vid: "vGINw39T6kg" },
-                    { title: "Paxos vs Raft", channel: "InfoQ", vid: "sDv4f4s2SB8" }
+                    { title: "Time in Distributed Systems", channel: "Computerphile", vid: "x-D8iTjBhY8" },
+                    { title: "Byzantine Generals Problem", channel: "Computerphile", vid: "zc_BY4C8m2w" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "_e4wNoTV3Gw";
-        VIDEO_GROUPS[0].items[1].vid = "p7A11y62wEA"; // Placeholder
-        VIDEO_GROUPS[1].items[0].vid = "Iu_He6HeREk";
-
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day89'] || [],

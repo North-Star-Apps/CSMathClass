@@ -112,7 +112,7 @@ while ((match = questionPattern.exec(content)) !== null) {
     const newQuestion = `{ "id": ${id}, "topic": "${topic}", "prompt": "${prompt}", "answer": ${answerStr}, "display": "${display}", "generate": ${genFunc} }`;
 
     // Replace in content
-    newContent = newContent.replace(fullMatch, newQuestion);
+    newContent = newContent.replace(fullMatch, () => newQuestion);
     processedCount++;
 }
 

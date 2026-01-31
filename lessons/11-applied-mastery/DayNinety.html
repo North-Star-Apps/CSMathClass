@@ -74,7 +74,7 @@
                 <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
-                5 video lessons
+                8 video lessons
             </div>
         </div>
     </header>
@@ -137,6 +137,13 @@
                         <li>**Cartesian Product ($\times$):** Every possible pair of rows.</li>
                         <li>**Rename ($\rho$):** Changes headers.</li>
                     </ul>
+
+                    <div class="info">
+                        <strong>🗃️ Simple: The Spreadsheet Analogy</strong>
+                        <br>Think of relational algebra as spreadsheet operations. Selection = filter rows.
+                        Projection = hide columns. Join = VLOOKUP on steroids. Every SQL query you write
+                        is secretly relational algebra under the hood!
+                    </div>
                 </div>
             </section>
 
@@ -269,27 +276,37 @@ for row in joined:
             {
                 title: "Relational Foundations",
                 items: [
-                    { title: "Introduction to Relational Algebra", channel: "GateSmashers", vid: "S5E6m8nC-C8" }, // Placeholders
-                    { title: "Select, Project, and Rename", channel: "Neso Academy", vid: "SRsK-ZXTeZ0" }
+                    { title: "Introduction to Relational Algebra", channel: "GateSmashers", vid: "4YilEjkNPrQ" },
+                    { title: "Select, Project, and Rename", channel: "Neso Academy", vid: "9zyS_8A5zSw" }
                 ]
             },
             {
-                title: "Advanced Operators",
+                title: "Set Operations",
                 items: [
-                    { title: "Set Operators (Union, Difference)", channel: "GateSmashers", vid: "vGINw39T6kg" },
-                    { title: "Joins in Relational Algebra", channel: "Neso Academy", vid: "sDv4f4s2SB8" }
+                    { title: "Union, Intersection, Difference", channel: "GateSmashers", vid: "vGINw39T6kg" },
+                    { title: "Cartesian Product", channel: "Neso Academy", vid: "x_5Y-R6Q6D4" }
+                ]
+            },
+            {
+                title: "Join Operations",
+                items: [
+                    { title: "Natural Join Explained", channel: "GateSmashers", vid: "1_7pYJzF40g" },
+                    { title: "Outer Joins (Left, Right, Full)", channel: "Neso Academy", vid: "Lxd8w_0LxSQ" }
+                ]
+            },
+            {
+                title: "Query Optimization",
+                items: [
+                    { title: "Query Optimization Basics", channel: "CMU Database Group", vid: "IwahVdNboc8" },
+                    { title: "Hash Join Algorithm", channel: "CMU Database Group", vid: "c2JhSorTJjk" }
                 ]
             }
         ];
-        // Correcting IDs
-        VIDEO_GROUPS[0].items[0].vid = "4YilEjkNPrQ";
-        VIDEO_GROUPS[0].items[1].vid = "9zyS_8A5zSw";
-        VIDEO_GROUPS[1].items[1].vid = "1_7pYJzF40g";
 
         initLesson({
             videos: VIDEO_GROUPS,
             questions: window.QUESTIONS_DATA['day90'] || [],
-            storageKey: 'day90_v1'
+            storageKey: 'day90_v2'
         });
     </script>
     <script>hljs.highlightAll();</script>
