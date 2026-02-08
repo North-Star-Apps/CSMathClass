@@ -186,6 +186,47 @@ body {
   border-color: var(--border-strong);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #db61a2;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.sponsor-btn:hover {
+  background: rgba(219, 97, 162, 0.1);
+  border-color: #db61a2;
+}
+
+.sponsor-btn svg {
+  fill: #db61a2;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .sponsor-btn span {
+    display: none;
+  }
+  .sponsor-btn {
+    padding: 8px;
+  }
+}
+
 /* Hero */
 .hero {
   max-width: 1200px;
