@@ -209,6 +209,17 @@ function initQuiz(questions, storageKey) {
         btnShow.addEventListener("click", () => {
             const displayAns = q.display || (Array.isArray(q.answer) ? q.answer[0] : q.answer);
             result.innerHTML = `<div class="question-answer">Answer: ${displayAns}</div>`;
+            if (window.renderMathInElement) {
+                window.renderMathInElement(result, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    throwOnError: false
+                });
+            }
         });
 
         if (btnRefresh) {
@@ -358,8 +369,8 @@ function initLesson(config) {
     initSponsorButton();
     initThemeToggle();
     initTocHighlight();
-    initMath();
     if (config.videos) initVideoPlayer(config.videos);
     if (config.questions) initQuiz(config.questions, config.storageKey || 'lesson_quiz');
     if (config.proctor) initProctor(config.proctor);
+    initMath(); // Must run AFTER initQuiz so dynamic question content is in the DOM
 }
