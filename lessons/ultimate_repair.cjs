@@ -184,14 +184,14 @@ const day6_content = `  "day6": [
     {
       "id": 13,
       "topic": "Algebra",
-      "prompt": "If $\\\\log_2(n) = 10$, then n = ___.",
+      "prompt": "If $\\log_2(n) = 10$, then n = ___.",
       "answer": ["1024"],
       "display": "1024",
       "generate": function () {
         const p = GenUtils.randomInt(5, 12);
         const n = Math.pow(2, p);
         return {
-          prompt: \`If $\\\\log_2(n) = \${p}$, then n = ___.\`,
+          prompt: \`If $\\log_2(n) = \${p}$, then n = ___.\`,
           answer: [n.toString()],
           display: n.toString()
         };
@@ -228,7 +228,7 @@ const day6_content = `  "day6": [
     {
       "id": 16,
       "topic": "Logic",
-      "prompt": "True or False: $P \\\\to Q$ is logically equivalent to $\\\\neg P \\\\lor Q$.",
+      "prompt": "True or False: $P \\to Q$ is logically equivalent to $\\neg P \\lor Q$.",
       "answer": ["true", "t"],
       "display": "True",
       "generate": function () {
@@ -368,7 +368,7 @@ const day6_content = `  "day6": [
     {
       "id": 26,
       "topic": "Logic",
-      "prompt": "Is $P \\\\to Q$ True or False if P is False and Q is True?",
+      "prompt": "Is $P \\to Q$ True or False if P is False and Q is True?",
       "answer": ["true", "t"],
       "display": "True (Vacuously)",
       "generate": function () {
@@ -456,7 +456,7 @@ const day6_content = `  "day6": [
     {
       "id": 32,
       "topic": "Algebra",
-      "prompt": "What is $\\\\log_{10}(1000)$?",
+      "prompt": "What is $\\log_{10}(1000)$?",
       "answer": ["3"],
       "display": "3",
       "generate": function () {
@@ -464,7 +464,7 @@ const day6_content = `  "day6": [
         const p = powers[Math.floor(Math.random() * powers.length)];
         const v = Math.pow(10, p);
         return {
-          prompt: \`What is $\\\\log_{10}(\${v})$?\`,
+          prompt: \`What is $\\log_{10}(\${v})$?\`,
           answer: [p.toString()],
           display: p.toString()
         };
@@ -532,7 +532,7 @@ const day7_content = `  "day7": [
     {
       "id": 2,
       "topic": "Polynomials",
-      "prompt": "The behavior of a polynomial as $x \\\\to \\\\infty$ is its ___ behavior.",
+      "prompt": "The behavior of a polynomial as $x \\to \\infty$ is its ___ behavior.",
       "answer": ["end"],
       "display": "End",
       "generate": function () {
@@ -594,7 +594,7 @@ const day7_content = `  "day7": [
       "display": "Piecewise",
       "generate": function () {
         return {
-          prompt: "Which function returns $x$ if $x \\\\ge 0$ and $-x$ if $x < 0$?",
+          prompt: "Which function returns $x$ if $x \\ge 0$ and $-x$ if $x < 0$?",
           answer: ["absolute value", "abs"],
           display: "Absolute Value"
         };
@@ -647,7 +647,7 @@ const day7_content = `  "day7": [
     {
       "id": 10,
       "topic": "CS Connections",
-      "prompt": "The ReLU activation function in AI is $f(x) = \\\\max(___, x)$.",
+      "prompt": "The ReLU activation function in AI is $f(x) = \\max(___, x)$.",
       "answer": ["0"],
       "display": "0",
       "generate": function () {
@@ -709,7 +709,7 @@ const day7_content = `  "day7": [
       "display": "Continuous",
       "generate": function () {
         return {
-          prompt: "If $\\\\lim_{x \\\\to c} f(x) = f(c)$, the function is ___ at c.",
+          prompt: "If $\\lim_{x \\to c} f(x) = f(c)$, the function is ___ at c.",
           answer: ["continuous"],
           display: "Continuous"
         };
@@ -737,7 +737,7 @@ const day7_content = `  "day7": [
       "display": "Lagrange",
       "generate": function () {
         return {
-          prompt: "To find a polynomial passing through $(x_1, y_1), \\\\dots, (x_n, y_n)$, we use ___ interpolation.",
+          prompt: "To find a polynomial passing through $(x_1, y_1), \\dots, (x_n, y_n)$, we use ___ interpolation.",
           answer: ["lagrange"],
           display: "Lagrange"
         };
@@ -751,7 +751,7 @@ const day7_content = `  "day7": [
       "display": "Leading",
       "generate": function () {
         return {
-          prompt: "In $ax^n + \\\\dots + c$, a is the ___ coefficient.",
+          prompt: "In $ax^n + \\dots + c$, a is the ___ coefficient.",
           answer: ["leading"],
           display: "Leading"
         };
@@ -808,7 +808,7 @@ const day7_content = `  "day7": [
       "display": "Taylor",
       "generate": function () {
         return {
-          prompt: "The calculus method for turning $\\\\sin(x)$ into a polynomial is the ___ series.",
+          prompt: "The calculus method for turning $\\sin(x)$ into a polynomial is the ___ series.",
           answer: ["taylor"],
           display: "Taylor"
         };
@@ -864,7 +864,7 @@ const day7_content = `  "day7": [
       "display": "Limits",
       "generate": function () {
         return {
-          prompt: "If $\\\\lim_{x \\\\to c^-} f(x) \\\\neq \\\\lim_{x \\\\to c^+} f(x)$, there is a ___ discontinuity.",
+          prompt: "If $\\lim_{x \\to c^-} f(x) \\neq \\lim_{x \\to c^+} f(x)$, there is a ___ discontinuity.",
           answer: ["jump"],
           display: "Jump"
         };
@@ -878,7 +878,7 @@ const day7_content = `  "day7": [
       "display": "Up",
       "generate": function () {
         return {
-          prompt: "If $P(x) = x^4$, as $x \\\\to -\\\\infty$, $P(x) \\\\to ___$.",
+          prompt: "If $P(x) = x^4$, as $x \\to -\\infty$, $P(x) \\to ___$.",
           answer: ["infinity", "inf"],
           display: "Infinity"
         };
@@ -1029,7 +1029,7 @@ const day7_content = `  "day7": [
     {
       "id": 37,
       "topic": "Gotcha",
-      "prompt": "Is $\\\\sqrt{x}$ a polynomial? (Yes/No)",
+      "prompt": "Is $\\sqrt{x}$ a polynomial? (Yes/No)",
       "answer": ["no"],
       "display: "No (Power is 1/2)",
       "generate": function () {
