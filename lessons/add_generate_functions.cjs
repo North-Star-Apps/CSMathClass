@@ -56,7 +56,7 @@ function createGenerateFunction(question) {
 
     // Type 7: Log questions
     if (prompt.includes('log') && prompt.includes('=')) {
-        return `function() { const p = GenUtils.randomInt(2, 6); const base = 2; const n = Math.pow(base, p); return { prompt: \`If $\\\\log_\${base}(n) = \${p}$, then n = ___.\`, answer: [n.toString()], display: n.toString() }; }`;
+        return `function() { const p = GenUtils.randomInt(2, 6); const base = 2; const n = Math.pow(base, p); return { prompt: \`If $\\log_\${base}(n) = \${p}$, then n = ___.\`, answer: [n.toString()], display: n.toString() }; }`;
     }
 
     // Default: Return the same question (conceptual questions that don't vary)
