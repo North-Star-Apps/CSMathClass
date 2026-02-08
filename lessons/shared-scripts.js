@@ -327,8 +327,35 @@ function initMath() {
     renderMathInElement(document.body, options);
 }
 
+// ==================== SPONSOR BUTTON ====================
+function initSponsorButton() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    const navInner = themeToggle.closest('.nav-inner');
+    if (!navInner) return;
+
+    // Wrap the theme toggle in a nav-actions container and add sponsor button
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'nav-actions';
+
+    const sponsorLink = document.createElement('a');
+    sponsorLink.href = 'https://github.com/sponsors/amiddlebrook';
+    sponsorLink.className = 'sponsor-btn';
+    sponsorLink.target = '_blank';
+    sponsorLink.rel = 'noopener noreferrer';
+    sponsorLink.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.6 20.6 0 0 0 8 13.393a20.6 20.6 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5ZM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7 7 0 0 1-.31-.17 22 22 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22 22 0 0 1-3.744 2.584l-.018.01-.006.003h-.002L8 14.25Zm0 0 .345.666a.752.752 0 0 1-.69 0z"/></svg><span>Sponsor</span>';
+
+    actionsDiv.appendChild(sponsorLink);
+    // Move theme toggle into the actions container
+    navInner.removeChild(themeToggle);
+    actionsDiv.appendChild(themeToggle);
+    navInner.appendChild(actionsDiv);
+}
+
 // ==================== INIT ====================
 function initLesson(config) {
+    initSponsorButton();
     initThemeToggle();
     initTocHighlight();
     initMath();
